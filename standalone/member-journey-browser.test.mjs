@@ -77,12 +77,21 @@ try{
   await member.getByRole('heading',{name:'注册已提交',exact:true}).waitFor();
   assert.equal((await login(member,username)).status(),401,'pending member must not log in');
   assert.equal((await login(owner,'browserowner')).status(),303);await owner.waitForURL('**/admin');
+  await owner.getByRole('link',{name:'接入验收',exact:true}).click();
+  await owner.getByRole('heading',{name:'云端接入验收',exact:true}).waitFor();
+  await owner.getByRole('heading',{name:'四家充值公司',exact:true}).waitFor();
+  await owner.getByText('第 3 家：名称待核实',{exact:true}).waitFor();
+  await owner.getByText('第 4 家：名称待核实',{exact:true}).waitFor();
+  assert(await owner.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'cloud review must fit viewport');
+  if(process.env.MASTER7_BROWSER_ARTIFACTS){mkdirSync(process.env.MASTER7_BROWSER_ARTIFACTS,{recursive:true});await owner.screenshot({path:join(process.env.MASTER7_BROWSER_ARTIFACTS,'cloud-readiness-'+viewport.width+'.png'),fullPage:true});}
+  await owner.getByRole('link',{name:'返回运营后台',exact:true}).click();
   await navigate(owner,'会员管理');await owner.getByRole('link',{name:'打开账号管理'}).click();
   const row=owner.locator('.account-row').filter({has:owner.locator('b',{hasText:username})});
   await row.getByRole('button',{name:'批准账号',exact:true}).click();
   await row.getByText(/已批准/).waitFor();
   assert.equal((await login(member,username)).status(),303);await member.waitForURL(base+'/');
   assert.equal((await memberContext.request.get(base+'/admin',{maxRedirects:0})).status(),403,'member must not enter admin');
+  assert.equal(await member.getByRole('link',{name:'接入验收',exact:true}).count(),0,'member must not see deployment diagnostics');
   await navigate(member,'在线客服');await member.getByRole('button',{name:'提交申请',exact:true}).click();
   let dialog=member.getByRole('dialog');await dialog.locator('input[name=title]').fill(subject);await dialog.locator('textarea[name=body]').fill('Synthetic question for full browser journey.');await dialog.getByRole('button',{name:'确认提交',exact:true}).click();await dialog.waitFor({state:'hidden'});
   await member.getByText(subject,{exact:true}).waitFor();

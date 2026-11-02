@@ -2,6 +2,7 @@ import {origin,allowedOrigins} from './server-config.mjs';
 import {createServer} from 'node:http';
 import {publicHomeBody} from './public-home.mjs';
 import {serviceOnlyMode} from './service-mode.mjs';
+import {createCloudReadinessHandler} from './cloud-readiness.mjs';
 import {randomUUID,timingSafeEqual} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
@@ -102,8 +103,17 @@ const sponsoredGames=createSponsoredGamesHandler({
 const bankDeposits=createBankDeposits();
 const withdrawals=createWithdrawals();
 const financeReconciliation=createFinanceReconciliation();
+const deploymentReadiness=createCloudReadinessHandler();
 async function dispatch(req){
  const url=new URL(req.url,origin);
+ if(['/api/v1/deployment-readiness','/deployment-readiness'].includes(url.pathname)){
+  const user=await withStorage(()=>sessionUser(req.headers.cookie));
+  const response=deploymentReadiness({user,method:req.method});
+  if(url.pathname.startsWith('/api/')||response.status!==200)return response;
+  const report=await response.json();
+  const result=page('云端接入验收',`<main class="accounts"><div class="page-heading"><div><p class="eyebrow">MASTER7 · DEPLOYMENT REVIEW</p><h1>云端接入验收</h1><p>配置检查不等于上线验收。真实游戏、钱包和充值仍未通过生产验收。</p></div><a class="secondary" href="/admin">返回运营后台</a></div><section class="account-row"><h2>四家充值公司</h2><p>已识别 2 / 要求 4。银行转账、DuitNow、USDT 不作为额外公司计数。</p>${report.paymentCompanies.companies.map(c=>`<div class="row"><b>${escape(c.name||'第 '+c.slot+' 家：名称待核实')}</b><p>供应商与钱包验收：未核实</p></div>`).join('')}</section><section class="account-row"><h2>部署配置</h2>${report.configuration.map(c=>`<p>${escape(c.code)}：${c.ok?'配置检查通过':'待处理'}</p>`).join('')}<p>数据库连接和备份恢复尚未由本页验证。</p></section><section class="account-row"><h2>发布阻塞</h2>${report.blockers.map(code=>`<p>${escape(code)}</p>`).join('')}<p>不可用示例余额或演示站代替原会员系统。</p></section></main>`);
+  result.headers.set('Cache-Control','no-store');result.headers.set('X-Content-Type-Options','nosniff');return result;
+ }
  if(serviceOnlyMode()&&serviceOnlySensitivePath(url.pathname))return json({error:'SERVICE_ONLY_MODE',message:'This deployment is limited to membership, support, branding and access-management features.'},410);
  if(unavailableGspayPublicPaths.has(url.pathname))return json({error:'Not found'},404);
  const gspayChannel=gspayCallbackPaths.get(url.pathname);
