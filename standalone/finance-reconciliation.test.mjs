@@ -41,8 +41,8 @@ async function withdrawal({id,user=member,tenant='alpha',amount=1500,at='2026-10
 await withStorage(async()=>{
  for(const tenant of ['alpha','beta'])await sql.prepare('INSERT INTO brands(id,name,created_at) VALUES (?,?,?)').run(tenant,tenant,fixed.toISOString());
  for(const user of [owner,boss,betaBoss,finance,employee,member,betaMember,formula])await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run(user.userId,user===formula?'=formula':user.userId,user.email,'synthetic-hash',user.role==='owner'?'owner':'customer',1,'synthetic-recovery',fixed.toISOString());
- for(const user of [member,formula])await sql.prepare('INSERT INTO members VALUES (?,?,?)').run(user.email,'alpha',fixed.toISOString());
- await sql.prepare('INSERT INTO members VALUES (?,?,?)').run(betaMember.email,'beta',fixed.toISOString());
+ for(const user of [member,formula])await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run(user.email,'alpha',fixed.toISOString());
+ await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run(betaMember.email,'beta',fixed.toISOString());
  for(const [user,tenant,role] of [[boss,'alpha','tenant_owner'],[betaBoss,'beta','tenant_owner'],[finance,'alpha','employee'],[employee,'alpha','employee']])await sql.prepare('INSERT INTO portal_staff VALUES (?,?,?)').run(user.userId,tenant,role);
  await sql.prepare('INSERT INTO portal_finance_staff(user_id,tenant_id,granted_by,granted_at) VALUES (?,?,?,?)').run(finance.userId,'alpha',boss.userId,fixed.toISOString());
  await deposit({id:'vpay-in',amount:1000,provider:'vpay'});

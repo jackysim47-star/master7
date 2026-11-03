@@ -22,6 +22,7 @@ async function checkUpgrade(kind,path){
   import {sql} from './standalone/runtime.mjs';
   try{
    const row=await sql.prepare('SELECT * FROM brands WHERE id=?').get('existing-brand');
+   const linked=await sql.prepare('SELECT user_id,tenant_id FROM members WHERE email=?').get('legacy@example.test');assert.equal(linked.user_id,'legacy-member');assert.equal(linked.tenant_id,'existing-brand');
    const legacy=JSON.parse(process.env.PORTAL_UPGRADE_EXPECTED);
    for(const [key,value] of Object.entries(legacy))assert.equal(row[key],value);
    const payment=await sql.prepare('SELECT * FROM portal_payment_orders WHERE id=?').get('existing-order');
@@ -45,6 +46,7 @@ async function checkUpgrade(kind,path){
   import {sql} from './standalone/runtime.mjs';
   try{
    const row=await sql.prepare('SELECT * FROM brands WHERE id=?').get('existing-brand');
+   const linked=await sql.prepare('SELECT user_id,tenant_id FROM members WHERE email=?').get('legacy@example.test');assert.equal(linked.user_id,'legacy-member');assert.equal(linked.tenant_id,'existing-brand');
    assert.equal(row.name,'Existing Brand');assert.equal(row.language,'ms');assert.equal(row.support_url,'https://example.test/support');
    await sql.prepare('INSERT INTO brands(id,name,created_at) VALUES (?,?,?)').run('new-brand','New Brand','2026-10-23T00:00:00.000Z');
    const fresh=await sql.prepare('SELECT language,support_url FROM brands WHERE id=?').get('new-brand');
@@ -64,14 +66,14 @@ try{
   sqlite.exec("CREATE TABLE portal_users(id TEXT PRIMARY KEY,username TEXT NOT NULL UNIQUE COLLATE NOCASE,email TEXT NOT NULL UNIQUE COLLATE NOCASE,password_hash TEXT NOT NULL,role TEXT NOT NULL CHECK(role IN ('owner','customer')),approved INTEGER NOT NULL DEFAULT 0,recovery_hash TEXT NOT NULL,created_at TEXT NOT NULL)");
   for(const file of legacyFiles.sqlite){const source=readFileSync(file,'utf8');sqlite.exec(source);sqlite.prepare('INSERT INTO schema_versions(name,hash) VALUES (?,?)').run(file.split('/').at(-1),hash(source));}
   sqlite.prepare('INSERT INTO brands(id,name,tagline,color,logo,created_at) VALUES (?,?,?,?,?,?)').run(...Object.values(legacy));
-  sqlite.exec("INSERT INTO portal_users VALUES ('legacy-member','legacy-member','legacy@example.test','synthetic-hash','customer',1,'synthetic-hash','2026-10-01T00:00:00Z'); INSERT INTO portal_payment_orders(id,tenant_id,user_id,request_key,merchant_id,environment,amount_minor,currency,trade_no,settlement_status,created_at) VALUES ('existing-order','existing-brand','legacy-member','existing-request-key','123456','uat',125,'MYR','existing-provider-order','credited','2026-10-01T00:00:00Z'),('existing-bank-order','existing-brand','legacy-member','existing-bank-request','manual_bank','production',500,'MYR','existing-bank-reference','pending','2026-10-02T00:00:00Z'); INSERT INTO portal_wallet_journal VALUES ('existing-entry','existing-order','existing-brand','legacy-member','uat','MYR',125,-125,'2026-10-01T00:00:00Z')");
+  sqlite.exec("INSERT INTO portal_users VALUES ('legacy-member','legacy-member','legacy@example.test','synthetic-hash','customer',1,'synthetic-hash','2026-10-01T00:00:00Z'); INSERT INTO members(email,tenant_id,created_at) VALUES ('legacy@example.test','existing-brand','2026-10-01T00:00:00Z'); INSERT INTO portal_payment_orders(id,tenant_id,user_id,request_key,merchant_id,environment,amount_minor,currency,trade_no,settlement_status,created_at) VALUES ('existing-order','existing-brand','legacy-member','existing-request-key','123456','uat',125,'MYR','existing-provider-order','credited','2026-10-01T00:00:00Z'),('existing-bank-order','existing-brand','legacy-member','existing-bank-request','manual_bank','production',500,'MYR','existing-bank-reference','pending','2026-10-02T00:00:00Z'); INSERT INTO portal_wallet_journal VALUES ('existing-entry','existing-order','existing-brand','legacy-member','uat','MYR',125,-125,'2026-10-01T00:00:00Z')");
  }finally{sqlite.close();}
  await checkUpgrade('sqlite',sqlitePath);
  const pgPath=join(root,'old-pg');const {PGlite}=await import('@electric-sql/pglite');const pg=new PGlite(pgPath);
  try{
   for(const file of legacyFiles.pglite){const source=readFileSync(file,'utf8');await pg.exec(source);await pg.query('INSERT INTO portal_private.schema_versions(name,hash) VALUES ($1,$2)',[file.split('/').at(-1),hash(source)]);}
   await pg.query('INSERT INTO portal_private.brands(id,name,tagline,color,logo,created_at) VALUES ($1,$2,$3,$4,$5,$6)',Object.values(legacy));
-  await pg.exec("INSERT INTO portal_private.portal_users VALUES ('legacy-member','legacy-member','legacy@example.test','synthetic-hash','customer',1,'synthetic-hash','2026-10-01T00:00:00Z'); INSERT INTO portal_private.portal_payment_orders(id,tenant_id,user_id,request_key,merchant_id,environment,amount_minor,currency,trade_no,settlement_status,created_at) VALUES ('existing-order','existing-brand','legacy-member','existing-request-key','123456','uat',125,'MYR','existing-provider-order','credited','2026-10-01T00:00:00Z'),('existing-bank-order','existing-brand','legacy-member','existing-bank-request','manual_bank','production',500,'MYR','existing-bank-reference','pending','2026-10-02T00:00:00Z'); INSERT INTO portal_private.portal_wallet_journal VALUES ('existing-entry','existing-order','existing-brand','legacy-member','uat','MYR',125,-125,'2026-10-01T00:00:00Z')");
+  await pg.exec("INSERT INTO portal_private.portal_users VALUES ('legacy-member','legacy-member','legacy@example.test','synthetic-hash','customer',1,'synthetic-hash','2026-10-01T00:00:00Z'); INSERT INTO portal_private.members(email,tenant_id,created_at) VALUES ('legacy@example.test','existing-brand','2026-10-01T00:00:00Z'); INSERT INTO portal_private.portal_payment_orders(id,tenant_id,user_id,request_key,merchant_id,environment,amount_minor,currency,trade_no,settlement_status,created_at) VALUES ('existing-order','existing-brand','legacy-member','existing-request-key','123456','uat',125,'MYR','existing-provider-order','credited','2026-10-01T00:00:00Z'),('existing-bank-order','existing-brand','legacy-member','existing-bank-request','manual_bank','production',500,'MYR','existing-bank-reference','pending','2026-10-02T00:00:00Z'); INSERT INTO portal_private.portal_wallet_journal VALUES ('existing-entry','existing-order','existing-brand','legacy-member','uat','MYR',125,-125,'2026-10-01T00:00:00Z')");
  }finally{await pg.close();}
  await checkUpgrade('pglite',pgPath);
 }finally{rmSync(root,{recursive:true,force:true});}

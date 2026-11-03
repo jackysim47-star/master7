@@ -43,8 +43,8 @@ await withStorage(async()=>{
  for(const tenant of ['alpha','beta'])await sql.prepare('INSERT INTO brands(id,name,created_at) VALUES (?,?,?)').run(tenant,tenant,createdAt);
  const users=[owner,boss,betaBoss,finance,employee,alice,bob,charlie,formula];
  for(const user of users)await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run(user.userId,user.userId,user.email,'synthetic-hash',user.role==='owner'?'owner':'customer',1,'synthetic-recovery',createdAt);
- for(const user of [alice,charlie,formula])await sql.prepare('INSERT INTO members VALUES (?,?,?)').run(user.email,'alpha',createdAt);
- await sql.prepare('INSERT INTO members VALUES (?,?,?)').run(bob.email,'beta',createdAt);
+ for(const user of [alice,charlie,formula])await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run(user.email,'alpha',createdAt);
+ await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run(bob.email,'beta',createdAt);
  for(const [user,tenant,role] of [[boss,'alpha','tenant_owner'],[betaBoss,'beta','tenant_owner'],[finance,'alpha','employee'],[employee,'alpha','employee']])await sql.prepare('INSERT INTO portal_staff VALUES (?,?,?)').run(user.userId,tenant,role);
  await sql.prepare('INSERT INTO portal_finance_staff(user_id,tenant_id,granted_by,granted_at) VALUES (?,?,?,?)').run(finance.userId,'alpha',boss.userId,createdAt);
  await credit(alice,10000,'alice');await credit(bob,5000,'bob');await credit(charlie,3000,'charlie');await credit(formula,1000,'formula');

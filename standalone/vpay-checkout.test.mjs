@@ -17,7 +17,7 @@ await withStorage(async()=>{
  await sql.prepare('INSERT INTO brands(id,name,created_at) VALUES (?,?,?)').run('alpha','Alpha',new Date().toISOString());
  for(const user of [member,other]){
   await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run(user.userId,user.userId,user.email,'synthetic-hash','customer',1,'synthetic-hash',new Date().toISOString());
-  await sql.prepare('INSERT INTO members VALUES (?,?,?)').run(user.email,'alpha',new Date().toISOString());
+  await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run(user.email,'alpha',new Date().toISOString());
  }
 });
 let sequence=0;

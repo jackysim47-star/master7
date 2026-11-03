@@ -39,7 +39,7 @@ await withStorage(async()=>{
  for(const [id,email,role] of [['owner',owner.email,'owner'],['boss',boss.email,'customer'],['beta-boss',betaBoss.email,'customer'],['finance',finance.email,'customer'],['employee',employee.email,'customer'],['alice',alice.email,'customer'],['amy',amy.email,'customer'],['bob',bob.email,'customer']]){
   await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run(id,id,email,'synthetic-hash',role,1,'synthetic-recovery',createdAt);
  }
- for(const [email,tenant] of [[boss.email,'alpha'],[betaBoss.email,'beta'],[finance.email,'alpha'],[employee.email,'alpha'],[alice.email,'alpha'],[amy.email,'alpha'],[bob.email,'beta']])await sql.prepare('INSERT INTO members VALUES (?,?,?)').run(email,tenant,createdAt);
+ for(const [email,tenant] of [[boss.email,'alpha'],[betaBoss.email,'beta'],[finance.email,'alpha'],[employee.email,'alpha'],[alice.email,'alpha'],[amy.email,'alpha'],[bob.email,'beta']])await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run(email,tenant,createdAt);
  for(const [id,tenant,role] of [['boss','alpha','tenant_owner'],['beta-boss','beta','tenant_owner'],['finance','alpha','employee'],['employee','alpha','employee']])await sql.prepare('INSERT INTO portal_staff VALUES (?,?,?)').run(id,tenant,role);
 });
 
@@ -188,7 +188,7 @@ test('finance approval requires explicit bank verification and credits the walle
 test('a member promoted to staff cannot receive approval credit from an earlier bank deposit',async()=>{
  const promoted={userId:'promoted',email:'promoted@example.test',role:'customer',tenantId:null};
  await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run(promoted.userId,promoted.userId,promoted.email,'synthetic-hash','customer',1,'synthetic-recovery',createdAt);
- await sql.prepare('INSERT INTO members VALUES (?,?,?)').run(promoted.email,'alpha',createdAt);
+ await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run(promoted.email,'alpha',createdAt);
  const deposit=(await body(await bank.submit(promoted,null,submission({amount:'1.23',payerName:'PROMOTED SYNTHETIC',transferReference:'SYNTHETIC-PROMOTION-001',requestKey:'bank_request_promoted_01'})))).deposit;
  const receipt=(await body(await bank.uploadReceipt(promoted,null,deposit.id,png,'image/png'))).receipt;
  await sql.prepare('INSERT INTO portal_staff VALUES (?,?,?)').run(promoted.userId,'alpha','employee');

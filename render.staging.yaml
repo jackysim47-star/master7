@@ -6,7 +6,8 @@ services:
     runtime: node
     region: singapore
     plan: free
-    branch: codex/cloud-staging-readiness
+    # Deploy the merged PR #1 source from main; auto-deploy remains disabled.
+    branch: main
     autoDeployTrigger: "off"
     numInstances: 1
     buildCommand: npm ci --include=dev && npm run build && npm run test:cloud && npm test && npm run test:postgres
@@ -19,6 +20,8 @@ services:
         value: production
       - key: HOST
         value: "0.0.0.0"
+      - key: PORTAL_HOSTING_REGION
+        value: singapore
       - key: PORTAL_POSTGRES_URL
         sync: false
       - key: PORTAL_VPAY_SETTLEMENT_ENABLED

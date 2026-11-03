@@ -25,8 +25,8 @@ await withStorage(async()=>{
   ['boss','boss@example.test','customer'],['beta-boss','beta-boss@example.test','customer'],['finance','finance@example.test','customer'],['employee','employee@example.test','customer'],
  ];
  for(const [id,email,role] of users)await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run(id,id,email,'synthetic-hash',role,1,'synthetic-recovery',createdAt);
- await sql.prepare('INSERT INTO members VALUES (?,?,?)').run('member@example.test','alpha',createdAt);
- await sql.prepare('INSERT INTO members VALUES (?,?,?)').run('other@example.test','beta',createdAt);
+ await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run('member@example.test','alpha',createdAt);
+ await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run('other@example.test','beta',createdAt);
  for(const [id,tenant,role] of [['boss','alpha','tenant_owner'],['beta-boss','beta','tenant_owner'],['finance','alpha','employee'],['employee','alpha','employee']])await sql.prepare('INSERT INTO portal_staff VALUES (?,?,?)').run(id,tenant,role);
  await sql.prepare('INSERT INTO portal_finance_staff(user_id,tenant_id,granted_by,granted_at) VALUES (?,?,?,?)').run('finance','alpha','boss',createdAt);
  await sql.prepare("INSERT INTO portal_payment_orders(id,tenant_id,user_id,request_key,merchant_id,environment,amount_minor,currency,trade_no,settlement_status,review_required,created_at,verified_at,credited_at,provider) VALUES ('http-credit','alpha','member','http_credit_request','manual_bank','production',10000,'MYR','http-credit-reference','credited',0,?,?,?,'bank_transfer')").run(createdAt,createdAt,createdAt);

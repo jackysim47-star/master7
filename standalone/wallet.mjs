@@ -163,7 +163,7 @@ async function access(user,selected,{financeRecords=false}={}){
  if(!user)return {error:json({error:'Authentication required'},401)};
  if(!['owner','tenant_owner','employee','customer'].includes(user.role))return {error:json({error:'无资金记录查看权限'},403)};
  const identity=await sql.prepare(`SELECT u.email,u.role,u.approved,p.tenant_id AS staff_tenant,p.role AS staff_role,m.tenant_id AS member_tenant,f.user_id AS finance_user_id
-  FROM portal_users u LEFT JOIN portal_staff p ON p.user_id=u.id LEFT JOIN members m ON m.email=u.email
+  FROM portal_users u LEFT JOIN portal_staff p ON p.user_id=u.id LEFT JOIN members m ON (m.user_id=u.id OR (m.user_id IS NULL AND m.email=u.email))
   LEFT JOIN portal_finance_staff f ON f.user_id=u.id AND f.tenant_id=p.tenant_id WHERE u.id=?`).get(user.userId);
  if(!identity||!identity.approved)return {error:json({error:'账号不可用'},403)};
  const actualRole=identity.role==='owner'?'owner':identity.staff_role||'customer';

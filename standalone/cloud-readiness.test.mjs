@@ -15,6 +15,14 @@ test('missing database, test driver, invalid origin and active transactions bloc
   {PORTAL_TEST_POSTGRES:'1'},{PORTAL_VPAY_ORDERS_ENABLED:'true'},{PORTAL_VPAY_SETTLEMENT_ENABLED:'true'},{PORTAL_VPAY_RECOVERY_ENABLED:'true'}])
   assert.equal(cloudReadiness({...env,...changes}).stagingConfigurationReady,false);
 });
+test('public web service binding defaults safely and rejects loopback overrides',()=>{
+ const defaulted=cloudReadiness(env);
+ assert.equal(defaulted.configuration.find(c=>c.code==='PUBLIC_BIND_ADDRESS').ok,true);
+ assert.equal(cloudReadiness({...env,HOST:'0.0.0.0'}).configuration.find(c=>c.code==='PUBLIC_BIND_ADDRESS').ok,true);
+ const loopback=cloudReadiness({...env,HOST:'127.0.0.1'});
+ assert.equal(loopback.configuration.find(c=>c.code==='PUBLIC_BIND_ADDRESS').ok,false);
+ assert.equal(loopback.stagingConfigurationReady,false);
+});
 test('only authenticated headquarters can inspect readiness and GET cannot mutate',async()=>{
  const handler=createCloudReadinessHandler({env});
  assert.equal(handler().status,401);

@@ -2,7 +2,7 @@
 import {resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {parseArgs} from 'node:util';
-import {webConfig,validateStorageConfig} from './production.mjs';
+import {effectiveListenHost,webConfig,validateStorageConfig} from './production.mjs';
 import {serviceOnlyMode} from './service-mode.mjs';
 
 export const GATEWAY_READINESS_URL='https://master7-integration-gateway.onrender.com/readiness';
@@ -18,6 +18,7 @@ export function cloudReadiness(env=process.env){
  const configuration=[];
  try{webConfig({...env,NODE_ENV:'production'});configuration.push({code:'HTTPS_ORIGIN',ok:true});}
  catch{configuration.push({code:'HTTPS_ORIGIN',ok:false});}
+ configuration.push({code:'PUBLIC_BIND_ADDRESS',ok:effectiveListenHost({...env,NODE_ENV:'production'})==='0.0.0.0'});
  let databaseConfigured=false;
  try{
   validateStorageConfig({...env,NODE_ENV:'production'});

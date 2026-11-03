@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "kind": "master7-isolated-restore-receipt",
+  "status": "example_not_verified",
+  "target": "isolated",
+  "backupSha256": "REPLACE_WITH_SHA256_OF_VERIFIED_BACKUP_FILE",
+  "restoredAt": "REPLACE_WITH_ISO_8601_TIMESTAMP",
+  "checks": {
+    "members": { "passed": false, "recordsChecked": 0 },
+    "staffRoles": { "passed": false, "recordsChecked": 0 },
+    "walletBalances": { "passed": false, "recordsChecked": 0 },
+    "openOrders": { "passed": false, "recordsChecked": 0 },
+    "ledger": { "passed": false, "recordsChecked": 0 }
+  }
+}

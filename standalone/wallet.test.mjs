@@ -18,7 +18,7 @@ await withStorage(async()=>{
  for(const id of ['alpha','beta'])await sql.prepare('INSERT INTO brands(id,name,created_at) VALUES (?,?,?)').run(id,id,at);
  for(const [id,username,tenant] of [['alice','alice','alpha'],['bob','bob','beta'],['charlie','=imported-member','alpha']]){
   await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run(id,username,id+'@example.test','synthetic-password-hash','customer',1,'synthetic-recovery-hash',at);
-  await sql.prepare('INSERT INTO members VALUES (?,?,?)').run(id+'@example.test',tenant,at);
+  await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run(id+'@example.test',tenant,at);
  }
  await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run('owner','owner','owner@example.test','synthetic-password-hash','owner',1,'synthetic-recovery-hash',at);
  await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run('boss','boss','boss@example.test','synthetic-password-hash','customer',1,'synthetic-recovery-hash',at);

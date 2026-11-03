@@ -37,9 +37,9 @@ await withStorage(async () => {
   for (const [id, email, role] of users) {
     await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run(id, id, email, 'synthetic-hash', role, 1, 'synthetic-recovery', createdAt);
   }
-  await sql.prepare('INSERT INTO members VALUES (?,?,?)').run('member@example.test', 'alpha', createdAt);
-  await sql.prepare('INSERT INTO members VALUES (?,?,?)').run('boss@example.test', 'alpha', createdAt);
-  await sql.prepare('INSERT INTO members VALUES (?,?,?)').run('employee@example.test', 'alpha', createdAt);
+  await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run('member@example.test', 'alpha', createdAt);
+  await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run('boss@example.test', 'alpha', createdAt);
+  await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run('employee@example.test', 'alpha', createdAt);
   await sql.prepare('INSERT INTO portal_staff VALUES (?,?,?)').run('boss', 'alpha', 'tenant_owner');
   await sql.prepare('INSERT INTO portal_staff VALUES (?,?,?)').run('employee', 'alpha', 'employee');
 });

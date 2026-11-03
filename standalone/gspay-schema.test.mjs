@@ -28,7 +28,7 @@ await withStorage(async () => {
   await sql.prepare('INSERT INTO brands(id,name,created_at) VALUES (?,?,?)').run('alpha', 'Alpha', now);
   for (const [id, email] of [['alice', 'alice@example.test'], ['bob', 'bob@example.test']]) {
     await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run(id, id, email, 'synthetic-hash', 'customer', 1, 'synthetic-recovery', now);
-    await sql.prepare('INSERT INTO members VALUES (?,?,?)').run(email, 'alpha', now);
+    await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run(email, 'alpha', now);
   }
 });
 

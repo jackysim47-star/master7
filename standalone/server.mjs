@@ -7,11 +7,13 @@ import {createServer} from 'node:http';
 import {publicHomeBody} from './public-home.mjs';
 import {serviceOnlyMode} from './service-mode.mjs';
 import {createCloudReadinessHandler} from './cloud-readiness.mjs';
+import {visitorLocationFromHeaders} from '../shared/visitor-location.mjs';
 import {randomUUID,timingSafeEqual} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {identity,sql,withStorage} from './runtime.mjs';
+import {effectiveListenHost} from './production.mjs';
 import {digest,secret,passwordValid,hashPassword,verifyPassword,limited,sessionUser,newSession} from './security.mjs';
 import * as api from './dist/api.mjs';
 import {listConnections,configureConnection,receiveEvent,listEvents} from './connections.mjs';
@@ -60,7 +62,7 @@ function page(title,body,status=200){
  return new Response(`<!doctype html><html lang="${locale}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#050b1b"><title>${escape(translate(title,locale))} · MASTER7</title><link rel="stylesheet" href="/assets/portal.css"><style>
 :root{color-scheme:dark;--m7-bg:#040816;--m7-panel:rgba(7,18,43,.92);--m7-line:rgba(58,129,226,.3);--m7-blue:#0878df;--m7-gold:#e9bd63;--m7-text:#f6f9ff;--m7-muted:#9cabc7}*{box-sizing:border-box}html{min-height:100%;background:var(--m7-bg)}body{min-height:100vh;margin:0;color:var(--m7-text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 20% 12%,rgba(0,88,204,.22),transparent 33%),radial-gradient(circle at 85% 8%,rgba(229,180,80,.12),transparent 28%),linear-gradient(145deg,#02040d 0%,#07152e 58%,#030713 100%);background-attachment:fixed}a{color:#73b9fa;text-decoration:none}a:hover{text-decoration:underline}h1,h2,p{margin-top:0}.auth-shell{min-height:100vh;display:grid;place-items:center;padding:42px 18px;position:relative;isolation:isolate}.auth-shell:before{content:"";position:fixed;inset:0;background:linear-gradient(90deg,rgba(2,6,17,.95),rgba(2,7,20,.74)),url('/brand/master7-logo.jpg') center/cover no-repeat;opacity:.54;z-index:-1}.auth-card{width:min(100%,480px);background:linear-gradient(155deg,rgba(12,28,62,.96),rgba(5,12,29,.97));border:1px solid var(--m7-line);border-radius:24px;padding:34px;box-shadow:0 32px 90px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.07);position:relative;overflow:hidden}.auth-card:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,transparent,var(--m7-blue),var(--m7-gold),transparent)}.auth-card h1{font-size:clamp(26px,6vw,34px);letter-spacing:-.025em;margin-bottom:12px}.auth-card form{margin:24px 0}.auth-card label,.settings-form label{display:block;color:#c6d2e8;font-size:13px;font-weight:650;margin:16px 0}.auth-card input,.settings-form input,.settings-form select{display:block;width:100%;margin-top:8px;padding:13px 14px;color:var(--m7-text);background:rgba(1,7,20,.78);border:1px solid rgba(80,142,222,.34);border-radius:11px;font:inherit;outline:none}.auth-card input:focus,.settings-form input:focus,.settings-form select:focus{border-color:var(--m7-blue);box-shadow:0 0 0 3px rgba(8,120,223,.18)}.auth-card p,.account-row p,.page-heading p{color:var(--m7-muted);font-size:13px;line-height:1.75;margin-bottom:16px}.eyebrow{color:var(--m7-gold)!important;font-size:11px!important;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.auth-brand-logo{width:88px;height:88px;margin-bottom:18px}.auth-brand-logo img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 24px rgba(0,91,210,.32))}.primary,.secondary,button{border:0;border-radius:11px;padding:12px 18px;font:inherit;font-weight:760;cursor:pointer}.primary{display:inline-flex;align-items:center;justify-content:center;color:#f8fbff!important;background:linear-gradient(115deg,#148fd5,#075acb 62%,#d3a74f);box-shadow:0 10px 28px rgba(5,81,190,.34)}.secondary{display:inline-flex;align-items:center;justify-content:center;color:#e8f4ff!important;background:rgba(12,44,91,.84);border:1px solid rgba(63,137,229,.34)}.full{width:100%}.auth-links{display:flex;gap:20px;align-items:center;justify-content:center;flex-wrap:wrap;padding-top:4px;font-size:13px}.recovery{display:block;padding:17px;color:#d9ebff;background:rgba(5,36,81,.78);border:1px solid rgba(42,120,217,.4);border-radius:12px;overflow-wrap:anywhere;user-select:all;font-size:14px;line-height:1.7}[role=alert]{padding:11px 13px;color:#ffe5a3!important;background:rgba(116,73,4,.28);border:1px solid rgba(238,186,73,.34);border-radius:10px}.accounts{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:30px 0 60px}.server-brandbar{display:flex;align-items:center;gap:13px;margin-bottom:24px;color:#eef6ff}.server-brandbar img{width:48px;height:48px;object-fit:contain}.server-brandbar strong{display:block;font-size:17px;letter-spacing:.08em}.server-brandbar span{display:block;color:var(--m7-muted);font-size:11px;letter-spacing:.12em}.page-heading{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;padding:25px 26px;background:linear-gradient(130deg,rgba(9,34,79,.97),rgba(7,19,44,.92));border:1px solid var(--m7-line);border-radius:20px;box-shadow:0 20px 54px rgba(0,0,0,.24)}.page-heading h1{font-size:clamp(24px,5vw,34px);margin-bottom:0}.account-row{padding:22px 24px;background:var(--m7-panel);border:1px solid var(--m7-line);border-radius:16px;margin-top:15px;box-shadow:0 12px 32px rgba(0,0,0,.18)}.account-row>.account-row{background:rgba(4,13,31,.72)}.account-row b{font-size:16px}.account-row form{display:inline-block;margin:10px 14px 0 0}.account-row .settings-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:0 14px;align-items:end;width:100%}.settings-form p{grid-column:1/-1}.settings-form input[type=checkbox]{display:inline-block;width:auto;margin:0 7px 0 0}.account-row code{display:block;padding:10px 12px;color:#a9d5ff;background:rgba(2,9,22,.72);border-radius:8px;overflow-wrap:anywhere}@media(max-width:650px){.auth-card{padding:27px 22px;border-radius:20px}.page-heading{display:block;padding:22px}.page-heading .secondary{margin-top:18px}.account-row{padding:19px}.account-row form{display:block;margin-right:0}.account-row button{width:100%}.accounts{padding-top:18px}}
 </style></head><body>${body}</body></html>`,{status,headers:{'content-type':'text/html; charset=utf-8'}})}
-function authPage(kind,message='',status=200){const register=kind==='register',reset=kind==='reset';const title=register?'创建会员账号':reset?'找回账号密码':'登录 MASTER7';return page(title,`<div class="auth-shell"><main class="auth-card"><div class="brandmark auth-brand-logo"><img src="/brand/master7-logo.jpg" alt="MASTER7 — SEVEN Premium Experience" width="128" height="128"></div><p class="eyebrow">MASTER7 · MEMBER PLATFORM</p><h1>${title}</h1><p>${register?'注册后由平台管理员核实并批准，即可进入新版会员中心。':reset?'使用注册或开户时保存的恢复码重设密码。':'使用 MASTER7 账号与密码进入会员平台或运营后台。'}</p>${message?'<p role="alert">'+escape(translate(message,requestLocale()))+'</p>':''}<form method="post" action="/auth/${register?'register':reset?'reset':'login'}"><label>账号<input name="username" required pattern="[a-zA-Z0-9_-]{3,40}" minlength="3" maxlength="40" autocomplete="username"></label>${register?'<label>联系邮箱<input name="email" required type="email" maxlength="254" autocomplete="email"></label>':''}${reset?'<label>账号恢复码<input name="recovery" required maxlength="100" autocomplete="off"></label>':''}<label>${reset?'新密码':'密码'}<input type="password" name="password" required minlength="12" maxlength="256" autocomplete="${register||reset?'new-password':'current-password'}"></label>${register||reset?'<p>密码至少 12 个字符；不要重复使用其他网站的密码。</p>':''}<button class="primary full">${title}</button></form><nav class="auth-links"><a href="/signin">登录</a><a href="/register">注册</a><a href="/reset">找回密码</a></nav></main></div>`,status)}
+function authPage(kind,message='',status=200){const register=kind==='register',reset=kind==='reset';const title=register?'创建会员账号':reset?'找回账号密码':'登录 MASTER7';return page(title,`<div class="auth-shell"><main class="auth-card"><div class="brandmark auth-brand-logo"><img src="/brand/master7-logo.jpg" alt="MASTER7 — SEVEN Premium Experience" width="128" height="128"></div><p class="eyebrow">MASTER7 · MEMBER PLATFORM</p><h1>${title}</h1><p>${register?'只需设置会员 ID 和密码；注册后由平台管理员核实并批准。':reset?'使用注册或开户时保存的恢复码重设密码。':'顾客短信验证码尚未接通；后台使用管理 ID 和密码登录。'}</p>${message?'<p role="alert">'+escape(translate(message,requestLocale()))+'</p>':''}<form method="post" action="/auth/${register?'register':reset?'reset':'login'}"><label>账号<input name="username" required pattern="[a-zA-Z0-9_-]{3,40}" minlength="3" maxlength="40" autocomplete="username"></label>${reset?'<label>账号恢复码<input name="recovery" required maxlength="100" autocomplete="off"></label>':''}<label>${reset?'新密码':'密码'}<input type="password" name="password" required minlength="12" maxlength="256" autocomplete="${register||reset?'new-password':'current-password'}"></label>${register||reset?'<p>密码至少 12 个字符；不要重复使用其他网站的密码。</p>':''}<button class="primary full">${title}</button></form><nav class="auth-links"><a href="/signin">登录</a><a href="/register">注册</a><a href="/reset">找回密码</a></nav></main></div>`,status)}
 function recoveryPage(code,reset=false){return page('保存账号恢复码',`<div class="auth-shell"><main class="auth-card"><div class="brandmark auth-brand-logo"><img src="/brand/master7-logo.jpg" alt="MASTER7 — SEVEN Premium Experience" width="128" height="128"></div><p class="eyebrow">MASTER7 · ACCOUNT SECURITY</p><h1>${reset?'密码已重设':'注册已提交'}</h1><p>请离线保存以下恢复码。它只显示这一次，持有者可以重设你的密码。不要发送给客服或其他人。</p><code class="recovery">${escape(code)}</code><p>${reset?'旧恢复码和所有旧登录会话已失效。下次请使用此新恢复码。':'账号还需平台管理员核实并批准，恢复码不会再次显示。'}</p><a class="primary" href="/signin">返回登录</a></main></div>`)}
 function ownerBootstrapConfig(){
  if(process.env.PORTAL_OWNER_BOOTSTRAP_ENABLED!=='true')return null;
@@ -114,6 +116,10 @@ const financeReconciliation=createFinanceReconciliation();
 const deploymentReadiness=createCloudReadinessHandler();
 async function dispatch(req){
  const url=new URL(req.url,origin);
+ if(url.pathname==='/api/v1/visitor-location'){
+  if(req.method!=='GET')return json({error:'Method not allowed'},405);
+  return json(visitorLocationFromHeaders(req.headers,process.env.PORTAL_HOSTING_REGION||'singapore'));
+ }
  if(['/api/v1/deployment-readiness','/deployment-readiness'].includes(url.pathname)){
   const user=await withStorage(()=>sessionUser(req.headers.cookie));
   const response=deploymentReadiness({user,method:req.method});
@@ -223,7 +229,95 @@ async function dispatch(req){
 }
 async function bodyOf(req){if(req.portalBody)return req.portalBody;let size=0;const chunks=[];for await(const c of req){size+=c.length;if(size>16384)throw Error('TOO_LARGE');chunks.push(c)}return Buffer.concat(chunks)}
 async function log(user,action){(await sql.prepare('INSERT INTO audit(id,tenant_id,actor,action,created_at) VALUES (?,?,?,?,?)').run(randomUUID(),user.tenantId||'main',user.email,action,new Date().toISOString()))}
-async function accountsPage(user){const head=user.role==='owner';const users=(await sql.prepare(`SELECT u.id,u.username,u.email,u.role,u.approved,p.role AS staff_role,COALESCE(p.tenant_id,m.tenant_id,'main') AS tenant_id FROM portal_users u LEFT JOIN portal_staff p ON p.user_id=u.id LEFT JOIN members m ON m.email=u.email ${head?'':"WHERE u.role<>'owner' AND COALESCE(p.tenant_id,m.tenant_id,'main')=?"} ORDER BY u.created_at DESC LIMIT 300`).all(...(head?[]:[user.tenantId])));return page('账号与租户管理',`<main class="accounts"><header class="server-brandbar"><img src="/brand/master7-logo.jpg" alt="MASTER7 — SEVEN Premium Experience" width="48" height="48"><div><strong>MASTER7</strong><span>OPERATIONS CONSOLE</span></div></header><div class="page-heading"><div><p class="eyebrow">MEMBERS &amp; ACCESS</p><h1>${head?'总部账号与租户管理':'本租户账号管理'}</h1><p>审批新会员、分配职责，并保持每个品牌的数据权限独立。</p></div><a class="secondary" href="/admin">返回运营后台</a></div>${head?`<section class="account-row"><h2>创建全新租户</h2><form class="settings-form" method="post" action="/accounts/tenant"><label>租户代码<input name="tenantId" required pattern="[a-z0-9][a-z0-9_-]{2,39}" maxlength="40"></label><button class="primary">创建租户</button><p>建立全新空白空间，不导入旧账号、余额、订单或内容。</p></form></section>`:''}${users.map(u=>`<section class="account-row"><b>${escape(u.username)}</b><p>${escape(u.email)} · ${escape(u.tenant_id)} · ${escape(u.role==='owner'?'总部':u.staff_role==='tenant_owner'?'租户老板':u.staff_role==='employee'?'员工':'会员')} · ${u.approved?'已批准':'等待批准'}</p>${u.role!=='owner'&&(head||!u.staff_role)?`<form method="post" action="/accounts/${u.approved?'suspend':'approve'}"><input type="hidden" name="id" value="${escape(u.id)}"><button class="secondary">${u.approved?'暂停并撤销登录':'批准账号'}</button></form>`:''}${head&&u.role!=='owner'?`<form class="settings-form" method="post" action="/accounts/role"><input type="hidden" name="id" value="${escape(u.id)}"><label>租户代码<input name="tenantId" value="${escape(u.tenant_id)}" required maxlength="60"></label><label>职责<select name="role"><option value="customer" ${!u.staff_role?'selected':''}>会员</option><option value="tenant_owner" ${u.staff_role==='tenant_owner'?'selected':''}>租户老板</option><option value="employee" ${u.staff_role==='employee'?'selected':''}>员工</option></select></label><button class="secondary">保存归属与职责并撤销旧登录</button><p>已明确归属其他租户的账号不能直接转移。</p></form>`:''}</section>`).join('')}</main>`)}
+const promotionKinds=new Set(['cashback','red_packet','bonus','vip','revenue_share']);
+const promotionCategories=new Set(['slots','live','sports','fishing','arcade']);
+function promotionRuleFields(value){
+ if(!value||typeof value!=='object'||Array.isArray(value))return null;
+ const money=input=>{if(input===undefined||input===null||input==='')return null;if(typeof input!=='string'||! /^(?:0|[1-9]\d{0,5})(?:\.\d{1,2})?$/.test(input))return undefined;const [whole,fraction='']=input.split('.'),minor=BigInt(whole)*100n+BigInt((fraction+'00').slice(0,2));return minor>0n&&minor<=10000000n?input:undefined};
+ const decimal=(input,max)=>{if(input===undefined||input===null||input==='')return null;if(typeof input!=='string'||! /^(?:0|[1-9]\d{0,2})(?:\.\d{1,2})?$/.test(input))return undefined;const [whole,fraction='']=input.split('.'),scaled=BigInt(whole)*100n+BigInt((fraction+'00').slice(0,2));return scaled<=BigInt(max)*100n?input:undefined};
+ const eligibility=value.eligibility===undefined?'':typeof value.eligibility==='string'?value.eligibility.trim():null;
+ const rewardRatePercent=decimal(value.rewardRatePercent,100),fixedAmountMYR=money(value.fixedAmountMYR),rewardCapMYR=money(value.rewardCapMYR),budgetMYR=money(value.budgetMYR),wagerMultiplier=decimal(value.wagerMultiplier,100);
+ const claims=value.maxClaimsPerMember,maxClaimsPerMember=claims===undefined||claims===null||claims===''?null:(typeof claims==='number'&&Number.isInteger(claims)?claims:typeof claims==='string'&&/^\d{1,3}$/.test(claims)?Number(claims):undefined);
+ const gameCategories=value.gameCategories===undefined?[]:value.gameCategories,validCategories=Array.isArray(gameCategories)&&gameCategories.length<=5&&gameCategories.every(item=>promotionCategories.has(item))&&new Set(gameCategories).size===gameCategories.length;
+ const date=input=>input===undefined||input===null||input===''?null:typeof input==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(input)&&!Number.isNaN(Date.parse(input+'T00:00:00Z'))&&new Date(input+'T00:00:00Z').toISOString().slice(0,10)===input?input:undefined;
+ const startsAtMytDate=date(value.startsAtMytDate),endsAtMytDate=date(value.endsAtMytDate),fields=[rewardRatePercent,fixedAmountMYR,rewardCapMYR,budgetMYR,wagerMultiplier,maxClaimsPerMember,startsAtMytDate,endsAtMytDate];
+ if(eligibility===null||eligibility.length>1000||fields.includes(undefined)||!validCategories||((startsAtMytDate===null)!==(endsAtMytDate===null))||(startsAtMytDate&&endsAtMytDate<startsAtMytDate)||(maxClaimsPerMember!==null&&(maxClaimsPerMember<1||maxClaimsPerMember>999)))return null;
+ return {currency:'MYR',timeZone:'Asia/Kuching',eligibility,rewardRatePercent,fixedAmountMYR,rewardCapMYR,budgetMYR,wagerMultiplier,maxClaimsPerMember,gameCategories,startsAtMytDate,endsAtMytDate};
+}
+function adminPromotionTenant(user,requested){
+ if(!user||!['owner','tenant_owner','employee'].includes(user.role))return null;
+ if(user.role==='owner')return requested||'main';
+ return user.tenantId&&(!requested||requested===user.tenantId)?user.tenantId:null;
+}
+async function promotionDrafts(req,url,user,method){
+ const promotionResponse=(data,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
+ const tenantId=adminPromotionTenant(user,url.searchParams.get('tenant'));
+ if(!tenantId)return promotionResponse({error:user?'TENANT_FORBIDDEN':'Authentication required'},user?403:401);
+ if(!await sql.prepare('SELECT id FROM brands WHERE id=?').get(tenantId)&&tenantId!=='main')return promotionResponse({error:'TENANT_NOT_FOUND'},404);
+ const canReview=['owner','tenant_owner'].includes(user.role);
+ if(method==='GET'){
+  const drafts=await sql.prepare('SELECT id,tenant_id,title,kind,summary,terms,rules_json,status,created_by,updated_by,reviewer,review_note,created_at,updated_at,reviewed_at FROM portal_promotion_drafts WHERE tenant_id=? ORDER BY created_at DESC LIMIT 100').all(tenantId);
+  const normalized=drafts.map(row=>{let rules;try{rules=typeof row.rules_json==='string'?JSON.parse(row.rules_json):row.rules_json}catch{rules={}}const {rules_json,...safe}=row;return {...safe,rules}});
+  if(url.searchParams.get('format')==='csv'){
+   const cell=value=>{let text=String(value??'');if(/^[\u0000-\u0020]*[=+\-@]/.test(text))text="'"+text;return '"'+text.replace(/"/g,'""')+'"'};
+   const columns=['id','tenant_id','kind','title','summary','status','eligibility','reward_rate_percent','fixed_amount_myr','reward_cap_myr','budget_myr','wager_multiplier','max_claims_per_member','game_categories','starts_at_myt_date','ends_at_myt_date','terms','review_note','created_by','reviewer','created_at','reviewed_at'];
+   const lines=[columns.map(cell).join(','),...normalized.map(row=>{const rules=row.rules||{};return [row.id,row.tenant_id,row.kind,row.title,row.summary,row.status,rules.eligibility,rules.rewardRatePercent,rules.fixedAmountMYR,rules.rewardCapMYR,rules.budgetMYR,rules.wagerMultiplier,rules.maxClaimsPerMember,(rules.gameCategories||[]).join('|'),rules.startsAtMytDate,rules.endsAtMytDate,row.terms,row.review_note,row.created_by,row.reviewer,row.created_at,row.reviewed_at].map(cell).join(',')})];
+   return new Response('\ufeff'+lines.join('\r\n')+'\r\n',{headers:{'Content-Type':'text/csv; charset=utf-8','Content-Disposition':'attachment; filename="master7-promotion-drafts.csv"','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
+  }
+  return promotionResponse({tenantId,canReview,drafts:normalized});
+ }
+ if(method!=='POST')return promotionResponse({error:'Method not allowed'},405);
+ if(!originAllowed(req.headers.origin))return promotionResponse({error:'请求来源不受信任'},403);
+ if(req.headers['x-portal-request']!=='1'||!String(req.headers['content-type']||'').startsWith('application/json'))return promotionResponse({error:'请求格式错误'},415);
+ let raw;try{raw=await bodyOf(req)}catch(error){if(error?.message==='TOO_LARGE')return promotionResponse({error:'内容过长'},413);throw error}
+ let data;try{data=JSON.parse(raw.toString('utf8'))}catch{return promotionResponse({error:'请求格式错误'},400)}
+ if(!data||typeof data!=='object'||Array.isArray(data))return promotionResponse({error:'请求格式错误'},400);
+ const now=new Date().toISOString(),clean=(value,max)=>typeof value==='string'&&value.trim().length<=max?value.trim():null;
+ if(data.action==='create'||data.action==='update'){
+  const title=clean(data.title,100),summary=clean(data.summary,300),terms=clean(data.terms,5000),kind=data.kind;
+  if(!title||!summary||!terms||!promotionKinds.has(kind))return promotionResponse({error:'请填写有效的活动名称、类型、简介和规则'},400);
+  const rules=promotionRuleFields(data.rules);if(!rules)return promotionResponse({error:'结构化规则无效：检查 MYR 金额/比例、领取次数、游戏类别及 MYT 日期'},400);
+  const rulesJson=JSON.stringify(rules);
+  const id=data.action==='create'?randomUUID():clean(data.id,60);
+  if(!id)return json({error:'活动编号无效'},400);
+  await sql.exec('BEGIN IMMEDIATE');
+  try{
+   if(data.action==='create'){
+    await sql.prepare("INSERT INTO portal_promotion_drafts(id,tenant_id,title,kind,summary,terms,rules_json,status,created_by,updated_by,created_at,updated_at) VALUES (?,?,?,?,?,?,?,'draft',?,?,?,?)").run(id,tenantId,title,kind,summary,terms,rulesJson,user.email,user.email,now,now);
+   }else{
+    const changed=await sql.prepare("UPDATE portal_promotion_drafts SET title=?,kind=?,summary=?,terms=?,rules_json=?,status='draft',updated_by=?,updated_at=?,reviewer=NULL,review_note='',reviewed_at=NULL WHERE id=? AND tenant_id=? AND status IN ('draft','rejected')").run(title,kind,summary,terms,rulesJson,user.email,now,id,tenantId);
+    if(!changed.changes){await sql.exec('ROLLBACK');return promotionResponse({error:'只可编辑本租户的草稿或已退回规则'},409)}
+   }
+   await log(user,data.action==='create'?'建立奖励规则草稿：'+id:'更新奖励规则草稿：'+id);await sql.exec('COMMIT');
+  }catch(error){await sql.exec('ROLLBACK');throw error}
+  return promotionResponse({ok:true,id,status:'draft',financialEffects:false});
+ }
+ const id=clean(data.id,60);if(!id)return promotionResponse({error:'活动编号无效'},400);
+ if(data.action==='submit'){
+  await sql.exec('BEGIN IMMEDIATE');try{
+   const changed=await sql.prepare("UPDATE portal_promotion_drafts SET status='pending_review',updated_by=?,updated_at=? WHERE id=? AND tenant_id=? AND status IN ('draft','rejected')").run(user.email,now,id,tenantId);
+   if(!changed.changes){await sql.exec('ROLLBACK');return promotionResponse({error:'只可提交本租户未审核的草稿'},409)}
+   await log(user,'提交奖励规则审核：'+id);await sql.exec('COMMIT');return promotionResponse({ok:true,status:'pending_review',financialEffects:false});
+  }catch(error){await sql.exec('ROLLBACK');throw error}
+ }
+ if(data.action==='review'){
+  if(!canReview)return promotionResponse({error:'仅租户老板可审核奖励规则'},403);
+  if(!['approve','reject'].includes(data.decision))return promotionResponse({error:'审核决定无效'},400);
+  const note=clean(data.note||'',500);if(note===null)return promotionResponse({error:'审核备注过长'},400);
+  const status=data.decision==='approve'?'approved_draft':'rejected';
+  await sql.exec('BEGIN IMMEDIATE');try{
+   const pending=await sql.prepare("SELECT created_by FROM portal_promotion_drafts WHERE id=? AND tenant_id=? AND status='pending_review'").get(id,tenantId);
+   if(!pending){await sql.exec('ROLLBACK');return promotionResponse({error:'只可审核本租户待审核草稿'},409)}
+   if(data.decision==='approve'&&pending.created_by===user.email){await sql.exec('ROLLBACK');return promotionResponse({error:'创建人不能批准自己建立的规则'},409)}
+   const changed=await sql.prepare("UPDATE portal_promotion_drafts SET status=?,reviewer=?,review_note=?,reviewed_at=?,updated_by=?,updated_at=? WHERE id=? AND tenant_id=? AND status='pending_review'").run(status,user.email,note,now,user.email,now,id,tenantId);
+   if(!changed.changes){await sql.exec('ROLLBACK');return promotionResponse({error:'只可审核本租户待审核草稿'},409)}
+   await log(user,(data.decision==='approve'?'审核奖励规则通过（仍为草稿，未启用）：':'退回奖励规则：')+id);await sql.exec('COMMIT');
+  }catch(error){await sql.exec('ROLLBACK');throw error}
+  return promotionResponse({ok:true,status,financialEffects:false});
+ }
+ return promotionResponse({error:'操作不存在'},400);
+}
+async function accountsPage(user){const head=user.role==='owner';const users=(await sql.prepare(`SELECT u.id,u.username,u.email,u.role,u.approved,p.role AS staff_role,COALESCE(p.tenant_id,m.tenant_id,'main') AS tenant_id FROM portal_users u LEFT JOIN portal_staff p ON p.user_id=u.id LEFT JOIN members m ON (m.user_id=u.id OR (m.user_id IS NULL AND m.email=u.email)) ${head?'':"WHERE u.role<>'owner' AND COALESCE(p.tenant_id,m.tenant_id,'main')=?"} ORDER BY u.created_at DESC LIMIT 300`).all(...(head?[]:[user.tenantId])));return page('账号与租户管理',`<main class="accounts"><header class="server-brandbar"><img src="/brand/master7-logo.jpg" alt="MASTER7 — SEVEN Premium Experience" width="48" height="48"><div><strong>MASTER7</strong><span>OPERATIONS CONSOLE</span></div></header><div class="page-heading"><div><p class="eyebrow">MEMBERS &amp; ACCESS</p><h1>${head?'总部账号与租户管理':'本租户账号管理'}</h1><p>审批新会员、分配职责，并保持每个品牌的数据权限独立。</p></div><a class="secondary" href="/admin">返回运营后台</a></div>${head?`<section class="account-row"><h2>创建全新租户</h2><form class="settings-form" method="post" action="/accounts/tenant"><label>租户代码<input name="tenantId" required pattern="[a-z0-9][a-z0-9_-]{2,39}" maxlength="40"></label><button class="primary">创建租户</button><p>建立全新空白空间，不导入旧账号、余额、订单或内容。</p></form></section>`:''}${users.map(u=>`<section class="account-row"><b>${escape(u.username)}</b><p>${u.email.endsWith('@member.invalid')?'未设置联系邮箱':escape(u.email)} · ${escape(u.tenant_id)} · ${escape(u.role==='owner'?'总部':u.staff_role==='tenant_owner'?'租户老板':u.staff_role==='employee'?'员工':'会员')} · ${u.approved?'已批准':'等待批准'}</p>${u.role!=='owner'&&(head||!u.staff_role)?`<form method="post" action="/accounts/${u.approved?'suspend':'approve'}"><input type="hidden" name="id" value="${escape(u.id)}"><button class="secondary">${u.approved?'暂停并撤销登录':'批准账号'}</button></form>`:''}${head&&u.role!=='owner'?`<form class="settings-form" method="post" action="/accounts/role"><input type="hidden" name="id" value="${escape(u.id)}"><label>租户代码<input name="tenantId" value="${escape(u.tenant_id)}" required maxlength="60"></label><label>职责<select name="role"><option value="customer" ${!u.staff_role?'selected':''}>会员</option><option value="tenant_owner" ${u.staff_role==='tenant_owner'?'selected':''}>租户老板</option><option value="employee" ${u.staff_role==='employee'?'selected':''}>员工</option></select></label><button class="secondary">保存归属与职责并撤销旧登录</button><p>已明确归属其他租户的账号不能直接转移。</p></form>`:''}</section>`).join('')}</main>`)}
 async function connectionsPage(){const rows=(await listConnections()),events=(await listEvents());return page('接口与回调管理',`<main class="accounts"><header class="server-brandbar"><img src="/brand/master7-logo.jpg" alt="MASTER7 — SEVEN Premium Experience" width="48" height="48"><div><strong>MASTER7</strong><span>INTEGRATION CONSOLE</span></div></header><div class="page-heading"><div><p class="eyebrow">OWNER · CONNECTIONS</p><h1>接口与回调管理</h1><p>只管理受控接收通道；收到事件不代表游戏、支付或钱包业务已经完成。</p></div><a class="secondary" href="/admin">返回运营后台</a></div><section class="account-row"><h2>配置接收通道</h2><form class="settings-form" method="post" action="/connections"><label>连接标识<input name="id" required pattern="[a-z0-9][a-z0-9_-]{2,39}" maxlength="40"></label><label>工作空间 ID<input name="tenantId" required value="main" maxlength="60"></label><label>签名密钥的环境变量名<input name="keyEnv" required pattern="PORTAL_HOOK_[A-Z0-9_]{3,60}" maxlength="72" placeholder="PORTAL_HOOK_..." autocomplete="off"></label><p>这里只填写环境变量名称，密钥由部署负责人在服务器设置，至少 32 字节。</p><label><input type="checkbox" name="enabled"> 启用接收</label><button class="primary">保存连接</button></form></section><section class="account-row"><h2>已配置连接</h2>${rows.length?rows.map(c=>`<div class="account-row"><b>${escape(c.id)}</b><p>${escape(c.tenantId)} · ${c.enabled?'已启用':'已停用'} · ${c.configured?'密钥已配置':'缺少密钥'}</p><code>${escape(c.callbackPath)}</code><p>密钥变量：${escape(c.keyEnv)}</p><form method="post" action="/connections"><input type="hidden" name="id" value="${escape(c.id)}"><input type="hidden" name="tenantId" value="${escape(c.tenantId)}"><input type="hidden" name="keyEnv" value="${escape(c.keyEnv)}">${c.enabled?'':'<input type="hidden" name="enabled" value="on">'}<button class="secondary">${c.enabled?'停用连接':'启用连接'}</button></form></div>`).join(''):'<p>暂无连接。</p>'}</section><section class="account-row"><h2>最近收到的事件</h2><p>仅显示事件元数据，原始内容不会在这里公开。事件仍待对应适配器安全处理。</p>${events.length?events.map(e=>`<div class="account-row"><b>${escape(e.type)}</b><p>${escape(e.connectionId)} · ${escape(e.tenantId)} · ${escape(e.receivedAt)}</p><code>${escape(e.eventId)}</code><p>已接收 / 未处理</p></div>`).join(''):'<p>暂无事件。</p>'}</section></main>`)}
 async function handle(req){const url=new URL(req.url,origin);const user=(await sessionUser(req.headers.cookie));const method=req.method||'GET';
  if(method==='POST'&&!url.pathname.startsWith('/api/v1/hooks/')&&!originAllowed(req.headers.origin))return json({error:'请求来源不受信任'},403);
@@ -313,7 +407,7 @@ async function handle(req){const url=new URL(req.url,origin);const user=(await s
   return json({error:'Not found'},404);
  }
  if(method==='GET'&&url.pathname==='/health'){
-  try{await sql.prepare('SELECT 1 AS ready').get();return json({status:'ok',database:'ready',scope:'database_readiness',authentication:'platform-password',externalServices:false,release:process.env.RENDER_GIT_COMMIT||'local'});}
+  try{await sql.prepare('SELECT 1 AS ready').get();return json({status:'ok',database:'ready',scope:'database_readiness',authentication:{admin:'id_password',customer:'sms_otp_not_connected'},externalServices:false,release:process.env.RENDER_GIT_COMMIT||'local'});}
   catch{return json({status:'unavailable',database:'unavailable',scope:'database_readiness',externalServices:false},503);}
  }
  if(method==='GET'&&(url.pathname.startsWith('/assets/')||url.pathname==='/brand/master7-logo.jpg')){const name={'/brand/master7-logo.jpg':['master7-logo.jpg','image/jpeg'],'/assets/client.js':['client.js','text/javascript; charset=utf-8'],'/assets/portal.css':['portal.css','text/css; charset=utf-8']}[url.pathname];return name?new Response(readFileSync(resolve('standalone/dist',name[0])),{headers:{'content-type':name[1]}}):new Response('Not found',{status:404})}
@@ -325,14 +419,18 @@ async function handle(req){const url=new URL(req.url,origin);const user=(await s
   const ip=req.socket.remoteAddress||'unknown';if((await limited('auth-ip:'+ip,60))||(await limited(action+':'+username,10)))return authPage(action==='login'?'signin':action,'尝试次数过多，请 15 分钟后再试。',429);
   if(!/^[a-z0-9_-]{3,40}$/.test(username))return authPage(action==='login'?'signin':action,'账号格式无效。',400);
   if(action==='register'){
-   const email=(form.get('email')||'').trim().toLowerCase();if(!passwordValid(password)||email.length>254||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return authPage('register','请检查邮箱；密码至少 12 个字符，最多 256 字节。',400);
-   const bootstrap=ownerBootstrapConfig();if(bootstrap&&(username===bootstrap.username||email===bootstrap.email))return authPage('register','账号或邮箱不可用，请使用其他资料。',409);
-   const recovery=secret(),hash=await hashPassword(password);try{(await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run(randomUUID(),username,email,hash,'customer',0,digest(recovery),new Date().toISOString()))}catch{return authPage('register','账号或邮箱不可用，请使用其他资料。',409)}return recoveryPage(recovery);
+   const suppliedEmail=(form.get('email')||'').trim().toLowerCase();
+   if(!passwordValid(password)||suppliedEmail.length>254||(suppliedEmail&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(suppliedEmail)))return authPage('register','密码至少 12 个字符，最多 256 字节；如填写联系邮箱，请检查格式。',400);
+   const id=randomUUID(),email=suppliedEmail||`${id}@member.invalid`;
+   const bootstrap=ownerBootstrapConfig();if(bootstrap&&(username===bootstrap.username||(suppliedEmail&&email===bootstrap.email)))return authPage('register','账号或邮箱不可用，请使用其他资料。',409);
+   const recovery=secret(),hash=await hashPassword(password);try{(await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run(id,username,email,hash,'customer',0,digest(recovery),new Date().toISOString()))}catch{return authPage('register','账号不可用，请使用其他资料。',409)}return recoveryPage(recovery);
   }
   const row=(await sql.prepare('SELECT * FROM portal_users WHERE username=?').get(username));
   if(action==='login'){
    const valid=await verifyPassword(password,row?.password_hash||dummyHash);if(!row||!valid||!row.approved)return authPage('signin','账号、密码错误，或账号尚未批准。',401);
-   const staff=await sql.prepare('SELECT user_id FROM portal_staff WHERE user_id=?').get(row.id),token=await newSession(row.id);
+   const staff=await sql.prepare('SELECT user_id FROM portal_staff WHERE user_id=?').get(row.id);
+   if(row.role==='customer'&&!staff&&process.env.NODE_ENV!=='test')return authPage('signin','顾客短信验证码尚未接通，暂不能登录。',503);
+   const token=await newSession(row.id);
    if(!token)return authPage('signin','账号、密码错误，或账号尚未批准。',401);
    return redirect(row.role==='owner'||staff?'/admin':'/','portal_session='+token+'; Max-Age=28800'+cookieFlags);
   }
@@ -347,6 +445,7 @@ async function handle(req){const url=new URL(req.url,origin);const user=(await s
   const data=method==='POST'?await bodyOf(req):undefined;const requestOrigin=originAllowed(req.headers.origin)?req.headers.origin:origin.origin;const request=new Request(new URL(url.pathname+url.search,requestOrigin),{method,headers:{origin:req.headers.origin||'','content-type':String(req.headers['content-type']||''),'x-portal-request':String(req.headers['x-portal-request']||'')},body:data});
   return identity.run(user,()=>method==='POST'?api.POST(request):api.GET(request));
  }
+ if(url.pathname==='/api/v1/promotion-drafts')return promotionDrafts(req,url,user,method);
  if(url.pathname==='/accounts'||url.pathname.startsWith('/accounts/')){
   if(!user)return redirect('/signin');if(!['owner','tenant_owner'].includes(user.role))return new Response('无管理权限',{status:403});
   if(method==='GET'&&url.pathname==='/accounts')return (await accountsPage(user));
@@ -363,7 +462,7 @@ async function handle(req){const url=new URL(req.url,origin);const user=(await s
    const target=(await sql.prepare("SELECT id,email FROM portal_users WHERE id=? AND role='customer'").get(id));
    if(!target)return json({error:'账号不存在'},404);
    if(tenantId!=='main'&&!(await sql.prepare('SELECT id FROM brands WHERE id=?').get(tenantId)))return json({error:'租户不存在'},404);
-   const membership=(await sql.prepare('SELECT tenant_id FROM members WHERE email=?').get(target.email)),staff=(await sql.prepare('SELECT tenant_id FROM portal_staff WHERE user_id=?').get(id));
+   const membership=(await sql.prepare('SELECT tenant_id FROM members WHERE user_id=? OR email=?').get(id,target.email)),staff=(await sql.prepare('SELECT tenant_id FROM portal_staff WHERE user_id=?').get(id));
    const mainAssignment=membership?.tenant_id==='main'&&tenantId!=='main'&&!staff;
    if((membership&&membership.tenant_id!==tenantId&&!mainAssignment)||(staff&&staff.tenant_id!==tenantId))return json({error:'账号已归属其他租户，不能直接转移'},409);
    (await sql.exec('BEGIN IMMEDIATE'));try{
@@ -373,13 +472,13 @@ async function handle(req){const url=new URL(req.url,origin);const user=(await s
     if(identityLock.changes!==1)throw Error('ACCOUNT_NOT_FOUND');
     const currentTarget=await sql.prepare("SELECT id,email FROM portal_users WHERE id=? AND role='customer'").get(id);
     await sql.prepare('UPDATE members SET email=email WHERE email=?').run(currentTarget.email);
-    const currentMembership=await sql.prepare('SELECT tenant_id FROM members WHERE email=?').get(currentTarget.email);
+    const currentMembership=await sql.prepare('SELECT tenant_id FROM members WHERE user_id=? OR email=?').get(id,currentTarget.email);
     const currentStaff=await sql.prepare('SELECT tenant_id FROM portal_staff WHERE user_id=?').get(id);
     const currentMainAssignment=currentMembership?.tenant_id==='main'&&tenantId!=='main'&&!currentStaff;
     if((currentMembership&&currentMembership.tenant_id!==tenantId&&!currentMainAssignment)||(currentStaff&&currentStaff.tenant_id!==tenantId))throw Error('TENANT_ASSIGNMENT_CONFLICT');
-    if(currentMainAssignment)(await sql.prepare("UPDATE members SET tenant_id=? WHERE email=? AND tenant_id='main'").run(tenantId,currentTarget.email));
-    else (await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?) ON CONFLICT(email) DO NOTHING').run(currentTarget.email,tenantId,new Date().toISOString()));
-    const assignedMembership=await sql.prepare('SELECT tenant_id FROM members WHERE email=?').get(currentTarget.email);
+    if(currentMainAssignment)(await sql.prepare("UPDATE members SET tenant_id=? WHERE (user_id=? OR email=?) AND tenant_id='main'").run(tenantId,id,currentTarget.email));
+    else (await sql.prepare('INSERT INTO members(email,user_id,tenant_id,created_at) VALUES (?,?,?,?) ON CONFLICT(email) DO UPDATE SET user_id=COALESCE(members.user_id,excluded.user_id)').run(currentTarget.email,id,tenantId,new Date().toISOString()));
+    const assignedMembership=await sql.prepare('SELECT tenant_id FROM members WHERE user_id=? OR email=?').get(id,currentTarget.email);
     if(!assignedMembership||assignedMembership.tenant_id!==tenantId)throw Error('TENANT_ASSIGNMENT_CONFLICT');
     const financeRevoked=await sql.prepare('DELETE FROM portal_finance_staff WHERE user_id=?').run(id);
     if(role==='customer')(await sql.prepare('DELETE FROM portal_staff WHERE user_id=?').run(id));else (await sql.prepare('INSERT INTO portal_staff VALUES (?,?,?) ON CONFLICT(user_id) DO UPDATE SET role=excluded.role').run(id,tenantId,role));
@@ -388,18 +487,18 @@ async function handle(req){const url=new URL(req.url,origin);const user=(await s
   }
   if(method==='POST'&&['/accounts/approve','/accounts/suspend'].includes(url.pathname)){
    const f=new URLSearchParams((await bodyOf(req)).toString()),id=f.get('id')||'',approve=url.pathname.endsWith('approve');
-   const target=(await sql.prepare("SELECT u.id,u.username,u.email,p.role AS staff_role,p.tenant_id AS staff_tenant,m.tenant_id AS member_tenant FROM portal_users u LEFT JOIN portal_staff p ON p.user_id=u.id LEFT JOIN members m ON m.email=u.email WHERE u.id=? AND u.role='customer'").get(id));if(!target)return new Response('账号不存在',{status:404});
+   const target=(await sql.prepare("SELECT u.id,u.username,u.email,p.role AS staff_role,p.tenant_id AS staff_tenant,m.tenant_id AS member_tenant FROM portal_users u LEFT JOIN portal_staff p ON p.user_id=u.id LEFT JOIN members m ON (m.user_id=u.id OR (m.user_id IS NULL AND m.email=u.email)) WHERE u.id=? AND u.role='customer'").get(id));if(!target)return new Response('账号不存在',{status:404});
    if(user.role==='tenant_owner'&&(target.member_tenant!==user.tenantId||target.staff_role))return json({error:'仅可管理本租户客户'},403);
    (await sql.exec('BEGIN IMMEDIATE'));try{
     const identityLock=await sql.prepare("UPDATE portal_users SET id=id WHERE id=? AND role='customer'").run(id);if(identityLock.changes!==1)throw Error('ACCOUNT_NOT_FOUND');
-    const current=await sql.prepare("SELECT u.username,u.email,p.role AS staff_role,p.tenant_id AS staff_tenant,m.tenant_id AS member_tenant FROM portal_users u LEFT JOIN portal_staff p ON p.user_id=u.id LEFT JOIN members m ON m.email=u.email WHERE u.id=? AND u.role='customer'").get(id);if(!current)throw Error('ACCOUNT_NOT_FOUND');
+    const current=await sql.prepare("SELECT u.username,u.email,p.role AS staff_role,p.tenant_id AS staff_tenant,m.tenant_id AS member_tenant FROM portal_users u LEFT JOIN portal_staff p ON p.user_id=u.id LEFT JOIN members m ON (m.user_id=u.id OR (m.user_id IS NULL AND m.email=u.email)) WHERE u.id=? AND u.role='customer'").get(id);if(!current)throw Error('ACCOUNT_NOT_FOUND');
     await sql.prepare('UPDATE members SET email=email WHERE email=?').run(current.email);
     if(user.role==='tenant_owner'&&(current.member_tenant!==user.tenantId||current.staff_role))throw Error('ACCOUNT_FORBIDDEN');
     if(approve){
      const tenantId=current.member_tenant||current.staff_tenant||(user.role==='owner'?'main':user.tenantId);
      if(!tenantId||(current.member_tenant&&current.member_tenant!==tenantId)||(current.staff_tenant&&current.staff_tenant!==tenantId))throw Error('TENANT_ASSIGNMENT_CONFLICT');
-     await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?) ON CONFLICT(email) DO NOTHING').run(current.email,tenantId,new Date().toISOString());
-     const assigned=await sql.prepare('SELECT tenant_id FROM members WHERE email=?').get(current.email);if(!assigned||assigned.tenant_id!==tenantId)throw Error('TENANT_ASSIGNMENT_CONFLICT');
+     await sql.prepare('INSERT INTO members(email,user_id,tenant_id,created_at) VALUES (?,?,?,?) ON CONFLICT(email) DO UPDATE SET user_id=COALESCE(members.user_id,excluded.user_id)').run(current.email,id,tenantId,new Date().toISOString());
+     const assigned=await sql.prepare('SELECT tenant_id FROM members WHERE user_id=? OR email=?').get(id,current.email);if(!assigned||assigned.tenant_id!==tenantId)throw Error('TENANT_ASSIGNMENT_CONFLICT');
     }
     await sql.prepare('UPDATE portal_users SET approved=? WHERE id=?').run(approve?1:0,id);await sql.prepare('DELETE FROM portal_sessions WHERE user_id=?').run(id);await log(user,(approve?'批准账号：':'暂停账号：')+current.username);await sql.exec('COMMIT');
    }catch(e){await sql.exec('ROLLBACK');if(e.message==='ACCOUNT_NOT_FOUND')return new Response('账号不存在',{status:404});if(e.message==='ACCOUNT_FORBIDDEN')return json({error:'仅可管理本租户客户'},403);if(e.message==='TENANT_ASSIGNMENT_CONFLICT')return json({error:'账号租户归属冲突'},409);throw e;}return redirect('/accounts');
@@ -424,4 +523,4 @@ export const server=createServer(async(req,res)=>{
  const cookies=response.headers.getSetCookie();if(selected)cookies.push(localeCookie+'='+selected+'; Path=/; Max-Age=31536000; SameSite=Lax'+(origin.protocol==='https:'?'; Secure':''));if(cookies.length)headers['set-cookie']=cookies;
  res.writeHead(response.status,headers);res.end(Buffer.from(await response.arrayBuffer()));});});
 server.requestTimeout=30000;server.headersTimeout=15000;
-if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){const port=Number(process.env.PORT||8080);server.listen(port,process.env.HOST||'127.0.0.1',()=>console.log('MASTER7 listening on port '+server.address().port+'; origin '+origin.origin));}
+if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){const port=Number(process.env.PORT||8080),host=effectiveListenHost(process.env);server.listen(port,host,()=>console.log('MASTER7 listening on port '+server.address().port+'; origin '+origin.origin));}
