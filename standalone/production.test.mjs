@@ -4,7 +4,7 @@ import {spawnSync} from 'node:child_process';
 import {existsSync,mkdtempSync,readFileSync,rmSync,writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {webConfig} from './production.mjs';
+import {effectiveListenHost,webConfig} from './production.mjs';
 
 const markers=[
  ['NODE_ENV','production'],['RENDER','true'],
@@ -46,6 +46,14 @@ test('production rejects whitespace database configuration without exposing it',
  const result=run("await import('./standalone/storage.mjs')",{NODE_ENV:'production',PORTAL_POSTGRES_URL:'  '});
  assert.notEqual(result.status,0);
  assert.match(result.stderr,/Production requires PORTAL_POSTGRES_URL/);
+});
+
+test('listen host defaults to loopback locally and all interfaces when hosted',()=>{
+ assert.equal(effectiveListenHost({NODE_ENV:'development'}),'127.0.0.1');
+ assert.equal(effectiveListenHost({NODE_ENV:'test'}),'127.0.0.1');
+ for(const [name,value] of markers)assert.equal(effectiveListenHost({[name]:value}),'0.0.0.0');
+ assert.equal(effectiveListenHost({NODE_ENV:'production',HOST:' 0.0.0.0 '}),'0.0.0.0');
+ assert.equal(effectiveListenHost({NODE_ENV:'production',HOST:'127.0.0.1'}),'127.0.0.1');
 });
 
 for(const existing of [false,true]){

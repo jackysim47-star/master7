@@ -3,6 +3,11 @@ export function isProduction(env=process.env){
  return env.NODE_ENV==='production'||Boolean(env.RENDER||env.RAILWAY_ENVIRONMENT_ID||env.RAILWAY_ENVIRONMENT_NAME||env.RAILWAY_PROJECT_ID||env.RAILWAY_SERVICE_ID);
 }
 
+export function effectiveListenHost(env=process.env){
+ const configured=typeof env.HOST==='string'?env.HOST.trim():'';
+ return configured||(isProduction(env)?'0.0.0.0':'127.0.0.1');
+}
+
 export function validateStorageConfig(env=process.env){
  if(env.PORTAL_TEST_POSTGRES==='1'&&isProduction(env))throw Error('The embedded Postgres test driver cannot be used in production.');
  if(isProduction(env)&&!env.PORTAL_POSTGRES_URL?.trim())throw Error('Production requires PORTAL_POSTGRES_URL; refusing ephemeral SQLite storage.');

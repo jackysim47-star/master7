@@ -136,7 +136,7 @@ async function canonicalScope(user,selected){
  if(!user||typeof user.userId!=='string')return {error:json({error:'请先登录'},401)};
  if(selected!==null&&selected!==undefined&&(typeof selected!=='string'||selected.length>60||/[\u0000-\u001f\u007f]/u.test(selected)))return {error:json({error:'租户标识无效'},400)};
  const identity=await sql.prepare(`SELECT u.id,u.email,u.role,u.approved,p.tenant_id AS staff_tenant,p.role AS staff_role,m.tenant_id AS member_tenant
-  FROM portal_users u LEFT JOIN portal_staff p ON p.user_id=u.id LEFT JOIN members m ON m.email=u.email WHERE u.id=?`).get(user.userId);
+  FROM portal_users u LEFT JOIN portal_staff p ON p.user_id=u.id LEFT JOIN members m ON (m.user_id=u.id OR (m.user_id IS NULL AND m.email=u.email)) WHERE u.id=?`).get(user.userId);
  if(!identity||!identity.approved)return {error:json({error:'账号不可用'},403)};
  const actualRole=identity.role==='owner'?'owner':identity.staff_role||'customer';
  if(actualRole!==user.role)return {error:json({error:'账号权限已变化，请重新登录'},403)};
@@ -362,7 +362,7 @@ export function createBankDeposits({now=()=>new Date(),rateLimit=limited,env=pro
    if(data.decision==='approve'&&!expectedReceipt){await sql.exec('ROLLBACK');return json({error:'必须提供刚才核对的银行单据指纹'},400);}
    if(data.decision==='approve'&&row.receipt_sha256!==expectedReceipt){await sql.exec('ROLLBACK');return json({error:'银行单据已变化，请重新打开并核对'},409);}
    if(data.decision==='approve'){
-    const member=await sql.prepare(`SELECT u.id,u.approved,COALESCE(m.tenant_id,'main') AS tenant_id FROM portal_users u LEFT JOIN members m ON m.email=u.email
+    const member=await sql.prepare(`SELECT u.id,u.approved,COALESCE(m.tenant_id,'main') AS tenant_id FROM portal_users u LEFT JOIN members m ON (m.user_id=u.id OR (m.user_id IS NULL AND m.email=u.email))
      LEFT JOIN portal_staff p ON p.user_id=u.id WHERE u.id=? AND u.role='customer' AND p.user_id IS NULL`).get(row.user_id);
     if(!member||!member.approved||member.tenant_id!==scope.tenantId){await sql.exec('ROLLBACK');return json({error:'会员归属已变化，不能入账'},409);}
     const claimed=await sql.prepare(`UPDATE portal_bank_deposits SET status='approved',review_request_key=?,review_fingerprint=?,review_decision='approve',review_reason=?,reviewed_by=?,reviewed_at=?,wallet_order_id=?
@@ -420,7 +420,7 @@ export function createBankDeposits({now=()=>new Date(),rateLimit=limited,env=pro
   const unknownCredited=await sql.prepare(`SELECT count(*) AS count,CAST(COALESCE(SUM(j.member_minor),0) AS TEXT) AS amount FROM portal_wallet_journal j
    JOIN portal_payment_orders o ON o.id=j.order_id WHERE j.tenant_id=? AND j.environment='production' AND o.provider='unknown' AND j.created_at>=? AND j.created_at<?`).get(scope.tenantId,from,to);
   const bankAccount=await sql.prepare('SELECT enabled FROM portal_bank_accounts WHERE tenant_id=?').get(scope.tenantId);
-  const registrations=await sql.prepare(`SELECT count(*) AS count FROM portal_users u LEFT JOIN members m ON m.email=u.email LEFT JOIN portal_staff p ON p.user_id=u.id
+  const registrations=await sql.prepare(`SELECT count(*) AS count FROM portal_users u LEFT JOIN members m ON (m.user_id=u.id OR (m.user_id IS NULL AND m.email=u.email)) LEFT JOIN portal_staff p ON p.user_id=u.id
    WHERE u.role='customer' AND p.user_id IS NULL AND COALESCE(m.tenant_id,'main')=? AND u.created_at>=? AND u.created_at<?`).get(scope.tenantId,from,to);
   const paidWithdrawals=await sql.prepare(`SELECT count(*) AS count,CAST(COALESCE(SUM(amount_minor),0) AS TEXT) AS amount FROM portal_withdrawal_requests
    WHERE tenant_id=? AND status='paid' AND paid_at>=? AND paid_at<?`).get(scope.tenantId,from,to);

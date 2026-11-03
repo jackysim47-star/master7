@@ -26,7 +26,16 @@ test('actual server protects cloud review, never calls suppliers and revokes sus
   });
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   const base='http://127.0.0.1:'+server.address().port;
-  const call=(path,cookie,method='GET')=>nativeFetch(base+path,{method,redirect:'manual',headers:cookie?{Cookie:cookie}:{}});
+  const call=(path,cookie,method='GET',extraHeaders={})=>nativeFetch(base+path,{method,redirect:'manual',headers:{...(cookie?{Cookie:cookie}:{}),...extraHeaders}});
+  const malaysia=await call('/api/v1/visitor-location',null,'GET',{'CF-IPCountry':'my','X-Forwarded-For':'203.0.113.7'});
+  assert.equal(malaysia.status,200);assert.equal(malaysia.headers.get('cache-control'),'no-store');
+  const location=await malaysia.json();assert.deepEqual(location,{visitorCountryCode:'MY',visitorCountryDetected:true,visitorCountrySource:'cf-ipcountry',platformCountryCode:'MY',currency:'MYR',timeZone:'Asia/Kuching',hostingRegion:'singapore',purpose:'presentation-only'});
+  assert(!JSON.stringify(location).includes('203.0.113.7'));
+  assert.equal((await call('/api/v1/visitor-location',null,'POST',{'CF-IPCountry':'MY'})).status,405);
+  const invalid=await (await call('/api/v1/visitor-location',null,'GET',{'CF-IPCountry':'MY<script>','X-Country':'MY'})).json();
+  assert.equal(invalid.visitorCountryDetected,false);assert.equal(invalid.visitorCountryCode,null);
+  const unknown=await (await call('/api/v1/visitor-location',null,'GET',{'CF-IPCountry':'XX'})).json();
+  assert.equal(unknown.visitorCountryDetected,false);assert.equal(unknown.visitorCountryCode,null);
   for(const path of ['/api/v1/deployment-readiness','/deployment-readiness']){
    assert.equal((await call(path)).status,401);
    for(const id of ['member','employee','tenant_owner'])assert.equal((await call(path,cookies[id])).status,403);

@@ -33,7 +33,7 @@ await withStorage(async()=>{
  await sql.prepare('INSERT INTO brands(id,name,created_at) VALUES (?,?,?)').run('alpha','Alpha',new Date().toISOString());
  await sql.prepare('INSERT INTO brands(id,name,created_at) VALUES (?,?,?) ON CONFLICT(id) DO NOTHING').run('main','Main',new Date().toISOString());
  for(const [id,role] of [['member','customer'],['owner','owner']])await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run(id,id,id+'@example.test','synthetic-hash',role,1,'synthetic-recovery',new Date().toISOString());
- await sql.prepare('INSERT INTO members VALUES (?,?,?)').run('member@example.test','alpha',new Date().toISOString());
+ await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run('member@example.test','alpha',new Date().toISOString());
 });
 const memberCookie='portal_session='+await newSession('member'),ownerCookie='portal_session='+await newSession('owner');
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const base='http://127.0.0.1:'+server.address().port;

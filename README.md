@@ -120,6 +120,8 @@ SQLite 与嵌入式 PostgreSQL/PGlite 本地 HTTP 回归测试通过，包含事
 总部后台新增“接入验收”入口；`npm run check:cloud` 只检查配置，`-- --live` 只读检查固定网关。
 `render.staging.yaml` 不更改正式服务或域名；数据库必须单独提供，不能把空库当成旧数据恢复。
 
+运行 `npm run setup:auto:preflight -- --target staging` 或 `--target production`，可输出脱敏的自动 Setup 门禁结果。V17 目标底版与 v105 迁移来源需要分别提供完整导出目录和逐文件 SHA-256 清单，当前仓库没有这两份导出，所以仍会阻止完整游戏平台预检。预检只读，绝不创建资源、连接数据库、迁移或部署。来源清单生成与限制见 [自动 Setup 预检](docs/CLOUD_DELIVERY.md#全平台自动-setup-预检)。
+
 ## 界面语言
 
 前后台、登录注册、账号安全与接入验收支持简体中文、English、Bahasa Melayu。

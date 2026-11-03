@@ -39,7 +39,7 @@ async function transaction(action) {
 async function trustedMember(userId) {
   return sql.prepare(`SELECT u.id,u.username,u.email,u.role,u.approved,
     m.tenant_id AS tenant_id,p.user_id AS staff_id
-    FROM portal_users u JOIN members m ON m.email=u.email
+    FROM portal_users u JOIN members m ON (m.user_id=u.id OR (m.user_id IS NULL AND m.email=u.email))
     LEFT JOIN portal_staff p ON p.user_id=u.id WHERE u.id=?`).get(userId);
 }
 

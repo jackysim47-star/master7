@@ -4,7 +4,7 @@ export const tickets=sqliteTable('tickets',{id:text('id').primaryKey(),tenantId:
 export const audit=sqliteTable('audit',{id:text('id').primaryKey(),tenantId:text('tenant_id').notNull().default('main'),actor:text('actor').notNull(),action:text('action').notNull(),createdAt:text('created_at').notNull()});
 
 export const brands=sqliteTable('brands',{id:text('id').primaryKey(),name:text('name').notNull(),tagline:text('tagline').notNull().default('欢迎来到服务中心'),color:text('color').notNull().default('#2165e8'),logo:text('logo').notNull().default(''),language:text('language',{enum:['zh-CN','en','ms']}).notNull().default('zh-CN'),supportUrl:text('support_url').notNull().default(''),createdAt:text('created_at').notNull()});
-export const members=sqliteTable('members',{email:text('email').primaryKey(),tenantId:text('tenant_id').notNull(),createdAt:text('created_at').notNull()});
+export const members=sqliteTable('members',{email:text('email').primaryKey(),tenantId:text('tenant_id').notNull(),createdAt:text('created_at').notNull(),userId:text('user_id')});
 // Minimal server-side identity projections used when headquarters assigns an
 // already-approved main member to a named brand. Password and recovery fields
 // deliberately remain outside this API module.

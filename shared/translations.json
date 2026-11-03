@@ -3158,5 +3158,37 @@
   "保存失败，请稍后重试。": {
     "en": "Save failed. Retry later.",
     "ms": "Gagal menyimpan. Cuba kemudian."
+  },
+  "老虎机 / 电子": {
+    "en": "Slots / Electronic",
+    "ms": "Slot / Elektronik"
+  },
+  "真人": {
+    "en": "Live Casino",
+    "ms": "Kasino Langsung"
+  },
+  "体育": {
+    "en": "Sports",
+    "ms": "Sukan"
+  },
+  "捕鱼": {
+    "en": "Fishing",
+    "ms": "Memancing"
+  },
+  "街机 / 小游戏": {
+    "en": "Arcade / Mini Games",
+    "ms": "Arked / Permainan Mini"
+  },
+  "游戏分类": {
+    "en": "Game categories",
+    "ms": "Kategori permainan"
+  },
+  "此分类暂无游戏": {
+    "en": "No games in this category yet",
+    "ms": "Belum ada permainan dalam kategori ini"
+  },
+  "目录中的游戏分类来自供应商原始标记；未知分类不会被猜测归类。": {
+    "en": "Categories use provider labels; unknown labels are not guessed.",
+    "ms": "Kategori menggunakan label pembekal; label yang tidak diketahui tidak diteka."
   }
 }

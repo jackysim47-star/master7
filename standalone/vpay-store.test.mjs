@@ -37,7 +37,7 @@ await withStorage(async () => {
     await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run(
       user.userId, `vpay_${key}`, user.email, 'synthetic-hash', 'customer', 1, 'synthetic-recovery', fixedTime,
     );
-    await sql.prepare('INSERT INTO members VALUES (?,?,?)').run(user.email, 'alpha', fixedTime);
+    await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run(user.email, 'alpha', fixedTime);
   }
 });
 

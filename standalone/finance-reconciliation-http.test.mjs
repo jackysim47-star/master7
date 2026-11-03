@@ -22,8 +22,8 @@ await withStorage(async()=>{
  await sql.prepare('INSERT INTO brands(id,name,created_at) VALUES (?,?,?)').run('alpha','Alpha',postedAt);
  for(const [id,email,role] of [['member','member@example.test','customer'],['owner','owner@example.test','owner'],['boss','boss@example.test','customer'],['outsider','outsider@example.test','customer']])
   await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run(id,id,email,'synthetic-hash',role,1,'synthetic-recovery',postedAt);
- await sql.prepare('INSERT INTO members VALUES (?,?,?)').run('member@example.test','alpha',postedAt);
- await sql.prepare('INSERT INTO members VALUES (?,?,?)').run('outsider@example.test','main',postedAt);
+ await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run('member@example.test','alpha',postedAt);
+ await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run('outsider@example.test','main',postedAt);
  await sql.prepare('INSERT INTO portal_staff VALUES (?,?,?)').run('boss','alpha','tenant_owner');
  for(const [id,provider,amount] of [['vpay-order','vpay',12000],['bank-order','bank_transfer',3000]]){
   await sql.prepare(`INSERT INTO portal_payment_orders(id,tenant_id,user_id,request_key,merchant_id,environment,amount_minor,currency,trade_no,settlement_status,review_required,created_at,verified_at,credited_at,provider)

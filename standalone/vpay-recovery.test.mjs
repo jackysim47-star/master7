@@ -24,7 +24,7 @@ const user={userId:'recovery_member',email:'recovery@example.test',role:'custome
 await withStorage(async()=>{
  await sql.prepare('INSERT INTO brands(id,name,created_at) VALUES (?,?,?)').run('alpha','Alpha',fixed);
  await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run(user.userId,'recovery_member',user.email,'synthetic-hash','customer',1,'synthetic-recovery',fixed);
- await sql.prepare('INSERT INTO members VALUES (?,?,?)').run(user.email,'alpha',fixed);
+ await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run(user.email,'alpha',fixed);
 });
 
 const baseEnv={

@@ -16,5 +16,7 @@ services:
         value: "24.19.0"
       - key: HOST
         value: "0.0.0.0"
+      - key: PORTAL_HOSTING_REGION
+        value: singapore
       - key: PORTAL_POSTGRES_URL
         sync: false

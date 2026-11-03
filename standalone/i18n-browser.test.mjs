@@ -20,6 +20,7 @@ try{
  }
  await page.goto(base+'/signin?lang=en');await page.locator('[name=username]').fill('browserowner');await page.locator('[name=password]').fill('Incorrect-password-123');await page.locator('form button').click();await page.getByRole('alert').filter({hasText:'Incorrect account or password'}).waitFor();
  await page.locator('[name=username]').fill('browserowner');await page.locator('[name=password]').fill(password);await page.locator('form button').click();await page.waitForURL(base+'/admin');await page.getByRole('heading',{name:'Administration centre',exact:true}).waitFor();
+ await page.waitForFunction(()=>document.documentElement.dataset.platformCountry==='MY'&&document.documentElement.dataset.currency==='MYR'&&document.documentElement.dataset.timeZone==='Asia/Kuching'&&document.documentElement.dataset.visitorCountry==='unknown');
  const mutate=async body=>{const response=await context.request.post(base+'/api/portal',{headers:{Origin:base,'X-Portal-Request':'1'},data:body});assert(response.ok(),await response.text());return response.json();};
  const fixture=(await context.request.get(base+'/api/portal')).json();const data=await fixture;
  await mutate({action:'save-notice',title:'会员管理',body:'登录 银行转账 这里是原始公告',published:true});
@@ -32,7 +33,10 @@ try{
    await page.goto(base+'/admin?section='+section);await page.getByRole('heading',{name:titles[lang][index],exact:true,level:1}).waitFor();assert.equal(await page.locator('html').getAttribute('lang'),lang);
    await page.waitForTimeout(150);
    if(section==='notices')assert((await page.locator('.content').innerText()).includes('登录 银行转账 这里是原始公告'));
-   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth);assert(!overflow,lang+' '+section+' overflow at '+width);
+   const overflow=await page.evaluate(()=>({page:document.documentElement.scrollWidth>document.documentElement.clientWidth,
+    elements:[...document.querySelectorAll('body *')].map(element=>({tag:element.tagName,className:typeof element.className==='string'?element.className:'',text:(element.innerText||'').slice(0,70),right:Math.round(element.getBoundingClientRect().right),width:Math.round(element.getBoundingClientRect().width)})).filter(element=>element.right>document.documentElement.clientWidth+1).slice(0,8),
+    ancestors:(()=>{let e=document.querySelector('.sponsor-tabs'),a=[];while(e){let r=e.getBoundingClientRect();a.push({tag:e.tagName,className:typeof e.className==='string'?e.className:'',left:Math.round(r.left),right:Math.round(r.right),width:Math.round(r.width),clientWidth:e.clientWidth,scrollWidth:e.scrollWidth,grid:getComputedStyle(e).gridTemplateColumns});e=e.parentElement;}return a;})(),buttons:[...document.querySelectorAll('.sponsor-tabs>button')].map(e=>({width:e.getBoundingClientRect().width,scrollWidth:e.scrollWidth,grid:getComputedStyle(e).gridTemplateColumns,minWidth:getComputedStyle(e).minWidth}))}));
+   assert(!overflow.page,lang+' '+section+' overflow at '+width+' '+JSON.stringify({elements:overflow.elements,ancestors:overflow.ancestors}));
   }
   for(const route of ['/account','/accounts','/connections','/deployment-readiness']){await page.goto(base+route);assert.equal(await page.locator('html').getAttribute('lang'),lang);assert.equal((await page.locator('h1').count()),1);}
   console.log('PASS language '+lang+' at '+width+'px: portal navigation, protected pages, persistence, content preservation, no overflow');

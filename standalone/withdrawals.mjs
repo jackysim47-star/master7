@@ -22,7 +22,7 @@ async function canonicalScope(user,selected){
  if(!user||typeof user.userId!=='string')return {error:json({error:'请先登录'},401)};
  if(selected!==null&&selected!==undefined&&(typeof selected!=='string'||selected.length>60||/[\u0000-\u001f\u007f]/u.test(selected)))return {error:json({error:'租户标识无效'},400)};
  const identity=await sql.prepare(`SELECT u.id,u.email,u.role,u.approved,p.tenant_id AS staff_tenant,p.role AS staff_role,m.tenant_id AS member_tenant
-  FROM portal_users u LEFT JOIN portal_staff p ON p.user_id=u.id LEFT JOIN members m ON m.email=u.email WHERE u.id=?`).get(user.userId);
+  FROM portal_users u LEFT JOIN portal_staff p ON p.user_id=u.id LEFT JOIN members m ON (m.user_id=u.id OR (m.user_id IS NULL AND m.email=u.email)) WHERE u.id=?`).get(user.userId);
  if(!identity||!identity.approved)return {error:json({error:'账号不可用'},403)};
  const actualRole=identity.role==='owner'?'owner':identity.staff_role||'customer';
  if(actualRole!==user.role)return {error:json({error:'账号权限已变化，请重新登录'},403)};
@@ -212,7 +212,7 @@ export function createWithdrawals({env=process.env,now=()=>new Date(),rateLimit=
    await sql.prepare('UPDATE portal_users SET approved=approved WHERE id=?').run(row.user_id);
    if(row.status!==from)throw Object.assign(Error('STATE_CONFLICT'),{publicStatus:409});
    if(['start','paid'].includes(value.action)){
-    const member=await sql.prepare("SELECT COALESCE(m.tenant_id,'main') AS tenant_id FROM portal_users u LEFT JOIN members m ON m.email=u.email LEFT JOIN portal_staff p ON p.user_id=u.id WHERE u.id=? AND u.role='customer' AND u.approved=1 AND p.user_id IS NULL").get(row.user_id);
+    const member=await sql.prepare("SELECT COALESCE(m.tenant_id,'main') AS tenant_id FROM portal_users u LEFT JOIN members m ON (m.user_id=u.id OR (m.user_id IS NULL AND m.email=u.email)) LEFT JOIN portal_staff p ON p.user_id=u.id WHERE u.id=? AND u.role='customer' AND u.approved=1 AND p.user_id IS NULL").get(row.user_id);
     if(!member||member.tenant_id!==row.tenant_id)throw Object.assign(Error('MEMBER_UNAVAILABLE'),{publicStatus:409});
    }
    let changed;
