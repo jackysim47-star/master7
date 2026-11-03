@@ -113,3 +113,16 @@ node standalone/admin.mjs backup /PRIVATE_BACKUP_PATH/portal-backup.sqlite
 账号安全入口要求当前密码及新密码确认；成功后退出所有会话、使旧恢复码失效，并仅显示一次新恢复码。没有邮件或短信发送，不能将人工批准或恢复码当成 OTP。
 
 SQLite 与嵌入式 PostgreSQL/PGlite 本地 HTTP 回归测试通过，包含事务回滚与数据重新打开检查。Supabase 已验证空表、RLS 与浏览器角色无直接读取权限；真实服务到 Supabase 的网络/TLS/账号连接尚未验证，不等于已经上线。
+
+## 云端 staging 交付
+
+[云端交付与验收](docs/CLOUD_DELIVERY.md)说明独立 staging、四家充值公司的核实状态和发布门槛。
+总部后台新增“接入验收”入口；`npm run check:cloud` 只检查配置，`-- --live` 只读检查固定网关。
+`render.staging.yaml` 不更改正式服务或域名；数据库必须单独提供，不能把空库当成旧数据恢复。
+
+## 界面语言
+
+前后台、登录注册、账号安全与接入验收支持简体中文、English、Bahasa Melayu。
+在页面语言入口切换，浏览器会记忆选择；未选择时使用品牌默认语言。
+公告、客服内容、品牌信息和游戏名称保留原文；金额仍为 MYR，业务时间仍为 MYT。
+开发及验证说明见 [docs/I18N.md](docs/I18N.md)。

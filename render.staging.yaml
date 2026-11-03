@@ -1,0 +1,29 @@
+# Separate staging only. Supply a NEW isolated database, never the old member DB.
+# Does not create a database, change domains or enable real transactions.
+services:
+  - type: web
+    name: master7-cloud-staging
+    runtime: node
+    region: singapore
+    plan: free
+    branch: codex/cloud-staging-readiness
+    autoDeployTrigger: "off"
+    numInstances: 1
+    buildCommand: npm ci --include=dev && npm run build && npm run test:cloud && npm test && npm run test:postgres
+    startCommand: PUBLIC_ORIGIN="$RENDER_EXTERNAL_URL" npm run start:staging
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "24.19.0"
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: "0.0.0.0"
+      - key: PORTAL_POSTGRES_URL
+        sync: false
+      - key: PORTAL_VPAY_SETTLEMENT_ENABLED
+        value: "false"
+      - key: PORTAL_VPAY_ORDERS_ENABLED
+        value: "false"
+      - key: PORTAL_VPAY_RECOVERY_ENABLED
+        value: "false"

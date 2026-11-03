@@ -42,6 +42,12 @@ jobs:
       - name: Run desktop and mobile member support journey
         run: npm run test:browser:journey
 
+      - name: Run three-language interface and preference tests
+        run: npm run test:i18n && npm run test:browser:i18n
+
+      - name: Run cloud staging readiness and authorization tests
+        run: npm run test:cloud
+
       - name: Run core tests
         run: npm test
 

@@ -128,7 +128,8 @@ test('transaction failure after journal insertion rolls back the wallet, order a
   assert.equal((await s.receive(raw(order),auth)).status,503);
  }finally{sql.prepare=prepare;}
  assert.equal(await count('portal_wallet_journal'),before);const current=await find(order.id);assert.equal(current.settlement_status,'pending');assert.equal(current.credited_at,null);
- const failed=await (await records(boss)).json(),failure=failed.records.find(r=>r.id===order.id);assert.equal(failure.reviewRequired,false);assert(failure.reviews.some(r=>r.reason==='VPAY_SETTLEMENT_RETRY'));
+ // This fixture uses a historical clock; query its date rather than the real-time default seven-day window.
+ const failed=await (await records(boss,{from:'2026-10-23',to:'2026-10-23'})).json(),failure=failed.records.find(r=>r.id===order.id);assert(failure,'historical rollback order must be visible in its requested date range');assert.equal(failure.reviewRequired,false);assert(failure.reviews.some(r=>r.reason==='VPAY_SETTLEMENT_RETRY'));
  clock=new Date(clock.getTime()+61_000);
  assert.equal((await s.receive(raw(order),auth)).status,200);assert.equal(await count('portal_wallet_journal'),before+1);
 });
