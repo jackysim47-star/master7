@@ -25,3 +25,11 @@
 2. 通过 Render Dashboard/Blueprint 建立独立测试服务，在云端 Secret 配置中填入暂存库连接 URL；服务必须使用可信 TLS，不能把连接秘密贴到聊天或日志。
 3. 记录 Render service/deploy ID 与实际 `RENDER_GIT_COMMIT`；仅当其与候选 SHA 一致时，运行 `npm run verify:deployment -- --origin <staging-https-origin> --commit <full-sha> --assets-dir standalone/dist`。
 4. staging 的数据库 ready 只证明测试库连通与迁移可用，不等于旧会员数据恢复。SMS OTP 仍不可用前，不验收顾客正式登录；供应商交易开关继续关闭。
+
+
+## 2026-11-03 追加：域名与 Render 只读复核
+
+- Render 工作区服务清单仍只有 `master7-v15-malaysia-final` 静态预览和 `ahbi-service-portal-c3jm` 旧门户，没有独立的 `master7-cloud-staging`。旧门户仍连接 `wbdream10-cpu/master7`，不是 PR #2 合并后的 staging 部署；V15 静态预览仍是模板构建，不是完整游戏平台。
+- Sites 只读域名记录：V17 服务门户的 `master7.best` 与 `www.master7.best` 处于待验证状态（Sites 显示 provider active、SSL active）；V15 模板列有错误的 `www.master7.admin`，状态待定且 SSL 初始化中。尚未发现 `admin.master7.best` 已绑定到正确的管理后台。
+- V17 Site 的说明范围是会员审批、客服工单、公告和员工管理，不能据此把这两个顾客域名切到该服务门户。没有改域名、DNS、证书或正式服务。
+- 下一步仍由 Render 工作区管理员在 Dashboard/Blueprint 建立独立 staging，并在该服务的 Secret 配置中填写暂存库 URL；部署前确认服务使用仓库 `jackysim47-star/master7` 的固定合并 SHA。原 v105 工程与旧数据恢复证据仍未取得。
