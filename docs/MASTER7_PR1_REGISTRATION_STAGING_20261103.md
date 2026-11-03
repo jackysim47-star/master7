@@ -33,3 +33,9 @@
 - Sites 只读域名记录：V17 服务门户的 `master7.best` 与 `www.master7.best` 处于待验证状态（Sites 显示 provider active、SSL active）；V15 模板列有错误的 `www.master7.admin`，状态待定且 SSL 初始化中。尚未发现 `admin.master7.best` 已绑定到正确的管理后台。
 - V17 Site 的说明范围是会员审批、客服工单、公告和员工管理，不能据此把这两个顾客域名切到该服务门户。没有改域名、DNS、证书或正式服务。
 - 下一步仍由 Render 工作区管理员在 Dashboard/Blueprint 建立独立 staging，并在该服务的 Secret 配置中填写暂存库 URL；部署前确认服务使用仓库 `jackysim47-star/master7` 的固定合并 SHA。原 v105 工程与旧数据恢复证据仍未取得。
+
+
+## 管理端 VPN 使用要求
+
+- 老板可用日常工作电脑上的 VPN，通过 HTTPS 登录共用管理后台；顾客前台保持公开访问，不要求顾客使用 VPN。
+- 不按办公室或 VPN 出口 IP 锁定后台，避免 VPN 地址变化造成管理者无法登录。若以后另设访问限制，必须先验证管理员备用登录方式。
