@@ -1,10 +1,11 @@
-MASTER7 V17 Render staging package
+# MASTER7 V17 Render staging package
 
-This branch carries a V17 version 9 source snapshot adapted for Render Node/Nitro and an isolated PostgreSQL staging database. It is not the production site and must not be connected to customer DNS until staging checks pass.
+This branch carries the isolated SEVEN customer portal and shared backoffice for Render staging. It is not production and does not change either official domain or import legacy customer data.
 
-Source snapshot SHA-256: e15d84a871dad55a97840381f5d938b7545f61e65a4235606fa25be9ab08fb38
-Provenance: V17 source commit 295af6bc29fca1ff3521e5749b9cb241326bed66. The source archive is expanded by the Render build command into .render-v17/.
+Staging source bundle SHA-256: `63575292a340445e2e309328a2ca5345f6aa8b1863d9425a89abf8ae0a18b6d5`
+Release: `17.0.0-selfbuilt.9`
+Source archive is expanded by the Render build command into `.render-v17/`.
 
-The database starts with schema only; no legacy customers, balances, or orders are imported. Payment, wallet, and live-game features remain disabled. SMS OTP and complete game/payment acceptance are not included by this portal source.
+The package now includes backoffice-managed lobby ads (1200x360, rotating every five minutes), configurable benefit display rules, individually managed provider game cards and up to five separately displayed SEVEN mini-game cards (800x600 artwork). Malaysian member phone numbers are collected and normalized; account passwords require at least eight characters. Owner/staff sign-in remains ID and password at `/admin`.
 
-Render's internal staging PostgreSQL presents a self-signed certificate. Staging currently uses encrypted TLS over Render's private network with certificate-chain verification disabled. Production must use a trusted CA and verified TLS; do not copy the staging PGSSL_REJECT_UNAUTHORIZED setting to production.
+Important staging limits: SMS OTP is not connected, so customer SMS verification is not complete. Provider games and platform mini-game cards are catalogue/display entries only and cannot launch or settle. Deposits, withdrawals, wallet changes and real-money play remain disabled. Do not connect production DNS or import legacy data based on this package.
