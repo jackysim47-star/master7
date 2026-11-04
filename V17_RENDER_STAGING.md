@@ -20,4 +20,14 @@ Backoffice benefits can be scoped to one sponsor or all three. Claim Bonus shows
 
 This is still staging. Real SMS OTP, provider game launches and settlement, and formal payment/withdrawal UAT have not passed. The portal reports `liveGames=false`, `realPayments=false`, and `productionReady=false`; Active is a display/control state, not approval for real-money operation. The new image and benefit settings use the isolated portal database. No legacy customer data or production domains were changed.
 
-Validation before packaging: 67 Node tests, TypeScript check, Render database adapter tests, and Render build pass. The startup migration snapshots only prior status rows within its transaction; it is not a full database backup. Render Free Postgres does not provide point-in-time restore, so full-database backup/restore remains unverified. Trigger a manual Render deploy only after this commit is pushed to the service's staging branch; automatic deploy remains disabled. After deployment, verify the exact source SHA, `/health`, static assets, the two pages, brand directory, per-game states, and ticket-based bonus request in staging.
+Validation before packaging: 67 Node tests, TypeScript check, Render database adapter tests, and Render build pass. The startup migration snapshots only prior status rows within its transaction; it is not a full database backup. Render Free Postgres does not provide point-in-time restore, so full-database backup/restore remains unverified. The manual Render deployment for the staged source commit succeeded; automatic deploy remains disabled. The anonymous HTTP checks below verify service health and fail-closed public APIs. Owner-authenticated backoffice changes still require the owner to sign in for a visual acceptance pass.
+
+
+## Deployment verification (2026-11-04 UTC)
+
+- Service: `master7-v17-staging` (`srv-dbl0iv7f3r2c73848ei0`)
+- Source commit: `55e4421cd7f6ab7a94ab0b5f6ae603452636e203`
+- Render deploy: `dep-dblfr18n74is73a16ns0` — live
+- `https://master7-v17-staging.onrender.com/health` returns release `17.0.0-selfbuilt.16`, database ready, `smsOtpReady=false`, `realPayments=false`, `liveGames=false`, and `productionReady=false`.
+- The public APIs show the three sponsored brands, zero visible supplier titles, zero platform mini-games, and all four payment channels at Close with `transactionsEnabled=false`. Unauthenticated backoffice calls return 401.
+- The migration log confirms 76 closed directory entries were seeded. Production DNS and legacy data were not changed. Full database restore and owner-authenticated live UI acceptance remain unverified.
