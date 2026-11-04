@@ -235,10 +235,10 @@ test('staging entrypoints require distinct HTTPS hosts and production origins ar
   MASTER7_STAGING_ADMIN_ORIGIN:'http://m7-admin-staging.example.test'}});
  assert(badStaging.blockers.includes('STAGING_TWO_ENTRYPOINTS'));
  const reusedProduction=await autoSetupReadiness({target:'production',sourceDir,env:{...readyConfiguration,
-  MASTER7_CUSTOMER_ORIGIN:'https://www.master7.best',MASTER7_ADMIN_ORIGIN:'https://www.master7.best'}});
+  MASTER7_CUSTOMER_ORIGIN:'https://www.master7.vip',MASTER7_ADMIN_ORIGIN:'https://www.master7.vip'}});
  assert(reusedProduction.blockers.includes('PRODUCTION_TWO_ENTRYPOINTS'));
  const wrongAdmin=await autoSetupReadiness({target:'production',sourceDir,env:{...readyConfiguration,
-  MASTER7_CUSTOMER_ORIGIN:'https://www.master7.best',MASTER7_ADMIN_ORIGIN:'https://www.master7.admin'}});
+  MASTER7_CUSTOMER_ORIGIN:'https://www.master7.vip',MASTER7_ADMIN_ORIGIN:'https://www.master7.admin'}});
  assert(wrongAdmin.blockers.includes('PRODUCTION_TWO_ENTRYPOINTS'));
 });
 

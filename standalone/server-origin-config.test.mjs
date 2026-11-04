@@ -7,9 +7,9 @@ import {tmpdir} from 'node:os';
 const directory=mkdtempSync(join(tmpdir(),'master7-origin-config-'));
 const manyOrigins=Array.from({length:21},(_,index)=>`https://brand${index}.example.test`).join(',');
 const cases=[
- ['https://master7.best/path','without credentials, path, query, or fragment'],
- ['http://master7.best','must use HTTPS outside local development'],
- ['https://user:pass@master7.best','without credentials, path, query, or fragment'],
+ ['https://master7.vip/path','without credentials, path, query, or fragment'],
+ ['http://master7.vip','must use HTTPS outside local development'],
+ ['https://user:pass@master7.vip','without credentials, path, query, or fragment'],
  ['http://localhost:8080','must use the same protocol as PUBLIC_ORIGIN'],
  [manyOrigins,'at most 20 comma-separated origins'],
  ['x'.repeat(2001),'is too long'],

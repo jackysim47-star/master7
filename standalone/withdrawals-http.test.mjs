@@ -8,7 +8,7 @@ process.env.NODE_ENV='test';
 const directory=mkdtempSync(join(tmpdir(),'master7-withdrawals-http-'));
 process.env.PORTAL_DATABASE=join(directory,'withdrawals.sqlite');
 process.env.PUBLIC_ORIGIN='https://portal.example.test';
-process.env.PORTAL_ALLOWED_ORIGINS='https://master7.vip,https://master7.best';
+process.env.PORTAL_ALLOWED_ORIGINS='https://www.master7.vip,https://admin.master7.vip';
 process.env.PORTAL_WITHDRAWALS_ENABLED='true';
 
 const nativeFetch=globalThis.fetch;
@@ -58,7 +58,7 @@ try{
 
  const before=await (await call('/api/v1/withdrawals/config',{headers:{Cookie:cookies.member}})).json();
  assert.deepEqual({enabled:before.enabled,balance:before.balanceMinor,posted:before.postedBalanceMinor,held:before.heldMinor,available:before.availableMinor},{enabled:true,balance:'10000',posted:'10000',held:'0',available:'10000'});
- const createdResponse=await call('/api/v1/withdrawals',{method:'POST',headers:headers(cookies.member,'https://master7.vip'),body:JSON.stringify(submit)});
+ const createdResponse=await call('/api/v1/withdrawals',{method:'POST',headers:headers(cookies.member,'https://www.master7.vip'),body:JSON.stringify(submit)});
  assert.equal(createdResponse.status,201);const created=(await createdResponse.json()).withdrawal;assert.equal(created.amountMinor,'6000');assert.equal(created.status,'pending_review');
  const duplicate=await (await call('/api/v1/withdrawals',{method:'POST',headers:headers(cookies.member),body:JSON.stringify(submit)})).json();assert.equal(duplicate.duplicate,true);assert.equal(duplicate.withdrawal.id,created.id);
 
@@ -74,7 +74,7 @@ try{
  assert.equal((await call('/api/v1/withdrawals/'+created.id+'/review?tenant=beta',{method:'POST',headers:headers(cookies['beta-boss']),body:JSON.stringify({action:'reject',requestKey:'beta_review_request_001',reason:'Wrong tenant'})})).status,404);
 
  const start=await call('/api/v1/withdrawals/'+created.id+'/review',{method:'POST',headers:headers(cookies.finance),body:JSON.stringify({action:'start',requestKey:'http_start_review_0001'})});assert.equal(start.status,200);assert.equal((await start.json()).withdrawal.status,'processing');
- const paid=await call('/api/v1/withdrawals/'+created.id+'/review',{method:'POST',headers:headers(cookies.boss,'https://master7.best'),body:JSON.stringify({action:'paid',requestKey:'http_paid_review_00001',reference:'HTTP-PAYOUT-001'})});assert.equal(paid.status,200);assert.equal((await paid.json()).withdrawal.status,'paid');
+ const paid=await call('/api/v1/withdrawals/'+created.id+'/review',{method:'POST',headers:headers(cookies.boss,'https://admin.master7.vip'),body:JSON.stringify({action:'paid',requestKey:'http_paid_review_00001',reference:'HTTP-PAYOUT-001'})});assert.equal(paid.status,200);assert.equal((await paid.json()).withdrawal.status,'paid');
  const walletPaid=await (await call('/api/v1/wallet?environment=production',{headers:{Cookie:cookies.member}})).json();
  assert.deepEqual({balance:walletPaid.balanceMinor,posted:walletPaid.postedBalanceMinor,held:walletPaid.heldMinor,available:walletPaid.availableMinor},{balance:'4000',posted:'4000',held:'0',available:'4000'});
  const metrics=await (await call('/api/v1/finance-metrics',{headers:{Cookie:cookies.finance}})).json();assert.deepEqual(metrics.withdrawals,{enabled:true,count:1,amountMinor:'6000'});

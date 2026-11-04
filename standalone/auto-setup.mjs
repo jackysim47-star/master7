@@ -137,14 +137,14 @@ export async function autoSetupReadiness({target='staging',env=process.env,sourc
  const stagingAdmin=httpsOrigin(env.MASTER7_STAGING_ADMIN_ORIGIN);
  add('STAGING_TWO_ENTRYPOINTS',Boolean(stagingCustomer&&stagingAdmin&&stagingCustomer!==stagingAdmin&&
   new URL(stagingCustomer).hostname!==new URL(stagingAdmin).hostname&&
-  !['www.master7.best','admin.master7.best'].includes(new URL(stagingCustomer).hostname)&&
-  !['www.master7.best','admin.master7.best'].includes(new URL(stagingAdmin).hostname)));
+  !['www.master7.vip','admin.master7.vip'].includes(new URL(stagingCustomer).hostname)&&
+  !['www.master7.vip','admin.master7.vip'].includes(new URL(stagingAdmin).hostname)));
  add('CUSTOMER_SMS_OTP_UAT',confirmed(env,'MASTER7_CUSTOMER_SMS_OTP_UAT_CONFIRMED'));
  add('SHARED_ADMIN_ROLE_UAT',confirmed(env,'MASTER7_SHARED_ADMIN_ROLE_UAT_CONFIRMED'));
 
  if(target==='production'){
-  add('PRODUCTION_TWO_ENTRYPOINTS',httpsOrigin(env.MASTER7_CUSTOMER_ORIGIN)==='https://www.master7.best'&&
-   httpsOrigin(env.MASTER7_ADMIN_ORIGIN)==='https://admin.master7.best');
+  add('PRODUCTION_TWO_ENTRYPOINTS',httpsOrigin(env.MASTER7_CUSTOMER_ORIGIN)==='https://www.master7.vip'&&
+   httpsOrigin(env.MASTER7_ADMIN_ORIGIN)==='https://admin.master7.vip');
   add('VENDOR_UAT_ACCEPTANCE',confirmed(env,'MASTER7_VENDOR_UAT_CONFIRMED'));
   add('OPERATING_LICENSE_AND_CONTRACTS',confirmed(env,'MASTER7_LICENSE_AND_CONTRACTS_CONFIRMED'));
   add('DOMAIN_OWNERSHIP',confirmed(env,'MASTER7_DOMAIN_OWNERSHIP_CONFIRMED'));
