@@ -1,5 +1,19 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
+## Current live handover build — 2026-11-05 02:40 MYT
+
+- Service: `master7-v17-staging` (`srv-dbl0iv7f3r2c73848ei0`).
+- Source commit: `756c815e44a72cb1dbedc855b087e8212bd1496c`.
+- Render deploy: `dep-dblnnd1srm7s73f6f3u0` — live at 2026-11-05 02:40 MYT.
+- Runtime release: `17.0.0-selfbuilt.25-supplier-art-manager`; database reports ready.
+- Bundle SHA-256: `37a331440b01149416155ed5532a2c8b6de9aab1ecb144bc08512a1be4fd4ef3`.
+- Customer front, admin and registration pages return HTTP 200. The live assets contain the lively casino lobby, independent 34-supplier image manager and multi-ad display.
+- Catalogue check returned MegaH5 166, JILI 297 and 918KISS 92, totaling 555 records. Game launch remains `playable:false`.
+- VPay reports enabled in UAT with six trade codes and remains `realPayments:false` / `liveReady:false`. GSPAY, 1MPAY and GSPAY+ remain closed until their exact order/query/callback contracts pass wallet-ledger tests.
+- Anchor SMS still reports `smsOtpReady:false`.
+
+The sections below are retained as historical records and do not supersede this live build.
+
 Updated 2026-11-04 MYT. Current production acceptance is not complete.
 
 ## Verified running deployment
