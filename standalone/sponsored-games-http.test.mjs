@@ -41,12 +41,14 @@ await withStorage(async () => {
   const now = new Date().toISOString();
   for (const id of ['alpha', 'beta']) await sql.prepare('INSERT INTO brands(id,name,created_at) VALUES (?,?,?)').run(id, id, now);
   await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run('member', 'member', 'member@example.test', 'synthetic-password-hash', 'customer', 1, 'synthetic-recovery-hash', now);
+  await sql.prepare('INSERT INTO portal_users VALUES (?,?,?,?,?,?,?,?)').run('owner', 'owner', 'owner@example.test', 'synthetic-password-hash', 'owner', 1, 'synthetic-recovery-hash', now);
   await sql.prepare('INSERT INTO members(email,tenant_id,created_at) VALUES (?,?,?)').run('member@example.test', 'alpha', now);
 });
 const memberCookie = 'portal_session=' + await withStorage(() => newSession('member'));
+const ownerCookie = 'portal_session=' + await withStorage(() => newSession('owner'));
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
 const base = 'http://127.0.0.1:' + server.address().port;
-const call = (path, cookie) => nativeFetch(base + path, { redirect: 'manual', headers: cookie ? { Cookie: cookie } : {} });
+const call = (path, cookie, init={}) => nativeFetch(base + path, { redirect: 'manual', ...init, headers: { ...(cookie ? { Cookie: cookie } : {}), ...(init.headers||{}) } });
 
 try {
   const anonymous = await call('/api/v1/sponsored-games?provider=jili');
@@ -66,13 +68,23 @@ try {
   assert.equal(data.source.status, 'ready');
   assert.equal(data.source.environment, 'uat');
   assert.equal(data.source.scope, 'catalog_only');
-  assert.deepEqual(data.games, [{ id: 'synthetic-game', name: 'Synthetic Game', category: 'slot', imageUrl: null, status: 'catalogued' }]);
+  assert.deepEqual(data.games, [{ id: 'synthetic-game', entryKey:'synthetic-game:0', name: 'Synthetic Game', category: 'slot', imageUrl: null, providerStatus: 'catalogued', status: 'active', categoryOverride:'' }]);
   assert(!JSON.stringify(data).includes('must-not-pass'));
   assert.equal(upstreamCalls, 1);
 
   const crossTenant = await call('/api/v1/sponsored-games?provider=jili&tenant=beta', memberCookie);
   assert.equal(crossTenant.status, 403);
   assert.equal(upstreamCalls, 1);
+
+  const saveCategory = await call('/api/v1/game-status?tenant=alpha', ownerCookie, {
+    method:'POST',
+    headers:{ Origin:process.env.PUBLIC_ORIGIN, 'X-Portal-Request':'1', 'Content-Type':'application/json' },
+    body:JSON.stringify({ provider:'jili', gameId:'synthetic-game', gameKey:'synthetic-game:0', status:'active', categoryOverride:'fast_game' }),
+  });
+  assert.equal(saveCategory.status,200);
+  assert.deepEqual(await saveCategory.json(), { ok:true, tenantId:'alpha', provider:'jili', gameId:'synthetic-game', gameKey:'synthetic-game:0', status:'active', categoryOverride:'fast_game', updatedAt:(await sql.prepare('SELECT updated_at FROM portal_game_statuses WHERE tenant_id=? AND provider=? AND game_id=?').get('alpha','jili','synthetic-game:0')).updated_at });
+  const ownerCatalogue=await call('/api/v1/sponsored-games?provider=jili&tenant=alpha',ownerCookie);
+  assert.equal((await ownerCatalogue.json()).games[0].categoryOverride,'fast_game');
   console.log('PASS: real local HTTP sponsored-games route rejects anonymous and cross-tenant access; authenticated member receives a read-only UAT catalogue with launch and wallet disabled. Synthetic upstream only.');
 } finally {
   await new Promise(resolve => server.close(resolve));

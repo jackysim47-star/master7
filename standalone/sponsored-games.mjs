@@ -125,14 +125,15 @@ function rawGames(provider, data) {
 function projectGames(provider, data, maximumGames) {
   const input = rawGames(provider, data);
   const games = [];
-  const seen = new Set();
-  for (const item of input) {
+  for (const [sourceIndex, item] of input.entries()) {
     if (games.length >= maximumGames) break;
     const id = safeText(item.id, 128), name = safeText(item.name, 300);
-    if (!id || !name || seen.has(id)) continue;
-    seen.add(id);
+    if (!id || !name) continue;
     games.push({
       id,
+      // Keep every supplier row as its own entry. A repeated game code is not
+      // enough evidence to merge provider-supplied entries.
+      entryKey: `${id}:${sourceIndex}`,
       name,
       category: safeText(item.category, 80) || 'other',
       imageUrl: safeImage(item.imageUrl),
@@ -160,6 +161,7 @@ export function createSponsoredGamesHandler({
   cacheMs,
   pendingCacheMs,
   errorCacheMs,
+  getStatuses = async () => [],
   allowedGatewayOrigin = SPONSORED_GAMES_GATEWAY_ORIGIN,
 } = {}) {
   if (typeof getMemberTenant !== 'function' || typeof tenantExists !== 'function' || typeof fetchImpl !== 'function' || typeof now !== 'function') {
@@ -245,6 +247,17 @@ export function createSponsoredGamesHandler({
     const access = await scope(user, selectedTenant);
     if (access.error) return access.error;
     const result = await read(provider);
-    return json({ tenantId: access.tenantId, provider, freeOnly: true, freeEligibilitySource: 'user_confirmed_sponsorship', launchEnabled: false, walletUsed: false, ...result });
+    let overrides=[];
+    try { overrides=await getStatuses(access.tenantId,provider); } catch { return json({error:'游戏状态暂时无法确认，请稍后重试。'},503); }
+    const byId=new Map(overrides.map(row=>[row.game_id||row.gameId,row]));
+    const games=result.games.map(game=>{
+      const override=byId.get(game.id);
+      const legacyOverride=byId.get(game.id);
+      const entryOverride=byId.get(game.entryKey);
+      const saved=entryOverride||legacyOverride;
+      return { ...game, providerStatus:game.status, status: game.status==='maintenance'?'maintenance':(saved?.status || 'active'), categoryOverride:saved?.category_override||saved?.categoryOverride||'' };
+    });
+    const visibleGames=user.role==='owner'||user.role==='tenant_owner'||user.role==='employee' ? games : games.filter(game=>game.status!=='close');
+    return json({ tenantId: access.tenantId, provider, freeOnly: true, freeEligibilitySource: 'user_confirmed_sponsorship', launchEnabled: false, walletUsed: false, ...result, games:visibleGames });
   };
 }

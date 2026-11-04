@@ -272,8 +272,8 @@
     "ms": "Portal ahli dan pentadbir dengan status di satu tempat."
   },
   "三大赞助商，\n免费游戏一个入口。": {
-    "en": "Three sponsors, one free game entry point.",
-    "ms": "Tiga penaja, satu akses permainan percuma."
+    "en": "Three sponsors, three separate game areas.",
+    "ms": "Tiga penaja, tiga ruang permainan berasingan."
   },
   "查看公告、提交客服申请并管理账号资料。": {
     "en": "Read announcements, submit support requests and manage account information.",
@@ -1376,7 +1376,7 @@
     "ms": "Tiada rekod pindahan bank"
   },
   "其他": {
-    "en": "Other",
+    "en": "Others",
     "ms": "Lain-lain"
   },
   "正在读取供应商目录": {
@@ -3160,12 +3160,12 @@
     "ms": "Gagal menyimpan. Cuba kemudian."
   },
   "老虎机 / 电子": {
-    "en": "Slots / Electronic",
-    "ms": "Slot / Elektronik"
+    "en": "Slots",
+    "ms": "Slot"
   },
   "真人": {
-    "en": "Live Casino",
-    "ms": "Kasino Langsung"
+    "en": "Live",
+    "ms": "Langsung"
   },
   "体育": {
     "en": "Sports",
@@ -3190,5 +3190,105 @@
   "目录中的游戏分类来自供应商原始标记；未知分类不会被猜测归类。": {
     "en": "Categories use provider labels; unknown labels are not guessed.",
     "ms": "Kategori menggunakan label pembekal; label yang tidak diketahui tidak diteka."
+  },
+  "三家赞助商，\n三个独立专区。": {
+    "en": "Three sponsors, three separate areas.",
+    "ms": "Tiga penaja, tiga ruang berasingan."
+  },
+  "三家赞助商各自独立专区，顾客自行查看和选择。": {
+    "en": "Customers can browse and choose each sponsor separately.",
+    "ms": "Pelanggan boleh melihat dan memilih setiap penaja secara berasingan."
+  },
+  "JILI、MegaH5、918KISS H5 各自独立展示；每款游戏单独分类。": {
+    "en": "JILI, MegaH5 and 918KISS H5 are shown separately; every game has its own category.",
+    "ms": "JILI, MegaH5 dan 918KISS H5 dipaparkan berasingan; setiap permainan mempunyai kategorinya sendiri."
+  },
+  "独立赞助专区": {
+    "en": "Separate sponsor area",
+    "ms": "Ruang penaja berasingan"
+  },
+  "每家厂家独立专区；每款目录记录单独展示和分类。游戏启动等待厂家验收。": {
+    "en": "Each provider has a separate area; every catalogue entry is shown and classified individually. Launch awaits provider testing.",
+    "ms": "Setiap penyedia mempunyai ruang berasingan; setiap entri katalog dipaparkan dan dikategorikan secara individu. Pelancaran menunggu ujian penyedia."
+  },
+  "厂家未提供分类": {
+    "en": "Provider category unavailable",
+    "ms": "Kategori penyedia tiada"
+  },
+  "待老板分类": {
+    "en": "Needs owner classification",
+    "ms": "Menunggu pengelasan pemilik"
+  },
+  "后台分类": {
+    "en": "Admin category",
+    "ms": "Kategori pentadbir"
+  },
+  "沿用已知厂家分类；未知待分类": {
+    "en": "Use known provider category; unknown entries need classification",
+    "ms": "Gunakan kategori penyedia yang diketahui; entri tidak diketahui perlu dikelaskan"
+  },
+  "快开彩": {
+    "en": "Fast games",
+    "ms": "Permainan pantas"
+  },
+  "游戏状态": {
+    "en": " game status",
+    "ms": " status permainan"
+  },
+  " · 查看明细": {
+    "en": " · View details",
+    "ms": " · Lihat butiran"
+  },
+  " · 新申请已关闭": {
+    "en": " · New requests are closed",
+    "ms": " · Permohonan baharu ditutup"
+  },
+  "批准后 MYR ": {
+    "en": "After approval, MYR ",
+    "ms": "Selepas diluluskan, MYR "
+  },
+  " 会单次加入 ": {
+    "en": " will be added once to ",
+    "ms": " akan ditambah sekali kepada "
+  },
+  " 的钱包，不能在本页面撤回。": {
+    "en": "'s wallet and cannot be reversed on this page.",
+    "ms": " dompet dan tidak boleh dibatalkan pada halaman ini."
+  },
+  " · 收到金额 ": {
+    "en": " · Amount received ",
+    "ms": " · Amaun diterima "
+  },
+  "顾客自行设置会员 ID 和密码；账号建立后不需要人工批准。": {
+    "en": "Customers create their own member ID and password; no manual approval is required after registration.",
+    "ms": "Pelanggan menetapkan ID ahli dan kata laluan sendiri; kelulusan manual tidak diperlukan selepas pendaftaran."
+  },
+  "账号或密码错误，或账号已暂停。": {
+    "en": "Incorrect account or password, or the account is suspended.",
+    "ms": "Akaun atau kata laluan salah, atau akaun digantung."
+  },
+  "注册成功": {
+    "en": "Registration successful",
+    "ms": "Pendaftaran berjaya"
+  },
+  "账号已建立，不需要人工批准；恢复码不会再次显示。": {
+    "en": "Your account is ready and does not require manual approval. The recovery code will not be shown again.",
+    "ms": "Akaun anda telah tersedia dan tidak memerlukan kelulusan manual. Kod pemulihan tidak akan dipaparkan lagi."
+  },
+  "管理会员状态、分配职责，并保持每个品牌的数据权限独立。": {
+    "en": "Manage member status and roles while keeping each brand's data permissions separate.",
+    "ms": "Urus status dan peranan ahli sambil mengasingkan kebenaran data setiap jenama."
+  },
+  "可登录": {
+    "en": "Login enabled",
+    "ms": "Log masuk diaktifkan"
+  },
+  "已暂停": {
+    "en": "Suspended",
+    "ms": "Digantung"
+  },
+  "恢复账号": {
+    "en": "Restore account",
+    "ms": "Pulihkan akaun"
   }
 }

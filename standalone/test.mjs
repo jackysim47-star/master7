@@ -52,15 +52,14 @@ try{
  assert.equal((await form('/auth/login',{username:'owner',password},'','null')).status,403);
  assert.equal((await req('/auth/login',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams({username:'owner',password})})).status,403);
  assert.equal((await form('/auth/register',{username:'alice',email:'alice@example.test',password:'weak'})).status,400);
- const registerPage=await (await req('/register')).text();assert(!/name="email"/.test(registerPage));assert(registerPage.includes('只需设置会员 ID 和密码'));
+ const registerPage=await (await req('/register')).text();assert(!/name="email"/.test(registerPage));assert(registerPage.includes('顾客自行设置会员 ID 和密码'));assert(registerPage.includes('Language / Bahasa / 语言'));
  let r=await form('/auth/register',{username:'alice',email:'alice@example.test',password});assert.equal(r.status,200);let aliceRecovery=(await r.text()).match(/<code class="recovery">([^<]+)/)[1];
- assert.equal((await form('/auth/login',{username:'alice',password})).status,401);
+ assert.equal((await form('/auth/login',{username:'alice',password})).status,303);
  let noEmailResponse=await form('/auth/register',{username:'noemailmember',password});assert.equal(noEmailResponse.status,200);const noEmailRecovery=(await noEmailResponse.text()).match(/<code class="recovery">([^<]+)/)[1];assert(noEmailRecovery);
- const noEmailAccount=await (await import('./runtime.mjs')).sql.prepare('SELECT id,email,approved FROM portal_users WHERE username=?').get('noemailmember');assert(noEmailAccount.email.endsWith('@member.invalid'));assert.equal(noEmailAccount.approved,0);
- assert.equal((await form('/auth/login',{username:'noemailmember',password})).status,401);
+ const noEmailAccount=await (await import('./runtime.mjs')).sql.prepare('SELECT id,email,approved FROM portal_users WHERE username=?').get('noemailmember');assert(noEmailAccount.email.endsWith('@member.invalid'));assert.equal(noEmailAccount.approved,1);
+ assert.equal((await form('/auth/login',{username:'noemailmember',password})).status,303);
  r=await form('/auth/login',{username:'owner',password});assert.equal(r.status,303);const ownerCookie=session(r);assert(r.headers.get('set-cookie').includes('HttpOnly'));assert(r.headers.get('set-cookie').includes('SameSite=Lax'));
- const initial=await (await get(ownerCookie)).json();assert.equal(initial.brand.name,'MASTER7');assert.equal(initial.notices.length,0);assert.equal(initial.tickets.length,0);assert.equal(initial.audit.length,0);assert.equal(initial.members.length,0);
- assert.equal((await form('/accounts/approve',{id:noEmailAccount.id},ownerCookie)).status,303);
+ const initial=await (await get(ownerCookie)).json();assert.equal(initial.brand.name,'MASTER7');assert.equal(initial.notices.length,0);assert.equal(initial.tickets.length,0);assert.equal(initial.audit.length,0);assert.equal(initial.members.length,2);
  const linkedMembership=await (await import('./runtime.mjs')).sql.prepare('SELECT tenant_id,user_id FROM members WHERE email=?').get(noEmailAccount.email);assert.equal(linkedMembership.tenant_id,'main');assert.equal(linkedMembership.user_id,noEmailAccount.id);
  const runtimeMode=process.env.NODE_ENV;try{process.env.NODE_ENV='production';assert.equal((await form('/auth/login',{username:'noemailmember',password})).status,503)}finally{process.env.NODE_ENV=runtimeMode}
  const noEmailLogin=await form('/auth/login',{username:'noemailmember',password});assert.equal(noEmailLogin.status,303);assert.equal((await get(session(noEmailLogin))).status,200);
@@ -86,7 +85,6 @@ try{
  await assert.rejects(withStorage(async()=>{await sql.exec('BEGIN IMMEDIATE');await sql.prepare('INSERT INTO brands(id,name,created_at) VALUES (?,?,?)').run('rollback-check','Must not persist',new Date().toISOString());throw Error('Force rollback');}));
  assert.equal(await sql.prepare('SELECT id FROM brands WHERE id=?').get('rollback-check'),undefined);
  const alice=(await sql.prepare("SELECT * FROM portal_users WHERE username='alice'").get());assert.notEqual(alice.password_hash,password);assert.notEqual(alice.recovery_hash,aliceRecovery);
- assert.equal((await form('/accounts/approve',{id:alice.id},ownerCookie)).status,303);
  r=await form('/auth/login',{username:'alice',password});assert.equal(r.status,303);let aliceCookie=session(r);
  const memberChannels=await (await paymentChannels(aliceCookie)).json();assert.equal(memberChannels.diagnostics,undefined);assert(memberChannels.channels.every(channel=>channel.status==='not_open'&&channel.enabled===false));assert.equal(memberChannels.fundsProcessed,false);
  assert.deepEqual(brandFields((await (await get(aliceCookie)).json()).brand),brandSettings);
@@ -259,5 +257,5 @@ try{
   });
  }
  await sql.close();assert.equal((await req('/health')).status,503);
- console.log('PASS ['+(postgresTest?'PostgreSQL/PGlite':'SQLite')+']: real local HTTP registration/pending approval/login; owner approval; password hashing; session cookie security; unauthenticated rejection; customer/admin separation; request/reply persistence; tenant isolation; recovery rotation and session revocation; logout; suspension; expired sessions; CSP; built assets; headquarters provisioning; tenant owner isolation; employee restrictions; cross-tenant denial; role-change session revocation; Deposit request validation, exact minor units, idempotency and isolation; password change, old-session invalidation and recovery rotation; brand settings persistence, member visibility, legacy compatibility, validation, audit and tenant permissions; database readiness and unavailable response. Temporary test database only.');
+ console.log('PASS ['+(postgresTest?'PostgreSQL/PGlite':'SQLite')+']: customer self-registration and immediate account activation; password hashing; session cookie security; unauthenticated rejection; customer/admin separation; request/reply persistence; tenant isolation; recovery rotation and session revocation; logout; owner suspension and recovery; expired sessions; CSP; built assets; headquarters provisioning; tenant owner isolation; employee restrictions; cross-tenant denial; role-change session revocation; Deposit request validation, exact minor units, idempotency and isolation; password change, old-session invalidation and recovery rotation; brand settings persistence, member visibility, legacy compatibility, validation, audit and tenant permissions; database readiness and unavailable response. Temporary test database only.');
 }finally{await new Promise(r=>server.close(r));const {sql}=await import('./runtime.mjs');(await sql.close());rmSync(dir,{recursive:true,force:true});}

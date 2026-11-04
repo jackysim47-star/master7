@@ -19,7 +19,7 @@
     "test:wallet": "node standalone/wallet.test.mjs && node standalone/wallet.test.mjs --postgres",
     "test:wallet:http": "node standalone/wallet-http.test.mjs",
     "test:checkout": "node standalone/vpay-checkout.test.mjs && node standalone/vpay-checkout.test.mjs --postgres",
-    "test:games": "node standalone/sponsored-games.test.mjs && node standalone/sponsored-games-http.test.mjs && node --test standalone/game-categories.test.mjs",
+    "test:games": "node standalone/sponsored-games.test.mjs && node standalone/game-status-schema.test.mjs && node standalone/game-status-schema.test.mjs --postgres && node standalone/sponsored-games-http.test.mjs && node --test standalone/game-categories.test.mjs",
     "test:promotions": "node standalone/promotion-drafts-http.test.mjs && node standalone/promotion-drafts-http.test.mjs --postgres",
     "test:bank-deposits": "node standalone/bank-deposits.test.mjs && node standalone/bank-deposits.test.mjs --postgres && node standalone/bank-deposits-http.test.mjs",
     "test:withdrawals": "node standalone/withdrawals.test.mjs && node standalone/withdrawals.test.mjs --postgres && node standalone/withdrawals-http.test.mjs",

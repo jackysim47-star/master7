@@ -78,10 +78,11 @@ test('the three fixed provider routes use only the server token and project safe
   for (const provider of ['megah5', 'jili', '918kiss']) results[provider] = await (await get({ ...customer, token: 'caller-token', url: 'https://attacker.test' }, params({ provider }))).json();
   assert.deepEqual(seen, [...expected.keys()]);
   assert.deepEqual(results.megah5.games, [
-    { id: 'mega-1', name: 'Mega One', category: '2', imageUrl: 'https://images.example.test/mega.webp', status: 'catalogued' },
-    { id: 'bad', name: 'Bad Image', category: '3', imageUrl: null, status: 'catalogued' },
+    { id: 'mega-1', entryKey: 'mega-1:0', name: 'Mega One', category: '2', imageUrl: 'https://images.example.test/mega.webp', providerStatus: 'catalogued', status: 'active', categoryOverride: '' },
+    { id: 'mega-1', entryKey: 'mega-1:1', name: 'Duplicate', category: '2', imageUrl: null, providerStatus: 'catalogued', status: 'active', categoryOverride: '' },
+    { id: 'bad', entryKey: 'bad:2', name: 'Bad Image', category: '3', imageUrl: null, providerStatus: 'catalogued', status: 'active', categoryOverride: '' },
   ]);
-  assert.deepEqual(results.jili.games, [{ id: 'jili-1', name: 'Jili One', category: 'slot', imageUrl: null, status: 'catalogued' }]);
+  assert.deepEqual(results.jili.games, [{ id: 'jili-1', entryKey: 'jili-1:0', name: 'Jili One', category: 'slot', imageUrl: null, providerStatus: 'catalogued', status: 'active', categoryOverride: '' }]);
   assert.equal(results['918kiss'].games[0].status, 'maintenance');
   assert.equal(results.jili.source.status, 'ready');
   assert.equal(results.jili.source.environment, 'uat');
@@ -91,6 +92,24 @@ test('the three fixed provider routes use only the server token and project safe
   assert.equal(results.jili.freeEligibilitySource, 'user_confirmed_sponsorship');
   assert(!JSON.stringify(results).includes('must-not-pass'));
   assert(!JSON.stringify(results).includes('caller-token'));
+});
+
+test('saved game states override supplier defaults; close is hidden from customers but visible to admins', async () => {
+  const get = handler({
+    fetchImpl: async () => makeResponse({ provider: 'jili', account: '1to1', games: [
+      { gameCode: 'open', name: 'Open Game', category: 'slot' },
+      { gameCode: 'paused', name: 'Paused Game', category: 'slot' },
+      { gameCode: 'closed', name: 'Closed Game', category: 'slot' },
+    ] }),
+    getStatuses: async tenant => tenant === 'alpha' ? [
+      { game_id: 'paused', status: 'maintenance', category_override: 'sports' }, { game_id: 'closed', status: 'close', category_override: '' },
+    ] : [],
+  });
+  const customerData = await (await get(customer, params('provider=jili'))).json();
+  assert.deepEqual(customerData.games.map(game => [game.id, game.status]), [['open','active'],['paused','maintenance']]);
+  const adminData = await (await get(owner, params('provider=jili&tenant=alpha'))).json();
+  assert.deepEqual(adminData.games.map(game => [game.id, game.status]), [['open','active'],['paused','maintenance'],['closed','close']]);
+  assert.equal(adminData.games.find(game=>game.id==='paused').categoryOverride,'sports');
 });
 
 test('a public gateway can be read without inventing an Authorization header', async () => {
