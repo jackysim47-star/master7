@@ -2,7 +2,7 @@
 
 Updated: 2026-11-05 MYT
 
-## Delivered in candidate 17.0.0-selfbuilt.25-supplier-art-manager
+## Delivered in candidate 17.0.0-selfbuilt.26-withdrawal-requests
 
 - Customer lobby and owner backoffice now use two distinct screenshot-based layouts.
 - Customer lobby: lively casino-style dark game-lobby shell, animated MASTER7 stage, gold/purple lighting, category navigation, three sponsored suppliers, 34 separate supplier buttons and supplier artwork.
@@ -16,16 +16,21 @@ Updated: 2026-11-05 MYT
 - MegaH5 and 918KISS title art use the bounded same-origin image proxy; JILI uses its supplier artwork when its catalogue has no title image.
 - Four payment entries and their backoffice controls remain independent.
 
+- Customer Withdraw now records one of four independent companies, a Malaysian bank, account holder, account number and MYR amount.
+- Requests first alert the MASTER7 owner backoffice. The owner then processes payment manually in the selected provider backoffice and records Approved, Processing, Paid or Rejected.
+- Pending amounts are reserved from available wallet balance; rejected requests release the reserve and paid requests reduce the wallet once.
+- Bank details are encrypted at rest and customer history shows only the last four digits.
+
 ## Verification
 
-- Full local suite: 85 passed, 0 failed, 0 skipped.
+- Full local suite: 87 passed, 0 failed, 0 skipped.
 - Customer OTP-only registration/login regression tests pass.
 - Owner password login, activation and recovery regressions pass.
 - JavaScript syntax check passes.
 - Render production build passes.
 - Desktop and 390 px mobile layouts were visually inspected for customer lobby and nine-card backoffice.
-- Bundle SHA-256: `37a331440b01149416155ed5532a2c8b6de9aab1ecb144bc08512a1be4fd4ef3`.
-- Reviewable diff: `docs/patches/MASTER7_LIVELY_LOBBY_MEDIA_MANAGER_20261104.patch`.
+- Bundle SHA-256: `aa15f9b78401e28dd88d9cd5eb2ed68cb1eda49dc26a7474cf0bcc514d5df867`.
+- Reviewable diff: `docs/patches/MASTER7_WITHDRAWAL_REQUESTS_20261105.patch`.
 
 ## Exact remaining live dependencies
 

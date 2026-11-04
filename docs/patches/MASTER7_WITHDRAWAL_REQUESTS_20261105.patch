@@ -1,0 +1,478 @@
+diff -ruN '--exclude=node_modules' '--exclude=.output' '--exclude=.sites-runtime' master7-v17-render-staging.old/app/api/[...path]/route.ts master7-v17-render-staging/app/api/[...path]/route.ts
+--- master7-v17-render-staging.old/app/api/[...path]/route.ts	2026-11-04 06:54:00.000000000 +0000
++++ master7-v17-render-staging/app/api/[...path]/route.ts	2026-11-04 18:47:38.767139492 +0000
+@@ -6,6 +6,6 @@
+  const candidates=[config.RENDER_EXTERNAL_URL,config.PUBLIC_ORIGIN,...String(config.PORTAL_ALLOWED_ORIGINS??'').split(',')];
+  return [...new Set(candidates.flatMap(value=>{try{const url=new URL(String(value??'').trim());return url.protocol==='https:'&&!url.username&&!url.password&&!url.port&&(!url.pathname||url.pathname==='/')&&!url.search&&!url.hash?[url.origin]:[];}catch{return [];}}))];
+ }
+-async function dispatch(req:Request){if(!env.DB)return Response.json({error:'Database unavailable'},{status:503});const config=env as unknown as Record<string,string>;return handle(req,{db:env.DB,identity:await getChatGPTUser(),ownerEmail:config.OWNER_EMAIL??'',ownerLoginId:config.OWNER_LOGIN_ID,allowedOrigins:trustedOrigins(config),gameGatewayUrl:config.GAME_GATEWAY_URL,vpayGatewayUrl:config.VPAY_GATEWAY_URL,vpayOrderToken:config.VPAY_ORDER_TOKEN,vpayQueryToken:config.VPAY_QUERY_TOKEN,vpayCallbackToken:config.VPAY_CALLBACK_TOKEN,vpayOrdersEnabled:config.VPAY_ORDERS_ENABLED,vpayMode:config.VPAY_MODE,vpayTraderId:config.VPAY_TRADER_ID,vpayReturnUrl:config.VPAY_RETURN_URL,ownerSetupHash:config.OWNER_SETUP_TOKEN_HASH,ownerSetupExpires:Number(config.OWNER_SETUP_EXPIRES_AT??0),ownerResetHash:config.OWNER_RESET_TOKEN_HASH,ownerResetExpires:Number(config.OWNER_RESET_EXPIRES_AT??0),ownerResetIssuedAt:Number(config.OWNER_RESET_ISSUED_AT??0),anchorApiBaseUrl:config.ANCHOR_SMS_API_BASE_URL,anchorUsername:config.ANCHOR_SMS_USERNAME,anchorPassword:config.ANCHOR_SMS_PASSWORD,anchorSenderId:config.ANCHOR_SMS_SENDER_ID,otpHashSecret:config.OTP_HASH_SECRET});}
++async function dispatch(req:Request){if(!env.DB)return Response.json({error:'Database unavailable'},{status:503});const config=env as unknown as Record<string,string>;return handle(req,{db:env.DB,identity:await getChatGPTUser(),ownerEmail:config.OWNER_EMAIL??'',ownerLoginId:config.OWNER_LOGIN_ID,allowedOrigins:trustedOrigins(config),gameGatewayUrl:config.GAME_GATEWAY_URL,vpayGatewayUrl:config.VPAY_GATEWAY_URL,vpayOrderToken:config.VPAY_ORDER_TOKEN,vpayQueryToken:config.VPAY_QUERY_TOKEN,vpayCallbackToken:config.VPAY_CALLBACK_TOKEN,vpayOrdersEnabled:config.VPAY_ORDERS_ENABLED,vpayMode:config.VPAY_MODE,vpayTraderId:config.VPAY_TRADER_ID,vpayReturnUrl:config.VPAY_RETURN_URL,ownerSetupHash:config.OWNER_SETUP_TOKEN_HASH,ownerSetupExpires:Number(config.OWNER_SETUP_EXPIRES_AT??0),ownerResetHash:config.OWNER_RESET_TOKEN_HASH,ownerResetExpires:Number(config.OWNER_RESET_EXPIRES_AT??0),ownerResetIssuedAt:Number(config.OWNER_RESET_ISSUED_AT??0),anchorApiBaseUrl:config.ANCHOR_SMS_API_BASE_URL,anchorUsername:config.ANCHOR_SMS_USERNAME,anchorPassword:config.ANCHOR_SMS_PASSWORD,anchorSenderId:config.ANCHOR_SMS_SENDER_ID,otpHashSecret:config.OTP_HASH_SECRET,withdrawalDataKey:config.WITHDRAWAL_DATA_KEY});}
+ export const GET=dispatch;
+ export const POST=dispatch;
+diff -ruN '--exclude=node_modules' '--exclude=.output' '--exclude=.sites-runtime' master7-v17-render-staging.old/app/portal.html master7-v17-render-staging/app/portal.html
+--- master7-v17-render-staging.old/app/portal.html	2026-11-04 18:32:40.000000000 +0000
++++ master7-v17-render-staging/app/portal.html	2026-11-04 18:49:25.741762057 +0000
+@@ -17,6 +17,7 @@
+     <nav class="topnav" aria-label="Main navigation">
+       <button data-section="lobby" class="nav-button active" data-i18n="navLobby">Games</button>
+       <button data-section="deposit" class="nav-button" data-i18n="navDeposit">Deposit</button>
++      <button data-section="withdraw" class="nav-button" data-i18n="navWithdraw">Withdraw</button>
+       <button data-section="support" class="nav-button" data-i18n="navSupport">Support</button>
+       <button data-section="admin" id="adminNav" class="nav-button" hidden data-i18n="navAdmin">Backoffice</button>
+     </nav>
+@@ -34,6 +35,7 @@
+     <p class="portal-sidebar-heading">MENU</p>
+     <button data-section="lobby" class="nav-button sidebar-nav-button active"><span class="sidebar-icon" aria-hidden="true">▦</span><span data-i18n="navLobby">Games</span></button>
+     <button data-section="deposit" class="nav-button sidebar-nav-button"><span class="sidebar-icon" aria-hidden="true">＋</span><span data-i18n="navDeposit">Deposit</span></button>
++    <button data-section="withdraw" class="nav-button sidebar-nav-button"><span class="sidebar-icon" aria-hidden="true">−</span><span data-i18n="navWithdraw">Withdraw</span></button>
+     <button data-section="support" class="nav-button sidebar-nav-button"><span class="sidebar-icon" aria-hidden="true">◌</span><span data-i18n="navSupport">Support</span></button>
+     <button data-section="admin" id="adminSidebarNav" class="nav-button sidebar-nav-button" hidden><span class="sidebar-icon" aria-hidden="true">▤</span><span data-i18n="navAdmin">Backoffice</span></button>
+     <p class="portal-sidebar-heading portal-game-heading">GAMES</p>
+@@ -183,6 +185,24 @@
+       </section>
+     </section>
+ 
++    <section id="withdraw" class="section">
++      <div class="section-header"><div><p class="eyebrow">MYR · WITHDRAW</p><h1 data-i18n="withdrawTitle">Withdraw</h1><p class="muted" data-i18n="withdrawIntro">Choose a Malaysian bank and one of four payout companies, then submit your withdrawal request.</p></div></div>
++      <div class="withdraw-layout">
++        <form id="withdrawalForm" class="surface stack withdrawal-form">
++          <div class="wallet-balance"><span>Available balance</span><strong id="withdrawAvailable">—</strong></div>
++          <label for="withdrawProvider">Withdraw company</label>
++          <select id="withdrawProvider" required><option value="">Choose company</option><option value="vpay">VPay</option><option value="gspay">GSPAY</option><option value="1mpay">1MPAY</option><option value="gspay_plus">GSPAY+</option></select>
++          <label for="withdrawBank">Malaysia bank</label><select id="withdrawBank" required><option value="">Choose bank</option></select>
++          <label for="withdrawAccountHolder">Bank account holder name</label><input id="withdrawAccountHolder" minlength="2" maxlength="80" autocomplete="name" required>
++          <label for="withdrawAccountNumber">Bank account number</label><input id="withdrawAccountNumber" inputmode="numeric" minlength="6" maxlength="24" autocomplete="off" required>
++          <label for="withdrawAmount">Amount · RM</label><input id="withdrawAmount" type="number" min="1" max="100000" step="0.01" inputmode="decimal" required>
++          <button id="withdrawSubmit" class="button button-primary" type="submit">Submit Withdraw</button>
++          <p id="withdrawMessage" class="muted" role="status" aria-live="polite">Sign in with an approved customer account to submit.</p>
++        </form>
++        <section class="surface stack withdrawal-records" aria-labelledby="withdrawRecordsTitle"><div class="wallet-records-heading"><h2 id="withdrawRecordsTitle">My withdrawal records</h2><button id="refreshWithdrawals" type="button" class="button button-outline">Refresh</button></div><div id="memberWithdrawalRecords"><p class="muted">Sign in to view records.</p></div></section>
++      </div>
++    </section>
++
+     <section id="support" class="section">
+       <div class="section-header"><div><p class="eyebrow">SUPPORT CENTER</p><h1 data-i18n="supportTitle">客户服务中心</h1><p class="muted" data-i18n="supportIntro">创建工单并在这里接收员工回复。</p></div></div>
+       <div class="two-col">
+@@ -200,6 +220,7 @@
+             <a href="#operationsPanel">Dashboard</a>
+             <a href="#paymentChannelManager">Payment channels</a>
+             <a href="#adminDepositPanel">Deposit records</a>
++            <a href="#adminWithdrawalPanel">Withdrawal requests</a>
+             <a href="#securityPanel">Security monitor</a>
+             <a href="#announcementPanel">Announcements</a>
+             <a href="#providerPanel">Sponsored providers</a>
+@@ -236,6 +257,10 @@
+           <div class="wallet-records-heading"><div><h2 id="adminDepositTitle">Deposit records · Owner view</h2><p id="adminDepositNotice" class="muted">Read-only records. Payment processing remains disabled.</p></div><button id="refreshAdminDeposits" type="button" class="button button-outline">Refresh records</button></div>
+           <div id="adminDepositRecords"><p class="muted">Loading records…</p></div>
+         </section>
++        <section class="surface stack" id="adminWithdrawalPanel" hidden aria-labelledby="adminWithdrawalTitle">
++          <div class="wallet-records-heading"><div><h2 id="adminWithdrawalTitle">Withdrawal requests · Owner view</h2><p class="muted">Four companies and every Malaysian bank are recorded separately. Update the status after checking the selected company.</p></div><button id="refreshAdminWithdrawals" type="button" class="button button-outline">Refresh requests</button></div>
++          <div id="adminWithdrawalRecords"><p class="muted">Loading requests…</p></div>
++        </section>
+         <div class="surface stack" id="securityPanel" hidden>
+           <h2 id="securityHeading">今日操作监控</h2>
+           <p class="muted" id="securityNotice">仅显示本测试环境的匿名安全事件计数，不包含密码、IP 或 OTP。</p>
+diff -ruN '--exclude=node_modules' '--exclude=.output' '--exclude=.sites-runtime' master7-v17-render-staging.old/db/render-schema.sql master7-v17-render-staging/db/render-schema.sql
+--- master7-v17-render-staging.old/db/render-schema.sql	2026-11-04 18:33:24.000000000 +0000
++++ master7-v17-render-staging/db/render-schema.sql	2026-11-04 18:48:56.565028755 +0000
+@@ -221,3 +221,26 @@
+   PRIMARY KEY(migration_version, entity_type, entity_key)
+ );
+ CREATE INDEX IF NOT EXISTS portal_status_snapshot_key ON portal_status_snapshots(migration_version, entity_type, entity_key);
++CREATE TABLE IF NOT EXISTS withdrawal_requests (
++  id TEXT PRIMARY KEY NOT NULL,
++  user_id TEXT NOT NULL REFERENCES users(id),
++  request_key TEXT NOT NULL,
++  provider_id TEXT NOT NULL CHECK (provider_id IN ('vpay','gspay','1mpay','gspay_plus')),
++  provider_name TEXT NOT NULL,
++  bank_code TEXT NOT NULL,
++  bank_name TEXT NOT NULL,
++  account_holder_encrypted TEXT NOT NULL,
++  account_number_encrypted TEXT NOT NULL,
++  account_last4 TEXT NOT NULL,
++  amount_minor BIGINT NOT NULL CHECK (amount_minor > 0 AND amount_minor <= 10000000),
++  currency TEXT NOT NULL CHECK (currency = 'MYR'),
++  status TEXT NOT NULL CHECK (status IN ('pending','approved','processing','paid','rejected','cancelled')),
++  owner_note TEXT NOT NULL DEFAULT '',
++  updated_by TEXT REFERENCES users(id),
++  created_at BIGINT NOT NULL,
++  updated_at BIGINT NOT NULL,
++  UNIQUE(user_id, request_key)
++);
++CREATE INDEX IF NOT EXISTS withdrawal_requests_user_created ON withdrawal_requests(user_id,created_at DESC);
++CREATE INDEX IF NOT EXISTS withdrawal_requests_status_created ON withdrawal_requests(status,created_at DESC);
++CREATE UNIQUE INDEX IF NOT EXISTS withdrawal_one_open_per_member ON withdrawal_requests(user_id) WHERE status IN ('pending','approved','processing');
+diff -ruN '--exclude=node_modules' '--exclude=.output' '--exclude=.sites-runtime' master7-v17-render-staging.old/dist/server/BUILD_ID master7-v17-render-staging/dist/server/BUILD_ID
+--- master7-v17-render-staging.old/dist/server/BUILD_ID	2026-11-04 18:33:46.000000000 +0000
++++ master7-v17-render-staging/dist/server/BUILD_ID	2026-11-04 18:52:03.329738573 +0000
+@@ -1 +1 @@
+-02c5715c-4250-4369-a86f-bff6233f369b
+\ No newline at end of file
++4bf66285-8a52-4abe-a16c-71ac9a6c4857
+\ No newline at end of file
+diff -ruN '--exclude=node_modules' '--exclude=.output' '--exclude=.sites-runtime' master7-v17-render-staging.old/docs/MASTER7_WITHDRAWAL_REQUESTS_20261105.md master7-v17-render-staging/docs/MASTER7_WITHDRAWAL_REQUESTS_20261105.md
+--- master7-v17-render-staging.old/docs/MASTER7_WITHDRAWAL_REQUESTS_20261105.md	1970-01-01 00:00:00.000000000 +0000
++++ master7-v17-render-staging/docs/MASTER7_WITHDRAWAL_REQUESTS_20261105.md	2026-11-04 18:56:07.145909180 +0000
+@@ -0,0 +1,29 @@
++# MASTER7 customer withdrawal requests
++
++Updated: 2026-11-05 MYT
++
++## Delivered flow
++
++1. An approved customer opens **Withdraw**.
++2. The customer selects one of four separately recorded companies: VPay, GSPAY, 1MPAY or GSPAY+.
++3. The customer selects a Malaysian bank and enters account-holder name, account number and an MYR amount.
++4. The portal checks the available wallet amount, reserves the requested amount and creates one pending request.
++5. The MASTER7 owner backoffice shows an immediate pending-request notice and the full request details.
++6. The owner processes the request in the selected company's backoffice and updates MASTER7 through Approved, Processing, Paid or Rejected.
++7. Rejected requests release the reserved amount. Paid requests reduce the member wallet once.
++
++This release does not automatically submit a payout to a payment provider. That matches the owner's latest instruction: MASTER7 receives the request first, and the operator then processes it in the selected provider backoffice.
++
++## Data protection
++
++Bank account holder and account number are encrypted at rest with the server-only `WITHDRAWAL_DATA_KEY`. Customer history only returns the last four digits. Exports omit encrypted fields. The key is not included in source, reports or browser code.
++
++## Verification
++
++- Four independent provider choices and 18 Malaysian banks.
++- Member-only, approved-account access with existing origin and CSRF controls.
++- Available-balance and one-open-request checks.
++- Owner-only full details and valid status transitions.
++- Wallet hold, rejection release and paid deduction tests.
++- Complete local suite: 87 passed, 0 failed, 0 skipped.
++- JavaScript syntax and Render production build passed.
+diff -ruN '--exclude=node_modules' '--exclude=.output' '--exclude=.sites-runtime' master7-v17-render-staging.old/drizzle/0014_withdrawal_requests.sql master7-v17-render-staging/drizzle/0014_withdrawal_requests.sql
+--- master7-v17-render-staging.old/drizzle/0014_withdrawal_requests.sql	1970-01-01 00:00:00.000000000 +0000
++++ master7-v17-render-staging/drizzle/0014_withdrawal_requests.sql	2026-11-04 18:47:34.215029413 +0000
+@@ -0,0 +1,23 @@
++CREATE TABLE IF NOT EXISTS withdrawal_requests (
++  id TEXT PRIMARY KEY NOT NULL,
++  user_id TEXT NOT NULL REFERENCES users(id),
++  request_key TEXT NOT NULL,
++  provider_id TEXT NOT NULL CHECK (provider_id IN ('vpay','gspay','1mpay','gspay_plus')),
++  provider_name TEXT NOT NULL,
++  bank_code TEXT NOT NULL,
++  bank_name TEXT NOT NULL,
++  account_holder_encrypted TEXT NOT NULL,
++  account_number_encrypted TEXT NOT NULL,
++  account_last4 TEXT NOT NULL,
++  amount_minor BIGINT NOT NULL CHECK (amount_minor > 0 AND amount_minor <= 10000000),
++  currency TEXT NOT NULL CHECK (currency = 'MYR'),
++  status TEXT NOT NULL CHECK (status IN ('pending','approved','processing','paid','rejected','cancelled')),
++  owner_note TEXT NOT NULL DEFAULT '',
++  updated_by TEXT REFERENCES users(id),
++  created_at BIGINT NOT NULL,
++  updated_at BIGINT NOT NULL,
++  UNIQUE(user_id, request_key)
++);
++CREATE INDEX IF NOT EXISTS withdrawal_requests_user_created ON withdrawal_requests(user_id,created_at DESC);
++CREATE INDEX IF NOT EXISTS withdrawal_requests_status_created ON withdrawal_requests(status,created_at DESC);
++CREATE UNIQUE INDEX IF NOT EXISTS withdrawal_one_open_per_member ON withdrawal_requests(user_id) WHERE status IN ('pending','approved','processing');
+diff -ruN '--exclude=node_modules' '--exclude=.output' '--exclude=.sites-runtime' master7-v17-render-staging.old/lib/backend.ts master7-v17-render-staging/lib/backend.ts
+--- master7-v17-render-staging.old/lib/backend.ts	2026-11-04 18:33:26.000000000 +0000
++++ master7-v17-render-staging/lib/backend.ts	2026-11-04 18:52:44.211043587 +0000
+@@ -1,11 +1,12 @@
+ import { readLocalSession, handlePasswordAuth, AuthError } from './password-auth.ts';
+ import { requestOriginAllowed } from './request-origin.ts';
+ import { createVPayOrder, handleVPay } from './vpay.ts';
+-export const RELEASE = '17.0.0-selfbuilt.25-supplier-art-manager';
++import { getWithdrawalBanks, listAdminWithdrawals, listMemberWithdrawals, submitWithdrawal, updateWithdrawal } from './withdrawals.ts';
++export const RELEASE = '17.0.0-selfbuilt.26-withdrawal-requests';
+ export const SOURCE_RELEASE = '17.0.0-preview.6-qa3-integrated-r3';
+ type Identity={userId:string;email:string};
+ type User={id:string;username:string;role:string;approved:number;csrf:string;created_at:number};
+-export type Context={db:D1Database;identity:Identity|null;ownerEmail:string;ownerLoginId?:string;allowedOrigins?:string[];gameGatewayUrl?:string;gameGatewayFetch?:typeof fetch;gameArtFetch?:typeof fetch;vpayGatewayUrl?:string;vpayOrderToken?:string;vpayQueryToken?:string;vpayCallbackToken?:string;vpayOrdersEnabled?:string;vpayMode?:string;vpayTraderId?:string;vpayReturnUrl?:string;vpayFetch?:typeof fetch;ownerSetupHash?:string;ownerSetupExpires?:number;ownerResetHash?:string;ownerResetExpires?:number;ownerResetIssuedAt?:number;anchorApiBaseUrl?:string;anchorUsername?:string;anchorPassword?:string;anchorSenderId?:string;otpHashSecret?:string;smsFetch?:typeof fetch};
++export type Context={db:D1Database;identity:Identity|null;ownerEmail:string;ownerLoginId?:string;allowedOrigins?:string[];gameGatewayUrl?:string;gameGatewayFetch?:typeof fetch;gameArtFetch?:typeof fetch;vpayGatewayUrl?:string;vpayOrderToken?:string;vpayQueryToken?:string;vpayCallbackToken?:string;vpayOrdersEnabled?:string;vpayMode?:string;vpayTraderId?:string;vpayReturnUrl?:string;vpayFetch?:typeof fetch;ownerSetupHash?:string;ownerSetupExpires?:number;ownerResetHash?:string;ownerResetExpires?:number;ownerResetIssuedAt?:number;anchorApiBaseUrl?:string;anchorUsername?:string;anchorPassword?:string;anchorSenderId?:string;otpHashSecret?:string;smsFetch?:typeof fetch;withdrawalDataKey?:string};
+ class ApiError extends Error{ status:number; constructor(status:number,message:string){super(message);this.status=status;} }
+ const now=()=>Math.floor(Date.now()/1000);
+ const uuid=()=>crypto.randomUUID();
+@@ -100,6 +101,8 @@
+  if(vpayResponse)return vpayResponse;
+  if(req.method==='GET'){
+   if(p==='/api/session')return json({user:u?{id:u.id,username:u.username,role:u.role,approved:!!u.approved}:null,csrf:u?.csrf??null,authMethod:u?(local?'password':'chatgpt'):null});
++  if(p==='/api/withdrawal-banks')return getWithdrawalBanks();
++  if(p==='/api/withdrawals')return listMemberWithdrawals({db,user:u,dataKey:c.withdrawalDataKey});
+   if(p==='/api/announcements')return json({items:await rows(db,'SELECT id,title,body,created_at FROM announcements ORDER BY created_at DESC,id DESC LIMIT 100')});
+   if(p==='/api/ads')return json({items:await rows(db,'SELECT id,title,image_data,target_url,position FROM lobby_ads WHERE enabled=1 ORDER BY position ASC,created_at DESC,id ASC LIMIT 20')});
+   if(p==='/api/payment-channels')return json({items:await rows(db,'SELECT provider_id,provider_name,status FROM payment_channel_controls ORDER BY CASE provider_id WHEN \'vpay\' THEN 1 WHEN \'gspay\' THEN 2 WHEN \'1mpay\' THEN 3 ELSE 4 END'),transactionsEnabled:false});
+@@ -142,12 +145,13 @@
+    if(p==='/api/admin/custom-games')return json({items:await rows(db,'SELECT id,title,provider_name,game_code,category,image_data,is_platform_mini,enabled,status,position,created_at,updated_at FROM custom_game_cards ORDER BY is_platform_mini DESC,provider_name ASC,position ASC,created_at ASC LIMIT 100'),maxCards:100,maxPlatformMiniGames:5,imageMaxBytes:350000,imageSize:'800x600'});
+    if(p==='/api/admin/benefits'){const items=await rows(db,'SELECT id,title,description,rules_json,status,created_at,updated_at FROM benefit_rules ORDER BY updated_at DESC,id ASC LIMIT 100');return json({items:items.map((x:any)=>({...x,rules:JSON.parse(x.rules_json)})),moneyAutomation:false});}
+    if(p==='/api/admin/social-links')return json({...await social(db),canEdit:u.role==='owner'});
+-   if(p==='/api/admin/operations'){const day=Math.floor((now()+28800)/86400)*86400-28800;const n=await db.prepare('SELECT COUNT(*) n FROM users WHERE created_at>=?').bind(day).first<{n:number}>();return json({metrics:{newMembersPreview:n?.n??0,depositMYR:null,withdrawMYR:null,bonusMYR:null,netRevenueMYR:null,groupJoins:null}});}
++   if(p==='/api/admin/operations'){const day=Math.floor((now()+28800)/86400)*86400-28800;const n=await db.prepare('SELECT COUNT(*) n FROM users WHERE created_at>=?').bind(day).first<{n:number}>(),w=await db.prepare("SELECT CAST(COALESCE(SUM(amount_minor),0) AS TEXT) amount FROM withdrawal_requests WHERE status='paid' AND created_at>=?").bind(day).first<{amount:string}>();return json({metrics:{newMembersPreview:n?.n??0,depositMYR:null,withdrawMYR:Number(w?.amount??0)/100,bonusMYR:null,netRevenueMYR:null,groupJoins:null}});}
+    role(u,['owner']);
++   if(p==='/api/admin/withdrawals')return listAdminWithdrawals({db,user:u,dataKey:c.withdrawalDataKey});
+    if(p==='/api/admin/users')return json({items:await rows(db,'SELECT id,username,role,approved,created_at FROM users ORDER BY created_at DESC LIMIT 500')});
+    if(p==='/api/admin/audit')return json({items:await rows(db,'SELECT a.event,a.target,a.created_at,u.username FROM audit a LEFT JOIN users u ON a.user_id=u.id ORDER BY a.created_at DESC,a.id DESC LIMIT 100')});
+    if(p==='/api/admin/security'){const n=await db.prepare("SELECT COUNT(*) n FROM audit WHERE event='write_rate_limited' AND created_at>=?").bind(Math.floor((now()+28800)/86400)*86400-28800).first<{n:number}>();return json({today:{login_denied:null,login_rate_limited:null,registration_rate_limited:null,write_rate_limited:n?.n??0}});}
+-   if(p==='/api/admin/export'){const data:Record<string,unknown>={release:RELEASE,exportedAt:new Date().toISOString(),scope:'new-portal-only'};for(const table of ['users','tickets','replies','announcements','providers','brand_directory_entries','api_supplier_artwork','portal_status_snapshots','lobby_ads','custom_game_cards','benefit_rules','game_visibility','payment_channel_controls','settings','audit']){const list=await rows(db,`SELECT ${table==='users'?'id,username,role,approved,created_at':table==='api_supplier_artwork'?'provider_id,updated_by,updated_at':table==='lobby_ads'?'id,title,target_url,enabled,position,created_by,created_at,updated_at':table==='custom_game_cards'?'id,title,provider_name,game_code,category,is_platform_mini,enabled,status,position,created_by,created_at,updated_at':table==='game_visibility'?'provider_id,game_code,visible,status,category_override,updated_by,updated_at':'*'} FROM ${table}${table==='settings'?" WHERE id NOT LIKE 'owner_password_%'":''} LIMIT 10001`);if(list.length>10000)throw new ApiError(413,'导出超过单次上限，请联系站点维护人员');data[table]=list;}return new Response(JSON.stringify(data,null,2),{headers:{...responseHeaders,'Content-Disposition':'attachment; filename="master7-portal-export.json"'}});}
++   if(p==='/api/admin/export'){const data:Record<string,unknown>={release:RELEASE,exportedAt:new Date().toISOString(),scope:'new-portal-only'};for(const table of ['users','tickets','replies','announcements','providers','brand_directory_entries','api_supplier_artwork','portal_status_snapshots','lobby_ads','custom_game_cards','benefit_rules','game_visibility','payment_channel_controls','withdrawal_requests','settings','audit']){const list=await rows(db,`SELECT ${table==='users'?'id,username,role,approved,created_at':table==='api_supplier_artwork'?'provider_id,updated_by,updated_at':table==='lobby_ads'?'id,title,target_url,enabled,position,created_by,created_at,updated_at':table==='custom_game_cards'?'id,title,provider_name,game_code,category,is_platform_mini,enabled,status,position,created_by,created_at,updated_at':table==='game_visibility'?'provider_id,game_code,visible,status,category_override,updated_by,updated_at':table==='withdrawal_requests'?'id,user_id,provider_id,provider_name,bank_code,bank_name,account_last4,amount_minor,currency,status,owner_note,updated_by,created_at,updated_at':'*'} FROM ${table}${table==='settings'?" WHERE id NOT LIKE 'owner_password_%'":''} LIMIT 10001`);if(list.length>10000)throw new ApiError(413,'导出超过单次上限，请联系站点维护人员');data[table]=list;}return new Response(JSON.stringify(data,null,2),{headers:{...responseHeaders,'Content-Disposition':'attachment; filename="master7-portal-export.json"'}});}
+   }
+   throw new ApiError(404,'Not found');
+  }
+@@ -157,10 +161,12 @@
+  if(req.headers.get('x-csrf-token')!==u.csrf)throw new ApiError(403,'CSRF denied');
+  const d=await body(req,p==='/api/admin/ads'||p==='/api/admin/custom-games'||p==='/api/admin/game-visibility'||p==='/api/admin/provider'||p==='/api/admin/brand-directory'||p==='/api/admin/supplier-art'?550000:24000);await limited(db,u);
+  if(p==='/api/payments/vpay/orders')return createVPayOrder(d,vpayContext);
++ if(p==='/api/withdrawals')return submitWithdrawal(d,{db,user:u,dataKey:c.withdrawalDataKey});
+  if(p==='/api/tickets'){const subject=textField(d.subject,3,120),message=textField(d.message,5,2000),id=uuid();await db.batch([db.prepare('INSERT INTO tickets(id,user_id,subject,message,created_at) VALUES(?,?,?,?,?)').bind(id,u.id,subject,message,now()),auditStmt(db,u,'ticket_created',id)]);return json({status:'ok',id},201);}
+  if(p==='/api/tickets/reply'){const id=idField(d.ticketId),message=textField(d.message,1,2000),ticket=await db.prepare('SELECT user_id,status FROM tickets WHERE id=?').bind(id).first<{user_id:string;status:string}>();if(!ticket||u.role==='member'&&ticket.user_id!==u.id)throw new ApiError(404,'Ticket not found');if(ticket.status!=='open')throw new ApiError(409,'工单已关闭 / Ticket closed');await db.batch([db.prepare('INSERT INTO replies(id,ticket_id,user_id,message,created_at) VALUES(?,?,?,?,?)').bind(uuid(),id,u.id,message,now()),auditStmt(db,u,'ticket_replied',id)]);return json({status:'ok'});}
+  if(p.startsWith('/api/admin/')){
+   role(u,['owner','staff']);
++  if(p==='/api/admin/withdrawals/status'){role(u,['owner']);return updateWithdrawal(d,{db,user:u,dataKey:c.withdrawalDataKey});}
+   if(p==='/api/admin/supplier-art'){
+    role(u,['owner']);const providerId=textField(d.providerId,1,32);if(!apiSupplierIds.includes(providerId))throw new ApiError(400,'Invalid supplier');
+    if(typeof d.imageData!=='string'||d.imageData.length>500000||!/^data:image\/(?:webp|jpeg|png);base64,[A-Za-z0-9+/]+={0,2}$/.test(d.imageData)||!validImageData(d.imageData))throw new ApiError(400,'Upload a valid JPG, PNG or WebP image under 350 KB');
+diff -ruN '--exclude=node_modules' '--exclude=.output' '--exclude=.sites-runtime' master7-v17-render-staging.old/lib/render-env.ts master7-v17-render-staging/lib/render-env.ts
+--- master7-v17-render-staging.old/lib/render-env.ts	2026-11-04 10:29:26.000000000 +0000
++++ master7-v17-render-staging/lib/render-env.ts	2026-11-04 18:47:37.407106598 +0000
+@@ -21,5 +21,6 @@
+   ANCHOR_SMS_PASSWORD: process.env.ANCHOR_SMS_PASSWORD,
+   ANCHOR_SMS_SENDER_ID: process.env.ANCHOR_SMS_SENDER_ID,
+   OTP_HASH_SECRET: process.env.OTP_HASH_SECRET,
++  WITHDRAWAL_DATA_KEY: process.env.WITHDRAWAL_DATA_KEY,
+   ...mapVPayEnvironment(process.env),
+ };
+diff -ruN '--exclude=node_modules' '--exclude=.output' '--exclude=.sites-runtime' master7-v17-render-staging.old/lib/vpay.ts master7-v17-render-staging/lib/vpay.ts
+--- master7-v17-render-staging.old/lib/vpay.ts	2026-11-04 12:57:57.000000000 +0000
++++ master7-v17-render-staging/lib/vpay.ts	2026-11-04 18:47:36.043073623 +0000
+@@ -1,4 +1,5 @@
+ import { createHash, timingSafeEqual } from 'node:crypto';
++import { withdrawalWalletState } from './withdrawals.ts';
+ 
+ type Member = { id: string; username: string; role: string; approved: number; csrf: string };
+ export type VPayContext = {
+@@ -96,8 +97,8 @@
+     if (!c.user) return json({ error: 'Sign in required' }, 401);
+     if (c.user.role !== 'member') return json({ error: 'Member account required' }, 403);
+     if (!c.user.approved) return json({ error: 'Account awaiting approval' }, 403);
+-    const balance = await c.db.prepare("SELECT CAST(COALESCE(SUM(amount_minor),0) AS TEXT) AS balance_minor FROM wallet_ledger WHERE user_id=? AND account_code='member' AND currency='MYR'").bind(c.user.id).first<{ balance_minor: string }>();
+-    return json({ currency: 'MYR', balanceMinor: String(balance?.balance_minor ?? '0'), availableMinor: String(balance?.balance_minor ?? '0'), heldMinor: '0', providerTransactionsEnabled: false });
++    const wallet = await withdrawalWalletState(c.db,c.user.id);
++    return json({ currency: 'MYR', ...wallet, providerTransactionsEnabled: false });
+   }
+   if (path === '/api/payment-records' && req.method === 'GET') {
+     if (!c.user) return json({ error: 'Sign in required' }, 401);
+diff -ruN '--exclude=node_modules' '--exclude=.output' '--exclude=.sites-runtime' master7-v17-render-staging.old/lib/withdrawals.ts master7-v17-render-staging/lib/withdrawals.ts
+--- master7-v17-render-staging.old/lib/withdrawals.ts	1970-01-01 00:00:00.000000000 +0000
++++ master7-v17-render-staging/lib/withdrawals.ts	2026-11-04 18:47:32.854996527 +0000
+@@ -0,0 +1,76 @@
++import { createCipheriv, createDecipheriv, createHash, randomBytes } from 'node:crypto';
++
++type Member={id:string;username:string;role:string;approved:number};
++type WithdrawalContext={db:D1Database;user:Member|null;dataKey?:string};
++
++export const withdrawalProviders=[
++ {id:'vpay',name:'VPay'},
++ {id:'gspay',name:'GSPAY'},
++ {id:'1mpay',name:'1MPAY'},
++ {id:'gspay_plus',name:'GSPAY+'},
++] as const;
++
++export const malaysiaBanks=[
++ ['maybank','Maybank'],['cimb','CIMB Bank'],['public_bank','Public Bank'],['rhb','RHB Bank'],
++ ['hong_leong','Hong Leong Bank'],['ambank','AmBank'],['bank_islam','Bank Islam'],['bank_rakyat','Bank Rakyat'],
++ ['bsn','Bank Simpanan Nasional (BSN)'],['alliance','Alliance Bank'],['affin','Affin Bank'],
++ ['ocbc','OCBC Bank Malaysia'],['uob','UOB Malaysia'],['hsbc','HSBC Malaysia'],
++ ['standard_chartered','Standard Chartered Malaysia'],['agrobank','Agrobank'],
++ ['bank_muamalat','Bank Muamalat'],['mbsb','MBSB Bank'],
++] as const;
++
++const responseHeaders={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'};
++const json=(value:unknown,status=200)=>Response.json(value,{status,headers:responseHeaders});
++const keyBytes=(secret?:string)=>typeof secret==='string'&&Buffer.byteLength(secret)>=32&&Buffer.byteLength(secret)<=1024?createHash('sha256').update(secret).digest():null;
++const encrypt=(value:string,secret?:string)=>{const key=keyBytes(secret);if(!key)throw Error('WITHDRAWAL_SECURITY_NOT_CONFIGURED');const iv=randomBytes(12),cipher=createCipheriv('aes-256-gcm',key,iv),data=Buffer.concat([cipher.update(value,'utf8'),cipher.final()]),tag=cipher.getAuthTag();return [iv,tag,data].map(x=>x.toString('base64url')).join('.');};
++const decrypt=(value:string,secret?:string)=>{const key=keyBytes(secret);if(!key)throw Error('WITHDRAWAL_SECURITY_NOT_CONFIGURED');const [a,b,d]=value.split('.');if(!a||!b||!d)throw Error('WITHDRAWAL_DATA_INVALID');const decipher=createDecipheriv('aes-256-gcm',key,Buffer.from(a,'base64url'));decipher.setAuthTag(Buffer.from(b,'base64url'));return Buffer.concat([decipher.update(Buffer.from(d,'base64url')),decipher.final()]).toString('utf8');};
++const amountMinor=(value:unknown)=>{if(typeof value!=='string'||!/^(0|[1-9]\d{0,5})(?:\.(\d{1,2}))?$/.test(value))return null;const [whole,fraction='']=value.split('.'),minor=BigInt(whole)*100n+BigInt(fraction.padEnd(2,'0'));return minor>0n&&minor<=10000000n?minor.toString():null;};
++const provider=(value:unknown)=>withdrawalProviders.find(x=>x.id===value);
++const bank=(value:unknown)=>malaysiaBanks.find(x=>x[0]===value);
++const cleanName=(value:unknown)=>typeof value==='string'&&value.trim().length>=2&&value.trim().length<=80&&!/[\u0000-\u001f\u007f-\u009f]/u.test(value)?value.trim():null;
++const cleanAccount=(value:unknown)=>{const account=typeof value==='string'?value.replace(/[\s-]/g,''):'';return /^\d{6,20}$/.test(account)?account:null;};
++const record=(x:any,secret?:string,full=false)=>({id:x.id,userId:x.user_id,username:x.username??undefined,providerId:x.provider_id,providerName:x.provider_name,bankCode:x.bank_code,bankName:x.bank_name,accountHolder:full?decrypt(x.account_holder_encrypted,secret):undefined,accountNumber:full?decrypt(x.account_number_encrypted,secret):`•••• ${x.account_last4}`,accountLast4:x.account_last4,amountMinor:String(x.amount_minor),currency:x.currency,status:x.status,ownerNote:x.owner_note,createdAt:Number(x.created_at),updatedAt:Number(x.updated_at)});
++
++export async function withdrawalWalletState(db:D1Database,userId:string){
++ const values=await db.prepare(`SELECT
++  CAST(COALESCE((SELECT SUM(amount_minor) FROM wallet_ledger WHERE user_id=? AND account_code='member' AND currency='MYR'),0) AS TEXT) credits,
++  CAST(COALESCE((SELECT SUM(amount_minor) FROM withdrawal_requests WHERE user_id=? AND status='paid' AND currency='MYR'),0) AS TEXT) paid,
++  CAST(COALESCE((SELECT SUM(amount_minor) FROM withdrawal_requests WHERE user_id=? AND status IN ('pending','approved','processing') AND currency='MYR'),0) AS TEXT) held`).bind(userId,userId,userId).first<any>();
++ const credits=BigInt(values?.credits??0),paid=BigInt(values?.paid??0),held=BigInt(values?.held??0),balance=credits-paid,available=balance-held;
++ return {balanceMinor:(balance>0n?balance:0n).toString(),availableMinor:(available>0n?available:0n).toString(),heldMinor:held.toString()};
++}
++
++export async function getWithdrawalBanks(){return json({currency:'MYR',banks:malaysiaBanks.map(([id,name])=>({id,name})),providers:withdrawalProviders});}
++
++export async function listMemberWithdrawals(c:WithdrawalContext){
++ const u=c.user;if(!u)return json({error:'Sign in required'},401);if(u.role!=='member')return json({error:'Member account required'},403);if(!u.approved)return json({error:'Account awaiting approval'},403);
++ const result=await c.db.prepare('SELECT * FROM withdrawal_requests WHERE user_id=? ORDER BY created_at DESC,id DESC LIMIT 100').bind(u.id).all<any>();
++ return json({items:(result.results??[]).map(x=>record(x)),wallet:await withdrawalWalletState(c.db,u.id)});
++}
++
++export async function listAdminWithdrawals(c:WithdrawalContext){
++ const u=c.user;if(!u)return json({error:'Sign in required'},401);if(u.role!=='owner')return json({error:'Access denied'},403);if(!keyBytes(c.dataKey))return json({error:'Withdrawal security not configured'},503);
++ try{const result=await c.db.prepare('SELECT w.*,u.username FROM withdrawal_requests w JOIN users u ON u.id=w.user_id ORDER BY w.created_at DESC,w.id DESC LIMIT 500').all<any>();return json({items:(result.results??[]).map(x=>record(x,c.dataKey,true)),providers:withdrawalProviders});}catch{return json({error:'Withdrawal records unavailable'},503);}
++}
++
++export async function submitWithdrawal(d:Record<string,unknown>,c:WithdrawalContext){
++ const u=c.user;if(!u)return json({error:'Sign in required'},401);if(u.role!=='member')return json({error:'Member account required'},403);if(!u.approved)return json({error:'Account awaiting approval'},403);if(!keyBytes(c.dataKey))return json({error:'Withdrawal security not configured'},503);
++ const selectedProvider=provider(d.providerId),selectedBank=bank(d.bankCode),name=cleanName(d.accountHolder),account=cleanAccount(d.accountNumber),amount=amountMinor(d.amount),requestKey=typeof d.requestKey==='string'&&/^[A-Za-z0-9_-]{16,80}$/.test(d.requestKey)?d.requestKey:'';
++ if(!selectedProvider||!selectedBank||!name||!account||!amount||!requestKey)return json({error:'Invalid withdrawal details'},400);
++ const open=await c.db.prepare("SELECT id FROM withdrawal_requests WHERE user_id=? AND status IN ('pending','approved','processing') LIMIT 1").bind(u.id).first();if(open)return json({error:'You already have a withdrawal being processed'},409);
++ const wallet=await withdrawalWalletState(c.db,u.id);if(BigInt(wallet.availableMinor)<BigInt(amount))return json({error:'Insufficient available balance'},409);
++ const id=crypto.randomUUID(),timestamp=Math.floor(Date.now()/1000);
++ try{await c.db.batch([
++  c.db.prepare("INSERT INTO withdrawal_requests(id,user_id,request_key,provider_id,provider_name,bank_code,bank_name,account_holder_encrypted,account_number_encrypted,account_last4,amount_minor,currency,status,owner_note,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,'MYR','pending','',?,?)").bind(id,u.id,requestKey,selectedProvider.id,selectedProvider.name,selectedBank[0],selectedBank[1],encrypt(name,c.dataKey),encrypt(account,c.dataKey),account.slice(-4),amount,timestamp,timestamp),
++  c.db.prepare('INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,?,?,?)').bind(crypto.randomUUID(),u.id,'withdrawal_requested',id,timestamp),
++ ]);return json({status:'ok',withdrawal:{id,providerName:selectedProvider.name,bankName:selectedBank[1],accountNumber:`•••• ${account.slice(-4)}`,amountMinor:amount,currency:'MYR',status:'pending',createdAt:timestamp}},201);}catch(error:any){if(String(error?.message??'').includes('UNIQUE'))return json({error:'You already have a withdrawal being processed'},409);throw error;}
++}
++
++export async function updateWithdrawal(d:Record<string,unknown>,c:WithdrawalContext){
++ const u=c.user;if(!u)return json({error:'Sign in required'},401);if(u.role!=='owner')return json({error:'Access denied'},403);
++ const id=typeof d.id==='string'&&/^[A-Za-z0-9-]{8,80}$/.test(d.id)?d.id:'',next=typeof d.status==='string'?d.status:'',note=typeof d.ownerNote==='string'&&d.ownerNote.trim().length<=200&&!/[\u0000-\u001f\u007f-\u009f]/u.test(d.ownerNote)?d.ownerNote.trim():null;
++ if(!id||note===null||!['approved','processing','paid','rejected'].includes(next))return json({error:'Invalid withdrawal update'},400);
++ const current=await c.db.prepare('SELECT status FROM withdrawal_requests WHERE id=?').bind(id).first<{status:string}>();if(!current)return json({error:'Withdrawal not found'},404);
++ const allowed:Record<string,string[]>={pending:['approved','rejected'],approved:['processing','rejected'],processing:['paid','rejected']};if(!allowed[current.status]?.includes(next))return json({error:'Invalid withdrawal status transition'},409);
++ const timestamp=Math.floor(Date.now()/1000);await c.db.batch([c.db.prepare('UPDATE withdrawal_requests SET status=?,owner_note=?,updated_by=?,updated_at=? WHERE id=? AND status=?').bind(next,note,u.id,timestamp,id,current.status),c.db.prepare('INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,?,?,?)').bind(crypto.randomUUID(),u.id,'withdrawal_'+next,id,timestamp)]);return json({status:'ok',withdrawalStatus:next});
++}
+diff -ruN '--exclude=node_modules' '--exclude=.output' '--exclude=.sites-runtime' master7-v17-render-staging.old/public/assets/app.js master7-v17-render-staging/public/assets/app.js
+--- master7-v17-render-staging.old/public/assets/app.js	2026-11-04 18:28:56.000000000 +0000
++++ master7-v17-render-staging/public/assets/app.js	2026-11-04 18:54:08.326408207 +0000
+@@ -1,18 +1,18 @@
+ "use strict";
+ const $ = id => document.getElementById(id);
+-const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", register:false, providers:[], games:[], gameCatalogue:null, brandDirectory:[], supplierArtwork:{}, brandCategory:"ALL", selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], social:null, ads:[], benefits:[], adIndex:0, adTimer:null, editAdId:null, editBenefitId:null, editCustomGameId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, paymentChannels:{}, section:"lobby"};
++const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", register:false, providers:[], games:[], gameCatalogue:null, brandDirectory:[], supplierArtwork:{}, brandCategory:"ALL", selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], social:null, ads:[], benefits:[], adIndex:0, adTimer:null, editAdId:null, editBenefitId:null, editCustomGameId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, paymentChannels:{}, withdrawalPendingSeen:null, section:"lobby"};
+ const translations = {
+  zh: {
+   requestTimeout:"连接超时，操作结果未确认。请检查连接和记录后再试。",networkError:"无法连接服务。请检查网络后重试。",serviceUnavailable:"服务暂时不可用。请稍后重试。",
+-  demoWarning:"V17 QA3 独立整合测试 · 未连接真实会员、游戏或资金系统",navHome:"首页",lobbyEyebrow:"游戏大厅",gamesLoading:"正在读取供应商游戏目录…",catalogSummary:"大厅列出 {count} 款供应商游戏；游戏启动仍待验收。",catalogUnavailable:"目前没有可展示的供应商游戏目录。",providerAvailable:"目录可读",providerBlocked:"上游拒绝",providerUnavailable:"暂不可用",providerEmpty:"目录为空",providerNotConfigured:"未配置",uatNotPlayable:"暂未开放游玩",maintenanceGame:"维护中",gameActivePreview:"已显示 · 游戏启动待验收",navLobby:"游戏大厅",navDeposit:"充值",depositTitle:"充值",depositIntro:"充值选项及记录集中在此页面。",navSupport:"客服",navAdmin:"后台",language:"语言",login:"登录",logout:"退出",eyebrow:"MASTER7 · PREMIUM EXPERIENCE",heroTitle:"前台与后台",heroAccent:"统一体验。",heroDescription:"以三种语言、受保护的登录和清晰的服务管理，为 V17 奠定基础。",explore:"查看测试游戏目录",viewStatus:"查看连接状态",previewLabel:"独立测试版本",featureLang:"三种语言",featureLangDesc:"中文、英文、马来文切换",featureOtp:"两步验证",featureOtpDesc:"MASTER7 ID + Malaysia mobile; Verify Malaysian phone before registration",featureStaff:"员工权限",featureStaffDesc:"老板、员工和会员分级",featureAudit:"操作记录",featureAuditDesc:"审批和更改可追踪",announcements:"系统公告",loading:"读取中…",lobbyTitle:"游戏大厅",lobbyNotice:"三家赞助厂商入口置顶；游戏按类型及厂商分组逐款展示。每款封面和状态可在后台独立管理。",searchPlaceholder:"搜索游戏名称或厂商",allCategories:"全部类别",slots:"老虎机",arcade:"街机",tableGames:"桌面游戏",live:"真人类",sports:"体育类",supportTitle:"客户服务中心",supportIntro:"可创建测试工单；不会发送给真实客服系统。",newTicket:"创建工单",subject:"主题",message:"内容",submitTicket:"提交测试工单",ticketLogin:"请先登录。",myTickets:"工单记录",loginFirst:"请先登录。",adminTitle:"运营管理后台",adminIntro:"仅测试账户；不会接触原站真实数据。",staffOnly:"员工权限保护",publishAnnouncement:"发布测试公告",publish:"发布",providerManager:"展示厂家管理",providerManagerHint:"分别上传 JILI、MEGAH5 和 918KISS 的赞助图片，并控制各自入口是否显示。",memberApproval:"会员审批",auditTrail:"操作审计",adminDenied:"需要员工或老板账号登录后才可进入。",footerDisclaimer:"此独立测试版不提供真实游戏、充值、提款或资金结算。",sandbox:"ISOLATED PREVIEW · NO REAL TRANSACTIONS",signInTitle:"安全登录",signIn:"登录",register:"注册",username:"用户名",password:"密码（最少8位）",otp:"短信验证",otpNote:"短信 OTP 尚未接通；新会员注册后需老板审批。",demoOnly:"示例 · 不可游玩",hidden:"已隐藏",visible:"可展示",loginRequired:"请先登录。",success:"操作成功",error:"操作未完成",registerSaved:"账号已注册，等待老板批准。",neverShare:"不要将 OTP 密钥发送给任何人。",authError:"登录失败。请检查账号、手机号、密码或审批状态。",role_owner:"老板",role_staff:"员工",role_member:"会员",users:"账号总数",pending:"待审批",openTickets:"待处理工单",visibleProviders:"展示项目",demoFunds:"真实资金数据未连接",approve:"批准",approved:"已批准",open:"处理中",closed:"已关闭",closeTicket:"关闭",reopenTicket:"重开",itemSearchNoResults:"没有匹配的游戏。",noTickets:"暂无工单。",noAnnouncements:"暂无公告。",credentials:"仅用于本地测试。",statusTitle:"V17 连接检查",statusMessage:"本地数据库与演示 API 可检查；旧生产网站、真实游戏和支付均未连接。",badResponse:"服务异常",noUsers:"暂无注册会员。",notReady:"未接通",save:"保存",identity:"MASTER7 ID 与手机号码"
++  demoWarning:"V17 QA3 独立整合测试 · 未连接真实会员、游戏或资金系统",navHome:"首页",lobbyEyebrow:"游戏大厅",gamesLoading:"正在读取供应商游戏目录…",catalogSummary:"大厅列出 {count} 款供应商游戏；游戏启动仍待验收。",catalogUnavailable:"目前没有可展示的供应商游戏目录。",providerAvailable:"目录可读",providerBlocked:"上游拒绝",providerUnavailable:"暂不可用",providerEmpty:"目录为空",providerNotConfigured:"未配置",uatNotPlayable:"暂未开放游玩",maintenanceGame:"维护中",gameActivePreview:"已显示 · 游戏启动待验收",navLobby:"游戏大厅",navDeposit:"充值",navWithdraw:"提款",withdrawTitle:"提款",withdrawIntro:"选择马来西亚银行及四家出款公司之一，再提交提款申请。",depositTitle:"充值",depositIntro:"充值选项及记录集中在此页面。",navSupport:"客服",navAdmin:"后台",language:"语言",login:"登录",logout:"退出",eyebrow:"MASTER7 · PREMIUM EXPERIENCE",heroTitle:"前台与后台",heroAccent:"统一体验。",heroDescription:"以三种语言、受保护的登录和清晰的服务管理，为 V17 奠定基础。",explore:"查看测试游戏目录",viewStatus:"查看连接状态",previewLabel:"独立测试版本",featureLang:"三种语言",featureLangDesc:"中文、英文、马来文切换",featureOtp:"两步验证",featureOtpDesc:"MASTER7 ID + Malaysia mobile; Verify Malaysian phone before registration",featureStaff:"员工权限",featureStaffDesc:"老板、员工和会员分级",featureAudit:"操作记录",featureAuditDesc:"审批和更改可追踪",announcements:"系统公告",loading:"读取中…",lobbyTitle:"游戏大厅",lobbyNotice:"三家赞助厂商入口置顶；游戏按类型及厂商分组逐款展示。每款封面和状态可在后台独立管理。",searchPlaceholder:"搜索游戏名称或厂商",allCategories:"全部类别",slots:"老虎机",arcade:"街机",tableGames:"桌面游戏",live:"真人类",sports:"体育类",supportTitle:"客户服务中心",supportIntro:"可创建测试工单；不会发送给真实客服系统。",newTicket:"创建工单",subject:"主题",message:"内容",submitTicket:"提交测试工单",ticketLogin:"请先登录。",myTickets:"工单记录",loginFirst:"请先登录。",adminTitle:"运营管理后台",adminIntro:"仅测试账户；不会接触原站真实数据。",staffOnly:"员工权限保护",publishAnnouncement:"发布测试公告",publish:"发布",providerManager:"展示厂家管理",providerManagerHint:"分别上传 JILI、MEGAH5 和 918KISS 的赞助图片，并控制各自入口是否显示。",memberApproval:"会员审批",auditTrail:"操作审计",adminDenied:"需要员工或老板账号登录后才可进入。",footerDisclaimer:"此独立测试版不提供真实游戏、充值、提款或资金结算。",sandbox:"ISOLATED PREVIEW · NO REAL TRANSACTIONS",signInTitle:"安全登录",signIn:"登录",register:"注册",username:"用户名",password:"密码（最少8位）",otp:"短信验证",otpNote:"短信 OTP 尚未接通；新会员注册后需老板审批。",demoOnly:"示例 · 不可游玩",hidden:"已隐藏",visible:"可展示",loginRequired:"请先登录。",success:"操作成功",error:"操作未完成",registerSaved:"账号已注册，等待老板批准。",neverShare:"不要将 OTP 密钥发送给任何人。",authError:"登录失败。请检查账号、手机号、密码或审批状态。",role_owner:"老板",role_staff:"员工",role_member:"会员",users:"账号总数",pending:"待审批",openTickets:"待处理工单",visibleProviders:"展示项目",demoFunds:"真实资金数据未连接",approve:"批准",approved:"已批准",open:"处理中",closed:"已关闭",closeTicket:"关闭",reopenTicket:"重开",itemSearchNoResults:"没有匹配的游戏。",noTickets:"暂无工单。",noAnnouncements:"暂无公告。",credentials:"仅用于本地测试。",statusTitle:"V17 连接检查",statusMessage:"本地数据库与演示 API 可检查；旧生产网站、真实游戏和支付均未连接。",badResponse:"服务异常",noUsers:"暂无注册会员。",notReady:"未接通",save:"保存",identity:"MASTER7 ID 与手机号码"
+  },
+  en: {
+   requestTimeout:"Request timed out; the outcome is unconfirmed. Check your connection and records before retrying.",networkError:"Cannot reach the service. Check your connection and retry.",serviceUnavailable:"Service temporarily unavailable. Please try again later.",
+-  demoWarning:"V17 QA3 integrated offline preview · No real members, games or payments",navHome:"Home",lobbyEyebrow:"GAME LOBBY",gamesLoading:"Loading supplier game catalogue…",catalogSummary:"{count} supplier titles are listed in the lobby; game launch still awaits acceptance.",catalogUnavailable:"No supplier game catalogue is currently available.",providerAvailable:"Catalog readable",providerBlocked:"Upstream rejected",providerUnavailable:"Temporarily unavailable",providerEmpty:"Empty catalog",providerNotConfigured:"Not configured",uatNotPlayable:"Play launch pending UAT",maintenanceGame:"Maintenance",gameActivePreview:"Active · launch pending UAT",navLobby:"Game lobby",navDeposit:"Deposit",depositTitle:"Deposit",depositIntro:"Payment options and deposit records are collected on this page.",navSupport:"Support",navAdmin:"Admin",language:"Language",login:"Sign in",logout:"Log out",eyebrow:"MASTER7 · PREMIUM EXPERIENCE",heroTitle:"Frontend and backoffice",heroAccent:"One experience.",heroDescription:"A foundation for V17 with three languages, secure sign-in and manageable support workflows.",explore:"View test game catalog",viewStatus:"Connection status",previewLabel:"Isolated preview",featureLang:"Three languages",featureLangDesc:"Chinese, English and Malay",featureOtp:"Two-step login",featureOtpDesc:"MASTER7 ID + Malaysia mobile; Verify Malaysian phone before registration",featureStaff:"Staff permissions",featureStaffDesc:"Owner, staff and member roles",featureAudit:"Audit history",featureAuditDesc:"Traceable approvals and changes",announcements:"System notices",loading:"Loading…",lobbyTitle:"Game lobby",lobbyNotice:"The three sponsored providers stay at the top. Games are listed individually and grouped by category and provider. Covers and status are managed per game in backoffice.",searchPlaceholder:"Search game or provider",allCategories:"All categories",slots:"Slots",arcade:"Arcade",tableGames:"Table",live:"Live",sports:"Sports",supportTitle:"Support center",supportIntro:"Create test tickets; these are not sent to real support.",newTicket:"New ticket",subject:"Subject",message:"Message",submitTicket:"Submit test ticket",ticketLogin:"Sign in to submit a support ticket.",myTickets:"Ticket history",loginFirst:"Please sign in.",adminTitle:"Operations backoffice",adminIntro:"Test accounts only; original site data is never accessed.",staffOnly:"Staff access only",publishAnnouncement:"Publish test notice",publish:"Publish",providerManager:"Demo catalog management",providerManagerHint:"Upload a separate sponsor image for JILI, MEGAH5 and 918KISS, then show or hide each sponsor tile.",memberApproval:"Member approvals",auditTrail:"Audit log",adminDenied:"Sign in with an owner or staff account.",footerDisclaimer:"No real games, deposits, withdrawals or payments in this isolated preview.",sandbox:"ISOLATED PREVIEW · NO REAL TRANSACTIONS",signInTitle:"Secure sign-in",signIn:"Sign in",register:"Register",username:"Username",password:"Password (min 8 characters)",otp:"SMS verification",otpNote:"SMS verification has not yet been connected in this staging build. New members require owner approval.",demoOnly:"Demo · Not playable",hidden:"Hidden",visible:"Visible",loginRequired:"Please sign in first.",success:"Saved",error:"Action not completed",registerSaved:"Account registered, pending owner approval.",neverShare:"Never share the OTP secret.",authError:"Sign-in failed. Check ID, mobile number, password or approval status.",role_owner:"Owner",role_staff:"Staff",role_member:"Member",users:"Total accounts",pending:"Pending approval",openTickets:"Open tickets",visibleProviders:"Catalog items",demoFunds:"Real financial data not connected",approve:"Approve",approved:"Approved",open:"Open",closed:"Closed",closeTicket:"Close",reopenTicket:"Reopen",itemSearchNoResults:"No matching games.",noTickets:"No tickets yet.",noAnnouncements:"No notices yet.",credentials:"Local preview only.",statusTitle:"V17 connectivity",statusMessage:"Local database and demo APIs can be checked; original production site, games and payments are not connected.",badResponse:"Service unavailable",noUsers:"No registered members.",notReady:"Not connected",save:"Save",identity:"MASTER7 ID and mobile number"
++  demoWarning:"V17 QA3 integrated offline preview · No real members, games or payments",navHome:"Home",lobbyEyebrow:"GAME LOBBY",gamesLoading:"Loading supplier game catalogue…",catalogSummary:"{count} supplier titles are listed in the lobby; game launch still awaits acceptance.",catalogUnavailable:"No supplier game catalogue is currently available.",providerAvailable:"Catalog readable",providerBlocked:"Upstream rejected",providerUnavailable:"Temporarily unavailable",providerEmpty:"Empty catalog",providerNotConfigured:"Not configured",uatNotPlayable:"Play launch pending UAT",maintenanceGame:"Maintenance",gameActivePreview:"Active · launch pending UAT",navLobby:"Game lobby",navDeposit:"Deposit",navWithdraw:"Withdraw",withdrawTitle:"Withdraw",withdrawIntro:"Choose a Malaysian bank and one of four payout companies, then submit your withdrawal request.",depositTitle:"Deposit",depositIntro:"Payment options and deposit records are collected on this page.",navSupport:"Support",navAdmin:"Admin",language:"Language",login:"Sign in",logout:"Log out",eyebrow:"MASTER7 · PREMIUM EXPERIENCE",heroTitle:"Frontend and backoffice",heroAccent:"One experience.",heroDescription:"A foundation for V17 with three languages, secure sign-in and manageable support workflows.",explore:"View test game catalog",viewStatus:"Connection status",previewLabel:"Isolated preview",featureLang:"Three languages",featureLangDesc:"Chinese, English and Malay",featureOtp:"Two-step login",featureOtpDesc:"MASTER7 ID + Malaysia mobile; Verify Malaysian phone before registration",featureStaff:"Staff permissions",featureStaffDesc:"Owner, staff and member roles",featureAudit:"Audit history",featureAuditDesc:"Traceable approvals and changes",announcements:"System notices",loading:"Loading…",lobbyTitle:"Game lobby",lobbyNotice:"The three sponsored providers stay at the top. Games are listed individually and grouped by category and provider. Covers and status are managed per game in backoffice.",searchPlaceholder:"Search game or provider",allCategories:"All categories",slots:"Slots",arcade:"Arcade",tableGames:"Table",live:"Live",sports:"Sports",supportTitle:"Support center",supportIntro:"Create test tickets; these are not sent to real support.",newTicket:"New ticket",subject:"Subject",message:"Message",submitTicket:"Submit test ticket",ticketLogin:"Sign in to submit a support ticket.",myTickets:"Ticket history",loginFirst:"Please sign in.",adminTitle:"Operations backoffice",adminIntro:"Test accounts only; original site data is never accessed.",staffOnly:"Staff access only",publishAnnouncement:"Publish test notice",publish:"Publish",providerManager:"Demo catalog management",providerManagerHint:"Upload a separate sponsor image for JILI, MEGAH5 and 918KISS, then show or hide each sponsor tile.",memberApproval:"Member approvals",auditTrail:"Audit log",adminDenied:"Sign in with an owner or staff account.",footerDisclaimer:"No real games, deposits, withdrawals or payments in this isolated preview.",sandbox:"ISOLATED PREVIEW · NO REAL TRANSACTIONS",signInTitle:"Secure sign-in",signIn:"Sign in",register:"Register",username:"Username",password:"Password (min 8 characters)",otp:"SMS verification",otpNote:"SMS verification has not yet been connected in this staging build. New members require owner approval.",demoOnly:"Demo · Not playable",hidden:"Hidden",visible:"Visible",loginRequired:"Please sign in first.",success:"Saved",error:"Action not completed",registerSaved:"Account registered, pending owner approval.",neverShare:"Never share the OTP secret.",authError:"Sign-in failed. Check ID, mobile number, password or approval status.",role_owner:"Owner",role_staff:"Staff",role_member:"Member",users:"Total accounts",pending:"Pending approval",openTickets:"Open tickets",visibleProviders:"Catalog items",demoFunds:"Real financial data not connected",approve:"Approve",approved:"Approved",open:"Open",closed:"Closed",closeTicket:"Close",reopenTicket:"Reopen",itemSearchNoResults:"No matching games.",noTickets:"No tickets yet.",noAnnouncements:"No notices yet.",credentials:"Local preview only.",statusTitle:"V17 connectivity",statusMessage:"Local database and demo APIs can be checked; original production site, games and payments are not connected.",badResponse:"Service unavailable",noUsers:"No registered members.",notReady:"Not connected",save:"Save",identity:"MASTER7 ID and mobile number"
+  },
+  ms: {
+   requestTimeout:"Permintaan tamat masa; hasil belum disahkan. Semak sambungan dan rekod sebelum mencuba lagi.",networkError:"Tidak dapat menghubungi perkhidmatan. Semak sambungan dan cuba lagi.",serviceUnavailable:"Perkhidmatan tidak tersedia buat sementara waktu. Sila cuba lagi kemudian.",
+-  demoWarning:"Pratonton QA3 berasingan · Tiada akaun sebenar, permainan atau pembayaran",navHome:"Utama",lobbyEyebrow:"LOBI PERMAINAN",gamesLoading:"Memuatkan katalog pembekal…",catalogSummary:"{count} judul pembekal disenaraikan; pelancaran permainan masih menunggu penerimaan.",catalogUnavailable:"Katalog permainan pembekal belum tersedia.",providerAvailable:"Katalog boleh dibaca",providerBlocked:"Ditolak pembekal",providerUnavailable:"Tidak tersedia sementara",providerEmpty:"Katalog kosong",providerNotConfigured:"Belum dikonfigurasi",uatNotPlayable:"Pelancaran menunggu UAT",maintenanceGame:"Maintenance",gameActivePreview:"Active · pelancaran menunggu UAT",navLobby:"Lobi permainan",navDeposit:"Deposit",depositTitle:"Deposit",depositIntro:"Pilihan pembayaran dan rekod deposit dikumpulkan di halaman ini.",navSupport:"Bantuan",navAdmin:"Pentadbir",language:"Bahasa",login:"Log masuk",logout:"Log keluar",eyebrow:"MASTER7 · PENGALAMAN PREMIUM",heroTitle:"Laman ahli & pentadbir",heroAccent:"Satu pengalaman.",heroDescription:"Asas V17 dengan tiga bahasa, log masuk selamat dan pengurusan bantuan yang jelas.",explore:"Lihat katalog ujian",viewStatus:"Status sambungan",previewLabel:"Pratonton berasingan",featureLang:"Tiga bahasa",featureLangDesc:"Cina, Inggeris dan Melayu",featureOtp:"Pengesahan dua langkah",featureOtpDesc:"ID MASTER7 + telefon Malaysia; SMS OTP belum disambung",featureStaff:"Akses kakitangan",featureStaffDesc:"Peranan pemilik, staf dan ahli",featureAudit:"Rekod audit",featureAuditDesc:"Kelulusan dan perubahan boleh dijejak",announcements:"Pengumuman",loading:"Memuatkan…",lobbyTitle:"Lobi permainan",lobbyNotice:"Tiga pembekal tajaan kekal di bahagian atas. Permainan disenaraikan satu demi satu mengikut kategori dan pembekal. Kulit serta status diurus secara berasingan di backoffice.",searchPlaceholder:"Cari permainan atau pembekal",allCategories:"Semua kategori",slots:"Slot",arcade:"Arked",tableGames:"Meja",live:"Langsung",sports:"Sukan",supportTitle:"Pusat bantuan",supportIntro:"Cipta tiket ujian; tidak dihantar kepada sokongan sebenar.",newTicket:"Tiket baharu",subject:"Tajuk",message:"Mesej",submitTicket:"Hantar tiket ujian",ticketLogin:"Log masuk untuk menghantar tiket.",myTickets:"Sejarah tiket",loginFirst:"Sila log masuk dahulu.",adminTitle:"Panel pentadbiran",adminIntro:"Akaun ujian sahaja; data laman asal tidak diakses.",staffOnly:"Akses staf sahaja",publishAnnouncement:"Terbit pengumuman ujian",publish:"Terbit",providerManager:"Urus katalog demo",providerManagerHint:"Muat naik gambar tajaan berasingan bagi JILI, MEGAH5 dan 918KISS, kemudian kawal paparan setiap tile.",memberApproval:"Kelulusan ahli",auditTrail:"Log audit",adminDenied:"Log masuk sebagai pemilik atau staf.",footerDisclaimer:"Tiada permainan, deposit, pengeluaran atau pembayaran sebenar dalam pratonton ini.",sandbox:"PRATONTON BERASINGAN · TIADA TRANSAKSI SEBENAR",signInTitle:"Log masuk selamat",signIn:"Log masuk",register:"Daftar",username:"Nama pengguna",password:"Kata laluan (minimum 8 aksara)",otp:"Pengesahan SMS",otpNote:"Pengesahan SMS belum disambungkan dalam staging ini. Ahli baharu perlu kelulusan pemilik.",demoOnly:"Demo · Tidak boleh dimainkan",hidden:"Disembunyikan",visible:"Dipaparkan",loginRequired:"Sila log masuk dahulu.",success:"Berjaya disimpan",error:"Tindakan tidak selesai",registerSaved:"Akaun didaftarkan; menunggu kelulusan pemilik.",neverShare:"Jangan kongsi rahsia OTP.",authError:"Log masuk gagal. Semak ID, nombor telefon, kata laluan atau kelulusan.",role_owner:"Pemilik",role_staff:"Staf",role_member:"Ahli",users:"Jumlah akaun",pending:"Menunggu kelulusan",openTickets:"Tiket terbuka",visibleProviders:"Item katalog",demoFunds:"Data kewangan sebenar tidak disambungkan",approve:"Lulus",approved:"Diluluskan",open:"Terbuka",closed:"Ditutup",closeTicket:"Tutup",reopenTicket:"Buka semula",itemSearchNoResults:"Tiada permainan yang sepadan.",noTickets:"Belum ada tiket.",noAnnouncements:"Belum ada pengumuman.",credentials:"Untuk ujian setempat sahaja.",statusTitle:"Sambungan V17",statusMessage:"Pangkalan data setempat dan API demo boleh diperiksa; laman asal, permainan dan pembayaran belum disambungkan.",badResponse:"Perkhidmatan tidak tersedia",noUsers:"Belum ada ahli.",notReady:"Belum disambungkan",save:"Simpan",identity:"ID MASTER7 dan nombor telefon"
++  demoWarning:"Pratonton QA3 berasingan · Tiada akaun sebenar, permainan atau pembayaran",navHome:"Utama",lobbyEyebrow:"LOBI PERMAINAN",gamesLoading:"Memuatkan katalog pembekal…",catalogSummary:"{count} judul pembekal disenaraikan; pelancaran permainan masih menunggu penerimaan.",catalogUnavailable:"Katalog permainan pembekal belum tersedia.",providerAvailable:"Katalog boleh dibaca",providerBlocked:"Ditolak pembekal",providerUnavailable:"Tidak tersedia sementara",providerEmpty:"Katalog kosong",providerNotConfigured:"Belum dikonfigurasi",uatNotPlayable:"Pelancaran menunggu UAT",maintenanceGame:"Maintenance",gameActivePreview:"Active · pelancaran menunggu UAT",navLobby:"Lobi permainan",navDeposit:"Deposit",navWithdraw:"Pengeluaran",withdrawTitle:"Pengeluaran",withdrawIntro:"Pilih bank Malaysia dan salah satu daripada empat syarikat, kemudian hantar permintaan pengeluaran.",depositTitle:"Deposit",depositIntro:"Pilihan pembayaran dan rekod deposit dikumpulkan di halaman ini.",navSupport:"Bantuan",navAdmin:"Pentadbir",language:"Bahasa",login:"Log masuk",logout:"Log keluar",eyebrow:"MASTER7 · PENGALAMAN PREMIUM",heroTitle:"Laman ahli & pentadbir",heroAccent:"Satu pengalaman.",heroDescription:"Asas V17 dengan tiga bahasa, log masuk selamat dan pengurusan bantuan yang jelas.",explore:"Lihat katalog ujian",viewStatus:"Status sambungan",previewLabel:"Pratonton berasingan",featureLang:"Tiga bahasa",featureLangDesc:"Cina, Inggeris dan Melayu",featureOtp:"Pengesahan dua langkah",featureOtpDesc:"ID MASTER7 + telefon Malaysia; SMS OTP belum disambung",featureStaff:"Akses kakitangan",featureStaffDesc:"Peranan pemilik, staf dan ahli",featureAudit:"Rekod audit",featureAuditDesc:"Kelulusan dan perubahan boleh dijejak",announcements:"Pengumuman",loading:"Memuatkan…",lobbyTitle:"Lobi permainan",lobbyNotice:"Tiga pembekal tajaan kekal di bahagian atas. Permainan disenaraikan satu demi satu mengikut kategori dan pembekal. Kulit serta status diurus secara berasingan di backoffice.",searchPlaceholder:"Cari permainan atau pembekal",allCategories:"Semua kategori",slots:"Slot",arcade:"Arked",tableGames:"Meja",live:"Langsung",sports:"Sukan",supportTitle:"Pusat bantuan",supportIntro:"Cipta tiket ujian; tidak dihantar kepada sokongan sebenar.",newTicket:"Tiket baharu",subject:"Tajuk",message:"Mesej",submitTicket:"Hantar tiket ujian",ticketLogin:"Log masuk untuk menghantar tiket.",myTickets:"Sejarah tiket",loginFirst:"Sila log masuk dahulu.",adminTitle:"Panel pentadbiran",adminIntro:"Akaun ujian sahaja; data laman asal tidak diakses.",staffOnly:"Akses staf sahaja",publishAnnouncement:"Terbit pengumuman ujian",publish:"Terbit",providerManager:"Urus katalog demo",providerManagerHint:"Muat naik gambar tajaan berasingan bagi JILI, MEGAH5 dan 918KISS, kemudian kawal paparan setiap tile.",memberApproval:"Kelulusan ahli",auditTrail:"Log audit",adminDenied:"Log masuk sebagai pemilik atau staf.",footerDisclaimer:"Tiada permainan, deposit, pengeluaran atau pembayaran sebenar dalam pratonton ini.",sandbox:"PRATONTON BERASINGAN · TIADA TRANSAKSI SEBENAR",signInTitle:"Log masuk selamat",signIn:"Log masuk",register:"Daftar",username:"Nama pengguna",password:"Kata laluan (minimum 8 aksara)",otp:"Pengesahan SMS",otpNote:"Pengesahan SMS belum disambungkan dalam staging ini. Ahli baharu perlu kelulusan pemilik.",demoOnly:"Demo · Tidak boleh dimainkan",hidden:"Disembunyikan",visible:"Dipaparkan",loginRequired:"Sila log masuk dahulu.",success:"Berjaya disimpan",error:"Tindakan tidak selesai",registerSaved:"Akaun didaftarkan; menunggu kelulusan pemilik.",neverShare:"Jangan kongsi rahsia OTP.",authError:"Log masuk gagal. Semak ID, nombor telefon, kata laluan atau kelulusan.",role_owner:"Pemilik",role_staff:"Staf",role_member:"Ahli",users:"Jumlah akaun",pending:"Menunggu kelulusan",openTickets:"Tiket terbuka",visibleProviders:"Item katalog",demoFunds:"Data kewangan sebenar tidak disambungkan",approve:"Lulus",approved:"Diluluskan",open:"Terbuka",closed:"Ditutup",closeTicket:"Tutup",reopenTicket:"Buka semula",itemSearchNoResults:"Tiada permainan yang sepadan.",noTickets:"Belum ada tiket.",noAnnouncements:"Belum ada pengumuman.",credentials:"Untuk ujian setempat sahaja.",statusTitle:"Sambungan V17",statusMessage:"Pangkalan data setempat dan API demo boleh diperiksa; laman asal, permainan dan pembayaran belum disambungkan.",badResponse:"Perkhidmatan tidak tersedia",noUsers:"Belum ada ahli.",notReady:"Belum disambungkan",save:"Simpan",identity:"ID MASTER7 dan nombor telefon"
+  }
+ };
+ 
+@@ -221,6 +221,17 @@
+  catch{clear($("adminDepositRecords"));$("adminDepositRecords").append(node("p","muted","Could not load owner deposit records."));}
+ }
+ 
++const withdrawalCopy={
++ en:{signIn:"Sign in with an approved customer account to submit.",pendingAccount:"Your account is awaiting owner approval.",submitted:"Withdrawal request submitted. You can follow its status below.",loadError:"Withdrawal records are temporarily unavailable.",none:"No withdrawal records.",pending:"Pending",approved:"Approved",processing:"Processing",paid:"Paid",rejected:"Rejected",cancelled:"Cancelled"},
++ zh:{signIn:"请先使用已审批的顾客账号登录。",pendingAccount:"账号正在等待老板审批。",submitted:"提款申请已提交，可在下方查看状态。",loadError:"提款记录暂时无法读取。",none:"暂无提款记录。",pending:"待处理",approved:"已批准",processing:"处理中",paid:"已付款",rejected:"已拒绝",cancelled:"已取消"},
++ ms:{signIn:"Log masuk dengan akaun pelanggan yang diluluskan.",pendingAccount:"Akaun sedang menunggu kelulusan pemilik.",submitted:"Permintaan pengeluaran telah dihantar. Status boleh dilihat di bawah.",loadError:"Rekod pengeluaran tidak tersedia buat sementara.",none:"Tiada rekod pengeluaran.",pending:"Menunggu",approved:"Diluluskan",processing:"Diproses",paid:"Dibayar",rejected:"Ditolak",cancelled:"Dibatalkan"}
++};
++function withdrawText(key){return withdrawalCopy[state.lang]?.[key]||withdrawalCopy.en[key]||key;}
++function renderMemberWithdrawals(items){const host=$("memberWithdrawalRecords");clear(host);if(!items?.length){host.append(node("p","muted",withdrawText("none")));return;}for(const item of items){const row=node("div","wallet-record-row"),left=node("div"),title=node("strong","",`${item.providerName} · ${moneyMinor(item.amountMinor)}`),details=node("small","",`${item.bankName} · ${item.accountNumber} · ${new Date(item.createdAt*1000).toLocaleString()}`);left.append(title,details);row.append(left,node("span","wallet-record-status",withdrawText(item.status)));host.append(row);}}
++async function loadWithdrawals(){const message=$("withdrawMessage"),u=state.user;if(!u||u.role!=="member"){message.textContent=withdrawText("signIn");$("withdrawAvailable").textContent="—";renderMemberWithdrawals([]);return;}if(!u.approved){message.textContent=withdrawText("pendingAccount");$("withdrawAvailable").textContent="—";renderMemberWithdrawals([]);return;}try{const [config,data]=await Promise.all([api("/api/withdrawal-banks"),api("/api/withdrawals")]),select=$("withdrawBank"),selected=select.value;clear(select);const placeholder=node("option","","Choose bank");placeholder.value="";select.append(placeholder);for(const bank of config.banks||[]){const option=node("option","",bank.name);option.value=bank.id;select.append(option);}select.value=selected;$("withdrawAvailable").textContent=moneyMinor(data.wallet.availableMinor);renderMemberWithdrawals(data.items);message.textContent="Choose a company and Malaysian bank, then submit the RM amount.";}catch(error){message.textContent=withdrawText("loadError");}}
++async function submitWithdrawalForm(e){e.preventDefault();const button=$("withdrawSubmit"),message=$("withdrawMessage");button.disabled=true;message.textContent="Submitting…";try{await api("/api/withdrawals","POST",{providerId:$("withdrawProvider").value,bankCode:$("withdrawBank").value,accountHolder:$("withdrawAccountHolder").value.trim(),accountNumber:$("withdrawAccountNumber").value.trim(),amount:$("withdrawAmount").value,requestKey:crypto.randomUUID()});$("withdrawalForm").reset();message.textContent=withdrawText("submitted");await loadWithdrawals();}catch(error){message.textContent=error.message;}finally{button.disabled=false;}}
++async function renderAdminWithdrawals(){const panel=$("adminWithdrawalPanel"),isOwner=state.user?.role==="owner";panel.hidden=!isOwner;if(!isOwner)return;const host=$("adminWithdrawalRecords");try{const data=await api("/api/admin/withdrawals");clear(host);const openCount=(data.items||[]).filter(item=>["pending","approved","processing"].includes(item.status)).length;$("adminWithdrawalTitle").textContent=`Withdrawal requests · ${openCount} pending`;if(openCount>0&&(state.withdrawalPendingSeen===null||openCount>state.withdrawalPendingSeen))notification(`${openCount} withdrawal request${openCount===1?"":"s"} waiting for processing`);state.withdrawalPendingSeen=openCount;if(!data.items?.length){host.append(node("p","muted","No withdrawal requests."));return;}for(const item of data.items){const row=node("article","withdraw-admin-row"),info=node("div","withdraw-admin-info"),title=node("strong","",`${item.username} · ${item.providerName} · ${moneyMinor(item.amountMinor)}`),details=node("small","",`${item.bankName} · ${item.accountHolder} · ${item.accountNumber} · ${new Date(item.createdAt*1000).toLocaleString()}`),actions=node("div","withdraw-actions"),status=node("span","wallet-record-status",item.status);info.append(title,details);if(item.ownerNote)info.append(node("small","",`Note: ${item.ownerNote}`));const next=item.status==="pending"?["approved","rejected"]:item.status==="approved"?["processing","rejected"]:item.status==="processing"?["paid","rejected"]:[];for(const value of next){const button=node("button",value==="rejected"?"button button-ghost small":"button button-outline small",value);button.type="button";button.onclick=async()=>{button.disabled=true;try{const ownerNote=value==="rejected"?(prompt("Reason / note (optional)")||""):"";await api("/api/admin/withdrawals/status","POST",{id:item.id,status:value,ownerNote});await renderAdminWithdrawals();await renderPreviewDashboards(true,await api("/api/admin/summary"));}catch(error){notification(error.message);button.disabled=false;}};actions.append(button);}row.append(info,status,actions);host.append(row);}}catch{clear(host);host.append(node("p","muted","Could not load withdrawal requests."));}}
++
+ 
+ function node(tag, css="", text=""){const x=document.createElement(tag);if(css)x.className=css;if(text!==null)x.textContent=String(text);return x;}
+ function clear(el){el.replaceChildren();}
+@@ -251,7 +262,7 @@
+   throw error;
+  }finally{clearTimeout(timer);}
+ }
+-function selected(section){state.section=section;document.body?.classList?.toggle("admin-mode",section==="admin");document.querySelectorAll(".section").forEach(el=>el.classList.toggle("active",el.id===section));document.querySelectorAll(".nav-button").forEach(el=>el.classList.toggle("active",el.dataset.section===section));window.scrollTo({top:0,behavior:"smooth"});if(section==="support")refreshTickets();if(section==="admin")renderAdmin();}
++function selected(section){state.section=section;document.body?.classList?.toggle("admin-mode",section==="admin");document.querySelectorAll(".section").forEach(el=>el.classList.toggle("active",el.id===section));document.querySelectorAll(".nav-button").forEach(el=>el.classList.toggle("active",el.dataset.section===section));window.scrollTo({top:0,behavior:"smooth"});if(section==="withdraw")loadWithdrawals();if(section==="support")refreshTickets();if(section==="admin")renderAdmin();}
+ function renderSession(){const u=state.user;$("accountSecurity").hidden=!(u&&state.authMethod==="password");$("accountNotice").hidden=!u||u.approved;$("accountNotice").textContent=t("accountPending");$("loginButton").hidden=!!u;$("logoutButton").hidden=!u;$("userChip").hidden=!u;const canManage=!!(u&&(u.role==="owner"||u.role==="staff"));$("adminNav").hidden=!canManage;$("adminSidebarNav").hidden=!canManage;if(u)$("userChip").textContent=`${u.username} · ${t("role_"+u.role)}`;if(state.section==="admin"&&!u)renderAdmin();}
+ function renderAnnouncements(){const host=$("announcements");clear(host);if(!state.announcements.length){host.append(node("p","muted",t("noAnnouncements")));return;}for(const a of state.announcements){const card=node("article","announcement"),title=node("h3","",a.title),body=node("p","",a.body),time=node("time","",new Date(a.created_at*1000).toLocaleDateString(state.lang==="zh"?"zh-CN":state.lang));card.append(title,body,time);host.append(card);}}
+ function normalizedGameCategory(game){
+@@ -349,7 +360,7 @@
+  }
+ }
+ async function renderAdmin(){const auth=state.user&&(state.user.role==="owner"||state.user.role==="staff");$("adminBody").hidden=!auth;$("adminDenied").hidden=!!auth;if(!auth)return;try{const owner=state.user.role==="owner";const sum=await api("/api/admin/summary");const prov=$("providerManager");renderProviderManager(prov,owner);await renderAdManager(owner);await renderBenefitManager(owner);renderApiSupplierAdminButtons(owner);await renderGameVisibility(owner);await renderBrandDirectory(owner);await renderPaymentChannelManager(owner);
+- await renderPreviewDashboards(owner,sum);await renderSocialAdmin(owner);$("pendingPanel").hidden=!owner;$("auditPanel").hidden=!owner;await renderAdminDeposits();if(owner){const users=(await api("/api/admin/users")).items,list=$("userManager");clear(list);for(const x of users){renderItem(list,x.username,`${t("role_"+x.role)} · ${x.approved?t("approved"):t("pending")}`,x.approved||x.role!=="member"?null:t("approve"),async()=>{try{await api("/api/admin/approve","POST",{userId:x.id});await renderAdmin();notification(t("success"));}catch(e){notification(e.message)}});if(x.role!=="owner"){renderItem(list,t("role_"+x.role),null,x.role==="staff"?t("removeStaff"):t("makeStaff"),async()=>{try{await api("/api/admin/role","POST",{userId:x.id,role:x.role==="staff"?"member":"staff"});await renderAdmin();notification(t("success"));}catch(e){notification(e.message);}});}}const logs=(await api("/api/admin/audit")).items,auditHost=$("auditLog");clear(auditHost);for(const a of logs.slice(0,25))renderItem(auditHost,`${a.event} · ${a.target}`,`${a.username||"system"} · ${new Date(a.created_at*1000).toLocaleString()}`);}}
++ await renderPreviewDashboards(owner,sum);await renderSocialAdmin(owner);$("pendingPanel").hidden=!owner;$("auditPanel").hidden=!owner;await renderAdminDeposits();await renderAdminWithdrawals();if(owner){const users=(await api("/api/admin/users")).items,list=$("userManager");clear(list);for(const x of users){renderItem(list,x.username,`${t("role_"+x.role)} · ${x.approved?t("approved"):t("pending")}`,x.approved||x.role!=="member"?null:t("approve"),async()=>{try{await api("/api/admin/approve","POST",{userId:x.id});await renderAdmin();notification(t("success"));}catch(e){notification(e.message)}});if(x.role!=="owner"){renderItem(list,t("role_"+x.role),null,x.role==="staff"?t("removeStaff"):t("makeStaff"),async()=>{try{await api("/api/admin/role","POST",{userId:x.id,role:x.role==="staff"?"member":"staff"});await renderAdmin();notification(t("success"));}catch(e){notification(e.message);}});}}const logs=(await api("/api/admin/audit")).items,auditHost=$("auditLog");clear(auditHost);for(const a of logs.slice(0,25))renderItem(auditHost,`${a.event} · ${a.target}`,`${a.username||"system"} · ${new Date(a.created_at*1000).toLocaleString()}`);}}
+ catch(e){notification(e.message)}}
+ function showAuth(mode="login"){
+  state.authMode=mode;$("passwordForm").reset();$("authFeedback").textContent="";
+@@ -439,7 +450,7 @@
+   }finally{submit.disabled=false;renderAuthMode();}
+  });
+ }
+-function bind(){document.querySelectorAll("[data-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.gameCategory;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.sidebarGameCategory===state.gameCategory));renderCatalog();});document.querySelectorAll("[data-sidebar-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.sidebarGameCategory;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x===button));selected("lobby");renderCatalog();document.querySelector(".game-category-filters")?.scrollIntoView({behavior:"smooth",block:"start"});});document.querySelectorAll("[data-brand-category]").forEach(button=>button.onclick=()=>{state.brandCategory=button.dataset.brandCategory;document.querySelectorAll("[data-brand-category]").forEach(x=>x.classList.toggle("active",x===button));renderPublicBrandDirectory();});$("clearProviderFilter").onclick=()=>{state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;renderCatalog();};document.querySelectorAll("[data-section]").forEach(b=>b.onclick=()=>selected(b.dataset.section));$("exploreButton").onclick=()=>selected("lobby");$("aboutButton").onclick=async()=>{try{const data=await api("/health");notification(`${t("statusTitle")}: ${data.status} · ${data.release} · ${t("statusMessage")}`);}catch(e){notification(e.message)}};$("loginButton").onclick=()=>showAuth();$("closeAuth").onclick=()=>$("authDialog").close();$("refreshTickets").onclick=refreshTickets;$("refreshWallet").onclick=loadMemberWallet;$("refreshPaymentRecords").onclick=loadMemberWallet;$("refreshAdminDeposits").onclick=renderAdminDeposits;$("vpayOrderForm").addEventListener("submit",submitVPayOrder);$("search").oninput=renderCatalog;$("category").onchange=renderCatalog;$("locale").onchange=e=>{state.lang=e.target.value;try{localStorage.setItem("m7-language",state.lang);}catch{}applyLang();renderPublicBrandDirectory();};$("lobbyAdPrevious").onclick=()=>{state.adIndex--;renderCarousel();};$("lobbyAdNext").onclick=()=>{state.adIndex++;renderCarousel();};$("lobbyAdCancel").onclick=resetAdForm;$("lobbyAdForm").addEventListener("submit",async e=>{e.preventDefault();const button=$("lobbyAdSave");button.disabled=true;try{const file=$("lobbyAdFile").files[0],imageData=file?await imageDataForUpload(file):"";await api("/api/admin/ads","POST",{action:"save",id:state.editAdId||undefined,title:$("lobbyAdTitle").value,targetUrl:$("lobbyAdTarget").value,imageData,enabled:$("lobbyAdEnabled").checked,position:state.adminAds?.length||0});resetAdForm();await loadLobbyContent();await renderAdManager();notification(t("success"));}catch(err){$("lobbyAdFormStatus").textContent=err.message;}finally{button.disabled=false;}});$("benefitCancel").onclick=resetBenefitForm;$("benefitForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/benefits","POST",benefitFormPayload("draft"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}});$("benefitPublish").onclick=async()=>{if(!$("benefitForm").reportValidity())return;try{await api("/api/admin/benefits","POST",benefitFormPayload("active"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}};$("ticketForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user){showAuth();return;}try{await api("/api/tickets","POST",{subject:$("ticketSubject").value,message:$("ticketMessage").value});$("ticketForm").reset();await refreshTickets();notification(t("success"));}catch(err){notification(err.message)}});$("socialForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/social-links","POST",{facebookUrl:$("facebookLink").value,instagramUrl:$("instagramLink").value,enabled:$("socialEnabled").checked});await loadPublic();await renderSocialAdmin(true);notification(t("success"));}catch(err){notification(err.message)}});$("announcementForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/announcement","POST",{title:$("announcementTitle").value,body:$("announcementBody").value});$("announcementForm").reset();await loadPublic();notification(t("success"));}catch(err){notification(err.message)}});}
++function bind(){document.querySelectorAll("[data-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.gameCategory;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.sidebarGameCategory===state.gameCategory));renderCatalog();});document.querySelectorAll("[data-sidebar-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.sidebarGameCategory;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x===button));selected("lobby");renderCatalog();document.querySelector(".game-category-filters")?.scrollIntoView({behavior:"smooth",block:"start"});});document.querySelectorAll("[data-brand-category]").forEach(button=>button.onclick=()=>{state.brandCategory=button.dataset.brandCategory;document.querySelectorAll("[data-brand-category]").forEach(x=>x.classList.toggle("active",x===button));renderPublicBrandDirectory();});$("clearProviderFilter").onclick=()=>{state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;renderCatalog();};document.querySelectorAll("[data-section]").forEach(b=>b.onclick=()=>selected(b.dataset.section));$("exploreButton").onclick=()=>selected("lobby");$("aboutButton").onclick=async()=>{try{const data=await api("/health");notification(`${t("statusTitle")}: ${data.status} · ${data.release} · ${t("statusMessage")}`);}catch(e){notification(e.message)}};$("loginButton").onclick=()=>showAuth();$("closeAuth").onclick=()=>$("authDialog").close();$("refreshTickets").onclick=refreshTickets;$("refreshWallet").onclick=loadMemberWallet;$("refreshPaymentRecords").onclick=loadMemberWallet;$("refreshAdminDeposits").onclick=renderAdminDeposits;$("refreshWithdrawals").onclick=loadWithdrawals;$("refreshAdminWithdrawals").onclick=renderAdminWithdrawals;$("withdrawalForm").addEventListener("submit",submitWithdrawalForm);$("vpayOrderForm").addEventListener("submit",submitVPayOrder);$("search").oninput=renderCatalog;$("category").onchange=renderCatalog;$("locale").onchange=e=>{state.lang=e.target.value;try{localStorage.setItem("m7-language",state.lang);}catch{}applyLang();renderPublicBrandDirectory();};$("lobbyAdPrevious").onclick=()=>{state.adIndex--;renderCarousel();};$("lobbyAdNext").onclick=()=>{state.adIndex++;renderCarousel();};$("lobbyAdCancel").onclick=resetAdForm;$("lobbyAdForm").addEventListener("submit",async e=>{e.preventDefault();const button=$("lobbyAdSave");button.disabled=true;try{const file=$("lobbyAdFile").files[0],imageData=file?await imageDataForUpload(file):"";await api("/api/admin/ads","POST",{action:"save",id:state.editAdId||undefined,title:$("lobbyAdTitle").value,targetUrl:$("lobbyAdTarget").value,imageData,enabled:$("lobbyAdEnabled").checked,position:state.adminAds?.length||0});resetAdForm();await loadLobbyContent();await renderAdManager();notification(t("success"));}catch(err){$("lobbyAdFormStatus").textContent=err.message;}finally{button.disabled=false;}});$("benefitCancel").onclick=resetBenefitForm;$("benefitForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/benefits","POST",benefitFormPayload("draft"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}});$("benefitPublish").onclick=async()=>{if(!$("benefitForm").reportValidity())return;try{await api("/api/admin/benefits","POST",benefitFormPayload("active"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}};$("ticketForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user){showAuth();return;}try{await api("/api/tickets","POST",{subject:$("ticketSubject").value,message:$("ticketMessage").value});$("ticketForm").reset();await refreshTickets();notification(t("success"));}catch(err){notification(err.message)}});$("socialForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/social-links","POST",{facebookUrl:$("facebookLink").value,instagramUrl:$("instagramLink").value,enabled:$("socialEnabled").checked});await loadPublic();await renderSocialAdmin(true);notification(t("success"));}catch(err){notification(err.message)}});$("announcementForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/announcement","POST",{title:$("announcementTitle").value,body:$("announcementBody").value});$("announcementForm").reset();await loadPublic();notification(t("success"));}catch(err){notification(err.message)}});}
+ (function restoreLanguage(){try{const saved=localStorage.getItem("m7-language");if(["en","zh","ms"].includes(saved))state.lang=saved;}catch{}})();
+ (async function start(){bind();bindPasswordAuth();bindPaymentPreview();bindBonusBrandPreview();
+  if(location.pathname==="/admin")selected("admin");
+diff -ruN '--exclude=node_modules' '--exclude=.output' '--exclude=.sites-runtime' master7-v17-render-staging.old/public/assets/style.css master7-v17-render-staging/public/assets/style.css
+--- master7-v17-render-staging.old/public/assets/style.css	2026-11-04 18:32:42.000000000 +0000
++++ master7-v17-render-staging/public/assets/style.css	2026-11-04 18:51:36.445075300 +0000
+@@ -961,3 +961,12 @@
+ @media (prefers-reduced-motion: reduce) {
+   *,*::before,*::after { scroll-behavior: auto!important; animation-duration: .01ms!important; animation-iteration-count: 1!important; transition-duration: .01ms!important; }
+ }
++
++/* Customer withdrawal requests: Malaysian banks and four separately recorded companies. */
++.withdraw-layout{display:grid;grid-template-columns:minmax(300px,.9fr) minmax(340px,1.1fr);gap:18px;align-items:start}
++.withdrawal-form select,.withdrawal-form input{width:100%;min-height:46px;padding:10px 12px;border:1px solid #66512c;border-radius:10px;background:#090f18;color:#f7f2e9}
++.withdrawal-form select:focus,.withdrawal-form input:focus{outline:2px solid #e6bd6f;outline-offset:1px}
++.withdraw-admin-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #3d3426}
++.withdraw-admin-info strong,.withdraw-admin-info small{display:block;overflow-wrap:anywhere}.withdraw-admin-info small{margin-top:5px;color:var(--muted)}
++.withdraw-actions{display:flex;flex-wrap:wrap;gap:7px;justify-content:flex-end}
++@media(max-width:850px){.withdraw-layout{grid-template-columns:1fr}.withdraw-admin-row{grid-template-columns:1fr}.withdraw-actions{justify-content:flex-start}}
+diff -ruN '--exclude=node_modules' '--exclude=.output' '--exclude=.sites-runtime' master7-v17-render-staging.old/tests/api.test.mjs master7-v17-render-staging/tests/api.test.mjs
+--- master7-v17-render-staging.old/tests/api.test.mjs	2026-11-04 18:31:37.000000000 +0000
++++ master7-v17-render-staging/tests/api.test.mjs	2026-11-04 18:51:36.472527545 +0000
+@@ -9,7 +9,7 @@
+ // Execute the real migration and backend queries against SQLite, not query mocks.
+ const dir=mkdtempSync(join(tmpdir(),'master7-api-'));
+ const file=join(dir,'test.sqlite');
+-let sqlite=new DatabaseSync(file);for(const migration of ['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql'])sqlite.exec(readFileSync(new URL(`../drizzle/${migration}`,import.meta.url),'utf8'));
++let sqlite=new DatabaseSync(file);for(const migration of ['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql','0014_withdrawal_requests.sql'])sqlite.exec(readFileSync(new URL(`../drizzle/${migration}`,import.meta.url),'utf8'));
+ class Statement{
+  constructor(sql,args=[]){this.sql=sql;this.args=args;}
+  bind(...args){return new Statement(this.sql,args);}
+@@ -70,6 +70,17 @@
+   const wallet=await call('alice','/api/wallet');assert.equal(wallet.data.balanceMinor,'1000');
+   const ledger=await db.prepare('SELECT account_code,amount_minor FROM wallet_ledger WHERE order_id=?').bind(order.data.id).all();assert.equal(ledger.results.length,2);assert.equal(ledger.results.reduce((sum,row)=>sum+Number(row.amount_minor),0),0);
+  });
++ await t.test('customers submit bank withdrawals through one of four separate companies and owner processes them',async()=>{
++  const secure={withdrawalDataKey:'test-withdrawal-key-'+ 'z'.repeat(40)};
++  const config=await call(null,'/api/withdrawal-banks');assert.equal(config.status,200);assert.equal(config.data.banks.length,18);assert.deepEqual(config.data.providers.map(x=>x.id),['vpay','gspay','1mpay','gspay_plus']);
++  assert.equal((await call('alice','/api/withdrawals','POST',{providerId:'gspay',bankCode:'maybank',accountHolder:'Alice Example',accountNumber:'1234-5678-9012',amount:'6.00',requestKey:'withdraw_request_000001'})).status,503);
++  const created=await call('alice','/api/withdrawals','POST',{providerId:'gspay',bankCode:'maybank',accountHolder:'Alice Example',accountNumber:'1234-5678-9012',amount:'6.00',requestKey:'withdraw_request_000001'}, {},secure);assert.equal(created.status,201);assert.equal(created.data.withdrawal.providerName,'GSPAY');
++  assert.equal((await call('alice','/api/withdrawals','POST',{providerId:'vpay',bankCode:'cimb',accountHolder:'Alice Example',accountNumber:'9999999999',amount:'1.00',requestKey:'withdraw_request_000002'}, {},secure)).status,409);
++  const member=await call('alice','/api/withdrawals','GET',undefined,{},secure);assert.equal(member.data.items.length,1);assert.equal(member.data.items[0].accountNumber,'•••• 9012');assert.equal(member.data.items[0].accountHolder,undefined);assert.equal(member.data.wallet.availableMinor,'400');assert.equal(member.data.wallet.heldMinor,'600');
++  assert.equal((await call('employee','/api/admin/withdrawals','GET',undefined,{},secure)).status,403);const owner=await call('owner','/api/admin/withdrawals','GET',undefined,{},secure);assert.equal(owner.status,200);assert.equal(owner.data.items[0].accountHolder,'Alice Example');assert.equal(owner.data.items[0].accountNumber,'123456789012');
++  for(const status of ['approved','processing','paid'])assert.equal((await call('owner','/api/admin/withdrawals/status','POST',{id:created.data.withdrawal.id,status,ownerNote:''}, {},secure)).status,200);
++  const wallet=await call('alice','/api/wallet');assert.equal(wallet.data.balanceMinor,'400');assert.equal(wallet.data.availableMinor,'400');assert.equal(wallet.data.heldMinor,'0');const ops=await call('owner','/api/admin/operations');assert.equal(ops.data.metrics.withdrawMYR,6);
++ });
+  await t.test('connected supplier titles default visible while owner controls remain independent',async()=>{
+   const gameGatewayFetch=async url=>new Response(JSON.stringify(new URL(url).pathname.endsWith('/jili/games')?{games:[{gameCode:'J-1',name:'One title',maintenance:true},{gameCode:'J-2',name:'Another title'}]}:new URL(url).pathname.endsWith('/megah5/games')?{result:{Game:[]}}:{games:[]}),{headers:{'content-type':'application/json'}}),extra={gameGatewayUrl:'https://master7-integration-gateway.onrender.com',gameGatewayFetch};
+   const initialGames=(await call(null,'/api/games','GET',undefined,{},extra)).data;assert.deepEqual(initialGames.games.map(g=>[g.gameCode,g.status]),[['J-1','suspended'],['J-2','active']]);assert.equal(initialGames.playable,false);
+diff -ruN '--exclude=node_modules' '--exclude=.output' '--exclude=.sites-runtime' master7-v17-render-staging.old/tests/lobby-render.test.mjs master7-v17-render-staging/tests/lobby-render.test.mjs
+--- master7-v17-render-staging.old/tests/lobby-render.test.mjs	2026-11-04 18:31:38.000000000 +0000
++++ master7-v17-render-staging/tests/lobby-render.test.mjs	2026-11-04 18:52:59.259109701 +0000
+@@ -66,6 +66,19 @@
+  assert.doesNotMatch(html,/customGameForm|platformMiniGames|mini-game-grid/i);
+ });
+ 
++test('withdraw page collects one of four companies and Malaysian bank details for owner processing',()=>{
++ assert.match(html,/data-section="withdraw"/);
++ assert.match(html,/id="withdrawalForm"/);
++ assert.match(html,/id="withdrawBank"/);
++ assert.match(html,/id="withdrawAccountHolder"/);
++ assert.match(html,/id="withdrawAccountNumber"/);
++ assert.match(html,/id="withdrawAmount"/);
++ for(const company of ['vpay','gspay','1mpay','gspay_plus'])assert.match(html,new RegExp(`value="${company}"`));
++ assert.match(html,/id="adminWithdrawalPanel"/);
++ assert.match(source,/api\("\/api\/withdrawals","POST"/);
++ assert.match(source,/api\("\/api\/admin\/withdrawals\/status","POST"/);
++});
++
+ test('supplier API catalogue is loaded separately from admin visibility controls',()=>{
+  assert.match(source,/api\("\/api\/games"\)/);
+  assert.match(source,/api\("\/api\/admin\/games"\)/);

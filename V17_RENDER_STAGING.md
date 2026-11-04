@@ -1,5 +1,17 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
+## Withdrawal request candidate — 2026-11-05 02:56 MYT
+
+- Candidate release: `17.0.0-selfbuilt.26-withdrawal-requests`.
+- Bundle SHA-256: `aa15f9b78401e28dd88d9cd5eb2ed68cb1eda49dc26a7474cf0bcc514d5df867`.
+- Customer Withdraw page: four separate companies, 18 Malaysian banks, account-holder name, account number and MYR amount.
+- Owner backoffice: immediate pending notice, full request details and Approved → Processing → Paid / Rejected controls.
+- Provider processing remains manual as confirmed by the owner: MASTER7 receives the request first, then the operator processes it in the selected provider backoffice.
+- Bank account details are encrypted at rest using server-only `WITHDRAWAL_DATA_KEY`; exports omit encrypted fields.
+- Full local suite: 87 passed, 0 failed, 0 skipped. JavaScript syntax and Render production build passed.
+- Reviewable diff: `docs/patches/MASTER7_WITHDRAWAL_REQUESTS_20261105.patch`.
+- Candidate is not live until the deployment record below is updated.
+
 ## Current live handover build — 2026-11-05 02:40 MYT
 
 - Service: `master7-v17-staging` (`srv-dbl0iv7f3r2c73848ei0`).
