@@ -31,3 +31,15 @@ Validation before packaging: 67 Node tests, TypeScript check, Render database ad
 - `https://master7-v17-staging.onrender.com/health` returns release `17.0.0-selfbuilt.16`, database ready, `smsOtpReady=false`, `realPayments=false`, `liveGames=false`, and `productionReady=false`.
 - The public APIs show the three sponsored brands, zero visible supplier titles, zero platform mini-games, and all four payment channels at Close with `transactionsEnabled=false`. Unauthenticated backoffice calls return 401.
 - The migration log confirms 76 closed directory entries were seeded. Production DNS and legacy data were not changed. Full database restore and owner-authenticated live UI acceptance remain unverified.
+
+## Local follow-up candidate (not deployed)
+
+Follow-up verification at 18:28 MYT confirmed the running service still uses the .16 deployment above, all payment channels remain Close, VPay remains disabled, and the public game list remains empty. A local .17 candidate forwards the eight server-side VPAY_* settings already consumed by the route through the Render environment adapter. Missing values stay undefined; the mapping does not change channel status or contact the payment gateway. If the required UAT values are configured and an owner later changes the VPay channel to Active, the existing UAT order flow could become available, so keep the channel Close until sandbox testing is explicitly scheduled.
+
+The open PR #4 was compared against this .16 source bundle before changes. Its direct /register route and direct-registration UI tests were already present in .16, so the older PR archive was not merged. One missing fix was still applicable: a redundant auth-mode assignment could reveal the member-registration button on /admin sign-in. The candidate removes that override and adds a regression test that also checks phone and owner-reset controls.
+
+- Candidate release: `17.0.0-selfbuilt.17`
+- Candidate source bundle SHA-256: `9eeb05d9ac6e2c5db72c4576d3dcb3c7f46a0bf1bd0a8fef770420b647ef2db4`
+- Validation on the extracted source: 70 Node tests passed, TypeScript check passed, and `npm run build:render` passed.
+- Candidate is on a separate local branch and has not been pushed or deployed. Render auto-deploy remains off; production DNS, databases, credentials, and transaction settings were not changed. Render environment-variable values were not inspected.
+- Provider sandbox UAT and owner-authenticated UI acceptance remain pending; live money operations must remain disabled.
