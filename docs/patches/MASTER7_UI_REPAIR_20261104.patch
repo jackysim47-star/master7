@@ -1,0 +1,346 @@
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -1,6 +1,6 @@
+ "use strict";
+ const $ = id => document.getElementById(id);
+-const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", register:false, providers:[], games:[], gameCatalogue:null, brandDirectory:[], brandCategory:"ALL", selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], social:null, ads:[], benefits:[], adIndex:0, adTimer:null, editAdId:null, editBenefitId:null, editCustomGameId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, section:"lobby"};
++const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", register:false, providers:[], games:[], gameCatalogue:null, brandDirectory:[], brandCategory:"ALL", selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], social:null, ads:[], benefits:[], adIndex:0, adTimer:null, editAdId:null, editBenefitId:null, editCustomGameId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, paymentChannels:{}, section:"lobby"};
+ const translations = {
+  zh: {
+   requestTimeout:"连接超时，操作结果未确认。请检查连接和记录后再试。",networkError:"无法连接服务。请检查网络后重试。",serviceUnavailable:"服务暂时不可用。请稍后重试。",
+@@ -344,8 +344,8 @@
+  if(mode==="security")$("authUsername").value=state.user?.username||"";
+  renderAuthMode();if(!$("authDialog").open)$("authDialog").showModal();
+ }
+-function activationToSignIn(message){
+- history.replaceState(null,"","/signin");selected("lobby");showAuth("login");$("authUsername").value="master7_owner";$("authFeedback").textContent=message;
++function activationToSignIn(message,username="master7_owner"){
++ history.replaceState(null,"","/admin");selected("admin");showAuth("login");$("authUsername").value=username;$("authFeedback").textContent=message;
+ }
+ async function openActivation(){
+  try{
+@@ -353,14 +353,14 @@
+   if(options.ownerSetupComplete)activationToSignIn(t("activationAlreadyDone"));
+   else if(options.ownerSetupAvailable)showAuth("activate");
+   else activationToSignIn(t("activationUnavailable"));
+- }catch(error){showAuth("login");$("authFeedback").textContent=error.message;}
++ }catch(error){activationToSignIn(error.message);}
+ }
+ async function openOwnerReset(){
+  try{
+   const options=await api("/api/auth/options");
+   if(options.ownerResetAvailable===true)showAuth("reset");
+-  else {showAuth("login");$("authFeedback").textContent=t("resetUnavailable");}
+- }catch(error){showAuth("login");$("authFeedback").textContent=error.message;}
++  else activationToSignIn(t("resetUnavailable"),"");
++ }catch(error){activationToSignIn(error.message,"");}
+ }
+ function renderAuthMode(){
+  const mode=state.authMode,creating=mode!=="login";
+@@ -401,13 +401,13 @@
+     await api("/api/auth/login","POST",{username,password:pass,phone});await refreshSession();if(!state.user)throw new Error(t("sessionMissing"));$("authDialog").close();await loadPublic();await refreshTickets();
+     if(state.user&&(state.user.role==="owner"||state.user.role==="staff")){history.replaceState(null,"","/admin");selected("admin");}else{history.replaceState(null,"","/");selected("support");}
+    }else if(mode==="activate"){
+-    const result=await api("/api/auth/activate","POST",{code:$("activationCode").value.trim(),password:pass});history.replaceState(null,"","/signin");selected("lobby");showAuth("login");$("authUsername").value=result.username;$("authFeedback").textContent=t("activationDone");
++    const result=await api("/api/auth/activate","POST",{code:$("activationCode").value.trim(),password:pass});activationToSignIn(t("activationDone"),result.username);
+    }else if(mode==="register"){
+     await api("/api/auth/register","POST",{username,password:pass,phone,challengeId:state.otpChallenge,otp:$("memberOtp").value.trim()});showAuth("login");$("authUsername").value=username;$("memberPhone").value=phone;$("authFeedback").textContent=t("registrationDone");
+    }else if(mode==="reset"){
+     const result=await api("/api/auth/reset-owner","POST",{code:$("activationCode").value.trim(),password:pass});
+     state.user=null;state.csrf=null;state.authMethod=null;state.tickets=[];renderSession();renderTickets();
+-    history.replaceState(null,"","/signin");selected("lobby");showAuth("login");$("authUsername").value=result.username;$("authFeedback").textContent=t("resetDone");
++    activationToSignIn(t("resetDone"),result.username);
+    }else{
+     await api("/api/auth/change-password","POST",{currentPassword:$("currentPassword").value,newPassword:pass,newUsername:username});state.user=null;state.csrf=null;state.authMethod=null;state.tickets=[];renderSession();renderTickets();showAuth("login");$("authUsername").value=username;$("authFeedback").textContent=t("passwordChanged");
+    }
+--- a/tests/activation-ui.test.mjs
++++ b/tests/activation-ui.test.mjs
+@@ -33,7 +33,8 @@
+  const f=fixture({ownerSetupComplete:true,ownerSetupAvailable:false});
+  f.get('authPassword').value='discard this stale value';
+  await f.run('openActivation()');
+- assert.equal(f.run('state.authMode'),'login');assert.equal(f.path(),'/signin');
++ assert.equal(f.run('state.authMode'),'login');assert.equal(f.path(),'/admin');
++ assert.equal(f.get('memberPhone').required,false);assert.equal(f.get('registerToggle').hidden,true);
+  assert.equal(f.get('authPassword').value,'');assert.equal(f.get('activationField').hidden,true);
+  assert.match(f.get('authFeedback').textContent,/already activated/i);
+  assert.deepEqual(f.requests.map(r=>r.method),['GET']);
+@@ -50,11 +51,11 @@
+  assert.equal(f.run('state.authMode'),'login');assert.equal(f.get('authFeedback').textContent,'Service unavailable');
+  assert.equal(f.get('activationField').hidden,true);
+ });
+-test('full startup retains the activation message after changing the URL to signin',async()=>{
++test('full startup retains the activation message at management sign-in',async()=>{
+  const f=fixture({ownerSetupComplete:true,ownerSetupAvailable:false});
+  f.run('bind=bindPasswordAuth=bindPaymentPreview=bindBonusBrandPreview=applyLang=renderSession=renderAdmin=()=>{};refreshSession=loadPublic=refreshTickets=async()=>{};');
+  await f.run(fullSource.slice(source.length));
+- assert.equal(f.path(),'/signin');assert.match(f.get('authFeedback').textContent,/already activated/i);
++ assert.equal(f.path(),'/admin');assert.match(f.get('authFeedback').textContent,/already activated/i);
+  assert.equal(f.get('authUsername').value,'master7_owner');
+ });
+ test('stale activation form clears passwords and switches only after confirmed completion',async()=>{
+@@ -82,7 +83,8 @@
+  f.get('activationCode').value='synthetic reset code';
+  await f.get('passwordForm').handlers.submit({preventDefault(){}});
+  assert.equal(f.requests.length,1);assert.equal(f.requests[0].url,'/api/auth/reset-owner');assert.deepEqual(Object.keys(f.requests[0].data).sort(),['code','password']);
+- assert.equal(f.run('state.authMode'),'login');assert.equal(f.path(),'/signin');assert.equal(f.get('authUsername').value,'renamed_owner');
++ assert.equal(f.run('state.authMode'),'login');assert.equal(f.path(),'/admin');assert.equal(f.get('authUsername').value,'renamed_owner');
++ assert.equal(f.get('memberPhone').required,false);assert.equal(f.get('phoneField').hidden,true);
+  assert.equal(f.get('authPassword').value,'');assert.equal(f.get('activationCode').value,'');assert.equal(f.get('authPassword').type,'password');assert.match(f.get('authFeedback').textContent,/Password reset/i);
+ });
+ 
+@@ -92,10 +94,12 @@
+   await f.run('openOwnerReset()');
+   assert.equal(f.run('state.authMode'),available?'reset':'login');
+   assert.deepEqual(f.requests.map(r=>r.method),['GET']);
+-  if(!available)assert.match(f.get('authFeedback').textContent,/No active owner reset code/i);
++  if(!available){assert.match(f.get('authFeedback').textContent,/No active owner reset code/i);assert.equal(f.path(),'/admin');assert.equal(f.get('memberPhone').required,false);}
+  }
+- const f=fixture({});f.run('api=async()=>{throw new Error("Service unavailable")}');
++ const f=fixture({},'/reset-owner');f.run('api=async()=>{throw new Error("Service unavailable")}');
+  await f.run('openOwnerReset()');assert.equal(f.run('state.authMode'),'login');
++ assert.equal(f.path(),'/admin');assert.equal(f.get('memberPhone').required,false);
++ assert.equal(f.get('authUsername').value,'');
+  assert.equal(f.get('authFeedback').textContent,'Service unavailable');
+ });
+ test('a 200 login without a verified session cannot close the form or enter admin',async()=>{
+@@ -113,3 +117,22 @@
+  const failed=fixture({});failed.run('bindPasswordAuth();state.authMethod="password";api=async()=>{throw new Error("Service unavailable")};notification=()=>{};location.assign=url=>requests.push({navigation:url});');
+  await failed.get('logoutButton').onclick({preventDefault(){}});assert.equal(failed.requests.length,0);
+ });
++
++test('successful activation returns to management login without requesting a phone or authenticating',async()=>{
++ const f=fixture({},'/activate');f.run('bindPasswordAuth();showAuth("activate");api=async(url,method,data)=>{requests.push({url,method,data});return {username:"configured_owner"};};');
++ f.get('authPassword').value=f.get('confirmPassword').value='Synthetic activation password 2026';
++ f.get('activationCode').value='synthetic activation code';
++ await f.get('passwordForm').handlers.submit({preventDefault(){}});
++ assert.equal(f.path(),'/admin');assert.equal(f.run('state.authMode'),'login');
++ assert.equal(f.get('authUsername').value,'configured_owner');assert.equal(f.get('memberPhone').required,false);
++ assert.equal(f.get('phoneField').hidden,true);assert.equal(f.get('registerToggle').hidden,true);
++ assert.equal(f.get('ownerResetLink').hidden,false);assert.equal(f.get('authPassword').value,'');
++ assert.equal(f.get('authDialog').open,true);assert.equal(f.run('state.user'),null);
++ assert.deepEqual(f.requests.map(r=>[r.url,r.method]),[['/api/auth/activate','POST']]);
++});
++
++test('ordinary customer sign-in still requires a phone and keeps registration available',()=>{
++ const f=fixture({},'/signin');f.run('showAuth("login")');
++ assert.equal(f.get('phoneField').hidden,false);assert.equal(f.get('memberPhone').required,true);
++ assert.equal(f.get('registerToggle').hidden,false);assert.equal(f.get('ownerResetLink').hidden,true);
++});
+--- a/tests/password-auth.test.mjs
++++ b/tests/password-auth.test.mjs
+@@ -162,7 +162,10 @@
+  });
+  }finally{sqlite.close();}
+ });
+-test('expired sessions and throttled logins fail closed',async()=>{
++test('expired sessions and throttled logins fail closed',async t=>{
++ // Keep the attempts inside one ten-minute rate bucket; wall-clock rollover
++ // otherwise makes this assertion depend on when the suite was started.
++ const timestamp=Date.now();t.mock.method(Date,'now',()=>timestamp);
+  const f=fixture();try{
+   await f.call(null,'/api/auth/activate',{code:f.code,password:pass});await f.call('owner','/api/auth/login',{username:'master7_owner',password:pass});
+   f.sqlite.prepare('UPDATE password_sessions SET expires_at=1').run();assert.equal((await f.call('owner','/api/session')).body.user,null);
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -1,7 +1,7 @@
+ import { readLocalSession, handlePasswordAuth, AuthError } from './password-auth.ts';
+ import { requestOriginAllowed } from './request-origin.ts';
+ import { createVPayOrder, handleVPay } from './vpay.ts';
+-export const RELEASE = '17.0.0-selfbuilt.19';
++export const RELEASE = '17.0.0-selfbuilt.19-ui-fix.1';
+ export const SOURCE_RELEASE = '17.0.0-preview.6-qa3-integrated-r3';
+ type Identity={userId:string;email:string};
+ type User={id:string;username:string;role:string;approved:number;csrf:string;created_at:number};
+--- a/public/assets/style.css
++++ b/public/assets/style.css
+@@ -561,3 +561,123 @@
+   .bonus-brand-action,
+   .bonus-extra-action { font-size: 10px; }
+ }
++
++/* MASTER7 owner-approved palette: water blue, gold and white.
++   Shared by customer and management pages; layout and controls are unchanged. */
++:root {
++  color-scheme: light;
++  --bg: #effaff;
++  --navy: #e0f4fc;
++  --panel: #ffffff;
++  --line: #bfdbe8;
++  --gold: #946200;
++  --aqua: #65c7ed;
++  --txt: #173b53;
++  --muted: #496777;
++  --blue: #096c94;
++  --red: #a52b2b;
++  --brand-gold-border: #d1ab54;
++}
++body {
++  color: var(--txt);
++  background: radial-gradient(ellipse at 78% 0, #d7f3ff 0, transparent 62%),
++              linear-gradient(180deg, #f7fdff, #e8f7fd 60%, #ffffff);
++}
++.topbar, .portal-sidebar, .footer {
++  background: rgba(255,255,255,.97);
++  border-color: var(--line);
++  color: var(--muted);
++}
++.topbar { box-shadow: 0 3px 16px #174c6812; border-bottom-color: var(--brand-gold-border); }
++.brand, .footer-brand, .brand-mini, .lock-brand { color: var(--txt); }
++.brand small, .footer-brand small, .portal-sidebar-heading,
++.admin-sidebar-heading, .sidebar-foot { color: var(--muted); }
++.brand-mini, .lock-brand, .sidebar-icon {
++  background: #def4fd; border-color: var(--brand-gold-border); color: #075e83;
++}
++.demo-ribbon, .payment-caveat, .payment-dialog-warning, .bonus-disclosure {
++  background: #fff7e4; color: #715015; border-color: #d6b263;
++}
++.nav-button, .sidebar-nav-button, .admin-internal-sidebar a { color: #355b72; }
++.nav-button:hover, .nav-button.active,
++.sidebar-nav-button:hover, .sidebar-nav-button.active,
++.admin-internal-sidebar a:hover, .admin-internal-sidebar a:focus-visible {
++  color: #074e70; background: #dff3fc; border-color: #91c7dc;
++}
++.sidebar-nav-button.active { box-shadow: inset 3px 0 var(--brand-gold-border); }
++.hero, #lobby > .section-header, .lobby-ad-carousel {
++  background: linear-gradient(120deg, #d5f2ff, #f6fcff 65%, #fff5db);
++  border-color: #a7d6e7; color: var(--txt); box-shadow: 0 10px 30px #17658c10;
++}
++.hero-display { background: radial-gradient(ellipse, #c4ebfa, transparent 70%); }
++.version-panel { background: #fffffff2; border-color: var(--brand-gold-border); }
++.hero h1, #lobby > .section-header h1, .section-header h1,
++.section-header h2, .surface h2, .bonus-lobby-head h2,
++.provider-directory-heading h2, .game-card h3 { color: var(--txt); }
++.eyebrow, #lobby > .section-header .eyebrow,
++.provider-group-title, .hero h1 em, .version-panel b { color: var(--gold); }
++.intro, .muted, .section-header p, #lobby > .section-header p,
++.feature p, .provider-card p, .game-card p, .surface label,
++.stack small, .row-item small, .stat span { color: var(--muted); }
++.feature, .surface, .admin-content .surface, .admin-content .ad-manager,
++.admin-content .benefit-manager, .admin-internal-sidebar, .ad-manager,
++.benefit-manager, .bonus-brand-lobby, .provider-directory-lobby,
++.payment-lobby, .member-wallet, .deposit-guide, .deposit-guide-aside {
++  color: var(--txt); background: #ffffff; border-color: var(--line);
++  box-shadow: 0 4px 18px #1a5d7b08;
++}
++.stat, .provider-card, .provider-directory-card, .game-card, .mini-game-card,
++.bonus-brand-card, .bonus--jili, .bonus--megah5, .bonus--918kiss,
++.payment-option, .wallet-balance, .ticket, .wallet-record-row,
++.benefit-card, .guide-vendor {
++  color: var(--txt); border-color: var(--line);
++  background: linear-gradient(145deg, #ffffff, #edf9ff);
++  box-shadow: 0 3px 12px #17557408;
++}
++.stat { border-top: 2px solid var(--brand-gold-border); }
++.stat strong, .wallet-balance strong { color: #075d80; }
++.bonus-big-mark, .bonus-mark-jili, .bonus-mark-mega, .bonus-mark-kiss {
++  color: #075d80; background: none; -webkit-text-fill-color: currentColor; text-shadow: none;
++}
++.bonus-brand-card:hover, .provider-directory-card:hover,
++.payment-option:hover { border-color: var(--brand-gold-border); }
++.provider-directory-art { background: radial-gradient(circle at 45% 40%, #eaf9ff, #d6eff9); color: #075d80; }
++.notice, .announcement, .ad-slot-spec, .benefit-scope-note,
++.wallet-status, .wallet-status-row { background: #eef9fe; color: #355b72; border-color: var(--line); }
++.announcement p, .ticket p, .row-item { color: var(--txt); border-color: var(--line); }
++.announcement time, .ticket time { color: var(--muted); }
++.button-primary {
++  color: #ffffff; background: linear-gradient(115deg, #08628a, #08789b);
++  border: 1px solid #096c94; box-shadow: 0 3px 0 #b58a32, 0 5px 16px #12618018;
++}
++.button-outline, .button-ghost, .bonus-brand-action, .bonus-extra-action {
++  color: #075b7c; background: #edf9ff; border-color: #91c7dc;
++  box-shadow: 0 2px 8px #15557409;
++}
++.bonus-head-count, .bonus-locked, .bonus-index, .payment-number,
++.payment-lobby-counter, .tiny-label, .security-tag, .user-chip {
++  color: #805800; border-color: #d1ab54; background-color: #fff8e9;
++}
++.payment-hint, .payment-state, .provider-directory-label,
++.provider-directory-integration, .wallet-heading small { color: #355b72; }
++.game-category-chip {
++  color: #355b72; border-color: var(--line); background: #ffffff;
++}
++.game-category-chip.active {
++  color: #074e70; border-color: #8bc6dd; background: #dff3fc;
++}
++input, textarea, select, dialog select, .top-actions select,
++.filters input, .filters select, #lobby .filters input, #lobby .filters select {
++  background: #ffffff; color: var(--txt); border-color: #a7cbdc;
++}
++input::placeholder, textarea::placeholder { color: #587487; }
++input:focus, textarea:focus, select:focus {
++  border-color: #08789b; box-shadow: 0 0 0 3px #65c7ed40;
++}
++dialog { color: var(--txt); background: #ffffff; border-color: var(--brand-gold-border); }
++dialog::backdrop { background: #173b5366; }
++.close { color: #355b72; background: #edf9ff; border-color: var(--line); }
++.toast { color: #ffffff; background: #145773; border-color: var(--brand-gold-border); }
++.footer { border-top-color: var(--brand-gold-border); }
++:focus-visible { outline: 3px solid #096c94; outline-offset: 3px; }
++
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -3,7 +3,7 @@
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+-  <meta name="theme-color" content="#080e1d">
++  <meta name="theme-color" content="#effaff">
+   <meta name="description" content="MASTER7 · Member services and operations portal">
+   <title>MASTER7 · Service Portal</title>
+   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+--- /dev/null
++++ b/tests/startup-readiness.test.mjs
+@@ -0,0 +1,52 @@
++import {test} from 'node:test';
++import assert from 'node:assert/strict';
++import {readFileSync} from 'node:fs';
++import {createContext,runInContext} from 'node:vm';
++
++const full=readFileSync(new URL('../public/assets/app.js',import.meta.url),'utf8');
++const split=full.indexOf('(async function start(){');
++const definitions=full.slice(0,split),startup=full.slice(split);
++
++function fixture(pathname='/'){
++ const elements=new Map(),calls=[];
++ const get=id=>{
++  if(!elements.has(id))elements.set(id,{value:'',textContent:'',hidden:false,open:false,handlers:{},dataset:{},classList:{toggle(){}},
++   addEventListener(name,fn){this.handlers[name]=fn;},showModal(){this.open=true;},reset(){for(const e of elements.values())e.value='';}});
++  return elements.get(id);
++ };
++ const channels=['vpay','gspay','1mpay','gspay-plus'].map(code=>({
++  dataset:{paymentChannel:code},hidden:false,label:'',status:{textContent:''},
++  querySelector(selector){assert.equal(selector,'.payment-state');return this.status;},
++  setAttribute(name,value){assert.equal(name,'aria-label');this.label=value;},
++  addEventListener(){}
++ }));
++ const context=createContext({document:{getElementById:get,querySelectorAll(selector){return selector==='[data-payment-channel]'?channels:[];}},
++  window:{scrollTo(){}},location:{pathname},history:{replaceState(){}},calls});
++ runInContext(definitions,context);
++ return {get,channels,calls,run:code=>runInContext(code,context)};
++}
++
++for(const path of ['/','/admin','/signin','/register']){
++ test('startup reaches session and public loading before channel data arrives: '+path,async()=>{
++  const f=fixture(path);
++  // Keep the real initial payment-state renderer and real auth UI; isolate other
++  // unrelated UI work. Unlike an empty-selector stub, this DOM includes the
++  // four controls present on every portal page.
++  f.run('bind=bindPasswordAuth=bindPaymentPreview=bindBonusBrandPreview=renderAdmin=renderSession=()=>{};applyLang=()=>renderPaymentPreview();refreshSession=async()=>calls.push("session");loadPublic=async()=>calls.push("public");refreshTickets=async()=>calls.push("tickets");');
++  await f.run(startup);
++  assert.deepEqual(f.calls,['session','public']);
++  assert.ok(f.channels.every(c=>/Maintenance/i.test(c.status.textContent)));
++  if(path==='/register'){
++   assert.equal(f.get('memberPhone').required,true);
++   assert.equal(f.get('memberOtp').required,true);
++  }
++ });
++}
++
++test('unloaded channel labels render safely in all three languages',()=>{
++ for(const lang of ['en','zh','ms']){
++  const f=fixture();f.run('state.lang='+JSON.stringify(lang)+';renderPaymentPreview()');
++  assert.ok(f.channels.every(c=>c.status.textContent.length>0 && c.label.length>0));
++ }
++});
++
