@@ -4,6 +4,18 @@ Updated: 2026-11-05 MYT
 
 Live source: `a067d87e1797fdffb69496c008c001fdf215c28d` · Render deploy: `dep-dblo0c8ae00c73cfs5sg` · 2026-11-05 02:59 MYT.
 
+
+## Release candidate 17.0.0-selfbuilt.27-simple-access
+
+- Customer front uses a compact casino-style login with MASTER7 ID, Malaysian mobile and SMS OTP only.
+- Owner backoffice uses ID and password; the minimum new owner password is six characters and six-digit numeric passwords are accepted.
+- Customer-facing game and payment copy no longer exposes API, UAT, preview or staging terminology. Unverified game launches and payment channels show Coming soon or Maintenance.
+- The customer VPay form now requires a verified live mode and `realPayments:true`; UAT configuration is never presented as live customer checkout.
+- `master7.best` is reserved for the customer front. `master7.site` is reserved for the new owner backoffice; it is active through 2027-11-04 and had zero DNS records when purchased.
+- Full local suite: 88 passed, 0 failed, 0 skipped. JavaScript syntax and Render production build passed.
+- Bundle SHA-256: `3108b6de7564a122df6b1f7c246ba5bac112e6b2581b7a37b1d287d4d2beddc0`.
+- Reviewable diff: `docs/patches/MASTER7_SIMPLE_ACCESS_CASINO_COPY_20261105.patch`.
+
 ## Live build 17.0.0-selfbuilt.26-withdrawal-requests
 
 - Customer lobby and owner backoffice now use two distinct screenshot-based layouts.

@@ -1,5 +1,17 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
+## Simple access candidate — 2026-11-05 MYT
+
+- Candidate runtime release: `17.0.0-selfbuilt.27-simple-access`.
+- Customer front: casino-style copy and compact MASTER7 ID + Malaysian mobile + SMS OTP access.
+- Owner backoffice: ID + password with six-character minimum.
+- Unverified games and payments remain visibly unavailable without customer-facing API/UAT/staging terminology. UAT VPay cannot appear as a live customer order form.
+- Full local suite: 88 passed, 0 failed, 0 skipped; JavaScript syntax and Render production build passed.
+- Bundle SHA-256: `3108b6de7564a122df6b1f7c246ba5bac112e6b2581b7a37b1d287d4d2beddc0`.
+- Reviewable diff: `docs/patches/MASTER7_SIMPLE_ACCESS_CASINO_COPY_20261105.patch`.
+- Domain allocation: `master7.best` customer front; `master7.site` owner backoffice.
+
+
 ## Live withdrawal request build — 2026-11-05 02:59 MYT
 
 - Runtime release: `17.0.0-selfbuilt.26-withdrawal-requests`.
