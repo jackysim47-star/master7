@@ -1,0 +1,306 @@
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -74,7 +74,11 @@
+     </section>
+ 
+     <section id="lobby" class="section active">
+-      <div class="section-header lobby-hero"><div><p class="eyebrow" data-i18n="lobbyEyebrow">供应商只读测试目录</p><h1 data-i18n="lobbyTitle">供应商游戏目录（测试）</h1><p class="muted" data-i18n="lobbyNotice">只读测试目录；游戏不能启动、下注或结算。</p></div><div class="lobby-live-summary" aria-label="Live catalogue summary"><span><strong id="lobbyGameCount">—</strong><small>GAMES</small></span><span><strong id="lobbyProviderCount">—</strong><small>PROVIDERS</small></span><span><strong>24/7</strong><small>ACCESS</small></span></div></div>
++      <div class="section-header lobby-hero">
++        <div class="lobby-hero-copy"><p class="eyebrow" data-i18n="lobbyEyebrow">游戏大厅</p><h1 data-i18n="lobbyTitle">MASTER7 游戏大厅</h1><p class="muted" data-i18n="lobbyNotice">三家赞助厂商入口置顶；游戏按类型及厂商分组逐款展示。每款封面和状态可在后台独立管理。</p><div class="casino-trust-row" aria-label="Platform highlights"><span>MYR</span><span>中文 · EN · BM</span><span>34 SUPPLIERS</span><span>SECURE ACCESS</span></div></div>
++        <div class="casino-hero-stage" aria-hidden="true"><div class="casino-symbols"><span>♠</span><span>♦</span><span>♣</span><span>♥</span></div><img src="/assets/seven-emblem.png" alt=""><b>MASTER7</b><small>PREMIUM GAME LOBBY</small></div>
++        <div class="lobby-live-summary" aria-label="Live catalogue summary"><span><strong id="lobbyGameCount">—</strong><small>GAMES</small></span><span><strong id="lobbyProviderCount">—</strong><small>PROVIDERS</small></span><span><strong>24/7</strong><small>ACCESS</small></span></div>
++      </div>
+       <section id="lobbyAdCarousel" class="lobby-ad-carousel" aria-label="Lobby advertisements" hidden>
+         <a id="lobbyAdLink" class="lobby-ad-link" href="#" target="_blank" rel="noopener noreferrer" hidden>
+           <img id="lobbyAdImage" class="lobby-ad-image" alt="">
+@@ -92,6 +96,7 @@
+           <button id="lobbyAdNext" type="button" aria-label="Next advertisement">›</button>
+         </div>
+       </section>
++      <div id="lobbyAdGrid" class="lobby-ad-grid" aria-label="More lobby advertisements" hidden></div>
+       <div class="featured-games-panel">
+       <section class="bonus-brand-lobby" id="bonusBrandLobby" aria-labelledby="bonusBrandTitle">
+         <div class="bonus-lobby-head"><div><p class="eyebrow">FEATURED GAME BRANDS</p><h2 id="bonusBrandTitle" data-bonus-i18n="title">Sponsored Brands · Advertising</h2><p class="muted" data-bonus-i18n="intro">Three separate sponsor entries. Only the game cards you add in backoffice will appear below.</p></div><span class="bonus-head-count" data-bonus-i18n="brandCount">3 SPONSORED BRANDS</span></div>
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -1,6 +1,6 @@
+ "use strict";
+ const $ = id => document.getElementById(id);
+-const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", register:false, providers:[], games:[], gameCatalogue:null, brandDirectory:[], brandCategory:"ALL", selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], social:null, ads:[], benefits:[], adIndex:0, adTimer:null, editAdId:null, editBenefitId:null, editCustomGameId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, paymentChannels:{}, section:"lobby"};
++const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", register:false, providers:[], games:[], gameCatalogue:null, brandDirectory:[], supplierArtwork:{}, brandCategory:"ALL", selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], social:null, ads:[], benefits:[], adIndex:0, adTimer:null, editAdId:null, editBenefitId:null, editCustomGameId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, paymentChannels:{}, section:"lobby"};
+ const translations = {
+  zh: {
+   requestTimeout:"连接超时，操作结果未确认。请检查连接和记录后再试。",networkError:"无法连接服务。请检查网络后重试。",serviceUnavailable:"服务暂时不可用。请稍后重试。",
+@@ -139,9 +139,9 @@
+  {id:"gameplay",name:"GAMEPLAY INTERACTIVE"},{id:"lionking",name:"LION KING"},{id:"suncity",name:"SUNCITY"},{id:"pgsoft",name:"PGSOFT"},{id:"gfg",name:"GFG / G4"},{id:"sagaming",name:"SA GAMING"},{id:"ps9",name:"PS9"},{id:"dragoonsoft",name:"DRAGOONSOFT"},{id:"jdb",name:"JDB"},{id:"bg",name:"BG"},{id:"allbet",name:"ALLBET"},{id:"quickspin",name:"QUICKSPIN"},{id:"astar",name:"ASTAR"},{id:"metagaming",name:"META GAMING"},{id:"fuma",name:"FUMA"},{id:"yl",name:"YL"},{id:"funky",name:"FUNKY"},{id:"gamitech",name:"GAMITECH"},{id:"spadegaming",name:"SPADE GAMING"},{id:"turbo",name:"TURBO"},{id:"ct855",name:"CT855"},{id:"pragmaticplay",name:"PRAGMATIC PLAY"},{id:"joker",name:"JOKER"},{id:"cg",name:"CG"},{id:"atg",name:"ATG"},{id:"rectangle",name:"RECTANGLE"},{id:"m8bet",name:"M8BET"},{id:"awc",name:"AWC"},{id:"evo888h5",name:"EVO888H5"},{id:"cosmoplay",name:"COSMOPLAY"},{id:"geminiupdown",name:"GEMINI UPDOWN"}
+ ]);
+ function apiSupplierState(entry){const source=(state.gameCatalogue?.providers||[]).find(item=>item.id===entry.id);return source?.count>0?{connected:true,count:source.count}:{connected:false,count:0};}
+-function supplierArtwork(entry,css){const image=document.createElement("img");image.className=css;image.src=`/assets/providers/${entry.id}.webp`;image.alt=`${entry.name} game provider`;image.loading="lazy";return image;}
++function supplierArtwork(entry,css){const image=document.createElement("img"),fallback=`/assets/providers/${entry.id}.webp`,version=state.supplierArtwork?.[entry.id];image.className=css;image.src=version?`/api/supplier-art?provider=${encodeURIComponent(entry.id)}&v=${encodeURIComponent(version)}`:fallback;image.alt=`${entry.name} game provider`;image.loading="lazy";image.onerror=()=>{if(image.getAttribute("src")!==fallback){image.onerror=null;image.src=fallback;}};return image;}
+ function renderApiSupplierButtons(){const host=$("apiSupplierButtons");if(!host)return;clear(host);for(const [index,entry] of apiSupplierEntries.entries()){const stateInfo=apiSupplierState(entry),button=node("button",`api-supplier-button${stateInfo.connected?" connected":" pending"}`),art=supplierArtwork(entry,"api-supplier-art"),number=node("span","api-supplier-number",String(index+1).padStart(2,"0")),copy=node("span","api-supplier-copy"),name=node("strong","",entry.name),status=node("small","",stateInfo.connected?`${stateInfo.count} games · API catalogue connected`:(state.lang==="zh"?"独立 API 资料 · 接线中":state.lang==="ms"?"API berasingan · sedang disambung":"Separate API · connecting"));button.type="button";copy.append(name,status);button.append(art,number,copy);button.onclick=()=>stateInfo.connected?openCatalogProvider(entry.id,entry.name):notification(`${entry.name} · ${status.textContent}`);host.append(button);}}
+-function renderApiSupplierAdminButtons(){const host=$("apiSupplierAdminButtons");if(!host)return;clear(host);for(const [index,entry] of apiSupplierEntries.entries()){const stateInfo=apiSupplierState(entry),button=node("button",`api-supplier-admin-button${stateInfo.connected?" connected":" pending"}`),art=supplierArtwork(entry,"api-supplier-admin-art"),number=node("span","api-supplier-number",String(index+1).padStart(2,"0")),text=node("span",""),name=node("strong","",entry.name),status=node("small","",stateInfo.connected?`${stateInfo.count} catalogue games · independent controls available`:"API file received · integration pending");button.type="button";text.append(name,status);button.append(art,number,text);button.onclick=()=>{if(stateInfo.connected)$("gameCatalogManager").scrollIntoView({behavior:"smooth",block:"start"});else notification(`${entry.name} · ${status.textContent}`);};host.append(button);}}
++function renderApiSupplierAdminButtons(owner=true){const host=$("apiSupplierAdminButtons");if(!host)return;clear(host);for(const [index,entry] of apiSupplierEntries.entries()){const stateInfo=apiSupplierState(entry),card=node("article",`api-supplier-admin-button${stateInfo.connected?" connected":" pending"}`),art=supplierArtwork(entry,"api-supplier-admin-art"),number=node("span","api-supplier-number",String(index+1).padStart(2,"0")),text=node("span","api-supplier-admin-copy"),name=node("strong","",entry.name),status=node("small","",stateInfo.connected?`${stateInfo.count} catalogue games · independent controls available`:"API file received · integration pending"),photo=node("small","",state.supplierArtwork?.[entry.id]?"Custom lobby photo":"Original supplier photo");text.append(name,status,photo);card.append(art,number,text);if(owner){const label=node("label","api-supplier-upload","Change supplier photo"),input=document.createElement("input");input.type="file";input.accept="image/jpeg,image/png,image/webp";input.setAttribute("aria-label",`Upload ${entry.name} supplier artwork`);label.append(input);input.onchange=async()=>{const file=input.files?.[0];if(!file)return;input.disabled=true;try{const imageData=await imageDataForUpload(file,800,600),result=await api("/api/admin/supplier-art","POST",{providerId:entry.id,imageData});state.supplierArtwork[entry.id]=result.updatedAt;renderApiSupplierButtons();renderApiSupplierAdminButtons(owner);notification(t("success"));}catch(error){notification(error.message);input.disabled=false;}};card.append(label);}const open=node("button","button button-ghost small",stateInfo.connected?"Open game controls":"View supplier status");open.type="button";open.onclick=()=>{if(stateInfo.connected)$("gameCatalogManager").scrollIntoView({behavior:"smooth",block:"start"});else notification(`${entry.name} · ${status.textContent}`);};card.append(open);host.append(card);}}
+ 
+ const paymentPreview = Object.freeze([
+  {code:"vpay",label:"VPAY"},
+@@ -282,7 +282,8 @@
+   el.append(section);
+  }
+ }
+-function renderCarousel(){const host=$("lobbyAdCarousel");if(!host)return;const items=state.ads.filter(a=>Number(a.enabled)!==0);host.hidden=!items.length;if(!items.length)return;state.adIndex=((state.adIndex%items.length)+items.length)%items.length;const ad=items[state.adIndex],link=$("lobbyAdLink"),staticBox=$("lobbyAdStatic"),image=$("lobbyAdImage"),staticImage=$("lobbyAdStaticImage"),label=$("lobbyAdLabel"),staticLabel=$("lobbyAdStaticLabel");const target=typeof ad.target_url==="string"&&/^https:\/\//i.test(ad.target_url);link.hidden=!target;staticBox.hidden=target;if(target){link.href=ad.target_url;image.src=ad.image_data;image.alt=ad.title;label.textContent=ad.title;}else{staticImage.src=ad.image_data;staticImage.alt=ad.title;staticLabel.textContent=ad.title;}$("lobbyAdCounter").textContent=`${state.adIndex+1} / ${items.length}`;}
++function renderAdGrid(items){const host=$("lobbyAdGrid");if(!host)return;clear(host);host.hidden=items.length<2;if(items.length<2)return;for(const ad of items.slice(0,6)){const target=typeof ad.target_url==="string"&&/^https:\/\//i.test(ad.target_url),card=document.createElement(target?"a":"article"),image=document.createElement("img"),label=node("span","",ad.title);card.className="lobby-ad-card";if(target){card.href=ad.target_url;card.target="_blank";card.rel="noopener noreferrer";}image.src=ad.image_data;image.alt=ad.title;image.loading="lazy";card.append(image,label);host.append(card);}}
++function renderCarousel(){const host=$("lobbyAdCarousel");if(!host)return;const items=state.ads.filter(a=>Number(a.enabled)!==0);host.hidden=!items.length;renderAdGrid(items);if(!items.length)return;state.adIndex=((state.adIndex%items.length)+items.length)%items.length;const ad=items[state.adIndex],link=$("lobbyAdLink"),staticBox=$("lobbyAdStatic"),image=$("lobbyAdImage"),staticImage=$("lobbyAdStaticImage"),label=$("lobbyAdLabel"),staticLabel=$("lobbyAdStaticLabel");const target=typeof ad.target_url==="string"&&/^https:\/\//i.test(ad.target_url);link.hidden=!target;staticBox.hidden=target;if(target){link.href=ad.target_url;image.src=ad.image_data;image.alt=ad.title;label.textContent=ad.title;}else{staticImage.src=ad.image_data;staticImage.alt=ad.title;staticLabel.textContent=ad.title;}$("lobbyAdCounter").textContent=`${state.adIndex+1} / ${items.length}`;}
+ 
+ function renderBenefits(){const host=$("customerBenefits");if(!host)return;const list=$("customerBenefitsList");clear(list);host.hidden=!state.benefits.length;for(const b of state.benefits){const card=node("article","benefit-card"),title=node("h3","",b.title),description=node("p","",b.description),terms=node("p","benefit-terms",benefitRulesSummary(b.rules));card.append(title,description,terms);list.append(card);}}
+ function benefitRulesSummary(r={}){const bits=[];if(r.rewardAmountMYR!=null)bits.push(`RM ${Number(r.rewardAmountMYR).toFixed(2)}`);if(r.rewardPercent!=null)bits.push(`${r.rewardPercent}%`);if(r.minDepositMYR!=null)bits.push(`Min. deposit RM ${Number(r.minDepositMYR).toFixed(2)}`);if(r.maxRewardMYR!=null)bits.push(`Max. reward RM ${Number(r.maxRewardMYR).toFixed(2)}`);if(r.turnoverRequiredMYR!=null)bits.push(`Turnover RM ${Number(r.turnoverRequiredMYR).toFixed(2)}`);else if(r.turnoverMultiplier!=null)bits.push(`${r.turnoverMultiplier}× turnover (${r.turnoverBase||"deposit_plus_bonus"})`);if(r.withdrawalCapMYR!=null)bits.push(`Withdrawal cap RM ${Number(r.withdrawalCapMYR).toFixed(2)}`);if(r.claimLimitPerMember!=null)bits.push(`${r.claimLimitPerMember} claim(s) / member`);if(r.validityDays!=null)bits.push(`${r.validityDays} day(s)`);return bits.join(" · ");}
+@@ -322,7 +323,7 @@
+ 
+ function renderTickets(){const host=$("tickets");clear(host);if(!state.user){host.append(node("p","muted",t("loginFirst")));return;}if(!state.tickets.length){host.append(node("p","muted",t("noTickets")));return;}for(const ticket of state.tickets){const box=node("div","ticket"),heading=node("h4","",`#${ticket.id} · ${ticket.subject}`),msg=node("p","",ticket.message),meta=node("time","",`${ticket.username} · ${new Date(ticket.created_at*1000).toLocaleString()} · ${t(ticket.status)}`);box.append(heading,msg,meta);if(state.user.role!=="member"){const close=node("button","button button-ghost",ticket.status==="open"?t("closeTicket"):t("reopenTicket"));close.type="button";close.onclick=async()=>{try{await api("/api/admin/ticket-status","POST",{ticketId:ticket.id,status:ticket.status==="open"?"closed":"open"});await refreshTickets();await renderAdmin();notification(t("success"));}catch(e){notification(e.message)}};box.append(close);}for(const reply of ticket.replies||[]){const replyBox=node("div","ticket-reply");replyBox.append(node("small","muted",reply.username+" · "+new Date(reply.created_at*1000).toLocaleString()),node("p","",reply.message));box.append(replyBox);}if(ticket.status==="open"&&state.user.approved){const form=node("form","stack"),input=node("textarea");input.required=true;input.maxLength=2000;input.rows=2;input.setAttribute("aria-label",t("reply"));input.placeholder=t("reply");const send=node("button","button button-outline",t("sendReply"));send.type="submit";form.append(input,send);form.onsubmit=async e=>{e.preventDefault();send.disabled=true;try{await api("/api/tickets/reply","POST",{ticketId:ticket.id,message:input.value});await refreshTickets();}catch(e){notification(e.message);send.disabled=false;}};box.append(form);}host.append(box);}}
+ async function refreshTickets(){if(!state.user){state.tickets=[];renderTickets();return;}try{const r=await api("/api/tickets");state.tickets=r.items;renderTickets();}catch(e){notification(e.message)}}
+-async function loadPublic(){try{const [providers,anns,social,channels,directory]=await Promise.all([api("/api/providers"),api("/api/announcements"),api("/api/social-links"),api("/api/payment-channels"),api("/api/brand-directory")]);state.paymentChannels=Object.fromEntries((channels.items||[]).map(x=>[x.provider_id,x.status]));state.providers=providers.items;state.announcements=anns.items;state.social=social;state.brandDirectory=directory.items||[];renderAnnouncements();renderSocial();renderBonusBrandPreview();renderPaymentPreview();renderPublicBrandDirectory();renderApiSupplierButtons();}catch(e){notification(e.message)}await Promise.all([loadGameCatalogue(),loadLobbyContent()]);}
++async function loadPublic(){try{const [providers,anns,social,channels,directory,supplierArt]=await Promise.all([api("/api/providers"),api("/api/announcements"),api("/api/social-links"),api("/api/payment-channels"),api("/api/brand-directory"),api("/api/supplier-art-list")]);state.paymentChannels=Object.fromEntries((channels.items||[]).map(x=>[x.provider_id,x.status]));state.providers=providers.items;state.announcements=anns.items;state.social=social;state.brandDirectory=directory.items||[];state.supplierArtwork=Object.fromEntries((supplierArt.items||[]).map(x=>[x.provider_id,x.updated_at]));renderAnnouncements();renderSocial();renderBonusBrandPreview();renderPaymentPreview();renderPublicBrandDirectory();renderApiSupplierButtons();}catch(e){notification(e.message)}await Promise.all([loadGameCatalogue(),loadLobbyContent()]);}
+ async function loadGameCatalogue(){try{state.gameCatalogue=await api("/api/games");state.games=state.gameCatalogue.games||[];renderCatalog();renderPublicBrandDirectory();renderApiSupplierButtons();}catch{state.gameCatalogue={providers:[],games:[]};state.games=[];renderCatalog();renderPublicBrandDirectory();renderApiSupplierButtons();}}
+ function renderItem(host,left,right,buttonLabel,action,disabled=false){const row=node("div","row-item"),lhs=node("div"),name=node("strong","",left);lhs.append(name);if(right)lhs.append(node("small","",right));row.append(lhs);if(buttonLabel){const btn=node("button","button button-outline",buttonLabel);btn.type="button";btn.disabled=disabled;btn.addEventListener("click",action);row.append(btn);}host.append(row);}
+ const previewDashboardCopy = {
+@@ -347,7 +348,7 @@
+   for(const [name,label] of [["login_denied",text.loginDenied],["login_rate_limited",text.loginBlocked],["registration_rate_limited",text.registerBlocked],["write_rate_limited",text.writeBlocked]])previewMetric(host,sec.today[name],label,sec.today[name]===null);
+  }
+ }
+-async function renderAdmin(){const auth=state.user&&(state.user.role==="owner"||state.user.role==="staff");$("adminBody").hidden=!auth;$("adminDenied").hidden=!!auth;if(!auth)return;try{const owner=state.user.role==="owner";const sum=await api("/api/admin/summary");const prov=$("providerManager");renderProviderManager(prov,owner);await renderAdManager(owner);await renderBenefitManager(owner);renderApiSupplierAdminButtons();await renderGameVisibility(owner);await renderBrandDirectory(owner);await renderPaymentChannelManager(owner);
++async function renderAdmin(){const auth=state.user&&(state.user.role==="owner"||state.user.role==="staff");$("adminBody").hidden=!auth;$("adminDenied").hidden=!!auth;if(!auth)return;try{const owner=state.user.role==="owner";const sum=await api("/api/admin/summary");const prov=$("providerManager");renderProviderManager(prov,owner);await renderAdManager(owner);await renderBenefitManager(owner);renderApiSupplierAdminButtons(owner);await renderGameVisibility(owner);await renderBrandDirectory(owner);await renderPaymentChannelManager(owner);
+  await renderPreviewDashboards(owner,sum);await renderSocialAdmin(owner);$("pendingPanel").hidden=!owner;$("auditPanel").hidden=!owner;await renderAdminDeposits();if(owner){const users=(await api("/api/admin/users")).items,list=$("userManager");clear(list);for(const x of users){renderItem(list,x.username,`${t("role_"+x.role)} · ${x.approved?t("approved"):t("pending")}`,x.approved||x.role!=="member"?null:t("approve"),async()=>{try{await api("/api/admin/approve","POST",{userId:x.id});await renderAdmin();notification(t("success"));}catch(e){notification(e.message)}});if(x.role!=="owner"){renderItem(list,t("role_"+x.role),null,x.role==="staff"?t("removeStaff"):t("makeStaff"),async()=>{try{await api("/api/admin/role","POST",{userId:x.id,role:x.role==="staff"?"member":"staff"});await renderAdmin();notification(t("success"));}catch(e){notification(e.message);}});}}const logs=(await api("/api/admin/audit")).items,auditHost=$("auditLog");clear(auditHost);for(const a of logs.slice(0,25))renderItem(auditHost,`${a.event} · ${a.target}`,`${a.username||"system"} · ${new Date(a.created_at*1000).toLocaleString()}`);}}
+ catch(e){notification(e.message)}}
+ function showAuth(mode="login"){
+--- a/public/assets/style.css
++++ b/public/assets/style.css
+@@ -849,6 +849,10 @@
+ .lobby-live-summary span { min-width: 76px; padding: 10px 12px; border-left: 1px solid #ffffff1c; text-align: center; }
+ .lobby-live-summary strong { display: block; color: #f4f5fb; font-size: 20px; line-height: 1.2; }
+ .lobby-live-summary small { display: block; margin-top: 4px; color: #8b97ac; font-size: 8px; letter-spacing: .12em; }
++.lobby-ad-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin: -4px 0 16px; }
++.lobby-ad-card { position: relative; min-height: 86px; overflow: hidden; border: 1px solid #2d3857; border-radius: 11px; background: #0d1322; }
++.lobby-ad-card img { width: 100%; height: 100%; min-height: 86px; display: block; object-fit: cover; }
++.lobby-ad-card span { position: absolute; left: 7px; right: 7px; bottom: 7px; overflow: hidden; padding: 5px 7px; border-radius: 6px; color: #fff; background: #050812c9; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+ body.admin-mode #admin > .section-header { display: none; }
+ 
+ @media (min-width: 1001px) {
+@@ -865,4 +869,95 @@
+   .lobby-live-summary { width: 100%; grid-template-columns: repeat(3,1fr); }
+   .lobby-live-summary span { min-width: 0; padding: 10px 5px; border-top: 1px solid #ffffff14; }
+   .lobby-live-summary strong { font-size: 16px; }
+-}
++  .lobby-ad-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; }
++  .lobby-ad-card, .lobby-ad-card img { min-height: 70px; }
++}
++
++/* Livelier casino lobby: visual motion only; all API, wallet and auth flows stay unchanged. */
++#lobby > .section-header {
++  position: relative;
++  isolation: isolate;
++  overflow: hidden;
++  border-color: #6d59bd;
++  background:
++    radial-gradient(circle at 84% 22%, #9c6cff40 0 8%, transparent 34%),
++    radial-gradient(circle at 28% 120%, #d6aa4b26 0 12%, transparent 43%),
++    linear-gradient(112deg, #111d45 0%, #38205d 48%, #101b3d 100%);
++  box-shadow: 0 18px 48px #05040d99, inset 0 1px #ffffff20;
++}
++#lobby > .section-header::before,
++#lobby > .section-header::after {
++  content: "";
++  position: absolute;
++  z-index: -1;
++  width: 210px;
++  height: 210px;
++  border-radius: 50%;
++  filter: blur(2px);
++  opacity: .55;
++  pointer-events: none;
++}
++#lobby > .section-header::before { right: -52px; top: -122px; border: 1px solid #dfc37866; box-shadow: 0 0 70px #8558e688; }
++#lobby > .section-header::after { right: 16%; bottom: -188px; border: 22px solid #5da5ff1f; box-shadow: 0 0 90px #3e7fd055; }
++.lobby-live-summary span { background: linear-gradient(180deg,#ffffff0b,#ffffff03); border-radius: 9px; }
++.lobby-live-summary span:last-child strong { color: #68e0b8; text-shadow: 0 0 17px #42d4a877; }
++.lobby-live-summary span:last-child::before { content: ""; display: inline-block; width: 6px; height: 6px; margin: 0 5px 2px 0; border-radius: 50%; background: #5de0b7; box-shadow: 0 0 12px #5de0b7; }
++.lobby-hero-copy { position: relative; z-index: 2; max-width: 560px; }
++.casino-trust-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 13px; }
++.casino-trust-row span { padding: 5px 8px; border: 1px solid #8270bc80; border-radius: 999px; color: #d9d6f2; background: #0c1020a8; font-size: 8px; font-weight: 850; letter-spacing: .09em; box-shadow: inset 0 1px #ffffff12; }
++.casino-hero-stage { position: relative; z-index: 1; display: grid; flex: 0 0 180px; place-items: center; min-height: 136px; margin: -12px 0; text-align: center; }
++.casino-hero-stage img { position: relative; z-index: 2; width: 105px; height: 105px; object-fit: contain; filter: drop-shadow(0 9px 20px #04030baa) drop-shadow(0 0 22px #407ce855); }
++.casino-hero-stage b { position: relative; z-index: 3; margin-top: -27px; color: #f4e4b1; font-size: 16px; letter-spacing: .14em; text-shadow: 0 2px 12px #000; }
++.casino-hero-stage small { position: relative; z-index: 3; color: #a7a5ce; font-size: 7px; letter-spacing: .22em; }
++.casino-symbols { position: absolute; inset: 0; }
++.casino-symbols span { position: absolute; color: #e2c878; font: 700 21px Georgia,serif; opacity: .5; text-shadow: 0 0 16px #c79746; }
++.casino-symbols span:nth-child(1) { left: 7%; top: 12%; transform: rotate(-14deg); }
++.casino-symbols span:nth-child(2) { right: 7%; top: 18%; color: #e97f89; transform: rotate(13deg); }
++.casino-symbols span:nth-child(3) { left: 5%; bottom: 9%; color: #74d8bc; transform: rotate(12deg); }
++.casino-symbols span:nth-child(4) { right: 8%; bottom: 8%; color: #8a99ff; transform: rotate(-12deg); }
++.lobby-ad-carousel { border-color: #7c5acb88; box-shadow: 0 20px 55px #05020c99, 0 0 28px #6d45c72d; }
++.lobby-ad-card,
++.game-card,
++.provider-directory-card,
++.api-supplier-button,
++.bonus-brand-card { transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease, filter .22s ease; }
++.lobby-ad-card:hover,
++.game-card:hover,
++.provider-directory-card:hover,
++.api-supplier-button:hover { transform: translateY(-4px); border-color: #8f70e2; box-shadow: 0 15px 34px #05040c99, 0 0 19px #7455c52d; }
++.game-cover img,
++.provider-directory-art img,
++.api-supplier-art { transition: transform .32s ease, filter .32s ease; }
++.game-card:hover .game-cover img,
++.provider-directory-card:hover .provider-directory-art img,
++.api-supplier-button:hover .api-supplier-art { transform: scale(1.045); filter: saturate(1.12) contrast(1.04); }
++.bonus-brand-card { position: relative; overflow: hidden; border-color: #7c6136; box-shadow: inset 0 1px #ffffff14; }
++.bonus-brand-card::after { content: ""; position: absolute; inset: -80% -120%; pointer-events: none; background: linear-gradient(110deg,transparent 44%,#fff4c92c 50%,transparent 56%); transform: translateX(-45%); }
++.bonus-brand-card:hover { transform: translateY(-3px); border-color: #e1bc68; box-shadow: 0 16px 36px #03050c99, 0 0 22px #c4993d22; }
++.api-supplier-upload { display: flex; flex: 1 1 170px; flex-direction: column; gap: 4px; color: #d9c27f; font-size: 9px; font-weight: 750; }
++.api-supplier-upload input { width: 100%; max-width: 230px; padding: 5px; border: 1px solid #37435d; border-radius: 7px; background: #101726; color: #aeb8ca; font-size: 9px; }
++.api-supplier-admin-copy { min-width: 0; flex: 1 1 150px; }
++.api-supplier-admin-button { flex-wrap: wrap; }
++
++@media (prefers-reduced-motion: no-preference) {
++  #lobby > .section-header::before { animation: lobby-orbit 8s ease-in-out infinite alternate; }
++  #lobby > .section-header::after { animation: lobby-glow 6s ease-in-out infinite alternate; }
++  .lobby-live-summary span:last-child::before,
++  .admin-live-pill span,
++  .sidebar-status-dot { animation: live-pulse 1.8s ease-in-out infinite; }
++  .bonus-brand-card::after { animation: casino-shine 6.5s ease-in-out infinite; }
++  .casino-hero-stage img { animation: casino-float 4s ease-in-out infinite; }
++  .casino-symbols span { animation: casino-symbol 3.8s ease-in-out infinite alternate; }
++}
++@keyframes lobby-orbit { to { transform: translate(-30px,28px) scale(1.12); opacity: .8; } }
++@keyframes lobby-glow { to { transform: translate(34px,-18px); opacity: .75; } }
++@keyframes live-pulse { 50% { transform: scale(1.5); opacity: .65; box-shadow: 0 0 18px #5de0b7; } }
++@keyframes casino-shine { 0%,58% { transform: translateX(-45%); } 78%,100% { transform: translateX(45%); } }
++@keyframes casino-float { 50% { transform: translateY(-7px) scale(1.025); } }
++@keyframes casino-symbol { to { opacity: .9; filter: drop-shadow(0 0 8px currentColor); } }
++@media (max-width: 900px) {
++  .casino-hero-stage { display: none; }
++}
++@media (prefers-reduced-motion: reduce) {
++  *,*::before,*::after { scroll-behavior: auto!important; animation-duration: .01ms!important; animation-iteration-count: 1!important; transition-duration: .01ms!important; }
++}
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -1,7 +1,7 @@
+ import { readLocalSession, handlePasswordAuth, AuthError } from './password-auth.ts';
+ import { requestOriginAllowed } from './request-origin.ts';
+ import { createVPayOrder, handleVPay } from './vpay.ts';
+-export const RELEASE = '17.0.0-selfbuilt.24-reference-dashboard-otp';
++export const RELEASE = '17.0.0-selfbuilt.25-supplier-art-manager';
+ export const SOURCE_RELEASE = '17.0.0-preview.6-qa3-integrated-r3';
+ type Identity={userId:string;email:string};
+ type User={id:string;username:string;role:string;approved:number;csrf:string;created_at:number};
+@@ -32,6 +32,7 @@
+ ];
+ const vendorCategories=['SLOT','FAST GAME','LIVE','FISH','SPORT','OTHERS'] as const;
+ type VendorCategory=typeof vendorCategories[number];
++const apiSupplierIds=['megah5','jili','918kissh5','gameplay','lionking','suncity','pgsoft','gfg','sagaming','ps9','dragoonsoft','jdb','bg','allbet','quickspin','astar','metagaming','fuma','yl','funky','gamitech','spadegaming','turbo','ct855','pragmaticplay','joker','cg','atg','rectangle','m8bet','awc','evo888h5','cosmoplay','geminiupdown'];
+ function publicImage(value:unknown,host:string){if(!host||typeof value!=='string'||value.length>500)return null;try{const u=new URL(value);return u.protocol==='https:'&&u.hostname===host&&!u.username&&!u.password&&!u.port&&u.pathname.startsWith('/thumbs/')&&!u.search&&!u.hash?u.href:null;}catch{return null;}}
+ function gameArtPath(provider:string,gameCode:string,imageUrl:string|null){return imageUrl&&['megah5','918kissh5'].includes(provider)?`/api/game-art?provider=${encodeURIComponent(provider)}&gameCode=${encodeURIComponent(gameCode)}`:provider==='jili'?'/assets/providers/jili.webp':null;}
+ async function gameArt(req:Request,c:Context){
+@@ -104,6 +105,13 @@
+   if(p==='/api/payment-channels')return json({items:await rows(db,'SELECT provider_id,provider_name,status FROM payment_channel_controls ORDER BY CASE provider_id WHEN \'vpay\' THEN 1 WHEN \'gspay\' THEN 2 WHEN \'1mpay\' THEN 3 ELSE 4 END'),transactionsEnabled:false});
+   if(p==='/api/custom-games')return json({playable:false,items:[]});
+   if(p==='/api/benefits'){const items=await rows(db,"SELECT id,title,description,rules_json,created_at,updated_at FROM benefit_rules WHERE status='active' ORDER BY updated_at DESC,id ASC LIMIT 100");return json({items:items.map((x:any)=>({...x,rules:JSON.parse(x.rules_json)}))});}
++  if(p==='/api/supplier-art-list')return json({items:await rows(db,'SELECT provider_id,updated_at FROM api_supplier_artwork ORDER BY provider_id')});
++  if(p==='/api/supplier-art'){
++   const providerId=new URL(req.url).searchParams.get('provider')??'';if(!apiSupplierIds.includes(providerId))throw new ApiError(404,'Supplier artwork not found');
++   const entry=await db.prepare('SELECT image_data FROM api_supplier_artwork WHERE provider_id=?').bind(providerId).first<{image_data:string}>(),match=entry?.image_data?.match(/^data:(image\/(?:jpeg|png|webp));base64,([A-Za-z0-9+/]+={0,2})$/);
++   if(!match||!validImageData(entry!.image_data))throw new ApiError(404,'Supplier artwork not found');
++   const bytes=Uint8Array.from(atob(match[2]),char=>char.charCodeAt(0));return new Response(bytes,{headers:{'Content-Type':match[1],'Cache-Control':'public, max-age=60','X-Content-Type-Options':'nosniff','Content-Security-Policy':"default-src 'none'; sandbox"}});
++  }
+   if(p==='/api/brand-directory'){
+    const items=await rows(db,"SELECT id,category,display_name,position,marked,status,image_data FROM brand_directory_entries WHERE status IN ('active','suspended') ORDER BY CASE category WHEN 'SLOT' THEN 1 WHEN 'FAST GAME' THEN 2 WHEN 'LIVE' THEN 3 WHEN 'FISH' THEN 4 WHEN 'SPORT' THEN 5 ELSE 6 END,position,id LIMIT 100");
+    return json({items:items.map((x:any)=>({id:x.id,category:x.category,display_name:x.display_name,position:x.position,marked:x.marked,status:x.status,imageAvailable:!!x.image_data,integrationState:'not_configured'})),categories:vendorCategories,playable:false});
+@@ -139,7 +147,7 @@
+    if(p==='/api/admin/users')return json({items:await rows(db,'SELECT id,username,role,approved,created_at FROM users ORDER BY created_at DESC LIMIT 500')});
+    if(p==='/api/admin/audit')return json({items:await rows(db,'SELECT a.event,a.target,a.created_at,u.username FROM audit a LEFT JOIN users u ON a.user_id=u.id ORDER BY a.created_at DESC,a.id DESC LIMIT 100')});
+    if(p==='/api/admin/security'){const n=await db.prepare("SELECT COUNT(*) n FROM audit WHERE event='write_rate_limited' AND created_at>=?").bind(Math.floor((now()+28800)/86400)*86400-28800).first<{n:number}>();return json({today:{login_denied:null,login_rate_limited:null,registration_rate_limited:null,write_rate_limited:n?.n??0}});}
+-   if(p==='/api/admin/export'){const data:Record<string,unknown>={release:RELEASE,exportedAt:new Date().toISOString(),scope:'new-portal-only'};for(const table of ['users','tickets','replies','announcements','providers','brand_directory_entries','portal_status_snapshots','lobby_ads','custom_game_cards','benefit_rules','game_visibility','payment_channel_controls','settings','audit']){const list=await rows(db,`SELECT ${table==='users'?'id,username,role,approved,created_at':table==='lobby_ads'?'id,title,target_url,enabled,position,created_by,created_at,updated_at':table==='custom_game_cards'?'id,title,provider_name,game_code,category,is_platform_mini,enabled,status,position,created_by,created_at,updated_at':table==='game_visibility'?'provider_id,game_code,visible,status,category_override,updated_by,updated_at':'*'} FROM ${table}${table==='settings'?" WHERE id NOT LIKE 'owner_password_%'":''} LIMIT 10001`);if(list.length>10000)throw new ApiError(413,'导出超过单次上限，请联系站点维护人员');data[table]=list;}return new Response(JSON.stringify(data,null,2),{headers:{...responseHeaders,'Content-Disposition':'attachment; filename="master7-portal-export.json"'}});}
++   if(p==='/api/admin/export'){const data:Record<string,unknown>={release:RELEASE,exportedAt:new Date().toISOString(),scope:'new-portal-only'};for(const table of ['users','tickets','replies','announcements','providers','brand_directory_entries','api_supplier_artwork','portal_status_snapshots','lobby_ads','custom_game_cards','benefit_rules','game_visibility','payment_channel_controls','settings','audit']){const list=await rows(db,`SELECT ${table==='users'?'id,username,role,approved,created_at':table==='api_supplier_artwork'?'provider_id,updated_by,updated_at':table==='lobby_ads'?'id,title,target_url,enabled,position,created_by,created_at,updated_at':table==='custom_game_cards'?'id,title,provider_name,game_code,category,is_platform_mini,enabled,status,position,created_by,created_at,updated_at':table==='game_visibility'?'provider_id,game_code,visible,status,category_override,updated_by,updated_at':'*'} FROM ${table}${table==='settings'?" WHERE id NOT LIKE 'owner_password_%'":''} LIMIT 10001`);if(list.length>10000)throw new ApiError(413,'导出超过单次上限，请联系站点维护人员');data[table]=list;}return new Response(JSON.stringify(data,null,2),{headers:{...responseHeaders,'Content-Disposition':'attachment; filename="master7-portal-export.json"'}});}
+   }
+   throw new ApiError(404,'Not found');
+  }
+@@ -147,12 +155,17 @@
+  if(!requestOriginAllowed(req,c.allowedOrigins))throw new ApiError(403,'Origin denied');
+  role(u);if(!u.approved)throw new ApiError(403,'账号待老板审批 / Account awaiting approval');
+  if(req.headers.get('x-csrf-token')!==u.csrf)throw new ApiError(403,'CSRF denied');
+- const d=await body(req,p==='/api/admin/ads'||p==='/api/admin/custom-games'||p==='/api/admin/game-visibility'||p==='/api/admin/provider'||p==='/api/admin/brand-directory'?550000:24000);await limited(db,u);
++ const d=await body(req,p==='/api/admin/ads'||p==='/api/admin/custom-games'||p==='/api/admin/game-visibility'||p==='/api/admin/provider'||p==='/api/admin/brand-directory'||p==='/api/admin/supplier-art'?550000:24000);await limited(db,u);
+  if(p==='/api/payments/vpay/orders')return createVPayOrder(d,vpayContext);
+  if(p==='/api/tickets'){const subject=textField(d.subject,3,120),message=textField(d.message,5,2000),id=uuid();await db.batch([db.prepare('INSERT INTO tickets(id,user_id,subject,message,created_at) VALUES(?,?,?,?,?)').bind(id,u.id,subject,message,now()),auditStmt(db,u,'ticket_created',id)]);return json({status:'ok',id},201);}
+  if(p==='/api/tickets/reply'){const id=idField(d.ticketId),message=textField(d.message,1,2000),ticket=await db.prepare('SELECT user_id,status FROM tickets WHERE id=?').bind(id).first<{user_id:string;status:string}>();if(!ticket||u.role==='member'&&ticket.user_id!==u.id)throw new ApiError(404,'Ticket not found');if(ticket.status!=='open')throw new ApiError(409,'工单已关闭 / Ticket closed');await db.batch([db.prepare('INSERT INTO replies(id,ticket_id,user_id,message,created_at) VALUES(?,?,?,?,?)').bind(uuid(),id,u.id,message,now()),auditStmt(db,u,'ticket_replied',id)]);return json({status:'ok'});}
+  if(p.startsWith('/api/admin/')){
+   role(u,['owner','staff']);
++  if(p==='/api/admin/supplier-art'){
++   role(u,['owner']);const providerId=textField(d.providerId,1,32);if(!apiSupplierIds.includes(providerId))throw new ApiError(400,'Invalid supplier');
++   if(typeof d.imageData!=='string'||d.imageData.length>500000||!/^data:image\/(?:webp|jpeg|png);base64,[A-Za-z0-9+/]+={0,2}$/.test(d.imageData)||!validImageData(d.imageData))throw new ApiError(400,'Upload a valid JPG, PNG or WebP image under 350 KB');
++   const timestamp=now();await db.batch([db.prepare('INSERT INTO api_supplier_artwork(provider_id,image_data,updated_by,updated_at) VALUES(?,?,?,?) ON CONFLICT(provider_id) DO UPDATE SET image_data=excluded.image_data,updated_by=excluded.updated_by,updated_at=excluded.updated_at').bind(providerId,d.imageData,u.id,timestamp),auditStmt(db,u,'api_supplier_artwork_updated',providerId)]);return json({status:'ok',providerId,updatedAt:timestamp});
++  }
+   if(p==='/api/admin/ads'){
+    const action=textField(d.action,3,10);
+    if(action==='delete'){
+--- a/db/render-schema.sql
++++ b/db/render-schema.sql
+@@ -202,6 +202,12 @@
+   UNIQUE(category, display_name)
+ );
+ CREATE INDEX IF NOT EXISTS brand_directory_order ON brand_directory_entries(category, position);
++CREATE TABLE IF NOT EXISTS api_supplier_artwork (
++  provider_id TEXT PRIMARY KEY NOT NULL,
++  image_data TEXT NOT NULL,
++  updated_by TEXT NOT NULL REFERENCES users(id),
++  updated_at BIGINT NOT NULL
++);
+ CREATE TABLE IF NOT EXISTS portal_schema_migrations (
+   version TEXT PRIMARY KEY NOT NULL,
+   applied_at BIGINT NOT NULL
+--- /dev/null
++++ b/drizzle/0013_api_supplier_artwork.sql
+@@ -0,0 +1,7 @@
++CREATE TABLE IF NOT EXISTS api_supplier_artwork (
++  provider_id TEXT PRIMARY KEY,
++  image_data TEXT NOT NULL,
++  updated_by TEXT NOT NULL,
++  updated_at INTEGER NOT NULL,
++  FOREIGN KEY (updated_by) REFERENCES users(id)
++);
+--- a/tests/api.test.mjs
++++ b/tests/api.test.mjs
+@@ -9,7 +9,7 @@
+ // Execute the real migration and backend queries against SQLite, not query mocks.
+ const dir=mkdtempSync(join(tmpdir(),'master7-api-'));
+ const file=join(dir,'test.sqlite');
+-let sqlite=new DatabaseSync(file);for(const migration of ['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql'])sqlite.exec(readFileSync(new URL(`../drizzle/${migration}`,import.meta.url),'utf8'));
++let sqlite=new DatabaseSync(file);for(const migration of ['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql'])sqlite.exec(readFileSync(new URL(`../drizzle/${migration}`,import.meta.url),'utf8'));
+ class Statement{
+  constructor(sql,args=[]){this.sql=sql;this.args=args;}
+  bind(...args){return new Statement(this.sql,args);}
+@@ -91,6 +91,7 @@
+   const closedArt=await handle(new Request('https://portal.example.test/api/brand-directory-art?id='+encodeURIComponent(item.id)),{db,identity:null,ownerEmail:'owner@example.test'});assert.equal(closedArt.status,404);sqlite.prepare('DELETE FROM rate_limits').run();
+  });
+  await t.test('owner manages three sponsored provider artworks while members cannot edit them',async()=>{const imageData='data:image/png;base64,iVBORw0KGgoAAAAAAAAAAAAAAAA=';assert.equal((await call('alice','/api/admin/provider','POST',{id:'jili',imageData})).status,403);assert.equal((await call('owner','/api/admin/provider','POST',{id:'jili',imageData})).status,200);const providers=(await call(null,'/api/providers')).data.items;assert.equal(providers.find(provider=>provider.id==='jili').image_data,imageData);assert.equal((await call('owner','/api/admin/provider','POST',{id:'jili',imageData:'data:image/png;base64,not-an-image'})).status,400);sqlite.prepare('DELETE FROM rate_limits').run();});
++ await t.test('owner uploads a separate lobby photo for every allowlisted API supplier',async()=>{const imageData='data:image/png;base64,iVBORw0KGgoAAAAAAAAAAAAAAAA=';assert.equal((await call('alice','/api/admin/supplier-art','POST',{providerId:'gameplay',imageData})).status,403);const saved=await call('owner','/api/admin/supplier-art','POST',{providerId:'gameplay',imageData});assert.equal(saved.status,200);assert.equal(saved.data.providerId,'gameplay');const list=await call(null,'/api/supplier-art-list');assert.deepEqual(list.data.items.map(item=>item.provider_id),['gameplay']);const art=await handle(new Request('https://portal.example.test/api/supplier-art?provider=gameplay'),{db,identity:null,ownerEmail:'owner@example.test'});assert.equal(art.status,200);assert.equal(art.headers.get('content-type'),'image/png');assert.equal((await art.arrayBuffer()).byteLength,20);assert.equal((await call('owner','/api/admin/supplier-art','POST',{providerId:'not-a-supplier',imageData})).status,400);assert.equal((await call('owner','/api/admin/supplier-art','POST',{providerId:'gameplay',imageData:'data:image/png;base64,not-an-image'})).status,400);sqlite.prepare('DELETE FROM rate_limits').run();});
+  let ticket;
+  await t.test('ticket creation is isolated between members and survives reopening storage',async()=>{const r=await call('alice','/api/tickets','POST',{subject:'Login help',message:'Please assist with my account.'});assert.equal(r.status,201);ticket=r.data.id;sqlite.close();sqlite=new DatabaseSync(file);assert.equal((await call('alice','/api/tickets')).data.items.length,1);assert.equal((await call('bob','/api/tickets')).data.items.length,0);assert.equal((await call('employee','/api/tickets')).data.items.length,1);});
+  await t.test('reply ownership, staff replies and closing workflow',async()=>{assert.equal((await call('bob','/api/tickets/reply','POST',{ticketId:ticket,message:'No access'})).status,404);assert.equal((await call('employee','/api/tickets/reply','POST',{ticketId:ticket,message:'We can help.'})).status,200);assert.equal((await call('alice','/api/tickets')).data.items[0].replies[0].message,'We can help.');assert.equal((await call('employee','/api/admin/ticket-status','POST',{ticketId:ticket,status:'closed'})).status,200);assert.equal((await call('alice','/api/tickets/reply','POST',{ticketId:ticket,message:'More'})).status,409);});
+--- a/tests/lobby-render.test.mjs
++++ b/tests/lobby-render.test.mjs
+@@ -102,4 +102,15 @@
+  assert.match(html,/id="apiSupplierButtons"/);
+  assert.match(html,/id="apiSupplierAdminButtons"/);
+  assert.match(source,/function supplierArtwork\(entry,css\)/);
++ assert.match(source,/\/api\/supplier-art-list/);
++ assert.match(source,/\/api\/admin\/supplier-art/);
++ assert.match(source,/Change supplier photo/);
+ });
++
++test('owner can publish multiple lobby ads while the main banner keeps rotating',()=>{
++ assert.match(html,/id="lobbyAdCarousel"/);
++ assert.match(html,/id="lobbyAdGrid"/);
++ assert.match(source,/function renderAdGrid\(items\)/);
++ assert.match(source,/\.slice\(0,6\)/);
++ assert.match(source,/300000/);
++});

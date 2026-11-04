@@ -2,28 +2,30 @@
 
 Updated: 2026-11-05 MYT
 
-## Delivered in candidate 17.0.0-selfbuilt.24-reference-dashboard-otp
+## Delivered in candidate 17.0.0-selfbuilt.25-supplier-art-manager
 
 - Customer lobby and owner backoffice now use two distinct screenshot-based layouts.
-- Customer lobby: dark game-lobby shell, category navigation, three sponsored suppliers, 34 separate supplier buttons and supplier artwork.
+- Customer lobby: lively casino-style dark game-lobby shell, animated MASTER7 stage, gold/purple lighting, category navigation, three sponsored suppliers, 34 separate supplier buttons and supplier artwork.
 - Backoffice: one left navigation column, nine operational cards, daily trend panel and every implemented management section listed from top to bottom.
 - Customer access displays only MASTER7 ID, Malaysian mobile and SMS OTP. Owner backoffice continues to use ID and password.
 - OTP challenges are five minutes, one-use, rate-limited and stored as keyed hashes. Registration never grants backoffice access.
 - Provider and game identity remains `(provider ID, game ID)`; matching game codes from different providers are not merged.
 - Current readable catalogues remain separate: MegaH5 166, JILI 297 and 918KISS H5 92 (555 total records at the last online check).
-- The 34 supplier artwork files are local same-origin assets. MegaH5 and 918KISS title art use the bounded same-origin image proxy; JILI uses its supplier artwork when its catalogue has no title image.
+- The 34 supplier artwork files are local same-origin fallbacks. The owner can upload a separate JPG, PNG or WebP lobby image for each supplier from backoffice without changing its provider ID.
+- The owner can publish up to 20 lobby advertisements. The front shows one rotating lead banner plus as many as six simultaneous advertising cards.
+- MegaH5 and 918KISS title art use the bounded same-origin image proxy; JILI uses its supplier artwork when its catalogue has no title image.
 - Four payment entries and their backoffice controls remain independent.
 
 ## Verification
 
-- Full local suite: 83 passed, 0 failed, 0 skipped.
+- Full local suite: 85 passed, 0 failed, 0 skipped.
 - Customer OTP-only registration/login regression tests pass.
 - Owner password login, activation and recovery regressions pass.
 - JavaScript syntax check passes.
 - Render production build passes.
 - Desktop and 390 px mobile layouts were visually inspected for customer lobby and nine-card backoffice.
-- Bundle SHA-256: `14fd84b867275d5932ee953dd6274b990fd1b574881b60be37d5900d8a984086`.
-- Reviewable diff: `docs/patches/MASTER7_REFERENCE_DASHBOARD_OTP_20261104.patch`.
+- Bundle SHA-256: `37a331440b01149416155ed5532a2c8b6de9aab1ecb144bc08512a1be4fd4ef3`.
+- Reviewable diff: `docs/patches/MASTER7_LIVELY_LOBBY_MEDIA_MANAGER_20261104.patch`.
 
 ## Exact remaining live dependencies
 
