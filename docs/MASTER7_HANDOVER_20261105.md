@@ -1,42 +1,34 @@
-# MASTER7 候选交接说明
+# MASTER7 staging handover
 
-交接日期：2026-11-05（MYT）
+Updated: 2026-11-05 MYT
 
-## 本次已完成并验证
+## Delivered in candidate 17.0.0-selfbuilt.24-reference-dashboard-otp
 
-- 顾客自行注册：账号建立后无需人工批准；老板仍可暂停或恢复异常账号。
-- 中文、English、Bahasa Melayu：登录、注册、未登录页面及前后台可自行选择语言。
-- 三家赞助商独立专区：MegaH5、JILI、918KISS H5 分开显示。
-- 每条厂家目录记录独立保留；重复游戏代码不会被前端目录自动合并。
-- 六类游戏：SLOT、FAST GAME、LIVE、FISH、SPORT、OTHERS。
-- 老板可针对每一条游戏记录单独保存分类及 Active、Maintenance、Close 状态。
-- 顾客只能看到允许显示的项目；Close 项目不显示给顾客。
-- 当前游戏接口仍是只读目录，未把厂家积分写入 MASTER7 可提现钱包。
+- Customer lobby and owner backoffice now use two distinct screenshot-based layouts.
+- Customer lobby: dark game-lobby shell, category navigation, three sponsored suppliers, 34 separate supplier buttons and supplier artwork.
+- Backoffice: one left navigation column, nine operational cards, daily trend panel and every implemented management section listed from top to bottom.
+- Customer access displays only MASTER7 ID, Malaysian mobile and SMS OTP. Owner backoffice continues to use ID and password.
+- OTP challenges are five minutes, one-use, rate-limited and stored as keyed hashes. Registration never grants backoffice access.
+- Provider and game identity remains `(provider ID, game ID)`; matching game codes from different providers are not merged.
+- Current readable catalogues remain separate: MegaH5 166, JILI 297 and 918KISS H5 92 (555 total records at the last online check).
+- The 34 supplier artwork files are local same-origin assets. MegaH5 and 918KISS title art use the bounded same-origin image proxy; JILI uses its supplier artwork when its catalogue has no title image.
+- Four payment entries and their backoffice controls remain independent.
 
-## 本次验证
+## Verification
 
-- `npm run test:games`：通过。
-- `npm test`：通过；包含顾客自行注册、立即激活、权限隔离、老板暂停与恢复。
-- `npm run test:i18n`：通过。
-- `npm run test:browser:i18n`：中文、英文、马来文在 390px 与 1440px 通过，无浏览器错误或页面横向溢出。
-- `npm run build`：通过。
-- `git diff --check`：通过。
+- Full local suite: 83 passed, 0 failed, 0 skipped.
+- Customer OTP-only registration/login regression tests pass.
+- Owner password login, activation and recovery regressions pass.
+- JavaScript syntax check passes.
+- Render production build passes.
+- Desktop and 390 px mobile layouts were visually inspected for customer lobby and nine-card backoffice.
+- Bundle SHA-256: `14fd84b867275d5932ee953dd6274b990fd1b574881b60be37d5900d8a984086`.
+- Reviewable diff: `docs/patches/MASTER7_REFERENCE_DASHBOARD_OTP_20261104.patch`.
 
-生产环境测试套件在当前受限执行环境中无法启动子进程，错误为 `spawnSync ... EPERM`。这是本地测试环境限制，不是线上通过记录。
+## Exact remaining live dependencies
 
-## 目前不能签署为正式营业可用
-
-- 本候选尚未合并、部署或绑定正式前后台域名。
-- 当前厂家连接只有目录读取；真实游戏启动、退出、断线、积分查询／清除及厂家账本没有可调用的正式接口证据。
-- VPay、GSPAY、1MPAY、GSPAY+ 尚未完成逐家真实建单、回调、幂等和钱包对账。
-- 顾客短信 OTP 尚未取得真实收码通过证据。
-- 原会员、余额和订单仍缺完整备份、隔离恢复与金额核对记录。
-- 以前收到的每张游戏资料图片不在本工作区文件中，因此本候选没有凭空建立图片对应关系；后续应按原资料逐张对应，不能合并。
-
-## 试用边界
-
-可测试：注册、语言切换、前后台界面、三家独立目录、六类筛选、老板单款分类和状态管理。
-
-不可作为已通过：真实充值、提现、厂家积分、真实游戏启动／退出、正式短信、旧数据恢复及正式营业。
-
-“自动批准其他项目”目前没有明确对象，因此没有启用任何充值、提款、奖励或资金自动批准。
+- Anchor OTP code is present, but the running Render service reports `smsOtpReady:false`; live SMS requires the configured Anchor server values.
+- Supplier game launch and settlement are not implemented by the current catalogue-only gateway. Catalogue records and pictures do not prove playability.
+- VPay is UAT only. GSPAY, 1MPAY and GSPAY+ do not yet have verified live order/callback/ledger flows in this bundle.
+- `www.master7.best` and `admin.master7.best` still require a valid hosting project/domain binding before they can be handed over as working official URLs.
+- Financial cards show `—` when no real ledger source is connected; they never present missing figures as RM0.

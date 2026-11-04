@@ -1,0 +1,546 @@
+diff --git aa/master7-v17-render-staging/app/portal.html bb/master7-v17-render-staging/app/portal.html
+index 4cc9ac5..feb0ee7 100644
+--- aa/master7-v17-render-staging/app/portal.html
++++ bb/master7-v17-render-staging/app/portal.html
+@@ -3,7 +3,7 @@
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+-  <meta name="theme-color" content="#effaff">
++  <meta name="theme-color" content="#080b14">
+   <meta name="description" content="MASTER7 · Member services and operations portal">
+   <title>MASTER7 · Service Portal</title>
+   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+@@ -36,6 +36,12 @@
+     <button data-section="deposit" class="nav-button sidebar-nav-button"><span class="sidebar-icon" aria-hidden="true">＋</span><span data-i18n="navDeposit">Deposit</span></button>
+     <button data-section="support" class="nav-button sidebar-nav-button"><span class="sidebar-icon" aria-hidden="true">◌</span><span data-i18n="navSupport">Support</span></button>
+     <button data-section="admin" id="adminSidebarNav" class="nav-button sidebar-nav-button" hidden><span class="sidebar-icon" aria-hidden="true">▤</span><span data-i18n="navAdmin">Backoffice</span></button>
++    <p class="portal-sidebar-heading portal-game-heading">GAMES</p>
++    <button type="button" class="sidebar-game-filter" data-sidebar-game-category="SLOT"><span class="sidebar-icon" aria-hidden="true">◆</span><span>Slots</span></button>
++    <button type="button" class="sidebar-game-filter" data-sidebar-game-category="LIVE"><span class="sidebar-icon" aria-hidden="true">●</span><span>Live Casino</span></button>
++    <button type="button" class="sidebar-game-filter" data-sidebar-game-category="FISH"><span class="sidebar-icon" aria-hidden="true">≈</span><span>Fishing</span></button>
++    <button type="button" class="sidebar-game-filter" data-sidebar-game-category="SPORT"><span class="sidebar-icon" aria-hidden="true">▲</span><span>Sports</span></button>
++    <button type="button" class="sidebar-game-filter" data-sidebar-game-category="OTHERS"><span class="sidebar-icon" aria-hidden="true">＋</span><span>Others</span></button>
+     <div class="sidebar-foot"><span class="sidebar-status-dot"></span><span>MYR · MASTER7</span></div>
+   </aside>
+ 
+@@ -68,7 +74,7 @@
+     </section>
+ 
+     <section id="lobby" class="section active">
+-      <div class="section-header"><div><p class="eyebrow" data-i18n="lobbyEyebrow">供应商只读测试目录</p><h1 data-i18n="lobbyTitle">供应商游戏目录（测试）</h1><p class="muted" data-i18n="lobbyNotice">只读测试目录；游戏不能启动、下注或结算。</p></div></div>
++      <div class="section-header lobby-hero"><div><p class="eyebrow" data-i18n="lobbyEyebrow">供应商只读测试目录</p><h1 data-i18n="lobbyTitle">供应商游戏目录（测试）</h1><p class="muted" data-i18n="lobbyNotice">只读测试目录；游戏不能启动、下注或结算。</p></div><div class="lobby-live-summary" aria-label="Live catalogue summary"><span><strong id="lobbyGameCount">—</strong><small>GAMES</small></span><span><strong id="lobbyProviderCount">—</strong><small>PROVIDERS</small></span><span><strong>24/7</strong><small>ACCESS</small></span></div></div>
+       <section id="lobbyAdCarousel" class="lobby-ad-carousel" aria-label="Lobby advertisements" hidden>
+         <a id="lobbyAdLink" class="lobby-ad-link" href="#" target="_blank" rel="noopener noreferrer" hidden>
+           <img id="lobbyAdImage" class="lobby-ad-image" alt="">
+@@ -189,6 +195,10 @@
+             <a href="#operationsPanel">Dashboard</a>
+             <a href="#paymentChannelManager">Payment channels</a>
+             <a href="#adminDepositPanel">Deposit records</a>
++            <a href="#securityPanel">Security monitor</a>
++            <a href="#announcementPanel">Announcements</a>
++            <a href="#providerPanel">Sponsored providers</a>
++            <a href="#apiSupplierManager">34 supplier APIs</a>
+             <a href="#gameCatalogManager">Game controls</a>
+             <a href="#brandDirectoryManager">Brand directory</a>
+             <a href="#lobbyAdManager">Lobby advertising</a>
+@@ -198,11 +208,19 @@
+             <a href="#auditPanel">Audit log</a>
+           </nav>
+           <div class="admin-content">
+-        <div class="stats" id="adminStats"></div>
++        <div class="admin-dashboard-heading">
++          <div><p class="eyebrow">LIVE OPERATIONS · MYT</p><h2>Operational Dashboard</h2><p class="muted">Today at a glance · values update from the connected MASTER7 services.</p></div>
++          <span class="admin-live-pill"><span></span> LIVE</span>
++        </div>
++        <div class="stats admin-kpi-grid" id="adminStats" aria-label="Nine operational dashboard metrics"></div>
+         <div class="surface stack" id="operationsPanel">
+-          <h2 id="operationsHeading">今日门户数据</h2>
++          <div class="admin-panel-heading"><div><p class="eyebrow">TODAY · FINANCIAL OVERVIEW</p><h2 id="operationsHeading">今日门户数据</h2></div><span class="tiny-label">MYR</span></div>
+           <p class="muted" id="operationsNotice">真实 MYR 充值、提款、Bonus、进群数据未连接；未连接不等于 RM0。</p>
+-          <div class="stats" id="operationsStats"></div>
++          <div class="admin-trend-chart" role="img" aria-label="Daily financial trend area. Connected totals appear when available.">
++            <span class="trend-line trend-line-a"></span><span class="trend-line trend-line-b"></span><span class="trend-line trend-line-c"></span><span class="trend-line trend-line-d"></span>
++            <div class="admin-trend-empty">Connected daily totals appear here</div>
++          </div>
++          <div id="operationsStats" hidden></div>
+         </div>
+         <section class="surface stack" id="paymentChannelManager" aria-labelledby="paymentChannelManagerTitle">
+           <h2 id="paymentChannelManagerTitle">Deposit channels · four separate controls</h2>
+@@ -214,13 +232,13 @@
+           <div id="adminDepositRecords"><p class="muted">Loading records…</p></div>
+         </section>
+         <div class="surface stack" id="securityPanel" hidden>
+-          <h2 id="securityHeading">🔒 今日操作监控</h2>
++          <h2 id="securityHeading">今日操作监控</h2>
+           <p class="muted" id="securityNotice">仅显示本测试环境的匿名安全事件计数，不包含密码、IP 或 OTP。</p>
+           <div class="stats" id="securityStats"></div>
+         </div>
+         <div class="two-col">
+-          <form class="surface stack" id="announcementForm"><h2 data-i18n="publishAnnouncement">发布公告</h2><label for="announcementTitle" data-i18n="subject">主题</label><input id="announcementTitle" maxlength="100" minlength="3" required><label for="announcementBody" data-i18n="message">内容</label><textarea id="announcementBody" maxlength="1000" minlength="5" rows="4" required></textarea><button type="submit" class="button button-primary" data-i18n="publish">发布</button></form>
+-          <div class="surface stack"><h2 data-i18n="providerManager">展示厂家管理</h2><p class="muted" data-i18n="providerManagerHint">仅调整模拟卡片是否显示，不连接真实游戏。</p><div id="providerManager"></div></div>
++          <div id="announcementPanel"><form class="surface stack" id="announcementForm"><h2 data-i18n="publishAnnouncement">发布公告</h2><label for="announcementTitle" data-i18n="subject">主题</label><input id="announcementTitle" maxlength="100" minlength="3" required><label for="announcementBody" data-i18n="message">内容</label><textarea id="announcementBody" maxlength="1000" minlength="5" rows="4" required></textarea><button type="submit" class="button button-primary" data-i18n="publish">发布</button></form></div>
++          <div class="surface stack" id="providerPanel"><h2 data-i18n="providerManager">展示厂家管理</h2><p class="muted" data-i18n="providerManagerHint">仅调整模拟卡片是否显示，不连接真实游戏。</p><div id="providerManager"></div></div>
+         </div>
+         <section class="surface stack" id="apiSupplierManager" aria-labelledby="apiSupplierManagerTitle">
+           <h2 id="apiSupplierManagerTitle">34 supplier APIs · independent controls</h2>
+@@ -332,7 +350,7 @@
+       <div id="otpFields" class="stack" hidden><label><span data-i18n="otpLabel">SMS verification code</span><input id="memberOtp" name="otp" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6"></label><button id="sendOtpButton" class="button button-ghost full" type="button" data-i18n="sendOtp">Send verification code</button></div>
+       <label id="activationField" hidden><span id="codeLabel">一次性激活码</span><input id="activationCode" name="activationCode" type="password" autocomplete="off" maxlength="43"></label>
+       <label id="currentPasswordField" hidden><span data-i18n="currentPassword">当前密码</span><input id="currentPassword" name="currentPassword" type="password" autocomplete="current-password" maxlength="128"></label>
+-      <label><span id="passwordLabel" data-i18n="password">密码</span><input id="authPassword" name="password" type="password" autocomplete="current-password" maxlength="128" required></label>
++      <label id="passwordField"><span id="passwordLabel" data-i18n="password">密码</span><input id="authPassword" name="password" type="password" autocomplete="current-password" maxlength="128" required></label>
+       <label id="confirmPasswordField" hidden><span data-i18n="confirmPassword">确认新密码</span><input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" maxlength="128"></label>
+       <label id="showPasswordField" class="password-toggle" hidden><input id="showPasswords" type="checkbox"><span data-i18n="showPasswords">显示新密码（仅在私密环境查看）</span></label>
+       <p id="passwordMatch" class="muted" role="status" aria-live="polite"></p>
+diff --git aa/master7-v17-render-staging/public/assets/app.js bb/master7-v17-render-staging/public/assets/app.js
+index 3f342a8..832497e 100644
+--- aa/master7-v17-render-staging/public/assets/app.js
++++ bb/master7-v17-render-staging/public/assets/app.js
+@@ -19,9 +19,9 @@ const translations = {
+ const hostedCopy={"zh": {"demoWarning": "V17 自建服务门户 · 会员与工单已接入独立数据库", "previewLabel": "自建服务门户", "featureOtp": "安全登录", "featureOtpDesc": "使用 ChatGPT 身份验证", "supportIntro": "创建工单并在这里接收员工回复。", "submitTicket": "提交工单", "ticketLogin": "登录并通过会员审批后可提交工单。", "adminIntro": "管理本门户的会员、员工、公告和工单。", "publishAnnouncement": "发布公告", "footerDisclaimer": "客服门户提供会员及工单服务；游戏、充值和提款尚未开放。", "sandbox": "V17 · SERVICE PORTAL", "statusMessage": "独立数据库服务；旧会员、游戏及支付未连接。", "memberApproval": "会员审批与员工授权", "hostedLogin": "使用 ChatGPT 登录", "hostedLoginNotice": "首次登录建立本门户的独立账号。会员需老板审批；员工权限由老板授予。", "refreshRecords": "刷新记录", "staffInstruction": "员工先登录，再由老板在此批准和授权。", "exportRecords": "导出门户数据", "accountPending": "账号已建立，正在等待老板审批。审批后刷新页面即可使用客服。", "reply": "回复内容", "sendReply": "发送回复", "makeStaff": "授权为员工", "removeStaff": "取消员工权限", "credentials": "通过安全登录访问本门户。"}, "en": {"demoWarning": "V17 service portal · Members and support use a dedicated database", "previewLabel": "Self-built service portal", "featureOtp": "Secure sign-in", "featureOtpDesc": "Sign in with ChatGPT", "supportIntro": "Create a ticket and receive replies from our staff.", "submitTicket": "Submit ticket", "ticketLogin": "Sign in and await member approval to submit a ticket.", "adminIntro": "Manage this portal’s members, staff, announcements and tickets.", "publishAnnouncement": "Publish announcement", "footerDisclaimer": "Member and support services. Games, deposits and withdrawals are not connected.", "sandbox": "V17 · SERVICE PORTAL", "statusMessage": "Dedicated portal database. Legacy members, games and payments are not connected.", "memberApproval": "Member approval and staff access", "hostedLogin": "Sign in with ChatGPT", "hostedLoginNotice": "Your first sign-in creates a portal account. The owner approves members and grants staff access.", "refreshRecords": "Refresh records", "staffInstruction": "Staff sign in first, then the owner grants access here.", "exportRecords": "Export portal records", "accountPending": "Your account is awaiting owner approval. Refresh after approval to use support.", "reply": "Reply message", "sendReply": "Send reply", "makeStaff": "Grant staff access", "removeStaff": "Remove staff access", "credentials": "Secure sign-in for this portal."}, "ms": {"demoWarning": "Portal perkhidmatan V17 · Ahli dan tiket dalam pangkalan data khusus", "previewLabel": "Portal perkhidmatan", "featureOtp": "Log masuk selamat", "featureOtpDesc": "Log masuk dengan ChatGPT", "supportIntro": "Cipta tiket dan terima balasan kakitangan di sini.", "submitTicket": "Hantar tiket", "ticketLogin": "Log masuk dan tunggu kelulusan ahli untuk menghantar tiket.", "adminIntro": "Urus ahli, kakitangan, pengumuman dan tiket portal ini.", "publishAnnouncement": "Terbitkan pengumuman", "footerDisclaimer": "Perkhidmatan ahli dan sokongan. Permainan, deposit dan pengeluaran belum disambung.", "sandbox": "V17 · SERVICE PORTAL", "statusMessage": "Pangkalan data portal khusus. Ahli lama, permainan dan pembayaran belum disambung.", "memberApproval": "Kelulusan ahli dan akses kakitangan", "hostedLogin": "Log masuk dengan ChatGPT", "hostedLoginNotice": "Log masuk pertama mencipta akaun portal. Pemilik meluluskan ahli dan akses kakitangan.", "refreshRecords": "Muat semula rekod", "staffInstruction": "Kakitangan log masuk dahulu, kemudian pemilik memberi akses di sini.", "exportRecords": "Eksport rekod portal", "accountPending": "Akaun menunggu kelulusan pemilik. Muat semula selepas kelulusan.", "reply": "Mesej balasan", "sendReply": "Hantar balasan", "makeStaff": "Beri akses kakitangan", "removeStaff": "Buang akses kakitangan", "credentials": "Log masuk selamat untuk portal ini."}};
+ for(const lang of Object.keys(hostedCopy))Object.assign(translations[lang],hostedCopy[lang]);
+ const passwordCopy={
+- zh:{malaysiaPhone:"马来西亚手机号码",phoneOtpPending:"注册前须通过短信验证马来西亚手机号。",otpLabel:"短信验证码",sendOtp:"发送验证码",resendOtp:"重新发送验证码",otpSent:"验证码已提交，请查收短信。",portalId:"MASTER7 ID",password:"密码",accountSecurity:"账号安全",currentPassword:"当前密码",confirmPassword:"确认新密码",newPassword:"新密码（至少 8 个字符）",activationCode:"一次性激活码",activateTitle:"激活老板账号",activateSubmit:"设置密码并激活",activateNotice:"老板 ID：master7_owner。输入交接激活码，并设置只有你知道的密码。激活码只能使用一次。",loginNotice:"顾客登录使用 MASTER7 ID、马来西亚手机号和密码；老板及员工在管理入口使用 ID 与密码。短信验证码用于注册前核验手机号。",registerNotice:"注册需提供马来西亚手机号码、4–32 位 MASTER7 ID 和 8–128 位密码；新账号需老板审批。短信验证码用于注册前核验手机号。",securityNotice:"可修改登录 ID 和密码。保存后，使用此 ID 登录的设备会退出。ChatGPT 登录独立管理。",createMember:"注册会员 ID",backToLogin:"返回登录",saveAccount:"保存并退出此 ID",passwordMismatch:"两次输入的密码不一致。",activationDone:"老板账号已激活。请使用刚设置的密码登录。",registrationDone:"会员 ID 已建立。登录后等待老板审批。",passwordChanged:"账号已更新，请使用新 ID 和密码登录。",busy:"处理中…",featureOtpDesc:"MASTER7 ID、马来西亚手机号；注册前验证马来西亚手机号",securityHelp:"忘记密码请联系站点所有者核实身份；本站不会通过聊天索取密码。"},
+- en:{malaysiaPhone:"Malaysian mobile number",phoneOtpPending:"Verify the Malaysian mobile number by SMS before registering.",otpLabel:"SMS verification code",sendOtp:"Send verification code",resendOtp:"Resend verification code",otpSent:"Code submitted. Check your SMS messages.",portalId:"MASTER7 ID",password:"Password",accountSecurity:"Account security",currentPassword:"Current password",confirmPassword:"Confirm new password",newPassword:"New password (at least 8 characters)",activationCode:"One-time activation code",activateTitle:"Activate owner account",activateSubmit:"Set password and activate",activateNotice:"Owner ID: master7_owner. Enter your handover code and set your own password. The code can only be used once.",loginNotice:"Customers sign in with a MASTER7 ID, Malaysian mobile number and password. Owners and staff use ID and password at the backoffice. SMS verification is required before registration.",registerNotice:"Register with a Malaysian mobile number, a MASTER7 ID (4–32 letters, digits or underscores) and an 8–128 character password. Owner approval is required; SMS verification is required before registration.",securityNotice:"Change your login ID and password. Saving signs out all password sessions for this ID. ChatGPT sessions are managed separately.",createMember:"Register member ID",backToLogin:"Back to sign-in",saveAccount:"Save and sign out this ID",passwordMismatch:"The passwords do not match.",activationDone:"Owner account activated. Sign in with the password you just set.",registrationDone:"Member ID created. Sign in and await owner approval.",passwordChanged:"Account updated. Sign in with your new ID and password.",busy:"Working…",featureOtpDesc:"MASTER7 ID and Malaysian mobile; Verify Malaysian phone before registration",securityHelp:"Forgot your password? Contact the site owner to verify your identity. Never send your password in chat."},
+- ms:{malaysiaPhone:"Nombor telefon mudah alih Malaysia",phoneOtpPending:"Sahkan nombor telefon Malaysia melalui SMS sebelum mendaftar.",otpLabel:"Kod pengesahan SMS",sendOtp:"Hantar kod pengesahan",resendOtp:"Hantar semula kod",otpSent:"Kod dihantar. Semak mesej SMS anda.",portalId:"ID MASTER7",password:"Kata laluan",accountSecurity:"Keselamatan akaun",currentPassword:"Kata laluan semasa",confirmPassword:"Sahkan kata laluan baharu",newPassword:"Kata laluan baharu (sekurang-kurangnya 8 aksara)",activationCode:"Kod pengaktifan sekali guna",activateTitle:"Aktifkan akaun pemilik",activateSubmit:"Tetapkan kata laluan dan aktifkan",activateNotice:"ID pemilik: master7_owner. Masukkan kod serahan dan tetapkan kata laluan sendiri. Kod hanya boleh digunakan sekali.",loginNotice:"Pelanggan menggunakan ID MASTER7, nombor telefon Malaysia dan kata laluan. Pemilik dan staf menggunakan ID dan kata laluan di panel. OTP SMS belum disambungkan.",registerNotice:"Daftar dengan nombor telefon Malaysia, ID MASTER7 (4–32 huruf, angka atau garis bawah) dan kata laluan 8–128 aksara. Kelulusan pemilik diperlukan; OTP SMS belum disambungkan.",securityNotice:"Tukar ID dan kata laluan. Semua sesi kata laluan ID ini akan dilog keluar. Sesi ChatGPT diurus berasingan.",createMember:"Daftar ID ahli",backToLogin:"Kembali ke log masuk",saveAccount:"Simpan dan log keluar ID ini",passwordMismatch:"Kata laluan tidak sepadan.",activationDone:"Akaun pemilik diaktifkan. Log masuk dengan kata laluan baharu.",registrationDone:"ID ahli dicipta. Log masuk dan tunggu kelulusan pemilik.",passwordChanged:"Akaun dikemas kini. Log masuk dengan ID dan kata laluan baharu.",busy:"Memproses…",featureOtpDesc:"ID MASTER7 dan telefon Malaysia; OTP SMS belum disambungkan",securityHelp:"Terlupa kata laluan? Hubungi pemilik laman untuk pengesahan identiti. Jangan hantar kata laluan melalui sembang."}
++ zh:{malaysiaPhone:"马来西亚手机号码",phoneOtpPending:"输入 ID 和手机号码，再用短信 OTP 登录。",otpLabel:"短信验证码",sendOtp:"发送验证码",resendOtp:"重新发送验证码",otpSent:"验证码已提交，请查收短信。",portalId:"MASTER7 ID",password:"密码",accountSecurity:"账号安全",currentPassword:"当前密码",confirmPassword:"确认新密码",newPassword:"新密码（至少 8 个字符）",activationCode:"一次性激活码",activateTitle:"激活老板账号",activateSubmit:"设置密码并激活",activateNotice:"老板 ID：master7_owner。输入交接激活码，并设置只有你知道的密码。激活码只能使用一次。",loginNotice:"顾客前台只使用 MASTER7 ID、马来西亚手机号码和短信 OTP。后台拥有者使用 ID 与密码。",registerNotice:"顾客自己输入 MASTER7 ID、马来西亚手机号码和短信 OTP 注册；不会取得后台权限。",securityNotice:"可修改登录 ID 和密码。保存后，使用此 ID 登录的设备会退出。ChatGPT 登录独立管理。",createMember:"注册会员 ID",backToLogin:"返回登录",saveAccount:"保存并退出此 ID",passwordMismatch:"两次输入的密码不一致。",activationDone:"老板账号已激活。请使用刚设置的密码登录。",registrationDone:"会员 ID 已建立。登录后等待老板审批。",passwordChanged:"账号已更新，请使用新 ID 和密码登录。",busy:"处理中…",featureOtpDesc:"MASTER7 ID、马来西亚手机号与短信 OTP",securityHelp:"忘记密码请联系站点所有者核实身份；本站不会通过聊天索取密码。"},
++ en:{malaysiaPhone:"Malaysian mobile number",phoneOtpPending:"Enter your ID and mobile number, then sign in with the SMS OTP.",otpLabel:"SMS verification code",sendOtp:"Send verification code",resendOtp:"Resend verification code",otpSent:"Code submitted. Check your SMS messages.",portalId:"MASTER7 ID",password:"Password",accountSecurity:"Account security",currentPassword:"Current password",confirmPassword:"Confirm new password",newPassword:"New password (at least 8 characters)",activationCode:"One-time activation code",activateTitle:"Activate owner account",activateSubmit:"Set password and activate",activateNotice:"Owner ID: master7_owner. Enter your handover code and set your own password. The code can only be used once.",loginNotice:"Customer access uses only MASTER7 ID, Malaysian mobile number and SMS OTP. The owner uses ID and password in the backoffice.",registerNotice:"Customers register themselves with a MASTER7 ID, Malaysian mobile number and SMS OTP. Registration never grants backoffice access.",securityNotice:"Change your login ID and password. Saving signs out all password sessions for this ID. ChatGPT sessions are managed separately.",createMember:"Register member ID",backToLogin:"Back to sign-in",saveAccount:"Save and sign out this ID",passwordMismatch:"The passwords do not match.",activationDone:"Owner account activated. Sign in with the password you just set.",registrationDone:"Member ID created. Sign in and await owner approval.",passwordChanged:"Account updated. Sign in with your new ID and password.",busy:"Working…",featureOtpDesc:"MASTER7 ID, Malaysian mobile and SMS OTP",securityHelp:"Forgot your password? Contact the site owner to verify your identity. Never send your password in chat."},
++ ms:{malaysiaPhone:"Nombor telefon mudah alih Malaysia",phoneOtpPending:"Masukkan ID dan nombor telefon, kemudian log masuk dengan OTP SMS.",otpLabel:"Kod pengesahan SMS",sendOtp:"Hantar kod pengesahan",resendOtp:"Hantar semula kod",otpSent:"Kod dihantar. Semak mesej SMS anda.",portalId:"ID MASTER7",password:"Kata laluan",accountSecurity:"Keselamatan akaun",currentPassword:"Kata laluan semasa",confirmPassword:"Sahkan kata laluan baharu",newPassword:"Kata laluan baharu (sekurang-kurangnya 8 aksara)",activationCode:"Kod pengaktifan sekali guna",activateTitle:"Aktifkan akaun pemilik",activateSubmit:"Tetapkan kata laluan dan aktifkan",activateNotice:"ID pemilik: master7_owner. Masukkan kod serahan dan tetapkan kata laluan sendiri. Kod hanya boleh digunakan sekali.",loginNotice:"Pelanggan hanya menggunakan ID MASTER7, nombor telefon Malaysia dan OTP SMS. Pemilik menggunakan ID dan kata laluan di panel pentadbir.",registerNotice:"Pelanggan mendaftar sendiri dengan ID MASTER7, nombor telefon Malaysia dan OTP SMS. Pendaftaran tidak memberi akses pentadbir.",securityNotice:"Tukar ID dan kata laluan. Semua sesi kata laluan ID ini akan dilog keluar. Sesi ChatGPT diurus berasingan.",createMember:"Daftar ID ahli",backToLogin:"Kembali ke log masuk",saveAccount:"Simpan dan log keluar ID ini",passwordMismatch:"Kata laluan tidak sepadan.",activationDone:"Akaun pemilik diaktifkan. Log masuk dengan kata laluan baharu.",registrationDone:"ID ahli dicipta. Log masuk dan tunggu kelulusan pemilik.",passwordChanged:"Akaun dikemas kini. Log masuk dengan ID dan kata laluan baharu.",busy:"Memproses…",featureOtpDesc:"ID MASTER7, telefon Malaysia dan OTP SMS",securityHelp:"Terlupa kata laluan? Hubungi pemilik laman untuk pengesahan identiti. Jangan hantar kata laluan melalui sembang."}
+ };
+ for(const lang of Object.keys(passwordCopy))Object.assign(translations[lang],passwordCopy[lang]);
+ const activationCopy={
+@@ -251,7 +251,7 @@ async function api(url,method="GET",payload=undefined){
+   throw error;
+  }finally{clearTimeout(timer);}
+ }
+-function selected(section){state.section=section;document.querySelectorAll(".section").forEach(el=>el.classList.toggle("active",el.id===section));document.querySelectorAll(".nav-button").forEach(el=>el.classList.toggle("active",el.dataset.section===section));window.scrollTo({top:0,behavior:"smooth"});if(section==="support")refreshTickets();if(section==="admin")renderAdmin();}
++function selected(section){state.section=section;document.body?.classList?.toggle("admin-mode",section==="admin");document.querySelectorAll(".section").forEach(el=>el.classList.toggle("active",el.id===section));document.querySelectorAll(".nav-button").forEach(el=>el.classList.toggle("active",el.dataset.section===section));window.scrollTo({top:0,behavior:"smooth"});if(section==="support")refreshTickets();if(section==="admin")renderAdmin();}
+ function renderSession(){const u=state.user;$("accountSecurity").hidden=!(u&&state.authMethod==="password");$("accountNotice").hidden=!u||u.approved;$("accountNotice").textContent=t("accountPending");$("loginButton").hidden=!!u;$("logoutButton").hidden=!u;$("userChip").hidden=!u;const canManage=!!(u&&(u.role==="owner"||u.role==="staff"));$("adminNav").hidden=!canManage;$("adminSidebarNav").hidden=!canManage;if(u)$("userChip").textContent=`${u.username} · ${t("role_"+u.role)}`;if(state.section==="admin"&&!u)renderAdmin();}
+ function renderAnnouncements(){const host=$("announcements");clear(host);if(!state.announcements.length){host.append(node("p","muted",t("noAnnouncements")));return;}for(const a of state.announcements){const card=node("article","announcement"),title=node("h3","",a.title),body=node("p","",a.body),time=node("time","",new Date(a.created_at*1000).toLocaleDateString(state.lang==="zh"?"zh-CN":state.lang));card.append(title,body,time);host.append(card);}}
+ function normalizedGameCategory(game){
+@@ -265,7 +265,7 @@ function renderCatalog(){
+  const games=(state.games||[]).filter(game=>game.status!=="closed").filter(game=>!state.providers?.length||visibleProviders.has(game.provider)).map(game=>({...game,displayCategory:normalizedGameCategory(game)}));
+  const matching=games.filter(game=>(!state.selectedCatalogProvider||game.provider===state.selectedCatalogProvider)&&(state.gameCategory==="ALL"||game.displayCategory===state.gameCategory)&&(!search||`${game.name} ${game.nameZh||""} ${game.providerName} ${game.category||""}`.toLowerCase().includes(search)));
+  const clearProvider=$("clearProviderFilter");if(clearProvider){clearProvider.hidden=!state.selectedCatalogProvider;clearProvider.textContent=state.selectedCatalogProvider?`Showing ${state.selectedCatalogProviderName||state.selectedCatalogProvider} · Show all providers`:"Show all providers";}
+- const status=$("gamesStatus");if(status)status.textContent=state.selectedCatalogProvider?`${state.selectedCatalogProviderName||state.selectedCatalogProvider} · ${matching.length} catalogue titles · launch pending UAT`:games.length?t("catalogSummary").replace("{count}",games.length):t("catalogUnavailable");
++ const status=$("gamesStatus");if(status)status.textContent=state.selectedCatalogProvider?`${state.selectedCatalogProviderName||state.selectedCatalogProvider} · ${matching.length} catalogue titles · launch pending UAT`:games.length?t("catalogSummary").replace("{count}",games.length):t("catalogUnavailable");if($("lobbyGameCount"))$("lobbyGameCount").textContent=String(games.length||0);if($("lobbyProviderCount"))$("lobbyProviderCount").textContent=String(new Set(games.map(game=>game.provider)).size||0);
+  if(!matching.length){el.append(node("p","muted",search?t("itemSearchNoResults"):t("catalogUnavailable")));return;}
+  const order=["SLOT","FAST GAME","LIVE","FISH","SPORT","OTHERS"],groups=new Map();
+  for(const game of matching){if(!groups.has(game.displayCategory))groups.set(game.displayCategory,new Map());const providers=groups.get(game.displayCategory),provider=game.providerName||"Other";if(!providers.has(provider))providers.set(provider,[]);providers.get(provider).push(game);}
+@@ -326,26 +326,29 @@ async function loadPublic(){try{const [providers,anns,social,channels,directory]
+ async function loadGameCatalogue(){try{state.gameCatalogue=await api("/api/games");state.games=state.gameCatalogue.games||[];renderCatalog();renderPublicBrandDirectory();renderApiSupplierButtons();}catch{state.gameCatalogue={providers:[],games:[]};state.games=[];renderCatalog();renderPublicBrandDirectory();renderApiSupplierButtons();}}
+ function renderItem(host,left,right,buttonLabel,action,disabled=false){const row=node("div","row-item"),lhs=node("div"),name=node("strong","",left);lhs.append(name);if(right)lhs.append(node("small","",right));row.append(lhs);if(buttonLabel){const btn=node("button","button button-outline",buttonLabel);btn.type="button";btn.disabled=disabled;btn.addEventListener("click",action);row.append(btn);}host.append(row);}
+ const previewDashboardCopy = {
+- zh:{ops:"今日门户数据",opsNotice:"真实 Deposit、Withdraw、Bonus、进群数据尚未接通；未连接不等于 RM0。",security:"🔒 今日操作监控",securityNotice:"本站统计业务写入限流；密码登录已设尝试限制，尚未汇总到此面板，显示 —。",newMembers:"今日新会员",deposit:"Deposit 充值 (MYR)",withdraw:"Withdraw 提款 (MYR)",bonus:"Bonus 奖励 (MYR)",netRevenue:"营业净收益 (MYR)",group:"今日进群人数",loginDenied:"登录失败",loginBlocked:"登录限流",registerBlocked:"注册限流",writeBlocked:"操作限流",unavailable:"未连接"},
+- en:{ops:"Today's portal activity",opsNotice:"Real deposit, withdrawal, bonus and group data are not connected. Missing is not zero.",security:"🔒 Today's portal security",securityNotice:"Password sign-in is rate-limited. This panel counts business write limits; unavailable totals are shown as —.",newMembers:"New portal members",deposit:"Deposit (MYR)",withdraw:"Withdraw (MYR)",bonus:"Bonus (MYR)",netRevenue:"Net operating revenue (MYR)",group:"Group joins today",loginDenied:"Rejected logins",loginBlocked:"Login rate-limited",registerBlocked:"Registration rate-limited",writeBlocked:"Write rate-limited",unavailable:"Not connected"},
+- ms:{ops:"Aktiviti portal hari ini",opsNotice:"Data deposit, pengeluaran, bonus dan kumpulan sebenar belum disambung; tiada data bukan RM0.",security:"🔒 Keselamatan portal",securityNotice:"Log masuk kata laluan mempunyai had percubaan. Metrik belum tersedia dipaparkan sebagai —.",newMembers:"Ahli portal baharu",deposit:"Deposit (MYR)",withdraw:"Pengeluaran (MYR)",bonus:"Bonus (MYR)",netRevenue:"Hasil operasi bersih (MYR)",group:"Ahli sertai kumpulan",loginDenied:"Log masuk ditolak",loginBlocked:"Had log masuk",registerBlocked:"Had pendaftaran",writeBlocked:"Had perubahan",unavailable:"Belum disambung"}
++ zh:{ops:"每日财务趋势",opsNotice:"真实 Deposit、Withdraw、Bonus、进群数据尚未接通；未连接会显示 —，不会假装 RM0。",security:"🔒 今日操作监控",securityNotice:"本站统计业务写入限流；密码登录已设尝试限制，尚未汇总到此面板，显示 —。",newMembers:"今日新会员",deposit:"今日充值 (MYR)",withdraw:"今日提款 (MYR)",bonus:"今日 Bonus (MYR)",netRevenue:"今日净收益 (MYR)",group:"今日进群人数",totalMembers:"会员总数",pendingApprovals:"待批准会员",openTickets:"待处理工单",loginDenied:"登录失败",loginBlocked:"登录限流",registerBlocked:"注册限流",writeBlocked:"操作限流",unavailable:"未连接"},
++ en:{ops:"Daily financial trends",opsNotice:"Real deposit, withdrawal, bonus and group totals are not connected. Missing values show — and are never presented as zero.",security:"🔒 Today's portal security",securityNotice:"Password sign-in is rate-limited. This panel counts business write limits; unavailable totals are shown as —.",newMembers:"New members today",deposit:"Deposit today (MYR)",withdraw:"Withdrawal today (MYR)",bonus:"Bonus today (MYR)",netRevenue:"Net revenue today (MYR)",group:"Group joins today",totalMembers:"Total members",pendingApprovals:"Pending approvals",openTickets:"Open tickets",loginDenied:"Rejected logins",loginBlocked:"Login rate-limited",registerBlocked:"Registration rate-limited",writeBlocked:"Write rate-limited",unavailable:"Not connected"},
++ ms:{ops:"Trend kewangan harian",opsNotice:"Jumlah deposit, pengeluaran, bonus dan kumpulan sebenar belum disambung. Nilai tiada dipaparkan sebagai —, bukan sifar.",security:"🔒 Keselamatan portal",securityNotice:"Log masuk kata laluan mempunyai had percubaan. Metrik belum tersedia dipaparkan sebagai —.",newMembers:"Ahli baharu hari ini",deposit:"Deposit hari ini (MYR)",withdraw:"Pengeluaran hari ini (MYR)",bonus:"Bonus hari ini (MYR)",netRevenue:"Hasil bersih hari ini (MYR)",group:"Ahli sertai kumpulan",totalMembers:"Jumlah ahli",pendingApprovals:"Menunggu kelulusan",openTickets:"Tiket terbuka",loginDenied:"Log masuk ditolak",loginBlocked:"Had log masuk",registerBlocked:"Had pendaftaran",writeBlocked:"Had perubahan",unavailable:"Belum disambung"}
+ };
+ function previewMetric(host,value,label,missing){const item=node("div","stat");item.append(node("strong","",missing?"—":value),node("span","",label+(missing?" · "+(previewDashboardCopy[state.lang]||previewDashboardCopy.zh).unavailable:"")));host.append(item);}
+-async function renderPreviewDashboards(owner){
++async function renderPreviewDashboards(owner,summary){
+  const text=previewDashboardCopy[state.lang]||previewDashboardCopy.zh;
+  $("operationsHeading").textContent=text.ops;$("operationsNotice").textContent=text.opsNotice;
+- $("securityHeading").textContent=text.security;$("securityNotice").textContent=text.securityNotice;
+- const op=await api("/api/admin/operations");const grid=$("operationsStats");clear(grid);
+- for(const [name,label] of [["depositMYR",text.deposit],["withdrawMYR",text.withdraw],["bonusMYR",text.bonus],["netRevenueMYR",text.netRevenue],["groupJoins",text.group],["newMembersPreview",text.newMembers]]){
+-  const value=op.metrics[name];previewMetric(grid,value,label,value===null||value===undefined);
+- }
++ $("securityHeading").textContent=text.security.replace(/^🔒\s*/,"");$("securityNotice").textContent=text.securityNotice;
++ const op=await api("/api/admin/operations"),grid=$("adminStats");clear(grid);
++ const metrics=[
++  [op.metrics.depositMYR,text.deposit],[op.metrics.withdrawMYR,text.withdraw],[op.metrics.bonusMYR,text.bonus],
++  [op.metrics.netRevenueMYR,text.netRevenue],[summary.users,text.totalMembers],[op.metrics.newMembersPreview,text.newMembers],
++  [summary.pending,text.pendingApprovals],[summary.ticketsOpen,text.openTickets],[op.metrics.groupJoins,text.group]
++ ];
++ for(const [value,label] of metrics)previewMetric(grid,value,label,value===null||value===undefined);
+  $("securityPanel").hidden=!owner;
+  if(owner){const sec=await api("/api/admin/security"),host=$("securityStats");clear(host);
+   for(const [name,label] of [["login_denied",text.loginDenied],["login_rate_limited",text.loginBlocked],["registration_rate_limited",text.registerBlocked],["write_rate_limited",text.writeBlocked]])previewMetric(host,sec.today[name],label,sec.today[name]===null);
+  }
+ }
+-async function renderAdmin(){const auth=state.user&&(state.user.role==="owner"||state.user.role==="staff");$("adminBody").hidden=!auth;$("adminDenied").hidden=!!auth;if(!auth)return;try{const owner=state.user.role==="owner";const sum=await api("/api/admin/summary");const host=$("adminStats");clear(host);for(const [value,key] of [[sum.users,"users"],[sum.pending,"pending"],[sum.ticketsOpen,"openTickets"],[sum.providersVisible,"visibleProviders"]]){const item=node("div","stat");item.append(node("strong","",value),node("span","",t(key)));host.append(item);}const prov=$("providerManager");renderProviderManager(prov,owner);await renderAdManager(owner);await renderBenefitManager(owner);renderApiSupplierAdminButtons();await renderGameVisibility(owner);await renderBrandDirectory(owner);await renderPaymentChannelManager(owner);
+- await renderPreviewDashboards(owner);await renderSocialAdmin(owner);$("pendingPanel").hidden=!owner;$("auditPanel").hidden=!owner;await renderAdminDeposits();if(owner){const users=(await api("/api/admin/users")).items,list=$("userManager");clear(list);for(const x of users){renderItem(list,x.username,`${t("role_"+x.role)} · ${x.approved?t("approved"):t("pending")}`,x.approved||x.role!=="member"?null:t("approve"),async()=>{try{await api("/api/admin/approve","POST",{userId:x.id});await renderAdmin();notification(t("success"));}catch(e){notification(e.message)}});if(x.role!=="owner"){renderItem(list,t("role_"+x.role),null,x.role==="staff"?t("removeStaff"):t("makeStaff"),async()=>{try{await api("/api/admin/role","POST",{userId:x.id,role:x.role==="staff"?"member":"staff"});await renderAdmin();notification(t("success"));}catch(e){notification(e.message);}});}}const logs=(await api("/api/admin/audit")).items,auditHost=$("auditLog");clear(auditHost);for(const a of logs.slice(0,25))renderItem(auditHost,`${a.event} · ${a.target}`,`${a.username||"system"} · ${new Date(a.created_at*1000).toLocaleString()}`);}}
++async function renderAdmin(){const auth=state.user&&(state.user.role==="owner"||state.user.role==="staff");$("adminBody").hidden=!auth;$("adminDenied").hidden=!!auth;if(!auth)return;try{const owner=state.user.role==="owner";const sum=await api("/api/admin/summary");const prov=$("providerManager");renderProviderManager(prov,owner);await renderAdManager(owner);await renderBenefitManager(owner);renderApiSupplierAdminButtons();await renderGameVisibility(owner);await renderBrandDirectory(owner);await renderPaymentChannelManager(owner);
++ await renderPreviewDashboards(owner,sum);await renderSocialAdmin(owner);$("pendingPanel").hidden=!owner;$("auditPanel").hidden=!owner;await renderAdminDeposits();if(owner){const users=(await api("/api/admin/users")).items,list=$("userManager");clear(list);for(const x of users){renderItem(list,x.username,`${t("role_"+x.role)} · ${x.approved?t("approved"):t("pending")}`,x.approved||x.role!=="member"?null:t("approve"),async()=>{try{await api("/api/admin/approve","POST",{userId:x.id});await renderAdmin();notification(t("success"));}catch(e){notification(e.message)}});if(x.role!=="owner"){renderItem(list,t("role_"+x.role),null,x.role==="staff"?t("removeStaff"):t("makeStaff"),async()=>{try{await api("/api/admin/role","POST",{userId:x.id,role:x.role==="staff"?"member":"staff"});await renderAdmin();notification(t("success"));}catch(e){notification(e.message);}});}}const logs=(await api("/api/admin/audit")).items,auditHost=$("auditLog");clear(auditHost);for(const a of logs.slice(0,25))renderItem(auditHost,`${a.event} · ${a.target}`,`${a.username||"system"} · ${new Date(a.created_at*1000).toLocaleString()}`);}}
+ catch(e){notification(e.message)}}
+ function showAuth(mode="login"){
+  state.authMode=mode;$("passwordForm").reset();$("authFeedback").textContent="";
+@@ -374,16 +377,16 @@ async function openOwnerReset(){
+  }catch(error){activationToSignIn(error.message,"");}
+ }
+ function renderAuthMode(){
+- const mode=state.authMode,creating=mode!=="login";
++ const mode=state.authMode,customerEntry=location.pathname!=="/admin",customerOtp=customerEntry&&(mode==="login"||mode==="register"),passwordMode=!customerOtp,creating=passwordMode&&mode!=="login";
+  $("authTitle").textContent=t(mode==="reset"?"resetTitle":mode==="activate"?"activateTitle":mode==="security"?"accountSecurity":mode==="register"?"createMember":"signInTitle");
+  $("authNotice").textContent=t(mode==="reset"?"resetNotice":mode==="activate"?"activateNotice":mode==="security"?"securityNotice":mode==="register"?"registerNotice":"loginNotice");
+  $("authUsername").readOnly=mode==="activate";
+- $("usernameField").hidden=mode==="reset";$("authUsername").required=mode!=="reset";const customerEntry=location.pathname!=="/admin";$("phoneField").hidden=mode==="reset"||mode==="activate"||mode==="security"||(!customerEntry&&mode==="login");$("memberPhone").required=mode==="register"||(customerEntry&&mode==="login");$("phoneOtpNote").hidden=$("phoneField").hidden;$("otpFields").hidden=mode!=="register";$("memberOtp").required=mode==="register";$("sendOtpButton").textContent=t(state.otpChallenge?"resendOtp":"sendOtp");$("sendOtpButton").disabled=false;$("registerToggle").hidden=!customerEntry||!(["login","register"].includes(mode));
++ $("usernameField").hidden=mode==="reset";$("authUsername").required=mode!=="reset";$("phoneField").hidden=!customerOtp;$("memberPhone").required=customerOtp;$("phoneOtpNote").hidden=!customerOtp;$("otpFields").hidden=!customerOtp;$("memberOtp").required=customerOtp;$("sendOtpButton").textContent=t(state.otpChallenge?"resendOtp":"sendOtp");$("sendOtpButton").disabled=false;$("registerToggle").hidden=!customerEntry||!(["login","register"].includes(mode));
+  $("activationField").hidden=mode!=="activate"&&mode!=="reset";$("activationCode").required=mode==="activate"||mode==="reset";
+  $("codeLabel").textContent=t(mode==="reset"?"resetCode":"activationCode");
+  $("currentPasswordField").hidden=mode!=="security";$("currentPassword").required=mode==="security";
+- $("passwordLabel").textContent=t(creating?"newPassword":"password");
+- $("authPassword").autocomplete=creating?"new-password":"current-password";$("authPassword").minLength=creating?8:1;
++ $("passwordField").hidden=!passwordMode;$("passwordLabel").textContent=t(creating?"newPassword":"password");
++ $("authPassword").required=passwordMode;$("authPassword").autocomplete=creating?"new-password":"current-password";$("authPassword").minLength=creating?8:1;
+  $("confirmPasswordField").hidden=!creating;$("confirmPassword").required=creating;
+  $("showPasswordField").hidden=!creating;
+  $("authSubmit").textContent=t(mode==="reset"?"resetSubmit":mode==="activate"?"activateSubmit":mode==="security"?"saveAccount":mode==="register"?"createMember":"signIn");
+@@ -394,8 +397,8 @@ async function refreshSession(){const s=await api("/api/session");state.user=s.u
+ function bindPasswordAuth(){
+  $("adminSignIn").onclick=()=>showAuth();$("accountSecurity").onclick=()=>showAuth("security");
+  $("registerToggle").onclick=()=>showAuth(state.authMode==="login"?"register":"login");
+- $("memberPhone").addEventListener("input",()=>{state.otpChallenge=null;$("memberOtp").value="";if(state.authMode==="register")renderAuthMode();});
+- $("sendOtpButton").onclick=async()=>{const button=$("sendOtpButton");button.disabled=true;$("authFeedback").textContent="";try{const result=await api("/api/auth/otp/send","POST",{phone:$("memberPhone").value.trim()});state.otpChallenge=result.challengeId;$("memberOtp").value="";$("authFeedback").textContent=t("otpSent");renderAuthMode();}catch(error){$("authFeedback").textContent=error.message;}finally{if(!state.otpChallenge)button.disabled=false;}};
++ $("memberPhone").addEventListener("input",()=>{state.otpChallenge=null;$("memberOtp").value="";if(["login","register"].includes(state.authMode))renderAuthMode();});
++ $("sendOtpButton").onclick=async()=>{const button=$("sendOtpButton");button.disabled=true;$("authFeedback").textContent="";try{const result=await api("/api/auth/otp/send","POST",{phone:$("memberPhone").value.trim(),username:$("authUsername").value.trim(),purpose:state.authMode==="login"?"login":"register"});state.otpChallenge=result.challengeId;$("memberOtp").value="";$("authFeedback").textContent=t("otpSent");renderAuthMode();}catch(error){$("authFeedback").textContent=error.message;}finally{if(!state.otpChallenge)button.disabled=false;}};
+  $("authDialog").addEventListener("close",()=>$("passwordForm").reset());
+  $("showPasswords").onchange=()=>{$("authPassword").type=$("confirmPassword").type=$("showPasswords").checked?"text":"password";};
+  for(const id of ["authPassword","confirmPassword"] )$(id).addEventListener("input",()=>{
+@@ -405,16 +408,19 @@ function bindPasswordAuth(){
+  $("logoutButton").onclick=async e=>{if(state.authMethod!=="password")return;e.preventDefault();try{await api("/api/auth/logout","POST",{});location.assign("/signin");}catch(error){notification(error.message);}};
+  $("passwordForm").addEventListener("submit",async e=>{
+   e.preventDefault();const mode=state.authMode,username=$("authUsername").value.trim(),pass=$("authPassword").value,phone=$("memberPhone").value.trim();
+-  if(mode!=="login"&&pass!==$("confirmPassword").value){$("authFeedback").textContent=t("passwordMismatch");return;}
++  const customerOtp=location.pathname!=="/admin"&&(mode==="login"||mode==="register");
++  if(!customerOtp&&mode!=="login"&&pass!==$("confirmPassword").value){$("authFeedback").textContent=t("passwordMismatch");return;}
+   const submit=$("authSubmit");submit.disabled=true;submit.textContent=t("busy");$("authFeedback").textContent="";
+   try{
+    if(mode==="login"){
+-    await api("/api/auth/login","POST",{username,password:pass,phone});await refreshSession();if(!state.user)throw new Error(t("sessionMissing"));$("authDialog").close();await loadPublic();await refreshTickets();
++    if(customerOtp)await api("/api/auth/otp/login","POST",{username,phone,challengeId:state.otpChallenge,otp:$("memberOtp").value.trim()});
++    else await api("/api/auth/login","POST",{username,password:pass});
++    await refreshSession();if(!state.user)throw new Error(t("sessionMissing"));$("authDialog").close();await loadPublic();await refreshTickets();
+     if(state.user&&(state.user.role==="owner"||state.user.role==="staff")){history.replaceState(null,"","/admin");selected("admin");}else{history.replaceState(null,"","/");selected("support");}
+    }else if(mode==="activate"){
+     const result=await api("/api/auth/activate","POST",{code:$("activationCode").value.trim(),password:pass});activationToSignIn(t("activationDone"),result.username);
+    }else if(mode==="register"){
+-    await api("/api/auth/register","POST",{username,password:pass,phone,challengeId:state.otpChallenge,otp:$("memberOtp").value.trim()});showAuth("login");$("authUsername").value=username;$("memberPhone").value=phone;$("authFeedback").textContent=t("registrationDone");
++    await api("/api/auth/register","POST",{username,phone,challengeId:state.otpChallenge,otp:$("memberOtp").value.trim()});showAuth("login");$("authUsername").value=username;$("memberPhone").value=phone;$("authFeedback").textContent=t("registrationDone");
+    }else if(mode==="reset"){
+     const result=await api("/api/auth/reset-owner","POST",{code:$("activationCode").value.trim(),password:pass});
+     state.user=null;state.csrf=null;state.authMethod=null;state.tickets=[];renderSession();renderTickets();
+@@ -432,7 +438,7 @@ function bindPasswordAuth(){
+   }finally{submit.disabled=false;renderAuthMode();}
+  });
+ }
+-function bind(){document.querySelectorAll("[data-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.gameCategory;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x===button));renderCatalog();});document.querySelectorAll("[data-brand-category]").forEach(button=>button.onclick=()=>{state.brandCategory=button.dataset.brandCategory;document.querySelectorAll("[data-brand-category]").forEach(x=>x.classList.toggle("active",x===button));renderPublicBrandDirectory();});$("clearProviderFilter").onclick=()=>{state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;renderCatalog();};document.querySelectorAll("[data-section]").forEach(b=>b.onclick=()=>selected(b.dataset.section));$("exploreButton").onclick=()=>selected("lobby");$("aboutButton").onclick=async()=>{try{const data=await api("/health");notification(`${t("statusTitle")}: ${data.status} · ${data.release} · ${t("statusMessage")}`);}catch(e){notification(e.message)}};$("loginButton").onclick=()=>showAuth();$("closeAuth").onclick=()=>$("authDialog").close();$("refreshTickets").onclick=refreshTickets;$("refreshWallet").onclick=loadMemberWallet;$("refreshPaymentRecords").onclick=loadMemberWallet;$("refreshAdminDeposits").onclick=renderAdminDeposits;$("vpayOrderForm").addEventListener("submit",submitVPayOrder);$("search").oninput=renderCatalog;$("category").onchange=renderCatalog;$("locale").onchange=e=>{state.lang=e.target.value;try{localStorage.setItem("m7-language",state.lang);}catch{}applyLang();renderPublicBrandDirectory();};$("lobbyAdPrevious").onclick=()=>{state.adIndex--;renderCarousel();};$("lobbyAdNext").onclick=()=>{state.adIndex++;renderCarousel();};$("lobbyAdCancel").onclick=resetAdForm;$("lobbyAdForm").addEventListener("submit",async e=>{e.preventDefault();const button=$("lobbyAdSave");button.disabled=true;try{const file=$("lobbyAdFile").files[0],imageData=file?await imageDataForUpload(file):"";await api("/api/admin/ads","POST",{action:"save",id:state.editAdId||undefined,title:$("lobbyAdTitle").value,targetUrl:$("lobbyAdTarget").value,imageData,enabled:$("lobbyAdEnabled").checked,position:state.adminAds?.length||0});resetAdForm();await loadLobbyContent();await renderAdManager();notification(t("success"));}catch(err){$("lobbyAdFormStatus").textContent=err.message;}finally{button.disabled=false;}});$("benefitCancel").onclick=resetBenefitForm;$("benefitForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/benefits","POST",benefitFormPayload("draft"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}});$("benefitPublish").onclick=async()=>{if(!$("benefitForm").reportValidity())return;try{await api("/api/admin/benefits","POST",benefitFormPayload("active"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}};$("ticketForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user){showAuth();return;}try{await api("/api/tickets","POST",{subject:$("ticketSubject").value,message:$("ticketMessage").value});$("ticketForm").reset();await refreshTickets();notification(t("success"));}catch(err){notification(err.message)}});$("socialForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/social-links","POST",{facebookUrl:$("facebookLink").value,instagramUrl:$("instagramLink").value,enabled:$("socialEnabled").checked});await loadPublic();await renderSocialAdmin(true);notification(t("success"));}catch(err){notification(err.message)}});$("announcementForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/announcement","POST",{title:$("announcementTitle").value,body:$("announcementBody").value});$("announcementForm").reset();await loadPublic();notification(t("success"));}catch(err){notification(err.message)}});}
++function bind(){document.querySelectorAll("[data-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.gameCategory;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.sidebarGameCategory===state.gameCategory));renderCatalog();});document.querySelectorAll("[data-sidebar-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.sidebarGameCategory;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x===button));selected("lobby");renderCatalog();document.querySelector(".game-category-filters")?.scrollIntoView({behavior:"smooth",block:"start"});});document.querySelectorAll("[data-brand-category]").forEach(button=>button.onclick=()=>{state.brandCategory=button.dataset.brandCategory;document.querySelectorAll("[data-brand-category]").forEach(x=>x.classList.toggle("active",x===button));renderPublicBrandDirectory();});$("clearProviderFilter").onclick=()=>{state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;renderCatalog();};document.querySelectorAll("[data-section]").forEach(b=>b.onclick=()=>selected(b.dataset.section));$("exploreButton").onclick=()=>selected("lobby");$("aboutButton").onclick=async()=>{try{const data=await api("/health");notification(`${t("statusTitle")}: ${data.status} · ${data.release} · ${t("statusMessage")}`);}catch(e){notification(e.message)}};$("loginButton").onclick=()=>showAuth();$("closeAuth").onclick=()=>$("authDialog").close();$("refreshTickets").onclick=refreshTickets;$("refreshWallet").onclick=loadMemberWallet;$("refreshPaymentRecords").onclick=loadMemberWallet;$("refreshAdminDeposits").onclick=renderAdminDeposits;$("vpayOrderForm").addEventListener("submit",submitVPayOrder);$("search").oninput=renderCatalog;$("category").onchange=renderCatalog;$("locale").onchange=e=>{state.lang=e.target.value;try{localStorage.setItem("m7-language",state.lang);}catch{}applyLang();renderPublicBrandDirectory();};$("lobbyAdPrevious").onclick=()=>{state.adIndex--;renderCarousel();};$("lobbyAdNext").onclick=()=>{state.adIndex++;renderCarousel();};$("lobbyAdCancel").onclick=resetAdForm;$("lobbyAdForm").addEventListener("submit",async e=>{e.preventDefault();const button=$("lobbyAdSave");button.disabled=true;try{const file=$("lobbyAdFile").files[0],imageData=file?await imageDataForUpload(file):"";await api("/api/admin/ads","POST",{action:"save",id:state.editAdId||undefined,title:$("lobbyAdTitle").value,targetUrl:$("lobbyAdTarget").value,imageData,enabled:$("lobbyAdEnabled").checked,position:state.adminAds?.length||0});resetAdForm();await loadLobbyContent();await renderAdManager();notification(t("success"));}catch(err){$("lobbyAdFormStatus").textContent=err.message;}finally{button.disabled=false;}});$("benefitCancel").onclick=resetBenefitForm;$("benefitForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/benefits","POST",benefitFormPayload("draft"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}});$("benefitPublish").onclick=async()=>{if(!$("benefitForm").reportValidity())return;try{await api("/api/admin/benefits","POST",benefitFormPayload("active"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}};$("ticketForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user){showAuth();return;}try{await api("/api/tickets","POST",{subject:$("ticketSubject").value,message:$("ticketMessage").value});$("ticketForm").reset();await refreshTickets();notification(t("success"));}catch(err){notification(err.message)}});$("socialForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/social-links","POST",{facebookUrl:$("facebookLink").value,instagramUrl:$("instagramLink").value,enabled:$("socialEnabled").checked});await loadPublic();await renderSocialAdmin(true);notification(t("success"));}catch(err){notification(err.message)}});$("announcementForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/announcement","POST",{title:$("announcementTitle").value,body:$("announcementBody").value});$("announcementForm").reset();await loadPublic();notification(t("success"));}catch(err){notification(err.message)}});}
+ (function restoreLanguage(){try{const saved=localStorage.getItem("m7-language");if(["en","zh","ms"].includes(saved))state.lang=saved;}catch{}})();
+ (async function start(){bind();bindPasswordAuth();bindPaymentPreview();bindBonusBrandPreview();
+  if(location.pathname==="/admin")selected("admin");
+diff --git aa/master7-v17-render-staging/public/assets/style.css bb/master7-v17-render-staging/public/assets/style.css
+index 462d69b..9004d11 100644
+--- aa/master7-v17-render-staging/public/assets/style.css
++++ bb/master7-v17-render-staging/public/assets/style.css
+@@ -683,3 +683,186 @@ dialog::backdrop { background: #173b5366; }
+ 
+ .game-entry-button{margin-top:10px;width:100%;min-height:38px;padding:8px 10px;font-size:11px}.game-entry-button:disabled{opacity:.78;cursor:not-allowed}.state-button-group{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;min-width:255px}.state-button{padding:8px 7px;border:1px solid var(--line);background:var(--panel-2);color:var(--muted);font-size:10px;box-shadow:none}.state-button.active{border-color:var(--brand-gold-border);background:var(--brand-gold-soft);color:var(--brand-gold-strong)}.payment-channel-control{padding:14px 0}.game-control-row>.state-button-group{align-self:center}@media(max-width:650px){.state-button-group{grid-template-columns:repeat(3,1fr);min-width:0;width:100%}.game-control-row>.state-button-group{grid-column:1/-1}.payment-channel-control .state-button-group{flex-basis:100%}}
+ .api-supplier-lobby{margin:22px 0 34px;padding:20px;border:1px solid var(--line);border-radius:18px;background:var(--panel)}.api-supplier-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.api-supplier-button,.api-supplier-admin-button{display:flex;align-items:center;gap:9px;min-width:0;border:1px solid var(--line);border-radius:11px;background:var(--panel-2);color:var(--txt);text-align:left;cursor:pointer;overflow:hidden}.api-supplier-button{min-height:172px;padding:9px;display:grid;grid-template-columns:auto 1fr;grid-template-rows:112px auto;align-items:center}.api-supplier-art{grid-column:1/-1;width:100%;height:112px;padding:8px;border-radius:8px;background:linear-gradient(145deg,#eaf8ff,#fff9df);object-fit:contain}.api-supplier-copy{min-width:0}.api-supplier-button strong{display:block;font-size:12px;overflow-wrap:anywhere}.api-supplier-button small,.api-supplier-admin-button small{display:block;color:var(--muted);font-size:9px;line-height:1.4}.api-supplier-number{color:var(--brand-gold-strong);font-size:10px;font-weight:800}.api-supplier-button.connected,.api-supplier-admin-button.connected{border-color:#4bbca0;background:linear-gradient(135deg,#e9fbf7,var(--panel-2))}.api-supplier-button.pending:hover,.api-supplier-admin-button.pending:hover{border-color:var(--brand-gold-border)}.api-supplier-admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.api-supplier-admin-button{padding:10px}.api-supplier-admin-art{width:52px;height:52px;padding:4px;flex:0 0 auto;border-radius:8px;background:#fff;object-fit:contain}.api-supplier-admin-button span:last-child{min-width:0}.api-supplier-admin-button strong{display:block;font-size:11px;overflow-wrap:anywhere}@media(max-width:760px){.api-supplier-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.api-supplier-admin-grid{grid-template-columns:1fr}.api-supplier-button{min-height:152px;grid-template-rows:94px auto}.api-supplier-art{height:94px}}
++
++/* Owner-confirmed screenshot theme. Visual arrangement only: existing routes,
++   controls, supplier IDs, wallet records and API behaviour stay intact. */
++:root {
++  color-scheme: dark;
++  --bg: #070a12;
++  --navy: #0a0f1d;
++  --panel: #0f1423;
++  --panel-2: #131a2b;
++  --line: #252d45;
++  --gold: #e2c477;
++  --aqua: #64d8bc;
++  --blue: #6a79f7;
++  --txt: #eef1f8;
++  --muted: #949fb5;
++  --red: #ef7e83;
++  --brand-gold-border: #4e477f;
++  --brand-gold-soft: #242442;
++  --brand-gold-strong: #b6a9ff;
++}
++body {
++  color: var(--txt);
++  background: radial-gradient(ellipse 70% 35% at 78% -8%, #242351 0, transparent 76%),
++              linear-gradient(180deg, #080b14 0%, #070a12 58%, #060810 100%);
++}
++.topbar, .portal-sidebar, .footer {
++  color: var(--muted); background: rgba(7,10,18,.97); border-color: #20273a;
++}
++.topbar { border-bottom-color: #252c42; box-shadow: 0 8px 30px #0005; }
++.brand, .footer-brand, .brand-mini, .lock-brand { color: var(--txt); }
++.brand small, .footer-brand small, .portal-sidebar-heading,
++.admin-sidebar-heading, .sidebar-foot { color: #78849b; }
++.brand-mini, .sidebar-icon { color: #b9adff; background: #181d31; border-color: #343d5d; }
++.lock-brand { width: 30px; height: 30px; min-width: 30px; border-radius: 8px; font-size: 13px; box-shadow: none; }
++.demo-ribbon { color: #d2c4a1; background: #15130f; border-color: #3c3426; }
++.nav-button, .sidebar-nav-button, .admin-internal-sidebar a { color: #a1abc0; }
++.nav-button:hover, .nav-button.active,
++.sidebar-nav-button:hover, .sidebar-nav-button.active,
++.admin-internal-sidebar a:hover, .admin-internal-sidebar a:focus-visible {
++  color: #f1f2fa; background: linear-gradient(100deg,#1a2038,#12182a); border-color: #343c60;
++}
++.sidebar-nav-button.active { box-shadow: inset 3px 0 #786df1; }
++.hero, #lobby > .section-header, .lobby-ad-carousel {
++  color: var(--txt); border-color: #343a68;
++  background: linear-gradient(112deg,#17224b 0%,#2c2458 50%,#10182f 100%);
++  box-shadow: 0 14px 38px #0006;
++}
++.hero-display { background: radial-gradient(ellipse,#26345d,transparent 70%); }
++.version-panel { background: #0b1020e8; border-color: #464e78; }
++.hero h1, #lobby > .section-header h1, .section-header h1,
++.section-header h2, .surface h2, .bonus-lobby-head h2,
++.provider-directory-heading h2, .game-card h3 { color: var(--txt); }
++.eyebrow, #lobby > .section-header .eyebrow { color: #9f9df4; }
++.provider-group-title, .hero h1 em, .version-panel b { color: #d8c88f; }
++.intro, .muted, .section-header p, #lobby > .section-header p,
++.feature p, .provider-card p, .game-card p, .surface label,
++.stack small, .row-item small, .stat span { color: var(--muted); }
++.feature, .surface, .admin-content .surface, .admin-content .ad-manager,
++.admin-content .benefit-manager, .admin-internal-sidebar, .ad-manager,
++.benefit-manager, .bonus-brand-lobby, .provider-directory-lobby,
++.api-supplier-lobby, .payment-lobby, .member-wallet, .deposit-guide,
++.deposit-guide-aside {
++  color: var(--txt); background: linear-gradient(145deg,#111727,#0c111e); border-color: var(--line);
++  box-shadow: 0 10px 28px #0002;
++}
++.stat, .provider-card, .provider-directory-card, .game-card, .mini-game-card,
++.bonus-brand-card, .bonus--jili, .bonus--megah5, .bonus--918kiss,
++.payment-option, .wallet-balance, .ticket, .wallet-record-row,
++.benefit-card, .guide-vendor, .api-supplier-button, .api-supplier-admin-button {
++  color: var(--txt); border-color: #2b334b;
++  background: linear-gradient(145deg,#171e31,#101522); box-shadow: none;
++}
++.stat { border-top: 1px solid #323b5a; }
++.stat strong, .wallet-balance strong { color: #f1f3fa; }
++.bonus-big-mark, .bonus-mark-jili, .bonus-mark-mega, .bonus-mark-kiss {
++  color: #d9d9ff; background: none; -webkit-text-fill-color: currentColor; text-shadow: 0 3px 18px #6870df55;
++}
++.bonus-brand-card:hover, .provider-directory-card:hover,
++.payment-option:hover, .api-supplier-button:hover { border-color: #696bd0; }
++.provider-directory-art { color: #d7d5ff; background: radial-gradient(circle at 45% 40%,#28335b,#0b101c); }
++.notice, .announcement, .ad-slot-spec, .benefit-scope-note,
++.wallet-status, .wallet-status-row { color: #aeb8cc; background: #111727; border-color: #293148; }
++.announcement p, .ticket p, .row-item { color: var(--txt); border-color: #252d43; }
++.announcement time, .ticket time { color: #7f8ba3; }
++.button-primary { color: #fff; background: linear-gradient(115deg,#516fe9,#7657df); border: 1px solid #7277ee; box-shadow: 0 7px 18px #302a6b55; }
++.button-outline, .button-ghost, .bonus-brand-action, .bonus-extra-action {
++  color: #d9def1; background: #171d2f; border-color: #3a4361; box-shadow: none;
++}
++.bonus-head-count, .bonus-locked, .bonus-index, .payment-number,
++.payment-lobby-counter, .tiny-label, .security-tag, .user-chip {
++  color: #b9afff; border-color: #494878; background: #1a1930;
++}
++.security-tag { padding: 4px 8px; font-size: 9px; letter-spacing: .06em; }
++.payment-hint, .payment-state, .provider-directory-label,
++.provider-directory-integration, .wallet-heading small { color: #929db3; }
++.game-category-chip { color: #a7b0c2; border-color: #30384f; background: #111624; }
++.game-category-chip.active { color: #f0efff; border-color: #6466bd; background: linear-gradient(110deg,#263367,#3a2c5b); }
++input, textarea, select, dialog select, .top-actions select,
++.filters input, .filters select, #lobby .filters input, #lobby .filters select {
++  color: #eff2f8; background: #0b101b; border-color: #303850;
++}
++input::placeholder, textarea::placeholder { color: #6f7b91; }
++input:focus, textarea:focus, select:focus { border-color: #7378df; box-shadow: 0 0 0 3px #6671db30; }
++dialog { color: var(--txt); background: linear-gradient(145deg,#141a2c,#0b101b); border-color: #3e4768; }
++dialog::backdrop { background: #02040ac7; }
++.close { color: #b9c1d1; background: #141a2b; border-color: #30384f; }
++#toast { color: #fff; background: #1a2442; border-color: #6571ce; }
++.footer { border-top-color: #242b3d; }
++:focus-visible { outline: 2px solid #7a80ea; outline-offset: 2px; }
++.api-supplier-art { background: #0b101b; }
++.api-supplier-admin-art { background: #f3f5f8; }
++.api-supplier-button.connected, .api-supplier-admin-button.connected {
++  border-color: #278c78; background: linear-gradient(145deg,#102b2b,#101823);
++}
++
++.admin-dashboard-heading, .admin-panel-heading {
++  display: flex; align-items: center; justify-content: space-between; gap: 18px;
++}
++.admin-dashboard-heading { padding: 4px 2px 2px; }
++.admin-dashboard-heading h2 { margin: 0; font-size: clamp(20px,2.3vw,28px); }
++.admin-dashboard-heading p { margin: 2px 0 0; }
++.admin-live-pill {
++  display: inline-flex; align-items: center; gap: 7px; padding: 7px 10px; border: 1px solid #2e5a54;
++  border-radius: 999px; color: #72d9bd; background: #0e2423; font-size: 10px; font-weight: 800; letter-spacing: .08em;
++}
++.admin-live-pill span { width: 7px; height: 7px; border-radius: 50%; background: #52d3ae; box-shadow: 0 0 12px #52d3ae; }
++.admin-kpi-grid { grid-template-columns: repeat(3,minmax(0,1fr)); margin: 0; }
++.admin-kpi-grid .stat { position: relative; min-height: 94px; padding: 17px 18px; overflow: hidden; }
++.admin-kpi-grid .stat::after {
++  content: ""; position: absolute; right: 13px; top: 14px; width: 28px; height: 28px; border-radius: 8px;
++  background: #18253a; border: 1px solid #2c4058;
++}
++.admin-kpi-grid .stat:nth-child(3n+2)::after { background: #19223e; border-color: #333e69; }
++.admin-kpi-grid .stat:nth-child(3n)::after { background: #172c2c; border-color: #28514b; }
++.admin-kpi-grid .stat strong { font-size: clamp(22px,2.2vw,30px); line-height: 1.2; }
++.admin-kpi-grid .stat span { display: block; max-width: calc(100% - 34px); margin-top: 8px; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; }
++.admin-panel-heading h2 { margin: 0; }
++.admin-panel-heading .eyebrow { margin: 0 0 3px; }
++.admin-trend-chart {
++  position: relative; min-height: 230px; overflow: hidden; border: 1px solid #242c40; border-radius: 10px;
++  background-color: #0b101c;
++  background-image: linear-gradient(#20283a55 1px,transparent 1px),linear-gradient(90deg,#20283a55 1px,transparent 1px);
++  background-size: 100% 25%, 12.5% 100%;
++}
++.trend-line { position: absolute; left: 0; right: 0; height: 1px; opacity: .35; }
++.trend-line-a { bottom: 18%; background: #52d3ae; }.trend-line-b { bottom: 17%; background: #ef6c7a; }
++.trend-line-c { bottom: 16%; background: #7784f4; }.trend-line-d { bottom: 15%; background: #d4bd70; }
++.admin-trend-empty { position: absolute; inset: 0; display: grid; place-items: center; color: #6f7b91; font-size: 11px; }
++
++@media (max-width: 760px) {
++  .admin-kpi-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
++  .admin-dashboard-heading { align-items: flex-start; }
++  .admin-dashboard-heading .muted { max-width: 250px; }
++  .admin-trend-chart { min-height: 180px; }
++}
++.portal-game-heading { margin-top: 16px; padding-top: 13px; border-top: 1px solid #20283a; }
++.sidebar-game-filter {
++  display: flex; align-items: center; gap: 9px; width: 100%; padding: 8px 10px; border: 1px solid transparent;
++  border-radius: 9px; color: #929db2; background: transparent; text-align: left; font-size: 11px; font-weight: 600;
++}
++.sidebar-game-filter:hover, .sidebar-game-filter.active { color: #f0f2f8; border-color: #303955; background: #151c2e; }
++.lobby-hero { align-items: center; }
++.lobby-live-summary { display: grid; grid-template-columns: repeat(3,minmax(72px,1fr)); gap: 7px; flex: 0 0 auto; }
++.lobby-live-summary span { min-width: 76px; padding: 10px 12px; border-left: 1px solid #ffffff1c; text-align: center; }
++.lobby-live-summary strong { display: block; color: #f4f5fb; font-size: 20px; line-height: 1.2; }
++.lobby-live-summary small { display: block; margin-top: 4px; color: #8b97ac; font-size: 8px; letter-spacing: .12em; }
++body.admin-mode #admin > .section-header { display: none; }
++
++@media (min-width: 1001px) {
++  body.admin-mode .portal-sidebar { display: none; }
++  body.admin-mode .page { width: auto; max-width: none; margin-left: 0; padding-left: max(22px,calc((100vw - 1440px)/2)); padding-right: max(22px,calc((100vw - 1440px)/2)); }
++  body.admin-mode .footer, body.admin-mode .public-social { margin-left: 0; }
++  body.admin-mode #admin { max-width: 1440px; }
++  body.admin-mode .admin-workspace { grid-template-columns: 214px minmax(0,1fr); gap: 16px; }
++  body.admin-mode .admin-internal-sidebar { top: 86px; min-height: calc(100vh - 112px); align-content: start; }
++}
++@media (max-width: 720px) {
++  .lobby-hero { align-items: flex-start; flex-direction: column; gap: 12px; }
++  .lobby-hero > div:first-child { width: 100%; }
++  .lobby-live-summary { width: 100%; grid-template-columns: repeat(3,1fr); }
++  .lobby-live-summary span { min-width: 0; padding: 10px 5px; border-top: 1px solid #ffffff14; }
++  .lobby-live-summary strong { font-size: 16px; }
++}
+diff --git aa/master7-v17-render-staging/lib/password-auth.ts bb/master7-v17-render-staging/lib/password-auth.ts
+index f0af1b7..0dac20a 100644
+--- aa/master7-v17-render-staging/lib/password-auth.ts
++++ bb/master7-v17-render-staging/lib/password-auth.ts
+@@ -134,18 +134,39 @@ export async function handlePasswordAuth(req:Request,c:AuthConfig,local:LocalSes
+  if(path==='/api/auth/otp/send'){
+   if(!smsConfigured(c))throw new AuthError(503,'短信服务尚未配置 / SMS service is not configured');
+   await rate(db,'otp-ip:'+(ip??'unavailable'),3,600);
+-  const phone=malaysiaMobile(d.phone);
++  const phone=malaysiaMobile(d.phone),purpose=d.purpose==='login'?'login':'register';
+   await rate(db,'otp-phone:'+phone,1,60);
+-  if(await db.prepare('SELECT id FROM users WHERE phone=?').bind(phone).first())throw new AuthError(409,'此手机号已使用 / Phone number already in use');
++  const phoneAccount=await db.prepare('SELECT id,username,role FROM users WHERE phone=?').bind(phone).first<{id:string;username:string;role:string}>();
++  if(purpose==='register'&&phoneAccount)throw new AuthError(409,'此手机号已使用 / Phone number already in use');
++  if(purpose==='login'){
++   let username:string;try{username=loginId(d.username);}catch{throw deny();}
++   if(!phoneAccount||phoneAccount.role!=='member'||phoneAccount.username.toLowerCase()!==username)throw deny();
++  }
+   const code=String(randomBytes(4).readUInt32BE(0)%1000000).padStart(6,'0'),id=randomBytes(24).toString('base64url'),timestamp=now();
+   await anchorSend(c,phone,code);
+   try{await db.batch([db.prepare('INSERT INTO otp_challenges(id,phone,code_hash,attempts,expires_at,created_at,consumed_at) VALUES(?,?,?,0,?,?,NULL)').bind(id,phone,otpDigest(id,code,c.otpHashSecret!),timestamp+300,timestamp),db.prepare('INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,?,?,?)').bind(crypto.randomUUID(),'system','member_otp_accepted',digest(phone),timestamp)]);}
+   catch{throw new AuthError(503,'验证码已提交但暂时无法登记，请稍后重试 / SMS was submitted but could not be recorded; try again');}
+   return json({status:'accepted',challengeId:id,expiresInSeconds:300});
+  }
++ if(path==='/api/auth/otp/login'){
++  await rate(db,'otp-login:'+(ip??'unavailable'),10);
++  let username:string;try{username=loginId(d.username);}catch{throw deny();}
++  const phone=malaysiaMobile(d.phone),challengeId=typeof d.challengeId==='string'&&/^[A-Za-z0-9_-]{32}$/.test(d.challengeId)?d.challengeId:'',code=typeof d.otp==='string'&&/^\d{6}$/.test(d.otp)?d.otp:'';
++  const challenge=challengeId?await db.prepare('SELECT id,phone,code_hash,attempts,expires_at,consumed_at FROM otp_challenges WHERE id=?').bind(challengeId).first<{id:string;phone:string;code_hash:string;attempts:number;expires_at:number;consumed_at:number|null}>():null;
++  if(!challenge||challenge.phone!==phone||challenge.consumed_at!==null||challenge.expires_at<=now()||challenge.attempts>=5)throw new AuthError(400,'验证码无效或已过期 / Invalid or expired OTP');
++  if(!code||!equal(otpDigest(challenge.id,code,c.otpHashSecret??'unconfigured'),challenge.code_hash)){
++   await db.prepare('UPDATE otp_challenges SET attempts=attempts+1 WHERE id=? AND consumed_at IS NULL AND attempts<5').bind(challenge.id).run();
++   throw new AuthError(400,'验证码不正确 / Incorrect OTP');
++  }
++  const found=await db.prepare("SELECT c.* FROM password_credentials c JOIN users u ON u.id=c.user_id WHERE c.username=? AND u.phone=? AND u.role='member'").bind(username,phone).first<Credential>();
++  if(!found)throw deny();
++  const timestamp=now(),consumed=await db.prepare('UPDATE otp_challenges SET consumed_at=? WHERE id=? AND code_hash=? AND phone=? AND consumed_at IS NULL AND expires_at>? AND attempts<5 RETURNING id').bind(timestamp,challenge.id,challenge.code_hash,phone,timestamp).first<{id:string}>();
++  if(!consumed)throw new AuthError(409,'验证码已使用 / OTP already used');
++  return json({status:'ok'},200,await session(db,found));
++ }
+  if(path==='/api/auth/register'){
+   await rate(db,'register:'+(ip??'unavailable'),ip?5:30);
+-  const username=loginId(d.username),pass=password(d.password),phone=malaysiaMobile(d.phone);
++  const username=loginId(d.username),pass=d.password===undefined?random():password(d.password),phone=malaysiaMobile(d.phone);
+   if(username===(c.ownerLoginId??'master7_owner').toLowerCase()||await credential(db,username)||await db.prepare('SELECT id FROM users WHERE phone=?').bind(phone).first())throw new AuthError(409,'此 ID 或手机号不可用 / ID or phone unavailable');
+   const challengeId=typeof d.challengeId==='string'&&/^[A-Za-z0-9_-]{32}$/.test(d.challengeId)?d.challengeId:'',code=typeof d.otp==='string'&&/^\d{6}$/.test(d.otp)?d.otp:'';
+   const challenge=challengeId?await db.prepare('SELECT id,phone,code_hash,attempts,expires_at,consumed_at FROM otp_challenges WHERE id=?').bind(challengeId).first<{id:string;phone:string;code_hash:string;attempts:number;expires_at:number;consumed_at:number|null}>():null;
+diff --git aa/master7-v17-render-staging/lib/backend.ts bb/master7-v17-render-staging/lib/backend.ts
+index eb44d1a..85186c6 100644
+--- aa/master7-v17-render-staging/lib/backend.ts
++++ bb/master7-v17-render-staging/lib/backend.ts
+@@ -1,7 +1,7 @@
+ import { readLocalSession, handlePasswordAuth, AuthError } from './password-auth.ts';
+ import { requestOriginAllowed } from './request-origin.ts';
+ import { createVPayOrder, handleVPay } from './vpay.ts';
+-export const RELEASE = '17.0.0-selfbuilt.23-provider-artwork';
++export const RELEASE = '17.0.0-selfbuilt.24-reference-dashboard-otp';
+ export const SOURCE_RELEASE = '17.0.0-preview.6-qa3-integrated-r3';
+ type Identity={userId:string;email:string};
+ type User={id:string;username:string;role:string;approved:number;csrf:string;created_at:number};
+diff --git aa/master7-v17-render-staging/tests/activation-ui.test.mjs bb/master7-v17-render-staging/tests/activation-ui.test.mjs
+index 11ac17a..f4d13e1 100644
+--- aa/master7-v17-render-staging/tests/activation-ui.test.mjs
++++ bb/master7-v17-render-staging/tests/activation-ui.test.mjs
+@@ -13,13 +13,14 @@ function fixture(options,initialPath='/activate'){
+  runInContext('api=async(url,method="GET")=>{requests.push({url,method});if(options instanceof Error)throw options;return options;}',context);
+  return {context,get,requests,path:()=>path,run:code=>runInContext(code,context)};
+ }
+-test('direct registration route opens member registration and requires a Malaysian phone',async()=>{
++test('direct registration route asks only for member ID, Malaysian phone and OTP',async()=>{
+  const f=fixture({ownerSetupComplete:true},'/register');
+  f.run('bind=bindPasswordAuth=bindPaymentPreview=bindBonusBrandPreview=applyLang=renderSession=renderAdmin=()=>{};refreshSession=loadPublic=refreshTickets=async()=>{};');
+  await f.run(fullSource.slice(source.length));
+  assert.equal(f.path(),'/register');assert.equal(f.run('state.authMode'),'register');
+  assert.equal(f.get('phoneField').hidden,false);assert.equal(f.get('memberPhone').required,true);
+- assert.equal(f.get('authUsername').required,true);assert.equal(f.get('confirmPassword').required,true);
++ assert.equal(f.get('authUsername').required,true);assert.equal(f.get('otpFields').hidden,false);assert.equal(f.get('memberOtp').required,true);
++ assert.equal(f.get('passwordField').hidden,true);assert.equal(f.get('authPassword').required,false);assert.equal(f.get('confirmPassword').required,false);
+ });
+ test('management sign-in keeps member registration hidden and requires no mobile number',()=>{
+  const f=fixture({},'/admin');
+@@ -131,8 +132,9 @@ test('successful activation returns to management login without requesting a pho
+  assert.deepEqual(f.requests.map(r=>[r.url,r.method]),[['/api/auth/activate','POST']]);
+ });
+ 
+-test('ordinary customer sign-in still requires a phone and keeps registration available',()=>{
++test('ordinary customer sign-in uses ID, phone and OTP without a password field',()=>{
+  const f=fixture({},'/signin');f.run('showAuth("login")');
+  assert.equal(f.get('phoneField').hidden,false);assert.equal(f.get('memberPhone').required,true);
++ assert.equal(f.get('otpFields').hidden,false);assert.equal(f.get('memberOtp').required,true);assert.equal(f.get('passwordField').hidden,true);
+  assert.equal(f.get('registerToggle').hidden,false);assert.equal(f.get('ownerResetLink').hidden,true);
+ });
+diff --git aa/master7-v17-render-staging/tests/password-auth.test.mjs bb/master7-v17-render-staging/tests/password-auth.test.mjs
+index 2b85206..45adc4b 100644
+--- aa/master7-v17-render-staging/tests/password-auth.test.mjs
++++ bb/master7-v17-render-staging/tests/password-auth.test.mjs
+@@ -207,6 +207,23 @@ test('member registration requires a one-use Anchor SMS challenge and never expo
+  }finally{f.sqlite.close();}
+ });
+ 
++test('customer registration and sign-in use only ID, Malaysian phone and one-use Anchor OTP',async()=>{
++ const f=fixture();try{
++  f.enableSms();
++  const registration=await f.call(null,'/api/auth/otp/send',{username:'otp_member',phone:'010-801 8899',purpose:'register'});
++  assert.equal(registration.status,200);
++  assert.equal((await f.call(null,'/api/auth/register',{username:'otp_member',phone:'010-801 8899',challengeId:registration.body.challengeId,otp:f.config.lastOtp})).status,201);
++  assert.ok(f.sqlite.prepare("SELECT username FROM password_credentials WHERE username='otp_member'").get());
++  f.sqlite.prepare('DELETE FROM rate_limits').run();
++  const login=await f.call(null,'/api/auth/otp/send',{username:'otp_member',phone:'+60108018899',purpose:'login'});
++  assert.equal(login.status,200);
++  const signedIn=await f.call('otpMember','/api/auth/otp/login',{username:'otp_member',phone:'+60108018899',challengeId:login.body.challengeId,otp:f.config.lastOtp});
++  assert.equal(signedIn.status,200);assert.match(signedIn.setCookie,/HttpOnly/);
++  const session=await f.call('otpMember','/api/session');assert.equal(session.body.user.username,'otp_member');assert.equal(session.body.user.role,'member');
++  assert.equal((await f.call(null,'/api/auth/otp/login',{username:'otp_member',phone:'+60108018899',challengeId:login.body.challengeId,otp:f.config.lastOtp})).status,400);
++ }finally{f.sqlite.close();}
++});
++
+ test('Anchor provider failures fail closed without creating OTP challenges',async()=>{
+  const f=fixture();try{
+   f.enableSms();f.config.smsFetch=async()=>Response.json({error:'temporary'}, {status:503});
