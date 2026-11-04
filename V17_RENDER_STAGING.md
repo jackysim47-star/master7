@@ -2,7 +2,7 @@
 
 This branch carries the isolated SEVEN customer portal and shared backoffice for Render staging. It is not production and does not change either official domain or import legacy customer data.
 
-Staging source bundle SHA-256: `7892fa06aea5fcaa9fe36f6f55a8fbf65f95fdd8090dffe9f1456652e0c83652`
+Staging source bundle SHA-256: `eb79d62b85efdd31be5c237313587b37099c90b4988209a03e0296392828d22a`
 Release: `17.0.0-selfbuilt.12`
 Source archive is expanded by the Render build command into `.render-v17/`.
 
@@ -21,14 +21,13 @@ Validation: `node --test tests/api.test.mjs tests/password-auth.test.mjs tests/r
 
 ## Registration URL and management sign-in repair candidate
 
-This candidate is not deployed. The current live baseline is a159a8e25796b0df3ae2d11ed3edc98595d69ce9 / 17.0.0-selfbuilt.11.
+This candidate is not deployed. It preserves the activation/reset return-flow changes from c2d68e4430a7e62467edefbeae3bcc57a2165d9d, which Render deployed at 2026-11-04 14:24 MYT.
 
 - Add GET /register using the existing portal response and open the member registration dialog.
 - Remove an unconditional visibility assignment that exposed member registration on management sign-in.
-- Keep existing authentication and approval rules.
-- Correct the existing UI test fixture to explicitly use Chinese, support section navigation, and expect owner activation/recovery to return to /admin. These fixture mismatches were reproduced on the unchanged baseline.
+- Preserve upstream activation/recovery navigation and the existing authentication/approval rules.
 - Add regression cases for direct member registration entry and management sign-in controls.
 
-Validation: 55/55 local tests pass across api, password-auth, render-d1 and activation-ui suites. JavaScript syntax check passes. The archive hash was independently checked after repacking. No dependency versions, migration files, startup scripts, environment variables or real transaction switches changed. Full hosted build and browser verification are pending.
+Validation: 55/55 local tests pass across api, password-auth, render-d1 and activation-ui suites after integrating the latest upstream change. JavaScript syntax check passes. Repacked archive contents and SHA-256 were verified. No dependency versions, migrations, startup scripts, service configuration or transaction switches changed. Full hosted build and browser verification are pending.
 
-The readable patch is docs/V17_register_route_fix_20261104.patch. Existing service configuration and old data must be preserved when scheduling this candidate for deployment.
+Readable patch: docs/V17_register_route_fix_20261104.patch. Current source archive SHA-256 before this candidate: cf079af2ccdcce7dd08d334fb005e73180a542bdf663f03c131196e00e8980d0. Preserve current data/configuration and recovery requirements before rollout.
