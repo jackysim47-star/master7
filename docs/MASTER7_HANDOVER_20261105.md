@@ -2,7 +2,9 @@
 
 Updated: 2026-11-05 MYT
 
-## Delivered in candidate 17.0.0-selfbuilt.26-withdrawal-requests
+Live source: `a067d87e1797fdffb69496c008c001fdf215c28d` · Render deploy: `dep-dblo0c8ae00c73cfs5sg` · 2026-11-05 02:59 MYT.
+
+## Live build 17.0.0-selfbuilt.26-withdrawal-requests
 
 - Customer lobby and owner backoffice now use two distinct screenshot-based layouts.
 - Customer lobby: lively casino-style dark game-lobby shell, animated MASTER7 stage, gold/purple lighting, category navigation, three sponsored suppliers, 34 separate supplier buttons and supplier artwork.
