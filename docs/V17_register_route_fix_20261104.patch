@@ -1,0 +1,108 @@
+--- a/app/register/route.ts
++++ b/app/register/route.ts
+@@ -0,0 +1 @@
++export { GET,dynamic } from '../route';
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -285,7 +285,7 @@
+  $("confirmPasswordField").hidden=!creating;$("confirmPassword").required=creating;
+  $("showPasswordField").hidden=!creating;
+  $("authSubmit").textContent=t(mode==="reset"?"resetSubmit":mode==="activate"?"activateSubmit":mode==="security"?"saveAccount":mode==="register"?"createMember":"signIn");
+- $("registerToggle").textContent=t(mode==="login"?"createMember":"backToLogin");$("registerToggle").hidden=mode==="security";
++ $("registerToggle").textContent=t(mode==="login"?"createMember":"backToLogin");
+  $("ownerResetLink").hidden=mode!=="login"||customerEntry;
+ }
+ async function refreshSession(){const s=await api("/api/session");state.user=s.user;state.csrf=s.csrf;state.authMethod=s.authMethod;renderSession();await loadMemberWallet();}
+@@ -336,6 +336,7 @@
+  if(location.pathname==="/activate")await openActivation();
+  else if(location.pathname==="/reset-owner")await openOwnerReset();
+  else if(location.pathname==="/signin")showAuth();
++ else if(location.pathname==="/register")showAuth("register");
+  try{await refreshSession();}catch{renderSession();}
+  await loadPublic();if(state.user)await refreshTickets();if(state.section==="admin")renderAdmin();
+ })();
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -1,7 +1,7 @@
+ import { readLocalSession, handlePasswordAuth, AuthError } from './password-auth.ts';
+ import { requestOriginAllowed } from './request-origin.ts';
+ import { createVPayOrder, handleVPay } from './vpay.ts';
+-export const RELEASE = '17.0.0-selfbuilt.11';
++export const RELEASE = '17.0.0-selfbuilt.12';
+ export const SOURCE_RELEASE = '17.0.0-preview.6-qa3-integrated-r3';
+ type Identity={userId:string;email:string};
+ type User={id:string;username:string;role:string;approved:number;csrf:string;created_at:number};
+--- a/tests/activation-ui.test.mjs
++++ b/tests/activation-ui.test.mjs
+@@ -5,11 +5,12 @@
+ 
+ const fullSource=readFileSync(new URL('../public/assets/app.js',import.meta.url),'utf8');
+ const source=fullSource.split('(async function start(){')[0];
+-function fixture(options){
+- const elements=new Map(),requests=[];let path='/activate';
++function fixture(options,pathname='/activate'){
++ const elements=new Map(),requests=[];let path=pathname;
+  const get=id=>{if(!elements.has(id))elements.set(id,{value:'',textContent:'',hidden:false,open:false,handlers:{},addEventListener(name,fn){this.handlers[name]=fn;},showModal(){this.open=true;},reset(){for(const x of elements.values())x.value='';}});return elements.get(id);};
+- const context=createContext({document:{getElementById:get},location:{get pathname(){return path;}},history:{replaceState(a,b,value){path=value;}},options,requests});
++ const context=createContext({document:{getElementById:get,querySelectorAll:()=>[]},window:{scrollTo(){}},location:{get pathname(){return path;}},history:{replaceState(a,b,value){path=value;}},options,requests});
+  runInContext(source,context);
++ runInContext('state.lang="zh";',context);
+  runInContext('api=async(url,method="GET")=>{requests.push({url,method});if(options instanceof Error)throw options;return options;}',context);
+  return {context,get,requests,path:()=>path,run:code=>runInContext(code,context)};
+ }
+@@ -17,7 +18,7 @@
+  const f=fixture({ownerSetupComplete:true,ownerSetupAvailable:false});
+  f.get('authPassword').value='discard this stale value';
+  await f.run('openActivation()');
+- assert.equal(f.run('state.authMode'),'login');assert.equal(f.path(),'/signin');
++ assert.equal(f.run('state.authMode'),'login');assert.equal(f.path(),'/admin');
+  assert.equal(f.get('authPassword').value,'');assert.equal(f.get('activationField').hidden,true);
+  assert.match(f.get('authFeedback').textContent,/首次激活/);
+  assert.deepEqual(f.requests.map(r=>r.method),['GET']);
+@@ -34,11 +35,11 @@
+  assert.equal(f.run('state.authMode'),'login');assert.equal(f.get('authFeedback').textContent,'Service unavailable');
+  assert.equal(f.get('activationField').hidden,true);
+ });
+-test('full startup retains the activation message after changing the URL to signin',async()=>{
++test('full startup retains the activation message after entering management sign-in',async()=>{
+  const f=fixture({ownerSetupComplete:true,ownerSetupAvailable:false});
+  f.run('bind=bindPasswordAuth=bindPaymentPreview=bindBonusBrandPreview=applyLang=renderSession=renderAdmin=()=>{};refreshSession=loadPublic=refreshTickets=async()=>{};');
+  await f.run(fullSource.slice(source.length));
+- assert.equal(f.path(),'/signin');assert.match(f.get('authFeedback').textContent,/首次激活/);
++ assert.equal(f.path(),'/admin');assert.match(f.get('authFeedback').textContent,/首次激活/);
+  assert.equal(f.get('authUsername').value,'master7_owner');
+ });
+ test('stale activation form clears passwords and switches only after confirmed completion',async()=>{
+@@ -66,7 +67,7 @@
+  f.get('activationCode').value='synthetic reset code';
+  await f.get('passwordForm').handlers.submit({preventDefault(){}});
+  assert.equal(f.requests.length,1);assert.equal(f.requests[0].url,'/api/auth/reset-owner');assert.deepEqual(Object.keys(f.requests[0].data).sort(),['code','password']);
+- assert.equal(f.run('state.authMode'),'login');assert.equal(f.path(),'/signin');assert.equal(f.get('authUsername').value,'renamed_owner');
++ assert.equal(f.run('state.authMode'),'login');assert.equal(f.path(),'/admin');assert.equal(f.get('authUsername').value,'renamed_owner');
+  assert.equal(f.get('authPassword').value,'');assert.equal(f.get('activationCode').value,'');assert.equal(f.get('authPassword').type,'password');assert.match(f.get('authFeedback').textContent,/已重设/);
+ });
+ 
+@@ -97,3 +98,23 @@
+  const failed=fixture({});failed.run('bindPasswordAuth();state.authMethod="password";api=async()=>{throw new Error("Service unavailable")};notification=()=>{};location.assign=url=>requests.push({navigation:url});');
+  await failed.get('logoutButton').onclick({preventDefault(){}});assert.equal(failed.requests.length,0);
+ });
++
++test('direct registration page opens the member form without submitting a request',async()=>{
++ const f=fixture({},'/register');
++ f.run('bind=bindPasswordAuth=bindPaymentPreview=bindBonusBrandPreview=applyLang=renderSession=renderAdmin=()=>{};refreshSession=loadPublic=refreshTickets=async()=>{};');
++ await f.run(fullSource.slice(source.length));
++ assert.equal(f.run('state.authMode'),'register');
++ assert.equal(f.get('authDialog').open,true);
++ assert.equal(f.get('memberPhone').required,true);
++ assert.equal(f.get('confirmPassword').required,true);
++ assert.equal(f.get('registerToggle').hidden,false);
++ assert.equal(f.requests.length,0);
++});
++test('management sign-in keeps member registration hidden and requires no mobile number',()=>{
++ const f=fixture({},'/admin');
++ f.run('showAuth("login")');
++ assert.equal(f.get('registerToggle').hidden,true);
++ assert.equal(f.get('phoneField').hidden,true);
++ assert.equal(f.get('memberPhone').required,false);
++ assert.equal(f.get('ownerResetLink').hidden,false);
++});
