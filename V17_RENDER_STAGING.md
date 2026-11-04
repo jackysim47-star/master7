@@ -1,46 +1,55 @@
-# MASTER7 V17 staging: verified deployment and owner-login correction
+# MASTER7 V17: current deployment and UI repair candidate
 
-Updated 2026-11-04 MYT. This record distinguishes the running service from the correction on this branch.
+Updated 2026-11-04 MYT. Current production acceptance is not complete.
 
-## Running service last verified
+## Verified running deployment
 
 - Service: master7-v17-staging (srv-dbl0iv7f3r2c73848ei0).
-- Branch: codex/v17-render-staging-20261104; automatic deployment remains off.
-- Latest verified deployed source: 0e5c5277e8b8ea8cd409acb3391db34fa5d61f00.
-- Deploy: dep-dblkjbuc6qcc73bgl5l0; live at 2026-11-04 23:06:51 MYT.
-- Source bundle SHA-256: 52abcf443349aafe5b58ff834c60eba62607d8f7e75ca6fdb22f17bbe43f559c.
-- This deployment preserves the 22:49 front/backoffice template update and adds the later typography update.
-- The service continued reporting 17.0.0-selfbuilt.19. That release string alone does not identify which of the successive template commits is deployed; use the commit and deploy ID.
-- Latest health/auth observations: database ready; smsOtpReady=false. Complete handover is not verified.
+- Deploy: dep-dblkjbuc6qcc73bgl5l0, live at 23:06:51 MYT.
+- Source commit: 0e5c5277e8b8ea8cd409acb3391db34fa5d61f00.
+- Running bundle SHA-256: 52abcf443349aafe5b58ff834c60eba62607d8f7e75ca6fdb22f17bbe43f559c.
+- Runtime release string remained 17.0.0-selfbuilt.19 across multiple template commits. Use commit and deploy IDs to identify this deployment.
+- Frontend HTML, admin HTML, app.js and style.css returned 200. Browser inspection found a real JavaScript startup failure despite these 200 responses.
+- Supabase project shspbmnghbgyzcsjukui returned ACTIVE_HEALTHY; its role in the portal's historical data remains unverified.
+- www.master7.admin still returned NXDOMAIN; smsOtpReady remained false.
 
-## Correction on this branch — not deployed
+## Verified defects and correction in PR #8
 
-A confirmed UI defect sent the owner to the customer /signin route after activation or password recovery. The customer form requires a mobile number, contradicting management ID/password login. The correction sends those owner flows to /admin, preserves returned owner IDs, leaves the sign-in dialog open and does not create an authenticated session. Failed/unavailable owner recovery also stays on the management entry.
+1. Browser startup crashes in renderPaymentPreview because state.paymentChannels is undefined before loadPublic executes. applyLang throws, preventing subsequent session and public-content loading. Initialize an empty channel-state map so the existing maintenance fallback can render until data arrives. This does not enable any transaction or game.
+2. Owner activation/recovery returns to customer /signin, which requires a mobile number. Return those owner flows to /admin, retain the returned owner ID, clear credentials, and require a separate authenticated sign-in. Customer SMS registration is unchanged.
+3. The owner explicitly confirmed the required template palette is water blue, gold and white. Apply that shared palette to front/backoffice surfaces, inputs, dialogs and navigation, and update the browser theme-color. Preserve the existing layout and latest fonts.
 
-Customer registration still requires its existing SMS verification. Backend authentication, permissions, migrations, transaction logic, credentials, and channel states are unchanged.
+Candidate release: 17.0.0-selfbuilt.19-ui-fix.1.  
+Candidate bundle SHA-256: 1c0f0a93d7fe59c5729b2990875269218bb066d4b013bfe48c6bf753fcc43d51.  
+Base source: 0e5c5277e8b8ea8cd409acb3391db34fa5d61f00.  
+Reviewable source diff: docs/patches/MASTER7_UI_REPAIR_20261104.patch.  
+PR: https://github.com/jackysim47-star/master7/pull/8
 
-- Candidate release: 17.0.0-selfbuilt.19-owner-login-fix.1.
-- Candidate bundle SHA-256: ec7e93fef30c19d55f05a359687ceb1f22af2ab3028e8beb442583e2c1e71538.
-- Base: 0e5c5277e8b8ea8cd409acb3391db34fa5d61f00, including the newest font files.
-- Archive diff is limited to public/assets/app.js, tests/activation-ui.test.mjs, and the release constant in lib/backend.ts.
-- The reviewable source diff is docs/patches/MASTER7_OWNER_LOGIN_20261104.patch.
-- Regression assertions reproduced four failures before the UI correction.
-- After the correction: node --test --test-reporter=spec tests/*.test.mjs passed 74 tests, failed 0, skipped 0.
+The archive changes exactly seven files: app/portal.html, lib/backend.ts (release constant only), public/assets/app.js, public/assets/style.css, tests/activation-ui.test.mjs, tests/password-auth.test.mjs, and tests/startup-readiness.test.mjs. Authentication implementation, migrations, provider adapters, balances, payment processing, credentials and business switches are unchanged.
+
+## Verification
+
+- Four owner-route assertions reproduced the previous navigation defect.
+- Five startup/three-language cases reproduced the actual browser TypeError before the initialization fix.
+- Final complete local suite: 79 tests passed, zero failed or skipped.
+- A prior full run returned 78/79 because the existing throttle test crossed the real ten-minute rate bucket. The test now fixes Date.now within that test; rate-limit implementation and thresholds are unchanged. The complete suite then passed 79/79.
 - node --check public/assets/app.js passed.
-- Tests used isolated/local databases and mocked providers, not live customer transactions.
-- No new dependency installation, production build, or live owner login was performed in this correction task.
+- Main palette text/background contrast pairs were measured at 5.04:1 or above; browser rendering of the new palette is still pending.
+- Byte comparison limits the archive changes to the seven files above. The original source archive was restored and checksum-verified.
+- Tests used isolated databases and mock services; no live customer transactions or credentials were used.
+- No production build or live owner sign-in was performed in this repair task.
 
-## Release conditions and remaining findings
+## Not yet deployed
 
-The startup script calls initializePortalDatabase. The owner previously required recoverable backups and recovery verification before upgrades. Archive restoration was verified byte-for-byte, but this is not a database backup or restore. Full data recovery evidence is still absent. This correction task has therefore not triggered deployment or changed the active release branch.
+This candidate is on a separate repair branch. It has not been merged into the active release branch or deployed. The Render startup script runs initializePortalDatabase. The owner previously required recoverable backups and restore verification before upgrades; full database restore evidence is still absent. Source archive restoration is not database restoration.
 
-The full-platform report still tracks the unresolved formal backoffice address (www.master7.admin returned NXDOMAIN), smsOtpReady=false, formal-domain/service mapping, owner access verification, historical data recovery, and separate evidence for promised features. This branch fixes one concrete UI defect and corrects stale release documentation; it is not whole-platform acceptance.
+The source repair is complete and reviewable. The live startup error remains unresolved until an authorized deployment with the required data protection evidence has completed and browser checks are repeated. Keep the current live deploy above as the code rollback reference; code rollback does not restore database data. Check for concurrent implementation changes before integrating an archived bundle.
 
-Previous live source and deploy above are the code rollback reference. Do not treat code rollback as database restoration. Check for newer implementation work before merging an archived bundle.
+Formal backend DNS, SMS readiness, historical data recovery and remaining whole-platform acceptance evidence remain open.
 
 ## Historical record
 
-The following older statements are retained for traceability only. Their .16/.17 status and SEVEN title are superseded by the current record above.
+The following .16/.17 report is retained for traceability. Its release, brand and not-deployed statements are historical and are superseded by the record above.
 
 # MASTER7 V17 Render staging package
 
