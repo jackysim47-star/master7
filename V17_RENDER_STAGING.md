@@ -1,3 +1,47 @@
+# MASTER7 V17 staging: verified deployment and owner-login correction
+
+Updated 2026-11-04 MYT. This record distinguishes the running service from the correction on this branch.
+
+## Running service last verified
+
+- Service: master7-v17-staging (srv-dbl0iv7f3r2c73848ei0).
+- Branch: codex/v17-render-staging-20261104; automatic deployment remains off.
+- Latest verified deployed source: 0e5c5277e8b8ea8cd409acb3391db34fa5d61f00.
+- Deploy: dep-dblkjbuc6qcc73bgl5l0; live at 2026-11-04 23:06:51 MYT.
+- Source bundle SHA-256: 52abcf443349aafe5b58ff834c60eba62607d8f7e75ca6fdb22f17bbe43f559c.
+- This deployment preserves the 22:49 front/backoffice template update and adds the later typography update.
+- The service continued reporting 17.0.0-selfbuilt.19. That release string alone does not identify which of the successive template commits is deployed; use the commit and deploy ID.
+- Latest health/auth observations: database ready; smsOtpReady=false. Complete handover is not verified.
+
+## Correction on this branch — not deployed
+
+A confirmed UI defect sent the owner to the customer /signin route after activation or password recovery. The customer form requires a mobile number, contradicting management ID/password login. The correction sends those owner flows to /admin, preserves returned owner IDs, leaves the sign-in dialog open and does not create an authenticated session. Failed/unavailable owner recovery also stays on the management entry.
+
+Customer registration still requires its existing SMS verification. Backend authentication, permissions, migrations, transaction logic, credentials, and channel states are unchanged.
+
+- Candidate release: 17.0.0-selfbuilt.19-owner-login-fix.1.
+- Candidate bundle SHA-256: ec7e93fef30c19d55f05a359687ceb1f22af2ab3028e8beb442583e2c1e71538.
+- Base: 0e5c5277e8b8ea8cd409acb3391db34fa5d61f00, including the newest font files.
+- Archive diff is limited to public/assets/app.js, tests/activation-ui.test.mjs, and the release constant in lib/backend.ts.
+- The reviewable source diff is docs/patches/MASTER7_OWNER_LOGIN_20261104.patch.
+- Regression assertions reproduced four failures before the UI correction.
+- After the correction: node --test --test-reporter=spec tests/*.test.mjs passed 74 tests, failed 0, skipped 0.
+- node --check public/assets/app.js passed.
+- Tests used isolated/local databases and mocked providers, not live customer transactions.
+- No new dependency installation, production build, or live owner login was performed in this correction task.
+
+## Release conditions and remaining findings
+
+The startup script calls initializePortalDatabase. The owner previously required recoverable backups and recovery verification before upgrades. Archive restoration was verified byte-for-byte, but this is not a database backup or restore. Full data recovery evidence is still absent. This correction task has therefore not triggered deployment or changed the active release branch.
+
+The full-platform report still tracks the unresolved formal backoffice address (www.master7.admin returned NXDOMAIN), smsOtpReady=false, formal-domain/service mapping, owner access verification, historical data recovery, and separate evidence for promised features. This branch fixes one concrete UI defect and corrects stale release documentation; it is not whole-platform acceptance.
+
+Previous live source and deploy above are the code rollback reference. Do not treat code rollback as database restoration. Check for newer implementation work before merging an archived bundle.
+
+## Historical record
+
+The following older statements are retained for traceability only. Their .16/.17 status and SEVEN title are superseded by the current record above.
+
 # MASTER7 V17 Render staging package
 
 The staging build serves the new SEVEN customer portal and shared backoffice on Render. It uses a dedicated database and does not import or delete legacy customer records. It does not change production DNS.
