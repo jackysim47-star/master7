@@ -8,8 +8,10 @@ const { venusCatalogue } = require('./venus');
 const {
   configuredUrl,
   gamePeerCredential,
+  gameWalletCredential,
   gspayPeerCredential,
   gspayReadiness,
+  megah5TransferReadiness,
   normalizeHttpsUrl,
   peerCredential,
   vpayReadiness,
@@ -51,8 +53,26 @@ function md5(value) {
   return crypto.createHash('md5').update(value, 'utf8').digest('hex');
 }
 
-function megaSignature(method, requestDateTime, operatorId, secretKey, playerId = '') {
-  return md5(`${method}${requestDateTime}${operatorId}${secretKey}${playerId}`);
+function megaSignature(method, requestDateTime, operatorId, secretKey, playerId = '', signatureTail = '') {
+  return md5(`${method}${requestDateTime}${operatorId}${secretKey}${playerId}${signatureTail}`);
+}
+
+function validMegaPlayerId(value) {
+  return /^[A-Za-z0-9._$?-]{1,50}$/.test(value);
+}
+
+function validMegaReferenceId(value) {
+  return /^[A-Za-z0-9][A-Za-z0-9._:-]{0,49}$/.test(value);
+}
+
+function canonicalMegaAmount(value) {
+  return /^(?:0|[1-9]\d{0,9})\.\d{2}$/.test(value) && value !== '0.00';
+}
+
+function megaTransferType(value) {
+  if (value === 'deposit') return 1;
+  if (value === 'withdrawal') return 2;
+  return 0;
 }
 
 function safeEqual(a, b) {
@@ -155,6 +175,12 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
 
   function isGamePeer(req) {
     const expected = gamePeerCredential(env);
+    const supplied = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
+    return Boolean(expected) && safeEqual(expected, supplied);
+  }
+
+  function isGameWalletPeer(req) {
+    const expected = gameWalletCredential(env);
     const supplied = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
     return Boolean(expected) && safeEqual(expected, supplied);
   }
@@ -279,10 +305,12 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     if (!operatorId || !secretKey) return { ok: false, status: 503, data: { code: 'MEGA_NOT_CONFIGURED' } };
     const requestDateTime = utcSeconds(now());
     const playerId = fields.PlayerId ? String(fields.PlayerId) : '';
+    const signatureTail = method === 'CheckTransferStatus'
+      ? `${String(fields.ReferenceId || '')}${String(fields.TransferType || '')}` : '';
     const payload = {
       OperatorId: operatorId,
       RequestDateTime: requestDateTime,
-      Signature: megaSignature(method, requestDateTime, operatorId, secretKey, playerId),
+      Signature: megaSignature(method, requestDateTime, operatorId, secretKey, playerId, signatureTail),
       ...fields,
     };
     return upstream(`${megaBase}/${encodeURIComponent(method)}`, {
@@ -807,7 +835,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         const playerId = String(payload.playerId || '');
         const gameCode = String(payload.gameCode || '0');
         const ip = String(payload.ip || '');
-        if (!/^[A-Za-z0-9._$?-]{1,50}$/.test(playerId) || !/^\d{1,3}(?:\.\d{1,3}){3}$/.test(ip)) return send(res, 400, { error: 'invalid_session_input' });
+        if (!validMegaPlayerId(playerId) || !/^\d{1,3}(?:\.\d{1,3}){3}$/.test(ip)) return send(res, 400, { error: 'invalid_session_input' });
         const result = await mega('GameLogin', {
           PlayerId: playerId,
           Ip: ip,
@@ -825,10 +853,54 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         if (!isGamePeer(req)) return send(res, 401, { error: 'unauthorized' });
         const payload = await body(req);
         const playerId = String(payload.playerId || '');
-        if (!/^[A-Za-z0-9._$?-]{1,50}$/.test(playerId)) return send(res, 400, { error: 'invalid_player_id' });
+        if (!validMegaPlayerId(playerId)) return send(res, 400, { error: 'invalid_player_id' });
         const result = await mega('CheckBalance', { PlayerId: playerId });
         const providerOK = Number(result.data && result.data.Status) === 200;
         return send(res, result.ok && providerOK ? 200 : 502, { provider: 'megah5', upstreamStatus: result.status, result: result.data });
+      }
+
+      if (req.method === 'POST' && url.pathname === '/platform/megah5/transfer-status') {
+        if (!isGameWalletPeer(req)) return send(res, 401, { error: 'unauthorized' });
+        if (!megah5TransferReadiness(env).channels.status.configurationReady) {
+          return send(res, 503, { error: 'megah5_transfer_status_disabled' });
+        }
+        const payload = await body(req);
+        const playerId = String(payload.playerId || '');
+        const referenceId = String(payload.referenceId || '');
+        const transferType = megaTransferType(payload.transferType);
+        if (!validMegaPlayerId(playerId) || !validMegaReferenceId(referenceId) || !transferType) {
+          return send(res, 400, { error: 'invalid_megah5_transfer_status' });
+        }
+        const result = await mega('CheckTransferStatus', {
+          PlayerId: playerId,
+          ReferenceId: referenceId,
+          TransferType: transferType,
+        });
+        const providerOK = Number(result.data && result.data.Status) === 200;
+        return send(res, result.ok && providerOK ? 200 : 502, {
+          provider: 'megah5', operation: 'transfer_status', upstreamStatus: result.status, result: result.data,
+        });
+      }
+
+      const megaTransferMatch = url.pathname.match(/^\/platform\/megah5\/(deposit|withdraw)$/);
+      if (req.method === 'POST' && megaTransferMatch) {
+        if (!isGameWalletPeer(req)) return send(res, 401, { error: 'unauthorized' });
+        const operation = megaTransferMatch[1];
+        const readiness = megah5TransferReadiness(env).channels[operation === 'deposit' ? 'deposit' : 'withdrawal'];
+        if (!readiness.configurationReady) return send(res, 503, { error: 'megah5_transfers_disabled' });
+        const payload = await body(req);
+        const playerId = String(payload.playerId || '');
+        const amount = typeof payload.amount === 'string' ? payload.amount : '';
+        const referenceId = String(payload.referenceId || '');
+        if (!validMegaPlayerId(playerId) || !canonicalMegaAmount(amount) || !validMegaReferenceId(referenceId)) {
+          return send(res, 400, { error: 'invalid_megah5_transfer' });
+        }
+        const method = operation === 'deposit' ? 'Deposit' : 'Withdraw';
+        const result = await mega(method, { PlayerId: playerId, Amount: amount, ReferenceId: referenceId });
+        const providerOK = Number(result.data && result.data.Status) === 200;
+        return send(res, result.ok && providerOK ? 200 : 502, {
+          provider: 'megah5', operation, referenceId, upstreamStatus: result.status, result: result.data,
+        });
       }
 
       return send(res, 404, { error: 'not_found' }, cors);

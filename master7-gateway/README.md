@@ -11,9 +11,35 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. Callback POST requests remain closed until each provider's signed callback contract is implemented; the reachability endpoint does not claim transaction readiness.
 
+## Version 1.9.0: disabled-by-default MegaH5 transfer wallet adapter
+
+MegaH5 is confirmed to use the provider's Fund Transfer wallet contract. The
+gateway now implements the documented server-side routes below:
+
+- `POST /platform/megah5/transfer-status` → `CheckTransferStatus`
+- `POST /platform/megah5/deposit` → `Deposit`
+- `POST /platform/megah5/withdraw` → `Withdraw`
+
+These routes require a dedicated `PLATFORM_GAME_WALLET_TOKEN`. The normal
+`PLATFORM_GAME_TOKEN` cannot call them, and the wallet token cannot launch a
+game or read a player balance. All peer tokens must be 32–1024 UTF-8 bytes and
+must differ from every administrator, payment, game and provider secret.
+
+Money routes are closed unless `MEGA_TRANSFERS_ENABLED=true`; status lookup is
+closed unless `MEGA_TRANSFER_STATUS_ENABLED=true`. Both flags default to off.
+While off, the routes return HTTP 503 before making any provider request. Money
+amounts must be positive canonical strings with exactly two decimals, and the
+operator reference must be a unique 1–50 character identifier.
+
+The implementation follows the provider signatures exactly: Deposit and
+Withdraw sign through `PlayerId`; CheckTransferStatus additionally signs
+`ReferenceId` and transfer type. `/readiness` always keeps production QA and
+`liveReady` false until the platform has a durable idempotent ledger and a real
+end-to-end supplier acceptance record. Deploying this code does not move money.
+
 ## Version 1.8.1: isolated platform game-session scope
 
-`POST /platform/megah5/session` accepts the same validated MegaH5 session request as the administrator route, but requires its own `PLATFORM_GAME_TOKEN`. The token cannot authorize payment, withdrawal, provider balance, EVO administration or callbacks, and it is rejected when it aliases another privileged credential. This server-to-server route does not expose provider credentials.
+`POST /platform/megah5/session` accepts the same validated MegaH5 session request as the administrator route, but requires its own `PLATFORM_GAME_TOKEN`. The token cannot authorize Deposit, Withdraw, transfer-status lookup, EVO administration or callbacks, and it is rejected when it aliases another privileged credential. This server-to-server route does not expose provider credentials.
 
 This route prepares authenticated portal launch testing. It does not prove that the member wallet, wager settlement or provider production QA is complete, so the public portal must keep games non-playable until those checks pass.
 

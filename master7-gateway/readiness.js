@@ -25,9 +25,9 @@ function configuredUrl(value) {
 // never alias another peer credential or the full administrator credential.
 const VPAY_PEERS = ['PLATFORM_CALLBACK_TOKEN', 'PLATFORM_QUERY_TOKEN', 'PLATFORM_ORDER_TOKEN'];
 const GSPAY_PEERS = ['PLATFORM_GSPAY_CALLBACK_TOKEN', 'PLATFORM_GSPAY_QUERY_TOKEN', 'PLATFORM_GSPAY_ORDER_TOKEN'];
-const GAME_PEERS = ['PLATFORM_GAME_TOKEN'];
+const GAME_PEERS = ['PLATFORM_GAME_TOKEN', 'PLATFORM_GAME_WALLET_TOKEN'];
 const PRIVILEGED_CREDENTIALS = ['GATEWAY_ADMIN_TOKEN', ...VPAY_PEERS, ...GSPAY_PEERS, ...GAME_PEERS,
-  'VPAY_API_TOKEN', 'GSPAY_OPERATOR_AUTH_KEY', 'GSPAY_OPERATOR_SECRET_KEY'];
+  'VPAY_API_TOKEN', 'GSPAY_OPERATOR_AUTH_KEY', 'GSPAY_OPERATOR_SECRET_KEY', 'MEGA_SECRET_KEY'];
 
 function isolatedCredential(env, name, allowed) {
   if (!allowed.includes(name)) return '';
@@ -48,6 +48,44 @@ function gspayPeerCredential(env, name) {
 
 function gamePeerCredential(env, name = 'PLATFORM_GAME_TOKEN') {
   return isolatedCredential(env, name, GAME_PEERS);
+}
+
+function gameWalletCredential(env) {
+  return isolatedCredential(env, 'PLATFORM_GAME_WALLET_TOKEN', GAME_PEERS);
+}
+
+function megah5TransferReadiness(env = {}) {
+  const credentialsConfigured = /^[A-Za-z0-9._$?-]{1,20}$/.test(String(env.MEGA_OPERATOR_ID || '').trim())
+    && providerCredential(String(env.MEGA_SECRET_KEY || ''));
+  const walletTokenConfigured = Boolean(gameWalletCredential(env));
+  const switches = {
+    status: String(env.MEGA_TRANSFER_STATUS_ENABLED || '').toLowerCase() === 'true',
+    transfers: String(env.MEGA_TRANSFERS_ENABLED || '').toLowerCase() === 'true',
+  };
+  const channel = (enabled) => {
+    const blockers = [];
+    if (!credentialsConfigured) blockers.push('provider_credentials_missing_or_invalid');
+    if (!walletTokenConfigured) blockers.push('platform_game_wallet_token_missing_or_aliased');
+    if (!enabled) blockers.push('transaction_switch_off');
+    return {
+      enabled,
+      configurationReady: blockers.length === 0,
+      blockers,
+      productionQa: 'not_verified',
+      liveReady: false,
+    };
+  };
+  return {
+    mode: 'fund_transfer',
+    credentialsConfigured,
+    walletTokenConfigured,
+    switches,
+    channels: {
+      status: channel(switches.status),
+      deposit: channel(switches.transfers),
+      withdrawal: channel(switches.transfers),
+    },
+  };
 }
 
 function vpayReadiness(env = {}) {
@@ -138,6 +176,7 @@ function integrationReadiness(env = {}) {
     liveReady: false,
     gameCallbacks: Object.fromEntries(['cosmoplay', 'creative-gaming', 'pgsoft', 'spade-gaming']
       .map(provider => [provider, { reachableRoute: true, businessReady: false, reason: 'callback_contract_not_active' }])),
+    megah5Transfer: megah5TransferReadiness(env),
     vpay: vpayReadiness(env),
     gspay: gspayReadiness(env),
   };
@@ -146,9 +185,11 @@ function integrationReadiness(env = {}) {
 module.exports = {
   configuredUrl,
   gamePeerCredential,
+  gameWalletCredential,
   gspayPeerCredential,
   gspayReadiness,
   integrationReadiness,
+  megah5TransferReadiness,
   normalizeHttpsUrl,
   peerCredential,
   vpayReadiness,
