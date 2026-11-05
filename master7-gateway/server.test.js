@@ -144,6 +144,28 @@ test('platform game credential can create only a MegaH5 session', async () => {
   assert.equal(adminDenied.status, 401);
 });
 
+test('platform game credential can query only a MegaH5 player balance', async () => {
+  const token = 'platform-game-peer-credential-'.padEnd(48, 'x');
+  let request;
+  const fixed = new Date('2026-11-06T01:05:00Z');
+  const fetchImpl = async (url, options) => {
+    request = { url, body: JSON.parse(options.body) };
+    return Response.json({ Status: 200, CurrentBalance: 0, Currency: 'MYR' });
+  };
+  const env = { PLATFORM_GAME_TOKEN: token, MEGA_OPERATOR_ID: 'master7', MEGA_SECRET_KEY: 'secret' };
+  const denied = await run(makeApp({ env, fetchImpl, now: () => fixed }), '/platform/megah5/balance', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playerId: 'member_123' }),
+  });
+  assert.equal(denied.status, 401);
+  const response = await run(makeApp({ env, fetchImpl, now: () => fixed }), '/platform/megah5/balance', {
+    method: 'POST', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ playerId: 'member_123' }),
+  });
+  assert.equal(response.status, 200);
+  assert.ok(request.url.endsWith('/CheckBalance'));
+  assert.equal(request.body.PlayerId, 'member_123');
+  assert.equal(request.body.Signature, megaSignature('CheckBalance', '2026-11-06T01:05:00Z', 'master7', 'secret', 'member_123'));
+});
+
 test('EVO catalog uses bearer token and hides it from response', async () => {
   let authorization;
   const fetchImpl = async (_url, options) => {

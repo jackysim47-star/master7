@@ -821,6 +821,16 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         return send(res, result.ok && providerOK ? 200 : 502, { provider: 'megah5', upstreamStatus: result.status, result: result.data });
       }
 
+      if (req.method === 'POST' && url.pathname === '/platform/megah5/balance') {
+        if (!isGamePeer(req)) return send(res, 401, { error: 'unauthorized' });
+        const payload = await body(req);
+        const playerId = String(payload.playerId || '');
+        if (!/^[A-Za-z0-9._$?-]{1,50}$/.test(playerId)) return send(res, 400, { error: 'invalid_player_id' });
+        const result = await mega('CheckBalance', { PlayerId: playerId });
+        const providerOK = Number(result.data && result.data.Status) === 200;
+        return send(res, result.ok && providerOK ? 200 : 502, { provider: 'megah5', upstreamStatus: result.status, result: result.data });
+      }
+
       return send(res, 404, { error: 'not_found' }, cors);
     } catch (error) {
       const status = Number(error.status) || (['AbortError', 'TimeoutError'].includes(error.name) ? 504 : 500);

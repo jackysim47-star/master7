@@ -17,6 +17,14 @@ Provider secrets are supplied only through Render environment variables. Callbac
 
 This route prepares authenticated portal launch testing. It does not prove that the member wallet, wager settlement or provider production QA is complete, so the public portal must keep games non-playable until those checks pass.
 
+## Version 1.8.2: read-only MegaH5 wallet detection
+
+`POST /platform/megah5/balance` calls the provider-documented `CheckBalance`
+method for one validated player ID. It uses the isolated `PLATFORM_GAME_TOKEN`,
+accepts no amount or transaction ID, and cannot deposit, withdraw or settle a
+wager. A successful zero-balance response confirms the operator supports the
+fund-transfer balance route; it does not verify a money transfer or settlement.
+
 ## Version 1.8.0: GSPAY+ MYR safe preparation
 
 Version 1.8.0 adds the disabled GSPAY+ MYR skeleton documented below. It does
