@@ -55,3 +55,10 @@ order or settle a member wallet.
 Until these items are complete, changing the GSPAY backoffice callbacks would
 send real notifications to a receiver that cannot safely acknowledge and settle
 them. Therefore no callback or whitelist setting was changed.
+
+## Supplier follow-up
+
+- Ticket: `PG-12683`
+- Latest reply on 2026-11-05: items 1 and 2 are being checked with the related
+  team; there is no update yet.
+- Result: provider credentials are still pending and GSPAY remains disabled.
