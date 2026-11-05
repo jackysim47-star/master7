@@ -2,8 +2,20 @@
 
 Updated: 2026-11-05 MYT
 
-Live source: `a067d87e1797fdffb69496c008c001fdf215c28d` · Render deploy: `dep-dblo0c8ae00c73cfs5sg` · 2026-11-05 02:59 MYT.
+Last verified live before the member-gateway update: source `99256353be2fdc51e563307cb1ad7a764c8e3c2a` · Render deploy `dep-dblosiui0phs73fv3ql0` · 2026-11-05 05:05 UTC.
 
+
+
+## Member gateway update and OTP investigation — 2026-11-05
+
+- Candidate release: `17.0.0-selfbuilt.28-member-gateway`.
+- Anonymous `/` redirects to `/signin`; game-lobby data is not loaded while signed out. Member registration and sign-in use ID, password, Malaysian phone and one-time SMS code; successful sign-in opens the lobby.
+- Login/registration entry now uses the existing MASTER7 blue-and-gold emblem and a mobile-first branded layout. The customer page contains no backoffice or API terminology.
+- The live Render `/api/auth/options` check returned `smsOtpReady:false`. Its request log for `POST /api/auth/otp/send` at `2026-11-05T05:05:59Z` shows HTTP 503 in 7 ms. The server exits before calling Anchor, so no SMS was submitted; this is not a handset/carrier delivery delay.
+- Render requires `ANCHOR_SMS_API_BASE_URL`, `ANCHOR_SMS_USERNAME`, `ANCHOR_SMS_PASSWORD`, `ANCHOR_SMS_SENDER_ID`, and `OTP_HASH_SECRET` (at least 32 characters). No secret values are included in the source bundle.
+- Candidate verification: 89 Node tests passed, 3 Render database adapter tests passed, `node --check` passed, and the Render production build passed. A 390×844 mobile preview was visually inspected.
+- Candidate bundle SHA-256: `7aa7cde8df63c8eb11634792caa6ce324957dd465378594f55aa49fa898e615d`.
+- Reviewable patch: `docs/patches/MASTER7_MEMBER_GATEWAY_20261105.patch`.
 
 ## Release candidate 17.0.0-selfbuilt.27-simple-access
 

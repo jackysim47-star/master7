@@ -1,0 +1,409 @@
+--- a/master7-v17-render-staging/.env.example
++++ b/master7-v17-render-staging/.env.example
+@@ -7,3 +7,10 @@
+ OWNER_RESET_TOKEN_HASH=
+ OWNER_RESET_EXPIRES_AT=
+ OWNER_RESET_ISSUED_AT=
++
++# Anchor SMS settings; keep live values in the Render service environment.
++ANCHOR_SMS_API_BASE_URL=
++ANCHOR_SMS_USERNAME=
++ANCHOR_SMS_PASSWORD=
++ANCHOR_SMS_SENDER_ID=
++OTP_HASH_SECRET=
+--- a/master7-v17-render-staging/app/portal.html
++++ b/master7-v17-render-staging/app/portal.html
+@@ -372,6 +372,8 @@
+   </dialog>
+   <dialog id="authDialog" aria-labelledby="authTitle">
+     <div class="auth-glow" aria-hidden="true"></div>
++    <div class="member-auth-hero"><div class="member-auth-logo"><img src="/assets/seven-emblem.png" alt=""></div><div class="member-auth-wordmark"><strong>MASTER7</strong><span data-i18n="memberBrand">MEMBER LOUNGE</span></div><span class="member-auth-badge" data-i18n="memberBadge">MEMBER ACCESS</span></div>
++    <p class="member-auth-tagline" data-i18n="memberTagline">你的专属游戏大厅</p>
+     <div class="dialog-head"><div class="brand-mini lock-brand" aria-hidden="true">M7</div><div><p class="eyebrow" id="authEyebrow">MEMBER ACCESS</p><h2 id="authTitle" data-i18n="signInTitle">会员登录</h2></div><button class="close" id="closeAuth" aria-label="Close">×</button></div>
+     <p id="authNotice" class="muted"></p>
+     <form id="passwordForm" class="stack">
+--- a/master7-v17-render-staging/app/route.ts
++++ b/master7-v17-render-staging/app/route.ts
+@@ -1,3 +1,18 @@
+ import html from './portal.html?raw';
++import { env } from 'cloudflare:workers';
++import { readLocalSession } from '../lib/password-auth';
++
+ export const dynamic='force-dynamic';
+-export function GET(req:Request){const admin=new URL(req.url).pathname==='/admin';const page=admin?html.replace('id="home" class="section active"','id="home" class="section"').replace('id="admin" class="section"','id="admin" class="section active"'):html;return new Response(page,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"}});}
++
++export async function GET(req:Request){
++ const url=new URL(req.url);
++ const admin=url.pathname==='/admin';
++ const authEntry=['/signin','/register'].includes(url.pathname);
++ const local=env.DB?await readLocalSession(req,env.DB):null;
++ if(url.pathname==='/'&&!local)return new Response(null,{status:303,headers:{Location:'/signin','Cache-Control':'no-store'}});
++ if(authEntry&&local)return new Response(null,{status:303,headers:{Location:local.user.role==='owner'||local.user.role==='staff'?'/admin':'/','Cache-Control':'no-store'}});
++ const page=admin?html.replace('id="home" class="section active"','id="home" class="section"').replace('id="admin" class="section"','id="admin" class="section active"'):html;
++ const body=authEntry?page.replace('<body>','<body class="auth-entry">'):page;
++ return new Response(body,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"}});
++}
++
+--- a/master7-v17-render-staging/lib/backend.ts
++++ b/master7-v17-render-staging/lib/backend.ts
+@@ -2,7 +2,7 @@
+ import { requestOriginAllowed } from './request-origin.ts';
+ import { createVPayOrder, handleVPay } from './vpay.ts';
+ import { getWithdrawalBanks, listAdminWithdrawals, listMemberWithdrawals, submitWithdrawal, updateWithdrawal } from './withdrawals.ts';
+-export const RELEASE = '17.0.0-selfbuilt.27-simple-access';
++export const RELEASE = '17.0.0-selfbuilt.28-member-gateway';
+ export const SOURCE_RELEASE = '17.0.0-preview.6-qa3-integrated-r3';
+ type Identity={userId:string;email:string};
+ type User={id:string;username:string;role:string;approved:number;csrf:string;created_at:number};
+--- a/master7-v17-render-staging/lib/password-auth.ts
++++ b/master7-v17-render-staging/lib/password-auth.ts
+@@ -137,10 +137,14 @@
+   const phone=malaysiaMobile(d.phone),purpose=d.purpose==='login'?'login':'register';
+   await rate(db,'otp-phone:'+phone,1,60);
+   const phoneAccount=await db.prepare('SELECT id,username,role FROM users WHERE phone=?').bind(phone).first<{id:string;username:string;role:string}>();
+-  if(purpose==='register'&&phoneAccount)throw new AuthError(409,'此手机号已使用 / Phone number already in use');
++  if(purpose==='register'){
++   const username=loginId(d.username);password(d.password);
++   if(username===(c.ownerLoginId??'master7_owner').toLowerCase()||await credential(db,username)||phoneAccount)throw new AuthError(409,'此 ID 或手机号不可用 / ID or phone unavailable');
++  }
+   if(purpose==='login'){
+    let username:string;try{username=loginId(d.username);}catch{throw deny();}
+-   if(!phoneAccount||phoneAccount.role!=='member'||phoneAccount.username.toLowerCase()!==username)throw deny();
++   const found=await credential(db,username);
++   if(!phoneAccount||phoneAccount.role!=='member'||phoneAccount.username.toLowerCase()!==username||!verify(d.password,found))throw deny();
+   }
+   const code=String(randomBytes(4).readUInt32BE(0)%1000000).padStart(6,'0'),id=randomBytes(24).toString('base64url'),timestamp=now();
+   await anchorSend(c,phone,code);
+@@ -159,14 +163,14 @@
+    throw new AuthError(400,'验证码不正确 / Incorrect OTP');
+   }
+   const found=await db.prepare("SELECT c.* FROM password_credentials c JOIN users u ON u.id=c.user_id WHERE c.username=? AND u.phone=? AND u.role='member'").bind(username,phone).first<Credential>();
+-  if(!found)throw deny();
++  if(!verify(d.password,found))throw deny();
+   const timestamp=now(),consumed=await db.prepare('UPDATE otp_challenges SET consumed_at=? WHERE id=? AND code_hash=? AND phone=? AND consumed_at IS NULL AND expires_at>? AND attempts<5 RETURNING id').bind(timestamp,challenge.id,challenge.code_hash,phone,timestamp).first<{id:string}>();
+   if(!consumed)throw new AuthError(409,'验证码已使用 / OTP already used');
+   return json({status:'ok'},200,await session(db,found));
+  }
+  if(path==='/api/auth/register'){
+   await rate(db,'register:'+(ip??'unavailable'),ip?5:30);
+-  const username=loginId(d.username),pass=d.password===undefined?random():password(d.password),phone=malaysiaMobile(d.phone);
++  const username=loginId(d.username),pass=password(d.password),phone=malaysiaMobile(d.phone);
+   if(username===(c.ownerLoginId??'master7_owner').toLowerCase()||await credential(db,username)||await db.prepare('SELECT id FROM users WHERE phone=?').bind(phone).first())throw new AuthError(409,'此 ID 或手机号不可用 / ID or phone unavailable');
+   const challengeId=typeof d.challengeId==='string'&&/^[A-Za-z0-9_-]{32}$/.test(d.challengeId)?d.challengeId:'',code=typeof d.otp==='string'&&/^\d{6}$/.test(d.otp)?d.otp:'';
+   const challenge=challengeId?await db.prepare('SELECT id,phone,code_hash,attempts,expires_at,consumed_at FROM otp_challenges WHERE id=?').bind(challengeId).first<{id:string;phone:string;code_hash:string;attempts:number;expires_at:number;consumed_at:number|null}>():null;
+--- a/master7-v17-render-staging/public/assets/app.js
++++ b/master7-v17-render-staging/public/assets/app.js
+@@ -3,15 +3,15 @@
+ const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", register:false, providers:[], games:[], gameCatalogue:null, brandDirectory:[], supplierArtwork:{}, brandCategory:"ALL", selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], social:null, ads:[], benefits:[], adIndex:0, adTimer:null, editAdId:null, editBenefitId:null, editCustomGameId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, paymentChannels:{}, withdrawalPendingSeen:null, section:"lobby"};
+ const translations = {
+  zh: {
+-  requestTimeout:"连接超时，操作结果未确认。请检查连接和记录后再试。",networkError:"无法连接服务。请检查网络后重试。",serviceUnavailable:"服务暂时不可用。请稍后重试。",
++  requestTimeout:"连接超时，操作结果未确认。请检查连接和记录后再试。",networkError:"无法连接服务。请检查网络后重试。",serviceUnavailable:"服务暂时不可用。请稍后重试。",otpNotConfigured:"短信 OTP 尚未在服务器配置。请联系平台负责人。",
+   demoWarning:"MASTER7 · 热门游戏、专属优惠与会员服务",navHome:"首页",lobbyEyebrow:"游戏大厅",gamesLoading:"正在准备热门游戏…",catalogSummary:"大厅共有 {count} 款游戏。选择品牌或类别开始探索。",catalogUnavailable:"目前没有可展示的供应商游戏目录。",providerAvailable:"已开放",providerBlocked:"维护中",providerUnavailable:"暂不可用",providerEmpty:"即将推出",providerNotConfigured:"即将推出",uatNotPlayable:"即将开放",maintenanceGame:"维护中",gameActivePreview:"精选游戏",navLobby:"游戏大厅",navDeposit:"充值",navWithdraw:"提款",withdrawTitle:"提款",withdrawIntro:"选择马来西亚银行及四家出款公司之一，再提交提款申请。",depositTitle:"充值",depositIntro:"充值选项及记录集中在此页面。",navSupport:"客服",navAdmin:"后台",language:"语言",login:"登录",logout:"退出",eyebrow:"MASTER7 · PREMIUM EXPERIENCE",heroTitle:"精彩游戏",heroAccent:"尽在 MASTER7。",heroDescription:"热门老虎机、真人、捕鱼与体育专区，尊享会员优惠与服务。",explore:"立即探索游戏",viewStatus:"查看平台状态",previewLabel:"尊贵会员平台",featureLang:"三种语言",featureLangDesc:"中文、英文、马来文切换",featureOtp:"两步验证",featureOtpDesc:"MASTER7 ID + Malaysia mobile; Verify Malaysian phone before registration",featureStaff:"员工权限",featureStaffDesc:"老板、员工和会员分级",featureAudit:"操作记录",featureAuditDesc:"审批和更改可追踪",announcements:"系统公告",loading:"读取中…",lobbyTitle:"游戏大厅",lobbyNotice:"热门品牌与精选游戏一站呈现。探索老虎机、真人、捕鱼与体育专区，随时查看优惠与会员记录。",searchPlaceholder:"搜索游戏名称或厂商",allCategories:"全部类别",slots:"老虎机",arcade:"街机",tableGames:"桌面游戏",live:"真人类",sports:"体育类",supportTitle:"客户服务中心",supportIntro:"提交问题并在这里查看客服回复。",newTicket:"创建工单",subject:"主题",message:"内容",submitTicket:"提交客服请求",ticketLogin:"请先登录。",myTickets:"工单记录",loginFirst:"请先登录。",adminTitle:"运营管理后台",adminIntro:"仅测试账户；不会接触原站真实数据。",staffOnly:"员工权限保护",publishAnnouncement:"发布测试公告",publish:"发布",providerManager:"展示厂家管理",providerManagerHint:"分别上传 JILI、MEGAH5 和 918KISS 的赞助图片，并控制各自入口是否显示。",memberApproval:"会员审批",auditTrail:"操作审计",adminDenied:"需要员工或老板账号登录后才可进入。",footerDisclaimer:"此独立测试版不提供真实游戏、充值、提款或资金结算。",sandbox:"ISOLATED PREVIEW · NO REAL TRANSACTIONS",signInTitle:"会员登录",signIn:"登录",register:"注册",username:"用户名",password:"密码（最少6位）",otp:"短信验证",otpNote:"短信 OTP 尚未接通；新会员注册后需老板审批。",demoOnly:"示例 · 不可游玩",hidden:"已隐藏",visible:"可展示",loginRequired:"请先登录。",success:"操作成功",error:"操作未完成",registerSaved:"账号已注册，等待老板批准。",neverShare:"不要将 OTP 密钥发送给任何人。",authError:"登录失败。请检查账号、手机号、密码或审批状态。",role_owner:"老板",role_staff:"员工",role_member:"会员",users:"账号总数",pending:"待审批",openTickets:"待处理工单",visibleProviders:"展示项目",demoFunds:"真实资金数据未连接",approve:"批准",approved:"已批准",open:"处理中",closed:"已关闭",closeTicket:"关闭",reopenTicket:"重开",itemSearchNoResults:"没有匹配的游戏。",noTickets:"暂无工单。",noAnnouncements:"暂无公告。",credentials:"仅用于本地测试。",statusTitle:"V17 连接检查",statusMessage:"本地数据库与演示 API 可检查；旧生产网站、真实游戏和支付均未连接。",badResponse:"服务异常",noUsers:"暂无注册会员。",notReady:"未接通",save:"保存",identity:"MASTER7 ID 与手机号码"
+  },
+  en: {
+-  requestTimeout:"Request timed out; the outcome is unconfirmed. Check your connection and records before retrying.",networkError:"Cannot reach the service. Check your connection and retry.",serviceUnavailable:"Service temporarily unavailable. Please try again later.",
++  requestTimeout:"Request timed out; the outcome is unconfirmed. Check your connection and records before retrying.",networkError:"Cannot reach the service. Check your connection and retry.",serviceUnavailable:"Service temporarily unavailable. Please try again later.",otpNotConfigured:"SMS OTP is not configured on the server. Contact the platform owner.",
+   demoWarning:"MASTER7 · Premium games, member rewards and service",navHome:"Home",lobbyEyebrow:"GAME LOBBY",gamesLoading:"Loading featured games…",catalogSummary:"{count} games are available in the lobby. Choose a brand or category to explore.",catalogUnavailable:"No supplier game catalogue is currently available.",providerAvailable:"Available",providerBlocked:"Maintenance",providerUnavailable:"Temporarily unavailable",providerEmpty:"Coming soon",providerNotConfigured:"Coming soon",uatNotPlayable:"Coming soon",maintenanceGame:"Maintenance",gameActivePreview:"Featured game",navLobby:"Game lobby",navDeposit:"Deposit",navWithdraw:"Withdraw",withdrawTitle:"Withdraw",withdrawIntro:"Choose a Malaysian bank and one of four payout companies, then submit your withdrawal request.",depositTitle:"Deposit",depositIntro:"Payment options and deposit records are collected on this page.",navSupport:"Support",navAdmin:"Admin",language:"Language",login:"Sign in",logout:"Log out",eyebrow:"MASTER7 · PREMIUM EXPERIENCE",heroTitle:"Premium games",heroAccent:"One MASTER7 experience.",heroDescription:"Explore slots, live casino, fishing and sports with member rewards and service in one place.",explore:"Explore games",viewStatus:"Platform status",previewLabel:"Premium member platform",featureLang:"Three languages",featureLangDesc:"Chinese, English and Malay",featureOtp:"Two-step login",featureOtpDesc:"MASTER7 ID + Malaysia mobile; Verify Malaysian phone before registration",featureStaff:"Staff permissions",featureStaffDesc:"Owner, staff and member roles",featureAudit:"Audit history",featureAuditDesc:"Traceable approvals and changes",announcements:"System notices",loading:"Loading…",lobbyTitle:"Game lobby",lobbyNotice:"Discover featured brands, slots, live casino, fishing and sports in one premium lobby. View rewards and member records anytime.",searchPlaceholder:"Search game or provider",allCategories:"All categories",slots:"Slots",arcade:"Arcade",tableGames:"Table",live:"Live",sports:"Sports",supportTitle:"Support center",supportIntro:"Send a request and view support replies here.",newTicket:"New ticket",subject:"Subject",message:"Message",submitTicket:"Send request",ticketLogin:"Sign in to submit a support ticket.",myTickets:"Ticket history",loginFirst:"Please sign in.",adminTitle:"Operations backoffice",adminIntro:"Test accounts only; original site data is never accessed.",staffOnly:"Staff access only",publishAnnouncement:"Publish test notice",publish:"Publish",providerManager:"Demo catalog management",providerManagerHint:"Upload a separate sponsor image for JILI, MEGAH5 and 918KISS, then show or hide each sponsor tile.",memberApproval:"Member approvals",auditTrail:"Audit log",adminDenied:"Sign in with an owner or staff account.",footerDisclaimer:"No real games, deposits, withdrawals or payments in this isolated preview.",sandbox:"ISOLATED PREVIEW · NO REAL TRANSACTIONS",signInTitle:"Member sign-in",signIn:"Sign in",register:"Register",username:"Username",password:"Password (min 6 characters)",otp:"SMS verification",otpNote:"SMS verification has not yet been connected in this staging build. New members require owner approval.",demoOnly:"Demo · Not playable",hidden:"Hidden",visible:"Visible",loginRequired:"Please sign in first.",success:"Saved",error:"Action not completed",registerSaved:"Account registered, pending owner approval.",neverShare:"Never share the OTP secret.",authError:"Sign-in failed. Check ID, mobile number, password or approval status.",role_owner:"Owner",role_staff:"Staff",role_member:"Member",users:"Total accounts",pending:"Pending approval",openTickets:"Open tickets",visibleProviders:"Catalog items",demoFunds:"Real financial data not connected",approve:"Approve",approved:"Approved",open:"Open",closed:"Closed",closeTicket:"Close",reopenTicket:"Reopen",itemSearchNoResults:"No matching games.",noTickets:"No tickets yet.",noAnnouncements:"No notices yet.",credentials:"Local preview only.",statusTitle:"V17 connectivity",statusMessage:"Local database and demo APIs can be checked; original production site, games and payments are not connected.",badResponse:"Service unavailable",noUsers:"No registered members.",notReady:"Not connected",save:"Save",identity:"MASTER7 ID and mobile number"
+  },
+  ms: {
+-  requestTimeout:"Permintaan tamat masa; hasil belum disahkan. Semak sambungan dan rekod sebelum mencuba lagi.",networkError:"Tidak dapat menghubungi perkhidmatan. Semak sambungan dan cuba lagi.",serviceUnavailable:"Perkhidmatan tidak tersedia buat sementara waktu. Sila cuba lagi kemudian.",
++  requestTimeout:"Permintaan tamat masa; hasil belum disahkan. Semak sambungan dan rekod sebelum mencuba lagi.",networkError:"Tidak dapat menghubungi perkhidmatan. Semak sambungan dan cuba lagi.",serviceUnavailable:"Perkhidmatan tidak tersedia buat sementara waktu. Sila cuba lagi kemudian.",otpNotConfigured:"OTP SMS belum dikonfigurasikan pada pelayan. Hubungi pemilik platform.",
+   demoWarning:"MASTER7 · Permainan premium, ganjaran ahli dan perkhidmatan",navHome:"Utama",lobbyEyebrow:"LOBI PERMAINAN",gamesLoading:"Memuatkan permainan pilihan…",catalogSummary:"{count} permainan tersedia di lobi. Pilih jenama atau kategori untuk meneroka.",catalogUnavailable:"Katalog permainan pembekal belum tersedia.",providerAvailable:"Tersedia",providerBlocked:"Penyelenggaraan",providerUnavailable:"Tidak tersedia sementara",providerEmpty:"Akan datang",providerNotConfigured:"Akan datang",uatNotPlayable:"Akan datang",maintenanceGame:"Maintenance",gameActivePreview:"Permainan pilihan",navLobby:"Lobi permainan",navDeposit:"Deposit",navWithdraw:"Pengeluaran",withdrawTitle:"Pengeluaran",withdrawIntro:"Pilih bank Malaysia dan salah satu daripada empat syarikat, kemudian hantar permintaan pengeluaran.",depositTitle:"Deposit",depositIntro:"Pilihan pembayaran dan rekod deposit dikumpulkan di halaman ini.",navSupport:"Bantuan",navAdmin:"Pentadbir",language:"Bahasa",login:"Log masuk",logout:"Log keluar",eyebrow:"MASTER7 · PENGALAMAN PREMIUM",heroTitle:"Permainan premium",heroAccent:"Satu pengalaman MASTER7.",heroDescription:"Terokai slot, kasino langsung, memancing dan sukan bersama ganjaran serta khidmat ahli.",explore:"Terokai permainan",viewStatus:"Status platform",previewLabel:"Platform ahli premium",featureLang:"Tiga bahasa",featureLangDesc:"Cina, Inggeris dan Melayu",featureOtp:"Pengesahan dua langkah",featureOtpDesc:"ID MASTER7 + telefon Malaysia; SMS OTP belum disambung",featureStaff:"Akses kakitangan",featureStaffDesc:"Peranan pemilik, staf dan ahli",featureAudit:"Rekod audit",featureAuditDesc:"Kelulusan dan perubahan boleh dijejak",announcements:"Pengumuman",loading:"Memuatkan…",lobbyTitle:"Lobi permainan",lobbyNotice:"Terokai jenama pilihan, slot, kasino langsung, memancing dan sukan dalam satu lobi premium. Semak ganjaran dan rekod ahli pada bila-bila masa.",searchPlaceholder:"Cari permainan atau pembekal",allCategories:"Semua kategori",slots:"Slot",arcade:"Arked",tableGames:"Meja",live:"Langsung",sports:"Sukan",supportTitle:"Pusat bantuan",supportIntro:"Hantar permintaan dan lihat balasan bantuan di sini.",newTicket:"Tiket baharu",subject:"Tajuk",message:"Mesej",submitTicket:"Hantar permintaan",ticketLogin:"Log masuk untuk menghantar tiket.",myTickets:"Sejarah tiket",loginFirst:"Sila log masuk dahulu.",adminTitle:"Panel pentadbiran",adminIntro:"Akaun ujian sahaja; data laman asal tidak diakses.",staffOnly:"Akses staf sahaja",publishAnnouncement:"Terbit pengumuman ujian",publish:"Terbit",providerManager:"Urus katalog demo",providerManagerHint:"Muat naik gambar tajaan berasingan bagi JILI, MEGAH5 dan 918KISS, kemudian kawal paparan setiap tile.",memberApproval:"Kelulusan ahli",auditTrail:"Log audit",adminDenied:"Log masuk sebagai pemilik atau staf.",footerDisclaimer:"Tiada permainan, deposit, pengeluaran atau pembayaran sebenar dalam pratonton ini.",sandbox:"PRATONTON BERASINGAN · TIADA TRANSAKSI SEBENAR",signInTitle:"Log masuk ahli",signIn:"Log masuk",register:"Daftar",username:"Nama pengguna",password:"Kata laluan (minimum 6 aksara)",otp:"Pengesahan SMS",otpNote:"Pengesahan SMS belum disambungkan dalam staging ini. Ahli baharu perlu kelulusan pemilik.",demoOnly:"Demo · Tidak boleh dimainkan",hidden:"Disembunyikan",visible:"Dipaparkan",loginRequired:"Sila log masuk dahulu.",success:"Berjaya disimpan",error:"Tindakan tidak selesai",registerSaved:"Akaun didaftarkan; menunggu kelulusan pemilik.",neverShare:"Jangan kongsi rahsia OTP.",authError:"Log masuk gagal. Semak ID, nombor telefon, kata laluan atau kelulusan.",role_owner:"Pemilik",role_staff:"Staf",role_member:"Ahli",users:"Jumlah akaun",pending:"Menunggu kelulusan",openTickets:"Tiket terbuka",visibleProviders:"Item katalog",demoFunds:"Data kewangan sebenar tidak disambungkan",approve:"Lulus",approved:"Diluluskan",open:"Terbuka",closed:"Ditutup",closeTicket:"Tutup",reopenTicket:"Buka semula",itemSearchNoResults:"Tiada permainan yang sepadan.",noTickets:"Belum ada tiket.",noAnnouncements:"Belum ada pengumuman.",credentials:"Untuk ujian setempat sahaja.",statusTitle:"Sambungan V17",statusMessage:"Pangkalan data setempat dan API demo boleh diperiksa; laman asal, permainan dan pembayaran belum disambungkan.",badResponse:"Perkhidmatan tidak tersedia",noUsers:"Belum ada ahli.",notReady:"Belum disambungkan",save:"Simpan",identity:"ID MASTER7 dan nombor telefon"
+  }
+ };
+@@ -19,9 +19,9 @@
+ const hostedCopy={"zh": {"demoWarning": "MASTER7 · 热门游戏、专属优惠与会员服务", "previewLabel": "尊贵会员平台", "featureOtp": "会员登录", "featureOtpDesc": "MASTER7 ID、马来西亚手机号与短信 OTP", "supportIntro": "创建工单并在这里接收员工回复。", "submitTicket": "提交工单", "ticketLogin": "登录并通过会员审批后可提交工单。", "adminIntro": "管理本门户的会员、员工、公告和工单。", "publishAnnouncement": "发布公告", "footerDisclaimer": "会员可在一个平台查看游戏、钱包、优惠、充值、提款与客服记录。", "sandbox": "MASTER7 · PREMIUM MEMBER CLUB", "statusMessage": "会员服务运行中。", "memberApproval": "会员审批与员工授权", "hostedLogin": "会员登录", "hostedLoginNotice": "首次登录建立本门户的独立账号。会员需老板审批；员工权限由老板授予。", "refreshRecords": "刷新记录", "staffInstruction": "员工先登录，再由老板在此批准和授权。", "exportRecords": "导出门户数据", "accountPending": "账号已建立，正在等待老板审批。审批后刷新页面即可使用客服。", "reply": "回复内容", "sendReply": "发送回复", "makeStaff": "授权为员工", "removeStaff": "取消员工权限", "credentials": "通过会员登录访问本门户。"}, "en": {"demoWarning": "MASTER7 · Premium games, member rewards and service", "previewLabel": "Premium member platform", "featureOtp": "Member sign-in", "featureOtpDesc": "MASTER7 ID, Malaysian mobile and SMS OTP", "supportIntro": "Create a ticket and receive replies from our staff.", "submitTicket": "Submit ticket", "ticketLogin": "Sign in and await member approval to submit a ticket.", "adminIntro": "Manage this portal’s members, staff, announcements and tickets.", "publishAnnouncement": "Publish announcement", "footerDisclaimer": "Games, wallet, rewards, deposits, withdrawals and support in one member platform.", "sandbox": "MASTER7 · PREMIUM MEMBER CLUB", "statusMessage": "Member services are available.", "memberApproval": "Member approval and staff access", "hostedLogin": "Member sign-in", "hostedLoginNotice": "Your first sign-in creates a portal account. The owner approves members and grants staff access.", "refreshRecords": "Refresh records", "staffInstruction": "Staff sign in first, then the owner grants access here.", "exportRecords": "Export portal records", "accountPending": "Your account is awaiting owner approval. Refresh after approval to use support.", "reply": "Reply message", "sendReply": "Send reply", "makeStaff": "Grant staff access", "removeStaff": "Remove staff access", "credentials": "Member sign-in for this portal."}, "ms": {"demoWarning": "MASTER7 · Permainan premium, ganjaran ahli dan perkhidmatan", "previewLabel": "Platform ahli premium", "featureOtp": "Log masuk ahli", "featureOtpDesc": "ID MASTER7, telefon Malaysia dan OTP SMS", "supportIntro": "Cipta tiket dan terima balasan kakitangan di sini.", "submitTicket": "Hantar tiket", "ticketLogin": "Log masuk dan tunggu kelulusan ahli untuk menghantar tiket.", "adminIntro": "Urus ahli, kakitangan, pengumuman dan tiket portal ini.", "publishAnnouncement": "Terbitkan pengumuman", "footerDisclaimer": "Permainan, dompet, ganjaran, deposit, pengeluaran dan bantuan dalam satu platform ahli.", "sandbox": "MASTER7 · PREMIUM MEMBER CLUB", "statusMessage": "Perkhidmatan ahli tersedia.", "memberApproval": "Kelulusan ahli dan akses kakitangan", "hostedLogin": "Log masuk ahli", "hostedLoginNotice": "Log masuk pertama mencipta akaun portal. Pemilik meluluskan ahli dan akses kakitangan.", "refreshRecords": "Muat semula rekod", "staffInstruction": "Kakitangan log masuk dahulu, kemudian pemilik memberi akses di sini.", "exportRecords": "Eksport rekod portal", "accountPending": "Akaun menunggu kelulusan pemilik. Muat semula selepas kelulusan.", "reply": "Mesej balasan", "sendReply": "Hantar balasan", "makeStaff": "Beri akses kakitangan", "removeStaff": "Buang akses kakitangan", "credentials": "Log masuk ahli untuk portal ini."}};
+ for(const lang of Object.keys(hostedCopy))Object.assign(translations[lang],hostedCopy[lang]);
+ const passwordCopy={
+- zh:{malaysiaPhone:"马来西亚手机号码",phoneOtpPending:"输入 ID 和手机号码，再用短信 OTP 登录。",otpLabel:"短信验证码",sendOtp:"发送验证码",resendOtp:"重新发送验证码",otpSent:"验证码已提交，请查收短信。",portalId:"MASTER7 ID",password:"密码",accountSecurity:"账号安全",currentPassword:"当前密码",confirmPassword:"确认新密码",newPassword:"新密码（至少 6 个字符）",activationCode:"一次性激活码",activateTitle:"激活老板账号",activateSubmit:"设置密码并激活",activateNotice:"老板 ID：master7_owner。输入交接激活码，并设置只有你知道的密码。激活码只能使用一次。",loginNotice:"顾客前台只使用 MASTER7 ID、马来西亚手机号码和短信 OTP。后台拥有者使用 ID 与密码。",registerNotice:"顾客自己输入 MASTER7 ID、马来西亚手机号码和短信 OTP 注册；不会取得后台权限。",securityNotice:"可修改登录 ID 和密码。保存后，使用此 ID 登录的设备会退出。",createMember:"注册会员 ID",backToLogin:"返回登录",saveAccount:"保存并退出此 ID",passwordMismatch:"两次输入的密码不一致。",activationDone:"老板账号已激活。请使用刚设置的密码登录。",registrationDone:"会员 ID 已建立。登录后等待老板审批。",passwordChanged:"账号已更新，请使用新 ID 和密码登录。",busy:"处理中…",featureOtpDesc:"MASTER7 ID、马来西亚手机号与短信 OTP",securityHelp:"忘记密码请联系站点所有者核实身份；本站不会通过聊天索取密码。"},
+- en:{malaysiaPhone:"Malaysian mobile number",phoneOtpPending:"Enter your ID and mobile number, then sign in with the SMS OTP.",otpLabel:"SMS verification code",sendOtp:"Send verification code",resendOtp:"Resend verification code",otpSent:"Code submitted. Check your SMS messages.",portalId:"MASTER7 ID",password:"Password",accountSecurity:"Account security",currentPassword:"Current password",confirmPassword:"Confirm new password",newPassword:"New password (at least 6 characters)",activationCode:"One-time activation code",activateTitle:"Activate owner account",activateSubmit:"Set password and activate",activateNotice:"Owner ID: master7_owner. Enter your handover code and set your own password. The code can only be used once.",loginNotice:"Customer access uses only MASTER7 ID, Malaysian mobile number and SMS OTP. The owner uses ID and password in the backoffice.",registerNotice:"Customers register themselves with a MASTER7 ID, Malaysian mobile number and SMS OTP. Registration never grants backoffice access.",securityNotice:"Change your login ID and password. Saving signs out all sessions for this ID.",createMember:"Register member ID",backToLogin:"Back to sign-in",saveAccount:"Save and sign out this ID",passwordMismatch:"The passwords do not match.",activationDone:"Owner account activated. Sign in with the password you just set.",registrationDone:"Member ID created. Sign in and await owner approval.",passwordChanged:"Account updated. Sign in with your new ID and password.",busy:"Working…",featureOtpDesc:"MASTER7 ID, Malaysian mobile and SMS OTP",securityHelp:"Forgot your password? Contact the site owner to verify your identity. Never send your password in chat."},
+- ms:{malaysiaPhone:"Nombor telefon mudah alih Malaysia",phoneOtpPending:"Masukkan ID dan nombor telefon, kemudian log masuk dengan OTP SMS.",otpLabel:"Kod pengesahan SMS",sendOtp:"Hantar kod pengesahan",resendOtp:"Hantar semula kod",otpSent:"Kod dihantar. Semak mesej SMS anda.",portalId:"ID MASTER7",password:"Kata laluan",accountSecurity:"Keselamatan akaun",currentPassword:"Kata laluan semasa",confirmPassword:"Sahkan kata laluan baharu",newPassword:"Kata laluan baharu (sekurang-kurangnya 6 aksara)",activationCode:"Kod pengaktifan sekali guna",activateTitle:"Aktifkan akaun pemilik",activateSubmit:"Tetapkan kata laluan dan aktifkan",activateNotice:"ID pemilik: master7_owner. Masukkan kod serahan dan tetapkan kata laluan sendiri. Kod hanya boleh digunakan sekali.",loginNotice:"Pelanggan hanya menggunakan ID MASTER7, nombor telefon Malaysia dan OTP SMS. Pemilik menggunakan ID dan kata laluan di panel pentadbir.",registerNotice:"Pelanggan mendaftar sendiri dengan ID MASTER7, nombor telefon Malaysia dan OTP SMS. Pendaftaran tidak memberi akses pentadbir.",securityNotice:"Tukar ID dan kata laluan. Semua sesi ID ini akan dilog keluar.",createMember:"Daftar ID ahli",backToLogin:"Kembali ke log masuk",saveAccount:"Simpan dan log keluar ID ini",passwordMismatch:"Kata laluan tidak sepadan.",activationDone:"Akaun pemilik diaktifkan. Log masuk dengan kata laluan baharu.",registrationDone:"ID ahli dicipta. Log masuk dan tunggu kelulusan pemilik.",passwordChanged:"Akaun dikemas kini. Log masuk dengan ID dan kata laluan baharu.",busy:"Memproses…",featureOtpDesc:"ID MASTER7, telefon Malaysia dan OTP SMS",securityHelp:"Terlupa kata laluan? Hubungi pemilik laman untuk pengesahan identiti. Jangan hantar kata laluan melalui sembang."}
++ zh:{memberBrand:"MEMBER LOUNGE",memberBadge:"会员专属入口",memberTagline:"你的专属游戏大厅",malaysiaPhone:"马来西亚手机号码",phoneOtpPending:"短信验证码将发送到这个号码。",otpPrerequisites:"请先填写 ID、密码和马来西亚手机号。",otpLabel:"短信验证码",sendOtp:"发送验证码",resendOtp:"重新发送验证码",otpSent:"验证码已提交，请查收短信。",portalId:"MASTER7 ID",password:"密码",accountSecurity:"账号安全",currentPassword:"当前密码",confirmPassword:"确认密码",newPassword:"新密码（至少 6 个字符）",activationCode:"一次性激活码",activateTitle:"激活老板账号",activateSubmit:"设置密码并激活",activateNotice:"老板 ID：master7_owner。输入交接激活码，并设置只有你知道的密码。激活码只能使用一次。",loginNotice:"欢迎回来。登录后即可进入 MASTER7 游戏大厅。",registerNotice:"创建你的 MASTER7 会员账号，完成手机验证后即可进入大厅。",securityNotice:"可修改登录 ID 和密码。保存后，使用此 ID 登录的设备会退出。",createMember:"注册会员 ID",backToLogin:"返回登录",saveAccount:"保存并退出此 ID",passwordMismatch:"两次输入的密码不一致。",activationDone:"老板账号已激活。请使用刚设置的密码登录。",registrationDone:"会员 ID 已建立。用 ID、密码和短信 OTP 登录；账号需等待老板审批。",passwordChanged:"账号已更新，请使用新 ID 和密码登录。",busy:"处理中…",featureOtpDesc:"MASTER7 会员登录与手机验证",securityHelp:"忘记密码请联系站点所有者核实身份；本站不会通过聊天索取密码。"},
++ en:{memberBrand:"MEMBER LOUNGE",memberBadge:"MEMBER ACCESS",memberTagline:"Your own place to play",malaysiaPhone:"Malaysian mobile number",phoneOtpPending:"A verification code will be sent to this number.",otpPrerequisites:"Enter your ID, password and Malaysian mobile first.",otpLabel:"SMS verification code",sendOtp:"Send verification code",resendOtp:"Resend verification code",otpSent:"Code submitted. Check your SMS messages.",portalId:"MASTER7 ID",password:"Password",accountSecurity:"Account security",currentPassword:"Current password",confirmPassword:"Confirm password",newPassword:"New password (at least 6 characters)",activationCode:"One-time activation code",activateTitle:"Activate owner account",activateSubmit:"Set password and activate",activateNotice:"Owner ID: master7_owner. Enter your handover code and set your own password. The code can only be used once.",loginNotice:"Welcome back. Sign in to enter the MASTER7 games lobby.",registerNotice:"Create your MASTER7 member account and verify your mobile to enter the lobby.",securityNotice:"Change your login ID and password. Saving signs out all sessions for this ID.",createMember:"Register member ID",backToLogin:"Back to sign-in",saveAccount:"Save and sign out this ID",passwordMismatch:"The passwords do not match.",activationDone:"Owner account activated. Sign in with the password you just set.",registrationDone:"Member ID created. Sign in with ID, password and SMS OTP; the account awaits owner approval.",passwordChanged:"Account updated. Sign in with your new ID and password.",busy:"Working…",featureOtpDesc:"MASTER7 member sign-in and mobile verification",securityHelp:"Forgot your password? Contact the site owner to verify your identity. Never send your password in chat."},
++ ms:{memberBrand:"LOBI AHLI",memberBadge:"AKSES AHLI",memberTagline:"Ruang permainan khas anda",malaysiaPhone:"Nombor telefon mudah alih Malaysia",phoneOtpPending:"Kod pengesahan akan dihantar ke nombor ini.",otpPrerequisites:"Masukkan ID, kata laluan dan nombor telefon Malaysia dahulu.",otpLabel:"Kod pengesahan SMS",sendOtp:"Hantar kod pengesahan",resendOtp:"Hantar semula kod",otpSent:"Kod dihantar. Semak mesej SMS anda.",portalId:"ID MASTER7",password:"Kata laluan",accountSecurity:"Keselamatan akaun",currentPassword:"Kata laluan semasa",confirmPassword:"Sahkan kata laluan",newPassword:"Kata laluan baharu (sekurang-kurangnya 6 aksara)",activationCode:"Kod pengaktifan sekali guna",activateTitle:"Aktifkan akaun pemilik",activateSubmit:"Tetapkan kata laluan dan aktifkan",activateNotice:"ID pemilik: master7_owner. Masukkan kod serahan dan tetapkan kata laluan sendiri. Kod hanya boleh digunakan sekali.",loginNotice:"Selamat kembali. Log masuk untuk masuk ke lobi permainan MASTER7.",registerNotice:"Cipta akaun ahli MASTER7 dan sahkan nombor telefon untuk masuk ke lobi.",securityNotice:"Tukar ID dan kata laluan. Semua sesi ID ini akan dilog keluar.",createMember:"Daftar ID ahli",backToLogin:"Kembali ke log masuk",saveAccount:"Simpan dan log keluar ID ini",passwordMismatch:"Kata laluan tidak sepadan.",activationDone:"Akaun pemilik diaktifkan. Log masuk dengan kata laluan baharu.",registrationDone:"ID ahli dicipta. Log masuk dengan ID, kata laluan dan OTP SMS; akaun menunggu kelulusan pemilik.",passwordChanged:"Akaun dikemas kini. Log masuk dengan ID dan kata laluan baharu.",busy:"Memproses…",featureOtpDesc:"Log masuk ahli MASTER7 dan pengesahan telefon",securityHelp:"Terlupa kata laluan? Hubungi pemilik laman untuk pengesahan identiti. Jangan hantar kata laluan melalui sembang."}
+ };
+ for(const lang of Object.keys(passwordCopy))Object.assign(translations[lang],passwordCopy[lang]);
+ const activationCopy={
+@@ -389,7 +389,7 @@
+  }catch(error){activationToSignIn(error.message,"");}
+ }
+ function renderAuthMode(){
+- const mode=state.authMode,customerEntry=location.pathname!=="/admin",customerOtp=customerEntry&&(mode==="login"||mode==="register"),passwordMode=!customerOtp,creating=passwordMode&&mode!=="login";
++ const mode=state.authMode,customerEntry=location.pathname!=="/admin",customerOtp=customerEntry&&(mode==="login"||mode==="register"),passwordMode=true,creating=passwordMode&&mode!=="login";
+  $("authDialog").classList.toggle("customer-auth",customerEntry);$("authDialog").classList.toggle("admin-auth",!customerEntry);$("authEyebrow").textContent=customerEntry?"MEMBER ACCESS":"OWNER ACCESS";
+  $("authTitle").textContent=t(mode==="reset"?"resetTitle":mode==="activate"?"activateTitle":mode==="security"?"accountSecurity":mode==="register"?"createMember":"signInTitle");
+  $("authNotice").textContent=t(mode==="reset"?"resetNotice":mode==="activate"?"activateNotice":mode==="security"?"securityNotice":mode==="register"?"registerNotice":"loginNotice");
+@@ -398,7 +398,7 @@
+  $("activationField").hidden=mode!=="activate"&&mode!=="reset";$("activationCode").required=mode==="activate"||mode==="reset";
+  $("codeLabel").textContent=t(mode==="reset"?"resetCode":"activationCode");
+  $("currentPasswordField").hidden=mode!=="security";$("currentPassword").required=mode==="security";
+- $("passwordField").hidden=!passwordMode;$("passwordLabel").textContent=t(creating?"newPassword":"password");
++ $("passwordField").hidden=!passwordMode;$("passwordLabel").textContent=t(customerEntry&&mode==="register"?"password":creating?"newPassword":"password");
+  $("authPassword").required=passwordMode;$("authPassword").autocomplete=creating?"new-password":"current-password";$("authPassword").minLength=creating?6:1;
+  $("confirmPasswordField").hidden=!creating;$("confirmPassword").required=creating;
+  $("showPasswordField").hidden=!creating;
+@@ -411,7 +411,7 @@
+  $("adminSignIn").onclick=()=>showAuth();$("accountSecurity").onclick=()=>showAuth("security");
+  $("registerToggle").onclick=()=>showAuth(state.authMode==="login"?"register":"login");
+  $("memberPhone").addEventListener("input",()=>{state.otpChallenge=null;$("memberOtp").value="";if(["login","register"].includes(state.authMode))renderAuthMode();});
+- $("sendOtpButton").onclick=async()=>{const button=$("sendOtpButton");button.disabled=true;$("authFeedback").textContent="";try{const result=await api("/api/auth/otp/send","POST",{phone:$("memberPhone").value.trim(),username:$("authUsername").value.trim(),purpose:state.authMode==="login"?"login":"register"});state.otpChallenge=result.challengeId;$("memberOtp").value="";$("authFeedback").textContent=t("otpSent");renderAuthMode();}catch(error){$("authFeedback").textContent=error.message;}finally{if(!state.otpChallenge)button.disabled=false;}};
++ $("sendOtpButton").onclick=async()=>{const button=$("sendOtpButton");if(!$("authUsername").value.trim()||!$("authPassword").value||!$("memberPhone").value.trim()){ $("authFeedback").textContent=t("otpPrerequisites");return;}button.disabled=true;$("authFeedback").textContent="";try{const options=await api("/api/auth/options");if(options.smsOtpReady!==true)throw new Error(t("otpNotConfigured"));const result=await api("/api/auth/otp/send","POST",{phone:$("memberPhone").value.trim(),username:$("authUsername").value.trim(),password:$("authPassword").value,purpose:state.authMode==="login"?"login":"register"});state.otpChallenge=result.challengeId;$("memberOtp").value="";$("authFeedback").textContent=t("otpSent");renderAuthMode();}catch(error){$("authFeedback").textContent=error.message;}finally{if(!state.otpChallenge)button.disabled=false;}};
+  $("authDialog").addEventListener("close",()=>$("passwordForm").reset());
+  $("showPasswords").onchange=()=>{$("authPassword").type=$("confirmPassword").type=$("showPasswords").checked?"text":"password";};
+  for(const id of ["authPassword","confirmPassword"] )$(id).addEventListener("input",()=>{
+@@ -422,18 +422,18 @@
+  $("passwordForm").addEventListener("submit",async e=>{
+   e.preventDefault();const mode=state.authMode,username=$("authUsername").value.trim(),pass=$("authPassword").value,phone=$("memberPhone").value.trim();
+   const customerOtp=location.pathname!=="/admin"&&(mode==="login"||mode==="register");
+-  if(!customerOtp&&mode!=="login"&&pass!==$("confirmPassword").value){$("authFeedback").textContent=t("passwordMismatch");return;}
++  if(mode!=="login"&&pass!==$("confirmPassword").value){$("authFeedback").textContent=t("passwordMismatch");return;}
+   const submit=$("authSubmit");submit.disabled=true;submit.textContent=t("busy");$("authFeedback").textContent="";
+   try{
+    if(mode==="login"){
+-    if(customerOtp)await api("/api/auth/otp/login","POST",{username,phone,challengeId:state.otpChallenge,otp:$("memberOtp").value.trim()});
++    if(customerOtp)await api("/api/auth/otp/login","POST",{username,password:pass,phone,challengeId:state.otpChallenge,otp:$("memberOtp").value.trim()});
+     else await api("/api/auth/login","POST",{username,password:pass});
+     await refreshSession();if(!state.user)throw new Error(t("sessionMissing"));$("authDialog").close();await loadPublic();await refreshTickets();
+-    if(state.user&&(state.user.role==="owner"||state.user.role==="staff")){history.replaceState(null,"","/admin");selected("admin");}else{history.replaceState(null,"","/");selected("support");}
++    if(state.user&&(state.user.role==="owner"||state.user.role==="staff")){history.replaceState(null,"","/admin");selected("admin");}else{history.replaceState(null,"","/");selected("lobby");}
+    }else if(mode==="activate"){
+     const result=await api("/api/auth/activate","POST",{code:$("activationCode").value.trim(),password:pass});activationToSignIn(t("activationDone"),result.username);
+    }else if(mode==="register"){
+-    await api("/api/auth/register","POST",{username,phone,challengeId:state.otpChallenge,otp:$("memberOtp").value.trim()});showAuth("login");$("authUsername").value=username;$("memberPhone").value=phone;$("authFeedback").textContent=t("registrationDone");
++    await api("/api/auth/register","POST",{username,password:pass,phone,challengeId:state.otpChallenge,otp:$("memberOtp").value.trim()});showAuth("login");$("authUsername").value=username;$("memberPhone").value=phone;$("authFeedback").textContent=t("registrationDone");
+    }else if(mode==="reset"){
+     const result=await api("/api/auth/reset-owner","POST",{code:$("activationCode").value.trim(),password:pass});
+     state.user=null;state.csrf=null;state.authMethod=null;state.tickets=[];renderSession();renderTickets();
+@@ -461,5 +461,6 @@
+  else if(location.pathname==="/signin")showAuth();
+  else if(location.pathname==="/register")showAuth("register");
+  try{await refreshSession();}catch{renderSession();}
++ if(!state.user&&(location.pathname==="/signin"||location.pathname==="/register"))return;
+  await loadPublic();if(state.user)await refreshTickets();if(state.section==="admin")renderAdmin();
+ })();
+--- a/master7-v17-render-staging/public/assets/style.css
++++ b/master7-v17-render-staging/public/assets/style.css
+@@ -969,7 +969,7 @@
+ .withdraw-admin-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #3d3426}
+ .withdraw-admin-info strong,.withdraw-admin-info small{display:block;overflow-wrap:anywhere}.withdraw-admin-info small{margin-top:5px;color:var(--muted)}
+ 
+-/* Compact MASTER7 access card: simple member OTP and owner password entry. */
++/* MASTER7 member access card and owner password entry. */
+ #authDialog {
+   position: relative;
+   width: min(390px, calc(100vw - 28px));
+@@ -1030,3 +1030,49 @@
+ }
+ .withdraw-actions{display:flex;flex-wrap:wrap;gap:7px;justify-content:flex-end}
+ @media(max-width:850px){.withdraw-layout{grid-template-columns:1fr}.withdraw-admin-row{grid-template-columns:1fr}.withdraw-actions{justify-content:flex-start}}
++
++body.auth-entry>:not(#authDialog){display:none!important}body.auth-entry #authDialog[open]{width:min(480px,calc(100vw - 24px));max-width:none;max-height:calc(100dvh - 24px);margin:auto}body.auth-entry #authDialog::backdrop{background:#050912;backdrop-filter:none}
++
++
++/* Branded sign-in gate: the public entry feels like the same MASTER7 product as the lobby. */
++body.auth-entry{position:relative;min-height:100svh;overflow:hidden;background:#060a13;color:#f7f3e9;isolation:isolate}
++body.auth-entry::before,body.auth-entry::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1}
++body.auth-entry::before{background:radial-gradient(ellipse at 50% 9%,#1d4d8960 0%,transparent 42%),radial-gradient(ellipse at 16% 73%,#b8833026 0%,transparent 36%),radial-gradient(ellipse at 88% 76%,#315ed338 0%,transparent 38%),linear-gradient(150deg,#080d18 0%,#0c1424 52%,#090b13 100%);animation:master7-entry-ambient 14s ease-in-out infinite alternate}
++body.auth-entry::after{opacity:.2;background-image:url("/assets/seven-emblem.png"),repeating-linear-gradient(128deg,transparent 0 47px,#d6b96d0a 48px,#d6b96d0a 49px,transparent 50px 105px);background-size:min(66vw,480px) auto,auto;background-position:center 52%,center;background-repeat:no-repeat,repeat;mask-image:linear-gradient(transparent 2%,#000 35%,#000 78%,transparent)}
++@keyframes master7-entry-ambient{from{transform:scale(1);filter:saturate(.95)}to{transform:scale(1.04);filter:saturate(1.22)}}
++body.auth-entry #authDialog.customer-auth{width:min(456px,calc(100vw - 24px));max-height:calc(100dvh - 24px);padding:28px clamp(20px,5vw,34px) 24px;border:1px solid transparent;border-radius:28px;background:linear-gradient(155deg,#101a2df7,#0a101df8 72%,#111321f7) padding-box,linear-gradient(135deg,#e6c66e,#698fd9 38%,#33466c 65%,#b48a44) border-box;box-shadow:0 34px 110px #000c,0 0 56px #376fbb20,inset 0 1px #fff2;backdrop-filter:blur(18px)}
++body.auth-entry #authDialog.customer-auth .auth-glow{inset:0 12% auto;width:76%;height:2px;border-radius:50%;background:linear-gradient(90deg,transparent,#f4d784,#69b9e8,#f4d784,transparent);box-shadow:0 0 22px #efce7870}
++body.auth-entry #authDialog.customer-auth .member-auth-hero{display:flex;align-items:center;gap:13px;margin:0 0 14px}
++.member-auth-hero{display:none}
++body.auth-entry #authDialog.customer-auth .member-auth-logo{width:64px;height:60px;display:grid;place-items:center;flex:0 0 auto;border:1px solid #5476a6;border-radius:17px;background:linear-gradient(145deg,#122642,#101828);box-shadow:inset 0 1px #fff2,0 10px 28px #0007,0 0 24px #4c8fe029}
++.member-auth-logo img{width:54px;height:49px;object-fit:contain;filter:drop-shadow(0 3px 8px #3b91ff70)}
++.member-auth-wordmark{display:grid;gap:3px;min-width:0}
++.member-auth-wordmark strong{color:#fff;font-size:21px;font-weight:950;letter-spacing:.12em;line-height:1;text-shadow:0 2px 20px #4c86c86b}
++.member-auth-wordmark span{color:#ddc77f;font-size:9px;font-weight:800;letter-spacing:.22em}
++.member-auth-badge{margin-left:auto;padding:7px 10px;border:1px solid #6c5b38;border-radius:999px;background:#b68b3717;color:#ebd391;font-size:9px;font-weight:800;letter-spacing:.08em;white-space:nowrap}
++body.auth-entry #authDialog.customer-auth .member-auth-tagline{margin:0 0 19px;padding:0 0 15px;border-bottom:1px solid #ffffff17;color:#dce7f6;font-size:14px;font-weight:700;letter-spacing:.02em}
++body.auth-entry #authDialog.customer-auth .dialog-head{padding-right:0}
++body.auth-entry #authDialog.customer-auth .lock-brand,body.auth-entry #closeAuth{display:none}
++body.auth-entry #authDialog.customer-auth .dialog-head h2{font-size:26px;letter-spacing:-.025em}
++body.auth-entry #authDialog.customer-auth .dialog-head .eyebrow{color:#d8bd71;font-size:9px;letter-spacing:.2em}
++body.auth-entry #authDialog.customer-auth #authNotice{margin:9px 0 18px;color:#b9c5d7;font-size:13px;line-height:1.6}
++body.auth-entry #authDialog.customer-auth #passwordForm{gap:13px}
++body.auth-entry #authDialog.customer-auth #usernameField{order:1}
++body.auth-entry #authDialog.customer-auth #passwordField{order:2}
++body.auth-entry #authDialog.customer-auth #confirmPasswordField,body.auth-entry #authDialog.customer-auth #showPasswordField,body.auth-entry #authDialog.customer-auth #passwordMatch{order:3}
++body.auth-entry #authDialog.customer-auth #phoneField{order:4}
++body.auth-entry #authDialog.customer-auth #phoneOtpNote{order:5}
++body.auth-entry #authDialog.customer-auth #otpFields{order:6}
++body.auth-entry #authDialog.customer-auth #activationField,body.auth-entry #authDialog.customer-auth #currentPasswordField{order:7}
++body.auth-entry #authDialog.customer-auth #authFeedback{order:8}
++body.auth-entry #authDialog.customer-auth #authSubmit{order:9;min-height:50px;border:1px solid #e7cb78;background:linear-gradient(110deg,#255fc3 0%,#327fda 34%,#485fd1 68%,#a87837 100%);box-shadow:0 9px 30px #275bbd38,inset 0 1px #ffffff38;color:#fff;font-size:15px;font-weight:900;letter-spacing:.035em}
++body.auth-entry #authDialog.customer-auth #sendOtpButton{border-color:#526e9a;background:linear-gradient(110deg,#152844,#1d2540);color:#e5edf9}
++body.auth-entry #authDialog.customer-auth #passwordForm input{border-color:#364a67;background:#080e1b;color:#fff}
++body.auth-entry #authDialog.customer-auth #passwordForm input:focus{border-color:#e3c875;box-shadow:0 0 0 3px #e3c87522,0 0 24px #418be322}
++body.auth-entry #authDialog.customer-auth .otp-phone-note{border-color:#334661;background:#0d1727;color:#b6c6da}
++body.auth-entry #authDialog.customer-auth .otp-dot{background:#e7cc7a;box-shadow:0 0 10px #e7cc7a}
++body.auth-entry #authDialog.customer-auth .auth-secondary{margin-top:14px}
++body.auth-entry #authDialog.customer-auth .auth-secondary .button{color:#aab8ce;letter-spacing:.025em}
++body.auth-entry #authDialog.customer-auth .auth-secondary .button:hover{color:#f5db8e;background:#ffffff08}
++@media(max-width:520px){body.auth-entry #authDialog.customer-auth{padding:23px 19px 20px;border-radius:24px}body.auth-entry #authDialog.customer-auth .member-auth-hero{gap:11px}.member-auth-wordmark strong{font-size:19px}.member-auth-badge{padding:6px 8px;font-size:8px}body.auth-entry #authDialog.customer-auth .dialog-head h2{font-size:23px}}
++@media(max-height:700px){body.auth-entry #authDialog.customer-auth{padding-top:19px;padding-bottom:17px}body.auth-entry #authDialog.customer-auth .member-auth-logo{width:48px;height:46px}.member-auth-logo img{width:42px;height:37px}body.auth-entry #authDialog.customer-auth .member-auth-tagline{margin-bottom:12px;padding-bottom:11px}body.auth-entry #authDialog.customer-auth #authNotice{margin:6px 0 12px}body.auth-entry #authDialog.customer-auth #passwordForm{gap:9px}}
+--- a/master7-v17-render-staging/tests/activation-ui.test.mjs
++++ b/master7-v17-render-staging/tests/activation-ui.test.mjs
+@@ -13,14 +13,14 @@
+  runInContext('api=async(url,method="GET")=>{requests.push({url,method});if(options instanceof Error)throw options;return options;}',context);
+  return {context,get,requests,path:()=>path,run:code=>runInContext(code,context)};
+ }
+-test('direct registration route asks only for member ID, Malaysian phone and OTP',async()=>{
++test('direct registration route asks for member ID, password, Malaysian phone and OTP',async()=>{
+  const f=fixture({ownerSetupComplete:true},'/register');
+  f.run('bind=bindPasswordAuth=bindPaymentPreview=bindBonusBrandPreview=applyLang=renderSession=renderAdmin=()=>{};refreshSession=loadPublic=refreshTickets=async()=>{};');
+  await f.run(fullSource.slice(source.length));
+  assert.equal(f.path(),'/register');assert.equal(f.run('state.authMode'),'register');
+  assert.equal(f.get('phoneField').hidden,false);assert.equal(f.get('memberPhone').required,true);
+  assert.equal(f.get('authUsername').required,true);assert.equal(f.get('otpFields').hidden,false);assert.equal(f.get('memberOtp').required,true);
+- assert.equal(f.get('passwordField').hidden,true);assert.equal(f.get('authPassword').required,false);assert.equal(f.get('confirmPassword').required,false);
++ assert.equal(f.get('passwordField').hidden,false);assert.equal(f.get('authPassword').required,true);assert.equal(f.get('confirmPassword').required,true);
+ });
+ test('management sign-in keeps member registration hidden and requires no mobile number',()=>{
+  const f=fixture({},'/admin');
+@@ -132,9 +132,9 @@
+  assert.deepEqual(f.requests.map(r=>[r.url,r.method]),[['/api/auth/activate','POST']]);
+ });
+ 
+-test('ordinary customer sign-in uses ID, phone and OTP without a password field',()=>{
++test('ordinary customer sign-in uses ID, password, phone and OTP',()=>{
+  const f=fixture({},'/signin');f.run('showAuth("login")');
+  assert.equal(f.get('phoneField').hidden,false);assert.equal(f.get('memberPhone').required,true);
+- assert.equal(f.get('otpFields').hidden,false);assert.equal(f.get('memberOtp').required,true);assert.equal(f.get('passwordField').hidden,true);
++ assert.equal(f.get('otpFields').hidden,false);assert.equal(f.get('memberOtp').required,true);assert.equal(f.get('passwordField').hidden,false);assert.equal(f.get('authPassword').required,true);
+  assert.equal(f.get('registerToggle').hidden,false);assert.equal(f.get('ownerResetLink').hidden,true);
+ });
+--- a/master7-v17-render-staging/tests/password-auth.test.mjs
++++ b/master7-v17-render-staging/tests/password-auth.test.mjs
+@@ -52,7 +52,7 @@
+ }
+ test('owner recovery preserves data and renamed identity, revokes sessions and requires a new login',async()=>{
+  const f=await resetFixture();try{
+-  f.enableSms();const issued=await f.call(null,'/api/auth/otp/send',{phone:'010-801 8801'});await f.call(null,'/api/auth/register',{username:'member_one',password:pass,phone:'010-801 8801',challengeId:issued.body.challengeId,otp:f.config.lastOtp});
++  f.enableSms();const issued=await f.call(null,'/api/auth/otp/send',{username:'member_one',password:pass,phone:'010-801 8801'});await f.call(null,'/api/auth/register',{username:'member_one',password:pass,phone:'010-801 8801',challengeId:issued.body.challengeId,otp:f.config.lastOtp});
+   f.sqlite.prepare("UPDATE password_credentials SET username='renamed_owner' WHERE username='master7_owner'").run();
+   await f.call('owner','/api/auth/login',{username:'renamed_owner',password:pass});await f.call('owner','/api/session');
+   await f.call('second','/api/auth/login',{username:'renamed_owner',password:pass});
+@@ -143,7 +143,7 @@
+  });
+  await t.test('members cannot claim owner ID, self-approve or view administration',async()=>{
+   assert.equal((await call(null,'/api/auth/register',{username:'master7_owner',password:pass,phone:'010-801 8802',role:'owner'})).status,409);
+-  f.enableSms();const issued=await call(null,'/api/auth/otp/send',{phone:'010-801 8801'});assert.equal((await call(null,'/api/auth/register',{username:'member_one',password:pass,phone:'010-801 8801',role:'owner',approved:true,challengeId:issued.body.challengeId,otp:f.config.lastOtp})).status,201);
++  f.enableSms();const issued=await call(null,'/api/auth/otp/send',{username:'member_one',password:pass,phone:'010-801 8801'});assert.equal((await call(null,'/api/auth/register',{username:'member_one',password:pass,phone:'010-801 8801',role:'owner',approved:true,challengeId:issued.body.challengeId,otp:f.config.lastOtp})).status,201);
+   await call('member','/api/auth/login',{username:'member_one',password:pass,phone:'010-801 8801'});const s=await call('member','/api/session');assert.equal(s.body.user.role,'member');assert.equal(s.body.user.approved,false);
+   assert.equal((await call('member','/api/admin/summary')).status,403);assert.equal((await call('member','/api/tickets',{subject:'Login help',message:'Please help me'})).status,403);
+   assert.equal((await call('owner','/api/admin/approve',{userId:s.body.user.id})).status,200);
+@@ -186,7 +186,7 @@
+  const f=fixture();try{
+   assert.equal((await f.call(null,'/api/auth/register',{username:'member_phone',password:'12345678'})).status,400);
+   assert.equal((await f.call(null,'/api/auth/register',{username:'member_phone',password:'12345678',phone:'555'})).status,400);
+-  f.enableSms();const issued=await f.call(null,'/api/auth/otp/send',{phone:'010-801 8800'});assert.equal(issued.status,200);assert.equal((await f.call(null,'/api/auth/register',{username:'member_phone',password:'12345678',phone:'010-801 8800',challengeId:issued.body.challengeId,otp:f.config.lastOtp})).status,201);
++  f.enableSms();const issued=await f.call(null,'/api/auth/otp/send',{username:'member_phone',password:'12345678',phone:'010-801 8800'});assert.equal(issued.status,200);assert.equal((await f.call(null,'/api/auth/register',{username:'member_phone',password:'12345678',phone:'010-801 8800',challengeId:issued.body.challengeId,otp:f.config.lastOtp})).status,201);
+   assert.equal(f.sqlite.prepare("SELECT phone FROM users WHERE username='member_phone'").get().phone,'+60108018800');
+   assert.equal((await f.call(null,'/api/auth/register',{username:'another_member',password:'12345678',phone:'+60108018800'})).status,409);
+   assert.equal((await f.call('member','/api/auth/login',{username:'member_phone',password:'12345678'})).status,401);
+@@ -201,7 +201,7 @@
+  const f=fixture();try{
+   assert.equal((await f.call(null,'/api/auth/otp/send',{phone:'010-801 8800'})).status,503);
+   assert.equal((await f.call(null,'/api/auth/register',{username:'sms_member',password:'12345678',phone:'010-801 8800'})).status,400);
+-  const base=f.enableSms(),issued=await f.call(null,'/api/auth/otp/send',{phone:'010-801 8800'});
++  const base=f.enableSms(),issued=await f.call(null,'/api/auth/otp/send',{username:'sms_member',password:'12345678',phone:'010-801 8800'});
+   assert.equal(issued.status,200);assert.equal(issued.body.status,'accepted');assert.equal(issued.body.expiresInSeconds,300);assert.equal(typeof issued.body.challengeId,'string');assert.equal(issued.body.challengeId.length,32);
+   assert.equal(f.config.lastSms.url,base+'/mt/sendMtSms');assert.equal(f.config.lastSms.authorization,'Bearer test-access-token-value-123456789');assert.equal(f.config.lastSms.body.destAddr,'+60108018800');assert.equal(f.config.lastSms.body.senderId,'SEVEN');assert.equal(f.config.lastSms.body.dataCoding,8);
+   const stored=f.sqlite.prepare('SELECT * FROM otp_challenges WHERE id=?').get(issued.body.challengeId);assert.ok(stored);assert.notEqual(stored.code_hash,f.config.lastOtp);assert.equal(JSON.stringify(issued.body).includes(f.config.lastOtp),false);
+@@ -210,33 +210,39 @@
+   assert.equal((await f.call(null,'/api/auth/register',{username:'sms_member',password:'12345678',phone:'010-801 8800',challengeId:issued.body.challengeId,otp:f.config.lastOtp})).status,201);
+   assert.equal((await f.call(null,'/api/auth/register',{username:'replay_member',password:'12345678',phone:'010-801 8800',challengeId:issued.body.challengeId,otp:f.config.lastOtp})).status,409);
+   assert.equal(f.sqlite.prepare('SELECT consumed_at FROM otp_challenges WHERE id=?').get(issued.body.challengeId).consumed_at>0,true);
+-  const second=await f.call(null,'/api/auth/otp/send',{phone:'010-801 8801'});assert.equal(second.status,200);
++  const second=await f.call(null,'/api/auth/otp/send',{username:'expired_member',password:'12345678',phone:'010-801 8801'});assert.equal(second.status,200);
+   f.sqlite.prepare('UPDATE otp_challenges SET expires_at=1 WHERE id=?').run(second.body.challengeId);
+   assert.equal((await f.call(null,'/api/auth/register',{username:'expired_member',password:'12345678',phone:'010-801 8801',challengeId:second.body.challengeId,otp:f.config.lastOtp})).status,400);
+  }finally{f.sqlite.close();}
+ });
+ 
+-test('customer registration and sign-in use only ID, Malaysian phone and one-use Anchor OTP',async()=>{
++test('customer registration and sign-in require ID, password, Malaysian phone and one-use Anchor OTP',async()=>{
+  const f=fixture();try{
+   f.enableSms();
+-  const registration=await f.call(null,'/api/auth/otp/send',{username:'otp_member',phone:'010-801 8899',purpose:'register'});
++  const pass='member-pass-123';
++  const registration=await f.call(null,'/api/auth/otp/send',{username:'otp_member',password:pass,phone:'010-801 8899',purpose:'register'});
+   assert.equal(registration.status,200);
+-  assert.equal((await f.call(null,'/api/auth/register',{username:'otp_member',phone:'010-801 8899',challengeId:registration.body.challengeId,otp:f.config.lastOtp})).status,201);
++  assert.equal((await f.call(null,'/api/auth/register',{username:'otp_member',phone:'010-801 8899',challengeId:registration.body.challengeId,otp:f.config.lastOtp})).status,400);
++  assert.equal((await f.call(null,'/api/auth/register',{username:'otp_member',password:pass,phone:'010-801 8899',challengeId:registration.body.challengeId,otp:f.config.lastOtp})).status,201);
+   assert.ok(f.sqlite.prepare("SELECT username FROM password_credentials WHERE username='otp_member'").get());
+   f.sqlite.prepare('DELETE FROM rate_limits').run();
+-  const login=await f.call(null,'/api/auth/otp/send',{username:'otp_member',phone:'+60108018899',purpose:'login'});
++  assert.equal((await f.call(null,'/api/auth/otp/send',{username:'otp_member',password:'wrong-password',phone:'+60108018899',purpose:'login'})).status,401);
++  assert.equal(f.sqlite.prepare('SELECT COUNT(*) n FROM otp_challenges').get().n,1);
++  f.sqlite.prepare('DELETE FROM rate_limits').run();
++  const login=await f.call(null,'/api/auth/otp/send',{username:'otp_member',password:pass,phone:'+60108018899',purpose:'login'});
+   assert.equal(login.status,200);
+-  const signedIn=await f.call('otpMember','/api/auth/otp/login',{username:'otp_member',phone:'+60108018899',challengeId:login.body.challengeId,otp:f.config.lastOtp});
++  assert.equal((await f.call(null,'/api/auth/otp/login',{username:'otp_member',password:'wrong-password',phone:'+60108018899',challengeId:login.body.challengeId,otp:f.config.lastOtp})).status,401);
++  const signedIn=await f.call('otpMember','/api/auth/otp/login',{username:'otp_member',password:pass,phone:'+60108018899',challengeId:login.body.challengeId,otp:f.config.lastOtp});
+   assert.equal(signedIn.status,200);assert.match(signedIn.setCookie,/HttpOnly/);
+   const session=await f.call('otpMember','/api/session');assert.equal(session.body.user.username,'otp_member');assert.equal(session.body.user.role,'member');
+-  assert.equal((await f.call(null,'/api/auth/otp/login',{username:'otp_member',phone:'+60108018899',challengeId:login.body.challengeId,otp:f.config.lastOtp})).status,400);
++  assert.equal((await f.call(null,'/api/auth/otp/login',{username:'otp_member',password:pass,phone:'+60108018899',challengeId:login.body.challengeId,otp:f.config.lastOtp})).status,400);
+  }finally{f.sqlite.close();}
+ });
+ 
+ test('Anchor provider failures fail closed without creating OTP challenges',async()=>{
+  const f=fixture();try{
+   f.enableSms();f.config.smsFetch=async()=>Response.json({error:'temporary'}, {status:503});
+-  assert.equal((await f.call(null,'/api/auth/otp/send',{phone:'010-801 8800'})).status,503);
++  assert.equal((await f.call(null,'/api/auth/otp/send',{username:'sms_member',password:'12345678',phone:'010-801 8800'})).status,503);
+   assert.equal(f.sqlite.prepare('SELECT COUNT(*) n FROM otp_challenges').get().n,0);
+   assert.equal(f.sqlite.prepare('SELECT COUNT(*) n FROM users').get().n,0);
+  }finally{f.sqlite.close();}
+--- a/master7-v17-render-staging/tests/startup-readiness.test.mjs
++++ b/master7-v17-render-staging/tests/startup-readiness.test.mjs
+@@ -27,14 +27,14 @@
+ }
+ 
+ for(const path of ['/','/admin','/signin','/register']){
+- test('startup reaches session and public loading before channel data arrives: '+path,async()=>{
++test('startup loads public data only after sign-in pages are left: '+path,async()=>{
+   const f=fixture(path);
+   // Keep the real initial payment-state renderer and real auth UI; isolate other
+   // unrelated UI work. Unlike an empty-selector stub, this DOM includes the
+   // four controls present on every portal page.
+   f.run('bind=bindPasswordAuth=bindPaymentPreview=bindBonusBrandPreview=renderAdmin=renderSession=()=>{};applyLang=()=>renderPaymentPreview();refreshSession=async()=>calls.push("session");loadPublic=async()=>calls.push("public");refreshTickets=async()=>calls.push("tickets");');
+   await f.run(startup);
+-  assert.deepEqual(f.calls,['session','public']);
++  assert.deepEqual(f.calls,['/signin','/register'].includes(path)?['session']:['session','public']);
+   assert.ok(f.channels.every(c=>/Maintenance/i.test(c.status.textContent)));
+   if(path==='/register'){
+    assert.equal(f.get('memberPhone').required,true);
+@@ -50,3 +50,27 @@
+  }
+ });
+ 
++
++
++test('member entry uses ID, password, Malaysian mobile and OTP; owner stays password-only',()=>{
++ const member=fixture('/signin');
++ member.run('state.authMode="login";renderAuthMode()');
++ assert.equal(member.get('usernameField').hidden,false);
++ assert.equal(member.get('passwordField').hidden,false);
++ assert.equal(member.get('authPassword').required,true);
++ assert.equal(member.get('phoneField').hidden,false);
++ assert.equal(member.get('memberPhone').required,true);
++ assert.equal(member.get('otpFields').hidden,false);
++ assert.equal(member.get('memberOtp').required,true);
++ assert.equal(member.get('confirmPasswordField').hidden,true);
++ const registration=fixture('/register');
++ registration.run('state.authMode="register";renderAuthMode()');
++ assert.equal(registration.get('passwordField').hidden,false);
++ assert.equal(registration.get('confirmPasswordField').hidden,false);
++ assert.equal(registration.get('confirmPassword').required,true);
++ const owner=fixture('/admin');
++ owner.run('state.authMode="login";renderAuthMode()');
++ assert.equal(owner.get('passwordField').hidden,false);
++ assert.equal(owner.get('phoneField').hidden,true);
++ assert.equal(owner.get('otpFields').hidden,true);
++});
