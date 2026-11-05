@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: master7-integration-gateway
+    runtime: node
+    region: singapore
+    repo: https://github.com/jackysim47-star/master7
+    branch: codex/master7-integration-gateway-20261106
+    buildCommand: cd master7-gateway && npm test
+    startCommand: node master7-gateway/server.js
+    autoDeployTrigger: commit
