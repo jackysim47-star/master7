@@ -210,6 +210,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
       mode: readiness.mode,
       configured: readiness.credentialsConfigured,
       providerBase: readiness.providerBase,
+      contract: readiness.contract,
       transactionRoutesActive: false,
       orderReady: false,
       queryReady: false,
@@ -590,6 +591,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           transactionRoutesActive: false,
           productionQa: 'not_verified',
           liveReady: false,
+          contract: readiness.contract,
           callbackUrls: {
             payment: callbackUrls().gspayPayment,
             duitNow: callbackUrls().gspayDuitNow,

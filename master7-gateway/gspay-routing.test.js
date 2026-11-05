@@ -63,6 +63,8 @@ test('GSPAY status and peer configuration are secret-free and always not live', 
   assert.equal(config.status, 200);
   const privateData = JSON.parse(config.text);
   assert.equal(privateData.providerBase, 'https://api.thegspay.com');
+  assert.deepEqual(privateData.contract.providerServerIps, ['52.221.96.227']);
+  assert.ok(privateData.contract.confirmed.includes('myr_query_request'));
   assert.equal(privateData.transactionRoutesActive, false);
   assert.equal(privateData.orderReady, false);
   assert.equal(privateData.queryReady, false);
@@ -120,7 +122,7 @@ test('GSPAY readiness keeps unconditional contract and UAT blockers', () => {
     assert.ok(channel.blockers.includes('supplier_uat_not_verified'));
   }
   assert.ok(result.channels.orders.blockers.includes('provider_order_response_contract_unconfirmed'));
-  assert.ok(result.channels.queries.blockers.includes('provider_query_auth_contract_unconfirmed'));
+  assert.ok(result.channels.queries.blockers.includes('provider_query_response_envelope_unconfirmed'));
   assert.ok(result.channels.callbacks.blockers.includes('provider_callback_ack_contract_unconfirmed'));
   assert.equal(gspayReadiness({ ...env, GSPAY_MODE: env.GSPAY_OPERATOR_SECRET_KEY }).mode, 'disabled');
   assert.equal(gspayReadiness({ ...env, GATEWAY_ADMIN_TOKEN: env.GSPAY_OPERATOR_SECRET_KEY }).credentialsConfigured, false);

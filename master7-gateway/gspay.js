@@ -2,6 +2,9 @@
 
 const crypto = require('node:crypto');
 
+const PROVIDER_BASE = 'https://api.thegspay.com';
+const PROVIDER_SERVER_IPS = Object.freeze(['52.221.96.227']);
+
 function text(value, name, maximum) {
   const result = typeof value === 'string' ? value : '';
   if (!result || result.length > maximum || /[\u0000-\u001f\u007f]/u.test(result)) {
@@ -35,6 +38,16 @@ function secret(value) {
   return text(value, 'operator_secret_key', 1024);
 }
 
+function operatorKey(value) {
+  const result = typeof value === 'string' ? value : '';
+  const bytes = Buffer.byteLength(result, 'utf8');
+  if (bytes < 16 || bytes > 1024 || result !== result.trim()
+      || /[\u0000-\u0020\u007f-\u009f]/u.test(result)) {
+    throw new TypeError('invalid_operator_authentication_key');
+  }
+  return result;
+}
+
 function md5(value) {
   return crypto.createHash('md5').update(value, 'utf8').digest('hex');
 }
@@ -51,6 +64,36 @@ function paymentOrderSignature({ transactionId, playerUsername, amount }, operat
     + amount2(amount)
     + secret(operatorSecretKey);
   return md5(raw);
+}
+
+// Offline request builders mirror the MYR contract visible in the supplier
+// backoffice. They cannot be redirected to a caller-controlled provider host.
+function paymentOrderRequest({ transactionId, playerUsername, amount }, operatorAuthenticationKey, operatorSecretKey) {
+  const authenticationKey = operatorKey(operatorAuthenticationKey);
+  const normalized = {
+    transaction_id: text(transactionId, 'transaction_id', 128),
+    amount: amount2(amount),
+    player_username: text(playerUsername, 'player_username', 100),
+  };
+  normalized.signature = paymentOrderSignature({
+    transactionId: normalized.transaction_id,
+    playerUsername: normalized.player_username,
+    amount: normalized.amount,
+  }, operatorSecretKey);
+  return {
+    method: 'POST',
+    url: `${PROVIDER_BASE}/v2/integrations/operators/${encodeURIComponent(authenticationKey)}/payment`,
+    body: normalized,
+  };
+}
+
+function paymentQueryRequest(transactionId, operatorAuthenticationKey) {
+  const authenticationKey = operatorKey(operatorAuthenticationKey);
+  const id = text(transactionId, 'transaction_id', 128);
+  const url = new URL(`${PROVIDER_BASE}/v2/integrations/operators/${encodeURIComponent(authenticationKey)}/getpayment`);
+  url.searchParams.set('auth_key', authenticationKey);
+  url.searchParams.set('transaction_id', id);
+  return { method: 'GET', url: url.href };
 }
 
 function paymentSignature({ paymentId, amount, transactionId }, operatorSecretKey) {
@@ -101,11 +144,46 @@ function verifyDuitNowSignature(payload, operatorSecretKey) {
   } catch { return false; }
 }
 
+function providerBoolean(value, name) {
+  if (value === true || value === 1) return true;
+  if (value === false || value === 0) return false;
+  throw new TypeError(`invalid_${name}`);
+}
+
+function paymentStatusPayload(payload, operatorSecretKey) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)
+      || !verifyPaymentSignature(payload, operatorSecretKey)) {
+    throw new TypeError('invalid_payment_status_signature');
+  }
+  const completed = providerBoolean(payload.completed, 'completed');
+  const success = providerBoolean(payload.success, 'success');
+  if (success && !completed) throw new TypeError('invalid_payment_status_state');
+  if (typeof payload.remark !== 'string' || payload.remark.length > 1000
+      || /[\u0000-\u001f\u007f]/u.test(payload.remark)) {
+    throw new TypeError('invalid_remark');
+  }
+  return {
+    paymentId: identifier(payload.payment_id, 'payment_id'),
+    transactionId: text(payload.transaction_id, 'transaction_id', 128),
+    playerUsername: text(payload.player_username, 'player_username', 100),
+    amount: amount2(payload.amount),
+    completed,
+    success,
+    remark: payload.remark,
+    signature: String(payload.signature).toLowerCase(),
+  };
+}
+
 module.exports = {
+  PROVIDER_BASE,
+  PROVIDER_SERVER_IPS,
   amount2,
   duitNowSignature,
+  paymentOrderRequest,
   paymentOrderSignature,
+  paymentQueryRequest,
   paymentSignature,
+  paymentStatusPayload,
   verifyDuitNowSignature,
   verifyPaymentSignature,
 };

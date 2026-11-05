@@ -3,10 +3,15 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const {
+  PROVIDER_BASE,
+  PROVIDER_SERVER_IPS,
   amount2,
   duitNowSignature,
+  paymentOrderRequest,
   paymentOrderSignature,
+  paymentQueryRequest,
   paymentSignature,
+  paymentStatusPayload,
   verifyDuitNowSignature,
   verifyPaymentSignature,
 } = require('./gspay');
@@ -39,6 +44,64 @@ test('GSPAY documented payment callback and query signature vector matches exact
     transaction_id: payload.transactionId,
     signature: signature.toUpperCase(),
   }, 'operator_secret_key'), true);
+});
+
+test('GSPAY MYR order and query builders pin the documented provider host and field placement', () => {
+  const authenticationKey = 'fixture authentication/key';
+  assert.throws(() => paymentOrderRequest({
+    transactionId: 'order_1', playerUsername: 'member1', amount: '20.00',
+  }, authenticationKey, 'operator_secret_key'), /invalid_operator_authentication_key/);
+
+  const key = 'fixture-authentication-key';
+  const order = paymentOrderRequest({
+    transactionId: 'order_1', playerUsername: 'member1', amount: '20',
+  }, key, 'operator_secret_key');
+  assert.equal(order.method, 'POST');
+  assert.equal(order.url, `${PROVIDER_BASE}/v2/integrations/operators/${key}/payment`);
+  assert.deepEqual(order.body, {
+    transaction_id: 'order_1',
+    amount: '20.00',
+    player_username: 'member1',
+    signature: paymentOrderSignature({ transactionId: 'order_1', playerUsername: 'member1', amount: '20.00' }, 'operator_secret_key'),
+  });
+
+  const query = paymentQueryRequest('order_1', key);
+  assert.equal(query.method, 'GET');
+  const url = new URL(query.url);
+  assert.equal(url.origin, PROVIDER_BASE);
+  assert.equal(url.pathname, `/v2/integrations/operators/${key}/getpayment`);
+  assert.equal(url.searchParams.get('auth_key'), key);
+  assert.equal(url.searchParams.get('transaction_id'), 'order_1');
+  assert.deepEqual(PROVIDER_SERVER_IPS, ['52.221.96.227']);
+});
+
+test('GSPAY payment status parser accepts only signed, completed-consistent payloads', () => {
+  const secret = 'operator_secret_key';
+  const payload = {
+    payment_id: '9007199254740993',
+    transaction_id: 'order_1',
+    player_username: 'member1',
+    amount: '20.00',
+    completed: 1,
+    success: true,
+    remark: 'paid',
+  };
+  payload.signature = paymentSignature({
+    paymentId: payload.payment_id, amount: payload.amount, transactionId: payload.transaction_id,
+  }, secret);
+  assert.deepEqual(paymentStatusPayload(payload, secret), {
+    paymentId: payload.payment_id,
+    transactionId: 'order_1',
+    playerUsername: 'member1',
+    amount: '20.00',
+    completed: true,
+    success: true,
+    remark: 'paid',
+    signature: payload.signature,
+  });
+  assert.throws(() => paymentStatusPayload({ ...payload, completed: false }, secret), /invalid_payment_status_state/);
+  assert.throws(() => paymentStatusPayload({ ...payload, success: '1' }, secret), /invalid_success/);
+  assert.throws(() => paymentStatusPayload({ ...payload, amount: '20.01' }, secret), /invalid_payment_status_signature/);
 });
 
 test('GSPAY documented DuitNow callback signature vector matches exactly', () => {

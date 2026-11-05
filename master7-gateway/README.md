@@ -11,6 +11,22 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. Callback POST requests remain closed until each provider's signed callback contract is implemented; the reachability endpoint does not claim transaction readiness.
 
+## Version 1.9.1: verified GSPAY MYR request contract
+
+The authorized GSPAY backoffice documentation was rechecked on 2026-11-05.
+Offline builders now pin the MYR order and query requests to
+`https://api.thegspay.com`, place the documented fields deterministically, and
+normalize signed payment-status payloads without performing network or wallet
+operations. The supplier's documented server IP is recorded as
+`52.221.96.227`.
+
+Real GSPAY routes remain closed. The backoffice does not display this account's
+Operator Authentication Key or Operator Secret Key, the successful order
+response example is blank, and the callback acknowledgement/retry contract is
+absent. The saved callback URLs and whitelist also point to retired
+infrastructure. See `GSPAY-MYR-CONTRACT-20261105.md` for the evidence and exact
+remaining supplier items.
+
 ## Version 1.9.0: disabled-by-default MegaH5 transfer wallet adapter
 
 MegaH5 is confirmed to use the provider's Fund Transfer wallet contract. The
@@ -108,8 +124,9 @@ callback POST routes always return HTTP 503 after bounded request parsing. They
 make zero supplier or platform requests even if every switch is set to `true`.
 This prevents an incomplete response contract or callback acknowledgement from
 creating a false success. `/readiness` keeps `configurationReady` and
-`liveReady` false until the create/query response schema, callback response and
-retry contract, UAT credentials, and end-to-end wallet evidence are confirmed.
+`liveReady` false until the create/query response envelope, callback response
+and retry contract, provider credentials, and end-to-end wallet evidence are
+confirmed.
 
 Reserved environment names are:
 

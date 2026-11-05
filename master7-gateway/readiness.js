@@ -150,7 +150,7 @@ function gspayReadiness(env = {}) {
       'provider_order_response_contract_unconfirmed', 'supplier_uat_not_verified'],
     queries: [...common, ...(!queryTokenConfigured ? ['platform_query_token_missing_or_aliased'] : []),
       ...(!switches.queries ? ['transaction_switch_off'] : []),
-      'provider_query_auth_contract_unconfirmed', 'supplier_uat_not_verified'],
+      'provider_query_response_envelope_unconfirmed', 'supplier_uat_not_verified'],
     callbacks: [...common, ...(!callbackTokenConfigured ? ['platform_callback_token_missing_or_aliased'] : []),
       ...(!paymentForwardConfigured || !duitNowForwardConfigured ? ['platform_callback_url_missing_or_invalid'] : []),
       ...(!switches.callbacks ? ['transaction_switch_off'] : []),
@@ -160,6 +160,12 @@ function gspayReadiness(env = {}) {
   return {
     mode: ['disabled', 'uat', 'production'].includes(requestedMode) ? requestedMode : 'disabled',
     providerBase: 'https://api.thegspay.com',
+    contract: {
+      observedAt: '2026-11-05',
+      providerServerIps: ['52.221.96.227'],
+      confirmed: ['myr_order_request', 'myr_query_request', 'myr_payment_status_fields', 'myr_signature_formulas'],
+      unconfirmed: ['order_success_response_schema', 'callback_acknowledgement_and_retry'],
+    },
     credentialsConfigured,
     switches,
     channels: Object.fromEntries(Object.entries(channels).map(([name, blockers]) => [name, {
