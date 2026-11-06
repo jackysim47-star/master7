@@ -1,5 +1,30 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
+## Deposit rejection recovery candidate — 2026-11-07 MYT
+
+- Candidate release: `17.0.0-selfbuilt.75-deposit-rejection-recovery`.
+- Source commit: `9d5ad7661897b02e5c6d753fd69783b28708399e`.
+- Bundle SHA-256: `93f669935a59e3745cfe4717862df639c6af58bd129b6f0508294a94575f71e3`.
+- A completed upstream response with a nonzero provider code, no provider
+  reference and no checkout URL is now an explicit rejection. The API returns
+  HTTP 422 with `PROVIDER_REJECTED` and stores the order as `failed`.
+- Network failures, timeouts and malformed or otherwise ambiguous responses
+  remain `unknown`. If an ambiguous response contains a valid provider
+  reference, it is preserved for later query and reconciliation without
+  automatically resubmitting the deposit.
+- The member UI clears its saved attempt only for terminal states or the exact
+  provider-rejected response. It keeps the same idempotency key for uncertain
+  outcomes and now waits up to 35 seconds for the provider path.
+- Historical `unknown` orders are changed to `failed` only when a sanitized
+  audit record for the same member proves the matching explicit rejection and
+  the order has neither a provider reference nor a checkout URL.
+- The existing payment switches and credentials are unchanged. VPay still
+  requires the supplier to correct its API credential or allowlist before it
+  can return a real checkout URL. The current `.74` deployment remains live
+  until this exact candidate is manually deployed and verified.
+- Validation: 284/284 portal tests, 3/3 Render database adapter tests,
+  TypeScript, lint, JavaScript syntax and the Render production build pass.
+
 ## WhatsApp Business queue live — 2026-11-07 MYT
 
 - Live release: `17.0.0-selfbuilt.74-whatsapp-business-queue`.

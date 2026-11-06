@@ -1,5 +1,23 @@
 # MASTER7 Current Deployment Receipt
 
+## `.75` release candidate
+
+- Candidate release: `17.0.0-selfbuilt.75-deposit-rejection-recovery`.
+- Source commit: `9d5ad7661897b02e5c6d753fd69783b28708399e`.
+- Bundle SHA-256: `93f669935a59e3745cfe4717862df639c6af58bd129b6f0508294a94575f71e3`.
+- Explicit provider business rejection now becomes `failed` and returns HTTP
+  422 `PROVIDER_REJECTED`, so the member can start a new deposit attempt.
+- Timeout, network and ambiguous provider results remain `unknown` and retain
+  the same idempotency key, preventing accidental duplicate real orders.
+- The UI provider timeout is 35 seconds. Historical stuck orders are reconciled
+  only when the same member's sanitized audit proves the explicit rejection and
+  the stored order has no provider reference or checkout URL.
+- Existing payment and game switches are unchanged. `.74` remains the current
+  live deployment pending the manual `.75` deploy. VPay supplier configuration
+  must still be corrected before a real checkout URL can be accepted.
+- Local acceptance passed: 284/284 portal tests, 3/3 Render database tests,
+  TypeScript, lint, JavaScript syntax and the production build.
+
 ## `.74` current live deployment
 
 - Live release: `17.0.0-selfbuilt.74-whatsapp-business-queue`.
