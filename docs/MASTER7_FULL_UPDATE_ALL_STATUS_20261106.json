@@ -1,0 +1,567 @@
+{
+  "auditedAt": "2026-11-06T06:28:48.404666+00:00",
+  "portal": {
+    "release": "17.0.0-selfbuilt.58-payment-startup-guard",
+    "database": "ready",
+    "smsOtpReady": true,
+    "transactionsEnabled": false,
+    "realPayments": false,
+    "settlementVerified": false,
+    "productionReady": false,
+    "liveGames": false,
+    "commit": "479ac1559f8e573be549a1e5f0fd299a8eb2bba3",
+    "deploy": "dep-dbmn2cff3r2c73b4q6d0",
+    "domains": {
+      "customer": {
+        "status": 200,
+        "finalUrl": "https://master7-v17-staging.onrender.com/signin",
+        "bytes": 70729
+      },
+      "staff": {
+        "status": 200,
+        "finalUrl": "https://master7-v17-staging.onrender.com/admin",
+        "bytes": 70717
+      },
+      "staffExplicitAdmin": {
+        "status": 404,
+        "finalUrl": "https://master7-v17-staging.onrender.com/admin/admin",
+        "error": "http_error"
+      },
+      "customerWww": {
+        "status": null,
+        "error": "URLError"
+      },
+      "renderAdmin": {
+        "status": 200,
+        "finalUrl": "https://master7-v17-staging.onrender.com/admin",
+        "bytes": 70717
+      },
+      "androidApk": {
+        "status": 200,
+        "finalUrl": "https://master7-v17-staging.onrender.com/downloads/MASTER7-Android-v17.0.52.apk",
+        "bytes": 67420
+      },
+      "iosManifest": {
+        "status": 200,
+        "finalUrl": "https://master7-v17-staging.onrender.com/manifest.webmanifest",
+        "bytes": 968
+      }
+    }
+  },
+  "gateway": {
+    "version": "1.10.0",
+    "mode": "uat",
+    "configured": {
+      "evo888h5": true,
+      "venus": true,
+      "megah5": true,
+      "epicwin": {
+        "normal": true,
+        "free": true
+      },
+      "kissh5": {
+        "normal": true,
+        "my1": true,
+        "free": true
+      },
+      "clotplay": true,
+      "jili": {
+        "1to1": true,
+        "1to100": true
+      },
+      "vpay": true,
+      "gspay": true
+    },
+    "liveReady": false,
+    "vpay": {
+      "provider": "vpay",
+      "mode": "production",
+      "configured": true,
+      "readiness": {
+        "mode": "production",
+        "credentialsConfigured": true,
+        "channels": {
+          "payment": {
+            "enabled": true,
+            "callbackForwardingConfigured": true,
+            "configurationReady": true,
+            "blockers": [],
+            "productionQa": "not_verified",
+            "liveReady": false
+          },
+          "withdrawal": {
+            "enabled": false,
+            "callbackForwardingConfigured": false,
+            "configurationReady": false,
+            "blockers": [
+              "platform_callback_url_missing_or_invalid",
+              "transaction_switch_off"
+            ],
+            "productionQa": "not_verified",
+            "liveReady": false
+          }
+        }
+      }
+    },
+    "gspay": {
+      "provider": "gspay",
+      "mode": "production",
+      "configured": true,
+      "createProgramReady": true,
+      "orderReady": null,
+      "queryReady": null,
+      "callbacksReady": null,
+      "liveReady": false
+    }
+  },
+  "payments": {
+    "channels": [
+      {
+        "provider_id": "vpay",
+        "provider_name": "VPay",
+        "status": "suspended"
+      },
+      {
+        "provider_id": "gspay",
+        "provider_name": "GSPAY",
+        "status": "closed"
+      },
+      {
+        "provider_id": "1mpay",
+        "provider_name": "1MPAY",
+        "status": "suspended"
+      },
+      {
+        "provider_id": "gspay_plus",
+        "provider_name": "GSPAY+",
+        "status": "closed"
+      }
+    ],
+    "flags": {
+      "transactionsEnabled": false,
+      "realPayments": false,
+      "settlementVerified": false
+    },
+    "providers": {
+      "vpay": {
+        "provider": "vpay",
+        "channelStatus": "suspended",
+        "programReady": true,
+        "enabled": false,
+        "orderReady": false,
+        "queryReady": false,
+        "callbacksReady": false,
+        "settlementVerified": false,
+        "liveReady": false,
+        "realPayments": false
+      },
+      "gspay": {
+        "provider": "gspay",
+        "channelStatus": "closed",
+        "createProgramReady": true,
+        "enabled": false,
+        "orderReady": false,
+        "queryReady": false,
+        "callbacksReady": false,
+        "settlementVerified": false,
+        "liveReady": false
+      },
+      "1mpay": {
+        "provider": "1mpay",
+        "channelStatus": "suspended",
+        "programReady": true,
+        "enabled": false,
+        "orderReady": false,
+        "queryReady": false,
+        "callbacksReady": true,
+        "settlementVerified": false,
+        "liveReady": false,
+        "realPayments": false
+      }
+    },
+    "depositRecords": {
+      "total": 8,
+      "byProviderStatus": {
+        "1mpay:unknown": 3,
+        "vpay:unknown": 5
+      },
+      "today": {
+        "membersToday": "0",
+        "ordersToday": "0",
+        "amountMinorToday": "0"
+      }
+    },
+    "withdrawals": {
+      "total": 0
+    },
+    "companyBank": {
+      "accounts": 0,
+      "requests": 0,
+      "pending": 0
+    }
+  },
+  "games": {
+    "total": 769,
+    "playable": false,
+    "byProvider": {
+      "megah5": 166,
+      "jili": 297,
+      "918kissh5": 92,
+      "evo888h5": 150,
+      "rectangle": 64
+    },
+    "byStatus": {
+      "active": 618,
+      "closed": 3,
+      "suspended": 148
+    },
+    "byCategory": {
+      "1": 430,
+      "7": 1,
+      "2": 22,
+      "5": 15,
+      "3": 4,
+      "8": 83,
+      "SLOT": 214
+    },
+    "byAccessZone": {
+      "paid": 769
+    },
+    "providers": [
+      {
+        "id": "megah5",
+        "name": "MegaH5",
+        "status": "available",
+        "count": 166,
+        "catalogueSynced": true,
+        "connectionVerified": true,
+        "launchVerified": false,
+        "walletVerified": false,
+        "stale": false,
+        "upstreamStatus": 200
+      },
+      {
+        "id": "jili",
+        "name": "JILI",
+        "status": "available",
+        "count": 297,
+        "catalogueSynced": true,
+        "connectionVerified": true,
+        "launchVerified": false,
+        "walletVerified": false,
+        "stale": false,
+        "upstreamStatus": null
+      },
+      {
+        "id": "918kissh5",
+        "name": "918KISS H5",
+        "status": "available",
+        "count": 92,
+        "catalogueSynced": true,
+        "connectionVerified": true,
+        "launchVerified": false,
+        "walletVerified": false,
+        "stale": false,
+        "upstreamStatus": null
+      },
+      {
+        "id": "evo888h5",
+        "name": "EVO888H5",
+        "status": "blocked",
+        "count": 150,
+        "catalogueSynced": true,
+        "connectionVerified": false,
+        "launchVerified": false,
+        "walletVerified": false,
+        "stale": true,
+        "upstreamStatus": 200
+      },
+      {
+        "id": "epicwin",
+        "name": "EPICWIN",
+        "status": "blocked",
+        "count": 0,
+        "catalogueSynced": false,
+        "connectionVerified": false,
+        "launchVerified": false,
+        "walletVerified": false,
+        "stale": true,
+        "upstreamStatus": 403
+      },
+      {
+        "id": "venus",
+        "name": "VENUS",
+        "status": "blocked",
+        "count": 0,
+        "catalogueSynced": false,
+        "connectionVerified": false,
+        "launchVerified": false,
+        "walletVerified": false,
+        "stale": true,
+        "upstreamStatus": null
+      },
+      {
+        "id": "clotplay",
+        "name": "CLOTPLAY",
+        "status": "blocked",
+        "count": 0,
+        "catalogueSynced": false,
+        "connectionVerified": false,
+        "launchVerified": false,
+        "walletVerified": false,
+        "stale": true,
+        "upstreamStatus": 403
+      },
+      {
+        "id": "rectangle",
+        "name": "RECTANGLE",
+        "status": "available",
+        "count": 64,
+        "catalogueSynced": true,
+        "connectionVerified": true,
+        "launchVerified": false,
+        "walletVerified": false,
+        "stale": false,
+        "upstreamStatus": 200
+      },
+      {
+        "id": "godeezone",
+        "name": "精选游戏",
+        "status": "blocked",
+        "count": 0,
+        "catalogueSynced": false,
+        "connectionVerified": false,
+        "launchVerified": false,
+        "walletVerified": false,
+        "stale": true,
+        "upstreamStatus": 403
+      }
+    ],
+    "wallet": {
+      "provider": "megah5",
+      "enabled": false,
+      "settlementVerified": false,
+      "liveReady": false
+    },
+    "walletSessions": 0
+  },
+  "content": {
+    "ads": 0,
+    "activeBenefits": 0,
+    "benefitDrafts": 0,
+    "benefitCalculationAutomation": true,
+    "benefitWalletCreditAutomation": false,
+    "announcements": 0,
+    "customGames": 0,
+    "supplierArtworkRecords": 0,
+    "supplierArtworkPhotos": 0,
+    "brandDirectory": {
+      "total": 76,
+      "statuses": {
+        "closed": 37,
+        "active": 39
+      },
+      "categories": {
+        "SLOT": 47,
+        "FAST GAME": 2,
+        "LIVE": 13,
+        "FISH": 7,
+        "SPORT": 5,
+        "OTHERS": 2
+      },
+      "photos": 0
+    },
+    "socialEnabled": false
+  },
+  "members": {
+    "total": 4,
+    "roles": {
+      "member": 2,
+      "staff": 1,
+      "owner": 1
+    },
+    "approved": 4,
+    "pending": 0,
+    "ticketsOpen": "0"
+  },
+  "referral": {
+    "enabled": true,
+    "basis": "deposit",
+    "maxLevels": 3,
+    "tierRatesPercent": [
+      5,
+      2,
+      1
+    ],
+    "frequency": "weekly_mon",
+    "claimMode": "manual",
+    "relationshipCount": 0,
+    "totalDepositMinor": "0",
+    "totalCommissionMinor": "0",
+    "walletCreditAutomation": false
+  },
+  "support": {
+    "aiEnabled": true,
+    "humanHandoff": true,
+    "providerReady": false,
+    "effectiveAiReply": false,
+    "status": "awaiting_provider_verification"
+  },
+  "marketing": {
+    "providerReady": false,
+    "launchEnabled": false,
+    "providerStatus": "Official SMS / WhatsApp sending channel not connected",
+    "maximumContacts": 600000,
+    "counts": {
+      "total": 0,
+      "optedIn": 0,
+      "unknown": 0,
+      "optedOut": 0
+    },
+    "campaigns": 0,
+    "referralCodes": 1
+  },
+  "accounting": {
+    "today": {
+      "label": "Today",
+      "deposits": {
+        "orders": 0,
+        "members": 0,
+        "amountMinor": "0"
+      },
+      "withdrawals": {
+        "orders": 0,
+        "members": 0,
+        "amountMinor": "0"
+      },
+      "netCashflowMinor": "0"
+    },
+    "month": {
+      "label": "2026-11",
+      "deposits": {
+        "orders": 0,
+        "members": 0,
+        "amountMinor": "0"
+      },
+      "withdrawals": {
+        "orders": 0,
+        "members": 0,
+        "amountMinor": "0"
+      },
+      "netCashflowMinor": "0"
+    },
+    "half": {
+      "label": "2026 H2",
+      "deposits": {
+        "orders": 0,
+        "members": 0,
+        "amountMinor": "0"
+      },
+      "withdrawals": {
+        "orders": 0,
+        "members": 0,
+        "amountMinor": "0"
+      },
+      "netCashflowMinor": "0"
+    },
+    "year": {
+      "label": "2026",
+      "deposits": {
+        "orders": 0,
+        "members": 0,
+        "amountMinor": "0"
+      },
+      "withdrawals": {
+        "orders": 0,
+        "members": 0,
+        "amountMinor": "0"
+      },
+      "netCashflowMinor": "0"
+    }
+  },
+  "operations": {
+    "readOnly": true,
+    "metrics": {
+      "newMembersPreview": "0",
+      "depositMembersToday": "0",
+      "depositOrdersToday": "0",
+      "depositMYR": 0,
+      "withdrawMembersToday": "0",
+      "withdrawRequestsToday": "0",
+      "withdrawMYR": 0,
+      "bonusMYR": null,
+      "netRevenueMYR": null,
+      "groupJoins": null
+    }
+  },
+  "security": {
+    "today": {
+      "login_denied": null,
+      "login_rate_limited": null,
+      "registration_rate_limited": null,
+      "write_rate_limited": "0"
+    }
+  },
+  "paymentDiagnostics": {
+    "ORDER_RESPONSE": 1,
+    "GATEWAY_HTTP": 1
+  },
+  "readiness": {
+    "counts": {
+      "users": "4",
+      "audit_events": "107",
+      "tickets": "0",
+      "settings": "4"
+    },
+    "items": {
+      "portal": "ready",
+      "portal_www": "pending_verification",
+      "backoffice_domain": "ready",
+      "backoffice": "ready",
+      "android_app": "ready",
+      "ios_app": "ready",
+      "roles": "ready",
+      "otp": "ready",
+      "languages": "ready",
+      "supplier_controls": "ready",
+      "free_paid_zones": "ready",
+      "orders": "maintenance",
+      "reports": "ready",
+      "vip": "ready",
+      "referral": "ready",
+      "commission_wallet": "pending_verification",
+      "support": "ready",
+      "export": "ready",
+      "security": "ready",
+      "encrypted_backup": "ready",
+      "restore_rehearsal": "ready",
+      "payments": "maintenance",
+      "games": "maintenance",
+      "ai_support": "pending_verification"
+    }
+  },
+  "backup": {
+    "release": "17.0.0-selfbuilt.58-payment-startup-guard",
+    "backupFile": "MASTER7_ENCRYPTED_BACKUP_20261106T062129Z_PAYMENT_STARTUP_GUARD.json",
+    "backupSha256": "c43e5dd949c5390ecf3f06bff066c5fca0d47f2b73b9fa644bf599df9c83705e",
+    "plaintextSha256": "9e1a4a5598a95e0ca4cfb40ae7fc494bcf6beefbb4466b72e0f1e48464e44686",
+    "publicKeySha256": "922c18278bcd0521b73eb40166e3a111765157e4f0179fa18b07bb53cb151359",
+    "tableCount": 30,
+    "totalRecords": 244,
+    "foreignKeyViolations": 0,
+    "verifiedAt": "2026-11-06T06:21:29.062Z",
+    "restoreTarget": "isolated in-memory SQLite schema"
+  },
+  "android": {
+    "version": "17.0.52",
+    "bytes": 67420,
+    "sha256": "f7765f2787f6e50891d76eec1c9f58b9d1f978747fa43df0d11bb8f381822787"
+  },
+  "verification": {
+    "portalTests": 164,
+    "renderDatabaseTests": 3,
+    "gatewayTests": 84,
+    "productionBuild": "passed",
+    "renderApplicationErrors": 0
+  }
+}

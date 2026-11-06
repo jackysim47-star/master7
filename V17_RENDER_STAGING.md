@@ -1,5 +1,23 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
+## Full Update All follow-up — 2026-11-06 MYT
+
+- Live portal remains `17.0.0-selfbuilt.58-payment-startup-guard`, commit
+  `479ac1559f8e573be549a1e5f0fd299a8eb2bba3`, Render deploy
+  `dep-dbmn2cff3r2c73b4q6d0` (`live`).
+- The complete read-only production audit is stored in
+  `docs/MASTER7_FULL_UPDATE_ALL_FOLLOWUP_20261106.md`; its sanitized machine
+  record is `docs/MASTER7_FULL_UPDATE_ALL_STATUS_20261106.json`.
+- Customer and staff entries, OTP configuration, Android APK, iPhone Web App,
+  roles, reports, referral calculations and encrypted recovery are ready.
+- Current catalogue: 769 entries. MegaH5 166, JILI 297, 918KISS H5 92 and
+  Rectangle 64 are current; EVO888H5 retains 150 stale cached entries.
+- Payment programs are present for VPay, GSPAY and 1MPAY. Real payments,
+  settlement, game launch and game wallet remain unverified and off.
+- Business content still requires real owner data: company banks 0, benefits 0,
+  lobby ads 0 and marketing contacts 0.
+- The accompanying SHA-256 manifest covers every uploaded public handover file.
+
 ## Payment startup guard candidate — 2026-11-06 MYT
 
 - Candidate portal release: `17.0.0-selfbuilt.58-payment-startup-guard`.
