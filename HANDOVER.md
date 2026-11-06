@@ -1,5 +1,29 @@
 # Wallet deposit, withdrawal and company-bank handover — 5 November 2026
 
+## Payment safety release candidate — 6 November 2026
+
+Candidate release: `17.0.0-selfbuilt.65-payment-safety`.
+
+- VPay callback settlement now proves that both wallet-ledger entries belong to
+  the order member, use the order currency and amount, and balance to zero.
+  Missing, partial, unbalanced or cross-member ledgers move the order to
+  `review`; they are not queried, posted or acknowledged as successful.
+- VPay financial inserts are bound to the database order, provider, state and
+  provider transaction. A committed order and its ledger are checked again
+  before a success acknowledgement is returned.
+- 1MPay can continue querying and reconciling already-created orders while the
+  new-order channel remains closed. This does not enable a new order, callback
+  or automatic settlement switch.
+- The AI support response type no longer contains a duplicate `status` field,
+  and the Render environment declaration now includes the existing GSPAY
+  variables. Neither change configures an AI provider or a payment secret.
+- Release validation is 199/199 Portal tests, TypeScript pass, affected-file
+  lint pass, Render DB 3/3 and production build pass. No real order, callback,
+  payout, game transfer or wallet movement was created by this validation.
+- Commit, bundle checksum, deploy ID and post-deploy health/payment status are
+  recorded in `docs/MASTER7_PAYMENT_SAFETY_RELEASE_20261106.md`; deployment
+  evidence remains pending until the candidate reaches Render `live`.
+
 ## Full game audit and trusted control coverage — 6 November 2026
 
 Release: `17.0.0-selfbuilt.64-game-controls`.
@@ -18,9 +42,17 @@ Release: `17.0.0-selfbuilt.64-game-controls`.
 - Catalogue connection is not recorded as production launch, wallet, exit or
   settlement acceptance. Those checks require an approved member session and
   one controlled end-to-end provider transaction.
-- Portal deploy `dep-dbmqj56tlv9c73bo3u6g` and gateway configuration deploy
-  `dep-dbmqh9nf3r2c73bcq95g` are live. Portal and gateway MegaH5 transfer
+- Portal deploy `dep-dbmqj56tlv9c73bo3u6g` and gateway code deploy
+  `dep-dbmqqqtg1s2s73d9msq0` (`7f65d6a`) are live. Portal and gateway MegaH5 transfer
   switches remain enabled in persistent Render environment configuration.
+- Gateway `7f65d6a` adds a stable service User-Agent to EPICWIN and ClotPlay
+  catalogue calls and stops caching HTTP-200 business rejections from EVO and
+  MegaH5. Gateway regression is 85/85. Post-deploy production probes still
+  show EVO `code 130`, EPICWIN/ClotPlay 403, Venus missing `X-Sign`/`X-Ts`,
+  and GodeeZone `/token` Cloudflare 403. These remain supplier blockers.
+- Suppliers must allow the complete Render Singapore outbound ranges
+  `74.220.52.0/24` and `74.220.60.0/24`; a single observed egress address is
+  not a stable allowlist contract.
 
 ## GSPAY contract and business-setup safety — 6 November 2026
 
@@ -213,7 +245,7 @@ Release: `17.0.0-selfbuilt.32-game-sync`.
 - This release creates only a catalogue cache and an EVO provider entry. It changes no member balance, payment order, game transfer or wager.
 - Validation: 115 full regression checks, followed by 37 targeted backend/cache/authorization checks after final adjustments; Render type check, production bundle build and a 390px Chromium flow with actual read-only supplier recordings. Browser shows 705 titles, 150 separate EVO cards and 37 checkmark rows, and confirms no wallet/order mutation.
 
-Known latest catalogue blockers: EPICWIN and CLOTPLAY upstream 403; VENUS response-signature verification fails. They remain incomplete. Other suppliers without verified adapters are not represented as successfully connected.
+Known latest catalogue blockers after gateway deploy `dep-dbmqqqtg1s2s73d9msq0`: EVO returns HTTP 200 with business `code 130` for its IP allowlist; EPICWIN and CLOTPLAY remain upstream 403 from the production Render source; VENUS returns `Code: 0` without the documented `X-Sign`/`X-Ts`; GodeeZone is blocked by Cloudflare HTML 403 on the first `/token` request. They remain incomplete. Other suppliers without verified adapters are not represented as successfully connected.
 
 ---
 
