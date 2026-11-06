@@ -1,6 +1,5 @@
-170cebbd34a833841c75a1b8c1d8d6fa0cb3da849e895209a232a3815044f2a6  master7-v17-render-staging.tar.gz
-931a4ef51d2054dc3c8c177d9b0899019c75e7ce  source_commit
-17.0.0-selfbuilt.72-white-label-platform  live_release
-47afc025d6ec8ce39f1c18108aa387a9b72cc67b  publication_commit
-dep-dbmv92gm7kps73ce7j90  render_deploy_live
-2026-11-06T15:40:18.671336Z  live_finished_at_utc
+024fb30a5927209320427e6797b238d02965033e5ee5d188640bbea0d158efac  master7-v17-render-staging.tar.gz
+d7e9b02261a3de9e5af90e2433cd4f68651b4011  source_commit
+17.0.0-selfbuilt.73-management-login-copy  candidate_release
+not_triggered  render_deploy
+17.0.0-selfbuilt.72-white-label-platform  current_live_release

@@ -1,5 +1,23 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
+## Management login copy candidate `.73` — not live yet
+
+- Candidate release: `17.0.0-selfbuilt.73-management-login-copy`.
+- Source commit: `d7e9b02261a3de9e5af90e2433cd4f68651b4011`.
+- Bundle SHA-256: `024fb30a5927209320427e6797b238d02965033e5ee5d188640bbea0d158efac`.
+- The `/admin` password flow is unchanged, but its modal now says
+  `Management sign-in` and asks for an owner or staff ID and password. The
+  management eyebrow no longer calls a staff-capable form owner-only.
+- Member OTP wording and behavior are unchanged. Every `.72` platform-only
+  lobby, payment-control, benefit, Telegram and automatic-accounting invariant
+  remains unchanged.
+- Local acceptance passed: 257/257 portal tests, 3/3 Render database tests,
+  TypeScript, lint, JavaScript syntax and the Render production build.
+- This is a candidate bundle only. Render has not been triggered; `.72` remains
+  the current live release until the specific `.73` deploy reaches `live` and
+  its routes and logs pass online acceptance.
+
+
 ## White-label 34-platform lobby live — 2026-11-06 MYT
 
 - Live release: `17.0.0-selfbuilt.72-white-label-platform`.

@@ -1,5 +1,21 @@
 # MASTER7 Current Deployment Receipt
 
+## `.73` management login copy candidate — not live yet
+
+- Candidate release: `17.0.0-selfbuilt.73-management-login-copy`.
+- Source commit: `d7e9b02261a3de9e5af90e2433cd4f68651b4011`.
+- Bundle SHA-256: `024fb30a5927209320427e6797b238d02965033e5ee5d188640bbea0d158efac`.
+- The management login dialog now identifies the flow as owner-or-staff password
+  access. It no longer displays member OTP instructions on `/admin`.
+- Member login, OTP, 34-provider API, provider launch guards, payment switches,
+  benefit enforcement guards, Telegram status and automatic accounting retain
+  the accepted `.72` behavior.
+- Local acceptance passed: 257/257 portal tests, 3/3 Render database tests,
+  TypeScript, lint, JavaScript syntax and the production build.
+- Render deployment has not been triggered. The `.72` deployment below remains
+  the current live version until `.73` finishes online acceptance.
+
+
 ## `.72` current live deployment
 
 - Live release: `17.0.0-selfbuilt.72-white-label-platform`.
