@@ -1,7 +1,7 @@
 # MASTER7 Build and QA
 
 最后更新：2026-11-06 22:00 MYT
-Portal 发布候选：`17.0.0-selfbuilt.70-frontend-route-compat`
+Portal 发布候选：`17.0.0-selfbuilt.71-frontend-route-compat`
 
 ## 本轮代码范围
 
@@ -35,8 +35,8 @@ Portal 发布候选：`17.0.0-selfbuilt.70-frontend-route-compat`
 
 | 检查 | 结果 |
 |---|---|
-| Render deploy | `.70` 发布后填写；当前回滚版 `dep-dbmt6jmc6qcc73cghapg` 为 `.69` |
-| 版本/数据库 | `.70` 发布后复测；当前 `.69` database ready |
+| Render deploy | `.71` 发布后填写；当前回滚版 `dep-dbmt6jmc6qcc73cghapg` 为 `.69` |
+| 版本/数据库 | `.71` 发布后复测；当前 `.69` database ready |
 | VPay Deposit | Active；production；order/query/callback ready |
 | 1MPay Deposit | Active；production；order/query/callback ready |
 | GSPAY Deposit | Closed；credential contract incomplete |

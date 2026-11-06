@@ -2,9 +2,9 @@
 
 ## Frontend route compatibility and domain cleanup — 2026-11-06 MYT
 
-- Candidate release: `17.0.0-selfbuilt.70-frontend-route-compat`.
-- Source commit: `a3eb23d667d09399a32a5d67e6885200e2d5d52f`.
-- Bundle SHA-256: `5ef90bcc9e1c06f0e2deffdbcc2ec88e362fd78cc6ef7e902dbcc0736ceea0c0`.
+- Candidate release: `17.0.0-selfbuilt.71-frontend-route-compat`.
+- Source commit: `524bab01fcdfe52dee189a9972afbf9f27bef070`.
+- Bundle SHA-256: `b40efb291f25e5fc156ffeae91cdf895356ac6c89bbd55db8258202b6321d874`.
 - The release archive excludes the checkout-local `node_modules` link, avoiding
   extraction conflicts with Render build cache directories.
 - The member primary entry is `https://www.master7.best/`; the staff entry is
@@ -16,8 +16,9 @@
   domain links. The `/admin` backoffice route and VIP benefit features remain.
 - Full validation: 239/239 portal tests, TypeScript, lint, 3/3 Render database
   adapter tests and the Render production build pass.
-- Deployment ID and live-route verification will be recorded after Render
-  reaches `live`.
+- The compatibility redirect now uses a relative `Location`, so the external HTTPS
+  origin is preserved behind Render proxying. Deployment ID and live-route
+  verification will be recorded after Render reaches `live`.
 
 ## Full-platform handover live — 2026-11-06 MYT
 

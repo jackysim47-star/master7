@@ -3,13 +3,13 @@
 更新时间：2026-11-06 22:00 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）
 
-当前发布候选：`17.0.0-selfbuilt.70-frontend-route-compat`
+当前发布候选：`17.0.0-selfbuilt.71-frontend-route-compat`
 当前回滚版：`17.0.0-selfbuilt.69-payout-safe-support`
 
-## `.70` 路线与域名清理
+## `.71` 路线与域名清理
 
 - 正式会员前台统一为 `https://www.master7.best/`，正式公司后台统一为 `https://www.master7.site/`。
-- 404 日志证明用户请求曾误带结尾反引号，形成 `/%60` 与 `/admin/%60`；`.70` 自动纠正这些地址。
+- 404 日志证明用户请求曾误带结尾反引号，形成 `/%60` 与 `/admin/%60`；`.71` 自动纠正这些地址。
 - `/games`、`/player/games`、`/home`、`/lobby`、`/player` 和 `/index.html` 会回到有效前台。
 - 当前源码和新发布包删除旧 `.admin`、`.vip` 域名文字；正式 `/admin` 后台路线和 VIP 福利功能保留。
 - `www.master7.best` 当前仍缺 DNS；发布程序不能替代域名方设置。DNS 完成前使用 `master7.best` 或 Render 直达入口。

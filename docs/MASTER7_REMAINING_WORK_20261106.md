@@ -1,13 +1,13 @@
 # MASTER7 唯一剩余工作清单
 
 核对时间：2026-11-06 22:00 MYT
-发布候选：`17.0.0-selfbuilt.70-frontend-route-compat`
+发布候选：`17.0.0-selfbuilt.71-frontend-route-compat`
 当前回滚版本：`17.0.0-selfbuilt.69-payout-safe-support`
 Render deploy：`dep-dbmt6jmc6qcc73cghapg`（live）
 
 ## 已完成并保持开启
 
-- 前台 404 路线修复、旧游戏入口兼容、favicon 和旧 `.admin`/`.vip` 域名清理已进入 `.70` 候选；正式入口为 `www.master7.best` 与 `www.master7.site`。
+- 前台 404 路线修复、旧游戏入口兼容、favicon 和旧 `.admin`/`.vip` 域名清理已进入 `.71` 候选；正式入口为 `www.master7.best` 与 `www.master7.site`。
 - VPay Deposit：Active，production，Order/Query/Callback ready。
 - 1MPay Deposit：Active，production，Order/Query/Callback ready。
 - MegaH5：wallet、live games、settlement 与 liveReady 均 ready。
