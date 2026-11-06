@@ -1,6 +1,6 @@
 # MASTER7 Current Deployment Receipt
 
-更新时间：2026-11-06 19:16 MYT
+更新时间：2026-11-06 19:26 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）
 
 当前线上版：`17.0.0-selfbuilt.66-operations-corrections`
@@ -13,9 +13,9 @@
 |---|---|
 | Release | `17.0.0-selfbuilt.66-operations-corrections` |
 | Runtime commit | `7cd1c0bc7cd4f364b73770b01f864abfbe1c07fc` |
-| Portal deploy | `dep-dbmrd2s9v7es73aialp0`，`live` |
+| Portal deploy | `dep-dbmrhjbbc2fs73aompu0`，`live` |
 | 部署包 SHA-256 | `bfdfcb22549911ca996b25b84617b4064cb9da2c425c3644c06b497f4e5b4285` |
-| 上线完成 | 2026-11-06 19:16:31 MYT |
+| 上线完成 | 2026-11-06 19:26:02 MYT |
 | 全套 QA | Portal 202/202；TypeScript 与 lint 通过；Render DB 3/3；production build 通过；diff check 通过 |
 | 线上复测 | health HTTP 200、`.66`、database ready；支付/游戏生产闸门关闭；766 款游戏、`playable=false`；新实例 app error/critical/fatal 0、request 5xx 0 |
 
@@ -27,8 +27,8 @@
 |---|---|
 | Current live release | `17.0.0-selfbuilt.66-operations-corrections` |
 | Runtime commit | `7cd1c0bc7cd4f364b73770b01f864abfbe1c07fc` |
-| Portal deploy | `dep-dbmrd2s9v7es73aialp0`，`live` |
-| 上线完成 | 2026-11-06 19:16:31 MYT |
+| Portal deploy | `dep-dbmrhjbbc2fs73aompu0`，`live` |
+| 上线完成 | 2026-11-06 19:26:02 MYT |
 | Gateway code deploy | `7f65d6a2527229f347bcd521d7c07ed8eb717c5f` / `dep-dbmqqqtg1s2s73d9msq0`，`live`（2026-11-06 18:35:52 MYT） |
 | Portal service | `srv-dbl0iv7f3r2c73848ei0` / `master7-v17-staging` |
 | Render workspace | `tea-dakfo2h594qs73du231g` / ahbi |

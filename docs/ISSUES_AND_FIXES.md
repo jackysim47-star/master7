@@ -1,6 +1,6 @@
 # MASTER7 Issues and Fixes · F01–F28
 
-更新时间：2026-11-06 19:16 MYT
+更新时间：2026-11-06 19:26 MYT
 当前线上：`17.0.0-selfbuilt.66-operations-corrections`
 回滚版：`17.0.0-selfbuilt.65-payment-safety`
 
@@ -33,7 +33,7 @@
 | F25 | AI 客服 | 部分 | 人工工单与接手可用；`.65` 修复响应重复 `status` 的 TypeScript 问题，AI providerReady 仍为 false。 | 连接正式 AI provider 后验证回复、转人工与权限隔离。 |
 | F26 | Android/iPhone | 已实现 | APK 下载和 iOS manifest 存在。 | 发布签收需 Android/iPhone 真机安装与更新测试。 |
 | F27 | DNS/TLS/性能/监控 | 阻塞 callback/部分 | `master7.best` 当前 302 转发会丢失 callback POST；Render 直达可用，后台轻量加载与告警已实现。 | 把 apex 直接绑定 Render 或使用保留 POST 的反向代理，并验证无 Location、TLS 和 callback 路由。 |
-| F28 | 备份/恢复/源码素材 | `.66` 已发布/恢复待演练 | `.66` commit `7cd1c0bc7cd4f364b73770b01f864abfbe1c07fc`、bundle SHA `bfdfcb22549911ca996b25b84617b4064cb9da2c425c3644c06b497f4e5b4285`、deploy `dep-dbmrd2s9v7es73aialp0` 与线上 health/log 已回填；Portal 202/202、TypeScript、lint、Render DB 3/3 与 production build 均通过；`.65` 保留为回滚点。 | 在独立恢复环境执行一次完整恢复演练。 |
+| F28 | 备份/恢复/源码素材 | `.66` 已发布/恢复待演练 | `.66` commit `7cd1c0bc7cd4f364b73770b01f864abfbe1c07fc`、bundle SHA `bfdfcb22549911ca996b25b84617b4064cb9da2c425c3644c06b497f4e5b4285`、deploy `dep-dbmrhjbbc2fs73aompu0` 与线上 health/log 已回填；Portal 202/202、TypeScript、lint、Render DB 3/3 与 production build 均通过；`.65` 保留为回滚点。 | 在独立恢复环境执行一次完整恢复演练。 |
 
 状态原则：只有真实证据支持的项目才标为“已验证”。真实资金、厂家结算和游戏启动未验收时继续保持关闭。
 

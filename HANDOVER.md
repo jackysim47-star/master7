@@ -18,7 +18,7 @@ Release: `17.0.0-selfbuilt.66-operations-corrections`.
   Render DB 3/3 and production build pass. Runtime commit
   `7cd1c0bc7cd4f364b73770b01f864abfbe1c07fc`, bundle SHA-256
   `bfdfcb22549911ca996b25b84617b4064cb9da2c425c3644c06b497f4e5b4285`
-  and Render deploy `dep-dbmrd2s9v7es73aialp0` are live.
+  and Render deploy `dep-dbmrhjbbc2fs73aompu0` are live.
 - Post-deploy health is HTTP 200 with `.66` and the database ready. New-instance
   application error/critical/fatal and request 5xx counts are zero.
 - This release does not change any payment, game, payout, callback or wallet

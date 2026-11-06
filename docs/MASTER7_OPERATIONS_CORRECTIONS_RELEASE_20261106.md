@@ -8,9 +8,9 @@
 |---|---|
 | Rollback release | `17.0.0-selfbuilt.65-payment-safety` |
 | Rollback runtime commit / deploy | `6b432399eabf09b22e6a309e4a547c700515cfbc` / `dep-dbmr15s9v7es73ahfaf0` |
-| `.66` runtime commit / deploy | `7cd1c0bc7cd4f364b73770b01f864abfbe1c07fc` / `dep-dbmrd2s9v7es73aialp0` |
+| `.66` runtime commit / deploy | `7cd1c0bc7cd4f364b73770b01f864abfbe1c07fc` / `dep-dbmrhjbbc2fs73aompu0` |
 | `.66` bundle SHA-256 | `bfdfcb22549911ca996b25b84617b4064cb9da2c425c3644c06b497f4e5b4285` |
-| `.66` live time | 2026-11-06 19:16:31 MYT |
+| `.66` live time | 2026-11-06 19:26:02 MYT |
 
 ## 修复内容
 

@@ -1,6 +1,6 @@
 # MASTER7 Build and QA
 
-最后更新：2026-11-06 19:16 MYT
+最后更新：2026-11-06 19:26 MYT
 Portal 线上版：`17.0.0-selfbuilt.66-operations-corrections`
 回滚版：`17.0.0-selfbuilt.65-payment-safety`
 
@@ -34,7 +34,7 @@ Portal 线上版：`17.0.0-selfbuilt.66-operations-corrections`
 | Render SQL adapter | `pnpm test:render-db` | 3/3 通过 |
 | Render production build | `pnpm build:render` | 通过 |
 | 文档/补丁格式 | `git diff --check` | 通过 |
-| `.66` 线上健康与日志 | health、payment status、game readiness、5xx、error/fatal | HTTP 200、`.66`、database ready；deploy `dep-dbmrd2s9v7es73aialp0` live；新实例 app error/critical/fatal 0、request 5xx 0 |
+| `.66` 线上健康与日志 | health、payment status、game readiness、5xx、error/fatal | HTTP 200、`.66`、database ready；deploy `dep-dbmrhjbbc2fs73aompu0` live；新实例 app error/critical/fatal 0、request 5xx 0 |
 
 ## 测试重点
 
