@@ -1,8 +1,8 @@
 # MASTER7 Build and QA
 
-最后更新：2026-11-06（`.65` 发布前验证）
-Portal 候选版：`17.0.0-selfbuilt.65-payment-safety`
-当前线上版：`17.0.0-selfbuilt.64-game-controls`
+最后更新：2026-11-06 18:51 MYT
+Portal 线上版：`17.0.0-selfbuilt.65-payment-safety`
+回滚版：`17.0.0-selfbuilt.64-game-controls`
 
 ## 本轮代码范围
 
@@ -30,7 +30,7 @@ Portal 候选版：`17.0.0-selfbuilt.65-payment-safety`
 | Render SQL adapter | `pnpm test:render-db` | 3/3 通过 |
 | Render production build | `pnpm build:render` | 通过 |
 | 文档/补丁格式 | `git diff --check` | 通过 |
-| 线上健康与日志 | health、payment status、game readiness、5xx、error/fatal | `.65` 尚待人工部署；当前 `.64` / database ready；Gateway deploy `dep-dbmqqqtg1s2s73d9msq0` live；目录 502 均为 EVO/EPICWIN/Venus/ClotPlay 厂家阻塞 |
+| 线上健康与日志 | health、payment status、game readiness、5xx、error/fatal | `.65` / database ready；deploy `dep-dbmr15s9v7es73ahfaf0` live；新实例 error/fatal 0、5xx 0；Gateway deploy `dep-dbmqqqtg1s2s73d9msq0` live；目录 502 均为 EVO/EPICWIN/Venus/ClotPlay 厂家阻塞 |
 
 ## 测试重点
 
@@ -46,4 +46,4 @@ Portal 候选版：`17.0.0-selfbuilt.65-payment-safety`
 
 自动测试不发送真钱。MegaH5 Portal 与 Gateway 开关已按 Owner 指示开启并持久保存；真实 Launch、Wallet、Exit、Disconnect、Settlement 仍需获授权会员做一笔受控验收。GSPAY 仍因准确 Operator Key、callback 域名、受控真实 E2E 与商户结算证据未齐而关闭；DuitNow、USDT、Payout 不在本发布能力范围。
 
-`.65` 不改变任何支付、游戏或资金开关。发布后必须确认总资金开关仍为 false、VPay/1MPay/GSPAY 新订单仍关闭，并只允许 1MPay 对既有订单报告 `queryReady=true`。
+`.65` 不改变任何支付、游戏或资金开关。上线复测确认总资金开关仍为 false、VPay/1MPay/GSPAY 新订单仍关闭；1MPay 只对既有订单报告 `queryReady=true`、`orderReady=false`。游戏仍为 766 款、618 Active、148 Maintenance，`playable=false`。

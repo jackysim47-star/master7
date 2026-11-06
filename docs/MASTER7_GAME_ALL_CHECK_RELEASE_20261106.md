@@ -43,4 +43,4 @@ Portal 上线时间：2026-11-06 18:21:09 MYT；Gateway 修复上线：2026-11-0
 
 连接目录不等于真实可玩。本回执只对已经取得的证据打 ✅，不会把目录同步冒充成钱包和结算验收。
 
-后续候选版 `17.0.0-selfbuilt.65-payment-safety` 只加强 VPay/1MPay 结算安全并修复构建声明，不改变本回执中的游戏数量、厂家开关或 Launch/Wallet 验收状态。该候选版部署证据单独记录在 `MASTER7_PAYMENT_SAFETY_RELEASE_20261106.md`。
+当前 Portal 线上版 `17.0.0-selfbuilt.65-payment-safety` 只加强 VPay/1MPay 结算安全并修复构建声明，不改变本回执中的游戏数量、厂家开关或 Launch/Wallet 验收状态。其部署证据单独记录在 `MASTER7_PAYMENT_SAFETY_RELEASE_20261106.md`。

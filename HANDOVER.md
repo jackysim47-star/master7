@@ -1,8 +1,8 @@
 # Wallet deposit, withdrawal and company-bank handover — 5 November 2026
 
-## Payment safety release candidate — 6 November 2026
+## Payment safety release — 6 November 2026
 
-Candidate release: `17.0.0-selfbuilt.65-payment-safety`.
+Release: `17.0.0-selfbuilt.65-payment-safety`.
 
 - VPay callback settlement now proves that both wallet-ledger entries belong to
   the order member, use the order currency and amount, and balance to zero.
@@ -20,9 +20,11 @@ Candidate release: `17.0.0-selfbuilt.65-payment-safety`.
 - Release validation is 199/199 Portal tests, TypeScript pass, affected-file
   lint pass, Render DB 3/3 and production build pass. No real order, callback,
   payout, game transfer or wallet movement was created by this validation.
-- Commit, bundle checksum, deploy ID and post-deploy health/payment status are
-  recorded in `docs/MASTER7_PAYMENT_SAFETY_RELEASE_20261106.md`; deployment
-  evidence remains pending until the candidate reaches Render `live`.
+- Runtime commit `6b432399eabf09b22e6a309e4a547c700515cfbc`, bundle
+  SHA-256 `2af1922f4018a4213e38fad7d5ab101188a183dbdd605f530d017e1ee70b4026`
+  and Render deploy `dep-dbmr15s9v7es73ahfaf0` are live. Post-deploy health
+  returns `.65` with the database ready; every real-payment/new-order switch
+  remains off. `.64` remains the recorded rollback release.
 
 ## Full game audit and trusted control coverage — 6 November 2026
 

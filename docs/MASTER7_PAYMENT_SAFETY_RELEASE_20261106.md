@@ -1,17 +1,17 @@
 # MASTER7 Payment Safety Release Receipt
 
-候选版本：`17.0.0-selfbuilt.65-payment-safety`
+发布版本：`17.0.0-selfbuilt.65-payment-safety`
 
-发布状态：代码与构建验证完成；Render 人工部署待执行。
+发布状态：Render deploy `live`，线上复测完成。
 
 | 证据 | 当前记录 |
 |---|---|
 | Previous rollback release | `17.0.0-selfbuilt.64-game-controls` |
 | Previous runtime commit / deploy | `1e243182e39aac52d3dfefa9f601134c5bd3240f` / `dep-dbmqj56tlv9c73bo3u6g` |
 | Previous bundle SHA-256 | `01b946e4d04a8c02512e389993fe0939e344de6bef393a26e149bef780f8850a` |
-| `.65` runtime commit / deploy | `PENDING` / `PENDING` |
-| `.65` bundle SHA-256 | `PENDING` |
-| `.65` live time | `PENDING` |
+| `.65` runtime commit / deploy | `6b432399eabf09b22e6a309e4a547c700515cfbc` / `dep-dbmr15s9v7es73ahfaf0` |
+| `.65` bundle SHA-256 | `2af1922f4018a4213e38fad7d5ab101188a183dbdd605f530d017e1ee70b4026` |
+| `.65` live time | 2026-11-06 18:51:17 MYT |
 
 ## 修复内容
 
@@ -33,13 +33,13 @@
 
 测试包含 VPay 正常双分录、缺失/部分/跨会员账本 fail-closed，以及 1MPay 关闭新订单后继续查询既有订单。全部测试使用本地或模拟 provider 回包；没有发送真钱、建立真实订单、执行 payout、启动游戏转账或改变会员钱包。
 
-## 上线后必须回填
+## 上线验证
 
-1. 记录实际 commit、部署包 SHA-256、Render deploy ID 和 `live` 时间。
-2. `/health` 必须返回 `.65-payment-safety` 与 `database=ready`。
-3. 三家支付总资金开关和新订单开关必须仍为 false；GSPAY 不得因本版自动开启。
-4. 1MPay 应只显示既有订单查单可用：`queryReady=true`、`orderReady=false`。
-5. 复查部署后的 error/fatal 与 5xx；如果任一闸门不符，回滚到上表 `.64` 部署。
+1. `/health` HTTP 200，返回 `.65-payment-safety` 与 `database=ready`。
+2. `transactionsEnabled=false`、`realPayments=false`、`settlementVerified=false`、`productionReady=false`；所有 `providerOrdersEnabled` 均为 false。
+3. 1MPay 为 `programReady=true`、`queryReady=true`、`callbacksReady=true`、`orderReady=false`。
+4. VPay order/query/callback 均为 false，渠道为 Suspended；GSPAY `programConfigured=false`，order/query/callback 均为 false，渠道为 Close。
+5. 游戏保持 766 款、618 Active、148 Maintenance，`playable=false`。新实例启动后的 Portal 日志 error/fatal 为 0，5xx 为 0。
 
 ## 仍需外部完成
 

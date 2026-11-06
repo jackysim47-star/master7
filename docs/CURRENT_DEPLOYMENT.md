@@ -1,18 +1,18 @@
 # MASTER7 Current Deployment Receipt
 
-更新时间：2026-11-06 18:36 MYT
+更新时间：2026-11-06 18:51 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）
 
-下一候选版：`17.0.0-selfbuilt.65-payment-safety`（代码验证完成，人工部署回执待回填）
+回滚版：`17.0.0-selfbuilt.64-game-controls`，deploy `dep-dbmqj56tlv9c73bo3u6g`
 
 ## 当前线上版本
 
 | 项目 | 已核实值 |
 |---|---|
-| Current live release | `17.0.0-selfbuilt.64-game-controls` |
-| Runtime commit | `1e243182e39aac52d3dfefa9f601134c5bd3240f` |
-| Portal deploy | `dep-dbmqj56tlv9c73bo3u6g`，`live` |
-| 上线完成 | 2026-11-06 18:21:09 MYT |
+| Current live release | `17.0.0-selfbuilt.65-payment-safety` |
+| Runtime commit | `6b432399eabf09b22e6a309e4a547c700515cfbc` |
+| Portal deploy | `dep-dbmr15s9v7es73ahfaf0`，`live` |
+| 上线完成 | 2026-11-06 18:51:17 MYT |
 | Gateway code deploy | `7f65d6a2527229f347bcd521d7c07ed8eb717c5f` / `dep-dbmqqqtg1s2s73d9msq0`，`live`（2026-11-06 18:35:52 MYT） |
 | Portal service | `srv-dbl0iv7f3r2c73848ei0` / `master7-v17-staging` |
 | Render workspace | `tea-dakfo2h594qs73du231g` / ahbi |
@@ -23,28 +23,28 @@
 
 | 项目 | 当前值 |
 |---|---|
-| Release | `17.0.0-selfbuilt.64-game-controls` |
-| Portal commit / deploy | `1e243182e39aac52d3dfefa9f601134c5bd3240f` / `dep-dbmqj56tlv9c73bo3u6g` |
-| 部署包 SHA-256 | `01b946e4d04a8c02512e389993fe0939e344de6bef393a26e149bef780f8850a` |
-| 全套 QA | Portal 192/192；lint 通过；Render DB 3/3；production build 通过；diff check 通过 |
+| Release | `17.0.0-selfbuilt.65-payment-safety` |
+| Portal commit / deploy | `6b432399eabf09b22e6a309e4a547c700515cfbc` / `dep-dbmr15s9v7es73ahfaf0` |
+| 部署包 SHA-256 | `2af1922f4018a4213e38fad7d5ab101188a183dbdd605f530d017e1ee70b4026` |
+| 全套 QA | Portal 199/199；TypeScript 与 lint 通过；Render DB 3/3；production build 通过；diff check 通过 |
 | Gateway QA | 85/85 通过；固定 EPICWIN/ClotPlay 服务身份；EVO/Mega 业务拒绝不再错误缓存 |
-| 线上复测 | health HTTP 200；release `.64`；database ready；MegaH5 Portal/Gateway 开关开启；Portal error/fatal 与 5xx 均为 0 |
+| 线上复测 | health HTTP 200；release `.65`；database ready；全部支付新订单开关为 false；Portal 新实例 error/fatal 与 5xx 均为 0 |
 
-本版完成 766 款全游戏检查，补齐 Rectangle/GodeeZone 单游戏控制，并按 Owner 指示持久开启 MegaH5 Portal 与 Gateway transfer/status 开关。其他厂家只有目录或仍被上游阻塞，未伪装成已可玩。GSPAY 与其他支付开关保持原状态。
+本版加强 VPay 订单/会员/双分录归属与平衡核对，并让 1MPay 在关闭新订单时继续 reconciliation 既有订单。游戏目录与状态保持 766 款、618 Active、148 Maintenance，`playable=false`；MegaH5 Portal/Gateway 配置不变，其他厂家仍未伪装成可玩。GSPAY 与所有支付新订单开关保持关闭。
 
 Gateway 后续修复 `7f65d6a` 已上线：EPICWIN 与 ClotPlay 请求带固定 `MASTER7-Integration-Gateway/<version>` User-Agent；EVO 与 MegaH5 的 HTTP 200 业务拒绝不会再缓存五分钟。部署后复测仍显示 EVO `code 130`、EPICWIN/ClotPlay 上游 403、Venus 缺少响应签名头、GodeeZone `/token` 被 Cloudflare 403；这些项目仍须厂家处理，未标为连接成功。
 
-## 下一候选发布：`.65-payment-safety`
+## 支付安全发布证据：`.65-payment-safety`
 
-| 项目 | 发布前记录 |
+| 项目 | 线上记录 |
 |---|---|
 | Release | `17.0.0-selfbuilt.65-payment-safety` |
-| Portal commit / deploy | `PENDING` / `PENDING` |
-| 部署包 SHA-256 | `PENDING` |
+| Portal commit / deploy | `6b432399eabf09b22e6a309e4a547c700515cfbc` / `dep-dbmr15s9v7es73ahfaf0` |
+| 部署包 SHA-256 | `2af1922f4018a4213e38fad7d5ab101188a183dbdd605f530d017e1ee70b4026` |
 | 全套 QA | Portal 199/199；TypeScript 通过；受影响文件 lint 通过；Render DB 3/3；production build 通过 |
 | 资金与渠道开关 | 不改变；真实新订单、callback、payout 与自动钱包结算继续关闭 |
 
-候选版修复 VPay callback 对账本会员归属、币种、金额和平衡的强制核对；异常或跨会员账本转 `review`，不返回成功。1MPay 则允许在新订单关闭时查询和 reconciliation 已存在的订单。AI 客服重复 `status` 的 TypeScript 问题及 GSPAY 环境声明一并修复。只有 Render deploy 到达 `live`、`/health` 返回 `.65` 且三家支付状态仍 fail-closed 后，才把这张表改为正式上线回执。
+本版修复 VPay callback 对账本会员归属、币种、金额和平衡的强制核对；异常或跨会员账本转 `review`，不返回成功。1MPay 则允许在新订单关闭时查询和 reconciliation 已存在的订单。AI 客服重复 `status` 的 TypeScript 问题及 GSPAY 环境声明一并修复。Render deploy 已到达 `live`，`/health` 返回 `.65`，三家支付状态保持 fail-closed。
 
 ## GSPAY 当前边界
 
