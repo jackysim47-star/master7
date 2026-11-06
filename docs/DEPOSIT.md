@@ -1,40 +1,49 @@
-# Deposit 申请接入说明
+# MASTER7 Deposit 流程
 
-当前提供金额表单、预览、申请记录和后台只读列表。它是普通平台的申请登记功能，不是支付网关、结算系统或钱包。新增固定支付网关的只读状态查询；仍不创建收银台链接、不接收资金，也不增加余额。
+更新时间：2026-11-06 17:28 MYT
+适用候选版：`17.0.0-selfbuilt.63-gspay-contract`
 
-## 页面与身份
+平台保留公司银行人工转账，以及 VPay、GSPAY、1MPay 厂家收银台。三家都按独立状态显示；正式支付与游戏营业开关继续关闭。
 
-客户在前台 `/` 的 Deposit 菜单提交申请。总部及租户老板在 `/admin` 查看授权租户的申请，后台没有金额提交表单。员工无法读取或创建 Deposit 申请。三个通道按钮目前全部不可付款；没有预置订单或客户数据。
+## 公司银行人工转账
 
-## 只读通道状态
+1. Owner 在后台录入银行名称、户名、账号、排序与是否向会员显示。
+2. 只有已批准会员能读取已启用的公司银行户口，并复制银行名称、户名和账号。
+3. 会员选择银行、输入 MYR 金额、上传 JPG/PNG/WebP 银行单后提交。
+4. Owner 或 Staff 在后台查看原始银行单，并到公司银行核对真实到账。
+5. `Approve` 在同一数据库事务中取得唯一审核 claim、写入金额相反的 `member` 与 `provider_clearing` 双分录、把订单改成 `credited` 并写审计。
+6. `Reject` 只把订单改成失败并写审计，不增加会员钱包。
 
-`GET /api/v1/payment-channels?tenant=<租户ID>` 需有效登录，员工禁止访问；客户与租户老板只能读取自己的租户，总部可选择存在的租户。返回 `tenantId`、三个 `channels` 和 `fundsProcessed:false`。VPay、GSPAY+ MYR、GSPAY+ USDT 的 `enabled` 固定为 `false`，`status` 为 `not_open`；没有交易写入路由。
+主要 API：
 
-服务端只 GET 已确认的固定网关 `/providers/vpay/status`，不接受外部 URL、不携带用户 Cookie 或支付密钥、不跟随跳转。默认最多等 3 秒、读取 64 KiB，成功状态缓存 15 秒并合并并发请求。网络等待在数据库操作队列之外。
+| 用途 | 路径 | 权限 |
+|---|---|---|
+| 会员读取可用公司银行 | `GET /api/manual-bank/accounts` | 已批准 Member |
+| 会员提交银行单 | `POST /api/manual-bank/deposits` | 已批准 Member |
+| 会员查看本人记录 | `GET /api/manual-bank/deposits` | Member |
+| 后台银行与待审记录 | `GET /api/admin/manual-bank` | Owner / Staff |
+| 后台查看银行单 | `GET /api/admin/manual-bank/receipt?id=...` | Owner / Staff |
+| 新增或修改公司银行 | `POST /api/admin/manual-bank/account` | Owner |
+| 批准或拒绝 | `POST /api/admin/manual-bank/review` | Owner / Staff |
 
-仅总部响应含 `diagnostics`：检查时间、网关可达性、环境、配置/就绪布尔值及白名单错误码。普通会员只显示通道未开放。网关失败不会开启通道或显示旧快照；页面读取失败显示状态未知并支持重试。VPay 平台结算尚未开放；GSPAY+ MYR 已有离线协议校验模块，但网络适配、回调路由和钱包入账仍保持关闭；USDT 停止新订单。
+客户端会为一次提交意图保存并复用同一个 `requestKey`。断线、超时或页面刷新后的重试不会生成第二笔待审订单；提交成功、金额改变、会员改变或明确重置后才生成新键。银行单按原比例完整缩放，不居中裁切；高图和宽图均保留完整内容，并逐级压缩到服务器允许的 350 KB 内。
 
-## 申请登记 API
+自动测试覆盖未批准会员拒绝、银行户口权限、银行单上传、重复请求、并发批准/拒绝、重复审核 409、双分录单次入账及审计脱敏。测试使用合成资料，不等于正式后台已经录入真实公司银行，也不等于已用真实测试会员完成银行转账。
 
-`GET /api/v1/deposit-requests` 返回最近 100 条授权记录，客户仅自己的，租户老板仅本租户，总部可使用 `?tenant=<合法租户ID>` 切换。响应始终明确返回 `connectionStatus:"not_connected"` 与 `fundsProcessed:false`。
+## VPay 与 1MPay
 
-`POST /api/v1/deposit-requests` 使用登录会话、同源 Origin、JSON 和 `X-Portal-Request: 1`：
+- VPay 与 1MPay 适配器具备离线建单、查单、回调和单次钱包入账测试。
+- 1MPay 的 `contract → merchant`、`secret_key → apikey` 已由厂家确认；成功回调固定回复 HTTP 200 + 小写 `ok`。
+- 1MPay 没有 sandbox，只能在最后的受控正式步骤进行真实 Deposit；当前不自动发起真钱测试。
+- 厂家通道、订单开关、`realPayments`、`settlementVerified` 与 `productionReady` 继续关闭。
 
-```json
-{"amount":"12.34","currency":"MYR","requestKey":"unique_request_key_0001"}
-```
+## GSPAY
 
-- 金额必须为十进制字符串，0.01–100000.00 MYR，最多两位小数；不接受指数、负数或浮点 JSON 数字。
-- `requestKey` 是客户端生成的 16–100 位字母/数字/下划线/连字符标识。网络失败重试保持同一键和金额；修改金额要生成新键。
-- 客户端 `userId`、`tenantId`、`status` 不决定身份、归属或状态；这些取服务端会话和授权配置。
-- 首次成功登记返回 201；同账号、同请求键和同金额/租户重复提交返回 200、`duplicate:true`。同键不同金额/租户返回 409。
-- 记录金额为整数 `amountMinor`（例如 1234），状态只有 `awaiting_connection`。没有“已支付”或“到账”写入入口。
-- 未登录 401，跨租户或员工访问 403，格式无效 400，每账号最多 20 个新申请/15 分钟，超过返回 429。
+普通 MYR Payment Deposit 按官方文档实现：建单、两分钟付款链接、Get Payment 独立查单、callback 验签、十分钟无回调拒绝及单次双分录。只有后端状态 `orderReady=true` 时前台才可提交。当前因 Operator Key 长度不正确、`master7.best` callback 仍为 302 转发且没有生产六阶段证据，通道保持关闭。DuitNow、USDT 与 Payout 不启用。详情见 [GSPAY 接入边界](GSPAY.md)。
 
-申请保存与审计记录在一个数据库事务内完成。创建数据库时该表为空；测试数据只存在临时测试库，不发布到生产。
+## 正式营业前必须完成
 
-## 接手人员需要完成
-
-真实供应商的订单创建、收银台、退款、结算、余额账本与相应鉴权均未开放。GSPAY+ MYR 的离线模块已经覆盖文档中的建单签名、查单/回调验签及 DuitNow 状态投影；它不发送网络请求，也不改变订单或余额。网络适配器仍须补齐厂家建单成功响应、回调应答/重试等未确认细节，并测试关联关系、重放、并发、精确金额、幂等和对账。通用事件入口只保存消息，不会自动改变本申请或任何资金状态。详情见 [GSPAY+ MYR 接入准备](GSPAY.md)。
-
-201 仅表示登记申请；202 通用事件仅表示接收消息。两者都不是支付成功证明。正式连接完成前，不应把此模块展示或宣称为可以实际收款。
+- 录入并由本人确认真实公司银行资料。
+- 用获授权测试会员执行一次受控人工银行 Deposit、上传银行单、后台核对及批准，并逐笔核对钱包双分录。
+- 取得 VPay、GSPAY、1MPay 各自真实建单、查单、回调、钱包与对账证据；先修复 GSPAY callback 域名。
+- 上述证据齐全后，才分别开启所需支付渠道；游戏营业开关仍须独立验收。

@@ -1,6 +1,6 @@
-# MASTER7 Current Deployment Receipt
+# MASTER7 Current Deployment and Candidate Receipt
 
-更新时间：2026-11-06 17:07 MYT
+更新时间：2026-11-06 17:43 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）
 
 ## 当前线上版本
@@ -8,57 +8,42 @@
 | 项目 | 已核实值 |
 |---|---|
 | Current live release | `17.0.0-selfbuilt.62-operations-performance` |
-| Release commit | `82cab3d5bf1e40804d4a9e657fbbe6f5b72d749b` |
+| Runtime commit | `82cab3d5bf1e40804d4a9e657fbbe6f5b72d749b` |
 | Portal deploy | `dep-dbmpfjm7bikc73bm623g`，`live` |
-| 上线完成 | 2026-11-06 17:05:15 MYT |
-| 部署包 SHA-256 | `efeb5d524692d0fc3252246b1eab5aee1cebb1cb5fbc565f3f6c82c48bfe7956` |
 | Portal service | `srv-dbl0iv7f3r2c73848ei0` / `master7-v17-staging` |
 | Render workspace | `tea-dakfo2h594qs73du231g` / ahbi |
-| Region / plan | Singapore / `1c-2g` |
 | Branch | `codex/v17-render-staging-20261104` |
-| Auto deploy | Off；本次由 Render API 人工触发并记录 deploy ID |
+| Auto deploy | Portal Off；发布必须人工触发并记录 deploy ID |
 
-## 发布验证
+## 本轮候选版本
 
-| 检查 | 结果 |
+| 项目 | 当前值 |
 |---|---|
-| 全套 Node 测试 | 173/173 通过 |
-| ESLint | 0 error / 0 warning |
-| Render SQL adapter | 3/3 通过 |
-| Render production build | 成功；仅框架非阻断提示 |
-| `git diff --check` | 通过 |
-| `/health` | HTTP 200；release `.62`；database `ready` |
-| `/admin` / `/signin` | HTTP 200 / 200 |
-| 新版 `/assets/app.js` | HTTP 200；资金提示与分块名单代码已上线 |
-| 匿名银行资料 / 资金事件 / 营销后台 | 均为 HTTP 401 |
-| 部署后日志 | 09:03–09:06 UTC：应用 error/fatal 0，HTTP 5xx 0 |
+| Candidate release | `17.0.0-selfbuilt.63-gspay-contract` |
+| Portal commit / deploy | 发布后回填 |
+| 候选部署包 SHA-256 | `296aca7361e243c4ca2283427bb6b9ae0864145d73e72ff4f0139ecb92bb828c` |
+| 全套 QA | Portal 192/192；lint 通过；Render DB 3/3；production build 通过；diff check 通过 |
+| 线上复测 | Portal 显示 `live` 后回填 |
 
-## 当前入口
+候选版恢复并完成 GSPAY MYR Deposit 合约边界；同时保留 1MPay callback ACK、人工银行 Deposit 幂等与完整银行单、福利/Turnover 和公司广告发布验证。没有写入虚构业务资料，也没有开启真钱或游戏。
 
-| 入口 | 结果 |
-|---|---|
-| `https://master7.best/` | HTTP 302 到当前 portal |
-| `https://master7.site/` | HTTP 302 到当前 `/admin` |
-| `https://master7-v17-staging.onrender.com/health` | HTTP 200，当前 `.62` |
-| `www.master7.best` | 无 DNS 记录，未完成 |
+## GSPAY 当前边界
 
-## 本轮已上线范围
+- 官方合约：`POST /payment` 建单、`GET /getpayment` 独立查单、Payment callback MD5 验签；金额固定两位小数。
+- 收银台有效期 2 分钟；10 分钟没有成功回调/独立成功查单时转为拒绝或过期，不能增加钱包。
+- 只有 `completed=true`、`success=true`、订单/会员/金额/厂家流水全部绑定，并经独立查单确认后，才能写一组金额相反的双分录；重复或并发通知只入账一次。
+- DuitNow、USDT、Payout 尚未实现或启用；提款页不把 GSPAY 当成已连接 payout。
+- 最后收到的 Operator Authentication Key 只有 31 个十六进制字符；必须取得准确 32 字符后才写入 Render。
+- `master7.best` 当前以 HTTP 302 转发到 Render，不能可靠保留支付回调 POST。正式启用前必须改成 Render 直接自定义域名或保留方法/正文的反向代理。
+- `74.220.52.132` 是 MASTER7 Render 新加坡出口 IP；`52.221.96.227` 是厂家提供的服务器 IP，具体用途仍须厂家确认。
 
-- 公司银行资料只有已登录且已批准会员可以从客户接口读取；匿名、未批准会员和后台角色被拒绝。
-- 银行户口创建/修改、银行单提交、批准和拒绝与审计同事务；并发审核只有一个请求可取得 claim，钱包只入账一次。
-- 后台首屏只加载摘要、健康和当前面板；其他面板按需加载、缓存并支持强制刷新。
-- 资金事件改用轻量 cursor 接口；提示音可关闭，青色状态灯慢速呼吸，Audit log 独立滚动。
-- 游戏大厅只渲染当前分类，首次 12 项、每次再载入 12 项；供应商和单游戏管理维持折叠。
-- 联系人文件按 1 MiB 读取、每 1,000 条上传；后端使用导入锁、多行 UPSERT、持久计数和 600,000 硬上限。
-- 获同意名单按 2,000 条复合索引 keyset 流式导出；保持标准 `+60` 电话格式，并对可编辑文字做 CSV 公式防护。
+## 营业准备顺序
 
-600,000 条生产数据库吞吐尚未使用非真实号码完成压测，因此该项仍需压力签收；当前已验证的是内存边界、批次、锁、硬上限和流式结构。
-
-## 数据库与支援服务
-
-- PostgreSQL：`dpg-dbkl1g3bc2fs739li01g-a` / `master7-cloud-staging-db`，Singapore。新实例启动完成 schema/index 初始化并报告 database ready。
-- Integration gateway：`srv-db6b7inlk1mc73ck6cmg`。GSPAY 继续等待厂家提供本商户资料，程序与交易路由保持关闭。
-- 本轮没有恢复或覆盖生产数据，没有建立真实支付、提款、payout、游戏启动或下注。
+1. Owner 录入真实公司银行名称、户名和账号。
+2. 用获授权测试会员完成一次公司银行 Deposit、完整银行单、真实到账核对、后台批准及钱包双分录核对。
+3. 输入并发布真实福利/Turnover 条款与公司广告；不完整资料保持草稿。
+4. 修复 GSPAY callback 域名、写入准确凭证，并分别完成 Order、Query、Callback、Wallet、Reconcile 受控生产验收。
+5. 最后只开启已经签收的支付能力；游戏仍须独立完成 Launch、Wallet 和 Settlement。
 
 ## 运行闸门
 
@@ -69,12 +54,11 @@
 - `liveGames=false`
 - `productionReady=false`
 
-这些值已在 `.62` 线上 `/health` 重验。后台状态灯只表示服务健康，不能代替厂家生产验收。
+## 入口与 DNS
 
-## 仍需外部资料
+- Portal：`https://master7-v17-staging.onrender.com`
+- 客户根域：`https://master7.best/`，当前为 302 URL Forwarding；不适合 callback POST。
+- 后台：`https://master7.site/`
+- `www.master7.best`：仍缺 DNS。
 
-- GSPAY 等支付厂家本商户协议、白名单、建单/查单/回调/ACK/重试和结算证据。
-- 游戏厂家真实启动、钱包、退出和下注结算验收。
-- `www.master7.best` DNS。
-- 正式 WhatsApp/SMS provider、获批模板、同意/退订和发送配额。
-- Android/iPhone 真机及正式素材签收。
+发布后必须复测 health、入口、GSPAY 关闭状态、callback 非重定向行为、公开支付列表、HTTP 5xx、应用 error/fatal 及数据库迁移，再回填本页。

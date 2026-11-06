@@ -1,40 +1,27 @@
-# 人工提现与财务审核
+# MASTER7 提款记录与当前边界
 
-本模块提供会员提现申请、余额冻结、财务审核、人工付款登记、钱包扣账与 CSV。它默认关闭，不调用 VPay、GSPAY+ 或银行接口，也不会自动出款。
+更新时间：2026-11-06 17:43 MYT
+适用候选版：`17.0.0-selfbuilt.63-gspay-contract`
 
-## 流程
+当前会员提款表单只列出 VPay 与 1MPay。GSPAY Payout 文档虽已收到，但程序、权限、白名单、出款查单、callback、钱包扣账和结算均未完成，因此不显示为可用提款公司。
 
-1. 会员读取 `GET /api/v1/withdrawals/config`，查看正式环境的已入账余额、冻结金额和可用余额。
-2. `PORTAL_WITHDRAWALS_ENABLED=true` 时，会员可向 `POST /api/v1/withdrawals` 提交 MYR 金额、银行、户口名字、户口号码和独立请求标识。
-3. 服务在同一事务内锁定会员、重验账号与租户、检查可用余额，并写入 `pending_review` 申请及 `active` 冻结。并发申请不能超过可用余额。
-4. 总部、租户老板或获单独授权的财务员工在后台开始处理，状态变为 `processing`。该动作不连接银行，也不代表已付款。
-5. 财务在受控银行后台完成人工付款后，填写唯一银行参考号并标记 `paid`。同一事务把冻结改为 `consumed`，写入唯一负数钱包账本，并保留财务动作与审计记录。
-6. `pending_review` 可拒绝；`processing` 可标记失败。两者都把冻结改为 `released`，不会扣钱包。每个动作有独立幂等键，重复请求不会重复扣账。
+## 已实现
 
-新申请开关关闭后，既有申请仍可查看、拒绝、标记失败或在完成银行核对后登记已付款，避免遗留冻结无法处理。任何真实付款都必须由有权限的财务人员在银行端另行完成；平台不收集银行登录密码、OTP 或 Authenticator 动态码。
+- 只有已批准 Member 可以提交 MYR 提款资料。
+- 支持 18 家马来西亚银行；账号对会员只显示尾四位，完整资料以 AES-256-GCM 加密。
+- 提交前检查游戏钱包已结清、没有另一笔处理中提款，以及可用余额足够。
+- Owner 可读取后台记录；Staff 无权读取完整提款银行资料；后台状态仍由厂家可验证流程驱动，不能手工标成已付款。
 
-## 数据与权限
+| 用途 | 路径 | 当前行为 |
+|---|---|---|
+| 银行与 provider 列表 | `GET /api/withdrawal-banks` | 当前只返回 VPay、1MPay |
+| 会员记录 | `GET /api/withdrawals` | 本人最近 100 条及钱包状态 |
+| 会员提交 | `POST /api/withdrawals` | 记录尚未生产验收的 provider 请求 |
+| 后台记录 | `GET /api/admin/withdrawals` | Owner 只读，最多 500 条 |
+| 后台手工改状态 | `POST /api/admin/withdrawals/status` | HTTP 405，只读 |
 
-- `0008_manual_withdrawals.sql` 分开保存申请、余额冻结、负数提现账本及财务动作。
-- PostgreSQL 表位于私有 schema，启用 RLS，并撤销公开及浏览器角色的直接访问。
-- 会员只读本人记录；总部和租户老板只管理已选择租户；财务员工须先获明确授权。
-- 后台列表把 `pending_review`、`processing` 固定排在已完成记录之前，并支持状态、会员、最多 31 天的 MYT 日期筛选及绑定筛选条件的稳定游标。未指定日期时覆盖全部历史，旧待办不会因新记录增加而被隐藏。
-- `GET /api/v1/wallet` 保留兼容字段 `balanceMinor`，并返回 `postedBalanceMinor`、`heldMinor`、`availableMinor`。正式余额为已核验充值减已付款提现；可用余额再减活动冻结。
-- 今日提现金额按 `Asia/Kuching` 当日的 `paid_at` 计算；申请、开始处理或失败不会计入已付款总额。
-- 导出默认最近 31 个 MYT 日期，可按状态、会员及成对日期缩小范围；最多 10000 条，并对可能触发表格公式的字段加保护，导出本身留下审计。
-- 银行资料会出现在受权限控制的财务页面和导出中，因此只能由实际业务所需人员访问。
-- 统一净额视图只读取已提交钱包账本，不导入银行或厂家结算单；详见 [财务队列与统一对账](FINANCE.md)。
+## GSPAY Payout
 
-## 配置与验证
+官方 Payout 端点、字段、签名和 callback 文件仅作为后续输入。本候选不会调用 `/payout`，也不会接收 Payout callback 改变会员钱包。未来必须另行完成幂等出款、账号验证边界、白名单、独立查单、callback 验签、失败/超时释放、钱包扣账、商户余额和日终对账。
 
-唯一开关为 `PORTAL_WITHDRAWALS_ENABLED`，只有字面值 `true` 才接受新申请。没有自动出款、供应商 Payout 或银行 API 开关。
-
-```sh
-npm run test:withdrawals
-npm run test:wallet
-npm run test:bank-deposits
-npm run test:finance-reconciliation
-npm run test:migrations
-```
-
-所有测试使用临时 SQLite／PGlite 与合成数据，不发送厂家或银行请求，不处理真实资金。上线前还需确定财务负责人、银行操作复核、每日对账、异常升级和备份恢复流程。
+收到 1MPay payout 公钥或 GSPAY Payout 文档都不会自动开启出款。
