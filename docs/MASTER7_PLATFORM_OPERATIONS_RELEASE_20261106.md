@@ -1,9 +1,9 @@
 # MASTER7 Platform Operations Release · 2026-11-06
 
-候选版本：`17.0.0-selfbuilt.62-operations-performance`
-当前线上版本：`17.0.0-selfbuilt.61-full-platform-follow-up`
+线上版本：`17.0.0-selfbuilt.62-operations-performance`
+上一版本：`17.0.0-selfbuilt.61-full-platform-follow-up`
 营运时区：Asia/Kuching（MYT，UTC+8）
-状态：源码整改与发布前 QA 完成；打包、提交、Render 部署和线上复测由发布流程继续回填。
+状态：已部署并完成线上健康、入口、权限边界与日志复测。
 
 ## 1. 本轮目标
 
@@ -58,14 +58,14 @@
 | `pnpm lint` | 通过，0 error / 0 warning |
 | `pnpm test:render-db` | 3/3 通过 |
 | `pnpm build:render` | 成功；仅框架非阻断提示 |
-| `git diff --check` | 待提交前回填 |
-| Bundle SHA-256 | 待`efeb5d524692d0fc3252246b1eab5aee1cebb1cb5fbc565f3f6c82c48bfe7956` |
-| Git commit | 待提交后回填 |
-| Render deploy ID / status | 待部署后回填 |
-| 线上 health / database | 待部署 `live` 后回填 |
-| 部署后 error/fatal / HTTP 5xx | 待部署后日志检查回填 |
+| `git diff --check` | 通过 |
+| Bundle SHA-256 | `efeb5d524692d0fc3252246b1eab5aee1cebb1cb5fbc565f3f6c82c48bfe7956` |
+| Git commit | `82cab3d5bf1e40804d4a9e657fbbe6f5b72d749b` |
+| Render deploy ID / status | `dep-dbmpfjm7bikc73bm623g` / `live` |
+| 线上 health / database | HTTP 200；`.62`；database `ready` |
+| 部署后 error/fatal / HTTP 5xx | 0 / 0（09:03–09:06 UTC） |
 
-只有以上发布验证全部通过，候选版才可写成线上版本。
+以上发布验证已全部通过，`.62` 已写为当前线上版本。
 
 ## 4. 保持关闭的项目
 
@@ -79,16 +79,16 @@
 
 GSPAY 当前等待厂家提供本商户可验证资料。本轮不猜测接口、不使用其他商户样本，也不提前启用。
 
-## 5. 发布后复测
+## 5. 线上复测结果
 
-1. `/health` 返回 `.62` 且 database 为 `ready`。
-2. `/admin`、`/signin` 和公司入口正常，无循环跳转。
-3. Owner 与 Staff 的按需加载及事件权限正确。
-4. 提示音先取得浏览器交互权限，关闭后不播放。
-5. 以非真实号码文件验证分块上传、重复过滤、退订保护和流式 CSV。
-6. 并发批准同一测试银行单时，只有一条成功，另一条为 409；钱包只增加一次。
-7. Render 新部署日志无应用 error/fatal 和 HTTP 5xx。
-8. 所有资金、游戏和生产开关仍为 false。
+1. `/health` 已返回 `.62`，database 为 `ready`。
+2. `/admin`、`/signin`、`master7.best` 和 `master7.site` 均正常，无循环跳转。
+3. 匿名银行资料、资金事件和营销后台均返回 401；Owner/Staff 权限与按需加载由自动测试覆盖。
+4. 提示音、青色状态灯与分块名单代码已从线上静态资源核对；浏览器实际音量仍由使用者设备控制。
+5. 分块上传、重复过滤、退订保护、600,000 硬上限和流式 CSV 已自动测试；600,000 条生产吞吐仍待非真实号码压测。
+6. 并发银行单审核自动测试确认只有一个请求成功，其余返回 409，钱包只增加一次。
+7. Render 新部署日志的应用 error/fatal 和 HTTP 5xx 均为 0。
+8. 所有资金、游戏和生产开关在 `.62` 线上仍为 false。
 
 ## 6. 仍需外部资料
 

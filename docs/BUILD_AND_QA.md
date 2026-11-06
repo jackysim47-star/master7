@@ -1,8 +1,7 @@
 # MASTER7 Build and QA
 
-最后更新：2026-11-06 16:48 MYT
-Portal 候选版：`17.0.0-selfbuilt.62-operations-performance`
-当前线上版：`17.0.0-selfbuilt.61-full-platform-follow-up`
+最后更新：2026-11-06 17:07 MYT
+Portal 线上版：`17.0.0-selfbuilt.62-operations-performance`
 Gateway：`1.10.1`
 
 ## 本轮代码整改
@@ -26,10 +25,10 @@ Gateway：`1.10.1`
 | Portal lint | `pnpm lint` | 通过，0 error / 0 warning |
 | Render SQL adapter | `pnpm test:render-db` | 3/3 通过 |
 | Render production build | `pnpm build:render` | 成功；仅框架非阻断提示 |
-| 文档/补丁格式 | `git diff --check` | 提交前执行，结果待回填 |
-| Render 线上健康与日志 | health、入口、5xx、error/fatal | 部署 `live` 后执行，结果待回填 |
+| 文档/补丁格式 | `git diff --check` | 通过 |
+| Render 线上健康与日志 | health、入口、5xx、error/fatal | `.62` / database ready / 0 / 0 |
 
-任何一项失败都阻止候选版发布。发布回执必须填写准确测试数量、commit、压缩包 SHA-256、Render deploy ID、上线时间和部署后日志。
+所有发布门槛均已通过。Commit、压缩包 SHA-256、Render deploy ID、上线时间与日志结果见 `CURRENT_DEPLOYMENT.md`。
 
 ## 测试覆盖重点
 

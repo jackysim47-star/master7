@@ -14,3 +14,6 @@ d347bb03d923f7c79487d2687e6f5899173c0d7ede0b329635a430059bc3ce81  master7-v17-re
 04140a1615720bc37b06eef81369c1a5e00634d2e0f7bde02da6c07b48abb01c  master7-v17-render-staging/tests/lobby-render.test.mjs
 b9a8bbbaecf9055d2400380d6c65b1b70b8a5bcf23d32c6c59da7c2a7facdcd9  master7-v17-render-staging/tests/manual-bank-review.test.mjs
 8bc2e64c09f23b60cb2ca9f0418e0b07e2c1e27d901e2134e4a1e690ac6a4937  master7-v17-render-staging/tests/marketing-stream.test.mjs
+
+Release commit: 82cab3d5bf1e40804d4a9e657fbbe6f5b72d749b
+Render deploy: dep-dbmpfjm7bikc73bm623g (live)
