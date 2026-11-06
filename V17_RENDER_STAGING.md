@@ -1,5 +1,28 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
+## Full-platform handover candidate — 2026-11-06 MYT
+
+- Candidate release: `17.0.0-selfbuilt.59-full-platform-handover`.
+- Adds `/admin/admin` → `/admin` canonical redirect for the current staff-domain
+  redirect edge case, preserving query parameters and disabling redirect cache.
+- Standardizes financial and commission timestamps to `Asia/Kuching`.
+- Adds the received requirements baseline and all requested handover
+  deliverables: current deployment, F01–F28 status, 80-row game acceptance,
+  18-row payment acceptance, recovery receipt and owner handover.
+- Owner-authenticated read-only evidence confirms 76 directory brands, 769 game
+  entries, four payment controls and the current fail-closed provider states.
+- Verification: 165/165 full tests, 3/3 Render database adapter tests and the
+  Render production build pass.
+- Integrates the 6 November three-gateway handover. The new
+  `docs/PAYMENT_SOURCE_TRACE.md` maps VPay, GSPAY and 1MPay contracts to the
+  exact deployed modules, functions and tests.
+- 1MPay API 1.3 deposit signatures, double-Base64 query, late-success and
+  once-only ledger behavior are implemented and tested offline. GSPAY query
+  and callback settlement remain fail-closed pending the exact supplier
+  contract.
+- Money and supplier launch controls remain unchanged and disabled pending
+  production acceptance.
+
 ## Full Update All follow-up — 2026-11-06 MYT
 
 - Live portal remains `17.0.0-selfbuilt.58-payment-startup-guard`, commit
