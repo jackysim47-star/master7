@@ -48,7 +48,7 @@ Render deploy：`dep-dbmt6jmc6qcc73cghapg`（live）
 5. **福利与内容**：Owner 输入正式福利、VIP、Turnover、佣金、广告和公告。没有真实条款前，不开启自动派发或提款 Turnover enforcement。
 6. **游戏会员验收**：用获批准会员完成 MegaH5 Launch、Wallet transfer、Exit、Disconnect 与 Settlement 对账；其他厂家须提供各自 Launch / Wallet API 与 IP 放行。
 7. **推广发送**：须连接正式 WhatsApp / SMS Provider、获批模板、联系人同意和退订流程，才可执行实际发送。
-8. **域名**：`master7.best` 与 `master7.site` 仍使用 302 forwarding；`www.master7.best` 尚无 DNS。GSPAY callback 必须改成可保留 POST method/body 的直连域名或反向代理。
+8. **域名**：正式入口已统一为 `www.master7.best` 与 `www.master7.site`；当前 `www.master7.best` 尚无 DNS，后台 www 入口经转发可用。GSPAY callback 必须改成可保留 POST method/body 的直连域名或反向代理。
 9. **当前版本恢复演练**：`.58` 的加密备份与隔离恢复验收曾完整通过；`.69` schema 已变化，须由已登录 Owner 创建新的 `.69` 加密备份，再在隔离环境完成恢复并登记新 receipt。
 10. **真机**：APK 与 PWA 文件已验证；Android 安装、升级和 iPhone Add to Home Screen 仍须在真实设备点验。
 

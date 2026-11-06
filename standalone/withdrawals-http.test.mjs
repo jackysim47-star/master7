@@ -8,7 +8,7 @@ process.env.NODE_ENV='test';
 const directory=mkdtempSync(join(tmpdir(),'master7-withdrawals-http-'));
 process.env.PORTAL_DATABASE=join(directory,'withdrawals.sqlite');
 process.env.PUBLIC_ORIGIN='https://portal.example.test';
-process.env.PORTAL_ALLOWED_ORIGINS='https://master7.vip,https://master7.best';
+process.env.PORTAL_ALLOWED_ORIGINS='https://partner.example.test,https://master7.best';
 process.env.PORTAL_WITHDRAWALS_ENABLED='true';
 
 const nativeFetch=globalThis.fetch;
@@ -58,7 +58,7 @@ try{
 
  const before=await (await call('/api/v1/withdrawals/config',{headers:{Cookie:cookies.member}})).json();
  assert.deepEqual({enabled:before.enabled,balance:before.balanceMinor,posted:before.postedBalanceMinor,held:before.heldMinor,available:before.availableMinor},{enabled:true,balance:'10000',posted:'10000',held:'0',available:'10000'});
- const createdResponse=await call('/api/v1/withdrawals',{method:'POST',headers:headers(cookies.member,'https://master7.vip'),body:JSON.stringify(submit)});
+ const createdResponse=await call('/api/v1/withdrawals',{method:'POST',headers:headers(cookies.member,'https://partner.example.test'),body:JSON.stringify(submit)});
  assert.equal(createdResponse.status,201);const created=(await createdResponse.json()).withdrawal;assert.equal(created.amountMinor,'6000');assert.equal(created.status,'pending_review');
  const duplicate=await (await call('/api/v1/withdrawals',{method:'POST',headers:headers(cookies.member),body:JSON.stringify(submit)})).json();assert.equal(duplicate.duplicate,true);assert.equal(duplicate.withdrawal.id,created.id);
 

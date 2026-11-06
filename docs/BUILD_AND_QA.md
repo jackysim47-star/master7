@@ -1,10 +1,13 @@
 # MASTER7 Build and QA
 
-最后更新：2026-11-06 21:19 MYT
-Portal 线上版：`17.0.0-selfbuilt.69-payout-safe-support`
+最后更新：2026-11-06 22:00 MYT
+Portal 发布候选：`17.0.0-selfbuilt.70-frontend-route-compat`
 
 ## 本轮代码范围
 
+- 修复复制链接结尾多带反引号造成的 `/%60` 与 `/admin/%60` 404，并把旧 `/games`、`/player/games` 等前台入口永久重定向到有效首页。
+- 会员主入口统一为 `www.master7.best`，公司后台入口统一为 `www.master7.site`；当前代码与新发布包移除旧 `.admin`、`.vip` 域名文字。
+- 增加 `favicon.ico` 兼容资源；未知路径继续保持 404，不会把任意错误地址伪装成首页。
 - VPay readiness 使用 Gateway 远程生产配置，避免已连接充值被旧本地条件误报未就绪。
 - GSPAY Payout 支持官方 MD5 建单、回调签名、独立 status query、完整字段绑定、幂等、钱包预留、成功结算、失败释放及只查不重发的恢复流程。
 - Provider POST 前使用数据库原子 claim；并发提交只有一个请求可以联系厂家。网络结果不明确时进入 processing/review，恢复流程只查单。
@@ -17,7 +20,7 @@ Portal 线上版：`17.0.0-selfbuilt.69-payout-safe-support`
 
 | 范围 | 命令 | 结果 |
 |---|---|---:|
-| Portal 全套测试 | `node --test tests/*.test.mjs` | 238/238 通过 |
+| Portal 全套测试 | `node --test tests/*.test.mjs` | 239/239 通过 |
 | GSPAY Payout 专项 | `node --test tests/gspay-payout.test.mjs` | 7/7 通过 |
 | Render TypeScript | `pnpm exec tsc --noEmit -p tsconfig.render.json` | 通过 |
 | Portal lint | `pnpm run lint` | 通过 |
@@ -32,8 +35,8 @@ Portal 线上版：`17.0.0-selfbuilt.69-payout-safe-support`
 
 | 检查 | 结果 |
 |---|---|
-| Render deploy | `dep-dbmt6jmc6qcc73cghapg`，`live` |
-| 版本/数据库 | HTTP 200；`.69-payout-safe-support`；database ready |
+| Render deploy | `.70` 发布后填写；当前回滚版 `dep-dbmt6jmc6qcc73cghapg` 为 `.69` |
+| 版本/数据库 | `.70` 发布后复测；当前 `.69` database ready |
 | VPay Deposit | Active；production；order/query/callback ready |
 | 1MPay Deposit | Active；production；order/query/callback ready |
 | GSPAY Deposit | Closed；credential contract incomplete |

@@ -1,9 +1,19 @@
 # MASTER7 Current Deployment Receipt
 
-更新时间：2026-11-06 21:38 MYT
+更新时间：2026-11-06 22:00 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）
 
-当前线上版：`17.0.0-selfbuilt.69-payout-safe-support`
+当前发布候选：`17.0.0-selfbuilt.70-frontend-route-compat`
+当前回滚版：`17.0.0-selfbuilt.69-payout-safe-support`
+
+## `.70` 路线与域名清理
+
+- 正式会员前台统一为 `https://www.master7.best/`，正式公司后台统一为 `https://www.master7.site/`。
+- 404 日志证明用户请求曾误带结尾反引号，形成 `/%60` 与 `/admin/%60`；`.70` 自动纠正这些地址。
+- `/games`、`/player/games`、`/home`、`/lobby`、`/player` 和 `/index.html` 会回到有效前台。
+- 当前源码和新发布包删除旧 `.admin`、`.vip` 域名文字；正式 `/admin` 后台路线和 VIP 福利功能保留。
+- `www.master7.best` 当前仍缺 DNS；发布程序不能替代域名方设置。DNS 完成前使用 `master7.best` 或 Render 直达入口。
+- 详细记录见 `docs/MASTER7_FRONTEND_ROUTE_AND_RENDER_CLEANUP_20261106.md`。
 
 ## 正式发布记录
 
@@ -63,9 +73,9 @@ Owner 仍需在后台录入并核对公司银行账号、正式福利/Turnover/V
 ## 入口
 
 - Portal：`https://master7-v17-staging.onrender.com`
-- 客户根域：`https://master7.best/`，当前为 302 URL forwarding。
-- 后台：`https://master7.site/`
-- `www.master7.best`：仍需 DNS 验证。
+- 正式会员前台：`https://www.master7.best/`，当前仍需 DNS/TLS。
+- 会员前台备用：`https://master7.best/`，当前为 302 URL forwarding。
+- 正式后台：`https://www.master7.site/`，当前可经转发进入 `/admin`。
 
 ## 最终内部收尾
 

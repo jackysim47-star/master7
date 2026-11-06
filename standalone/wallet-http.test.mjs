@@ -4,7 +4,7 @@ import {join} from 'node:path';
 import {tmpdir} from 'node:os';
 delete process.env.PORTAL_POSTGRES_URL;delete process.env.PORTAL_TEST_POSTGRES;delete process.env.RENDER;
 process.env.NODE_ENV='test';const dir=mkdtempSync(join(tmpdir(),'master7-wallet-http-'));
-process.env.PORTAL_DATABASE=join(dir,'wallet.sqlite');process.env.PUBLIC_ORIGIN='https://portal.example.test';process.env.PORTAL_ALLOWED_ORIGINS='https://master7.vip,https://master7.best';
+process.env.PORTAL_DATABASE=join(dir,'wallet.sqlite');process.env.PUBLIC_ORIGIN='https://portal.example.test';process.env.PORTAL_ALLOWED_ORIGINS='https://partner.example.test,https://master7.best';
 Object.assign(process.env,{PORTAL_VPAY_ORDERS_ENABLED:'true',PORTAL_VPAY_TRADE_CODES:'["2"]',PORTAL_VPAY_ORDER_TOKEN:'synthetic-order-token-at-least-32-bytes',PORTAL_VPAY_RETURN_URL:'https://portal.example.test/payment-return',PORTAL_VPAY_SETTLEMENT_ENABLED:'true',PORTAL_VPAY_TRADER_ID:'123456',PORTAL_VPAY_ENVIRONMENT:'uat',PORTAL_VPAY_CALLBACK_TOKEN:'synthetic-callback-token-at-least-32-bytes',PORTAL_VPAY_QUERY_TOKEN:'synthetic-query-token-at-least-32-bytes'});
 const nativeFetch=globalThis.fetch;let expected,order,queryCalls=0,createCalls=0;
 globalThis.fetch=(input,options)=>{

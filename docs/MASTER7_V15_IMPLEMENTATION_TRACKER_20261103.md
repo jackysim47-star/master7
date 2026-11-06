@@ -44,7 +44,7 @@
 
 截图中的数据是 Office Wi-Fi 的局域网配置：手机网关 `192.168.68.1`、手机 IPv4 `192.168.68.103`、Windows 电脑 IPv4 `192.168.68.120`、子网掩码 `255.255.255.0`、DNS `192.168.0.1` 和 `192.168.68.1`。Windows 截图显示 IP 与 DNS 都由 DHCP 自动分配。这些 `192.168.x.x` 地址只在办公室内网有效；它们不是公众可访问的服务器 IP，不能填到 `master7.best` 的公开 DNS，也不能据此推断 Render/Sites 的托管地址。IPv6 `fe80::...` 是链路本地地址，同样不能作为公网站点地址。
 
-当前平台代码的访客国家展示依赖受代理提供的 `CF-IPCountry`，MYR 与 `Asia/Kuching` 是平台业务设置；办公室 Wi-Fi 截图不能决定访客国家、生产域名解析或云端部署位置。本轮没有改 DNS。重新验证结果：`www.master7.best` 404、`admin.master7.best` 404、`www.master7.vip` 200；目标双入口仍阻塞。
+当前平台代码的访客国家展示依赖受代理提供的 `CF-IPCountry`，MYR 与 `Asia/Kuching` 是平台业务设置；办公室 Wi-Fi 截图不能决定访客国家、生产域名解析或云端部署位置。本轮没有改 DNS。重新验证结果：`www.master7.best` 404、`admin.master7.best` 404；当时的旧域名入口已退役并从平台链接清除，目标双入口仍阻塞。
 
 ## 自动地区与本地验证接续（2026-11-03）
 
@@ -140,7 +140,7 @@ npm run setup:auto:preflight -- --target production
 
 ## 原 .vip 顾客短信 OTP 前端契约复核（2026-11-03）
 
-旧 `https://www.master7.vip/` 首页只读抓取返回 HTTP 200；公开 JS `/_next/static/chunks/0jabwjhnwx.5c.js` 显示 `POST /api/auth/login/sms`，JSON `{phone}` 请求短信，以及 `POST /api/auth/login` 的 SMS 模式 `{phone,smsCode,rememberMe}`；页面读取发送响应 `ok`、`retryAfterSec`、`error`。另有注册/忘记密码 SMS 路由。只检查静态前端，没有提交任何 POST，因此未发送短信，也未证明短信供应商/服务端/短信限流实际运行。该 `.vip` 代码与 v105 Sites、`www.master7.best` 的对应仍待原工程访问确认。
+旧首页只读抓取当时返回 HTTP 200；公开 JS `/_next/static/chunks/0jabwjhnwx.5c.js` 显示 `POST /api/auth/login/sms`，JSON `{phone}` 请求短信，以及 `POST /api/auth/login` 的 SMS 模式 `{phone,smsCode,rememberMe}`；页面读取发送响应 `ok`、`retryAfterSec`、`error`。另有注册/忘记密码 SMS 路由。只检查静态前端，没有提交任何 POST，因此未发送短信，也未证明短信供应商/服务端/短信限流实际运行。该旧域名代码与 v105 Sites、`www.master7.best` 的对应仍待原工程访问确认。
 
 ## 新门户部署故障复核（2026-11-03）
 
@@ -159,7 +159,7 @@ npm run setup:auto:preflight -- --target production
 
 ## 双入口与旧站即时复查（2026-11-03）
 
-普通 HTTPS GET 结果：`https://www.master7.best/` HTTP 404；`https://admin.master7.best/` HTTP 404；`https://www.master7.vip/` HTTP 200，标题为 “Master7: Trusted Online Casino Malaysia — Real Money Mobile Gaming”。未提交登录或业务请求。该结果确认 `.vip` 公开站当前可读、两个目标 `.best` 入口仍未返回应用页面；不能据此证明 `.vip` 与 v105 Sites 工程或目标域名的托管映射。
+普通 HTTPS GET 结果：`https://www.master7.best/` HTTP 404；`https://admin.master7.best/` HTTP 404；当时的旧域名 HTTP 200。未提交登录或业务请求。该结果只能确认旧站当时公开可读、两个目标 `.best` 入口仍未返回应用页面；不能据此证明旧站与 v105 Sites 工程或目标域名的托管映射。
 
 
 ## `.vip` 公共 API 路由线索（2026-11-03）
@@ -176,7 +176,7 @@ npm run setup:auto:preflight -- --target production
 ## `.vip` API 主机与目标域名 DNS 复核（2026-11-03）
 
 - `.vip` 前端脚本中看到的 API 均为相对路径（如 `/api/auth/login/sms`），因此浏览器会向当前站点主机发请求；静态脚本没有揭示独立 API 主机名。本次没有调用 API 路由。
-- `www.master7.vip` 公开 DNS 解析到 Cloudflare Anycast 地址；HTTPS 响应包含 Next.js 和 Cloudflare 边缘标头。这只能确认公开请求经过 Cloudflare 并返回 Next.js 页面，不能识别隐藏源站、Render 服务或 v105 Sites 的归属。
+- 已退役旧域名当时的公开 DNS 解析到 Cloudflare Anycast 地址；HTTPS 响应包含 Next.js 和 Cloudflare 边缘标头。这只能确认公开请求经过 Cloudflare 并返回 Next.js 页面，不能识别隐藏源站、Render 服务或 v105 Sites 的归属。
 - `www.master7.best` 与 `admin.master7.best` 公开 DNS 也解析到 Cloudflare 地址，但本次 HTTPS GET 仍分别为 404。DNS 有记录不等于正确应用已绑定。候选应用的 IP 国家展示使用 `CF-IPCountry`，只有目标域名确实代理到该应用且应用收到可信边缘头后才能验收；不用于身份、支付或授权。
 
 ## 可见 V17 门户存档只读检查（2026-11-03）

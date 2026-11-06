@@ -1,11 +1,13 @@
 # MASTER7 唯一剩余工作清单
 
-核对时间：2026-11-06 21:38 MYT
-线上版本：`17.0.0-selfbuilt.69-payout-safe-support`  
+核对时间：2026-11-06 22:00 MYT
+发布候选：`17.0.0-selfbuilt.70-frontend-route-compat`
+当前回滚版本：`17.0.0-selfbuilt.69-payout-safe-support`
 Render deploy：`dep-dbmt6jmc6qcc73cghapg`（live）
 
 ## 已完成并保持开启
 
+- 前台 404 路线修复、旧游戏入口兼容、favicon 和旧 `.admin`/`.vip` 域名清理已进入 `.70` 候选；正式入口为 `www.master7.best` 与 `www.master7.site`。
 - VPay Deposit：Active，production，Order/Query/Callback ready。
 - 1MPay Deposit：Active，production，Order/Query/Callback ready。
 - MegaH5：wallet、live games、settlement 与 liveReady 均 ready。
@@ -53,8 +55,8 @@ Render deploy：`dep-dbmt6jmc6qcc73cghapg`（live）
    - WhatsApp/SMS 实际发送 Provider 尚未连接；仍需正式 Provider、获批模板、联系人同意与退订流程。
 
 9. **域名与设备**
-   - `www.master7.best` 没有 DNS。
-   - `master7.best` 与 `master7.site` 目前使用 302 URL forwarding。
+   - `www.master7.best` 没有 DNS；这是正式会员入口当前唯一的直接域名阻塞。
+   - `master7.best` 与 `www.master7.site` 目前使用 302 URL forwarding。
    - APK 已完成 HTTP、SHA-256、ZIP 完整性与 APK Signing Block v2+ 检查；Web Manifest 与 192/512 图标均为 HTTP 200。
    - Android/iPhone 真机安装、升级与 Add to Home Screen 仍需设备验收。
 

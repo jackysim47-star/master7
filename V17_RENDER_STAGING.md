@@ -1,5 +1,22 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
+## Frontend route compatibility and domain cleanup — 2026-11-06 MYT
+
+- Candidate release: `17.0.0-selfbuilt.70-frontend-route-compat`.
+- Source commit: `523f012494505cae0acf6f4facc3111ff73fa86e`.
+- Bundle SHA-256: `88777bfb440ae7cd7a01e8887eeba7cbba5ea5cd824efc66e3e1e2d072aec64b`.
+- The member primary entry is `https://www.master7.best/`; the staff entry is
+  `https://www.master7.site/`. The www member hostname still requires DNS/TLS.
+- The server now corrects copied URLs ending in a backtick (`/%60` and
+  `/admin/%60`) and redirects old `/games`, `/player/games`, `/home`, `/lobby`,
+  `/player` and `/index.html` entries to a working frontend route.
+- The current source and release archive contain no retired `.admin` or `.vip`
+  domain links. The `/admin` backoffice route and VIP benefit features remain.
+- Full validation: 239/239 portal tests, TypeScript, lint, 3/3 Render database
+  adapter tests and the Render production build pass.
+- Deployment ID and live-route verification will be recorded after Render
+  reaches `live`.
+
 ## Full-platform handover live — 2026-11-06 MYT
 
 - Live release: `17.0.0-selfbuilt.61-full-platform-follow-up`.
@@ -151,7 +168,7 @@ Updated 2026-11-04 MYT. Current production acceptance is not complete.
 - Runtime release string remained 17.0.0-selfbuilt.19 across multiple template commits. Use commit and deploy IDs to identify this deployment.
 - Frontend HTML, admin HTML, app.js and style.css returned 200. Browser inspection found a real JavaScript startup failure despite these 200 responses.
 - Supabase project shspbmnghbgyzcsjukui returned ACTIVE_HEALTHY; its role in the portal's historical data remains unverified.
-- www.master7.admin still returned NXDOMAIN; smsOtpReady remained false.
+- The retired invalid admin domain still returned NXDOMAIN; smsOtpReady remained false.
 
 ## Verified defects and correction in PR #8
 

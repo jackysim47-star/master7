@@ -30,7 +30,7 @@
 ## 2026-11-03 追加：域名与 Render 只读复核
 
 - Render 完整服务清单包含多个既有服务；其中 `master7-v15-malaysia-final`、`master7-v15-malaysia`、`master7-v15-live` 三个 V15 静态服务均为 Starter 且未暂停。此只读检查未核实实际账单金额，应由账户持有人在 Render Billing 查看；本轮未暂停任何服务。仍没有独立的 `master7-cloud-staging`。旧门户 `ahbi-service-portal-c3jm` 连接 `wbdream10-cpu/master7`，不是 PR #2 合并后的 staging 部署；V15 静态站是模板入口，不是完整游戏平台。
-- Sites 只读域名记录：V17 服务门户的 `master7.best` 与 `www.master7.best` 处于待验证状态（Sites 显示 provider active、SSL active）；V15 模板列有错误的 `www.master7.admin`，状态待定且 SSL 初始化中。尚未发现 `admin.master7.best` 已绑定到正确的管理后台。
+- Sites 只读域名记录：V17 服务门户的 `master7.best` 与 `www.master7.best` 处于待验证状态（Sites 显示 provider active、SSL active）；V15 模板曾列有已退役的错误管理域名，现已从平台链接清除。尚未发现 `admin.master7.best` 已绑定到正确的管理后台。
 - V17 Site 的说明范围是会员审批、客服工单、公告和员工管理，不能据此把这两个顾客域名切到该服务门户。没有改域名、DNS、证书或正式服务。
 - 下一步仍由 Render 工作区管理员在 Dashboard/Blueprint 建立独立 staging，并在该服务的 Secret 配置中填写暂存库 URL；部署前确认服务使用仓库 `jackysim47-star/master7` 的固定合并 SHA。原 v105 工程与旧数据恢复证据仍未取得。
 

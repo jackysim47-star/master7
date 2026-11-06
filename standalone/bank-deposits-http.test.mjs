@@ -10,7 +10,7 @@ process.env.NODE_ENV='test';
 const directory=mkdtempSync(join(tmpdir(),'master7-bank-deposits-http-'));
 process.env.PORTAL_DATABASE=join(directory,'portal.sqlite');
 process.env.PUBLIC_ORIGIN='https://portal.example.test';
-process.env.PORTAL_ALLOWED_ORIGINS='https://master7.vip,https://master7.best';
+process.env.PORTAL_ALLOWED_ORIGINS='https://partner.example.test,https://master7.best';
 
 const {sql,withStorage}=await import('./runtime.mjs');
 const {newSession}=await import('./security.mjs');
@@ -44,7 +44,7 @@ try{
  const excessiveJson=JSON.stringify({...configuration,padding:'x'.repeat(17000)});
  assert.equal((await call('/api/v1/bank-transfer/config',{method:'POST',headers:jsonHeaders(ownerCookie),body:excessiveJson})).status,413,'ordinary JSON must retain the 16 KiB cap');
 
- const configured=await call('/api/v1/bank-transfer/config',{method:'POST',headers:jsonHeaders(ownerCookie,{Origin:'https://master7.vip'}),body:JSON.stringify(configuration)});
+ const configured=await call('/api/v1/bank-transfer/config',{method:'POST',headers:jsonHeaders(ownerCookie,{Origin:'https://partner.example.test'}),body:JSON.stringify(configuration)});
  assert.equal(configured.status,200);
  assert.equal((await configured.json()).bankAccount.accountNumber,configuration.accountNumber);
  const visible=await (await call('/api/v1/bank-transfer/config',{headers:{Cookie:memberCookie}})).json();
