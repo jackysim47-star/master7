@@ -1,10 +1,12 @@
-# MASTER7 V17: current deployment and .79 release candidate
+# MASTER7 V17: current deployment and release history
 
-## Luxury portal and manual RM88 voucher candidate — 2026-11-07 MYT
+## Luxury portal and manual RM88 voucher live — 2026-11-07 MYT
 
-- Candidate release: `17.0.0-selfbuilt.79-manual-rm88-voucher`; this is a
-  packaging receipt and does not claim the candidate is live yet.
+- Live release: `17.0.0-selfbuilt.79-manual-rm88-voucher`.
 - Source commit: `629409be3114a7549eab41eb1b7077bd86192dc7`.
+- Publication commit: `685d08109eb3bfdc6f3e12a5848a116d340b7352`.
+- Render deploy: `dep-dbn4h9bncjis73e4ja3g` (`live` at
+  2026-11-07 05:39:06 MYT).
 - Reproducible bundle SHA-256:
   `3de5c34fd4edd1b3de5702401a0fa5a61839644b34de2c0769f29f779321661f`.
 - Member and management views receive the compact premium casino treatment,
@@ -27,14 +29,23 @@
   production build. The deterministic 523-entry archive excludes `.git` and
   `node_modules` and contains no private-key material or newly supplied service
   credentials.
-- Publication commit, Render deploy and online acceptance are pending. Existing
-  environment values and payment/game switches are not changed by this bundle.
-  GSPAY, payouts, payment settlement and all unverified platform launch paths
-  remain fail-closed until external evidence passes production acceptance.
+- Online acceptance confirms runtime/source `.79`, database ready, SMS OTP
+  ready, HTTP 200 member/management routes, seeded RM88 rules and exact voucher
+  artwork bytes. Protected summary and Operations Intelligence endpoints return
+  HTTP 401 to anonymous requests. The release window contains zero application
+  error/fatal logs and zero request 5xx logs; automatic accounting completed one
+  close period.
+- The public game API retains exactly 34 unique platform positions 1–34,
+  `games=[]`, `playable=false` and zero launch-ready platforms. VPay and 1MPay
+  deposits remain Active/configured but unverified; GSPAY and all payouts remain
+  closed, payment settlement remains unverified and `productionReady=false`.
+- `master7.best` reaches member sign-in; `master7.site` and `www.master7.site`
+  reach management. The separate `www.master7.best` endpoint remains
+  unavailable from the acceptance runner.
 - Independent checksum receipt:
   `docs/MASTER7_LUXURY_VOUCHER_RELEASE_SHA256_20261107.txt`.
 
-## Operations suite live — 2026-11-07 MYT
+## Operations suite previous live — 2026-11-07 MYT
 
 - Live release: `17.0.0-selfbuilt.76-operations-suite`.
 - Source commit: `6b2ca6c6a315198ad714a46ae43d09f80ebf0ac3`.

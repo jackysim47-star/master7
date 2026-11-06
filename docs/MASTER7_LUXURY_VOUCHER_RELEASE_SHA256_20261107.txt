@@ -7,5 +7,9 @@
 passed  render-typescript
 0-errors-0-warnings  lint
 passed  render-production-build
-pending  publication-commit
-pending  render-deploy
+685d08109eb3bfdc6f3e12a5848a116d340b7352  publication-commit
+dep-dbn4h9bncjis73e4ja3g  render-deploy
+2026-11-06T21:39:06.852967Z  live-finished-at
+passed  online-acceptance
+0  acceptance-window-app-error-fatal
+0  acceptance-window-request-5xx

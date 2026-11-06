@@ -1,10 +1,12 @@
 # MASTER7 Current Deployment Receipt
 
-## `.79` luxury portal and manual RM88 voucher candidate
+## `.79` luxury portal and manual RM88 voucher current live deployment
 
-- Candidate release: `17.0.0-selfbuilt.79-manual-rm88-voucher`; the currently
-  live release remains `.76` until a Render deploy and online acceptance finish.
+- Live release: `17.0.0-selfbuilt.79-manual-rm88-voucher`.
 - Source commit: `629409be3114a7549eab41eb1b7077bd86192dc7`.
+- Publication commit: `685d08109eb3bfdc6f3e12a5848a116d340b7352`.
+- Render deploy: `dep-dbn4h9bncjis73e4ja3g`, `live` at
+  2026-11-07 05:39:06 MYT.
 - Bundle SHA-256:
   `3de5c34fd4edd1b3de5702401a0fa5a61839644b34de2c0769f29f779321661f`.
 - Adds premium responsive member/management artwork and layout, compact cyan
@@ -17,13 +19,19 @@
 - Acceptance passed: 383/383 portal tests, 3/3 Render database tests,
   TypeScript, lint and production build. The reproducible archive has 523
   tracked entries and excludes repository metadata and dependencies.
-- Publication, deployment and online acceptance are pending. Existing Render
-  environment values and business switches remain unchanged; unverified
-  payment, payout, settlement and game launch paths remain closed.
+- Online acceptance confirms `.79`, database ready, SMS OTP ready, HTTP 200
+  member/management pages, the seeded RM88 rule and byte-identical voucher
+  artwork. Anonymous protected APIs return HTTP 401. The release window has no
+  application error/fatal or request 5xx logs, and automatic accounting closed
+  one period.
+- The public lobby still has exactly 34 independent platform positions and no
+  launch-ready platform. VPay/1MPay deposits remain Active but unverified;
+  GSPAY, every payout channel, payment settlement and global production
+  readiness remain closed/unverified.
 - Checksum receipt:
   `docs/MASTER7_LUXURY_VOUCHER_RELEASE_SHA256_20261107.txt`.
 
-## `.76` operations suite current live deployment
+## `.76` operations suite previous live deployment
 
 - Live release: `17.0.0-selfbuilt.76-operations-suite`.
 - Source commit: `6b2ca6c6a315198ad714a46ae43d09f80ebf0ac3`.
