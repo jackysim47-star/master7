@@ -1,2 +1,3 @@
-b40efb291f25e5fc156ffeae91cdf895356ac6c89bbd55db8258202b6321d874  master7-v17-render-staging.tar.gz
-524bab01fcdfe52dee189a9972afbf9f27bef070  source_commit
+170cebbd34a833841c75a1b8c1d8d6fa0cb3da849e895209a232a3815044f2a6  master7-v17-render-staging.tar.gz
+931a4ef51d2054dc3c8c177d9b0899019c75e7ce  source_commit
+17.0.0-selfbuilt.72-white-label-platform  candidate_release

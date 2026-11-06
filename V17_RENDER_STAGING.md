@@ -1,5 +1,32 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
+## White-label 34-platform lobby candidate — 2026-11-06 MYT
+
+- Candidate release: `17.0.0-selfbuilt.72-white-label-platform`.
+- Source commit: `931a4ef51d2054dc3c8c177d9b0899019c75e7ce`.
+- Candidate bundle SHA-256: `170cebbd34a833841c75a1b8c1d8d6fa0cb3da849e895209a232a3815044f2a6`.
+- The public `/api/games` response contains exactly 34 provider/platform summaries,
+  sets `platformsOnly=true`, and returns `games: []`; internal game titles and IDs
+  remain in the protected backoffice catalogue.
+- The lobby has three separate sponsored positions and independent artwork for
+  all 34 providers. Category buttons filter provider cards rather than expanding
+  hundreds of internal titles.
+- Provider launch adapters are still pending acceptance. Every unverified
+  platform remains `playable=false` and is shown as waiting/maintenance.
+- Benefits support the fixed provider list for configuration and preview. Wallet
+  payout, claim settlement and Turnover enforcement remain disabled until
+  verified wager APIs and ledger controls are connected.
+- The built-in customer assistant is available. Telegram remains `Waiting` until
+  real server-side bot token and chat ID are supplied.
+- Existing payment and game environment settings are unchanged. This candidate
+  does not activate, close or modify any connected channel.
+- Automatic accounting was already active on the live service and is not changed
+  by this bundle.
+- Validation: 257/257 portal tests, 3/3 Render database adapter tests,
+  TypeScript, lint, JavaScript syntax and the Render production build pass.
+- Publication commit, Render deploy ID, live timestamp and online checks are
+  pending the controlled manual deployment.
+
 ## Frontend route compatibility and domain cleanup live — 2026-11-06 MYT
 
 - Live release: `17.0.0-selfbuilt.71-frontend-route-compat`.

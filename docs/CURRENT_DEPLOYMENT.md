@@ -1,5 +1,29 @@
 # MASTER7 Current Deployment Receipt
 
+## `.72` controlled deployment candidate
+
+- Candidate release: `17.0.0-selfbuilt.72-white-label-platform`.
+- Source commit: `931a4ef51d2054dc3c8c177d9b0899019c75e7ce`.
+- Bundle SHA-256: `170cebbd34a833841c75a1b8c1d8d6fa0cb3da849e895209a232a3815044f2a6`.
+- Publication commit, Render deploy ID and live time: pending.
+- Public games API is intentionally platform-only: exactly 34 provider summaries,
+  `platformsOnly=true`, and `games: []`. Internal game titles and IDs remain in
+  the protected backoffice.
+- The lobby contains three separate sponsored positions and independent artwork
+  for the 34 providers. Categories filter provider cards only.
+- Platform-level launch adapters have not passed acceptance, so unverified cards
+  remain `playable=false` and cannot be presented as ready for real play.
+- Benefits remain preview-only until wager APIs, wallet payout, claim settlement
+  and Turnover enforcement have production evidence.
+- Built-in customer assistance is included. Telegram stays `Waiting` until the
+  real server-side token and chat ID are supplied.
+- Connected payment/game environment values and switches are unchanged by this
+  release. Automatic accounting is already active and remains configured.
+- Local acceptance passed: 257/257 portal tests, 3/3 Render database tests,
+  TypeScript, lint, JavaScript syntax and production build.
+
+## Current live deployment (unchanged until `.72` passes online acceptance)
+
 更新时间：2026-11-06 22:15 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）
 
