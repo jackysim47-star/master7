@@ -147,7 +147,7 @@ function gspayReadiness(env = {}) {
   const channels = {
     orders: [...common, ...(!orderTokenConfigured ? ['platform_order_token_missing_or_aliased'] : []),
       ...(!switches.orders ? ['transaction_switch_off'] : []),
-      'provider_order_response_contract_unconfirmed', 'supplier_uat_not_verified'],
+      'supplier_uat_not_verified'],
     queries: [...common, ...(!queryTokenConfigured ? ['platform_query_token_missing_or_aliased'] : []),
       ...(!switches.queries ? ['transaction_switch_off'] : []),
       'provider_query_response_envelope_unconfirmed', 'supplier_uat_not_verified'],
@@ -163,8 +163,8 @@ function gspayReadiness(env = {}) {
     contract: {
       observedAt: '2026-11-05',
       providerServerIps: ['52.221.96.227'],
-      confirmed: ['myr_order_request', 'myr_query_request', 'myr_payment_status_fields', 'myr_signature_formulas'],
-      unconfirmed: ['order_success_response_schema', 'callback_acknowledgement_and_retry'],
+      confirmed: ['myr_order_request', 'myr_order_success_response', 'myr_query_request', 'myr_payment_status_fields', 'myr_signature_formulas'],
+      unconfirmed: ['callback_acknowledgement_and_retry'],
     },
     credentialsConfigured,
     switches,

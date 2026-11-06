@@ -11,6 +11,15 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. Callback POST requests remain closed until each provider's signed callback contract is implemented; the reachability endpoint does not claim transaction readiness.
 
+## Version 1.9.2: supplier-confirmed GSPAY create response
+
+Ticket `PG-12683` supplied the production MYR credential and the exact
+create-payment success envelope on 2026-11-06. The gateway now validates the
+JSON-encoded one-record `data` array and projects only the payment ID and an
+HTTPS checkout URL pinned to `secured.gspay.online`. Credentials remain outside
+the repository. Money routes remain closed until callback acknowledgement,
+whitelist stability and end-to-end wallet settlement are accepted.
+
 ## Version 1.9.1: verified GSPAY MYR request contract
 
 The authorized GSPAY backoffice documentation was rechecked on 2026-11-05.

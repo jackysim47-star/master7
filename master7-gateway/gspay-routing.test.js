@@ -121,7 +121,7 @@ test('GSPAY readiness keeps unconditional contract and UAT blockers', () => {
     assert.equal(channel.liveReady, false);
     assert.ok(channel.blockers.includes('supplier_uat_not_verified'));
   }
-  assert.ok(result.channels.orders.blockers.includes('provider_order_response_contract_unconfirmed'));
+  assert.ok(!result.channels.orders.blockers.includes('provider_order_response_contract_unconfirmed'));
   assert.ok(result.channels.queries.blockers.includes('provider_query_response_envelope_unconfirmed'));
   assert.ok(result.channels.callbacks.blockers.includes('provider_callback_ack_contract_unconfirmed'));
   assert.equal(gspayReadiness({ ...env, GSPAY_MODE: env.GSPAY_OPERATOR_SECRET_KEY }).mode, 'disabled');

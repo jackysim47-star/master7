@@ -8,6 +8,7 @@ const {
   amount2,
   duitNowSignature,
   paymentOrderRequest,
+  paymentOrderResponse,
   paymentOrderSignature,
   paymentQueryRequest,
   paymentSignature,
@@ -73,6 +74,26 @@ test('GSPAY MYR order and query builders pin the documented provider host and fi
   assert.equal(url.searchParams.get('auth_key'), key);
   assert.equal(url.searchParams.get('transaction_id'), 'order_1');
   assert.deepEqual(PROVIDER_SERVER_IPS, ['52.221.96.227']);
+});
+
+test('supplier-confirmed create response projects one pinned checkout URL', () => {
+  const response = paymentOrderResponse({
+    code: 200,
+    data: JSON.stringify([{ payment_id: '35802335', payment_url: 'https://secured.gspay.online/channel?id=35802335&key=c2e75176f9fc4ea280a9853a53e0ff69' }]),
+    message: 'ok',
+  });
+  assert.deepEqual(response, {
+    paymentId: '35802335',
+    paymentUrl: 'https://secured.gspay.online/channel?id=35802335&key=c2e75176f9fc4ea280a9853a53e0ff69',
+  });
+  for (const value of [
+    { code: 500, data: '[]', message: 'ok' },
+    { code: 200, data: '{}', message: 'ok' },
+    { code: 200, data: '[{}]', message: 'ok' },
+    { code: 200, data: JSON.stringify([{ payment_id: '1', payment_url: 'http://secured.gspay.online/channel?id=1&key='+'a'.repeat(32) }]), message: 'ok' },
+    { code: 200, data: JSON.stringify([{ payment_id: '1', payment_url: 'https://evil.example/channel?id=1&key='+'a'.repeat(32) }]), message: 'ok' },
+    { code: 200, data: JSON.stringify([{ payment_id: '1', payment_url: 'https://secured.gspay.online/channel?id=2&key='+'a'.repeat(32) }]), message: 'ok' },
+  ]) assert.throws(() => paymentOrderResponse(value));
 });
 
 test('GSPAY payment status parser accepts only signed, completed-consistent payloads', () => {

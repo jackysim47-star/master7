@@ -24,10 +24,13 @@ order or settle a member wallet.
 
 ## Confirmed account and infrastructure state
 
-- The GSPAY backoffice API documentation instructs the operator to contact the
-  supplier for an Operator Authentication Key and Operator Secret Key. It does
-  not display the account's actual values.
-- The successful Generate Payment Response example is visually blank.
+- On 2026-11-06 the supplier issued a separate production MYR credential for
+  agent `MASTER7VIPMYR+`. The credential values are intentionally excluded from
+  this repository and record.
+- The supplier supplied a successful Generate Payment response: HTTP JSON
+  envelope `code: 200`, message `ok`, with `data` containing a JSON-encoded
+  one-element array. That element contains decimal-string `payment_id` and an
+  HTTPS `payment_url` on `secured.gspay.online`.
 - The documentation does not state the callback acknowledgement body, HTTP
   status, retry schedule, or idempotency rule.
 - Saved payment callback: `https://master7.vip/api/payment/gspay/callback`
@@ -43,13 +46,11 @@ order or settle a member wallet.
 
 ## Items the supplier must provide or confirm
 
-1. Operator Authentication Key and Operator Secret Key through a secure channel.
-2. Exact successful create-payment response JSON, including the payment URL field.
-3. Exact callback acknowledgement body/status and retry/idempotency behavior.
-4. Whitelist the actual stable MASTER7 gateway egress address or provide a
+1. Exact callback acknowledgement body/status and retry/idempotency behavior.
+2. Whitelist the actual stable MASTER7 gateway egress address or provide a
    supported alternative. The runtime diagnostic alone is not a guarantee of a
    permanently assigned address.
-5. Confirm a production test procedure and acceptance evidence because this
+3. Confirm a production test procedure and acceptance evidence because this
    account has no sandbox.
 
 Until these items are complete, changing the GSPAY backoffice callbacks would
@@ -59,6 +60,9 @@ them. Therefore no callback or whitelist setting was changed.
 ## Supplier follow-up
 
 - Ticket: `PG-12683`
-- Latest reply on 2026-11-05: items 1 and 2 are being checked with the related
-  team; there is no update yet.
-- Result: provider credentials are still pending and GSPAY remains disabled.
+- Latest reply on 2026-11-06: the MYR production credential and successful
+  create-payment response were supplied. The supplier referred to the response
+  under ticket `PG-12683`.
+- Result: credential and create-response evidence are complete. Callback
+  acknowledgement, whitelist/egress stability and end-to-end wallet settlement
+  acceptance remain open, so GSPAY real payments remain disabled.

@@ -87,6 +87,37 @@ function paymentOrderRequest({ transactionId, playerUsername, amount }, operator
   };
 }
 
+// Confirmed by supplier ticket PG-12683 on 2026-11-06. The provider wraps a
+// JSON array inside the envelope's data string. Only the safe payment ID and
+// pinned checkout URL are projected; all other provider fields are discarded.
+function paymentOrderResponse(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)
+      || ![200, '200'].includes(value.code) || value.message !== 'ok'
+      || typeof value.data !== 'string' || value.data.length > 65536) {
+    throw new TypeError('invalid_payment_order_response');
+  }
+  let records;
+  try { records = JSON.parse(value.data); }
+  catch { throw new TypeError('invalid_payment_order_response'); }
+  if (!Array.isArray(records) || records.length !== 1 || !records[0]
+      || typeof records[0] !== 'object' || Array.isArray(records[0])) {
+    throw new TypeError('invalid_payment_order_response');
+  }
+  const paymentId = identifier(records[0].payment_id, 'payment_id');
+  let url;
+  try { url = new URL(String(records[0].payment_url || '')); }
+  catch { throw new TypeError('invalid_payment_url'); }
+  const keys = [...url.searchParams.keys()].sort();
+  if (url.origin !== 'https://secured.gspay.online' || url.pathname !== '/channel'
+      || url.username || url.password || url.port || url.hash
+      || keys.length !== 2 || keys[0] !== 'id' || keys[1] !== 'key'
+      || url.searchParams.get('id') !== paymentId
+      || !/^[a-f0-9]{32}$/i.test(url.searchParams.get('key') || '')) {
+    throw new TypeError('invalid_payment_url');
+  }
+  return { paymentId, paymentUrl: url.href };
+}
+
 function paymentQueryRequest(transactionId, operatorAuthenticationKey) {
   const authenticationKey = operatorKey(operatorAuthenticationKey);
   const id = text(transactionId, 'transaction_id', 128);
@@ -180,6 +211,7 @@ module.exports = {
   amount2,
   duitNowSignature,
   paymentOrderRequest,
+  paymentOrderResponse,
   paymentOrderSignature,
   paymentQueryRequest,
   paymentSignature,
