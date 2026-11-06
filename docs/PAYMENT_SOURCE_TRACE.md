@@ -1,11 +1,11 @@
 # MASTER7 Payment Source Trace
 
 更新时间：2026-11-06 MYT  
-目标版本：`17.0.0-selfbuilt.60-full-platform-follow-up`
+目标版本：`17.0.0-selfbuilt.61-full-platform-follow-up`
 
 ## 结论
 
-三家支付并非“没有代码”。当前 `.60` 候选包由线上 `.58` 的可部署源码包直接解出并修改，支付适配器、路由、订单表和双分录钱包账本均可审查。离线程序测试与厂家生产验收是两件事：以下代码证据不代表真实资金链已通过，运行开关继续关闭。
+三家支付并非“没有代码”。当前 `.61` 候选包由线上 `.58` 的可部署源码包直接解出并修改，支付适配器、路由、订单表和双分录钱包账本均可审查。离线程序测试与厂家生产验收是两件事：以下代码证据不代表真实资金链已通过，运行开关继续关闭。
 
 | 厂家 | 可审查实现 | 离线证据 | 生产验收结论 |
 |---|---|---|---|
@@ -16,7 +16,7 @@
 ## 部署包到源码的关系
 
 - Render 服务：`srv-dbl0iv7f3r2c73848ei0`，仓库 `jackysim47-star/master7`，分支 `codex/v17-render-staging-20261104`。
-- 仓库跟踪的部署物是 `master7-v17-render-staging.tar.gz`。`.60` 候选源码沿用已验收 `.59` 对应部署包解出后，只新增后台规范路径、MYT 时区修正及交接材料；支付实现没有在本次改写。
+- 仓库跟踪的部署物是 `master7-v17-render-staging.tar.gz`。`.61` 候选源码沿用已验收 `.59` 对应部署包解出后，只新增后台规范路径、MYT 时区修正及交接材料；支付实现没有在本次改写。
 - 路由挂载位于 `lib/backend.ts:177`、`lib/backend.ts:183`、`lib/backend.ts:186` 和 `lib/backend.ts:316-320`。
 - 数据层使用 `deposit_orders` 保存本地订单，`wallet_ledger` 保存 `member` 与 `provider_clearing` 两条金额相反的账本记录；唯一约束与 `ON CONFLICT ... DO NOTHING` 防止重复入账。
 

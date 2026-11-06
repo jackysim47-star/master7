@@ -1,7 +1,7 @@
 # MASTER7 Build and QA
 
-最后更新：2026-11-06 15:28 MYT  
-Portal：`17.0.0-selfbuilt.60-full-platform-follow-up`  
+最后更新：2026-11-06 15:28 MYT
+Portal：`17.0.0-selfbuilt.61-full-platform-follow-up`
 Gateway：`1.10.1`
 
 ## 本轮修正
@@ -12,6 +12,7 @@ Gateway：`1.10.1`
 - 补齐三家厂家短信息、证据修正、完整交接、素材清单和营运手册。
 - ESLint 排除 `.next` 与 `.output` 编译产物，避免把生成代码当作源码问题。
 - 删除未使用的后端图片辅助函数和测试变量；保留有验收覆盖的独立游戏控制流程。
+- Portal 与 Gateway 的 GSPAY readiness 已统一；两边都固定为未确认并在厂家请求、订单记录及钱包写入前返回 503。
 
 ## 自动验证
 

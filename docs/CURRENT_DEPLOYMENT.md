@@ -16,7 +16,7 @@
 | Region / plan | Singapore / `1c-2g` |
 | Branch | `codex/v17-render-staging-20261104` |
 | Auto deploy | Off；本次使用 Deploy latest commit |
-| `.60` 候选部署包 SHA-256 | `559d172c02210e31fd7fcc5f5e039fde7ca4f26bf081825b3cd7d000020154a4` |
+| `.61` 候选部署包 SHA-256 | `2b81c0130b0f2b2b973f8d747d665b852cbbd0940826eedc1ccffd80a386e75a` |
 
 Render 在新实例就绪后切换流量。期间一次人工 Rollback 取消了中间部署；旧版回滚完成后，最终提交重新部署成功。最终运行身份以上表为准。
 

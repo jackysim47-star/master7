@@ -7,7 +7,7 @@
 - 用户本次上传的总册与之前已核对的副本完全一致：SHA-256 `dd6ac6bc2000f66703221b102ac51ba7c13bd19c1eb0e9c35e5268378a606e2a`，330 行，33,653 bytes。
 - 先前引用的 GSPAY 工单不属于 MASTER7，已从有效证据移除。Gateway `1.10.1` 已上线，deploy `dep-dbmo2h4s728c739dilb0`，commit `6e9fb99f6575602d9f8e8089f51c70d88f5c834f`。
 - 线上 GSPAY 状态已核实：`createProgramReady=false`、`orderRouteEnabled=false`、`transactionRoutesActive=false`、`liveReady=false`；不会向厂家建单或写入会员钱包。
-- Portal 候选版更新为 `17.0.0-selfbuilt.60-full-platform-follow-up`；165/165 测试通过，ESLint 0 error/0 warning，Render production build 通过。
+- Portal 最终版更新为 `17.0.0-selfbuilt.61-full-platform-follow-up`；165/165 测试通过，ESLint 0 error/0 warning，Render production build 通过。Portal 与 Gateway 的 GSPAY readiness 均固定为 false。
 - 网关部署后出现的 4 个 HTTP 502 均来自游戏目录上游（EpicWin、ClotPlay、Venus、EVO888H5），不是支付建单或钱包入账错误；这些厂家仍按未连接处理。
 
 ## 1. 接手先看

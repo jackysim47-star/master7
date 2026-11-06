@@ -3,8 +3,7 @@
 ## Full-platform handover live — 2026-11-06 MYT
 
 - Live release: `17.0.0-selfbuilt.59-full-platform-handover`.
-- Follow-up candidate: `17.0.0-selfbuilt.60-full-platform-follow-up`, bundle
-  SHA-256 `559d172c02210e31fd7fcc5f5e039fde7ca4f26bf081825b3cd7d000020154a4`.
+- Follow-up candidate: `17.0.0-selfbuilt.61-full-platform-follow-up`, bundle SHA-256 `2b81c0130b0f2b2b973f8d747d665b852cbbd0940826eedc1ccffd80a386e75a`.
 - Adds `/admin/admin` → `/admin` canonical redirect for the current staff-domain
   redirect edge case, preserving query parameters and disabling redirect cache.
 - Standardizes financial and commission timestamps to `Asia/Kuching`.

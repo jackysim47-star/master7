@@ -12,6 +12,7 @@
 ## 程序处理
 
 - Gateway `1.10.1` 固定返回 `createProgramReady=false`、`orderReady=false`。
+- Portal `.61` 同样固定显示 `createProgramReady=false`、`orderReady=false`，即使环境变量与后台按钮已配置也不能绕过。
 - `POST /platform/gspay/order` 在任何厂家请求前返回 HTTP 503。
 - 查询、回调结算、钱包入账和对账继续关闭。
 - 本次修正没有建立订单、没有处理真实资金，也没有增加会员钱包余额。
