@@ -8,10 +8,10 @@ b7d38c381a73f4185b03efd7e7a39275ada3d142fa55eb40e6beade81a5c338c  master7-v17-re
 passed  standard-production-build
 passed  render-production-build
 passed  sensitive-literal-scan
-pending  publication-commit
-pending  render-deploy
-pending  live-finished-at
-pending  online-acceptance
+7ca63ab57b5ecc1e4b2c35b09f5fbe00096856f5  publication-commit
+dep-dbn5j17f3r2c73eed58g  render-deploy
+2026-11-07T06:51:02+08:00  live-finished-at
+passed-runtime-with-external-domain-and-provider-blockers  online-acceptance
 
 Scope:
 - Unified premium member and management visual system with compact controls,

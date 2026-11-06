@@ -1,5 +1,38 @@
 # MASTER7 Current Deployment Receipt
 
+## `.82` luxury casino suite current live deployment
+
+- Live release: `17.0.0-selfbuilt.82-luxury-casino-suite`.
+- Source commit: `09784afcf73318df0eb394783b08aa55cc894816`.
+- Publication commit: `7ca63ab57b5ecc1e4b2c35b09f5fbe00096856f5`.
+- Render deploy: `dep-dbn5j17f3r2c73eed58g`, `live` at
+  2026-11-07 06:51:02 MYT.
+- Bundle SHA-256:
+  `b7d38c381a73f4185b03efd7e7a39275ada3d142fa55eb40e6beade81a5c338c`.
+- Member and management pages now share the compact premium casino visual
+  system, slow cyan navigation lamps, professional copy, responsive controls
+  and dedicated artwork. Management menus retain all functional targets; every
+  functional target has an inline guide and a full manual entry.
+- The public lobby retains exactly 34 independent supplier positions and 34
+  unique fallback covers. Online catalogue inspection returned HTTP 200 for all
+  34 positions with no request errors: five catalogues contain 766 titles in
+  total. MegaH5 is the only accepted launch adapter, with 166 playable titles;
+  JILI, 918KISS H5, RECTANGLE and EVO888H5 are catalogue-ready but cannot launch;
+  the remaining 29 positions still await supplier APIs.
+- Runtime acceptance confirms `.82`, PostgreSQL ready, SMS OTP ready, new theme
+  and provider artwork HTTP 200, protected management/referral APIs HTTP 401
+  when anonymous, no application error/fatal logs and no HTTP 5xx logs. The
+  automatic accounting close completed one period on the new instance.
+- Real deposits remain enabled by the pre-existing environment. Payouts remain
+  disabled, settlement remains unverified and `productionReady=false`; those
+  states were not changed or overstated by this release.
+- `master7.best` currently forwards to the Render service and the management
+  forwarding entry reaches `/admin`. `www.master7.best` still has no resolvable
+  DNS record in online acceptance, so the primary branded `www` member entry is
+  an external domain configuration blocker.
+- Checksum receipt:
+  `docs/MASTER7_LUXURY_CASINO_SUITE_RELEASE_SHA256_20261107.txt`.
+
 ## `.79` luxury portal and manual RM88 voucher current live deployment
 
 - Live release: `17.0.0-selfbuilt.79-manual-rm88-voucher`.
