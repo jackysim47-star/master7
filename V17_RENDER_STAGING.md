@@ -1,5 +1,20 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
+## Payment startup guard candidate — 2026-11-06 MYT
+
+- Candidate portal release: `17.0.0-selfbuilt.58-payment-startup-guard`.
+- Legacy startup migrations no longer turn VPay or 1MPAY Active when credentials
+  are present. They may record program configuration while every money route
+  remains fail-closed.
+- A one-time guard snapshots the four payment controls, sets VPay and 1MPAY to
+  Suspended, and sets GSPAY and GSPAY+ to Close.
+- The `.57` five-step VPay / GSPAY / 1MPAY checklist and cyan status lights are
+  included unchanged.
+- Verification: portal 164/164 and Render database 3/3 tests; JavaScript syntax
+  and the Render production build pass.
+- Candidate bundle SHA-256:
+  `40721727b2a9295f49b0f3ae024521f449ad70120ecd162b8ab64743ed27ff8e`.
+
 ## Payment gateway checks candidate — 2026-11-06 MYT
 
 - Candidate portal release: `17.0.0-selfbuilt.57-payment-checks`.

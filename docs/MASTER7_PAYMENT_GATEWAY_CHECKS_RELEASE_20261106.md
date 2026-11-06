@@ -1,7 +1,7 @@
 # MASTER7 Payment Gateway Checks Release
 
-Candidate release: `17.0.0-selfbuilt.57-payment-checks`  
-Bundle SHA-256: `d5b5731e1a5c5b54a3ca2108a815aadbcc0f217850dc53d6ec8ba54de31b2499`
+Candidate release: `17.0.0-selfbuilt.58-payment-startup-guard`  
+Bundle SHA-256: `40721727b2a9295f49b0f3ae024521f449ad70120ecd162b8ab64743ed27ff8e`
 
 ## Result
 
@@ -26,6 +26,10 @@ It requires both `settlementVerified: true` and `liveReady: true`.
 No production-money switch is changed. Orders, callbacks, withdrawals,
 settlement and automatic wallet credit remain closed until their provider and
 end-to-end production acceptance are complete.
+
+Legacy startup migrations now record configured VPay and 1MPAY programs without
+turning either channel Active. A one-time database guard snapshots all four
+payment controls and restores their fail-closed states.
 
 ## Verification
 
