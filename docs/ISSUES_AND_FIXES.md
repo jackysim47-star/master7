@@ -1,8 +1,10 @@
 # MASTER7 Issues and Fixes · F01–F28
 
-更新时间：2026-11-06 19:26 MYT
-当前线上：`17.0.0-selfbuilt.66-operations-corrections`
-回滚版：`17.0.0-selfbuilt.65-payment-safety`
+更新时间：2026-11-06 20:39 MYT
+当前线上：`17.0.0-selfbuilt.68-connected`
+回滚版：`17.0.0-selfbuilt.67-complete`
+
+`.68` 已上线：MegaH5 wallet live-ready；1MPay Deposit configured/enabled；VPay 本地 Active 但远端 contract readiness 尚未通过；GSPAY 因厂家 Authentication Key 只有 31 位而保持 unavailable。Payout 未实现，未随 Deposit 开启。
 
 | 编号 | 功能 | 当前状态 | 已取得/已整改证据 | 下一验收动作 |
 |---|---|---|---|---|
@@ -19,9 +21,9 @@
 | F11 | 品牌入口与 Logo | 部分 | 品牌入口和图片管理存在；正式品牌图未齐。 | 按 GAMES_ACCEPTANCE.csv 逐品牌补图和真实映射。 |
 | F12 | 游戏启动/会话 | MegaH5 已开启/待实测 | MegaH5 Portal 与 Gateway 开关已持久开启；其他厂家没有 Launch adapter。 | 获授权会员完成一款 MegaH5 真实启动；其他厂家需各自 Launch API。 |
 | F13 | 退出回钱包 | 程序开启/待实测 | MegaH5 Deposit、Withdraw、Status recovery 三项 configurationReady；真实 settlement 仍未签收。 | 用受控会员执行进入、退出、重复、断线、未结局及账本核对。 |
-| F14 | VPay 充值 | 部分/安全整改已上线 | `.65` 已增加订单会员、币种、金额与双分录平衡核对；残缺、跨会员或不平衡账本转 `review`，不查询、不写账、不 ACK 成功。上线复测 VPay order/query/callback 均 false 且为 Suspended。 | 由厂家完成生产存款 E2E 与结算六阶段验收；提款另行验收。 |
-| F15 | GSPAY 充值 | 合约实现中/真钱关闭 | 官方 MYR Payment、Get Payment、callback 与签名规则已取得；前台与后台控制恢复，程序以关闭状态实现和测试。 | 取得准确 32 字符 Operator Key，修复 callback 域名 302，再完成 Order/Query/Callback/Wallet/Reconcile 受控 E2E。 |
-| F16 | 1MPay 充值 | 程序就绪/真钱关闭 | 已确认 `contract→merchant`、`secret_key→apikey`、production-only 和 HTTP 200 + `ok` ACK；`.65` 允许新订单关闭时继续 reconciliation 既有订单。上线复测 program/query/callback ready，`orderReady=false`。 | 确认建单 Content-Type、完整状态枚举与回调重试并安排受控真实 E2E；`/payout` 不调用。 |
+| F14 | VPay 充值 | Active/远端阻塞 | 本地渠道与订单配置已启用；会员、金额、币种、双分录和独立查单保护完整。线上仍返回 `gateway_contract_not_ready`，所以不会向厂家提交订单。 | 厂家/网关把 payment contract readiness 调整为 true，再做生产 Deposit E2E；提款另行验收。 |
+| F15 | GSPAY 充值 | 程序完整/厂家 Key 阻塞 | 官方 MYR Payment、Get Payment、callback、恢复任务及 MD5 验证已实现。厂家 Authentication Key 当前只有 31 位，严格校验不会启动。 | 厂家重发准确 32–128 位十六进制 Authentication Key，并把 callback 直接指向 Render URL。 |
+| F16 | 1MPay 充值 | 已启用/待真实验收 | `contract→merchant`、`secret_key→apikey`、production-only、查询/callback 与 HTTP 200 + `ok` ACK 已配置；`.68` health 显示 Deposit configured/enabled。 | 用获授权会员完成一笔最小生产 Deposit、callback、独立查询和双分录核对；`/payout` 不调用。 |
 | F17 | 其他渠道 | 受限 | GSPAY DuitNow、USDT、Payout 与其他产品不在本轮启用范围。 | 每项另行取得合同、权限、回调、查单和结算证据后独立实现。 |
 | F18 | 统一钱包 | 阻塞 | 真实付款和游戏结算关闭。 | 可信支付/游戏结算后验收可用、冻结及游戏余额。 |
 | F19 | 提款 | 程序就绪/未验收 | 客户当前只可选 VPay、1MPay；GSPAY Payout 文件已收到但程序和生产验收未完成。 | 真钱前完成幂等出款、独立查单、回调、失败释放、钱包扣账及对账。 |

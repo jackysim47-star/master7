@@ -1,8 +1,22 @@
 # MASTER7 Build and QA
 
-最后更新：2026-11-06 19:26 MYT
-Portal 线上版：`17.0.0-selfbuilt.66-operations-corrections`
-回滚版：`17.0.0-selfbuilt.65-payment-safety`
+最后更新：2026-11-06 20:39 MYT
+Portal 线上版：`17.0.0-selfbuilt.68-connected`
+回滚版：`17.0.0-selfbuilt.67-complete`
+
+## `.68` 最终验证
+
+| 范围 | 结果 |
+|---|---:|
+| Portal 全套测试 | 229/229 通过 |
+| TypeScript / ESLint | 通过 / 0 warning |
+| Render SQL adapter | 3/3 通过 |
+| Render production build | 通过 |
+| Payment activation focused | 6/6 通过 |
+| 线上 health / version | HTTP 200、`.68`、database ready |
+| 新实例日志 | app error/critical/fatal 0；request 5xx 0 |
+
+支付激活使用独立的一次性迁移标记、原状态快照和严格生产配置验证。它只影响 Deposit channel；Payout、钱包入账验证、callback 签名及独立查单条件没有放宽。
 
 ## 本轮代码范围
 

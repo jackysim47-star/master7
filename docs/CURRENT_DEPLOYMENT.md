@@ -1,11 +1,25 @@
 # MASTER7 Current Deployment Receipt
 
-更新时间：2026-11-06 19:26 MYT
+更新时间：2026-11-06 20:39 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）
 
-当前线上版：`17.0.0-selfbuilt.66-operations-corrections`
+当前线上版：`17.0.0-selfbuilt.68-connected`
 
-回滚版：`17.0.0-selfbuilt.65-payment-safety`，commit `6b432399eabf09b22e6a309e4a547c700515cfbc`，deploy `dep-dbmr15s9v7es73ahfaf0`
+回滚版：`17.0.0-selfbuilt.67-complete`，commit `56e3acd8ccfdf8b4624202d8b7fc250987458a02`，deploy `dep-dbmsfb7f3r2c73bhcfgg`
+
+## `.68` 正式发布
+
+| 项目 | 线上记录 |
+|---|---|
+| Release | `17.0.0-selfbuilt.68-connected` |
+| Source / publication commit | `23f6f6d26a3f1b91d79b16c43c85899945ea1e41` / `49c5afb909c9fae58bdabdb32ec9dde01292aea1` |
+| Portal deploy | `dep-dbmsjuuc6qcc73cf2710`，`live` |
+| 部署包 SHA-256 | `08030fde94a8e0813d94d08b79387aeac330c8f7a1a79811926fc7452aa72cc0` |
+| 上线完成 | 2026-11-06 20:39:16 MYT |
+| 全套 QA | Portal 229/229；TypeScript 与 lint 通过；Render DB 3/3；production build 通过；激活逻辑 6/6 |
+| 线上复测 | health/version HTTP 200、database ready；MegaH5 live-ready；1MPay Deposit enabled；新实例 error/critical/fatal 0、request 5xx 0 |
+
+本版不会在每次重启强行改变渠道。只有环境明确启用且生产配置严格验证通过时，系统才为该 Deposit 做一次状态快照并设为 Active；以后后台人工选择 Active、Maintenance 或 Close 都会保留。VPay 当前仍由远端 `gateway_contract_not_ready` 阻止提交；GSPAY 的厂家 Key 长度仍不符合要求，因此没有误开。Payout 没有改变。
 
 ## `.66` 正式发布
 
