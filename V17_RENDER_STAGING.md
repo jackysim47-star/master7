@@ -1,8 +1,8 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
-## Frontend route compatibility and domain cleanup — 2026-11-06 MYT
+## Frontend route compatibility and domain cleanup live — 2026-11-06 MYT
 
-- Candidate release: `17.0.0-selfbuilt.71-frontend-route-compat`.
+- Live release: `17.0.0-selfbuilt.71-frontend-route-compat`.
 - Source commit: `524bab01fcdfe52dee189a9972afbf9f27bef070`.
 - Bundle SHA-256: `b40efb291f25e5fc156ffeae91cdf895356ac6c89bbd55db8258202b6321d874`.
 - The release archive excludes the checkout-local `node_modules` link, avoiding
@@ -16,9 +16,10 @@
   domain links. The `/admin` backoffice route and VIP benefit features remain.
 - Full validation: 239/239 portal tests, TypeScript, lint, 3/3 Render database
   adapter tests and the Render production build pass.
-- The compatibility redirect now uses a relative `Location`, so the external HTTPS
-  origin is preserved behind Render proxying. Deployment ID and live-route
-  verification will be recorded after Render reaches `live`.
+- The compatibility redirect uses a relative `Location`, so the external HTTPS
+  origin is preserved behind Render proxying. Render deploy
+  `dep-dbmu1cdbedkc73dgl8s0` reached `live` at 22:15:38 MYT. Health/database,
+  normal routes, compatibility redirects and favicon all passed online checks.
 
 ## Full-platform handover live — 2026-11-06 MYT
 

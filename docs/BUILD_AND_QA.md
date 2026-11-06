@@ -1,7 +1,7 @@
 # MASTER7 Build and QA
 
-最后更新：2026-11-06 22:00 MYT
-Portal 发布候选：`17.0.0-selfbuilt.71-frontend-route-compat`
+最后更新：2026-11-06 22:15 MYT
+Portal 线上版：`17.0.0-selfbuilt.71-frontend-route-compat`
 
 ## 本轮代码范围
 
@@ -35,14 +35,15 @@ Portal 发布候选：`17.0.0-selfbuilt.71-frontend-route-compat`
 
 | 检查 | 结果 |
 |---|---|
-| Render deploy | `.71` 发布后填写；当前回滚版 `dep-dbmt6jmc6qcc73cghapg` 为 `.69` |
-| 版本/数据库 | `.71` 发布后复测；当前 `.69` database ready |
+| Render deploy | `dep-dbmu1cdbedkc73dgl8s0`，`live` |
+| 版本/数据库 | HTTP 200；`.71-frontend-route-compat`；database ready |
+| 路线兼容 | `/%60`、`/admin/%60`、旧游戏入口为 HTTPS 308；favicon 200 |
 | VPay Deposit | Active；production；order/query/callback ready |
 | 1MPay Deposit | Active；production；order/query/callback ready |
 | GSPAY Deposit | Closed；credential contract incomplete |
 | Payout | VPay=false、GSPAY=false、1MPay=false |
 | MegaH5 | configured/enabled/liveGames/settlement/liveReady 均 true |
-| 游戏目录 | 766 款、9 个来源；匿名 `playable=false` |
+| 游戏目录 | 766 款、9 个来源；618 Active、148 Suspended；MegaH5 launch/wallet verified |
 | 公开内容 | 广告 0、Active 福利 0、公告 0 |
 | 运行日志 | 新实例 app error/critical/fatal 0；request 5xx 0 |
 

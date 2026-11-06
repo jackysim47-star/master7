@@ -1,7 +1,7 @@
 # MASTER7 前台路线与 Render 整理记录
 
-核对时间：2026-11-06 22:00 MYT  
-目标版本：`17.0.0-selfbuilt.71-frontend-route-compat`
+核对时间：2026-11-06 22:15 MYT
+线上版本：`17.0.0-selfbuilt.71-frontend-route-compat`
 
 ## 正式入口
 
@@ -37,7 +37,7 @@ Render 请求日志显示发生 404 的实际请求是 `/%60` 和 `/admin/%60`�
 
 | 资源 | Render ID | 作用 | 处理 |
 |---|---|---|---|
-| `master7-v17-staging` | `srv-dbl0iv7f3r2c73848ei0` | 当前前台、后台与 Portal API | 保留并发布 `.71` |
+| `master7-v17-staging` | `srv-dbl0iv7f3r2c73848ei0` | 当前前台、后台与 Portal API | `.71` 已发布并保留 |
 | `master7-integration-gateway` | `srv-db6b7inlk1mc73ck6cmg` | 游戏/厂家集成网关 | 保留 |
 | `master7-cloud-staging-db` | `dpg-dbkl1g3bc2fs739li01g-a` | 当前 Portal PostgreSQL | 保留 |
 
@@ -45,9 +45,9 @@ Render 工作区还存在旧 V15、静态站、演示、support、bot、platform
 
 ## 验收标准
 
-1. `.71` 全套测试、TypeScript、lint、Render DB 测试及生产构建通过。
+1. `.71` 全套 239/239 测试、TypeScript、lint、Render DB 测试及生产构建通过。
 2. 新发布包解包后不含旧 `.admin` 或 `.vip` 域名。
-3. Render 上线后 `/health` 返回 `.71` 和 `database=ready`。
+3. Render `/health` 已返回 `.71` 和 `database=ready`；deploy `dep-dbmu1cdbedkc73dgl8s0` 为 live。
 4. 正常入口、误带反引号入口、旧游戏入口与 favicon 均不再产生前台 404。
 5. VPay、1MPay 与 MegaH5 的既有启用状态保持；GSPAY 继续按现有关闭状态，不因本次路线修复改变资金开关。
 

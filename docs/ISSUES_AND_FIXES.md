@@ -1,12 +1,12 @@
 # MASTER7 Issues and Fixes · F01–F29
 
-更新时间：2026-11-06 22:00 MYT
-当前发布候选：`17.0.0-selfbuilt.71-frontend-route-compat`
+更新时间：2026-11-06 22:15 MYT
+当前线上：`17.0.0-selfbuilt.71-frontend-route-compat`
 
 | 编号 | 功能 | 当前状态 | 已取得/已整改证据 | 下一验收动作 |
 |---|---|---|---|---|
 | F01 | 正式前台 | 路线已修/域名部分 | Render 入口 HTTP 200；`.71` 纠正 `/%60`、旧游戏入口并补 favicon；`master7.best` 可转入。 | 域名方增加并验证 `www.master7.best` DNS/TLS。 |
-| F02 | 共享后台 | 已上线 | `.69` 已上线；Owner/Staff 权限、按需面板、通知和审计程序存在。 | Owner/Staff 各做一次只读抽验。 |
+| F02 | 共享后台 | 已上线 | `.71` 已上线；Owner/Staff 权限、按需面板、通知和审计程序存在。 | Owner/Staff 各做一次只读抽验。 |
 | F03 | 账号恢复 | 程序就绪 | 修改密码与 Owner 恢复程序存在；本轮未改变账户密码。 | 本人保存恢复资料后做一次受控演练。 |
 | F04 | 注册/OTP | 程序就绪 | 线上 `smsOtpReady=true`。 | 用获授权号码验收收码、过期、重发、限流、注册与登录。 |
 | F05 | 角色权限 | 已验证 | 自动测试覆盖 Owner/Staff/Member 与越权拒绝。 | 生产按角色各抽验一条只读流程。 |
@@ -32,7 +32,7 @@
 | F25 | 客服 | 已上线 | 工单、员工接手及内建中英双语回复已上线。 | 用会员工单抽验五类问答和转人工。 |
 | F26 | Android/iPhone | 已实现/真机待验 | APK 与 iOS Web App 入口存在。 | Android/iPhone 真机安装、登录和更新测试。 |
 | F27 | DNS/TLS/性能/监控 | callback 阻塞 | Render 直达可用；新实例 error/critical/fatal 0、5xx 0；`master7.best` callback 返回 302。 | 把 apex 直绑 Render 或使用保留 POST 的反向代理。 |
-| F28 | 发布/备份/恢复 | `.69` 已发布 | Source `8238cca`、publication `01d3668`、bundle `a542…2121`、deploy `dep-dbmt6jmc6qcc73cghapg`；QA 238/238。 | 在独立恢复环境完成一次全量恢复演练。 |
-| F29 | 旧域名与 Render 整理 | 代码已清理/云资源待退役 | 当前源码和新发布包不含旧 `.admin`、`.vip` 域名；正式 `/admin` 与 VIP 功能保留。当前权威 Render 资源为 Portal、integration gateway 与 PostgreSQL。 | `.71` 上线复测；历史 Render 服务确认无 DNS、回调或账单依赖后再删除。 |
+| F28 | 发布/备份/恢复 | `.71` 已发布 | Source `524bab0`、publication `99c16ae`、bundle `b40e…d874`、deploy `dep-dbmu1cdbedkc73dgl8s0`；QA 239/239。 | 在独立恢复环境完成一次全量恢复演练。 |
+| F29 | 旧域名与 Render 整理 | 代码/发布包已清理 | 当前源码和新发布包不含旧 `.admin`、`.vip` 域名；正式 `/admin` 与 VIP 功能保留。当前权威 Render 资源为 Portal、integration gateway 与 PostgreSQL。 | 历史 Render 服务确认无 DNS、回调或账单依赖后再删除。 |
 
 状态原则：程序存在、配置 ready、真实资金签收与整个平台营业是不同证据。没有真实结算证据的能力继续保持 fail-closed。

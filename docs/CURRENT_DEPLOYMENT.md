@@ -1,9 +1,9 @@
 # MASTER7 Current Deployment Receipt
 
-更新时间：2026-11-06 22:00 MYT
+更新时间：2026-11-06 22:15 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）
 
-当前发布候选：`17.0.0-selfbuilt.71-frontend-route-compat`
+当前线上版：`17.0.0-selfbuilt.71-frontend-route-compat`
 当前回滚版：`17.0.0-selfbuilt.69-payout-safe-support`
 
 ## `.71` 路线与域名清理
@@ -19,11 +19,11 @@
 
 | 项目 | 已核实值 |
 |---|---|
-| Source commit | `8238cca41d7915ca1fded90e9637105f50fcae60` |
-| Publication commit | `01d36683a0fe2b6fca162321e8aa85e9dac1bce2` |
-| Portal deploy | `dep-dbmt6jmc6qcc73cghapg`，`live` |
-| 部署包 SHA-256 | `a54219780d233cdd2ee2a11add887c820b20ff34e8888d7efd66d6d58ab12121` |
-| 上线完成 | 2026-11-06 21:19:03 MYT |
+| Source commit | `524bab01fcdfe52dee189a9972afbf9f27bef070` |
+| Publication commit | `99c16ae8c0b2a206ea13ce0b45057e3a5b49a080` |
+| Portal deploy | `dep-dbmu1cdbedkc73dgl8s0`，`live` |
+| 部署包 SHA-256 | `b40efb291f25e5fc156ffeae91cdf895356ac6c89bbd55db8258202b6321d874` |
+| 上线完成 | 2026-11-06 22:15:38 MYT |
 | Portal service | `srv-dbl0iv7f3r2c73848ei0` / `master7-v17-staging` |
 | Render workspace | `tea-dakfo2h594qs73du231g` / ahbi |
 | Branch | `codex/v17-render-staging-20261104` |
@@ -31,7 +31,8 @@
 
 ## 线上验收
 
-- `/health` 与 `/api/version` 均为 HTTP 200，版本 `.69`，`database=ready`，`smsOtpReady=true`。
+- `/health` 为 HTTP 200，版本 `.71`，`database=ready`，`smsOtpReady=true`。
+- `/`、`/signin`、`/register` 与 `/admin` 正常；误带反引号和旧游戏入口返回 HTTPS 308；`/favicon.ico` 返回 200。
 - VPay Deposit 为 Active、production，order/query/callback 均 ready。
 - 1MPay Deposit 为 Active、production，order/query/callback 均 ready。
 - 已连接的 VPay、1MPay 与 MegaH5 设置在部署后保持开启。
