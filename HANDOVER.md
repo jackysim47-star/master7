@@ -1,8 +1,8 @@
 # Wallet deposit, withdrawal and company-bank handover — 5 November 2026
 
-## Operations corrections candidate — 6 November 2026
+## Operations corrections release — 6 November 2026
 
-Candidate release: `17.0.0-selfbuilt.66-operations-corrections`.
+Release: `17.0.0-selfbuilt.66-operations-corrections`.
 
 - Benefit calculations now treat a fixed turnover value of zero as unset and
   use the configured turnover multiplier. Members below the minimum deposit
@@ -15,9 +15,13 @@ Candidate release: `17.0.0-selfbuilt.66-operations-corrections`.
   period, hold, cap and wallet settlement remain separate and disabled until
   real business acceptance is complete.
 - Release validation is 202/202 Portal tests, TypeScript pass, lint pass,
-  Render DB 3/3 and production build pass. Runtime commit, bundle SHA-256,
-  Render deploy and live time remain `PENDING` until the candidate is deployed.
-- This candidate does not change any payment, game, payout, callback or wallet
+  Render DB 3/3 and production build pass. Runtime commit
+  `7cd1c0bc7cd4f364b73770b01f864abfbe1c07fc`, bundle SHA-256
+  `bfdfcb22549911ca996b25b84617b4064cb9da2c425c3644c06b497f4e5b4285`
+  and Render deploy `dep-dbmrd2s9v7es73aialp0` are live.
+- Post-deploy health is HTTP 200 with `.66` and the database ready. New-instance
+  application error/critical/fatal and request 5xx counts are zero.
+- This release does not change any payment, game, payout, callback or wallet
   production switch. `.65-payment-safety` remains the rollback release.
 
 ## Payment safety release — 6 November 2026

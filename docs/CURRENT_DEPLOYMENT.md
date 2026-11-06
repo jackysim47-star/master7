@@ -1,41 +1,41 @@
 # MASTER7 Current Deployment Receipt
 
-更新时间：2026-11-06 19:08 MYT
+更新时间：2026-11-06 19:16 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）
 
-候选版：`17.0.0-selfbuilt.66-operations-corrections`
+当前线上版：`17.0.0-selfbuilt.66-operations-corrections`
 
-计划回滚版：`17.0.0-selfbuilt.65-payment-safety`，commit `6b432399eabf09b22e6a309e4a547c700515cfbc`，deploy `dep-dbmr15s9v7es73ahfaf0`
+回滚版：`17.0.0-selfbuilt.65-payment-safety`，commit `6b432399eabf09b22e6a309e4a547c700515cfbc`，deploy `dep-dbmr15s9v7es73ahfaf0`
 
-## `.66` 候选发布
+## `.66` 正式发布
 
-| 项目 | 候选记录 |
+| 项目 | 线上记录 |
 |---|---|
 | Release | `17.0.0-selfbuilt.66-operations-corrections` |
-| Runtime commit | `PENDING` |
-| Portal deploy | `PENDING` |
-| 部署包 SHA-256 | `PENDING` |
-| 上线完成 | `PENDING` |
+| Runtime commit | `7cd1c0bc7cd4f364b73770b01f864abfbe1c07fc` |
+| Portal deploy | `dep-dbmrd2s9v7es73aialp0`，`live` |
+| 部署包 SHA-256 | `bfdfcb22549911ca996b25b84617b4064cb9da2c425c3644c06b497f4e5b4285` |
+| 上线完成 | 2026-11-06 19:16:31 MYT |
 | 全套 QA | Portal 202/202；TypeScript 与 lint 通过；Render DB 3/3；production build 通过；diff check 通过 |
-| 线上复测 | `PENDING`；部署后核对 health、支付闸门、游戏数量、playable 与新实例 error/fatal/5xx |
+| 线上复测 | health HTTP 200、`.66`、database ready；支付/游戏生产闸门关闭；766 款游戏、`playable=false`；新实例 app error/critical/fatal 0、request 5xx 0 |
 
-本候选修正福利 Turnover 的零固定值和最低存款边界；后台铃铛只显示未关闭客服工单并进入 Support；Referral 数字明确为不可领取的 L1 原始预估。候选不改变支付、游戏、payout、callback、钱包或生产营业开关。
+本版修正福利 Turnover 的零固定值和最低存款边界；后台铃铛只显示未关闭客服工单并进入 Support；Referral 数字明确为不可领取的 L1 原始预估。本版不改变支付、游戏、payout、callback、钱包或生产营业开关。
 
 ## 当前线上版本
 
 | 项目 | 已核实值 |
 |---|---|
-| Current live release | `17.0.0-selfbuilt.65-payment-safety` |
-| Runtime commit | `6b432399eabf09b22e6a309e4a547c700515cfbc` |
-| Portal deploy | `dep-dbmr15s9v7es73ahfaf0`，`live` |
-| 上线完成 | 2026-11-06 18:51:17 MYT |
+| Current live release | `17.0.0-selfbuilt.66-operations-corrections` |
+| Runtime commit | `7cd1c0bc7cd4f364b73770b01f864abfbe1c07fc` |
+| Portal deploy | `dep-dbmrd2s9v7es73aialp0`，`live` |
+| 上线完成 | 2026-11-06 19:16:31 MYT |
 | Gateway code deploy | `7f65d6a2527229f347bcd521d7c07ed8eb717c5f` / `dep-dbmqqqtg1s2s73d9msq0`，`live`（2026-11-06 18:35:52 MYT） |
 | Portal service | `srv-dbl0iv7f3r2c73848ei0` / `master7-v17-staging` |
 | Render workspace | `tea-dakfo2h594qs73du231g` / ahbi |
 | Branch | `codex/v17-render-staging-20261104` |
 | Auto deploy | Portal Off；发布必须人工触发并记录 deploy ID |
 
-## 当前线上 `.65` 发布
+## 回滚版 `.65` 发布
 
 | 项目 | 当前值 |
 |---|---|

@@ -1,15 +1,15 @@
 # MASTER7 Build and QA
 
-最后更新：2026-11-06 19:08 MYT
-Portal 候选版：`17.0.0-selfbuilt.66-operations-corrections`
-当前线上/回滚版：`17.0.0-selfbuilt.65-payment-safety`
+最后更新：2026-11-06 19:16 MYT
+Portal 线上版：`17.0.0-selfbuilt.66-operations-corrections`
+回滚版：`17.0.0-selfbuilt.65-payment-safety`
 
 ## 本轮代码范围
 
 - 福利计算只有在固定流水大于零时才采用固定值；固定流水为零时使用已配置倍数。低于最低存款的会员在 API 与前台预览中均返回奖励 0、流水 0。
 - 后台铃铛数字只统计未关闭客服工单，并直接进入 Support 与刷新工单；待审批会员继续在原有会员审批入口显示。
 - Referral 会员卡把当前数字明确标为“L1 原始预估（不可领取）”，API 同步返回 `commissionEstimateType=l1_all_time_gross` 与 `commissionWithdrawable=false`，避免把未结算预估误作可领取佣金。
-- 本候选不改变支付、游戏、payout、callback、钱包或生产营业开关；`.65-payment-safety` 保留为回滚版。
+- 本版不改变支付、游戏、payout、callback、钱包或生产营业开关；`.65-payment-safety` 保留为回滚版。
 - VPay callback 在返回成功前，核对双分录属于同一订单会员、币种/金额一致且总额平衡；缺失、部分、跨会员或不平衡账本一律转 `review`，不查单、不写账、不 ACK 成功。
 - VPay 写账使用数据库订单、Provider、订单状态和厂家流水作为条件；提交后再次核对订单和账本，避免把其他会员或其他订单的记录当成成功。
 - 1MPay 的既有订单查单能力不再依赖新订单开关；关闭建单时仍可安全完成历史订单 reconciliation，不会因此开放新充值。
@@ -34,7 +34,7 @@ Portal 候选版：`17.0.0-selfbuilt.66-operations-corrections`
 | Render SQL adapter | `pnpm test:render-db` | 3/3 通过 |
 | Render production build | `pnpm build:render` | 通过 |
 | 文档/补丁格式 | `git diff --check` | 通过 |
-| `.66` 线上健康与日志 | health、payment status、game readiness、5xx、error/fatal | `PENDING`；部署完成后回填 commit、bundle SHA、deploy、health 与新实例日志 |
+| `.66` 线上健康与日志 | health、payment status、game readiness、5xx、error/fatal | HTTP 200、`.66`、database ready；deploy `dep-dbmrd2s9v7es73aialp0` live；新实例 app error/critical/fatal 0、request 5xx 0 |
 
 ## 测试重点
 
@@ -50,4 +50,4 @@ Portal 候选版：`17.0.0-selfbuilt.66-operations-corrections`
 
 自动测试不发送真钱。MegaH5 Portal 与 Gateway 开关已按 Owner 指示开启并持久保存；真实 Launch、Wallet、Exit、Disconnect、Settlement 仍需获授权会员做一笔受控验收。GSPAY 仍因准确 Operator Key、callback 域名、受控真实 E2E 与商户结算证据未齐而关闭；DuitNow、USDT、Payout 不在本发布能力范围。
 
-`.66` 不改变任何支付、游戏或资金开关。候选验证阶段沿用 `.65` 已核实边界：总资金开关为 false、VPay/1MPay/GSPAY 新订单关闭；1MPay 只对既有订单报告 `queryReady=true`、`orderReady=false`。游戏为 766 款、618 Active、148 Maintenance，`playable=false`。`.66` 的线上证据在 Render 部署完成后回填。
+`.66` 不改变任何支付、游戏或资金开关。上线复测确认 `transactionsEnabled`、`realPayments`、`settlementVerified`、`productionReady`、`liveGames` 均为 false，所有 `providerOrdersEnabled` 均为 false。VPay 为 Suspended 且 order/query/callback 均 false；1MPay 为 Suspended，program/query/callback 为 true、order 为 false；GSPAY 为 Close 且 program/order/query/callback 均 false。游戏为 766 款、618 Active、148 Maintenance，`playable=false`。
