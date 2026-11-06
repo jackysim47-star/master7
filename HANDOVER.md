@@ -1,5 +1,22 @@
 # Wallet deposit, withdrawal and company-bank handover — 5 November 2026
 
+## Complete integrated release — 6 November 2026
+
+Release candidate: `17.0.0-selfbuilt.67-complete`.
+
+- Source commit `1d47c35b462c2e1e04359e6c4a2280943aec0333`; bundle SHA-256
+  `55d6ca913b345ac3f2a2089b2611bada0da0dd71be814ceb4e3d31c414b6b4b0`.
+- Portal tests 227/227, TypeScript, lint, Render DB 3/3, production build and
+  extracted-package build all pass.
+- The release integrates game controls and classification, automatic MYT
+  accounting, scheduled company content, encrypted backup/restore, reward and
+  referral state, support/marketing, payment capabilities and existing-order
+  recovery.
+- Render environment values are not replaced. Services that are already
+  connected keep their current online settings during deployment.
+- Deployment evidence is recorded in
+  `docs/MASTER7_COMPLETE_RELEASE_20261106.md` after the manual Render deploy.
+
 ## Operations corrections release — 6 November 2026
 
 Release: `17.0.0-selfbuilt.66-operations-corrections`.
