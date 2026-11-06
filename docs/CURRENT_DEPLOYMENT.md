@@ -1,22 +1,31 @@
 # MASTER7 Current Deployment Receipt
 
-## `.73` management login copy candidate — not live yet
+## `.73` current live deployment
 
-- Candidate release: `17.0.0-selfbuilt.73-management-login-copy`.
+- Live release: `17.0.0-selfbuilt.73-management-login-copy`.
 - Source commit: `d7e9b02261a3de9e5af90e2433cd4f68651b4011`.
 - Bundle SHA-256: `024fb30a5927209320427e6797b238d02965033e5ee5d188640bbea0d158efac`.
-- The management login dialog now identifies the flow as owner-or-staff password
-  access. It no longer displays member OTP instructions on `/admin`.
-- Member login, OTP, 34-provider API, provider launch guards, payment switches,
-  benefit enforcement guards, Telegram status and automatic accounting retain
-  the accepted `.72` behavior.
+- Publication commit: `6abfeefbffe564903a441147fb01f5e059d8d35f`.
+- Render deploy: `dep-dbmvekdbedkc73dk1u10`, `live` at
+  2026-11-06 23:52:20 MYT.
+- `/health` returns HTTP 200 and reports `.73` for runtime and source;
+  `database=ready` and `smsOtpReady=true`.
+- Mobile browser acceptance of `/admin` returns HTTP 200. Opening the sign-in
+  dialog shows `Management sign-in`, asks for an owner or staff ID and password,
+  displays only the ID and password controls, and produces no browser console
+  errors. Member OTP wording is absent from the management flow.
+- `/api/games` still returns exactly 34 unique providers at positions 1–34,
+  `platformsOnly=true`, `games: []`, `playable=false` and zero launch-ready
+  providers. Internal game records remain out of the customer response.
+- Existing payment order switches are unchanged: VPay and 1MPay remain enabled;
+  GSPAY and GSPAY+ remain disabled.
+- `productionReady=false` and `settlementVerified=false` remain truthful. This
+  patch does not claim that the pending platform launch or settlement work is
+  complete.
 - Local acceptance passed: 257/257 portal tests, 3/3 Render database tests,
   TypeScript, lint, JavaScript syntax and the production build.
-- Render deployment has not been triggered. The `.72` deployment below remains
-  the current live version until `.73` finishes online acceptance.
 
-
-## `.72` current live deployment
+## `.72` previous live deployment
 
 - Live release: `17.0.0-selfbuilt.72-white-label-platform`.
 - Source commit: `931a4ef51d2054dc3c8c177d9b0899019c75e7ce`.

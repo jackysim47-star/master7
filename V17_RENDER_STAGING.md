@@ -1,22 +1,24 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
-## Management login copy candidate `.73` — not live yet
+## Management login copy live — 2026-11-06 MYT
 
-- Candidate release: `17.0.0-selfbuilt.73-management-login-copy`.
+- Live release: `17.0.0-selfbuilt.73-management-login-copy`.
 - Source commit: `d7e9b02261a3de9e5af90e2433cd4f68651b4011`.
+- Publication commit: `6abfeefbffe564903a441147fb01f5e059d8d35f`.
+- Render deploy: `dep-dbmvekdbedkc73dk1u10` (`live` at
+  2026-11-06 23:52:20 MYT).
 - Bundle SHA-256: `024fb30a5927209320427e6797b238d02965033e5ee5d188640bbea0d158efac`.
-- The `/admin` password flow is unchanged, but its modal now says
-  `Management sign-in` and asks for an owner or staff ID and password. The
-  management eyebrow no longer calls a staff-capable form owner-only.
-- Member OTP wording and behavior are unchanged. Every `.72` platform-only
-  lobby, payment-control, benefit, Telegram and automatic-accounting invariant
-  remains unchanged.
-- Local acceptance passed: 257/257 portal tests, 3/3 Render database tests,
-  TypeScript, lint, JavaScript syntax and the Render production build.
-- This is a candidate bundle only. Render has not been triggered; `.72` remains
-  the current live release until the specific `.73` deploy reaches `live` and
-  its routes and logs pass online acceptance.
-
+- `/admin` keeps its password-only owner/staff authentication and now labels the
+  dialog `Management sign-in`, with an owner-or-staff ID and password notice.
+  The verified mobile dialog contains only ID and password controls, no member
+  OTP copy, and generated no console errors.
+- `/health` is HTTP 200 and reports runtime/source `.73`, database ready and SMS
+  OTP ready. `/api/games` retains the accepted 34 unique positions, no internal
+  game list, `playable=false` and zero launch-ready providers.
+- VPay and 1MPay order switches remain enabled; GSPAY and GSPAY+ remain disabled.
+  `productionReady=false` and `settlementVerified=false` remain unchanged.
+- Validation: 257/257 portal tests, 3/3 Render database adapter tests,
+  TypeScript, lint, JavaScript syntax and the Render production build pass.
 
 ## White-label 34-platform lobby live — 2026-11-06 MYT
 
