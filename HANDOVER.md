@@ -1,5 +1,25 @@
 # Wallet deposit, withdrawal and company-bank handover — 5 November 2026
 
+## Operations corrections candidate — 6 November 2026
+
+Candidate release: `17.0.0-selfbuilt.66-operations-corrections`.
+
+- Benefit calculations now treat a fixed turnover value of zero as unset and
+  use the configured turnover multiplier. Members below the minimum deposit
+  receive zero reward and zero turnover in both the API and browser preview.
+- The backoffice bell counts open support tickets and opens the Support panel
+  directly. It no longer mixes pending-member approvals into the ticket count
+  or sends the operator to AI settings.
+- The member Referral card labels its current figure as an all-time L1 gross
+  estimate and explicitly states that it is not withdrawable. Commission
+  period, hold, cap and wallet settlement remain separate and disabled until
+  real business acceptance is complete.
+- Release validation is 202/202 Portal tests, TypeScript pass, lint pass,
+  Render DB 3/3 and production build pass. Runtime commit, bundle SHA-256,
+  Render deploy and live time remain `PENDING` until the candidate is deployed.
+- This candidate does not change any payment, game, payout, callback or wallet
+  production switch. `.65-payment-safety` remains the rollback release.
+
 ## Payment safety release — 6 November 2026
 
 Release: `17.0.0-selfbuilt.65-payment-safety`.

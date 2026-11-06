@@ -1,9 +1,25 @@
 # MASTER7 Current Deployment Receipt
 
-更新时间：2026-11-06 18:51 MYT
+更新时间：2026-11-06 19:08 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）
 
-回滚版：`17.0.0-selfbuilt.64-game-controls`，deploy `dep-dbmqj56tlv9c73bo3u6g`
+候选版：`17.0.0-selfbuilt.66-operations-corrections`
+
+计划回滚版：`17.0.0-selfbuilt.65-payment-safety`，commit `6b432399eabf09b22e6a309e4a547c700515cfbc`，deploy `dep-dbmr15s9v7es73ahfaf0`
+
+## `.66` 候选发布
+
+| 项目 | 候选记录 |
+|---|---|
+| Release | `17.0.0-selfbuilt.66-operations-corrections` |
+| Runtime commit | `PENDING` |
+| Portal deploy | `PENDING` |
+| 部署包 SHA-256 | `PENDING` |
+| 上线完成 | `PENDING` |
+| 全套 QA | Portal 202/202；TypeScript 与 lint 通过；Render DB 3/3；production build 通过；diff check 通过 |
+| 线上复测 | `PENDING`；部署后核对 health、支付闸门、游戏数量、playable 与新实例 error/fatal/5xx |
+
+本候选修正福利 Turnover 的零固定值和最低存款边界；后台铃铛只显示未关闭客服工单并进入 Support；Referral 数字明确为不可领取的 L1 原始预估。候选不改变支付、游戏、payout、callback、钱包或生产营业开关。
 
 ## 当前线上版本
 
@@ -19,7 +35,7 @@
 | Branch | `codex/v17-render-staging-20261104` |
 | Auto deploy | Portal Off；发布必须人工触发并记录 deploy ID |
 
-## 本轮发布
+## 当前线上 `.65` 发布
 
 | 项目 | 当前值 |
 |---|---|
