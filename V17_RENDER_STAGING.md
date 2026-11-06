@@ -3,8 +3,10 @@
 ## Frontend route compatibility and domain cleanup — 2026-11-06 MYT
 
 - Candidate release: `17.0.0-selfbuilt.70-frontend-route-compat`.
-- Source commit: `523f012494505cae0acf6f4facc3111ff73fa86e`.
-- Bundle SHA-256: `88777bfb440ae7cd7a01e8887eeba7cbba5ea5cd824efc66e3e1e2d072aec64b`.
+- Source commit: `a3eb23d667d09399a32a5d67e6885200e2d5d52f`.
+- Bundle SHA-256: `5ef90bcc9e1c06f0e2deffdbcc2ec88e362fd78cc6ef7e902dbcc0736ceea0c0`.
+- The release archive excludes the checkout-local `node_modules` link, avoiding
+  extraction conflicts with Render build cache directories.
 - The member primary entry is `https://www.master7.best/`; the staff entry is
   `https://www.master7.site/`. The www member hostname still requires DNS/TLS.
 - The server now corrects copied URLs ending in a backtick (`/%60` and
