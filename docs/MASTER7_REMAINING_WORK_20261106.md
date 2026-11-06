@@ -1,6 +1,6 @@
 # MASTER7 唯一剩余工作清单
 
-核对时间：2026-11-06 21:28 MYT  
+核对时间：2026-11-06 21:38 MYT
 线上版本：`17.0.0-selfbuilt.69-payout-safe-support`  
 Render deploy：`dep-dbmt6jmc6qcc73cghapg`（live）
 
@@ -55,10 +55,12 @@ Render deploy：`dep-dbmt6jmc6qcc73cghapg`（live）
 9. **域名与设备**
    - `www.master7.best` 没有 DNS。
    - `master7.best` 与 `master7.site` 目前使用 302 URL forwarding。
-   - APK、Web Manifest 与图标可下载；Android/iPhone 真机安装与升级仍需验收。
+   - APK 已完成 HTTP、SHA-256、ZIP 完整性与 APK Signing Block v2+ 检查；Web Manifest 与 192/512 图标均为 HTTP 200。
+   - Android/iPhone 真机安装、升级与 Add to Home Screen 仍需设备验收。
 
 10. **恢复演练**
-    - 加密备份与恢复验证程序存在；仍需在独立环境完成一次全量恢复演练。
+    - `.58` 真实上线数据库的加密备份、密码学校验与独立恢复演练已通过。
+    - `.69` schema 已变化；须由已登录 Owner 创建新的 `.69` 加密备份，并在独立环境完成恢复与新 receipt 登记。旧 receipt 不会被误当成当前版本验收。
 
 ## 当前总闸门
 
@@ -68,4 +70,6 @@ Render deploy：`dep-dbmt6jmc6qcc73cghapg`（live）
 - `payment_settlement_not_verified`
 
 已连接的 VPay、1MPay 与 MegaH5 保持开启；本清单不要求关闭它们。
+
+本轮完整收尾证据见 `docs/MASTER7_FINAL_INTERNAL_COMPLETION_20261106.md`。
 
