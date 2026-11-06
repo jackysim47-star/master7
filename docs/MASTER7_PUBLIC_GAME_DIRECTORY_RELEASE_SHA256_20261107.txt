@@ -1,0 +1,12 @@
+a3d4988aff45f5c0a450f1175b3dd9d407ed9af3f98199e75cd4298aa4b080fd  master7-v17-render-staging.tar.gz
+159ea2096dbf7c74d25678a5f4eb26dad79b1eaf  source-commit
+17.0.0-selfbuilt.80-public-game-directory  release
+523  tracked-archive-entries
+384/384  local-portal-tests
+3/3  render-database-adapter-tests
+0-errors-0-warnings  lint
+passed  render-production-build
+pending  publication-commit
+pending  render-deploy
+pending  live-finished-at
+pending  online-acceptance
