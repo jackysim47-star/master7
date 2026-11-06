@@ -1,5 +1,19 @@
 # Wallet deposit, withdrawal and company-bank handover — 5 November 2026
 
+## Connected services release — 6 November 2026
+
+Release candidate: `17.0.0-selfbuilt.68-connected`.
+
+- Source commit `23f6f6d26a3f1b91d79b16c43c85899945ea1e41`; bundle SHA-256
+  `08030fde94a8e0813d94d08b79387aeac330c8f7a1a79811926fc7452aa72cc0`.
+- Complete Portal tests 229/229, TypeScript, lint, Render DB 3/3 and production
+  build pass.
+- A strictly validated production Deposit connection is activated once when
+  its own environment switch is explicitly enabled. Later backoffice status
+  changes are preserved across restarts. Payout is not changed.
+- Deployment evidence is recorded in
+  `docs/MASTER7_CONNECTED_RELEASE_20261106.md` after Render reports live.
+
 ## Complete integrated release — 6 November 2026
 
 Release candidate: `17.0.0-selfbuilt.67-complete`.
