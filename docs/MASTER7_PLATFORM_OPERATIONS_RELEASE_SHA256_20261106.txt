@@ -1,0 +1,16 @@
+# MASTER7 .62 operations release SHA-256
+
+efeb5d524692d0fc3252246b1eab5aee1cebb1cb5fbc565f3f6c82c48bfe7956  master7-v17-render-staging.tar.gz
+b1d152435e79f7b59a1c28469f12f26353b9454eae56e6c201fc38d9bedc49d6  master7-v17-render-staging/app/portal.html
+20ba28677d27fff0c3a746da1a02c65f8dd3ecd0a6ca09f10de54365ae6cfc24  master7-v17-render-staging/public/assets/app.js
+d347bb03d923f7c79487d2687e6f5899173c0d7ede0b329635a430059bc3ce81  master7-v17-render-staging/public/assets/style.css
+26b66ea5ec023b3a4b8e6d616d57d1fe57d0a763cefe60deb3cfd3a3bd051afb  master7-v17-render-staging/lib/backend.ts
+666aa739a43f4335a55401be6144e0e32c465408ea43fff1d96b91f3f6a9f355  master7-v17-render-staging/lib/manual-bank.ts
+5c63f06ab8c6127643496df771c833f69768c5de49b6d042ba9df67c486c8031  master7-v17-render-staging/db/render-schema.sql
+7e92a50e9f9df2cdf333847ff8fe808032a1ef1776b6187535ecc28d46f95c6e  master7-v17-render-staging/db/schema.ts
+7c59278d1ca4b94253eaa1ae1a5635e2d729291bf8321b7e1c2a33093f183d7c  master7-v17-render-staging/drizzle/0027_marketing_contact_scale.sql
+5f1913ec04b292366c93042ae979096e206cdccc650bb834a8da33eb736edc84  master7-v17-render-staging/tests/admin-loading.test.mjs
+2dd1fe1495cb703fb56604305319205d9f82fdabda4aa0e83d0e2fe7798c8a9b  master7-v17-render-staging/tests/api.test.mjs
+04140a1615720bc37b06eef81369c1a5e00634d2e0f7bde02da6c07b48abb01c  master7-v17-render-staging/tests/lobby-render.test.mjs
+b9a8bbbaecf9055d2400380d6c65b1b70b8a5bcf23d32c6c59da7c2a7facdcd9  master7-v17-render-staging/tests/manual-bank-review.test.mjs
+8bc2e64c09f23b60cb2ca9f0418e0b07e2c1e27d901e2134e4a1e690ac6a4937  master7-v17-render-staging/tests/marketing-stream.test.mjs
