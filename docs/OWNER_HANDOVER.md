@@ -1,7 +1,7 @@
 # MASTER7 Owner Handover
 
 更新时间：2026-11-06 17:27 MYT
-线上版本：`17.0.0-selfbuilt.63-gspay-contract`
+线上版本：`17.0.0-selfbuilt.64-game-controls`
 
 ## 正式入口
 
@@ -51,4 +51,4 @@
 - 当前运行源码包：`master7-v17-render-staging.tar.gz`。
 - 私有加密备份及恢复回执位于 `/workspace/deliverables/private/`。
 - 公开恢复摘要见 `DATA_RECOVERY_RECEIPT.md`。
-- 当前线上 `.63` 状态见 `CURRENT_DEPLOYMENT.md`。最终业务签收以 `ISSUES_AND_FIXES.md`、Acceptance CSV 和真实厂家生产验收记录为准。
+- 当前线上 `.64` 状态见 `CURRENT_DEPLOYMENT.md`。最终业务签收以 `ISSUES_AND_FIXES.md`、Acceptance CSV 和真实厂家生产验收记录为准。

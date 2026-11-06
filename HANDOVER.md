@@ -2,7 +2,7 @@
 
 ## Full game audit and trusted control coverage — 6 November 2026
 
-Candidate release: `17.0.0-selfbuilt.64-game-controls`.
+Release: `17.0.0-selfbuilt.64-game-controls`.
 
 - The live catalogue audit found 766 unique games with complete names, codes
   and image URLs. MegaH5, JILI, 918KISS H5 and Rectangle returned current
@@ -18,6 +18,9 @@ Candidate release: `17.0.0-selfbuilt.64-game-controls`.
 - Catalogue connection is not recorded as production launch, wallet, exit or
   settlement acceptance. Those checks require an approved member session and
   one controlled end-to-end provider transaction.
+- Portal deploy `dep-dbmqj56tlv9c73bo3u6g` and gateway configuration deploy
+  `dep-dbmqh9nf3r2c73bcq95g` are live. Portal and gateway MegaH5 transfer
+  switches remain enabled in persistent Render environment configuration.
 
 ## GSPAY contract and business-setup safety — 6 November 2026
 

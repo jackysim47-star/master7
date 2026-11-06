@@ -1,16 +1,17 @@
 # MASTER7 Current Deployment Receipt
 
-更新时间：2026-11-06 18:08 MYT
+更新时间：2026-11-06 18:23 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）
 
 ## 当前线上版本
 
 | 项目 | 已核实值 |
 |---|---|
-| Current live release | `17.0.0-selfbuilt.63-gspay-contract` |
-| Runtime commit | `4d96bf18a89176f6225215aec828d444dfc8cb95` |
-| Portal deploy | `dep-dbmqc9u417fc739hm0hg`，`live` |
-| 上线完成 | 2026-11-06 18:06:41 MYT |
+| Current live release | `17.0.0-selfbuilt.64-game-controls` |
+| Runtime commit | `1e243182e39aac52d3dfefa9f601134c5bd3240f` |
+| Portal deploy | `dep-dbmqj56tlv9c73bo3u6g`，`live` |
+| 上线完成 | 2026-11-06 18:21:09 MYT |
+| Gateway configuration deploy | `dep-dbmqh9nf3r2c73bcq95g`，`live` |
 | Portal service | `srv-dbl0iv7f3r2c73848ei0` / `master7-v17-staging` |
 | Render workspace | `tea-dakfo2h594qs73du231g` / ahbi |
 | Branch | `codex/v17-render-staging-20261104` |
@@ -20,13 +21,13 @@
 
 | 项目 | 当前值 |
 |---|---|
-| Release | `17.0.0-selfbuilt.63-gspay-contract` |
-| Portal commit / deploy | `4d96bf18a89176f6225215aec828d444dfc8cb95` / `dep-dbmqc9u417fc739hm0hg` |
-| 部署包 SHA-256 | `296aca7361e243c4ca2283427bb6b9ae0864145d73e72ff4f0139ecb92bb828c` |
+| Release | `17.0.0-selfbuilt.64-game-controls` |
+| Portal commit / deploy | `1e243182e39aac52d3dfefa9f601134c5bd3240f` / `dep-dbmqj56tlv9c73bo3u6g` |
+| 部署包 SHA-256 | `01b946e4d04a8c02512e389993fe0939e344de6bef393a26e149bef780f8850a` |
 | 全套 QA | Portal 192/192；lint 通过；Render DB 3/3；production build 通过；diff check 通过 |
-| 线上复测 | health HTTP 200；release `.63`；database ready；后台/登录 HTTP 200；应用 error/fatal 0 |
+| 线上复测 | health HTTP 200；release `.64`；database ready；MegaH5 Portal/Gateway 开关开启；Portal error/fatal 与 5xx 均为 0 |
 
-本版恢复并完成 GSPAY MYR Deposit 合约边界；同时保留 1MPay callback ACK、人工银行 Deposit 幂等与完整银行单、福利/Turnover 和公司广告发布验证。1MPay 凭证已存入 Render 环境变量，订单开关保持关闭。没有写入虚构业务资料，也没有开启真钱或游戏。
+本版完成 766 款全游戏检查，补齐 Rectangle/GodeeZone 单游戏控制，并按 Owner 指示持久开启 MegaH5 Portal 与 Gateway transfer/status 开关。其他厂家只有目录或仍被上游阻塞，未伪装成已可玩。GSPAY 与其他支付开关保持原状态。
 
 ## GSPAY 当前边界
 
@@ -52,7 +53,8 @@
 - `realPayments=false`
 - `settlementVerified=false`
 - `providerOrdersEnabled`: VPay=false、GSPAY=false、1MPAY=false、GSPAY+=false
-- `liveGames=false`
+- `megaWallet`: configured=true、enabled=true、settlementVerified=false、liveReady=false
+- `liveGames=false`（尚无真实会员 E2E 签收记录）
 - `productionReady=false`
 
 ## 入口与 DNS
@@ -62,4 +64,4 @@
 - 后台：`https://master7.site/`
 - `www.master7.best`：仍缺 DNS。
 
-线上复测已确认：所有支付订单开关为 false，GSPAY 未配置且 `orderReady=false`；Render 直连 callback 无重定向并按设计返回 503。唯一 5xx 是本次无凭证 callback 探针；应用 error/fatal 为 0。`master7.best` callback 仍返回 302，因此真实 GSPAY 订单继续关闭。
+线上复测已确认：MegaH5 Portal/Gateway 开关部署后保持开启且三个 Gateway channel 均 `configurationReady=true`；目录 766 款、618 Active、148 Maintenance。Portal 应用 error/fatal 与 5xx 均为 0。Gateway 的 8 次 502 是 EVO、ClotPlay、Venus、EPICWIN 目录同步的已知厂家阻塞。所有支付订单开关仍为 false。

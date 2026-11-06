@@ -1,7 +1,7 @@
 # MASTER7 Issues and Fixes · F01–F28
 
-更新时间：2026-11-06 18:08 MYT
-当前线上：`17.0.0-selfbuilt.63-gspay-contract`
+更新时间：2026-11-06 18:23 MYT
+当前线上：`17.0.0-selfbuilt.64-game-controls`
 
 | 编号 | 功能 | 当前状态 | 已取得/已整改证据 | 下一验收动作 |
 |---|---|---|---|---|
@@ -14,10 +14,10 @@
 | F07 | 品牌视觉 | 程序就绪/缺素材 | 品牌与供应商上传程序存在；正式素材未完成。 | 上传用户确认的 Logo、品牌图及逐页视觉验收。 |
 | F08 | 中英马三语 | 已实现 | 三语词典及界面已存在，自动测试通过。 | 发布后手机逐页抽验错误提示和订单文字。 |
 | F09 | MYR/MYT | 已验证 | 财务接口固定 MYR、Asia/Kuching；`.63` 未改变币种与时区。 | 有真实已验收流水后再核对跨日与各周期金额。 |
-| F10 | 游戏分类/免费付费区 | 程序就绪/真钱关闭 | 仅显示当前分类，首次 12 项并可继续载入；Active/Maintenance/Close 独立控制，playable=false。 | 厂家验收后才设置真实可玩与 Free/Paid。 |
+| F10 | 游戏分类/免费付费区 | 已上线/需业务配置 | 766 款目录、七分类、每次 12 款、Active/Maintenance/Close 和 Free/Paid 程序已上线；当前 618 Active、148 Maintenance、Free 0。 | Owner 设置 Free/Paid 与正式图片；Maintenance 厂家恢复后重验。 |
 | F11 | 品牌入口与 Logo | 部分 | 品牌入口和图片管理存在；正式品牌图未齐。 | 按 GAMES_ACCEPTANCE.csv 逐品牌补图和真实映射。 |
-| F12 | 游戏启动/会话 | 阻塞 | 真实 launch 未验收，`liveGames=false`。 | 厂家提供/开通生产启动与玩家协议后逐品牌验收。 |
-| F13 | 退出回钱包 | 阻塞 | 真实 wallet/settlement 未验收；转账钱包保持关闭。 | 先确认钱包模式，再做进入/退出/重复/断线/未结局。 |
+| F12 | 游戏启动/会话 | MegaH5 已开启/待实测 | MegaH5 Portal 与 Gateway 开关已持久开启；其他厂家没有 Launch adapter。 | 获授权会员完成一款 MegaH5 真实启动；其他厂家需各自 Launch API。 |
+| F13 | 退出回钱包 | 程序开启/待实测 | MegaH5 Deposit、Withdraw、Status recovery 三项 configurationReady；真实 settlement 仍未签收。 | 用受控会员执行进入、退出、重复、断线、未结局及账本核对。 |
 | F14 | VPay 充值 | 部分 | 存款建单、独立查单、认证回调和单次双分录离线测试存在；生产仍关闭。 | 厂家生产存款 E2E 与结算六阶段验收；提款另行验收。 |
 | F15 | GSPAY 充值 | 合约实现中/真钱关闭 | 官方 MYR Payment、Get Payment、callback 与签名规则已取得；前台与后台控制恢复，程序以关闭状态实现和测试。 | 取得准确 32 字符 Operator Key，修复 callback 域名 302，再完成 Order/Query/Callback/Wallet/Reconcile 受控 E2E。 |
 | F16 | 1MPay 充值 | 程序就绪/真钱关闭 | 已确认 `contract→merchant`、`secret_key→apikey`、production-only 和 HTTP 200 + `ok` ACK；签名、查单及单次入账离线测试通过。 | 确认建单 Content-Type、完整状态枚举与回调重试后安排受控真实 E2E；`/payout` 不调用。 |
@@ -32,7 +32,7 @@
 | F25 | AI 客服 | 部分 | 人工工单与接手可用；AI providerReady=false。 | 连接正式 AI provider 后验证回复、转人工与权限隔离。 |
 | F26 | Android/iPhone | 已实现 | APK 下载和 iOS manifest 存在。 | 发布签收需 Android/iPhone 真机安装与更新测试。 |
 | F27 | DNS/TLS/性能/监控 | 阻塞 callback/部分 | `master7.best` 当前 302 转发会丢失 callback POST；Render 直达可用，后台轻量加载与告警已实现。 | 把 apex 直接绑定 Render 或使用保留 POST 的反向代理，并验证无 Location、TLS 和 callback 路由。 |
-| F28 | 备份/恢复/源码素材 | 发布完成/恢复待演练 | `.63` 已提交、打包并部署；Portal 192/192、lint、Render DB 3/3、build、SHA 与线上 health/log 已回填。 | 使用独立恢复环境执行一次完整恢复演练。 |
+| F28 | 备份/恢复/源码素材 | 发布完成/恢复待演练 | `.64` 已提交、打包并部署；Portal 192/192、lint、Render DB 3/3、build、SHA 与线上 health/log 已回填。 | 使用独立恢复环境执行一次完整恢复演练。 |
 
 状态原则：只有真实证据支持的项目才标为“已验证”。真实资金、厂家结算和游戏启动未验收时继续保持关闭。
 

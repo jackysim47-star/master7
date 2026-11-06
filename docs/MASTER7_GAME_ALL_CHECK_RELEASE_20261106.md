@@ -1,9 +1,15 @@
 # MASTER7 Full Game Check Release Receipt
 
-候选版本：`17.0.0-selfbuilt.64-game-controls`
+发布版本：`17.0.0-selfbuilt.64-game-controls`
 检查时间：2026-11-06 18:10 MYT
 
-候选包 SHA-256：`01b946e4d04a8c02512e389993fe0939e344de6bef393a26e149bef780f8850a`
+部署包 SHA-256：`01b946e4d04a8c02512e389993fe0939e344de6bef393a26e149bef780f8850a`
+
+Portal commit / deploy：`1e243182e39aac52d3dfefa9f601134c5bd3240f` / `dep-dbmqj56tlv9c73bo3u6g`
+
+Gateway configuration deploy：`dep-dbmqh9nf3r2c73bcq95g`
+
+上线时间：2026-11-06 18:21:09 MYT
 
 ## 线上目录结果
 
@@ -28,7 +34,8 @@
 - ✅ Rectangle / GodeeZone 加入固定九家受信单游戏控制名单；未知厂家仍拒绝。
 - ✅ MegaH5 建立 session、Deposit、Withdraw、status recovery、幂等及单次游戏结果账本程序。
 - ✅ Gateway 的 MegaH5 transfer/status 凭证和开关已配置，无 configuration blocker。
-- ⏳ Portal 开关上线后，必须用获授权会员做一次零/小额 Launch、Wallet、Exit、Disconnect、Settlement 验收。
+- ✅ Portal 与 Gateway MegaH5 transfer/status 开关已持久开启；三个 Gateway channel 均 `configurationReady=true`。
+- ⏳ 必须用获授权会员做一次零/小额 Launch、Wallet、Exit、Disconnect、Settlement 验收。
 - ❌ JILI、918KISS、EVO、EPICWIN、Venus、ClotPlay、Rectangle、GodeeZone 尚无 Launch/Wallet adapter，不能标为可玩。
 
 连接目录不等于真实可玩。本回执只对已经取得的证据打 ✅，不会把目录同步冒充成钱包和结算验收。
