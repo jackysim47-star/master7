@@ -1,6 +1,6 @@
 # MASTER7 GSPAY MYR Contract Release Receipt
 
-候选版本：`17.0.0-selfbuilt.63-gspay-contract`
+发布版本：`17.0.0-selfbuilt.63-gspay-contract`
 日期：2026-11-06（MYT）
 
 ## 交付范围
@@ -23,18 +23,18 @@
 
 | 项目 | 结果 |
 |---|---|
-| Portal commit | 待回填 |
+| Portal commit | `4d96bf18a89176f6225215aec828d444dfc8cb95` |
 | Portal bundle SHA-256 | `296aca7361e243c4ca2283427bb6b9ae0864145d73e72ff4f0139ecb92bb828c` |
-| Portal deploy / live time | 待回填 |
+| Portal deploy / live time | `dep-dbmqc9u417fc739hm0hg` / 2026-11-06 18:06:41 MYT |
 | Portal tests / lint / DB / build | 192/192；lint 通过；Render DB 3/3；build 通过 |
 | Integration gateway | 不涉及；工作区未修改，不部署 |
-| 线上 health / 5xx / error/fatal | 待回填 |
-| Callback 非重定向验收 | 阻塞：DNS/域名修改后回填 |
+| 线上 health / 5xx / error/fatal | `.63`、database ready；应用 error/fatal 0；唯一 5xx 为主动 GSPAY 503 安全探针 |
+| Callback 非重定向验收 | Render 直连 alias 无重定向且 fail-closed；`master7.best` 仍 302，真实 callback 阻塞 |
 
 ## 上线检查
 
-- [ ] `/health` 返回 `17.0.0-selfbuilt.63-gspay-contract` 且 database ready。
-- [ ] GSPAY 渠道和订单开关默认关闭；无凭证时零出网、零订单、零钱包写入。
-- [ ] 前台显示 GSPAY Maintenance；后台 Active / Maintenance / Close 可操作但不能绕过程序就绪条件。
-- [ ] callback 无 `Location`，保留 POST 正文，并以无效签名测试得到应用层 4xx。
+- [x] `/health` 返回 `17.0.0-selfbuilt.63-gspay-contract` 且 database ready。
+- [x] GSPAY 渠道和订单开关默认关闭；无凭证时零出网、零订单、零钱包写入。
+- [x] GSPAY 保持不可下单；后台 Active / Maintenance / Close 不能绕过程序就绪条件。
+- [x] Render 直连 callback 无 `Location`，无完整凭证时由应用返回 503。
 - [ ] 一笔受控正式订单完成 Order、Query、Callback、Wallet、Reconcile 后，Owner 才决定是否开启。

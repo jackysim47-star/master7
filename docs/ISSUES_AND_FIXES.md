@@ -1,13 +1,12 @@
 # MASTER7 Issues and Fixes · F01–F28
 
-更新时间：2026-11-06 17:27 MYT
-当前线上：`17.0.0-selfbuilt.62-operations-performance`
-候选版本：`17.0.0-selfbuilt.63-gspay-contract`
+更新时间：2026-11-06 18:08 MYT
+当前线上：`17.0.0-selfbuilt.63-gspay-contract`
 
 | 编号 | 功能 | 当前状态 | 已取得/已整改证据 | 下一验收动作 |
 |---|---|---|---|---|
 | F01 | 正式前台 | 受限 | master7.best 根域可进入；www.master7.best 无 DNS 记录。 | 需域名托管方增加 www 记录并做马来西亚手机验收。 |
-| F02 | 共享后台 | 已验证/候选待发布 | `.62` 当前在线；`.63` 保留首屏轻量加载、按需面板和轻量资金通知。 | `.63` 发布后复测 Owner/Staff、当前面板和角色切换。 |
+| F02 | 共享后台 | 已上线/自动验证 | `.63` 当前在线；后台 HTTP 200，并保留首屏轻量加载、按需面板和轻量资金通知；角色自动测试通过。 | Owner/Staff 各做一次生产只读抽验。 |
 | F03 | 账号恢复 | 程序就绪/未执行 | 修改密码和老板恢复程序存在；本轮未改变密码。 | 本人保存恢复资料后执行一次受控恢复验收。 |
 | F04 | 注册/OTP | 程序就绪/未实发 | smsOtpReady=true；未发送新的真实 OTP。 | 获授权号码完成收码、过期、重发、限流、注册和登录。 |
 | F05 | 角色权限 | 已验证 | 自动测试覆盖 Owner/Staff/Member 权限和越权拒绝。 | 生产签收时各角色各执行一条只读流程。 |
@@ -33,7 +32,7 @@
 | F25 | AI 客服 | 部分 | 人工工单与接手可用；AI providerReady=false。 | 连接正式 AI provider 后验证回复、转人工与权限隔离。 |
 | F26 | Android/iPhone | 已实现 | APK 下载和 iOS manifest 存在。 | 发布签收需 Android/iPhone 真机安装与更新测试。 |
 | F27 | DNS/TLS/性能/监控 | 阻塞 callback/部分 | `master7.best` 当前 302 转发会丢失 callback POST；Render 直达可用，后台轻量加载与告警已实现。 | 把 apex 直接绑定 Render 或使用保留 POST 的反向代理，并验证无 Location、TLS 和 callback 路由。 |
-| F28 | 备份/恢复/源码素材 | 候选待发布 | `.62` 线上包与回执存在；`.63` Portal 192/192、lint、Render DB 3/3 与 build 已通过；包、commit 与 deploy 待回填。 | 完成 Portal QA、打包、commit、deploy、SHA 和线上复测。 |
+| F28 | 备份/恢复/源码素材 | 发布完成/恢复待演练 | `.63` 已提交、打包并部署；Portal 192/192、lint、Render DB 3/3、build、SHA 与线上 health/log 已回填。 | 使用独立恢复环境执行一次完整恢复演练。 |
 
 状态原则：只有真实证据支持的项目才标为“已验证”。真实资金、厂家结算和游戏启动未验收时继续保持关闭。
 

@@ -1,7 +1,7 @@
 # MASTER7 Owner Handover
 
 更新时间：2026-11-06 17:27 MYT
-候选版本：`17.0.0-selfbuilt.63-gspay-contract`
+线上版本：`17.0.0-selfbuilt.63-gspay-contract`
 
 ## 正式入口
 
@@ -36,7 +36,7 @@
 4. 上传正式公司广告图和标题；目标链接如有必须为 HTTPS；手机前台确认后才启用。
 5. GSPAY 先把 `master7.best` 改成不会丢失 POST 的直接域名/反向代理并写入准确凭证；再逐家公司完成真实 Order、Query、Callback、Wallet 与 Reconcile，才开启对应支付。游戏 Launch、Wallet 与 Settlement 同理。
 
-当前缺少真实银行资料、获授权测试交易、福利条款和广告素材，因此候选版没有编造或公开这些内容，也没有开启营业开关。
+当前缺少真实银行资料、获授权测试交易、福利条款和广告素材，因此本版没有编造或公开这些内容，也没有开启营业开关。
 
 ## 已完成的安全保护
 
@@ -51,4 +51,4 @@
 - 当前运行源码包：`master7-v17-render-staging.tar.gz`。
 - 私有加密备份及恢复回执位于 `/workspace/deliverables/private/`。
 - 公开恢复摘要见 `DATA_RECOVERY_RECEIPT.md`。
-- 当前线上 `.62` 与候选 `.63` 状态见 `CURRENT_DEPLOYMENT.md`。最终业务签收以 `ISSUES_AND_FIXES.md`、Acceptance CSV 和真实厂家生产验收记录为准。
+- 当前线上 `.63` 状态见 `CURRENT_DEPLOYMENT.md`。最终业务签收以 `ISSUES_AND_FIXES.md`、Acceptance CSV 和真实厂家生产验收记录为准。

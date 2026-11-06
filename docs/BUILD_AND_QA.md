@@ -1,8 +1,7 @@
 # MASTER7 Build and QA
 
-最后更新：2026-11-06 17:43 MYT
-Portal 候选版：`17.0.0-selfbuilt.63-gspay-contract`
-当前线上版：`17.0.0-selfbuilt.62-operations-performance`
+最后更新：2026-11-06 18:08 MYT
+Portal 线上版：`17.0.0-selfbuilt.63-gspay-contract`
 
 ## 本轮代码范围
 
@@ -21,7 +20,7 @@ Portal 候选版：`17.0.0-selfbuilt.63-gspay-contract`
 | Render SQL adapter | `pnpm test:render-db` | 3/3 通过 |
 | Render production build | `pnpm build:render` | 通过 |
 | 文档/补丁格式 | `git diff --check` | 通过 |
-| 线上健康与日志 | health、callback、5xx、error/fatal | 部署后回填 |
+| 线上健康与日志 | health、callback、5xx、error/fatal | `.63` / database ready；后台与登录 200；应用 error/fatal 0；仅 1 次预期 GSPAY 503 探针 |
 
 ## 测试重点
 
@@ -32,4 +31,4 @@ Portal 候选版：`17.0.0-selfbuilt.63-gspay-contract`
 
 ## 签收边界
 
-自动测试不发送真钱。GSPAY 仍因准确 Operator Key、callback 域名、受控真实 E2E 与商户结算证据未齐而关闭；DuitNow、USDT、Payout 不在本候选能力范围。真实银行、测试会员转账、福利条款、广告素材、支付及游戏营业开关继续等待业务资料和生产验收。
+自动测试不发送真钱。GSPAY 仍因准确 Operator Key、callback 域名、受控真实 E2E 与商户结算证据未齐而关闭；DuitNow、USDT、Payout 不在本发布能力范围。真实银行、测试会员转账、福利条款、广告素材、支付及游戏营业开关继续等待业务资料和生产验收。
