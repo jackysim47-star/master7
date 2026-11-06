@@ -1,9 +1,12 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
-## Deposit rejection recovery candidate — 2026-11-07 MYT
+## Deposit rejection recovery live — 2026-11-07 MYT
 
-- Candidate release: `17.0.0-selfbuilt.75-deposit-rejection-recovery`.
+- Live release: `17.0.0-selfbuilt.75-deposit-rejection-recovery`.
 - Source commit: `9d5ad7661897b02e5c6d753fd69783b28708399e`.
+- Publication commit: `0448c33397ea765149830f8bc8b222d81115d4d9`.
+- Render deploy: `dep-dbn0ds6417fc739vnq90` (`live` at
+  2026-11-07 00:58:44 MYT).
 - Bundle SHA-256: `93f669935a59e3745cfe4717862df639c6af58bd129b6f0508294a94575f71e3`.
 - A completed upstream response with a nonzero provider code, no provider
   reference and no checkout URL is now an explicit rejection. The API returns
@@ -20,10 +23,19 @@
   the order has neither a provider reference nor a checkout URL.
 - The existing payment switches and credentials are unchanged. VPay still
   requires the supplier to correct its API credential or allowlist before it
-  can return a real checkout URL. The current `.74` deployment remains live
-  until this exact candidate is manually deployed and verified.
+  can return a real checkout URL.
 - Validation: 284/284 portal tests, 3/3 Render database adapter tests,
   TypeScript, lint, JavaScript syntax and the Render production build pass.
+- Online acceptance: `/health` and `/api/version` report runtime/source `.75`,
+  database ready and SMS OTP ready. The `.75` CSS and JavaScript assets return
+  HTTP 200; `master7.best` reaches member sign-in and `master7.site` reaches the
+  management route. The public lobby retains 34 provider positions and exposes
+  no internal game list.
+- VPay and 1MPay remain Active with order/query configured, while `liveReady`
+  and `settlementVerified` remain false. No real deposit was submitted as a
+  release probe. The acceptance window contains zero application error/fatal
+  logs and zero request 5xx logs; automatic accounting completed its close
+  check on the new instance.
 
 ## WhatsApp Business queue live — 2026-11-07 MYT
 
