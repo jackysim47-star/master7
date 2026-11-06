@@ -1,5 +1,24 @@
 # Wallet deposit, withdrawal and company-bank handover — 5 November 2026
 
+## Full game audit and trusted control coverage — 6 November 2026
+
+Candidate release: `17.0.0-selfbuilt.64-game-controls`.
+
+- The live catalogue audit found 766 unique games with complete names, codes
+  and image URLs. MegaH5, JILI, 918KISS H5 and Rectangle returned current
+  catalogues. EVO888H5 retained a stale maintenance cache; EPICWIN, Venus,
+  ClotPlay and GodeeZone returned no current catalogue.
+- Rectangle and GodeeZone now use the same fixed trusted provider allowlist as
+  the seven gateway catalogues for per-game status and artwork controls.
+  Unknown provider IDs remain rejected.
+- MegaH5 is the only supplier with a launch and transfer-wallet adapter. The
+  gateway transfer and transfer-status configuration switches are persistent;
+  the Portal switch is controlled separately. Other suppliers remain catalogue
+  entries until their launch and wallet contracts are implemented.
+- Catalogue connection is not recorded as production launch, wallet, exit or
+  settlement acceptance. Those checks require an approved member session and
+  one controlled end-to-end provider transaction.
+
 ## GSPAY contract and business-setup safety — 6 November 2026
 
 Candidate release: `17.0.0-selfbuilt.63-gspay-contract`.
