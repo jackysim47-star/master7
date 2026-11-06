@@ -66,7 +66,8 @@ test('GSPAY status and peer configuration are secret-free and always not live', 
   assert.deepEqual(privateData.contract.providerServerIps, ['52.221.96.227']);
   assert.ok(privateData.contract.confirmed.includes('myr_query_request'));
   assert.equal(privateData.transactionRoutesActive, false);
-  assert.equal(privateData.orderReady, false);
+  assert.equal(privateData.createProgramReady, true);
+  assert.equal(privateData.orderReady, true);
   assert.equal(privateData.queryReady, false);
   assert.equal(privateData.callbacksReady, false);
   for (const secret of [env.GSPAY_OPERATOR_AUTH_KEY, env.GSPAY_OPERATOR_SECRET_KEY,
@@ -78,7 +79,8 @@ test('GSPAY status and peer configuration are secret-free and always not live', 
 
 test('all GSPAY money routes remain closed without provider or wallet traffic', async () => {
   let calls = 0;
-  const app = makeApp({ env, fetchImpl: async () => {
+  const closed = { ...env, GSPAY_MYR_ORDERS_ENABLED: 'false', GSPAY_MYR_QUERIES_ENABLED: 'false', GSPAY_MYR_CALLBACKS_ENABLED: 'false' };
+  const app = makeApp({ env: closed, fetchImpl: async () => {
     calls++;
     return new Response('SUCCESS');
   } });
@@ -93,10 +95,59 @@ test('all GSPAY money routes remain closed without provider or wallet traffic', 
     assert.equal(response.status, 503, path);
     assert.equal(response.text, path.startsWith('/callbacks/')
       ? JSON.stringify({ error: 'gspay_callback_contract_not_active' })
-      : JSON.stringify({ error: path.endsWith('order-query') ? 'gspay_query_contract_not_active' : 'gspay_order_contract_not_active' }));
+      : JSON.stringify({ error: path.endsWith('order-query') ? 'gspay_query_contract_not_active' : 'gspay_orders_disabled' }));
     assert.equal(response.text.includes('SUCCESS'), false);
   }
   assert.equal(calls, 0);
+});
+
+test('confirmed GSPAY create contract produces one pinned checkout projection', async () => {
+  let observed;
+  const app = makeApp({ env, fetchImpl: async (url, options) => {
+    observed = { url: String(url), options, body: JSON.parse(options.body) };
+    return Response.json({
+      code: 200,
+      data: JSON.stringify([{ payment_id: '35802335', payment_url: 'https://secured.gspay.online/channel?id=35802335&key=c2e75176f9fc4ea280a9853a53e0ff69' }]),
+      message: 'ok',
+    });
+  } });
+  const response = await request(app, '/platform/gspay/order', {
+    method: 'POST', token: orderToken,
+    payload: { transactionId: 'M7ORDER_00000001', playerUsername: 'm7fixture', amount: '15.00', currency: 'MYR', contract: 'gspay-myr-create-v1' },
+  });
+  assert.equal(response.status, 200);
+  assert.equal(observed.url, `https://api.thegspay.com/v2/integrations/operators/${env.GSPAY_OPERATOR_AUTH_KEY}/payment`);
+  assert.equal(observed.options.method, 'POST');
+  assert.deepEqual(Object.keys(observed.body).sort(), ['amount', 'player_username', 'signature', 'transaction_id']);
+  assert.equal(observed.body.transaction_id, 'M7ORDER_00000001');
+  assert.equal(observed.body.player_username, 'm7fixture');
+  assert.equal(observed.body.amount, '15.00');
+  assert.match(observed.body.signature, /^[a-f0-9]{32}$/);
+  const data = JSON.parse(response.text);
+  assert.deepEqual(data, {
+    provider: 'gspay_myr', contract: 'gspay-myr-create-v1', upstreamStatus: 200,
+    result: {
+      transactionId: 'M7ORDER_00000001', playerUsername: 'm7fixture', currency: 'MYR', amount: '15.00',
+      paymentId: '35802335', paymentUrl: 'https://secured.gspay.online/channel?id=35802335&key=c2e75176f9fc4ea280a9853a53e0ff69',
+      responseSchemaVerified: true, fundsProcessed: false,
+    },
+  });
+  for (const secret of [env.GSPAY_OPERATOR_AUTH_KEY, env.GSPAY_OPERATOR_SECRET_KEY, orderToken]) {
+    assert.equal(response.text.includes(secret), false);
+  }
+});
+
+test('GSPAY create rejects malformed input and invalid provider checkout replies without leaking bodies', async () => {
+  let calls = 0;
+  const invalid = makeApp({ env, fetchImpl: async () => { calls++; throw Error('must not call provider'); } });
+  const bad = await request(invalid, '/platform/gspay/order', { method: 'POST', token: orderToken,
+    payload: { transactionId: 'bad', playerUsername: 'BAD USER', amount: '1e2', currency: 'USD', contract: 'wrong' } });
+  assert.equal(bad.status, 400); assert.equal(calls, 0);
+  const provider = makeApp({ env, fetchImpl: async () => { calls++; return Response.json({ code: 200, message: 'ok', data: JSON.stringify([{ payment_id: '1', payment_url: 'https://evil.example/pay' }]), private: env.GSPAY_OPERATOR_SECRET_KEY }); } });
+  const rejected = await request(provider, '/platform/gspay/order', { method: 'POST', token: orderToken,
+    payload: { transactionId: 'M7ORDER_00000002', playerUsername: 'm7fixture', amount: '20.00', currency: 'MYR', contract: 'gspay-myr-create-v1' } });
+  assert.equal(rejected.status, 502); assert.equal(rejected.text, JSON.stringify({ error: 'gspay_invalid_order_response', upstreamStatus: 200 }));
+  assert.equal(rejected.text.includes(env.GSPAY_OPERATOR_SECRET_KEY), false);
 });
 
 test('GSPAY platform routes use isolated per-capability credentials', async () => {
@@ -121,6 +172,9 @@ test('GSPAY readiness keeps unconditional contract and UAT blockers', () => {
     assert.equal(channel.liveReady, false);
     assert.ok(channel.blockers.includes('supplier_uat_not_verified'));
   }
+  assert.equal(result.channels.orders.programReady, true);
+  assert.equal(result.channels.orders.routeReady, true);
+  assert.equal(result.channels.queries.programReady, false);
   assert.ok(!result.channels.orders.blockers.includes('provider_order_response_contract_unconfirmed'));
   assert.ok(result.channels.queries.blockers.includes('provider_query_response_envelope_unconfirmed'));
   assert.ok(result.channels.callbacks.blockers.includes('provider_callback_ack_contract_unconfirmed'));

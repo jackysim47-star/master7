@@ -157,6 +157,7 @@ function gspayReadiness(env = {}) {
       'provider_callback_ack_contract_unconfirmed', 'supplier_uat_not_verified'],
   };
   const requestedMode = String(env.GSPAY_MODE || 'disabled').toLowerCase();
+  const orderProgramReady = credentialsConfigured && baseConfigured && orderTokenConfigured;
   return {
     mode: ['disabled', 'uat', 'production'].includes(requestedMode) ? requestedMode : 'disabled',
     providerBase: 'https://api.thegspay.com',
@@ -169,7 +170,10 @@ function gspayReadiness(env = {}) {
     credentialsConfigured,
     switches,
     channels: Object.fromEntries(Object.entries(channels).map(([name, blockers]) => [name, {
-      enabled: switches[name], configurationReady: false, blockers,
+      enabled: switches[name],
+      programReady: name === 'orders' ? orderProgramReady : false,
+      routeReady: name === 'orders' ? orderProgramReady && switches.orders : false,
+      configurationReady: false, blockers,
       productionQa: 'not_verified', liveReady: false,
     }])),
   };

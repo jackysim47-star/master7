@@ -11,6 +11,21 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. Callback POST requests remain closed until each provider's signed callback contract is implemented; the reachability endpoint does not claim transaction readiness.
 
+## Version 1.10.0: guarded GSPAY order program
+
+The supplier-confirmed GSPAY MYR create-payment envelope is now implemented at
+`POST /platform/gspay/order`. The route requires its own platform capability
+token, an explicit order switch, the production operator credential, canonical
+MYR amounts, a lower-case provider username and contract version
+`gspay-myr-create-v1`. Provider traffic is pinned to `api.thegspay.com`, and the
+returned checkout URL must use HTTPS on `secured.gspay.online`.
+
+The gateway returns only the safe payment ID and checkout URL projection. Order
+creation never credits a member wallet. Query and callback settlement remain
+closed because the supplier has not confirmed the query response envelope or
+the callback acknowledgement and retry contract. All three production switches
+stay false until those contracts and end-to-end wallet acceptance are complete.
+
 ## Version 1.9.2: supplier-confirmed GSPAY create response
 
 Ticket `PG-12683` supplied the production MYR credential and the exact

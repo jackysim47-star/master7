@@ -3,6 +3,7 @@
 const http = require('node:http');
 const crypto = require('node:crypto');
 const { verifyVpayNotification, vpaySignature } = require('./vpay');
+const { paymentOrderRequest, paymentOrderResponse } = require('./gspay');
 const { jiliCatalogueBody } = require('./jili');
 const { venusCatalogue } = require('./venus');
 const {
@@ -204,6 +205,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
 
   function gspayConfiguration() {
     const readiness = gspayReadiness(env);
+    const orderReady = readiness.channels.orders.routeReady === true;
     return {
       provider: 'gspay',
       currency: 'MYR',
@@ -212,7 +214,8 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
       providerBase: readiness.providerBase,
       contract: readiness.contract,
       transactionRoutesActive: false,
-      orderReady: false,
+      createProgramReady: readiness.channels.orders.programReady === true,
+      orderReady,
       queryReady: false,
       callbacksReady: false,
       callbackUrls: {
@@ -588,6 +591,8 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           currency: 'MYR',
           configured: readiness.credentialsConfigured,
           mode: readiness.mode,
+          createProgramReady: readiness.channels.orders.programReady === true,
+          orderRouteEnabled: readiness.channels.orders.routeReady === true,
           transactionRoutesActive: false,
           productionQa: 'not_verified',
           liveReady: false,
@@ -677,8 +682,54 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
 
       if (req.method === 'POST' && url.pathname === '/platform/gspay/order') {
         if (!isGspayPeer(req, 'PLATFORM_GSPAY_ORDER_TOKEN')) return send(res, 401, { error: 'unauthorized' });
-        await body(req);
-        return send(res, 503, { error: 'gspay_order_contract_not_active' });
+        const readiness = gspayReadiness(env);
+        if (!readiness.channels.orders.routeReady) {
+          await body(req);
+          return send(res, 503, { error: 'gspay_orders_disabled' });
+        }
+        const payload = await body(req);
+        if (payload.currency !== 'MYR' || payload.contract !== 'gspay-myr-create-v1'
+          || typeof payload.transactionId !== 'string' || !/^[A-Za-z0-9_-]{8,100}$/.test(payload.transactionId)
+          || typeof payload.playerUsername !== 'string' || !/^[a-z0-9_-]{3,40}$/.test(payload.playerUsername)) {
+          return send(res, 400, { error: 'invalid_gspay_order' });
+        }
+        let request;
+        try {
+          request = paymentOrderRequest({
+            transactionId: payload.transactionId,
+            playerUsername: payload.playerUsername,
+            amount: payload.amount,
+          }, env.GSPAY_OPERATOR_AUTH_KEY, env.GSPAY_OPERATOR_SECRET_KEY);
+        } catch {
+          return send(res, 400, { error: 'invalid_gspay_order' });
+        }
+        const result = await upstream(request.url, {
+          method: request.method,
+          headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(request.body),
+          redirect: 'error',
+        });
+        if (!result.ok) return send(res, 502, {
+          error: 'gspay_provider_rejected_order', upstreamStatus: result.status,
+        });
+        let created;
+        try { created = paymentOrderResponse(result.data); }
+        catch { return send(res, 502, { error: 'gspay_invalid_order_response', upstreamStatus: result.status }); }
+        return send(res, 200, {
+          provider: 'gspay_myr',
+          contract: 'gspay-myr-create-v1',
+          upstreamStatus: result.status,
+          result: {
+            transactionId: payload.transactionId,
+            playerUsername: payload.playerUsername,
+            currency: 'MYR',
+            amount: request.body.amount,
+            paymentId: created.paymentId,
+            paymentUrl: created.paymentUrl,
+            responseSchemaVerified: true,
+            fundsProcessed: false,
+          },
+        });
       }
 
       if (req.method === 'POST' && url.pathname === '/platform/gspay/order-query') {
