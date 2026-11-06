@@ -1,5 +1,27 @@
 # MASTER7 Current Deployment Receipt
 
+## `.74` release candidate
+
+- Candidate release: `17.0.0-selfbuilt.74-whatsapp-business-queue`.
+- Source commit: `440a096da78322a23a11cb8fb2d6cf5a7098aaab`.
+- Bundle SHA-256: `fc65dc0e3084edb50c33414dc143bf01ad572147bb9b128db1240d993abb3c64`.
+- Adds the official Meta approved-template queue, raw-body webhook signature
+  verification, monotonic delivery receipts, opt-out cancellation, safe retry
+  behavior and a protected loopback worker.
+- Contact capacity is 1,000,000. Launching still requires the current verified
+  Meta recipient tier, a complete approved template configuration and explicit
+  consent evidence for every queued contact.
+- The uploaded 123,676-row CSV passed format and deduplication checks but has
+  only a `phone` column. It is not inside the bundle and was not imported or
+  sent.
+- No WhatsApp credential is included in source or bundle. Sending defaults to
+  off and the candidate must remain `Waiting` until Meta values are configured
+  and separately accepted.
+- Existing payment and game environment settings are unchanged. `.73` remains
+  the current live deployment pending the manual `.74` deploy.
+- Local acceptance passed: 278/278 portal tests, 23/23 WhatsApp-focused tests,
+  3/3 Render database tests, TypeScript, lint and the production build.
+
 ## `.73` current live deployment
 
 - Live release: `17.0.0-selfbuilt.73-management-login-copy`.

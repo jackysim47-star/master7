@@ -1,5 +1,29 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
+## WhatsApp Business queue candidate — 2026-11-07 MYT
+
+- Candidate release: `17.0.0-selfbuilt.74-whatsapp-business-queue`.
+- Source commit: `440a096da78322a23a11cb8fb2d6cf5a7098aaab`.
+- Bundle SHA-256: `fc65dc0e3084edb50c33414dc143bf01ad572147bb9b128db1240d993abb3c64`.
+- Adds a guarded Meta WhatsApp Business Cloud API queue for the fixed business
+  number `+601166336686`, an owner campaign view, signed webhook processing,
+  delivery status tracking, inbound opt-out suppression and an inert-by-default
+  internal worker.
+- The application can store at most 1,000,000 contacts, but a campaign cannot
+  launch above the recipient tier actually verified in WhatsApp Manager.
+- The supplied CSV contains 123,676 valid unique Malaysian mobile numbers. It
+  remains outside this repository and was not imported or sent because it has
+  no consent source, proof or suppression fields.
+- Production Meta credentials, the approved template and recipient tier are
+  absent. `WHATSAPP_SENDING_ENABLED` therefore remains false, the UI must show
+  `Waiting`, and this candidate sends no messages.
+- VPay, 1MPay, GSPAY, game, settlement and production-ready switches are not
+  changed by this candidate. The current `.73` deployment remains live until
+  this exact publication commit is manually deployed and verified.
+- Validation: 278/278 portal tests, 23/23 WhatsApp-focused tests, 3/3 Render
+  database adapter tests, TypeScript, lint, archive comparison and the Render
+  production build pass.
+
 ## Management login copy live — 2026-11-06 MYT
 
 - Live release: `17.0.0-selfbuilt.73-management-login-copy`.
