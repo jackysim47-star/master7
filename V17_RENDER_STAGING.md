@@ -1,5 +1,21 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
+## Payment gateway checks candidate — 2026-11-06 MYT
+
+- Candidate portal release: `17.0.0-selfbuilt.57-payment-checks`.
+- Backoffice Payment channels now has one compact VPay / GSPAY / 1MPAY table
+  with Connected, Order, Query, Callback and Wallet results.
+- Every result is a simple ✅ or ❌. Passed checks have the requested slow cyan
+  status light; the table is horizontally scrollable on small phones.
+- The table reads secret-free provider status endpoints. Wallet is ✅ only when
+  both settlement verification and live readiness are true.
+- This release does not enable orders, callbacks, settlement, withdrawals or
+  wallet credit. All unaccepted real-money paths remain off.
+- Verification: portal 164/164 and Render database 3/3 tests; JavaScript syntax
+  and the Render production build pass.
+- Candidate bundle SHA-256:
+  `d5b5731e1a5c5b54a3ca2108a815aadbcc0f217850dc53d6ec8ba54de31b2499`.
+
 ## GSPAY complete program candidate — 2026-11-06 MYT
 
 - Candidate portal release: `17.0.0-selfbuilt.56-gspay-complete-program`.
