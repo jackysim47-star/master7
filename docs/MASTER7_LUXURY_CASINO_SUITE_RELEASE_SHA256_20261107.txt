@@ -1,0 +1,30 @@
+b7d38c381a73f4185b03efd7e7a39275ada3d142fa55eb40e6beade81a5c338c  master7-v17-render-staging.tar.gz
+09784afcf73318df0eb394783b08aa55cc894816  source-commit
+17.0.0-selfbuilt.82-luxury-casino-suite  release
+525  archive-entries
+386/386  local-portal-tests
+3/3  render-database-adapter-tests
+0-errors-0-warnings  lint
+passed  standard-production-build
+passed  render-production-build
+passed  sensitive-literal-scan
+pending  publication-commit
+pending  render-deploy
+pending  live-finished-at
+pending  online-acceptance
+
+Scope:
+- Unified premium member and management visual system with compact controls,
+  professional casino copy, cyan navigation status lamps and responsive layout.
+- Exactly 34 independent provider positions retain their supplier identities;
+  fallback artwork is unique while supplier-hosted games and IDs stay internal.
+- VIP colours are normalized by tier, every management menu target has an
+  inline guide and full manual entry, and referral ownership remains admin-only.
+- Fixed hard-coded promotional artwork and seed logic are retired. Benefits
+  remain administrator-configured and auditable.
+- Customer and management host routing is separated: master7.best is the member
+  entry and master7.site is the management entry.
+
+This receipt does not claim provider launch, settlement or payout acceptance.
+Those states remain controlled by production evidence and fail closed when
+vendor or settlement proof is absent.
