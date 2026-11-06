@@ -726,7 +726,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
             amount: request.body.amount,
             paymentId: created.paymentId,
             paymentUrl: created.paymentUrl,
-            responseSchemaVerified: true,
+            responseSchemaVerified: false,
             fundsProcessed: false,
           },
         });

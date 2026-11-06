@@ -87,9 +87,10 @@ function paymentOrderRequest({ transactionId, playerUsername, amount }, operator
   };
 }
 
-// Confirmed by supplier ticket PG-12683 on 2026-11-06. The provider wraps a
-// JSON array inside the envelope's data string. Only the safe payment ID and
-// pinned checkout URL are projected; all other provider fields are discarded.
+// Tentative parser for a generic supplier example. The example is not
+// merchant-specific acceptance evidence for MASTER7. The provider route stays
+// disabled until MASTER7 receives and verifies its own response contract.
+// Only the safe payment ID and pinned checkout URL are projected.
 function paymentOrderResponse(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)
       || ![200, '200'].includes(value.code) || value.message !== 'ok'

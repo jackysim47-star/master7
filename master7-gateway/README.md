@@ -11,9 +11,19 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. Callback POST requests remain closed until each provider's signed callback contract is implemented; the reachability endpoint does not claim transaction readiness.
 
-## Version 1.10.0: guarded GSPAY order program
+## Version 1.10.1: GSPAY merchant-evidence correction
 
-The supplier-confirmed GSPAY MYR create-payment envelope is now implemented at
+The owner confirmed that the previously cited supplier ticket does not belong
+to MASTER7. It is excluded from MASTER7 evidence. The generic create-response
+parser remains available for offline validation, but it no longer makes the
+program or order route ready. `createProgramReady` and `orderReady` remain
+false, and `POST /platform/gspay/order` returns HTTP 503 before provider
+traffic until the supplier provides merchant-specific evidence for
+`MASTER7VIPMYR+`.
+
+## Version 1.10.0: guarded GSPAY order program (superseded)
+
+The tentative GSPAY MYR create-payment envelope was implemented at
 `POST /platform/gspay/order`. The route requires its own platform capability
 token, an explicit order switch, the production operator credential, canonical
 MYR amounts, a lower-case provider username and contract version
@@ -26,14 +36,13 @@ closed because the supplier has not confirmed the query response envelope or
 the callback acknowledgement and retry contract. All three production switches
 stay false until those contracts and end-to-end wallet acceptance are complete.
 
-## Version 1.9.2: supplier-confirmed GSPAY create response
+## Version 1.9.2: GSPAY create response record (superseded)
 
-Ticket `PG-12683` supplied the production MYR credential and the exact
-create-payment success envelope on 2026-11-06. The gateway now validates the
-JSON-encoded one-record `data` array and projects only the payment ID and an
-HTTPS checkout URL pinned to `secured.gspay.online`. Credentials remain outside
-the repository. Money routes remain closed until callback acknowledgement,
-whitelist stability and end-to-end wallet settlement are accepted.
+The response example recorded in this historical section was later found not
+to be merchant-specific acceptance evidence for MASTER7. The gateway validates
+the tentative JSON shape offline and projects only the payment ID and an HTTPS
+checkout URL pinned to `secured.gspay.online`. Version 1.10.1 keeps the route
+closed pending evidence issued for the MASTER7 merchant.
 
 ## Version 1.9.1: verified GSPAY MYR request contract
 

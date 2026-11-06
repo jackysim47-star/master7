@@ -147,6 +147,7 @@ function gspayReadiness(env = {}) {
   const channels = {
     orders: [...common, ...(!orderTokenConfigured ? ['platform_order_token_missing_or_aliased'] : []),
       ...(!switches.orders ? ['transaction_switch_off'] : []),
+      'provider_order_response_contract_unconfirmed',
       'supplier_uat_not_verified'],
     queries: [...common, ...(!queryTokenConfigured ? ['platform_query_token_missing_or_aliased'] : []),
       ...(!switches.queries ? ['transaction_switch_off'] : []),
@@ -157,15 +158,19 @@ function gspayReadiness(env = {}) {
       'provider_callback_ack_contract_unconfirmed', 'supplier_uat_not_verified'],
   };
   const requestedMode = String(env.GSPAY_MODE || 'disabled').toLowerCase();
-  const orderProgramReady = credentialsConfigured && baseConfigured && orderTokenConfigured;
+  // The only create-success example previously linked to this merchant was
+  // later confirmed by the owner to belong to a different supplier ticket.
+  // Keep the parser available for offline work, but do not expose an order
+  // route until MASTER7 receives merchant-specific contract evidence.
+  const orderProgramReady = false;
   return {
     mode: ['disabled', 'uat', 'production'].includes(requestedMode) ? requestedMode : 'disabled',
     providerBase: 'https://api.thegspay.com',
     contract: {
       observedAt: '2026-11-05',
       providerServerIps: ['52.221.96.227'],
-      confirmed: ['myr_order_request', 'myr_order_success_response', 'myr_query_request', 'myr_payment_status_fields', 'myr_signature_formulas'],
-      unconfirmed: ['callback_acknowledgement_and_retry'],
+      confirmed: ['myr_order_request', 'myr_query_request', 'myr_payment_status_fields', 'myr_signature_formulas'],
+      unconfirmed: ['myr_order_success_response_for_master7', 'callback_acknowledgement_and_retry'],
     },
     credentialsConfigured,
     switches,

@@ -22,15 +22,14 @@ The documented MD5 examples are covered by local automated tests. The request
 builders and status parser are offline helpers only; they cannot create a real
 order or settle a member wallet.
 
-## Confirmed account and infrastructure state
+## Account and infrastructure state
 
 - On 2026-11-06 the supplier issued a separate production MYR credential for
   agent `MASTER7VIPMYR+`. The credential values are intentionally excluded from
   this repository and record.
-- The supplier supplied a successful Generate Payment response: HTTP JSON
-  envelope `code: 200`, message `ok`, with `data` containing a JSON-encoded
-  one-element array. That element contains decimal-string `payment_id` and an
-  HTTPS `payment_url` on `secured.gspay.online`.
+- A generic Generate Payment response example was received, but its previous
+  ticket attribution was confirmed not to belong to MASTER7. It is useful only
+  as an untrusted offline parser fixture and is not merchant acceptance.
 - The documentation does not state the callback acknowledgement body, HTTP
   status, retry schedule, or idempotency rule.
 - Saved payment callback: `https://master7.vip/api/payment/gspay/callback`
@@ -46,23 +45,25 @@ order or settle a member wallet.
 
 ## Items the supplier must provide or confirm
 
-1. Exact callback acknowledgement body/status and retry/idempotency behavior.
-2. Whitelist the actual stable MASTER7 gateway egress address or provide a
+1. Open a new ticket for `MASTER7VIPMYR+` and provide its create-payment success
+   and failure response envelopes.
+2. Exact callback acknowledgement body/status and retry/idempotency behavior.
+3. Whitelist the actual stable MASTER7 gateway egress address or provide a
    supported alternative. The runtime diagnostic alone is not a guarantee of a
    permanently assigned address.
-3. Confirm a production test procedure and acceptance evidence because this
+4. Confirm a production test procedure and acceptance evidence because this
    account has no sandbox.
 
 Until these items are complete, changing the GSPAY backoffice callbacks would
 send real notifications to a receiver that cannot safely acknowledge and settle
 them. Therefore no callback or whitelist setting was changed.
 
-## Supplier follow-up
+## Evidence correction — 2026-11-06
 
-- Ticket: `PG-12683`
-- Latest reply on 2026-11-06: the MYR production credential and successful
-  create-payment response were supplied. The supplier referred to the response
-  under ticket `PG-12683`.
-- Result: credential and create-response evidence are complete. Callback
-  acknowledgement, whitelist/egress stability and end-to-end wallet settlement
-  acceptance remain open, so GSPAY real payments remain disabled.
+- The owner confirmed that the previously cited supplier ticket is not a
+  MASTER7 ticket. It has been removed from MASTER7 acceptance evidence.
+- The MYR credential sheet for agent `MASTER7VIPMYR+` remains recorded without
+  secret values.
+- Create success/failure responses, callback acknowledgement, whitelist/egress
+  stability and end-to-end wallet settlement all remain open. GSPAY real
+  payments remain disabled.

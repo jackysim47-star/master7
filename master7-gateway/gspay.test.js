@@ -76,15 +76,17 @@ test('GSPAY MYR order and query builders pin the documented provider host and fi
   assert.deepEqual(PROVIDER_SERVER_IPS, ['52.221.96.227']);
 });
 
-test('supplier-confirmed create response projects one pinned checkout URL', () => {
+test('tentative generic create response parser projects one pinned checkout URL', () => {
+  const paymentId = '90000001';
+  const paymentUrl = `https://secured.gspay.online/channel?id=${paymentId}&key=${'a'.repeat(32)}`;
   const response = paymentOrderResponse({
     code: 200,
-    data: JSON.stringify([{ payment_id: '35802335', payment_url: 'https://secured.gspay.online/channel?id=35802335&key=c2e75176f9fc4ea280a9853a53e0ff69' }]),
+    data: JSON.stringify([{ payment_id: paymentId, payment_url: paymentUrl }]),
     message: 'ok',
   });
   assert.deepEqual(response, {
-    paymentId: '35802335',
-    paymentUrl: 'https://secured.gspay.online/channel?id=35802335&key=c2e75176f9fc4ea280a9853a53e0ff69',
+    paymentId,
+    paymentUrl,
   });
   for (const value of [
     { code: 500, data: '[]', message: 'ok' },
