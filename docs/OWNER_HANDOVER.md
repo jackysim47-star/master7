@@ -1,6 +1,6 @@
 # MASTER7 Owner Handover
 
-更新时间：2026-11-06 14:46:44 MYT
+更新时间：2026-11-06 16:08:31 MYT
 
 ## 正式入口
 
@@ -10,7 +10,7 @@
 - Android：`https://master7-v17-staging.onrender.com/downloads/MASTER7-Android-v17.0.52.apk`
 - iPhone：Safari 打开客户入口后使用“加入主画面”。
 
-`www.master7.best` 仍缺 DNS。`.61` 保留 `.59` 的重复后台路径 `/admin/admin` 增加了回到 `/admin` 的保护。
+`www.master7.best` 已在 Vercel 绑定到只代理当前 Render portal 的生产网关；网关部署已 Ready。Spaceship 仍缺 `www` CNAME，因此 `www` 尚未公网解析。应添加 `www` → `509875808ef8d9bd.vercel-dns-017.com`，TTL Auto；根域 `master7.best` 目前继续正常进入 portal。`.61` 保留 `.59` 的重复后台路径 `/admin/admin` 增加了回到 `/admin` 的保护。
 
 ## 管理权与账号
 

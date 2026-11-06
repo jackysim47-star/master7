@@ -1,6 +1,6 @@
 # MASTER7 Current Deployment
 
-更新时间：2026-11-06 15:53 MYT
+更新时间：2026-11-06 16:08 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）
 
 ## 当前线上版本
@@ -12,6 +12,7 @@
 | Portal deploy | `dep-dbmocd6c6qcc73e2mv4g`，`live` |
 | 上线完成 | 2026-11-06 15:50:11 MYT |
 | Portal service | `srv-dbl0iv7f3r2c73848ei0` / `master7-v17-staging` |
+| Public domain gateway | Vercel deployment `dpl_GipvCwucuuPWtsMHYGi6j1APDcis`，`READY` |
 | Render workspace | `tea-dakfo2h594qs73du231g` / ahbi |
 | Region / plan | Singapore / `1c-2g` |
 | Branch | `codex/v17-render-staging-20261104` |
@@ -25,6 +26,8 @@ Render 在新实例就绪后切换流量。期间一次人工 Rollback 取消了
 | 入口/检查 | 结果 |
 |---|---|
 | `https://master7.best/` | 302 到当前 portal |
+| `https://master7s-agent.vercel.app/health` | 200，代理到当前 `.61` portal |
+| `https://master7s-agent.vercel.app/signin` | 200，已不再运行旧 AI 模板 |
 | `https://master7.site/` | 302 到当前 `/admin` |
 | `https://master7-v17-staging.onrender.com/health` | 200，release `.61`，database `ready` |
 | `/admin` | 200 |
@@ -34,7 +37,7 @@ Render 在新实例就绪后切换流量。期间一次人工 Rollback 取消了
 | 游戏同步状态 | 9 个集成供应商、766 款缓存目录，`playable=false` |
 | 部署后日志 | 07:50:11–07:52:30 UTC：应用 error/fatal 0，HTTP 5xx 0 |
 
-`www.master7.best` 仍无 DNS 记录，不列为已完成入口。
+`www.master7.best` 已绑定到新的 Vercel 前台网关，但 Spaceship 权威 DNS 仍无记录，所以尚不能列为已完成入口。最后一项外部设置是：在 Spaceship 添加 `CNAME`，Host `www`，Value `509875808ef8d9bd.vercel-dns-017.com`，TTL Auto。DNS 生效后再验收 HTTPS、登录页和马来西亚手机网络。
 
 ## 数据库与支援服务
 
