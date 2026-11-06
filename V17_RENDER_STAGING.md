@@ -1,5 +1,22 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
+## GSPAY complete program candidate — 2026-11-06 MYT
+
+- Candidate portal release: `17.0.0-selfbuilt.56-gspay-complete-program`.
+- Candidate gateway release: `1.10.0`.
+- GSPAY MYR has a guarded member-wallet entry, idempotent order record, pinned
+  checkout URL, isolated platform capability tokens and backoffice records.
+- Supplier ticket `PG-12683` confirms the create request and success envelope.
+  Query wrapping and callback acknowledgement/retry rules are still open, so
+  order, query, callback and wallet-credit switches remain false.
+- Game checks now shows separate Connected, Catalog, Launch and Wallet columns.
+- The 1MPAY follow-up remains pending formal provider API and end-to-end
+  acceptance; VPay stays in its existing UAT/disabled-money state.
+- Verification: gateway 84/84, portal 162/162 and Render database 3/3 tests;
+  JavaScript syntax and the Render production build pass.
+- Candidate bundle SHA-256:
+  `3ae6a01fbabe45c384f823d59578fa33dd881d75bff614e8a80b788df53afbc6`.
+
 ## Simple access candidate — 2026-11-05 MYT
 
 - Candidate runtime release: `17.0.0-selfbuilt.27-simple-access`.
