@@ -1,11 +1,13 @@
 # MASTER7 Current Deployment Receipt
 
-## `.72` controlled deployment candidate
+## `.72` current live deployment
 
-- Candidate release: `17.0.0-selfbuilt.72-white-label-platform`.
+- Live release: `17.0.0-selfbuilt.72-white-label-platform`.
 - Source commit: `931a4ef51d2054dc3c8c177d9b0899019c75e7ce`.
 - Bundle SHA-256: `170cebbd34a833841c75a1b8c1d8d6fa0cb3da849e895209a232a3815044f2a6`.
-- Publication commit, Render deploy ID and live time: pending.
+- Publication commit: `47afc025d6ec8ce39f1c18108aa387a9b72cc67b`.
+- Render deploy: `dep-dbmv92gm7kps73ce7j90`, `live` at
+  2026-11-06 23:40:18 MYT.
 - Public games API is intentionally platform-only: exactly 34 provider summaries,
   `platformsOnly=true`, and `games: []`. Internal game titles and IDs remain in
   the protected backoffice.
@@ -21,8 +23,21 @@
   release. Automatic accounting is already active and remains configured.
 - Local acceptance passed: 257/257 portal tests, 3/3 Render database tests,
   TypeScript, lint, JavaScript syntax and production build.
+- Online acceptance: `/health` and `/signin` return HTTP 200; runtime and source
+  report `.72`; database and SMS OTP report ready. `/api/games` returns exactly
+  34 unique providers at positions 1–34, `platformsOnly=true`, `games: []`,
+  `playable=false` and zero launch-ready providers. The provider states are 30
+  `awaiting_api` and four `awaiting_platform_adapter`.
+- Post-deploy logs contain zero application error/fatal entries and zero HTTP
+  5xx requests. The new instance logged a successful automatic accounting
+  close check.
+- Payment settings were preserved: VPay and 1MPay orders remain enabled;
+  GSPAY remains disabled. `productionReady=false` and
+  `settlementVerified=false` remain truthful.
+- `master7.best` member entry, sign-in and health routes work; `master7.site`
+  root correctly sends staff to `/admin`.
 
-## Current live deployment (unchanged until `.72` passes online acceptance)
+## Previous `.71` live deployment
 
 更新时间：2026-11-06 22:15 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）

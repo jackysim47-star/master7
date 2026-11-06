@@ -1,10 +1,13 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
-## White-label 34-platform lobby candidate — 2026-11-06 MYT
+## White-label 34-platform lobby live — 2026-11-06 MYT
 
-- Candidate release: `17.0.0-selfbuilt.72-white-label-platform`.
+- Live release: `17.0.0-selfbuilt.72-white-label-platform`.
 - Source commit: `931a4ef51d2054dc3c8c177d9b0899019c75e7ce`.
-- Candidate bundle SHA-256: `170cebbd34a833841c75a1b8c1d8d6fa0cb3da849e895209a232a3815044f2a6`.
+- Publication commit: `47afc025d6ec8ce39f1c18108aa387a9b72cc67b`.
+- Render deploy: `dep-dbmv92gm7kps73ce7j90` (`live` at
+  2026-11-06 23:40:18 MYT).
+- Bundle SHA-256: `170cebbd34a833841c75a1b8c1d8d6fa0cb3da849e895209a232a3815044f2a6`.
 - The public `/api/games` response contains exactly 34 provider/platform summaries,
   sets `platformsOnly=true`, and returns `games: []`; internal game titles and IDs
   remain in the protected backoffice catalogue.
@@ -18,14 +21,23 @@
   verified wager APIs and ledger controls are connected.
 - The built-in customer assistant is available. Telegram remains `Waiting` until
   real server-side bot token and chat ID are supplied.
-- Existing payment and game environment settings are unchanged. This candidate
+- Existing payment and game environment settings are unchanged. This release
   does not activate, close or modify any connected channel.
 - Automatic accounting was already active on the live service and is not changed
   by this bundle.
 - Validation: 257/257 portal tests, 3/3 Render database adapter tests,
   TypeScript, lint, JavaScript syntax and the Render production build pass.
-- Publication commit, Render deploy ID, live timestamp and online checks are
-  pending the controlled manual deployment.
+- Online acceptance passed: `/health` and `/signin` return HTTP 200; runtime and
+  source report `.72`; database and SMS OTP report ready. `/api/games` returns
+  34 unique positions, `platformsOnly=true`, `games: []`, `playable=false` and
+  zero launch-ready providers. Current truthful states are 30 `awaiting_api`
+  and four `awaiting_platform_adapter`.
+- Post-deploy evidence shows zero application error/fatal logs and zero request
+  5xx logs. Automatic accounting completed a close check on the new instance.
+- `productionReady=false` and `settlementVerified=false` remain unchanged.
+  VPay and 1MPay order switches remain enabled; GSPAY remains disabled.
+- `master7.best` routes member entry, sign-in and health checks to the portal;
+  `master7.site` root routes staff to `/admin`.
 
 ## Frontend route compatibility and domain cleanup live — 2026-11-06 MYT
 
