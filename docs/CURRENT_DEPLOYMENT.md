@@ -1,6 +1,6 @@
 # MASTER7 Current Deployment
 
-更新时间：2026-11-06 15:05:57 MYT  
+更新时间：2026-11-06 15:35 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）
 
 ## 当前线上版本
@@ -16,7 +16,7 @@
 | Region / plan | Singapore / `1c-2g` |
 | Branch | `codex/v17-render-staging-20261104` |
 | Auto deploy | Off；本次使用 Deploy latest commit |
-| 部署包 SHA-256 | `db59000f379b90e99d5d8afd89fe73eeb19701115d7778905015f497c9389465` |
+| `.60` 候选部署包 SHA-256 | `559d172c02210e31fd7fcc5f5e039fde7ca4f26bf081825b3cd7d000020154a4` |
 
 Render 在新实例就绪后切换流量。期间一次人工 Rollback 取消了中间部署；旧版回滚完成后，最终提交重新部署成功。最终运行身份以上表为准。
 
@@ -39,7 +39,7 @@ Render 在新实例就绪后切换流量。期间一次人工 Rollback 取消了
 ## 数据库与支援服务
 
 - PostgreSQL：`dpg-dbkl1g3bc2fs739li01g-a` / `master7-cloud-staging-db`，PostgreSQL 18，Singapore，状态 `available`。
-- Integration gateway：`srv-db6b7inlk1mc73ck6cmg`，deploy `dep-dbmmt02jnfac73aunkl0`，commit `50ee2dd79ef89e42c28b70367449d72f5c3ac68f`，状态 `live`，健康 200，版本 1.10.0。
+- Integration gateway：`srv-db6b7inlk1mc73ck6cmg`，deploy `dep-dbmo2h4s728c739dilb0`，commit `6e9fb99f6575602d9f8e8089f51c70d88f5c834f`，状态 `live`，健康 200，版本 1.10.1。GSPAY 本商户建单证据未确认，程序与交易路由均保持关闭。
 - 本次没有恢复或覆盖生产数据，没有建立真实支付、提款、payout、游戏启动或下注。
 
 ## 运行闸门
@@ -57,6 +57,7 @@ Render 在新实例就绪后切换流量。期间一次人工 Rollback 取消了
 ## 构建与测试
 
 - 全套 Node 测试：165/165 通过。
+- ESLint：0 errors、0 warnings。
 - Render 数据库适配器：3/3 通过。
 - Render production build：通过。
 - 代理下后台规范路径修正：专项测试 1/1 通过，修正后 production build 再次通过。

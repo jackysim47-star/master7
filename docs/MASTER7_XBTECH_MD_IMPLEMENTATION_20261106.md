@@ -9,10 +9,10 @@
 |---|---:|
 | Portal | ✅ `17.0.0-selfbuilt.58-payment-startup-guard` |
 | Portal commit / deploy | ✅ `479ac1559f8e573be549a1e5f0fd299a8eb2bba3` / `dep-dbmn2cff3r2c73b4q6d0` live |
-| Gateway | ✅ `1.10.0` |
-| Gateway commit / deploy | ✅ `50ee2dd79ef89e42c28b70367449d72f5c3ac68f` / `dep-dbmmmj5g1s2s73bbh7e0` live |
-| GSPAY credential 与建单样本 | ✅ 已安全配置；工单 `PG-12683` |
-| GSPAY 建单程序 | ✅ 签名、固定厂家域名、固定收银台域名、幂等记录和会员钱包入口 |
+| Gateway | ⚠️ `1.10.1` 证据修正版待回填最终部署回执 |
+| Gateway commit / deploy | ⚠️ 旧 `1.10.0` 回执已被证据修正取代；以 `CURRENT_DEPLOYMENT.md` 最新值为准 |
+| GSPAY credential 与建单样本 | ⚠️ credential 已安全配置；先前工单不属于 MASTER7，建单样本不可验收 |
+| GSPAY 建单程序 | ❌ 本商户契约待确认；`createProgramReady=false`，路由先返回 503 |
 | GSPAY 查单与回调结算 | ❌ 厂家仍欠完整查单外层、回调确认/重试规则；真钱开关关闭 |
 | VPay | ❌ `suspended`，`enabled/liveReady: false` |
 | 1MPAY | ❌ `suspended`，`enabled/liveReady/settlementVerified: false` |

@@ -10,7 +10,7 @@
 - Android：`https://master7-v17-staging.onrender.com/downloads/MASTER7-Android-v17.0.52.apk`
 - iPhone：Safari 打开客户入口后使用“加入主画面”。
 
-`www.master7.best` 仍缺 DNS。`.59` 对重复后台路径 `/admin/admin` 增加了回到 `/admin` 的保护。
+`www.master7.best` 仍缺 DNS。`.60` 保留 `.59` 的重复后台路径 `/admin/admin` 增加了回到 `/admin` 的保护。
 
 ## 管理权与账号
 

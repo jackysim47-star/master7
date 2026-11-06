@@ -3,6 +3,8 @@
 ## Full-platform handover live — 2026-11-06 MYT
 
 - Live release: `17.0.0-selfbuilt.59-full-platform-handover`.
+- Follow-up candidate: `17.0.0-selfbuilt.60-full-platform-follow-up`, bundle
+  SHA-256 `559d172c02210e31fd7fcc5f5e039fde7ca4f26bf081825b3cd7d000020154a4`.
 - Adds `/admin/admin` → `/admin` canonical redirect for the current staff-domain
   redirect edge case, preserving query parameters and disabling redirect cache.
 - Standardizes financial and commission timestamps to `Asia/Kuching`.
@@ -28,6 +30,10 @@
 - Post-deploy checks verified health/database, owner login, MYR/Asia-Kuching
   accounting, HTTPS canonical admin redirect, zero app error/fatal logs and
   zero HTTP 5xx logs in the acceptance window.
+- GSPAY evidence correction: the previously cited supplier ticket does not
+  belong to MASTER7. Gateway `1.10.1` removes it from acceptance evidence and
+  forces `createProgramReady=false` / `orderReady=false` until the supplier
+  issues merchant-specific create-response evidence for `MASTER7VIPMYR+`.
 
 ## Full Update All follow-up — 2026-11-06 MYT
 
@@ -84,9 +90,10 @@
 - Candidate gateway release: `1.10.0`.
 - GSPAY MYR has a guarded member-wallet entry, idempotent order record, pinned
   checkout URL, isolated platform capability tokens and backoffice records.
-- Supplier ticket `PG-12683` confirms the create request and success envelope.
-  Query wrapping and callback acknowledgement/retry rules are still open, so
-  order, query, callback and wallet-credit switches remain false.
+- This historical candidate relied on a create-response example later found
+  not to be merchant-specific evidence for MASTER7. Gateway `1.10.1`
+  supersedes that claim; order, query, callback and wallet-credit switches
+  remain false.
 - Game checks now shows separate Connected, Catalog, Launch and Wallet columns.
 - The 1MPAY follow-up remains pending formal provider API and end-to-end
   acceptance; VPay stays in its existing UAT/disabled-money state.

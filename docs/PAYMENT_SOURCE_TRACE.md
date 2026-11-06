@@ -1,22 +1,22 @@
 # MASTER7 Payment Source Trace
 
 更新时间：2026-11-06 MYT  
-目标版本：`17.0.0-selfbuilt.59-full-platform-handover`
+目标版本：`17.0.0-selfbuilt.60-full-platform-follow-up`
 
 ## 结论
 
-三家支付并非“没有代码”。当前 `.59` 候选包由线上 `.58` 的可部署源码包直接解出并修改，支付适配器、路由、订单表和双分录钱包账本均可审查。离线程序测试与厂家生产验收是两件事：以下代码证据不代表真实资金链已通过，运行开关继续关闭。
+三家支付并非“没有代码”。当前 `.60` 候选包由线上 `.58` 的可部署源码包直接解出并修改，支付适配器、路由、订单表和双分录钱包账本均可审查。离线程序测试与厂家生产验收是两件事：以下代码证据不代表真实资金链已通过，运行开关继续关闭。
 
 | 厂家 | 可审查实现 | 离线证据 | 生产验收结论 |
 |---|---|---|---|
 | VPay | `lib/vpay.ts`；路由在 `lib/backend.ts` | 配置绑定、建单、独立查单、回调认证、重复回调单次入账及双分录账本模拟测试通过 | 通道 `suspended`；生产建单、查询、回调、钱包与结算未签收 |
-| GSPAY | `lib/gspay.ts`；路由在 `lib/backend.ts` | PG-12683 的 MYR 建单响应形状、付款 URL 约束、幂等订单及 fail-closed 测试通过 | 通道 `closed`；查单契约和回调 ACK/重试规则未确认，结算代码保持关闭 |
+| GSPAY | `lib/gspay.ts`；路由在 `lib/backend.ts` | 通用建单解析器、付款 URL 约束、幂等订单及 fail-closed 测试通过；不作为本商户验收 | 通道 `closed`；MASTER7 建单响应、查单契约和回调 ACK/重试规则未确认，结算代码保持关闭 |
 | 1MPay | `lib/onempay.ts`；路由在 `lib/backend.ts` | API 1.3 签名、建单、查单、回调、迟到成功、重复通知、事务回滚及单次入账共 17 组测试通过 | 通道 `suspended`；厂家生产端到端和结算未签收；`/payout` 未调用 |
 
 ## 部署包到源码的关系
 
 - Render 服务：`srv-dbl0iv7f3r2c73848ei0`，仓库 `jackysim47-star/master7`，分支 `codex/v17-render-staging-20261104`。
-- 仓库跟踪的部署物是 `master7-v17-render-staging.tar.gz`。`.59` 候选源码由当前线上 `.58` 对应部署包解出后，只新增后台规范路径、MYT 时区修正及交接材料；支付实现没有在本次改写。
+- 仓库跟踪的部署物是 `master7-v17-render-staging.tar.gz`。`.60` 候选源码沿用已验收 `.59` 对应部署包解出后，只新增后台规范路径、MYT 时区修正及交接材料；支付实现没有在本次改写。
 - 路由挂载位于 `lib/backend.ts:177`、`lib/backend.ts:183`、`lib/backend.ts:186` 和 `lib/backend.ts:316-320`。
 - 数据层使用 `deposit_orders` 保存本地订单，`wallet_ledger` 保存 `member` 与 `provider_clearing` 两条金额相反的账本记录；唯一约束与 `ON CONFLICT ... DO NOTHING` 防止重复入账。
 
@@ -41,11 +41,11 @@
 ## GSPAY 对照
 
 - `lib/gspay.ts:98-128` `createGSPayOrder` 实现会员权限、两位小数、幂等本地订单、受控网关调用和 `secured.gspay.online/channel` URL 绑定。
-- `tests/gspay-portal.test.mjs:29-61` 以 PG-12683 的 `payment_id=35802335` 及已提供成功建单形状进行模拟测试；建单不会给钱包加钱。
+- `tests/gspay-portal.test.mjs:29-61` 使用完全虚构的 payment ID 与 key 测试通用解析边界；该测试不证明 MASTER7 厂家契约，建单也不会给钱包加钱。
 - `lib/gspay.ts:130-135` `refreshGSPayOrder` 明确返回 `GSPAY_QUERY_CONTRACT_PENDING`。
 - `lib/gspay.ts:37-49` `handleGSPayCallback` 只验证机器凭据和请求边界，随后返回 `GSPAY_SETTLEMENT_DISABLED`，不会入账。
 
-需要厂家补齐精确的查单外层响应、回调签名/字段、成功 ACK 及重试规则。完成代码和模拟测试后，仍要单独执行真实的建单→付款→查询/回调→钱包→对账验收。
+需要厂家为 `MASTER7VIPMYR+` 新开工单，并补齐建单成功/失败响应、精确查单外层、回调签名/字段、成功 ACK 及重试规则。完成代码和模拟测试后，仍要单独执行真实的建单→付款→查询/回调→钱包→对账验收。
 
 ## VPay 对照
 

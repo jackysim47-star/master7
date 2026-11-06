@@ -2,14 +2,14 @@
 
 检查时间：2026-11-06 14:22 MYT  
 Portal：`17.0.0-selfbuilt.58-payment-startup-guard`  
-Gateway：`1.10.0`
+Gateway：`1.10.1`
 
 ## 一眼看状态
 
 | 公司 | 前台按钮/钱包入口 | 后台记录 | 厂家程序 | 真钱可用 |
 |---|---:|---:|---:|---:|
 | VPay | ✅ | ✅ | ✅ UAT 程序 | ❌ |
-| GSPAY | ✅ | ✅ | ✅ 正式建单程序 | ❌ |
+| GSPAY | ✅ | ✅ | ⚠️ 通用解析器；本商户契约待确认 | ❌ |
 | 1MPAY | ✅ | ✅ | ✅ 程序与回调配置 | ❌ |
 
 ## VPay
@@ -22,12 +22,12 @@ Gateway：`1.10.0`
 ## GSPAY
 
 - ✅ 正式 MYR credential 已安全放在 Render，没有写入源码或报告。
-- ✅ 工单 `PG-12683` 已确认建单请求与成功响应。
-- ✅ 网关签名、固定厂家域名、固定收银台域名、会员钱包入口、幂等订单和后台记录完成。
+- ❌ 先前引用的工单不属于 MASTER7，已从验收证据移除。
+- ✅ 网关保留签名、固定厂家域名、固定收银台域名、会员钱包入口、幂等订单和后台记录的安全边界。
 - ✅ 三个独立内部令牌已配对；错误回调令牌拒绝，正确令牌在关闭状态返回安全 503。
-- ✅ `configured: true`、`createProgramReady: true`。
+- ✅ credential 配置可检测；❌ `createProgramReady: false`。
 - ❌ `orderReady: false`、`queryReady: false`、`callbacksReady: false`、`liveReady: false`。
-- ❌ 厂家仍需确认主动查单完整外层、回调确认正文/HTTP 状态和重试/幂等规则。
+- ❌ 厂家仍需为 `MASTER7VIPMYR+` 提供建单成功/失败响应，并确认主动查单完整外层、回调确认正文/HTTP 状态和重试/幂等规则。
 
 ## 1MPAY
 
