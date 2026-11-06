@@ -156,8 +156,10 @@ GSPAY_DUITNOW_FORWARD_URL
 Each platform token must contain 32–1024 UTF-8 bytes and differ from all other
 gateway peer, administrator and provider credentials. The supplier base is
 fixed in code as `https://api.thegspay.com`; no environment setting can redirect
-GSPAY credentials to another host. Do not configure real credentials yet: the
-transaction routes remain deliberately inactive and no supplier QA has passed.
+GSPAY credentials to another host. Production credentials may be stored only in
+Render secrets while all three transaction switches remain `false`. The
+transaction routes remain deliberately inactive until supplier QA, callback
+acknowledgement/retry and wallet settlement acceptance are complete.
 
 ## Version 1.6.0: three website origins
 
