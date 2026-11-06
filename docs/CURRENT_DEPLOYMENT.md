@@ -1,5 +1,35 @@
 # MASTER7 Current Deployment Receipt
 
+## `.76` operations suite candidate — not deployed
+
+- Candidate release: `17.0.0-selfbuilt.76-operations-suite`.
+- Source commit: `6b2ca6c6a315198ad714a46ae43d09f80ebf0ac3`.
+- Bundle SHA-256:
+  `c883258f5f15fe2a7902a5663ebf88eb52022f123845c66536f8322149f9ae42`.
+- Publication commit: pending.
+- Render deploy: pending; `.75` below remains the current live rollback.
+- The candidate adds the owner operations suite: dedicated VIP and commission
+  setup, MYT finance views, Stephanie support assistant, curated game-platform
+  ranking, monitor-only Bonus Hunter, non-cash Rewards Hub, owner-controlled
+  Events Center, responsible-play controls, inline guides and a read-only AI
+  Operations Manager.
+- Money-moving and enforcement boundaries remain unchanged: no AI approval,
+  automatic wallet credit, automatic payout, automatic member sanction or
+  automatic marketing send. Missing provider evidence remains unverified.
+- Local acceptance passed: 373/373 complete portal tests, 3/3 Render database
+  adapter tests, Render TypeScript, lint with zero errors and four existing
+  unused-code warnings, and the Render production build. The reproducible
+  archive contains 509 tracked entries, identifies the exact source commit and
+  passed checks for excluded repository metadata, dependencies, private keys,
+  retired personal values and known production credential fragments.
+- This candidate does not turn the 34 platform positions into verified launch
+  adapters. It also does not resolve payout-provider acceptance, payment
+  settlement, GSPAY configuration or the missing `www.master7.best` DNS entry.
+  Online version, database migration, routes, asset cache, logs and readiness
+  must be checked after a separate manual Render deployment.
+- Checksum receipt:
+  `docs/MASTER7_OPERATIONS_SUITE_RELEASE_SHA256_20261107.txt`.
+
 ## `.75` current live deployment
 
 - Live release: `17.0.0-selfbuilt.75-deposit-rejection-recovery`.

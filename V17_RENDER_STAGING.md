@@ -1,5 +1,39 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
+## Operations suite candidate — 2026-11-07 MYT
+
+- Candidate release: `17.0.0-selfbuilt.76-operations-suite`; this section is
+  a packaging receipt, not a live-deployment claim.
+- Source commit: `6b2ca6c6a315198ad714a46ae43d09f80ebf0ac3`.
+- Reproducible bundle SHA-256:
+  `c883258f5f15fe2a7902a5663ebf88eb52022f123845c66536f8322149f9ae42`.
+- The owner portal now combines the dedicated VIP/commission setup, MYT
+  finance reporting, Stephanie support assistant, owner-curated platform
+  ranking, monitor-only Bonus Hunter, non-cash Rewards Hub, Events Center,
+  member responsible-play controls and the read-only AI Operations Manager.
+- The AI and risk surfaces remain advisory. They cannot approve deposits or
+  withdrawals, credit wallets, submit payouts, sanction members or send a
+  marketing campaign. Disabled event drafts are not returned to the public
+  view, and unverified catalogue, launch, wallet and settlement states remain
+  visibly unverified.
+- Responsible-play limits reserve deposit allowance before a provider call;
+  cooling-off and self-exclusion block new deposits and game launch while
+  keeping login, support, records and withdrawal access available.
+- Local acceptance passed: 373/373 complete portal tests, 3/3 Render database
+  adapter tests, Render TypeScript, lint with zero errors and four existing
+  unused-code warnings, and the Render production build. The archive embeds
+  the exact source commit, contains 509 tracked entries, and contains no
+  `.git`, `node_modules`, private-key material, retired personal login values
+  or known production credential fragments. Only the placeholder
+  `.env.example` is included.
+- Publication commit, Render deploy and online acceptance are still pending.
+  Existing payment and game environment values are not changed by the bundle.
+  Payout readiness, payment settlement, GSPAY configuration and the 34
+  platform launch adapters must continue to follow verified external evidence;
+  `productionReady` must remain false until those checks pass.
+- Independent checksum receipt:
+  `docs/MASTER7_OPERATIONS_SUITE_RELEASE_SHA256_20261107.txt`.
+
 ## Deposit rejection recovery live — 2026-11-07 MYT
 
 - Live release: `17.0.0-selfbuilt.75-deposit-rejection-recovery`.
