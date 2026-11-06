@@ -7,5 +7,9 @@ c883258f5f15fe2a7902a5663ebf88eb52022f123845c66536f8322149f9ae42  master7-v17-re
 passed  render-typescript
 0-errors-4-existing-warnings  lint
 passed  render-production-build
-pending  publication-commit
-pending  render-deploy
+331b1b7e6bee207b1e74b28d1cdca4a5e0e1b7f5  publication-commit
+dep-dbn26qegekts738mr2b0  render-deploy
+2026-11-06T19:00:27.160797Z  live-finished-at
+passed  online-acceptance
+0  acceptance-window-app-error-fatal
+0  acceptance-window-request-5xx

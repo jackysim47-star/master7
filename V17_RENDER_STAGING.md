@@ -1,10 +1,12 @@
-# MASTER7 V17: current deployment and UI repair candidate
+# MASTER7 V17: current deployment and release history
 
-## Operations suite candidate — 2026-11-07 MYT
+## Operations suite live — 2026-11-07 MYT
 
-- Candidate release: `17.0.0-selfbuilt.76-operations-suite`; this section is
-  a packaging receipt, not a live-deployment claim.
+- Live release: `17.0.0-selfbuilt.76-operations-suite`.
 - Source commit: `6b2ca6c6a315198ad714a46ae43d09f80ebf0ac3`.
+- Publication commit: `331b1b7e6bee207b1e74b28d1cdca4a5e0e1b7f5`.
+- Render deploy: `dep-dbn26qegekts738mr2b0` (`live` at
+  2026-11-07 03:00:27 MYT).
 - Reproducible bundle SHA-256:
   `c883258f5f15fe2a7902a5663ebf88eb52022f123845c66536f8322149f9ae42`.
 - The owner portal now combines the dedicated VIP/commission setup, MYT
@@ -13,34 +15,43 @@
   member responsible-play controls and the read-only AI Operations Manager.
 - The AI and risk surfaces remain advisory. They cannot approve deposits or
   withdrawals, credit wallets, submit payouts, sanction members or send a
-  marketing campaign. Disabled event drafts are not returned to the public
-  view, and unverified catalogue, launch, wallet and settlement states remain
-  visibly unverified.
+  marketing campaign. Disabled event drafts remain private.
 - Responsible-play limits reserve deposit allowance before a provider call;
   cooling-off and self-exclusion block new deposits and game launch while
   keeping login, support, records and withdrawal access available.
 - Local acceptance passed: 373/373 complete portal tests, 3/3 Render database
   adapter tests, Render TypeScript, lint with zero errors and four existing
-  unused-code warnings, and the Render production build. The archive embeds
-  the exact source commit, contains 509 tracked entries, and contains no
-  `.git`, `node_modules`, private-key material, retired personal login values
-  or known production credential fragments. Only the placeholder
-  `.env.example` is included.
-- Publication commit, Render deploy and online acceptance are still pending.
-  Existing payment and game environment values are not changed by the bundle.
-  Payout readiness, payment settlement, GSPAY configuration and the 34
-  platform launch adapters must continue to follow verified external evidence;
-  `productionReady` must remain false until those checks pass.
+  unused-code warnings, and the Render production build. The reproducible
+  509-entry archive contains no repository metadata, dependencies, private-key
+  material, retired personal values or known production credential fragments.
+- Online acceptance: `/health` and `/api/version` report runtime/source `.76`,
+  database ready and SMS OTP ready. Member sign-in, registration and management
+  routes and the `.76` CSS/JavaScript assets return HTTP 200. Anonymous summary
+  and Operations Intelligence requests remain HTTP 401.
+- `/api/games` retains exactly 34 unique platform positions 1–34,
+  `platformsOnly=true`, `games=[]`, `playable=false` and zero launch-ready
+  platforms. This is the verified state and is not a claim that all games can
+  launch.
+- VPay and 1MPay new-order controls remain enabled but their deposit verification
+  and settlement states remain false. GSPAY orders and all payouts remain off;
+  `productionReady=false` and `settlementVerified=false` remain truthful. No
+  real deposit, payout, game launch or marketing send was used as a release
+  probe.
+- The acceptance window contains zero application error/fatal logs and zero
+  request 5xx logs. Automatic accounting completed one close period on the new
+  instance. `master7.best` reaches member sign-in and `master7.site` reaches
+  management; the separate `www.master7.best` DNS record is still absent.
 - Independent checksum receipt:
   `docs/MASTER7_OPERATIONS_SUITE_RELEASE_SHA256_20261107.txt`.
 
-## Deposit rejection recovery live — 2026-11-07 MYT
+## Deposit rejection recovery previous live — 2026-11-07 MYT
 
 - Live release: `17.0.0-selfbuilt.75-deposit-rejection-recovery`.
 - Source commit: `9d5ad7661897b02e5c6d753fd69783b28708399e`.
-- Publication commit: `0448c33397ea765149830f8bc8b222d81115d4d9`.
-- Render deploy: `dep-dbn0ds6417fc739vnq90` (`live` at
-  2026-11-07 00:58:44 MYT).
+- Bundle publication commit: `0448c33397ea765149830f8bc8b222d81115d4d9`;
+  final `.75` receipt commit: `47a3266b1878a895b25f4a8666d56de00501ed5a`.
+- Latest `.75` Render deploy: `dep-dbn0kle7bikc73c6mk7g` (`live` at
+  2026-11-07 01:13:27 MYT; deactivated by `.76`).
 - Bundle SHA-256: `93f669935a59e3745cfe4717862df639c6af58bd129b6f0508294a94575f71e3`.
 - A completed upstream response with a nonzero provider code, no provider
   reference and no checkout URL is now an explicit rejection. The API returns

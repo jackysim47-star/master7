@@ -1,43 +1,50 @@
 # MASTER7 Current Deployment Receipt
 
-## `.76` operations suite candidate — not deployed
+## `.76` operations suite current live deployment
 
-- Candidate release: `17.0.0-selfbuilt.76-operations-suite`.
+- Live release: `17.0.0-selfbuilt.76-operations-suite`.
 - Source commit: `6b2ca6c6a315198ad714a46ae43d09f80ebf0ac3`.
 - Bundle SHA-256:
   `c883258f5f15fe2a7902a5663ebf88eb52022f123845c66536f8322149f9ae42`.
-- Publication commit: pending.
-- Render deploy: pending; `.75` below remains the current live rollback.
-- The candidate adds the owner operations suite: dedicated VIP and commission
-  setup, MYT finance views, Stephanie support assistant, curated game-platform
-  ranking, monitor-only Bonus Hunter, non-cash Rewards Hub, owner-controlled
-  Events Center, responsible-play controls, inline guides and a read-only AI
-  Operations Manager.
+- Publication commit: `331b1b7e6bee207b1e74b28d1cdca4a5e0e1b7f5`.
+- Render deploy: `dep-dbn26qegekts738mr2b0`, `live` at
+  2026-11-07 03:00:27 MYT.
+- Adds the owner operations suite: dedicated VIP and commission setup, MYT
+  finance views, Stephanie support assistant, curated game-platform ranking,
+  monitor-only Bonus Hunter, non-cash Rewards Hub, owner-controlled Events
+  Center, responsible-play controls, inline guides and a read-only AI Operations
+  Manager.
 - Money-moving and enforcement boundaries remain unchanged: no AI approval,
   automatic wallet credit, automatic payout, automatic member sanction or
   automatic marketing send. Missing provider evidence remains unverified.
 - Local acceptance passed: 373/373 complete portal tests, 3/3 Render database
   adapter tests, Render TypeScript, lint with zero errors and four existing
   unused-code warnings, and the Render production build. The reproducible
-  archive contains 509 tracked entries, identifies the exact source commit and
-  passed checks for excluded repository metadata, dependencies, private keys,
-  retired personal values and known production credential fragments.
-- This candidate does not turn the 34 platform positions into verified launch
-  adapters. It also does not resolve payout-provider acceptance, payment
-  settlement, GSPAY configuration or the missing `www.master7.best` DNS entry.
-  Online version, database migration, routes, asset cache, logs and readiness
-  must be checked after a separate manual Render deployment.
+  509-entry archive passed checks for repository metadata, dependencies,
+  private keys, retired personal values and known production credential
+  fragments.
+- Online acceptance confirms runtime/source `.76`, database ready, SMS OTP
+  ready, HTTP 200 member/management routes and `.76` assets, and HTTP 401 for
+  anonymous summary and Operations Intelligence requests.
+- The public game API remains platform-only with exactly 34 unique positions,
+  `games=[]`, `playable=false` and zero launch-ready platforms. Payouts, GSPAY,
+  payment settlement and global production readiness remain off/unverified.
+- The acceptance window contains zero application error/fatal logs and zero
+  request 5xx logs. Automatic accounting completed one close period.
+- `master7.best` reaches member sign-in; `master7.site` and `www.master7.site`
+  reach management. The separate `www.master7.best` DNS record is still absent.
 - Checksum receipt:
   `docs/MASTER7_OPERATIONS_SUITE_RELEASE_SHA256_20261107.txt`.
 
-## `.75` current live deployment
+## `.75` previous live deployment
 
 - Live release: `17.0.0-selfbuilt.75-deposit-rejection-recovery`.
 - Source commit: `9d5ad7661897b02e5c6d753fd69783b28708399e`.
 - Bundle SHA-256: `93f669935a59e3745cfe4717862df639c6af58bd129b6f0508294a94575f71e3`.
-- Publication commit: `0448c33397ea765149830f8bc8b222d81115d4d9`.
-- Render deploy: `dep-dbn0ds6417fc739vnq90`, `live` at
-  2026-11-07 00:58:44 MYT.
+- Bundle publication commit: `0448c33397ea765149830f8bc8b222d81115d4d9`;
+  final `.75` receipt commit: `47a3266b1878a895b25f4a8666d56de00501ed5a`.
+- Latest `.75` Render deploy: `dep-dbn0kle7bikc73c6mk7g`, `live` at
+  2026-11-07 01:13:27 MYT and deactivated by `.76`.
 - Explicit provider business rejection now becomes `failed` and returns HTTP
   422 `PROVIDER_REJECTED`, so the member can start a new deposit attempt.
 - Timeout, network and ambiguous provider results remain `unknown` and retain
