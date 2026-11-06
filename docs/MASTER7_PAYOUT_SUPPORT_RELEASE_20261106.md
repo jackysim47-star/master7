@@ -4,8 +4,9 @@
 - Source commit: `8238cca41d7915ca1fded90e9637105f50fcae60`
 - Bundle SHA-256: `a54219780d233cdd2ee2a11add887c820b20ff34e8888d7efd66d6d58ab12121`
 - Prepared: 2026-11-06 MYT
-- Publication commit: pending
-- Render deploy: pending
+- Publication commit: `01d36683a0fe2b6fca162321e8aa85e9dac1bce2`
+- Render deploy: `dep-dbmt6jmc6qcc73cghapg` (`live`)
+- Live at: 2026-11-06 21:19:03 MYT
 
 This release preserves every connected Deposit and game setting from `.68`.
 
@@ -19,4 +20,13 @@ This release preserves every connected Deposit and game setting from `.68`.
 
 Verification before publication: Portal 238/238, GSPAY payout 7/7, TypeScript, ESLint, Render DB 3/3, production build and extracted-package production build all pass. Provider tests used only synthetic responses and moved no money.
 
-The final publication commit, deploy ID, live time, health checks and log review are recorded after Render reports the release `live`.
+Live verification:
+
+- `/health` and `/api/version` return HTTP 200, `.69-payout-safe-support` and `database=ready`.
+- VPay Deposit and 1MPay Deposit remain Active and report production order, query and callback readiness. No connected setting was closed by this release.
+- MegaH5 wallet, live-game and settlement flags remain ready; the public catalogue returns 766 games from 9 providers. Anonymous catalogue requests correctly remain non-playable until an approved member signs in.
+- GSPAY Deposit remains Closed because the production credential contract is incomplete. Its payment and payout callback probes are reachable but inactive.
+- All three provider payouts remain disabled. `productionReady=false` reports only `payout_provider_not_ready` and `payment_settlement_not_verified`.
+- New-instance application error/critical/fatal count is 0 and request 5xx count is 0.
+- `master7.best` still responds with HTTP 302 forwarding, including callback paths. GSPAY cannot be activated until callbacks reach Render directly without a method-changing redirect.
+- Public business content currently contains 0 published advertisements, 0 active benefits and 0 published announcements. Benefit claiming, wallet credit and turnover enforcement remain off until real rules are supplied and accepted.

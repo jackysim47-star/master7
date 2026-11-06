@@ -1,114 +1,68 @@
 # MASTER7 Current Deployment Receipt
 
-更新时间：2026-11-06 20:39 MYT
+更新时间：2026-11-06 21:19 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）
 
-当前线上版：`17.0.0-selfbuilt.68-connected`
+当前线上版：`17.0.0-selfbuilt.69-payout-safe-support`
 
-回滚版：`17.0.0-selfbuilt.67-complete`，commit `56e3acd8ccfdf8b4624202d8b7fc250987458a02`，deploy `dep-dbmsfb7f3r2c73bhcfgg`
-
-## `.68` 正式发布
-
-| 项目 | 线上记录 |
-|---|---|
-| Release | `17.0.0-selfbuilt.68-connected` |
-| Source / publication commit | `23f6f6d26a3f1b91d79b16c43c85899945ea1e41` / `49c5afb909c9fae58bdabdb32ec9dde01292aea1` |
-| Portal deploy | `dep-dbmsjuuc6qcc73cf2710`，`live` |
-| 部署包 SHA-256 | `08030fde94a8e0813d94d08b79387aeac330c8f7a1a79811926fc7452aa72cc0` |
-| 上线完成 | 2026-11-06 20:39:16 MYT |
-| 全套 QA | Portal 229/229；TypeScript 与 lint 通过；Render DB 3/3；production build 通过；激活逻辑 6/6 |
-| 线上复测 | health/version HTTP 200、database ready；MegaH5 live-ready；1MPay Deposit enabled；新实例 error/critical/fatal 0、request 5xx 0 |
-
-本版不会在每次重启强行改变渠道。只有环境明确启用且生产配置严格验证通过时，系统才为该 Deposit 做一次状态快照并设为 Active；以后后台人工选择 Active、Maintenance 或 Close 都会保留。VPay 当前仍由远端 `gateway_contract_not_ready` 阻止提交；GSPAY 的厂家 Key 长度仍不符合要求，因此没有误开。Payout 没有改变。
-
-## `.66` 正式发布
-
-| 项目 | 线上记录 |
-|---|---|
-| Release | `17.0.0-selfbuilt.66-operations-corrections` |
-| Runtime commit | `7cd1c0bc7cd4f364b73770b01f864abfbe1c07fc` |
-| Portal deploy | `dep-dbmrhjbbc2fs73aompu0`，`live` |
-| 部署包 SHA-256 | `bfdfcb22549911ca996b25b84617b4064cb9da2c425c3644c06b497f4e5b4285` |
-| 上线完成 | 2026-11-06 19:26:02 MYT |
-| 全套 QA | Portal 202/202；TypeScript 与 lint 通过；Render DB 3/3；production build 通过；diff check 通过 |
-| 线上复测 | health HTTP 200、`.66`、database ready；支付/游戏生产闸门关闭；766 款游戏、`playable=false`；新实例 app error/critical/fatal 0、request 5xx 0 |
-
-本版修正福利 Turnover 的零固定值和最低存款边界；后台铃铛只显示未关闭客服工单并进入 Support；Referral 数字明确为不可领取的 L1 原始预估。本版不改变支付、游戏、payout、callback、钱包或生产营业开关。
-
-## 当前线上版本
+## 正式发布记录
 
 | 项目 | 已核实值 |
 |---|---|
-| Current live release | `17.0.0-selfbuilt.66-operations-corrections` |
-| Runtime commit | `7cd1c0bc7cd4f364b73770b01f864abfbe1c07fc` |
-| Portal deploy | `dep-dbmrhjbbc2fs73aompu0`，`live` |
-| 上线完成 | 2026-11-06 19:26:02 MYT |
-| Gateway code deploy | `7f65d6a2527229f347bcd521d7c07ed8eb717c5f` / `dep-dbmqqqtg1s2s73d9msq0`，`live`（2026-11-06 18:35:52 MYT） |
+| Source commit | `8238cca41d7915ca1fded90e9637105f50fcae60` |
+| Publication commit | `01d36683a0fe2b6fca162321e8aa85e9dac1bce2` |
+| Portal deploy | `dep-dbmt6jmc6qcc73cghapg`，`live` |
+| 部署包 SHA-256 | `a54219780d233cdd2ee2a11add887c820b20ff34e8888d7efd66d6d58ab12121` |
+| 上线完成 | 2026-11-06 21:19:03 MYT |
 | Portal service | `srv-dbl0iv7f3r2c73848ei0` / `master7-v17-staging` |
 | Render workspace | `tea-dakfo2h594qs73du231g` / ahbi |
 | Branch | `codex/v17-render-staging-20261104` |
-| Auto deploy | Portal Off；发布必须人工触发并记录 deploy ID |
+| Auto deploy | Off；本版已人工触发并记录 deploy ID |
 
-## 回滚版 `.65` 发布
+## 线上验收
 
-| 项目 | 当前值 |
-|---|---|
-| Release | `17.0.0-selfbuilt.65-payment-safety` |
-| Portal commit / deploy | `6b432399eabf09b22e6a309e4a547c700515cfbc` / `dep-dbmr15s9v7es73ahfaf0` |
-| 部署包 SHA-256 | `2af1922f4018a4213e38fad7d5ab101188a183dbdd605f530d017e1ee70b4026` |
-| 全套 QA | Portal 199/199；TypeScript 与 lint 通过；Render DB 3/3；production build 通过；diff check 通过 |
-| Gateway QA | 85/85 通过；固定 EPICWIN/ClotPlay 服务身份；EVO/Mega 业务拒绝不再错误缓存 |
-| 线上复测 | health HTTP 200；release `.65`；database ready；全部支付新订单开关为 false；Portal 新实例 error/fatal 与 5xx 均为 0 |
+- `/health` 与 `/api/version` 均为 HTTP 200，版本 `.69`，`database=ready`，`smsOtpReady=true`。
+- VPay Deposit 为 Active、production，order/query/callback 均 ready。
+- 1MPay Deposit 为 Active、production，order/query/callback 均 ready。
+- 已连接的 VPay、1MPay 与 MegaH5 设置在部署后保持开启。
+- MegaH5 wallet、live games、settlement 均 ready；`liveGames=true`。
+- 游戏目录返回 766 款、9 个来源。匿名访问 `playable=false` 是会员登录闸门；获批准会员才进入启动流程。
+- GSPAY Deposit 为 Closed；当前凭证合约未通过，order/query/callback 均不启用。
+- 三家 Payout 均关闭：VPay/1MPay 缺完整 payout contract；GSPAY 程序已实现，但生产前置条件未齐。
+- `productionReady=false`，准确 blockers 为 `payout_provider_not_ready` 与 `payment_settlement_not_verified`。
+- 新实例 application error/critical/fatal 为 0，request 5xx 为 0。
 
-本版加强 VPay 订单/会员/双分录归属与平衡核对，并让 1MPay 在关闭新订单时继续 reconciliation 既有订单。游戏目录与状态保持 766 款、618 Active、148 Maintenance，`playable=false`；MegaH5 Portal/Gateway 配置不变，其他厂家仍未伪装成可玩。GSPAY 与所有支付新订单开关保持关闭。
+## 本版完成
 
-Gateway 后续修复 `7f65d6a` 已上线：EPICWIN 与 ClotPlay 请求带固定 `MASTER7-Integration-Gateway/<version>` User-Agent；EVO 与 MegaH5 的 HTTP 200 业务拒绝不会再缓存五分钟。部署后复测仍显示 EVO `code 130`、EPICWIN/ClotPlay 上游 403、Venus 缺少响应签名头、GodeeZone `/token` 被 Cloudflare 403；这些项目仍须厂家处理，未标为连接成功。
+- VPay readiness 改为读取 Gateway 远程合约，已连接充值不会再被本地旧判断错误阻挡。
+- GSPAY Payout 已完成签名、回调、独立查单、幂等、钱包预留、失败释放、不确定状态恢复、数据库原子单调用锁和加密银行资料。
+- GSPAY Payout 默认关闭；缺任一生产条件时，前台不显示为可用提款公司。
+- 客服工单已接入内建中英双语自动回复；员工可继续接手、回复和关闭。
+- 健康页使用真实充值、提款、支付结算与游戏结算条件计算营业状态。
 
-## 支付安全发布证据：`.65-payment-safety`
+## 当前公开业务内容
 
-| 项目 | 线上记录 |
-|---|---|
-| Release | `17.0.0-selfbuilt.65-payment-safety` |
-| Portal commit / deploy | `6b432399eabf09b22e6a309e4a547c700515cfbc` / `dep-dbmr15s9v7es73ahfaf0` |
-| 部署包 SHA-256 | `2af1922f4018a4213e38fad7d5ab101188a183dbdd605f530d017e1ee70b4026` |
-| 全套 QA | Portal 199/199；TypeScript 通过；受影响文件 lint 通过；Render DB 3/3；production build 通过 |
-| 资金与渠道开关 | 不改变；真实新订单、callback、payout 与自动钱包结算继续关闭 |
+- 已发布公司广告：0。
+- Active 福利：0；福利计算为 preview-only，领取、钱包派发与 Turnover enforcement 均关闭。
+- 已发布公告：0。
+- 提款银行目录：18 家；当前可提交的 Payout Provider：0。
+- 公司银行账号只允许已登录会员读取，公开检查得到 401，符合权限设计。账号内容需由 Owner 在后台确认。
 
-本版修复 VPay callback 对账本会员归属、币种、金额和平衡的强制核对；异常或跨会员账本转 `review`，不返回成功。1MPay 则允许在新订单关闭时查询和 reconciliation 已存在的订单。AI 客服重复 `status` 的 TypeScript 问题及 GSPAY 环境声明一并修复。Render deploy 已到达 `live`，`/health` 返回 `.65`，三家支付状态保持 fail-closed。
+## GSPAY 尚需厂家/域名方完成
 
-## GSPAY 当前边界
+1. 提供可复制的准确 Operator Authentication Key；当前收到的文字只有 31 个十六进制字符，不能写入生产环境。
+2. `master7.best` 当前对 callback 路径返回 HTTP 302。须改为 Render 直接自定义域名或保留 POST method/body 的反向代理。
+3. 厂家确认 Render Singapore 完整出站 IP 范围白名单。单次观测 IP 不能当作稳定白名单证明。
+4. 提供准确的 18 家 `bank_target` 对照与可用 Settlement balance，再做一笔获授权的真实 Payout 验收。
+5. 分别完成 Order、Query、Callback、Wallet、Reconcile 与 Payout 六阶段生产签收后，才打开对应开关。
 
-- 官方合约：`POST /payment` 建单、`GET /getpayment` 独立查单、Payment callback MD5 验签；金额固定两位小数。
-- 收银台有效期 2 分钟；10 分钟没有成功回调/独立成功查单时转为拒绝或过期，不能增加钱包。
-- 只有 `completed=true`、`success=true`、订单/会员/金额/厂家流水全部绑定，并经独立查单确认后，才能写一组金额相反的双分录；重复或并发通知只入账一次。
-- DuitNow、USDT、Payout 尚未实现或启用；提款页不把 GSPAY 当成已连接 payout。
-- 最后收到的 Operator Authentication Key 只有 31 个十六进制字符；必须取得准确 32 字符后才写入 Render。
-- `master7.best` 当前以 HTTP 302 转发到 Render，不能可靠保留支付回调 POST。正式启用前必须改成 Render 直接自定义域名或保留方法/正文的反向代理。
-- `74.220.52.132` 只是此前一次出口观测值，不能当作固定白名单；厂家应使用 Render Singapore 完整出站范围。`52.221.96.227` 是厂家提供的服务器 IP，具体用途仍须厂家确认。
+## Owner 营业资料
 
-## 营业准备顺序
+Owner 仍需在后台录入并核对公司银行账号、正式福利/Turnover/VIP 条款、公司广告与公告。这些内容属于业务资料，程序不会代造。VPay、1MPay 与 MegaH5 维持现有开启状态。
 
-1. Owner 录入真实公司银行名称、户名和账号。
-2. 用获授权测试会员完成一次公司银行 Deposit、完整银行单、真实到账核对、后台批准及钱包双分录核对。
-3. 输入并发布真实福利/Turnover 条款与公司广告；不完整资料保持草稿。
-4. 修复 GSPAY callback 域名、写入准确凭证，并分别完成 Order、Query、Callback、Wallet、Reconcile 受控生产验收。
-5. 最后只开启已经签收的支付能力；游戏仍须独立完成 Launch、Wallet 和 Settlement。
-
-## 运行闸门
-
-- `transactionsEnabled=false`
-- `realPayments=false`
-- `settlementVerified=false`
-- `providerOrdersEnabled`: VPay=false、GSPAY=false、1MPAY=false、GSPAY+=false
-- `megaWallet`: configured=true、enabled=true、settlementVerified=false、liveReady=false
-- `liveGames=false`（尚无真实会员 E2E 签收记录）
-- `productionReady=false`
-
-## 入口与 DNS
+## 入口
 
 - Portal：`https://master7-v17-staging.onrender.com`
-- 客户根域：`https://master7.best/`，当前为 302 URL Forwarding；不适合 callback POST。
+- 客户根域：`https://master7.best/`，当前为 302 URL forwarding。
 - 后台：`https://master7.site/`
-- `www.master7.best`：仍缺 DNS。
-
-线上复测已确认：MegaH5 Portal/Gateway 开关部署后保持开启且三个 Gateway channel 均 `configurationReady=true`；目录 766 款、618 Active、148 Maintenance。Portal 应用 error/fatal 与 5xx 均为 0。Gateway 的目录 502 来自 EVO、ClotPlay、Venus、EPICWIN 的已知厂家阻塞；GodeeZone 是 Portal 直连首跳 403。厂家应完整放行 Render Singapore 出站范围 `74.220.52.0/24` 与 `74.220.60.0/24`，不能只登记一次观测到的单一 IP。所有支付订单开关仍为 false。
+- `www.master7.best`：仍需 DNS 验证。

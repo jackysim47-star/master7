@@ -2,7 +2,7 @@
 
 ## Payout safety and support release — 6 November 2026
 
-Release candidate: `17.0.0-selfbuilt.69-payout-safe-support`.
+Live release: `17.0.0-selfbuilt.69-payout-safe-support`.
 
 - Source commit `8238cca41d7915ca1fded90e9637105f50fcae60`; bundle SHA-256
   `a54219780d233cdd2ee2a11add887c820b20ff34e8888d7efd66d6d58ab12121`.
@@ -15,6 +15,9 @@ Release candidate: `17.0.0-selfbuilt.69-payout-safe-support`.
   preserving staff review and close controls.
 - Existing connected Deposit and game settings are preserved. Deployment
   evidence is recorded in `docs/MASTER7_PAYOUT_SUPPORT_RELEASE_20261106.md`.
+- Publication commit `01d36683a0fe2b6fca162321e8aa85e9dac1bce2` and Render
+  deploy `dep-dbmt6jmc6qcc73cghapg` are live. Health is HTTP 200 with the
+  database ready; the new instance has no application errors or request 5xx.
 
 ## Connected services release — 6 November 2026
 
