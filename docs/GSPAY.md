@@ -19,7 +19,7 @@
 
 门户进程不保存厂家 auth key 或 secret，也不直连 `api.thegspay.com`。新增表明确不保存原始 JSON、签名、remark、auth key、secret 或银行资料。SQLite 与 PostgreSQL/PGlite 合成测试验证默认关闭零网络/零写入、建单幂等、未知结果不自动重发、回调只记录安全投影、独立查询匹配、会员归属复核、并发只入账一次及事务失败完整回滚；这些测试不等于真实厂家联调或生产验收。
 
-本轮没有创建真实 GSPAY 订单、查询生产余额、保存厂家 Callback Settings、处理真钱或增加会员钱包，也没有修改 `master7.vip`、`master7.best`、DNS、TLS 或 Cloudflare 配置。
+本轮没有创建真实 GSPAY 订单、成功读取生产余额、保存厂家 Callback Settings、处理真钱或增加会员钱包，也没有因 GSPAY 修改 `master7.vip`、`master7.best`、DNS、TLS 或 Cloudflare 配置。2026-11-06 厂家要求分别使用 MYR 与 USDT Key 自行请求后，只读余额探测得到：MYR `IP Network Unauthorized`，USDT `Invalid keys`；未取得任何余额数值。
 
 ## 默认关闭的门户运行时边界
 

@@ -4,7 +4,14 @@
 
 ## GSPAY
 
-您好，我们是 MASTER7，商户账号是 `MASTER7VIPMYR+`。请为本商户新开一个工单，并提供：建单成功和失败完整响应、查单完整响应、Payment/DuitNow 回调字段与签名、成功 ACK 内容和重试规则。请不要套用其他商户的工单资料。谢谢。
+您好，我们已按贵司指示分别使用 MYR 与 USDT Key 做只读余额请求。MYR 请求得到 HTTP 200、业务 `code=400`、`IP Network Unauthorized`，说明 Key 已被识别但来源 IP 未获授权；USDT 请求得到 HTTP 200、业务 `code=400`、`Invalid keys`。请协助确认：
+
+1. MASTER7 Render Singapore 网关应登记固定三组专用出口 IP，还是贵司可接受 Render 出口 CIDR；请勿登记一次性探测 IP。
+2. USDT 商户是否已启用，以及 USDT 是否使用同一个 `/v2/integrations/operator/{auth_key}/get/balance` 接口。
+3. MYR 建单成功/失败完整 JSON、`getpayment` 完整请求示例及 `auth_key` 位置。
+4. Payment、DuitNow、Crypto 回调成功应回复的 HTTP 状态和正文，以及重试间隔、次数和幂等规则。
+
+商户账号为 `MASTER7VIPMYR+`；密码和 Key 不在聊天中重发。请为本商户独立记录，不要套用其他商户工单资料。谢谢。
 
 ## 1MPay
 
