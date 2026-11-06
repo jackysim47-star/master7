@@ -1,8 +1,8 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
-## Full-platform handover candidate — 2026-11-06 MYT
+## Full-platform handover live — 2026-11-06 MYT
 
-- Candidate release: `17.0.0-selfbuilt.59-full-platform-handover`.
+- Live release: `17.0.0-selfbuilt.59-full-platform-handover`.
 - Adds `/admin/admin` → `/admin` canonical redirect for the current staff-domain
   redirect edge case, preserving query parameters and disabling redirect cache.
 - Standardizes financial and commission timestamps to `Asia/Kuching`.
@@ -22,6 +22,12 @@
   contract.
 - Money and supplier launch controls remain unchanged and disabled pending
   production acceptance.
+- Final runtime: commit `d288fe6a00f8db76a518f4c7a9f3df111bb72e18`,
+  Render deploy `dep-dbmnm0p5efls7384upu0` (`live`). Bundle SHA-256:
+  `db59000f379b90e99d5d8afd89fe73eeb19701115d7778905015f497c9389465`.
+- Post-deploy checks verified health/database, owner login, MYR/Asia-Kuching
+  accounting, HTTPS canonical admin redirect, zero app error/fatal logs and
+  zero HTTP 5xx logs in the acceptance window.
 
 ## Full Update All follow-up — 2026-11-06 MYT
 
