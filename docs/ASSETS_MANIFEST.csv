@@ -1,7 +1,7 @@
 relative_path,purpose,source_authorization,format,version,sha256,online_location
-public/assets/pwa-icon-180.png,iPhone home-screen icon,MASTER7 project source,image/png,.68 bundle,5586b9109b3bd2944d3ae07822af4f1d08cf577a1259b0cd2e28d03ab73827f5,https://master7-v17-staging.onrender.com/assets/pwa-icon-180.png
-public/assets/pwa-icon-192.png,Android PWA icon,MASTER7 project source,image/png,.68 bundle,3ee6db23764c8ef92a334a1462f554c22bedc71ff106b185b5c652e0d0a60860,https://master7-v17-staging.onrender.com/assets/pwa-icon-192.png
-public/assets/pwa-icon-512.png,Large PWA icon,MASTER7 project source,image/png,.68 bundle,0fd64efd451ad49322796099f0d581d4c73685a8e1adc73607a9eed461e17ce7,https://master7-v17-staging.onrender.com/assets/pwa-icon-512.png
+public/assets/pwa-icon-180.png,iPhone home-screen icon,MASTER7 project source,image/png,.69 bundle,5586b9109b3bd2944d3ae07822af4f1d08cf577a1259b0cd2e28d03ab73827f5,https://master7-v17-staging.onrender.com/assets/pwa-icon-180.png
+public/assets/pwa-icon-192.png,Android PWA icon,MASTER7 project source,image/png,.69 bundle,3ee6db23764c8ef92a334a1462f554c22bedc71ff106b185b5c652e0d0a60860,https://master7-v17-staging.onrender.com/assets/pwa-icon-192.png
+public/assets/pwa-icon-512.png,Large PWA icon,MASTER7 project source,image/png,.69 bundle,0fd64efd451ad49322796099f0d581d4c73685a8e1adc73607a9eed461e17ce7,https://master7-v17-staging.onrender.com/assets/pwa-icon-512.png
 android-master7/README.md,Android wrapper source/configuration,MASTER7 project source,text/markdown,live .66 bundle,37ec4a2b1667e28c0ae3fa4a1860240218f1199626da6a3392ddd2397b6f2d5b,
 android-master7/app/build.gradle,Android wrapper source/configuration,MASTER7 project source,gradle,live .66 bundle,712ea15bad36010e02eb2a0d6c035785a97175f7d8608c137deb1e47c848d5f2,
 android-master7/app/src/main/AndroidManifest.xml,Android wrapper source/configuration,MASTER7 project source,application/xml,live .66 bundle,6c48c9ebabf03154704f42d335da84ea54cfb4056a887aa73a64f6b4a59e7f9d,

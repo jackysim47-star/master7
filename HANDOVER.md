@@ -1,5 +1,21 @@
 # Wallet deposit, withdrawal and company-bank handover — 5 November 2026
 
+## Payout safety and support release — 6 November 2026
+
+Release candidate: `17.0.0-selfbuilt.69-payout-safe-support`.
+
+- Source commit `8238cca41d7915ca1fded90e9637105f50fcae60`; bundle SHA-256
+  `a54219780d233cdd2ee2a11add887c820b20ff34e8888d7efd66d6d58ab12121`.
+- Complete Portal tests 238/238, GSPAY payout tests 7/7, TypeScript, lint,
+  Render DB 3/3, production build and extracted-package build pass.
+- GSPAY payout is implemented fail-closed with atomic submission, encrypted
+  bank details, signed callback validation and independent status checks. It
+  stays unavailable until every production prerequisite is verified.
+- The member support inbox has a built-in bilingual reply assistant while
+  preserving staff review and close controls.
+- Existing connected Deposit and game settings are preserved. Deployment
+  evidence is recorded in `docs/MASTER7_PAYOUT_SUPPORT_RELEASE_20261106.md`.
+
 ## Connected services release — 6 November 2026
 
 Live release: `17.0.0-selfbuilt.68-connected`.
