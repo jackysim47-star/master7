@@ -1,10 +1,13 @@
 # MASTER7 Current Deployment Receipt
 
-## `.74` release candidate
+## `.74` current live deployment
 
-- Candidate release: `17.0.0-selfbuilt.74-whatsapp-business-queue`.
+- Live release: `17.0.0-selfbuilt.74-whatsapp-business-queue`.
 - Source commit: `440a096da78322a23a11cb8fb2d6cf5a7098aaab`.
 - Bundle SHA-256: `fc65dc0e3084edb50c33414dc143bf01ad572147bb9b128db1240d993abb3c64`.
+- Publication commit: `f2f4f27e76dc99a3f5f880ada717f97ae1f40d87`.
+- Render deploy: `dep-dbn00gijnfac73bk1fag`, `live` at
+  2026-11-07 00:30:28 MYT.
 - Adds the official Meta approved-template queue, raw-body webhook signature
   verification, monotonic delivery receipts, opt-out cancellation, safe retry
   behavior and a protected loopback worker.
@@ -15,14 +18,21 @@
   only a `phone` column. It is not inside the bundle and was not imported or
   sent.
 - No WhatsApp credential is included in source or bundle. Sending defaults to
-  off and the candidate must remain `Waiting` until Meta values are configured
+  off and the module remains `Waiting` until Meta values are configured
   and separately accepted.
-- Existing payment and game environment settings are unchanged. `.73` remains
-  the current live deployment pending the manual `.74` deploy.
+- Existing payment and game environment settings are unchanged. VPay and 1MPay
+  remain Active, GSPAY remains Closed, payouts remain disabled and payment
+  settlement remains unverified. `productionReady=false` stays truthful.
 - Local acceptance passed: 278/278 portal tests, 23/23 WhatsApp-focused tests,
   3/3 Render database tests, TypeScript, lint and the production build.
+- Online acceptance confirms `.74`, database ready, SMS OTP ready, 34 unique
+  provider positions, platform-only public output and no public internal-game
+  list. Anonymous game cards remain non-launchable. Webhook signatures, worker
+  authorization and admin marketing authentication fail closed.
+- No application error/fatal or request 5xx logs appeared in the acceptance
+  window. Automatic accounting completed its close check on the new instance.
 
-## `.73` current live deployment
+## `.73` previous live deployment
 
 - Live release: `17.0.0-selfbuilt.73-management-login-copy`.
 - Source commit: `d7e9b02261a3de9e5af90e2433cd4f68651b4011`.

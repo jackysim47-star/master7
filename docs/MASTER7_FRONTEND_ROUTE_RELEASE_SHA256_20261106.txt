@@ -1,6 +1,6 @@
 fc65dc0e3084edb50c33414dc143bf01ad572147bb9b128db1240d993abb3c64  master7-v17-render-staging.tar.gz
 440a096da78322a23a11cb8fb2d6cf5a7098aaab  source_commit
-17.0.0-selfbuilt.74-whatsapp-business-queue  candidate_release
-not_triggered  render_deploy
-17.0.0-selfbuilt.73-management-login-copy  current_live_release
-dep-dbmvekdbedkc73dk1u10  current_live_render_deploy
+17.0.0-selfbuilt.74-whatsapp-business-queue  current_live_release
+f2f4f27e76dc99a3f5f880ada717f97ae1f40d87  publication_commit
+dep-dbn00gijnfac73bk1fag  render_deploy
+2026-11-06T16:30:28.398688Z  live_finished_at

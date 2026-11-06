@@ -1,9 +1,12 @@
 # MASTER7 V17: current deployment and UI repair candidate
 
-## WhatsApp Business queue candidate — 2026-11-07 MYT
+## WhatsApp Business queue live — 2026-11-07 MYT
 
-- Candidate release: `17.0.0-selfbuilt.74-whatsapp-business-queue`.
+- Live release: `17.0.0-selfbuilt.74-whatsapp-business-queue`.
 - Source commit: `440a096da78322a23a11cb8fb2d6cf5a7098aaab`.
+- Publication commit: `f2f4f27e76dc99a3f5f880ada717f97ae1f40d87`.
+- Render deploy: `dep-dbn00gijnfac73bk1fag` (`live` at
+  2026-11-07 00:30:28 MYT).
 - Bundle SHA-256: `fc65dc0e3084edb50c33414dc143bf01ad572147bb9b128db1240d993abb3c64`.
 - Adds a guarded Meta WhatsApp Business Cloud API queue for the fixed business
   number `+601166336686`, an owner campaign view, signed webhook processing,
@@ -16,13 +19,18 @@
   no consent source, proof or suppression fields.
 - Production Meta credentials, the approved template and recipient tier are
   absent. `WHATSAPP_SENDING_ENABLED` therefore remains false, the UI must show
-  `Waiting`, and this candidate sends no messages.
+  `Waiting`, and this release sends no messages.
 - VPay, 1MPay, GSPAY, game, settlement and production-ready switches are not
-  changed by this candidate. The current `.73` deployment remains live until
-  this exact publication commit is manually deployed and verified.
+  changed by this release. Online checks retain VPay and 1MPay Active, GSPAY
+  Closed, payouts disabled and payment settlement unverified.
 - Validation: 278/278 portal tests, 23/23 WhatsApp-focused tests, 3/3 Render
   database adapter tests, TypeScript, lint, archive comparison and the Render
   production build pass.
+- Online acceptance: `/health` reports runtime/source `.74`, database ready and
+  SMS OTP ready. `/api/games` retains 34 unique positions, platform-only output,
+  no internal game list and anonymous `playable=false`. Invalid webhook and
+  worker requests fail closed with 401/403. The acceptance window contains zero
+  application error/fatal logs and zero request 5xx logs.
 
 ## Management login copy live — 2026-11-06 MYT
 
