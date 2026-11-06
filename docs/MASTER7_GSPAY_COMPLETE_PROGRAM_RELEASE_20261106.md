@@ -34,11 +34,11 @@ Gateway：`1.10.0`
 ## 验证
 
 - Gateway：84/84 tests passed。
-- Portal：162/162 tests passed。
+- Portal：163/163 tests passed。
 - Render database：3/3 tests passed。
 - Portal production build：passed。
 - JavaScript syntax check：passed。
 - 真钱订单、提款、自动加余额：0。
-- Portal bundle SHA-256：`3ae6a01fbabe45c384f823d59578fa33dd881d75bff614e8a80b788df53afbc6`。
+- Portal bundle SHA-256：`606a6e541f07896522a98058c3bc1c4f1630fcbeff67a6d0cef087dc58f6ff3e`。
 
 部署提交、Render deploy ID、在线健康检查与备份恢复验收会在本次发布完成后写入本文。

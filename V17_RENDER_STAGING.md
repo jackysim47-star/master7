@@ -12,10 +12,10 @@
 - Game checks now shows separate Connected, Catalog, Launch and Wallet columns.
 - The 1MPAY follow-up remains pending formal provider API and end-to-end
   acceptance; VPay stays in its existing UAT/disabled-money state.
-- Verification: gateway 84/84, portal 162/162 and Render database 3/3 tests;
+- Verification: gateway 84/84, portal 163/163 and Render database 3/3 tests;
   JavaScript syntax and the Render production build pass.
 - Candidate bundle SHA-256:
-  `3ae6a01fbabe45c384f823d59578fa33dd881d75bff614e8a80b788df53afbc6`.
+  `606a6e541f07896522a98058c3bc1c4f1630fcbeff67a6d0cef087dc58f6ff3e`.
 
 ## Simple access candidate — 2026-11-05 MYT
 
