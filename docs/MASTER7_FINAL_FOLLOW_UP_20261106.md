@@ -6,7 +6,7 @@
 ## 已完成
 
 - 本次上传的完整交接文件已核对；已核对的四份副本内容一致，SHA-256 为 `dd6ac6bc2000f66703221b102ac51ba7c13bd19c1eb0e9c35e5268378a606e2a`。
-- 最新端到端检验报告也已纳入，原件 SHA-256 为 `f62a33223356f94a0472bb88ecb5eebe75200eb77acd57147e66a537ae9631eb`；其中 15:39 的部署状态由 `.61` 最终回执更新。
+- 最新端到端检验报告的两份副本完全相同，已合并为一份；原件 SHA-256 为 `f62a33223356f94a0472bb88ecb5eebe75200eb77acd57147e66a537ae9631eb`，其中 15:39 的部署状态由 `.61` 最终回执更新。
 - 错误归属于其他商户的 GSPAY 工单已从 MASTER7 的有效证据、测试资料和验收表移除。
 - Gateway `1.10.1` 已上线：deploy `dep-dbmo2h4s728c739dilb0`，commit `6e9fb99f6575602d9f8e8089f51c70d88f5c834f`。
 - GSPAY 在本商户建单响应未确认前固定关闭；建单、查单、回调结算和会员钱包入账都不会执行。
@@ -18,7 +18,7 @@
 
 | 范围 | 当前结果 |
 |---|---|
-| Portal / database | `.61` 完成部署后以 `CURRENT_DEPLOYMENT.md` 回执为准 |
+| Portal / database | `.61` 已上线，database ready；deploy `dep-dbmocd6c6qcc73e2mv4g` |
 | GSPAY | credential 已登记；MASTER7 建单响应、回调 ACK/重试未确认；关闭 |
 | 1MPay | API 1.3 适配与离线测试完成；字段映射、Content-Type、ACK/重试及生产 E2E 待厂家确认；关闭 |
 | VPay | 程序与配置存在；生产 Deposit E2E、银行/Trade Code、IP 白名单与回调验收待厂家；关闭 |

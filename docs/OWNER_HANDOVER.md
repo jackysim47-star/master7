@@ -31,4 +31,4 @@
 - 当前运行源码包：`master7-v17-render-staging.tar.gz`。
 - 私有加密备份及恢复回执位于 `/workspace/deliverables/private/`。
 - 公开恢复摘要见 `DATA_RECOVERY_RECEIPT.md`。
-- 当前 `.59` 部署身份与复测结果见 `CURRENT_DEPLOYMENT.md`。最终业务签收仍以 `ISSUES_AND_FIXES.md`、两份 Acceptance CSV 和实际厂家生产验收记录为准。
+- 当前 `.61` 部署身份与复测结果见 `CURRENT_DEPLOYMENT.md`。最终业务签收仍以 `ISSUES_AND_FIXES.md`、两份 Acceptance CSV 和实际厂家生产验收记录为准。

@@ -9,6 +9,7 @@
 - 线上 GSPAY 状态已核实：`createProgramReady=false`、`orderRouteEnabled=false`、`transactionRoutesActive=false`、`liveReady=false`；不会向厂家建单或写入会员钱包。
 - Portal 最终版更新为 `17.0.0-selfbuilt.61-full-platform-follow-up`；165/165 测试通过，ESLint 0 error/0 warning，Render production build 通过。Portal 与 Gateway 的 GSPAY readiness 均固定为 false。
 - 网关部署后出现的 4 个 HTTP 502 均来自游戏目录上游（EpicWin、ClotPlay、Venus、EVO888H5），不是支付建单或钱包入账错误；这些厂家仍按未连接处理。
+- Portal `.61` 已于 15:50:11 MYT 上线：commit `ec09115c1ec528952c7beeb044fba61b6e35cefc`，deploy `dep-dbmocd6c6qcc73e2mv4g`。健康、数据库、入口与三家支付关闭状态复测通过；部署后 error/fatal 及 HTTP 5xx 均为 0。
 
 ## 1. 接手先看
 

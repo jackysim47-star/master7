@@ -2,8 +2,8 @@
 
 ## Full-platform handover live — 2026-11-06 MYT
 
-- Live release: `17.0.0-selfbuilt.59-full-platform-handover`.
-- Follow-up candidate: `17.0.0-selfbuilt.61-full-platform-follow-up`, bundle SHA-256 `2b81c0130b0f2b2b973f8d747d665b852cbbd0940826eedc1ccffd80a386e75a`.
+- Live release: `17.0.0-selfbuilt.61-full-platform-follow-up`.
+- Deployment bundle SHA-256: `2b81c0130b0f2b2b973f8d747d665b852cbbd0940826eedc1ccffd80a386e75a`.
 - Adds `/admin/admin` → `/admin` canonical redirect for the current staff-domain
   redirect edge case, preserving query parameters and disabling redirect cache.
 - Standardizes financial and commission timestamps to `Asia/Kuching`.
@@ -23,9 +23,8 @@
   contract.
 - Money and supplier launch controls remain unchanged and disabled pending
   production acceptance.
-- Final runtime: commit `d288fe6a00f8db76a518f4c7a9f3df111bb72e18`,
-  Render deploy `dep-dbmnm0p5efls7384upu0` (`live`). Bundle SHA-256:
-  `db59000f379b90e99d5d8afd89fe73eeb19701115d7778905015f497c9389465`.
+- Final runtime: commit `ec09115c1ec528952c7beeb044fba61b6e35cefc`,
+  Render deploy `dep-dbmocd6c6qcc73e2mv4g` (`live`).
 - Post-deploy checks verified health/database, owner login, MYR/Asia-Kuching
   accounting, HTTPS canonical admin redirect, zero app error/fatal logs and
   zero HTTP 5xx logs in the acceptance window.

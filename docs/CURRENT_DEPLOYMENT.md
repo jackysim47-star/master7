@@ -1,22 +1,22 @@
 # MASTER7 Current Deployment
 
-更新时间：2026-11-06 15:35 MYT
+更新时间：2026-11-06 15:53 MYT
 验收时区：Asia/Kuching（MYT，UTC+8）
 
 ## 当前线上版本
 
 | 项目 | 已核实值 |
 |---|---|
-| Release | `17.0.0-selfbuilt.59-full-platform-handover` |
-| Portal commit | `d288fe6a00f8db76a518f4c7a9f3df111bb72e18` |
-| Portal deploy | `dep-dbmnm0p5efls7384upu0`，`live` |
-| 上线完成 | 2026-11-06 15:02:48 MYT |
+| Release | `17.0.0-selfbuilt.61-full-platform-follow-up` |
+| Portal commit | `ec09115c1ec528952c7beeb044fba61b6e35cefc` |
+| Portal deploy | `dep-dbmocd6c6qcc73e2mv4g`，`live` |
+| 上线完成 | 2026-11-06 15:50:11 MYT |
 | Portal service | `srv-dbl0iv7f3r2c73848ei0` / `master7-v17-staging` |
 | Render workspace | `tea-dakfo2h594qs73du231g` / ahbi |
 | Region / plan | Singapore / `1c-2g` |
 | Branch | `codex/v17-render-staging-20261104` |
 | Auto deploy | Off；本次使用 Deploy latest commit |
-| `.61` 候选部署包 SHA-256 | `2b81c0130b0f2b2b973f8d747d665b852cbbd0940826eedc1ccffd80a386e75a` |
+| 部署包 SHA-256 | `2b81c0130b0f2b2b973f8d747d665b852cbbd0940826eedc1ccffd80a386e75a` |
 
 Render 在新实例就绪后切换流量。期间一次人工 Rollback 取消了中间部署；旧版回滚完成后，最终提交重新部署成功。最终运行身份以上表为准。
 
@@ -26,13 +26,13 @@ Render 在新实例就绪后切换流量。期间一次人工 Rollback 取消了
 |---|---|
 | `https://master7.best/` | 302 到当前 portal |
 | `https://master7.site/` | 302 到当前 `/admin` |
-| `https://master7-v17-staging.onrender.com/health` | 200，release `.59`，database `ready` |
+| `https://master7-v17-staging.onrender.com/health` | 200，release `.61`，database `ready` |
 | `/admin` | 200 |
 | `/admin/admin?lang=zh` | 302 到 HTTPS `/admin?lang=zh`，`Cache-Control: no-store` |
 | Owner 登录 | 私有凭据只读登录通过，role `owner` |
 | 年度财务接口 | currency `MYR`，timezone `Asia/Kuching` |
-| 游戏同步状态 | 9 个集成供应商、769 款，`playable=false` |
-| 部署后日志 | 07:00:19–07:04:16 UTC：应用 error/fatal 0，HTTP 5xx 0 |
+| 游戏同步状态 | 9 个集成供应商、766 款缓存目录，`playable=false` |
+| 部署后日志 | 07:50:11–07:52:30 UTC：应用 error/fatal 0，HTTP 5xx 0 |
 
 `www.master7.best` 仍无 DNS 记录，不列为已完成入口。
 
