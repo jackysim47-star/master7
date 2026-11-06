@@ -1,0 +1,11 @@
+3de5c34fd4edd1b3de5702401a0fa5a61839644b34de2c0769f29f779321661f  master7-v17-render-staging.tar.gz
+629409be3114a7549eab41eb1b7077bd86192dc7  source-commit
+17.0.0-selfbuilt.79-manual-rm88-voucher  release
+523  tracked-archive-entries
+383/383  local-portal-tests
+3/3  render-database-adapter-tests
+passed  render-typescript
+0-errors-0-warnings  lint
+passed  render-production-build
+pending  publication-commit
+pending  render-deploy

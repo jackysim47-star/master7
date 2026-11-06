@@ -1,5 +1,28 @@
 # MASTER7 Current Deployment Receipt
 
+## `.79` luxury portal and manual RM88 voucher candidate
+
+- Candidate release: `17.0.0-selfbuilt.79-manual-rm88-voucher`; the currently
+  live release remains `.76` until a Render deploy and online acceptance finish.
+- Source commit: `629409be3114a7549eab41eb1b7077bd86192dc7`.
+- Bundle SHA-256:
+  `3de5c34fd4edd1b3de5702401a0fa5a61839644b34de2c0769f29f779321661f`.
+- Adds premium responsive member/management artwork and layout, compact cyan
+  status lights, owner-managed company bank artwork, public contact channels,
+  opt-in Meta Pixel configuration and expanded Operations Intelligence metrics.
+- Adds an auditable company-manual RM88 sponsored voucher: JILI, MegaH5 or
+  918KISS; at most five evidenced plays; first win stops remaining plays;
+  MYR 1,760 reviewed turnover; at most MYR 50 company payout. It never creates
+  provider credit, wallet credit or a bank transfer automatically.
+- Acceptance passed: 383/383 portal tests, 3/3 Render database tests,
+  TypeScript, lint and production build. The reproducible archive has 523
+  tracked entries and excludes repository metadata and dependencies.
+- Publication, deployment and online acceptance are pending. Existing Render
+  environment values and business switches remain unchanged; unverified
+  payment, payout, settlement and game launch paths remain closed.
+- Checksum receipt:
+  `docs/MASTER7_LUXURY_VOUCHER_RELEASE_SHA256_20261107.txt`.
+
 ## `.76` operations suite current live deployment
 
 - Live release: `17.0.0-selfbuilt.76-operations-suite`.

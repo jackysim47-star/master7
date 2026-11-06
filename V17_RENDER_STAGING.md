@@ -1,4 +1,38 @@
-# MASTER7 V17: current deployment and release history
+# MASTER7 V17: current deployment and .79 release candidate
+
+## Luxury portal and manual RM88 voucher candidate — 2026-11-07 MYT
+
+- Candidate release: `17.0.0-selfbuilt.79-manual-rm88-voucher`; this is a
+  packaging receipt and does not claim the candidate is live yet.
+- Source commit: `629409be3114a7549eab41eb1b7077bd86192dc7`.
+- Reproducible bundle SHA-256:
+  `3de5c34fd4edd1b3de5702401a0fa5a61839644b34de2c0769f29f779321661f`.
+- Member and management views receive the compact premium casino treatment,
+  cyan activity lights, full-width responsive lobby artwork, sponsored/cartoon
+  and live-host visual groups, clearer priority navigation and inline guides.
+- The owner can store an optional bank image with each company bank account and
+  configure public Hotline, WhatsApp, WeChat, LINE, Telegram, Facebook and
+  Instagram contacts. Meta Pixel remains owner-controlled and disabled until a
+  valid numeric Pixel ID is saved and the switch is turned on.
+- The RM88 new-member voucher is a company-manual workflow for JILI, MegaH5 and
+  918KISS: up to five recorded plays, the first recorded win ends remaining
+  plays, reviewed turnover is MYR 1,760 and the final company transfer is capped
+  at MYR 50. Requests, review, evidence, outcomes and payout reference are
+  auditable; the code does not credit a wallet, launch a provider game or send
+  money automatically.
+- Operations Intelligence adds active-member and repeat-depositor metrics from
+  existing portal records. Existing advisory AI boundaries remain unchanged.
+- Local acceptance passed: 383/383 portal tests, 3/3 Render database adapter
+  tests, Render TypeScript, lint with zero errors/warnings and the Render
+  production build. The deterministic 523-entry archive excludes `.git` and
+  `node_modules` and contains no private-key material or newly supplied service
+  credentials.
+- Publication commit, Render deploy and online acceptance are pending. Existing
+  environment values and payment/game switches are not changed by this bundle.
+  GSPAY, payouts, payment settlement and all unverified platform launch paths
+  remain fail-closed until external evidence passes production acceptance.
+- Independent checksum receipt:
+  `docs/MASTER7_LUXURY_VOUCHER_RELEASE_SHA256_20261107.txt`.
 
 ## Operations suite live — 2026-11-07 MYT
 
