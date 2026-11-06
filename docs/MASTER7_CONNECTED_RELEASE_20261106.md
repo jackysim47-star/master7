@@ -1,12 +1,12 @@
 # MASTER7 `.68` Connected Services Release Receipt
 
-Release: `17.0.0-selfbuilt.68-connected`  
-Source commit: `23f6f6d26a3f1b91d79b16c43c85899945ea1e41`  
-Bundle SHA-256: `08030fde94a8e0813d94d08b79387aeac330c8f7a1a79811926fc7452aa72cc0`  
-Prepared: 2026-11-06 MYT  
-Publication commit: `49c5afb909c9fae58bdabdb32ec9dde01292aea1`  
-Render deploy: `dep-dbmsjuuc6qcc73cf2710` (`live`)  
-Live at: 2026-11-06 20:39:16 MYT
+- Release: `17.0.0-selfbuilt.68-connected`
+- Source commit: `23f6f6d26a3f1b91d79b16c43c85899945ea1e41`
+- Bundle SHA-256: `08030fde94a8e0813d94d08b79387aeac330c8f7a1a79811926fc7452aa72cc0`
+- Prepared: 2026-11-06 MYT
+- Publication commit: `49c5afb909c9fae58bdabdb32ec9dde01292aea1`
+- Render deploy: `dep-dbmsjuuc6qcc73cf2710` (`live`)
+- Live at: 2026-11-06 20:39:16 MYT
 
 This release keeps every `.67` feature and adds one-time activation of an explicitly enabled, strictly validated Deposit connection:
 
