@@ -7,8 +7,8 @@
 - Bundle SHA-256:
   `c883258f5f15fe2a7902a5663ebf88eb52022f123845c66536f8322149f9ae42`.
 - Publication commit: `331b1b7e6bee207b1e74b28d1cdca4a5e0e1b7f5`.
-- Render deploy: `dep-dbn26qegekts738mr2b0`, `live` at
-  2026-11-07 03:00:27 MYT.
+- Render deploy: `dep-dbn28f3rjlhs73df294g`, `live` at
+  2026-11-07 03:03:52 MYT.
 - Adds the owner operations suite: dedicated VIP and commission setup, MYT
   finance views, Stephanie support assistant, curated game-platform ranking,
   monitor-only Bonus Hunter, non-cash Rewards Hub, owner-controlled Events

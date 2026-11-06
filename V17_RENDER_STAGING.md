@@ -5,8 +5,8 @@
 - Live release: `17.0.0-selfbuilt.76-operations-suite`.
 - Source commit: `6b2ca6c6a315198ad714a46ae43d09f80ebf0ac3`.
 - Publication commit: `331b1b7e6bee207b1e74b28d1cdca4a5e0e1b7f5`.
-- Render deploy: `dep-dbn26qegekts738mr2b0` (`live` at
-  2026-11-07 03:00:27 MYT).
+- Render deploy: `dep-dbn28f3rjlhs73df294g` (`live` at
+  2026-11-07 03:03:52 MYT).
 - Reproducible bundle SHA-256:
   `c883258f5f15fe2a7902a5663ebf88eb52022f123845c66536f8322149f9ae42`.
 - The owner portal now combines the dedicated VIP/commission setup, MYT
