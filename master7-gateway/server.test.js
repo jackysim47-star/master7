@@ -185,6 +185,20 @@ test('EVO provider error is not reported as a successful connection', async () =
   assert.equal(res.status, 502);
 });
 
+test('EVO provider rejection is not cached after an allowlist is repaired', async () => {
+  let calls = 0;
+  const fetchImpl = async () => {
+    calls += 1;
+    return new Response(JSON.stringify(calls === 1
+      ? { code: 130, message: 'IP address is not in whitelist' }
+      : { code: 0, data: [] }), { status: 200 });
+  };
+  const app = makeApp({ env: { EVO_API_TOKEN: 'token-value' }, fetchImpl });
+  assert.equal((await run(app, '/providers/evo888h5/games')).status, 502);
+  assert.equal((await run(app, '/providers/evo888h5/games')).status, 200);
+  assert.equal(calls, 2);
+});
+
 test('egress diagnostic returns the current service IP without credentials', async () => {
   const fetchImpl = async () => new Response(JSON.stringify({ ip: '203.0.113.9' }), { status: 200 });
   const res = await run(makeApp({ env: {}, fetchImpl }), '/diagnostics/egress-ip');
@@ -216,6 +230,7 @@ test('CLOTPLAY catalogue uses documented auth, pagination and excludes private f
   assert.equal(res.status,200);
   assert.ok(request.url.endsWith('/get-game-list?per_page=100&page=2'));
   assert.equal(request.options.headers.Authorization,'private-token');
+  assert.match(request.options.headers['User-Agent'], /^MASTER7-Integration-Gateway\//);
   assert.equal(request.options.body,undefined);
   assert.equal(data.games[0].maintenance,true);
   assert.equal(data.games[0].thumbnails.en.portrait,null);
@@ -258,7 +273,7 @@ test('EPICWIN and KISSH5 catalogue profiles keep credentials and currencies sepa
     let sent;
     const now=()=>new Date('2026-10-12T22:00:00Z');
     const fetchImpl=async(url,options)=>{
-      sent={url,body:JSON.parse(options.body)};
+      sent={url,headers:options.headers,body:JSON.parse(options.body)};
       return new Response(JSON.stringify({Status:200,Game:[{GameCode:'1',GameName:'Sample',GameType:1,ImageUrl:'https://example.test/a.png',private:'hidden'}],SecretKey:secret}));
     };
     const res=await run(makeApp({env,fetchImpl,now}),'/providers/'+provider+'/games?account='+account);
@@ -266,6 +281,7 @@ test('EPICWIN and KISSH5 catalogue profiles keep credentials and currencies sepa
     assert.equal(res.status,200);
     assert.equal(sent.body.OperatorId,id);assert.equal(sent.body.Currency,currency);
     assert.equal(sent.body.Signature,megaSignature('GetGameList','2026-10-12T22:00:00Z',id,secret));
+    assert.match(sent.headers['User-Agent'], /^MASTER7-Integration-Gateway\//);
     assert.equal(data.games[0].imageUrl,'https://example.test/a.png');
     assert.ok(!JSON.stringify(data).includes(secret));assert.ok(!JSON.stringify(data).includes('hidden'));
     assert.equal(data.currency,currency);

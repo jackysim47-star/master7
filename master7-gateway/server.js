@@ -21,6 +21,7 @@ const {
 
 const { version: VERSION } = require('./package.json');
 const PROVIDERS = ['cosmoplay', 'creative-gaming', 'pgsoft', 'spade-gaming'];
+const PROVIDER_USER_AGENT = `MASTER7-Integration-Gateway/${VERSION}`;
 
 function browserOrigins(env) {
   const configured = env.ALLOWED_ORIGINS !== undefined
@@ -280,11 +281,14 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     }
   }
 
-  async function cached(key, action) {
+  async function cached(key, action, cacheable = value => value.ok) {
     const current = cache.get(key);
     if (current && current.expires > Date.now()) return current.value;
     const value = await action();
-    if (value.ok) cache.set(key, { value, expires: Date.now() + 300000 });
+    // An upstream can return HTTP 200 with a provider-level rejection.  Do not
+    // retain those responses: once a supplier fixes an IP allowlist or account
+    // permission, the next catalogue check must be able to recover immediately.
+    if (cacheable(value)) cache.set(key, { value, expires: Date.now() + 300000 });
     return value;
   }
 
@@ -429,13 +433,15 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
       }
 
       if (req.method === 'GET' && url.pathname === '/providers/evo888h5/games') {
-        const result = await cached('evo-games', () => evo('/game/list'));
+        const result = await cached('evo-games', () => evo('/game/list'), value =>
+          value.ok && (value.data?.code === 0 || value.data?.code === '0'));
         const providerOK = result.data?.code === 0 || result.data?.code === '0';
         return send(res, result.ok && providerOK ? 200 : 502, { provider: 'evo888h5', upstreamStatus: result.status, result: result.data }, cors);
       }
 
       if (req.method === 'GET' && url.pathname === '/providers/megah5/games') {
-        const result = await cached('mega-games', () => mega('GetGameList', { Lang: 'en-us', Currency: currency }));
+        const result = await cached('mega-games', () => mega('GetGameList', { Lang: 'en-us', Currency: currency }), value =>
+          value.ok && Number(value.data?.Status) === 200);
         const providerOK = Number(result.data && result.data.Status) === 200;
         return send(res, result.ok && providerOK ? 200 : 502, { provider: 'megah5', upstreamStatus: result.status, result: result.data }, cors);
       }
@@ -495,7 +501,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         const date = utcSeconds(now());
         const result = await upstream(`${profile.base}/GetGameList`, {
           method: 'POST',
-          headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+          headers: { Accept: 'application/json', 'Content-Type': 'application/json', 'User-Agent': PROVIDER_USER_AGENT },
           body: JSON.stringify({
             OperatorId: String(account.id),
             RequestDateTime: date,
@@ -531,7 +537,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         if (!/^[1-9]\d{0,5}$/.test(page)) return send(res, 400, { error: 'invalid_page' }, cors);
         if (!clotplayToken) return send(res, 503, { error: 'clotplay_not_configured' }, cors);
         const result = await upstream(`${clotplayBase}/get-game-list?per_page=100&page=${page}`, {
-          headers: { Accept: 'application/json', Authorization: clotplayToken },
+          headers: { Accept: 'application/json', Authorization: clotplayToken, 'User-Agent': PROVIDER_USER_AGENT },
         });
         if (!result.ok || !Array.isArray(result.data && result.data.data)) {
           return send(res, 502, { error: 'clotplay_catalogue_failed', upstreamStatus: result.status }, cors);
