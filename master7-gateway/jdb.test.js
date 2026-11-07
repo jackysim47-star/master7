@@ -22,9 +22,9 @@ async function run(handler, path) {
   finally { await new Promise(resolve => server.close(resolve)); }
 }
 
-test('JDB AES-CBC ZeroPadding matches the published public vector', () => {
+test('JDB AES-CBC space padding follows the official protocol', () => {
   const encrypted = encrypt('SampleData', env.JDB_AES_KEY, env.JDB_AES_IV);
-  assert.equal(encrypted, 'GhKRVa6BHoOJAhjVYMKuFw');
+  assert.equal(encrypted, 'xa--LwmZQjlxNJdFOm_-Xg');
   assert.equal(decrypt(encrypted, env.JDB_AES_KEY, env.JDB_AES_IV), 'SampleData');
 
   const aligned = '1234567890abcdef';
@@ -73,9 +73,10 @@ test('JDB catalogue sends only Action 49 and projects public catalogue fields', 
   assert.equal(request.url, 'https://provider.test/apiRequest.do');
   assert.equal(request.options.method, 'POST');
   assert.equal(request.options.redirect, 'error');
-  const form = new URLSearchParams(request.options.body);
-  assert.equal(form.get('dc'), env.JDB_DC);
-  assert.deepEqual(JSON.parse(decrypt(form.get('x'), env.JDB_AES_KEY, env.JDB_AES_IV)), {
+  assert.equal(request.options.headers['Content-Type'], 'application/json');
+  const body = JSON.parse(request.options.body);
+  assert.equal(body.dc, env.JDB_DC);
+  assert.deepEqual(JSON.parse(decrypt(body.x, env.JDB_AES_KEY, env.JDB_AES_IV)), {
     action: 49,
     ts: now().getTime(),
     parent: env.JDB_AGENT_ID,

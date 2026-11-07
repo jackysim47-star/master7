@@ -23,10 +23,10 @@ function keyBytes(value, errorCode = 'jdb_invalid_configuration') {
   return bytes;
 }
 
-function zeroPad(value) {
+function spacePad(value) {
   const input = Buffer.from(String(value).trim(), 'utf8');
   const padding = (16 - (input.length % 16)) % 16;
-  return padding ? Buffer.concat([input, Buffer.alloc(padding)]) : input;
+  return padding ? Buffer.concat([input, Buffer.alloc(padding, 0x20)]) : input;
 }
 
 function base64Url(value) {
@@ -50,7 +50,7 @@ function decodeBase64Url(value) {
 function encrypt(value, key, iv) {
   const cipher = crypto.createCipheriv('aes-128-cbc', keyBytes(key), keyBytes(iv));
   cipher.setAutoPadding(false);
-  return base64Url(Buffer.concat([cipher.update(zeroPad(value)), cipher.final()]));
+  return base64Url(Buffer.concat([cipher.update(spacePad(value)), cipher.final()]));
 }
 
 function decrypt(value, key, iv) {
@@ -64,7 +64,7 @@ function decrypt(value, key, iv) {
     fail('jdb_invalid_ciphertext');
   }
   let end = plaintext.length;
-  while (end > 0 && plaintext[end - 1] === 0) end--;
+  while (end > 0 && plaintext[end - 1] === 0x20) end--;
   if (plaintext.subarray(0, end).includes(0)) fail('jdb_invalid_ciphertext');
   return plaintext.subarray(0, end).toString('utf8');
 }
@@ -173,9 +173,9 @@ async function jdbCatalogue({ env, fetchImpl = global.fetch, now = () => new Dat
       signal: AbortSignal.timeout(15000),
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
       },
-      body: new URLSearchParams({ dc: config.dc, x }).toString(),
+      body: JSON.stringify({ dc: config.dc, x }),
     });
   } catch { fail('jdb_catalogue_unreachable'); }
   if (!response.ok) fail(`jdb_upstream_http_${response.status}`);

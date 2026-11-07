@@ -11,6 +11,13 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. A callback POST remains closed until that provider's signed callback contract is implemented; a reachability endpoint never claims transaction readiness.
 
+## Version 1.13.1: JDB protocol compatibility
+
+The JDB Action 49 catalogue request now follows the current official transfer
+wallet protocol: JSON request bodies and AES-CBC plaintext padded on the right
+with spaces. The change keeps credentials server-side and preserves the
+read-only catalogue boundary.
+
 ## Version 1.13.0: GSPAY Portal bridge
 
 The official MYR order, query, signature and `ok`/`success` callback contract
