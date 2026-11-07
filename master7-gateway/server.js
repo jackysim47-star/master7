@@ -199,6 +199,12 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     return Boolean(expected) && safeEqual(expected, supplied);
   }
 
+  function isWalletPayoutPeer(req) {
+    const expected = walletPeerCredential('PLATFORM_PAYOUT_TOKEN');
+    const supplied = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
+    return Boolean(expected) && safeEqual(expected, supplied);
+  }
+
   function isGspayPeer(req, name) {
     const expected = gspayPeerCredential(env, name);
     const supplied = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
@@ -1049,8 +1055,9 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         });
       }
 
-      if (req.method === 'POST' && url.pathname === '/admin/vpay/withdrawal') {
-        if (!isAdmin(req)) return send(res, 401, { error: 'unauthorized' });
+      if (req.method === 'POST' && ['/admin/vpay/withdrawal', '/platform/vpay/withdrawal'].includes(url.pathname)) {
+        const walletPayout = url.pathname === '/platform/vpay/withdrawal';
+        if (walletPayout ? !isWalletPayoutPeer(req) : !isAdmin(req)) return send(res, 401, { error: 'unauthorized' });
         if (String(env.VPAY_WITHDRAWALS_ENABLED || '').toLowerCase() !== 'true') {
           return send(res, 503, { error: 'vpay_withdrawals_disabled' });
         }
@@ -1060,10 +1067,14 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         const accountName = String(payload.accountName || '');
         const accountNumber = String(payload.accountNumber || '');
         const refId = String(payload.refId || '');
-        if (!/^\d{1,7}(?:\.\d{1,2})?$/.test(amount) || !/^[A-Za-z0-9]{2,10}$/.test(bankName)
+        const supportedBanks = new Set(['MBB', 'CIMB', 'HLB', 'RHB', 'PBB', 'AMB', 'BSN', 'ISLAM',
+          'HSBC', 'SCB', 'UOB', 'OCBC', 'ALB', 'AFB', 'BMM', 'GXB', 'TNG', 'RJHIB', 'DuitNow',
+          'BOOSTB', 'BOOST', 'SPP', 'AGRO', 'RYT', 'KRYT']);
+        if (!/^\d{1,7}\.\d{2}$/.test(amount) || !supportedBanks.has(bankName)
           || Number(amount) <= 0
           || accountName.length < 1 || accountName.length > 100 || !/^[A-Za-z0-9-]{4,40}$/.test(accountNumber)
-          || !/^[A-Za-z0-9_-]{1,50}$/.test(refId)) {
+          || !/^[A-Za-z0-9_-]{8,50}$/.test(refId)
+          || (walletPayout && (payload.contract !== 'vpay-payout-v1' || payload.currency !== 'MYR'))) {
           return send(res, 400, { error: 'invalid_vpay_withdrawal' });
         }
         if (!vpayReadiness(env).channels.withdrawal.configurationReady) {
@@ -1086,11 +1097,15 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         });
       }
 
-      if (req.method === 'POST' && url.pathname === '/admin/vpay/withdrawal-query') {
-        if (!isAdmin(req)) return send(res, 401, { error: 'unauthorized' });
+      if (req.method === 'POST' && ['/admin/vpay/withdrawal-query', '/platform/vpay/withdrawal-query'].includes(url.pathname)) {
+        const walletPayout = url.pathname === '/platform/vpay/withdrawal-query';
+        if (walletPayout ? !isWalletPayoutPeer(req) : !isAdmin(req)) return send(res, 401, { error: 'unauthorized' });
         const payload = await body(req);
         const outMoneyId = String(payload.outMoneyId || '');
-        if (!/^[A-Za-z0-9_-]{1,50}$/.test(outMoneyId)) return send(res, 400, { error: 'invalid_out_money_id' });
+        if (!/^[A-Za-z0-9_-]{8,50}$/.test(outMoneyId)
+          || (walletPayout && payload.contract !== 'vpay-payout-query-v1')) {
+          return send(res, 400, { error: 'invalid_out_money_id' });
+        }
         const result = await vpay('MONEY_GET', { out_money_id: outMoneyId });
         const providerOK = result.data?.code === 0 || result.data?.code === '0';
         return send(res, result.ok && providerOK ? 200 : 502, {

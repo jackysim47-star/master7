@@ -23,7 +23,8 @@ function configuredUrl(value) {
 
 // The callback, query and order credentials share the same byte limits and may
 // never alias another peer credential or the full administrator credential.
-const VPAY_PEERS = ['PLATFORM_CALLBACK_TOKEN', 'PLATFORM_QUERY_TOKEN', 'PLATFORM_ORDER_TOKEN'];
+const VPAY_PEERS = ['PLATFORM_CALLBACK_TOKEN', 'PLATFORM_QUERY_TOKEN', 'PLATFORM_ORDER_TOKEN',
+  'PLATFORM_PAYOUT_TOKEN'];
 const GSPAY_PEERS = ['PLATFORM_GSPAY_CALLBACK_TOKEN', 'PLATFORM_GSPAY_QUERY_TOKEN', 'PLATFORM_GSPAY_ORDER_TOKEN'];
 const GAME_PEERS = ['PLATFORM_GAME_TOKEN', 'PLATFORM_GAME_WALLET_TOKEN'];
 const PRIVILEGED_CREDENTIALS = ['GATEWAY_ADMIN_TOKEN', ...VPAY_PEERS, ...GSPAY_PEERS, ...GAME_PEERS,
@@ -92,6 +93,7 @@ function vpayReadiness(env = {}) {
   const credentialsConfigured = /^\d{1,10}$/.test(String(env.VPAY_TRADER_ID || '').trim())
     && Boolean(String(env.VPAY_API_TOKEN || '').trim());
   const callbackTokenConfigured = Boolean(peerCredential(env, 'PLATFORM_CALLBACK_TOKEN'));
+  const payoutTokenConfigured = Boolean(peerCredential(env, 'PLATFORM_PAYOUT_TOKEN'));
   const baseConfigured = Boolean(normalizeHttpsUrl(env.PUBLIC_BASE_URL, { originOnly: true }));
   const channels = {};
   for (const [kind, flag, target] of [
@@ -104,6 +106,9 @@ function vpayReadiness(env = {}) {
     if (!credentialsConfigured) blockers.push('provider_credentials_missing');
     if (!baseConfigured) blockers.push('public_callback_base_missing_or_invalid');
     if (!callbackTokenConfigured) blockers.push('platform_callback_token_missing_or_short');
+    if (kind === 'withdrawal' && !payoutTokenConfigured) {
+      blockers.push('platform_payout_token_missing_or_aliased');
+    }
     if (!forwardConfigured) blockers.push('platform_callback_url_missing_or_invalid');
     if (!enabled) blockers.push('transaction_switch_off');
     channels[kind] = {

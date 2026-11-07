@@ -13,6 +13,7 @@ const env = {
   VPAY_PAYMENT_FORWARD_URL: 'https://wallet.example.test/deposit',
   VPAY_WITHDRAWAL_FORWARD_URL: 'https://wallet.example.test/withdrawal',
   PLATFORM_CALLBACK_TOKEN: 'wallet-fixture-'.repeat(4),
+  PLATFORM_PAYOUT_TOKEN: 'payout-fixture-'.repeat(4),
   EVO_API_TOKEN: 'fixture-evo',
 };
 async function request(app, path, payload, extra = {}) {
@@ -88,7 +89,7 @@ test('request size limit counts UTF-8 bytes and still returns HTTP 413', async (
 });
 
 const order={outTradeNo:'fixture-1',title:'Deposit',amount:'1.00',tradeCode:'1',payerName:'Fixture'};
-const withdrawal={refId:'fixture-1',amount:'1.00',bankName:'TEST',accountName:'Fixture',accountNumber:'12345678'};
+const withdrawal={refId:'fixture-1',amount:'1.00',bankName:'MBB',accountName:'Fixture',accountNumber:'12345678'};
 test('zero, negative and fractional-cent payment amounts never reach the provider', async () => {
   let calls=0;
   const app=makeApp({env,fetchImpl:async()=>{calls++;throw Error('unexpected');}});

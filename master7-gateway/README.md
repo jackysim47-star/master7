@@ -290,10 +290,20 @@ orders. The existing admin route remains compatible. These source changes do
 not configure runtime secrets, activate payment switches, deploy services or
 complete production acceptance.
 
-All three peer credentials, including `PLATFORM_CALLBACK_TOKEN`, require
+All VPay peer credentials, including `PLATFORM_CALLBACK_TOKEN` and the isolated
+`PLATFORM_PAYOUT_TOKEN`, require
 32–1024 UTF-8 bytes and must differ from each other and `GATEWAY_ADMIN_TOKEN`.
 Callback readiness and forwarding use the same validation as query/order
 authorization. Invalid or reused credentials do not forward a notification.
+
+`POST /platform/vpay/withdrawal` and
+`POST /platform/vpay/withdrawal-query` require only
+`PLATFORM_PAYOUT_TOKEN`. They use the documented `MONEY_OUT` and `MONEY_GET`
+contracts and never accept the order, query, callback, or administrator token.
+The payout route also requires the explicit MYR contract label and one of the
+bank codes published in the VPay Trader API documentation. Provider callbacks
+continue through the signed withdrawal callback and the platform wallet must
+durably acknowledge them before the gateway returns `SUCCESS`.
 
 `PUBLIC_BASE_URL` must be a standalone HTTPS origin: no non-root path, query,
 fragment, credentials or non-default port. Host casing, the default HTTPS port

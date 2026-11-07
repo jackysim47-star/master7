@@ -4,6 +4,7 @@ const assert = require('node:assert/strict');
 const http = require('node:http');
 const { makeApp } = require('./server');
 const peer = 'synthetic-read-only-wallet-query-credential';
+const payoutToken = 'synthetic-payout-only-wallet-credential-32-bytes';
 const env = { PLATFORM_QUERY_TOKEN: peer, GATEWAY_ADMIN_TOKEN: 'synthetic-admin-token-with-at-least-32-bytes', VPAY_TRADER_ID: '123456', VPAY_API_TOKEN: 'synthetic-test-only-provider-key' };
 async function request(app, path, token, payload={outTradeNo:'order_1',tradeNo:'provider_1'},method='POST'){
  const server=http.createServer(app);await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
@@ -29,6 +30,7 @@ test('query-only credentials cannot create, withdraw, inspect merchant balance o
 
 const orderToken='synthetic-order-only-wallet-credential-32-bytes';
 const readyEnv={...env,PLATFORM_ORDER_TOKEN:orderToken,VPAY_ORDERS_ENABLED:'true',VPAY_ENABLED_TRADE_CODES:'["2"]',VPAY_MODE:'uat',PUBLIC_BASE_URL:'https://master7-integration-gateway.onrender.com',PLATFORM_CALLBACK_TOKEN:'synthetic-callback-token-at-least-32-bytes',VPAY_PAYMENT_FORWARD_URL:'https://portal.example.test/api/v1/payment-callbacks/vpay/payment',VPAY_RETURN_URL:'https://portal.example.test/payment-return'};
+const payoutEnv={...readyEnv,PLATFORM_PAYOUT_TOKEN:payoutToken,VPAY_WITHDRAWALS_ENABLED:'true',VPAY_WITHDRAWAL_FORWARD_URL:'https://portal.example.test/api/payment-callbacks/vpay/withdrawal'};
 const draft={outTradeNo:'order_1',title:'MASTER7 deposit',amount:'1.00',tradeCode:'2',payerName:'SYNTHETIC MEMBER',notifyUrl:readyEnv.PUBLIC_BASE_URL+'/callbacks/vpay/payment',callbackUrl:readyEnv.VPAY_RETURN_URL};
 test('authenticated wallet configuration pins the merchant, environment, activated methods and callback URLs without exposing credentials',async()=>{
  const app=makeApp({env:readyEnv,fetchImpl:async()=>{throw Error('No supplier request for configuration');}});
@@ -71,5 +73,22 @@ test('aliasing peer credentials to another privilege scope fails closed',async()
   const name=Object.keys(change)[0],path=name==='PLATFORM_QUERY_TOKEN'?'/platform/vpay/order-query':'/platform/vpay/order';
   assert.equal((await request(app,path,aliased[name],draft)).status,401);
  }
+ assert.equal(calls,0);
+});
+
+test('payout-only credential submits and queries a bound MYR withdrawal without granting other scopes',async()=>{
+ const upstream=[];const app=makeApp({env:payoutEnv,fetchImpl:async(_url,options)=>{const payload=JSON.parse(options.body);upstream.push(payload);return Response.json(payload.action==='MONEY_OUT'?{code:0,data:{money_id:'provider_1',out_money_id:'payout_1'}}:{code:0,data:{out_money_id:'payout_1',state:'1',amount:'10.00',service_fee:'0.50'}});}});
+ const submitted=await request(app,'/platform/vpay/withdrawal',payoutToken,{contract:'vpay-payout-v1',currency:'MYR',refId:'payout_1',amount:'10.00',bankName:'MBB',accountName:'FIXTURE USER',accountNumber:'12345678'});assert.equal(submitted.status,200);
+ assert.equal(upstream[0].action,'MONEY_OUT');assert.equal(upstream[0].notify_url,payoutEnv.PUBLIC_BASE_URL+'/callbacks/vpay/withdrawal');
+ const queried=await request(app,'/platform/vpay/withdrawal-query',payoutToken,{contract:'vpay-payout-query-v1',outMoneyId:'payout_1'});assert.equal(queried.status,200);assert.equal(upstream[1].action,'MONEY_GET');
+ for(const path of ['/platform/vpay/order','/platform/vpay/order-query','/admin/vpay/balance'])assert.equal((await request(app,path,payoutToken)).status,401);
+ assert.equal(upstream.length,2);
+});
+
+test('payout scope rejects unsupported banks, non-canonical amounts, missing contracts and aliased credentials',async()=>{
+ let calls=0;const fetchImpl=async()=>{calls++;throw Error('Must not call supplier');};const draft={contract:'vpay-payout-v1',currency:'MYR',refId:'payout_1',amount:'10.00',bankName:'MBB',accountName:'FIXTURE USER',accountNumber:'12345678'};
+ const app=makeApp({env:payoutEnv,fetchImpl});
+ for(const change of [{bankName:'MBSB'},{amount:'10'},{amount:'10.001'},{contract:'wrong'},{currency:'USD'}])assert.equal((await request(app,'/platform/vpay/withdrawal',payoutToken,{...draft,...change})).status,400);
+ const aliased=makeApp({env:{...payoutEnv,PLATFORM_PAYOUT_TOKEN:payoutEnv.PLATFORM_ORDER_TOKEN},fetchImpl});assert.equal((await request(aliased,'/platform/vpay/withdrawal',payoutEnv.PLATFORM_ORDER_TOKEN,draft)).status,401);
  assert.equal(calls,0);
 });
