@@ -1,0 +1,105 @@
+{
+  "checkedAt": "2026-11-07T08:47:45Z",
+  "gateway": "https://master7-integration-gateway.onrender.com",
+  "providers": {
+    "megah5": {
+      "http": 200,
+      "ms": 361,
+      "gameCount": 166,
+      "complete": null,
+      "upstreamStatus": 200,
+      "code": null,
+      "status": 200,
+      "error": null,
+      "message": null
+    },
+    "jili": {
+      "http": 200,
+      "ms": 405,
+      "gameCount": 297,
+      "complete": null,
+      "upstreamStatus": null,
+      "code": null,
+      "status": null,
+      "error": null,
+      "message": null
+    },
+    "918kissh5": {
+      "http": 200,
+      "ms": 914,
+      "gameCount": 92,
+      "complete": null,
+      "upstreamStatus": null,
+      "code": null,
+      "status": null,
+      "error": null,
+      "message": null
+    },
+    "jdb": {
+      "http": 502,
+      "ms": 444,
+      "gameCount": null,
+      "complete": null,
+      "upstreamStatus": null,
+      "code": null,
+      "status": null,
+      "error": "jdb_provider_rejected_9001",
+      "message": null
+    },
+    "pragmaticplay": {
+      "http": 502,
+      "ms": 898,
+      "gameCount": null,
+      "complete": null,
+      "upstreamStatus": null,
+      "code": null,
+      "status": null,
+      "error": "pragmatic_upstream_http_435",
+      "message": null
+    },
+    "evo888h5": {
+      "http": 502,
+      "ms": 410,
+      "gameCount": null,
+      "complete": null,
+      "upstreamStatus": 200,
+      "code": null,
+      "status": null,
+      "error": null,
+      "message": null
+    },
+    "epicwin": {
+      "http": 502,
+      "ms": 883,
+      "gameCount": null,
+      "complete": null,
+      "upstreamStatus": 403,
+      "code": null,
+      "status": null,
+      "error": "provider_catalogue_failed",
+      "message": null
+    },
+    "venus": {
+      "http": 502,
+      "ms": 417,
+      "gameCount": null,
+      "complete": null,
+      "upstreamStatus": null,
+      "code": null,
+      "status": null,
+      "error": "venus_response_signature_missing",
+      "message": null
+    },
+    "clotplay": {
+      "http": 502,
+      "ms": 474,
+      "gameCount": null,
+      "complete": null,
+      "upstreamStatus": 403,
+      "code": null,
+      "status": null,
+      "error": "clotplay_catalogue_failed",
+      "message": null
+    }
+  }
+}
