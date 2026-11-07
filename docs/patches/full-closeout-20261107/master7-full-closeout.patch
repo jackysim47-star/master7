@@ -1,0 +1,1534 @@
+diff --git a/app/portal.html b/app/portal.html
+index a7ef654..5bb8cd8 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,27 +15,27 @@
+   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.94-readiness-split">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.94-readiness-split">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.94-readiness-split">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.94-readiness-split">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.94-readiness-split">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.94-readiness-split">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.94-readiness-split">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.94-readiness-split">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.94-readiness-split">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.94-readiness-split">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.94-readiness-split">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.95-repair-candidate">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.95-repair-candidate">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.95-repair-candidate">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.95-repair-candidate">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.95-repair-candidate">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.95-repair-candidate">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.95-repair-candidate">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.95-repair-candidate">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.95-repair-candidate">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.95-repair-candidate">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.95-repair-candidate">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.95-repair-candidate" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.95-repair-candidate" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.95-repair-candidate" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.95-repair-candidate" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.95-repair-candidate" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.95-repair-candidate" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.95-repair-candidate" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.95-repair-candidate" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.95-repair-candidate" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.95-repair-candidate" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
+diff --git a/docs/MASTER7_FULL_REPAIR_20261107.md b/docs/MASTER7_FULL_REPAIR_20261107.md
+new file mode 100644
+index 0000000..aa3d8ec
+--- /dev/null
++++ b/docs/MASTER7_FULL_REPAIR_20261107.md
+@@ -0,0 +1,45 @@
++# MASTER7 .95 候选修复说明
++
++候选版本：`17.0.0-selfbuilt.95-repair-candidate`。这是基于已核验的线上 .94 归档制作的代码修复，不代表生产部署或真实支付／游戏验收已经完成。
++
++## 来源
++
++- 原始发布提交：`e3faa8ddc6b6fe87768e9e71f466ce48538bfad7`。
++- 原始归档：`master7-v17-render-staging.tar.gz`，3,629,527 字节。
++- 原始归档 SHA-256：`6d1a96b5a5cfa6e88a87908485c6af32e5d4cfc6a57da49420b1be48b76598d2`。
++- 包内声明的源提交 `a0b3b2ede1f0e51f4dfeccc666637ca5f0643c05` 尚未从仓库取得；此次以实际归档校验值作为基线，不将该声明当作已验证源码提交。
++
++## 修复内容
++
++### 支付与状态显示
++
++- 支付状态读取失败、空响应或格式错误显示“状态暂不可用”；真实的未完成状态继续保留。
++- 会员 VPay 入口补齐“结算验收待完成”的判断。
++- VPay `/health` 与支付状态接口共用实际提现能力计算，修复两者报告不一致的问题；没有开启业务开关或设置结算通过标记。
++- VPay 独立订单查询若明确返回非 MYR 币种，进入人工复核而不记入 MYR 钱包；沿用既有的订单、金额、商户和重复通知校验。未返回币种时保留原协议兼容行为。
++
++### 游戏启动与目录
++
++- 根游戏目录由当前缓存、控制状态和钱包验收条件计算 MegaH5 就绪状态；状态读取本身不请求全部厂家。
++- 缓存达到原有 300 秒时限即失效，避免用旧目录显示可启动。
++- 启动 MegaH5 时只刷新相关目录；目录未完成时在创建会话或预留余额前拒绝启动。
++- 厂家登录必须同时满足正确业务成功状态。HTTP 200 但业务拒绝的响应，即使包含 URL，也不会进入余额或转账步骤。
++- 原 .94 已有 `result.Url` 到 `launchUrl` 的映射；本次没有将它虚报为新增修复。
++- 界面文字明确区分目录连接、游戏启动与钱包验收，移除未经证实的“厂家未开放”归因。
++
++### 备份与隔离恢复
++
++- 恢复 SQLite 时加载全部有序迁移；PostgreSQL 恢复使用实际运行时初始化器，补齐增量结构。
++- 当前备份契约纳入 `marketing_webhook_events`，共 51 个持久表；登录、OTP、限流和临时锁共 4 个临时表明确排除。
++- 准确匹配的旧 50 表备份仍可恢复，但凭证标记为 `verified_legacy_coverage`，不能作为当前完整覆盖证明。
++- PostgreSQL 演练初始化使用 savepoint，外层始终回滚；回滚失败不能产生成功凭证。
++
++## 验证与发布范围
++
++候选 CI 必须安装锁定的完整开发依赖、运行所有 `tests/*.test.mjs`（包括身份边界测试）、完成真实 `build:render`，并生成源包校验凭证。测试与构建使用无生产凭据、断开外部网络的隔离环境。最终结果以该次 Actions 运行及 `MASTER7_FULL_REPAIR_CANDIDATE_20261107.json` 为准。
++
++候选仅写入独立修复分支；该分支的 Vercel Git 部署已禁用。它不改变生产分支、Render 服务、后台按钮、会员资料、余额、业务参数或验收标记。
++
++本地合成恢复测试以及模拟 PostgreSQL 客户端事务测试，不能替代当前生产加密备份、匹配私钥、隔离 PostgreSQL 引擎恢复和业务对账证据。实际充值、提现、游戏启动与钱包往返结算仍需独立的受控验收。
++
++厂家返回与缺失协议详见同目录 `MASTER7_VENDOR_ACTIONS_20261107.md`；该文件是尚未发送的排障草稿。
+diff --git a/docs/MASTER7_VENDOR_ACTIONS_20261107.md b/docs/MASTER7_VENDOR_ACTIONS_20261107.md
+new file mode 100644
+index 0000000..acee13d
+--- /dev/null
++++ b/docs/MASTER7_VENDOR_ACTIONS_20261107.md
+@@ -0,0 +1,47 @@
++# MASTER7 供应商排障资料草稿
++
++**状态：仅供审核，尚未发送给任何供应商。**
++
++核对时间：**2026-11-07 21:33 MYT（UTC 13:33）**。请按该时间前后 5 分钟检索请求／拒绝日志。下列内容仅包含已观察到的错误与待确认事项，不包含商户密钥。
++
++## EVO888H5：请求 IP 未获白名单授权
++
++- 已观察：MASTER7 网关返回 HTTP 502；上游 HTTP 200，业务码 **130**，原文 **`IP address is not in whitelist`**。
++- 对应只读目录入口：`https://master7-integration-gateway.onrender.com/providers/evo888h5/games`。
++- 请从贵方拒绝日志确认本次请求的**实际源 IP**、命中的商户／API 环境，以及该 IP 是否在对应商户的有效白名单中。
++- 请核对生产与测试环境白名单是否独立、当前授权状态及变更生效时间，并提供可关联的请求编号或脱敏日志结论。
++
++**当前尚未取得 Render 网关的实际出口 IP。请勿以 MASTER7 站点的 DNS 解析 IP、网站入口 IP 或历史 VPay IP 代替；本文件不填入推测地址。**
++
++## JDB：9001 访问授权失败
++
++- 已观察：MASTER7 网关返回 HTTP 502，错误 **`jdb_provider_rejected_9001`**。
++- 对应只读目录入口：`https://master7-integration-gateway.onrender.com/providers/jdb/games`。
++- [JDB 官方错误码说明](https://doc.jygrq.com/en/transfer/functions/errorCodes)将 **9001** 定义为访问未获授权；上级账户暂停、锁定和关闭另有错误码。因此本次结果**不能直接认定账户已关闭**。
++- 请逐项确认：分配给该商户的 API 环境与入口、商户标识及密钥组合是否匹配、请求时间／时间窗是否通过、实际源 IP 与授权范围是否匹配、目录接口权限是否已开通。
++- 请依据该次拒绝日志指出具体失败环节及请求编号。当前证据不足以把 IP、密钥、时间或账户状态中的某一项认定为唯一根因；凭据通过双方既有安全渠道核对，不写入本文件。
++
++## PRAGMATIC PLAY：上游 HTTP 435
++
++- 已观察：MASTER7 网关返回 HTTP 502，错误 **`pragmatic_upstream_http_435`**。
++- 对应只读目录入口：`https://master7-integration-gateway.onrender.com/providers/pragmaticplay/games`。
++- 请解释贵方该接口 **HTTP 435** 的正式含义，并核对该商户在当前 API 环境的访问、目录及游戏启动授权状态。
++- 请提供对应请求编号、拒绝原因和所需修正项。目前不将 435 推断为欠费、封号、白名单问题或 HTTP 403。
++
++## JILI／918KISS H5／RECTANGLE：补齐启动与钱包合同
++
++已有游戏目录不能证明真实游戏启动及钱包结算已接通。请分别提供与实际商户账户、生产环境匹配的正式合同／文档：
++
++1. 玩家映射／注册、游戏启动／登录接口：必填字段、签名、时间规则、成功与失败响应、有效启动 URL、返回与退出规则。
++2. 与已分配钱包模式一致的正式接口合同：对应余额、转入／转出或下注／结算／撤单回调，以及交易状态查询、幂等键、超时重试、最终状态和对账规则。JILI／918KISS H5 请同时确认钱包模式；RECTANGLE 已有配置截图标注 Transfer，仍需与该配置对应的转账钱包协议正文。
++3. MYR 的金额单位、精度、换算比例与结算币种，并明确测试账户、生产账户及可用游戏范围。
++
++| 供应商 | 需要特别确认的账户／币种事项 |
++|---|---|
++| JILI | 现有目录配置区分 `1to1`、`1to100` 两个账户标签。请确认各自实际币种、金额单位、换算倍率及钱包合同；不能仅凭标签自动换算。 |
++| 918KISS H5 | 现有目录配置区分 normal／free 的 MYR 账户与 `my1` 的 MY1 账户。请明确 MY1 与 MYR 的关系、适用账户和实际结算比例，不能假定二者等同。 |
++| RECTANGLE | 已有生产配置截图明确标注 `Wallet Type: Transfer`、`Currency: MYR`，并已有独立目录读取。无需重复提供该截图；仍缺与该商户配置对应的官方启动、转账钱包、交易状态查询及回调合同，以及 API 版本、金额单位、精度和必要换算规则。配置截图不能替代协议正文，也不能套用其他厂商协议。 |
++
++## 当前操作边界
++
++本轮排查保留后台业务按钮及现有控制状态，**没有更改支付／游戏业务开关或结算 `verified` 标记，也没有发起真实充值、提现、游戏启动或钱包转账**。供应商修正授权或补齐合同后，仍需以实际响应及受控验收证据确认结果；本草稿不构成验收通过证明。
+diff --git a/docs/backup-restore-rehearsal.md b/docs/backup-restore-rehearsal.md
+index c34adb9..2ae7118 100644
+--- a/docs/backup-restore-rehearsal.md
++++ b/docs/backup-restore-rehearsal.md
+@@ -4,9 +4,44 @@ The portal backup is a release-bound logical backup. Its envelope and recovery
+ receipt include the application release, schema version, schema SHA-256,
+ creation time, verification time, table manifest and content hashes.
+ 
+-Create the backup in the owner portal and store the JSON file away from the
+-application database. Keep the matching RSA private key and its passphrase in
+-a separate secret store.
++## Coverage and compatibility
++
++The current `0107-benefit-claim-reviews` contract contains 51 durable tables.
++It includes `marketing_webhook_events`, which preserves callback deduplication
++and opt-out event history, as well as the voucher workflow and benefit review
++fields. The schema hash includes the exact ordered table manifest; adding the
++previously omitted event table changes that hash without inventing a database
++migration version.
++
++Each table is paged in complete primary-key order, including all columns of
++composite keys. Regression tests compare those keys with the actual release
++migrations and export 2,005 rows sharing the same key prefix for each composite
++table, checking that changing legal index plans cannot repeat or omit rows.
++
++Four transient tables are deliberately empty after restoration:
++`password_sessions`, `otp_challenges`, `rate_limits`, and
++`responsible_play_locks`. People must sign in again. The responsible-play lock
++row only serializes transactions and is recreated by the next operation;
++`responsible_play_profiles` and `responsible_play_deposit_reservations` remain
++in the backup, preserving limits, cooling-off/self-exclusion windows, pending
++limit changes, and outstanding reservations.
++
++The deployed 50-table 0107 manifest with schema SHA-256
++`2648becd21723884358bcaf90f5928dc19c7cc58dcf090c87ca1db3c00c34d69`
++is also accepted for recovery. Its receipt retains the old hash and uses
++`status: "verified_legacy_coverage"`, `coverageComplete: false`, and
++`missingTables: ["marketing_webhook_events"]`. Those missing records cannot be
++recreated from the old file. Such a receipt does not satisfy the current
++readiness contract. Other versions or unrecognized manifests fail closed;
++this compatibility rule does not claim support for every historical backup.
++
++## Run an isolated rehearsal
++
++Use an authorized encrypted backup JSON file, its matching RSA private key,
++and the private-key passphrase. Keep the file away from the application
++database and the private key/passphrase in a separate secret store. Creating
++a backup through the owner API writes an audit event; it is a separate
++authorized action from running these local verification commands.
+ 
+ Run the lightweight SQLite verification first:
+ 
+@@ -14,9 +49,17 @@ Run the lightweight SQLite verification first:
+ node scripts/verify-encrypted-backup.mjs BACKUP.json PRIVATE.pem PASSPHRASE.txt RECEIPT.json
+ ```
+ 
++This verifier builds a fresh in-memory database from every ordered SQL
++migration in `drizzle/`, including 0105 and 0107. It restores only the exact
++recognized manifest, checks each table's row count and all foreign keys, and
++checks that the four transient tables remain empty. The database is discarded
++when the process exits; only the optional receipt file is written.
++
+ For a PostgreSQL rehearsal, provision or select a database whose name includes
+ `restore`, `rehearsal`, `sandbox` or `test`. It must not be the URL configured in
+-`PORTAL_POSTGRES_URL` or `DATABASE_URL`.
++`PORTAL_POSTGRES_URL` or `DATABASE_URL`. The name and URL checks are safeguards,
++not proof of isolation: verify the target and use credentials scoped to that
++disposable database. No application server or background worker should use it.
+ 
+ ```sh
+ export MASTER7_RESTORE_DATABASE_URL='postgres://.../master7_restore_2026'
+@@ -24,10 +67,41 @@ pnpm backup:restore-dry-run -- BACKUP.json PRIVATE.pem PASSPHRASE.txt RECEIPT.js
+ ```
+ 
+ The PostgreSQL tool creates a random schema inside one transaction, restores
+-and counts every table, checks that authentication sessions remain empty, and
+-always rolls the transaction back. A successful receipt therefore contains
+-`persistentWrites: false`; the tool has no path that persists the rehearsal.
++and counts every table, checks foreign keys through normal PostgreSQL inserts,
++and checks the four transient tables. It uses the same schema initializer as
++Render startup, so incremental marketing and benefit-review columns are
++present. Initializer transaction commands become savepoint operations. Other
++top-level transaction commands, including ones inside SQL batches, are rejected.
++Payment activation options are not passed to the initializer; its seed data is
++cleared before the backup rows are inserted.
++
++The outer transaction rolls back after either success or failure, and the
++connection is always closed. A rollback failure prevents a success receipt.
++A successful PostgreSQL receipt includes `persistentWrites: false`. No backup
++file is ever executed as code or used as SQL schema.
++
++## Evidence and recording the result
++
++The local regression suite creates an encrypted backup from synthetic SQLite
++records with a temporary test RSA key. It verifies current 51-table restoration,
++known legacy 50-table restoration, explicit transient-table exclusion, and
++rejection of incompatible schemas and broken foreign keys. A coverage assertion
++requires every release table to be either durable or explicitly transient.
++The PostgreSQL unit tests exercise the actual initializer's SQL and the
++savepoint/rollback lifecycle with a mock client; they do not replace a rehearsal
++against an isolated PostgreSQL engine.
++
++Synthetic test success does not verify a production backup. Production recovery
++evidence still requires a current backup file, the matching private key and
++passphrase, successful restoration on the intended database engine, and review
++of the resulting counts and business invariants. The exporter reads tables in
++pages without a database-wide snapshot transaction; a file taken while writes
++are occurring does not by itself prove point-in-time consistency.
+ 
+-Upload the current receipt through the owner recovery control. Readiness only
+-applies when the receipt matches the running release and schema hashes and is
+-still within the configured freshness window.
++After an actual authorized rehearsal, the owner API can record the receipt via
++`POST /api/admin/backup` with `action: "record_rehearsal"`. That operation writes
++the recovery setting and an audit event. It records supplied evidence; it does
++not perform another restore. Readiness requires status `verified`, matching
++running release/schema/key fingerprints, current table count, zero foreign-key
++violations, and timestamps within the configured freshness window. Running the
++local scripts neither calls this endpoint nor changes online readiness.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index abd7da4..45e587d 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -1,9 +1,9 @@
+ import {createHash,timingSafeEqual} from 'node:crypto';
+-import {getGameCatalogue,cachedGameArtwork,gameControlSourceIds,configuredGameCatalogueSourceIds} from './game-catalogue.ts';
++import {getGameCatalogue,cachedGameArtwork,gameControlSourceIds,configuredGameCatalogueSourceIds,gameCatalogueCacheFresh} from './game-catalogue.ts';
+ import { readLocalSession, handlePasswordAuth, AuthError } from './password-auth.ts';
+ import { requestOriginAllowed } from './request-origin.ts';
+ import {createVPayOrder,handleVPay,vpayOrdersConfigured,vpayRemoteOrderReady,refreshVPayOrder,recoverVPayDeposits,vpayCapabilitySnapshot} from './vpay.ts';
+-import {handleVPayPayoutCallback,recoverVPayPayouts,submitVPayPayout,vpayPayoutAvailability,vpayPayoutCapabilitySnapshot,vpayPayoutSupportsBank} from './vpay-payout.ts';
++import {handleVPayPayoutCallback,recoverVPayPayouts,submitVPayPayout,vpayPayoutAvailability,vpayPayoutSupportsBank} from './vpay-payout.ts';
+ import {createOneMpayOrder,handleOneMpay,refreshOneMpayOrder,oneMpayConfigurationReady,oneMpayCapabilitySnapshot} from './onempay.ts';
+ import {createGSPayOrder,gspayProgramConfigured,handleGSPay,handleGSPayCallback,refreshGSPayOrder,recoverGSPayDeposits,recoverGSPayPayouts,queryGSPayBalance,gspayCapabilitySnapshot,gspayPayoutAvailability,submitGSPayPayout} from './gspay.ts';
+ import {cancelWithdrawal,getWithdrawalBanks,listAdminWithdrawals,listMemberWithdrawals,submitWithdrawal} from './withdrawals.ts';
+@@ -25,7 +25,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.94-readiness-split';
++export const RELEASE = '17.0.0-selfbuilt.95-repair-candidate';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+@@ -34,7 +34,7 @@ type User={id:string;username:string;role:string;approved:number;csrf:string;cre
+ type FinancialEventType='deposit'|'manual_bank'|'withdrawal';
+ type FinancialEventCursor={createdAt:number;type:FinancialEventType;id:string};
+ export type Context={db:D1Database;identity:Identity|null;ownerEmail:string;ownerLoginId?:string;allowedOrigins?:string[];gameGatewayUrl?:string;gameGatewayToken?:string;gameGatewayWalletToken?:string;megaTransfersEnabled?:string;megaLiveGamesEnabled?:string;megaSettlementVerified?:string;gameGatewayFetch?:typeof fetch;gameArtFetch?:typeof fetch;vpayGatewayUrl?:string;vpayOrderToken?:string;vpayQueryToken?:string;vpayCallbackToken?:string;vpayPayoutToken?:string;vpayPayoutEnabled?:string;vpayOrdersEnabled?:string;vpayMode?:string;vpayTraderId?:string;vpayReturnUrl?:string;vpayRecoveryEnabled?:string;vpayFetch?:typeof fetch;gspayApiBase?:string;gspayAuthKey?:string;gspaySecretKey?:string;gspayCallbackToken?:string;gspayOrdersEnabled?:string;gspayReturnUrl?:string;gspayRecoveryEnabled?:string;gspayBalanceEnabled?:string;gspayPayoutEnabled?:string;gspayPayoutIpWhitelistConfirmed?:string;gspayPayoutBankTargetsJson?:string;paymentRecoveryToken?:string;gspayFetch?:typeof fetch;ownerSetupHash?:string;ownerSetupExpires?:number;ownerResetHash?:string;ownerResetExpires?:number;ownerResetIssuedAt?:number;anchorApiBaseUrl?:string;anchorUsername?:string;anchorPassword?:string;anchorSenderId?:string;otpHashSecret?:string;smsFetch?:typeof fetch;withdrawalDataKey?:string;oneMpayApiBase?:string;oneMpayMerchant?:string;oneMpaySecretKey?:string;oneMpayOrdersEnabled?:string;oneMpayCallbackUrl?:string;oneMpayReturnUrl?:string;oneMpayDiagnosticToken?:string;oneMpayFetch?:typeof fetch;rectangleApiBase?:string;rectangleOperatorCode?:string;rectangleApiKey?:string;godeeApiBase?:string;godeeOperatorId?:string;godeeApiKey?:string;gameCatalogueFetch?:typeof fetch;gameSyncToken?:string;accountingJobToken?:string;telegramBotToken?:string;telegramAdminChatId?:string;telegramFetch?:typeof fetch;whatsappEnabled?:string;whatsappGraphApiVersion?:string;whatsappPhoneNumberId?:string;whatsappWabaId?:string;whatsappAccessToken?:string;whatsappAppSecret?:string;whatsappWebhookVerifyToken?:string;whatsappBusinessNumber?:string;whatsappTemplateName?:string;whatsappTemplateLanguage?:string;whatsappRecipientLimit?:string;whatsappWorkerToken?:string;whatsappWorkerBatchSize?:string;whatsappFetch?:typeof fetch;supportAiEnabled?:string;supportAiApiBaseUrl?:string;supportAiApiKey?:string;supportAiModel?:string;supportAiFetch?:typeof fetch};
+-function vpaySettings(c:Context,user:User|null){return {db:c.db,user,gatewayUrl:c.vpayGatewayUrl,orderToken:c.vpayOrderToken,queryToken:c.vpayQueryToken,callbackToken:c.vpayCallbackToken,enabled:c.vpayOrdersEnabled,mode:c.vpayMode,vpayTraderId:c.vpayTraderId,returnUrl:c.vpayReturnUrl,recoveryEnabled:c.vpayRecoveryEnabled,fetchImpl:c.vpayFetch};}
++function vpaySettings(c:Context,user:User|null){return {...vpayPayoutSettings(c),user,orderToken:c.vpayOrderToken,queryToken:c.vpayQueryToken,enabled:c.vpayOrdersEnabled,mode:c.vpayMode,returnUrl:c.vpayReturnUrl,recoveryEnabled:c.vpayRecoveryEnabled};}
+ function vpayPayoutSettings(c:Context){return {db:c.db,gatewayUrl:c.vpayGatewayUrl,payoutToken:c.vpayPayoutToken,callbackToken:c.vpayCallbackToken,payoutEnabled:c.vpayPayoutEnabled,vpayTraderId:c.vpayTraderId,withdrawalDataKey:c.withdrawalDataKey,fetchImpl:c.vpayFetch};}
+ function gspaySettings(c:Context,user:User|null){return {db:c.db,user,apiBase:c.gspayApiBase,authKey:c.gspayAuthKey,secretKey:c.gspaySecretKey,callbackToken:c.gspayCallbackToken,enabled:c.gspayOrdersEnabled,returnUrl:c.gspayReturnUrl,recoveryEnabled:c.gspayRecoveryEnabled,balanceEnabled:c.gspayBalanceEnabled,payoutEnabled:c.gspayPayoutEnabled,payoutIpWhitelistConfirmed:c.gspayPayoutIpWhitelistConfirmed,payoutBankTargetsJson:c.gspayPayoutBankTargetsJson,withdrawalDataKey:c.withdrawalDataKey,fetchImpl:c.gspayFetch};}
+ async function withdrawalSettings(c:Context,user:User|null){const gspay=gspaySettings(c,user),vpay=vpayPayoutSettings(c),[gspayReady,vpayReady]=await Promise.all([gspayPayoutAvailability(gspay),vpayPayoutAvailability(vpay)]);return {db:c.db,user,dataKey:c.withdrawalDataKey,payouts:{vpay:{enabled:vpayReady.enabled,reason:vpayReady.reason,supportsBank:vpayPayoutSupportsBank,submit:(input:any)=>submitVPayPayout(input,vpay)},gspay:{enabled:gspayReady.enabled,reason:gspayReady.reason,submit:(input:any)=>submitGSPayPayout(input,gspay)},'1mpay':{enabled:false,reason:'Payout bank codes and final callback states are not verified',submit:async()=>({status:'review' as const})}}};}
+@@ -62,7 +62,7 @@ async function paymentFlags(c:Context,channels:Record<string,unknown>[]){
+  const gspayProgram=gspayProgramConfigured(gspaySettings(c,null));
+  const gspay=active('gspay')&&c.gspayOrdersEnabled==='true'&&gspayProgram;
+  const oneMpay=active('1mpay')&&c.oneMpayOrdersEnabled==='true'&&oneMpayConfigurationReady(oneMpaySettings(c,null));
+- const vpayCapabilities={...vpayCapabilitySnapshot(vpaySettings(c,null),active('vpay'),vpay),payout:vpayPayoutCapabilitySnapshot(vpayPayoutSettings(c),active('vpay'))};
++ const vpayCapabilities=vpayCapabilitySnapshot(vpaySettings(c,null),active('vpay'),vpay);
+  return {transactionsEnabled:vpay||gspay||oneMpay,realPayments:vpay&&c.vpayMode==='production'||gspay||oneMpay,payoutsEnabled:vpayPayout.enabled||gspayPayout.enabled,settlementVerified:false,providerProgramsConfigured:{gspay:gspayProgram,gspay_plus:false},providerOrdersEnabled:{vpay,'1mpay':oneMpay,gspay,gspay_plus:false},providerPayoutsEnabled:{vpay:vpayPayout.enabled,gspay:gspayPayout.enabled,'1mpay':false},providerCapabilities:{vpay:vpayCapabilities,gspay:gspayCapabilitySnapshot(gspaySettings(c,null),active('gspay'),gspayPayout.submissionEnabled),'1mpay':oneMpayCapabilitySnapshot(oneMpaySettings(c,null),active('1mpay'))},providerLifecycle:{gspay:'available',gspay_plus:'available'}};
+ }
+ class ApiError extends Error{ status:number; constructor(status:number,message:string){super(message);this.status=status;} }
+@@ -233,10 +233,20 @@ async function publicSupplierControls(db:D1Database){
+  const {states,artworkById,providerById}=await supplierOperationalState(db);
+  return apiSupplierIds.map(providerId=>{const art=artworkById.get(providerId) as any,provider=providerById.get(providerId) as any;return {provider_id:providerId,status:states.get(providerId)??'active',provider_visible:provider?Number(provider.visible):null,image_updated_at:art?.image_data?art.updated_at:null};});
+ }
+-async function publicSupplierPlatforms(db:D1Database){
+- const [cached,supplierControl,rankingState]=await Promise.all([rows(db,'SELECT provider_id,status,complete FROM game_catalogue_cache'),supplierOperationalState(db),loadGameRanking(db)]),cacheById=new Map((cached as any[]).map(item=>[String(item.provider_id),item])),platforms=apiSupplierIds.map((id,index)=>{
++function gameOperationalStatus(game:any,configuredStatus:string,supplierStatus:string){
++ return supplierStatus==='closed'||configuredStatus==='closed'?'closed':supplierStatus==='suspended'||game.maintenance||configuredStatus==='suspended'?'suspended':'active';
++}
++async function publicSupplierPlatforms(c:Context){
++ const db=c.db,[cached,supplierControl,rankingState,megaOverrides]=await Promise.all([rows(db,"SELECT provider_id,status,complete,checked_at,CASE WHEN provider_id='megah5' THEN games_json ELSE NULL END AS games_json FROM game_catalogue_cache"),supplierOperationalState(db),loadGameRanking(db),rows(db,"SELECT game_code,status FROM game_visibility WHERE provider_id='megah5'")]),cacheById=new Map((cached as any[]).map(item=>[String(item.provider_id),item])),megaStatuses=new Map((megaOverrides as any[]).map(item=>[String(item.game_code),String(item.status)])),megaReady=megaProviderLiveReady(c),platforms=apiSupplierIds.map((id,index)=>{
+   const cache=cacheById.get(id) as any,operationalStatus=supplierControl.states.get(id)??'active',connectionVerified=cache?.status==='available',catalogueSynced=connectionVerified&&Number(cache?.complete)===1,connected=connectionVerified&&catalogueSynced;
+-  return {id,name:apiSupplierNames[id],position:index+1,operationalStatus,connectionVerified,catalogueSynced,platformLaunchReady:false,platformStatus:operationalStatus==='closed'?'closed':operationalStatus==='suspended'?'maintenance':connected?'awaiting_platform_adapter':'awaiting_api'};
++  // The landing summary must not contact every supplier. Derive MegaH5's
++  // entry state from the same fresh persisted catalogue, controls and wallet gates
++  // as its selected catalogue instead of permanently reporting false.
++  let platformLaunchReady=false;
++  if(id==='megah5'&&connected&&operationalStatus==='active'&&megaReady&&gameCatalogueCacheFresh(c,Number(cache.checked_at))){
++   try{const games=JSON.parse(String(cache.games_json));platformLaunchReady=Array.isArray(games)&&games.slice(0,2000).some(game=>game&&game.provider===id&&gameOperationalStatus(game,megaStatuses.get(String(game.gameCode))??'active',operationalStatus)==='active');}catch{}
++  }
++  return {id,name:apiSupplierNames[id],position:index+1,operationalStatus,connectionVerified,catalogueSynced,platformLaunchReady,platformStatus:operationalStatus==='closed'?'closed':operationalStatus==='suspended'?'maintenance':platformLaunchReady?'ready':connected?(id==='megah5'?'catalogue_ready':'awaiting_platform_adapter'):'awaiting_api'};
+  });
+  return {providers:rankPlatforms(platforms,rankingState.ranking),rankingState};
+ }
+@@ -273,7 +283,7 @@ async function applyGameVisibility(db:D1Database,catalog:any,includeClosed:boole
+  const games=catalog.games.map((game:any)=>{
+   const override=records.get(`${game.provider}:${game.gameCode||game.name}`) as any;
+   const configuredStatus=override?.status||'active',supplierStatus=supplierControl.states.get(game.provider)??'active';
+-  const status=supplierStatus==='closed'||configuredStatus==='closed'?'closed':supplierStatus==='suspended'||game.maintenance||configuredStatus==='suspended'?'suspended':'active';
++  const status=gameOperationalStatus(game,configuredStatus,supplierStatus);
+   return {...game,status,configuredStatus,supplierStatus,providerMaintenance:!!game.maintenance,categoryOverride:override?.category_override||'',accessZone:override?.access_zone==='free'?'free':'paid',imageData:override?.image_data||''};
+  }).filter((game:any)=>includeClosed||game.status!=='closed');
+  return {...catalog,games,providers:catalog.providers.map((provider:any)=>({...provider,operationalStatus:supplierControl.states.get(provider.id)??'active',count:games.filter((game:any)=>game.provider===provider.id).length}))};
+@@ -286,14 +296,15 @@ async function launchMegaH5(req:Request,c:Context,u:User,d:any){
+  const gameCode=textField(d.gameCode,1,100);if(!/^\d{1,12}$/.test(gameCode))throw new ApiError(400,'Invalid MegaH5 game');
+  if(c.gameGatewayUrl!=='https://master7-integration-gateway.onrender.com'||!c.gameGatewayToken||Buffer.byteLength(c.gameGatewayToken)<32)throw new ApiError(503,'MegaH5 launch connection is not active');
+  if(!megaWalletLiveReady(megaWalletSettings(c,u)))throw new ApiError(503,'MegaH5 game wallet is awaiting settlement verification and the live-games switch');
+- const catalogue=await applyGameVisibility(c.db,await gatewayGames(c),false),game=catalogue.games.find((item:any)=>item.provider==='megah5'&&item.gameCode===gameCode);
+- if(!game||game.status!=='active')throw new ApiError(409,'Game is unavailable or under maintenance');
++ const catalogue=await applyGameVisibility(c.db,await getGameCatalogue(c,{providerId:'megah5'}),false),game=catalogue.games.find((item:any)=>item.provider==='megah5'&&item.gameCode===gameCode);
++ if(!providerCatalogueLiveReady(catalogue,'megah5',megaProviderLiveReady(c))||!game||game.status!=='active')throw new ApiError(409,'Game is unavailable or under maintenance');
+  const ip=launchClientIp(req);if(!ip)throw new ApiError(400,'Player network address is unavailable');
+  const playerId=`m7_${createHash('sha256').update(u.id).digest('hex').slice(0,32)}`,controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
+  try{
+   const response=await(c.gameGatewayFetch??fetch)(`${c.gameGatewayUrl}/platform/megah5/session`,{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json',Authorization:`Bearer ${c.gameGatewayToken}`},body:JSON.stringify({playerId,gameCode,ip,lang:'en-us'}),redirect:'error',signal:controller.signal});
+   const type=response.headers.get('content-type')??'';if(!response.ok||response.redirected||!/^application\/json(?:;|$)/i.test(type))throw new ApiError(502,'MegaH5 launch was rejected');
+   const raw=await response.text();if(Buffer.byteLength(raw)>65536)throw new ApiError(502,'MegaH5 launch response is invalid');let result:any;try{result=JSON.parse(raw);}catch{throw new ApiError(502,'MegaH5 launch response is invalid');}
++  if(![200,'200'].includes(result?.result?.Status))throw new ApiError(502,'MegaH5 launch was rejected');
+   const urlValue=result?.result?.Url??result?.result?.URL??result?.result?.GameUrl??result?.result?.GameURL;let launchUrl:URL;try{launchUrl=new URL(String(urlValue??''));}catch{throw new ApiError(502,'MegaH5 launch URL is missing');}
+   if(launchUrl.protocol!=='https:'||launchUrl.username||launchUrl.password||launchUrl.hash)throw new ApiError(502,'MegaH5 launch URL is invalid');
+   const prepared=await prepareMegaWallet(megaWalletSettings(c,u),gameCode);
+@@ -402,8 +413,8 @@ async function route(req:Request,c:Context){
+   if(p==='/api/admin/games'){role(u,['owner','staff']);const catalogue=await applyGameVisibility(db,customerSupplierCatalogue(await gatewayGames(c)),true),liveReady=providerCatalogueLiveReady(catalogue,'megah5',megaProviderLiveReady(c));return json({...catalogue,providers:catalogue.providers.map((provider:any)=>provider.id==='megah5'?{...provider,launchVerified:liveReady,walletVerified:liveReady}:provider),games:catalogue.games.map((game:any)=>({...game,playable:liveReady&&game.provider==='megah5'&&game.status==='active'})),playable:liveReady});}
+   if(p==='/api/games'){
+    const selectedProvider=new URL(req.url).searchParams.get('provider');if(selectedProvider!==null&&!apiSupplierIdSet.has(selectedProvider))throw new ApiError(400,'Invalid game provider');
+-   if(selectedProvider===null){const {providers,rankingState}=await publicSupplierPlatforms(db);return json({mode:'provider-platforms',providers,games:[],providersOnly:true,platformsOnly:false,selectedProvider:null,selectedPlatform:null,platformCount:providers.length,totalGameCount:0,selectedGameCount:0,playable:false,liveReady:false,launchProvider:null,ranking:{...rankingState.ranking,configured:rankingState.configured,source:'owner_curated',automaticRanking:false,internalGamesRanked:false}});}
+-   const trustedSource=configuredGameCatalogueSourceIds(c).includes(selectedProvider),catalogue=trustedSource?await applyGameVisibility(db,customerSupplierCatalogue(await getGameCatalogue(c,{providerId:selectedProvider})),false):{providers:[],games:[]},selectedGames=(catalogue.games??[]).filter((game:any)=>game.provider===selectedProvider),allMaintenance=selectedGames.length>0&&selectedGames.every((game:any)=>game.maintenance===true||game.status==='suspended'),liveReady=providerCatalogueLiveReady(catalogue,selectedProvider,selectedProvider==='megah5'&&megaProviderLiveReady(c)),fresh=await publicSupplierPlatforms(db),providers=fresh.providers.map((provider:any)=>provider.id===selectedProvider?{...provider,platformLaunchReady:liveReady,platformStatus:provider.operationalStatus==='closed'?'closed':provider.operationalStatus==='suspended'?'maintenance':selectedGames.length&&(provider.connectionVerified!==true||provider.catalogueSynced!==true||allMaintenance)?'maintenance':liveReady?'ready':selectedGames.length?'catalogue_ready':provider.platformStatus}:provider),selectedPlatform=providers.find((provider:any)=>provider.id===selectedProvider)??null,games=selectedGames.map((game:any)=>({...game,playable:liveReady&&game.provider==='megah5'&&game.status==='active'}));
++   if(selectedProvider===null){const {providers,rankingState}=await publicSupplierPlatforms(c),liveReady=providers.some(provider=>provider.platformLaunchReady);return json({mode:'provider-platforms',providers,games:[],providersOnly:true,platformsOnly:false,selectedProvider:null,selectedPlatform:null,platformCount:providers.length,totalGameCount:0,selectedGameCount:0,playable:liveReady,liveReady,launchProvider:liveReady?'megah5':null,ranking:{...rankingState.ranking,configured:rankingState.configured,source:'owner_curated',automaticRanking:false,internalGamesRanked:false}});}
++   const trustedSource=configuredGameCatalogueSourceIds(c).includes(selectedProvider),catalogue=trustedSource?await applyGameVisibility(db,customerSupplierCatalogue(await getGameCatalogue(c,{providerId:selectedProvider})),false):{providers:[],games:[]},selectedGames=(catalogue.games??[]).filter((game:any)=>game.provider===selectedProvider),allMaintenance=selectedGames.length>0&&selectedGames.every((game:any)=>game.maintenance===true||game.status==='suspended'),liveReady=providerCatalogueLiveReady(catalogue,selectedProvider,selectedProvider==='megah5'&&megaProviderLiveReady(c)),fresh=await publicSupplierPlatforms(c),providers=fresh.providers.map((provider:any)=>provider.id===selectedProvider?{...provider,platformLaunchReady:liveReady,platformStatus:provider.operationalStatus==='closed'?'closed':provider.operationalStatus==='suspended'?'maintenance':selectedGames.length&&(provider.connectionVerified!==true||provider.catalogueSynced!==true||allMaintenance)?'maintenance':liveReady?'ready':selectedGames.length?(selectedProvider==='megah5'?'catalogue_ready':'awaiting_platform_adapter'):provider.platformStatus}:provider),selectedPlatform=providers.find((provider:any)=>provider.id===selectedProvider)??null,games=selectedGames.map((game:any)=>({...game,playable:liveReady&&game.provider==='megah5'&&game.status==='active'}));
+    return json({mode:'provider-games',providers,games,providersOnly:false,platformsOnly:false,selectedProvider,selectedPlatform,platformCount:providers.length,totalGameCount:games.length,selectedGameCount:games.length,playable:games.some((game:any)=>game.playable),liveReady,launchProvider:liveReady?'megah5':null,ranking:{...fresh.rankingState.ranking,configured:fresh.rankingState.configured,source:'owner_curated',automaticRanking:false,internalGamesRanked:false}});
+   }
+   if(p==='/api/providers'){const staff=!!(u&&['staff','owner'].includes(u.role)),[items,supplierControl]=await Promise.all([rows(db,'SELECT * FROM providers ORDER BY name'),supplierOperationalState(db)]);return json({items:(items as any[]).filter(item=>apiSupplierIdSet.has(String(item.id))).filter(item=>staff||Number(item.visible)===1&&supplierControl.states.get(item.id)!=='closed').map(item=>({...item,operationalStatus:supplierControl.states.get(item.id)??'active'})),playable:false});}
+diff --git a/lib/encrypted-backup.ts b/lib/encrypted-backup.ts
+index 0c4c559..0d96c7d 100644
+--- a/lib/encrypted-backup.ts
++++ b/lib/encrypted-backup.ts
+@@ -6,9 +6,8 @@ export const BACKUP_FORMAT='MASTER7-ENCRYPTED-BACKUP-1';
+ export const BACKUP_SCHEMA_VERSION='0107-benefit-claim-reviews';
+ export const BACKUP_PAGE_SIZE=1000;
+ 
+-// Authentication sessions, OTP challenges and rate-limit buckets are deliberately
+-// excluded. A restored portal must require every person to sign in again.
+-export const BACKUP_TABLES=[
++// Preserve the deployed 0107 manifest for explicitly identified legacy restores.
++const LEGACY_0107_BACKUP_TABLES=[
+  'users','password_credentials','referral_codes','referral_relationships',
+  'marketing_contacts','marketing_campaigns','marketing_deliveries',
+  'deposit_orders','wallet_ledger','wallet_reservations','game_wallet_sessions','game_wallet_ledger',
+@@ -27,17 +26,48 @@ export const BACKUP_TABLES=[
+  'responsible_play_profiles','responsible_play_deposit_reservations'
+ ] as const;
+ 
+-const EXCLUDED_TABLES=['password_sessions','otp_challenges','rate_limits'] as const;
++export const BACKUP_TABLES=[...LEGACY_0107_BACKUP_TABLES,'marketing_webhook_events'] as const;
++type BackupTable=(typeof BACKUP_TABLES)[number];
++// These keys are checked against the release migrations by the pagination
++// regression. A prefix of a composite key does not define stable page bounds.
++const BACKUP_PRIMARY_KEYS:Record<BackupTable,readonly string[]>={
++ users:['id'],password_credentials:['username'],referral_codes:['code'],referral_relationships:['member_id'],
++ marketing_contacts:['id'],marketing_campaigns:['id'],marketing_deliveries:['campaign_id','contact_id'],
++ deposit_orders:['id'],wallet_ledger:['id'],wallet_reservations:['user_id'],game_wallet_sessions:['id'],game_wallet_ledger:['id'],
++ company_bank_accounts:['id'],manual_deposit_requests:['deposit_order_id'],announcements:['id'],audit:['id'],
++ providers:['id'],tickets:['id'],replies:['id'],ticket_reads:['ticket_id','user_id'],settings:['id'],lobby_ads:['id'],benefit_rules:['id'],
++ game_visibility:['provider_id','game_code'],custom_game_cards:['id'],payment_channel_controls:['provider_id'],
++ brand_directory_entries:['id'],api_supplier_artwork:['provider_id'],portal_schema_migrations:['version'],
++ portal_status_snapshots:['migration_version','entity_type','entity_key'],withdrawal_requests:['id'],game_catalogue_cache:['provider_id'],
++ accounting_daily_snapshots:['period_start'],accounting_snapshot_adjustments:['id'],accounting_late_adjustments:['id'],accounting_job_runs:['job_key'],
++ benefit_claims:['id'],voucher_manual_reviews:['claim_id'],voucher_manual_play_events:['id'],commission_periods:['id'],commission_entries:['id'],
++ turnover_obligations:['id'],wallet_posting_intents:['id'],payment_recovery_leases:['provider','order_id'],
++ provider_payout_controls:['provider_id'],provider_payouts:['id'],rewards_checkins:['id'],rewards_points_ledger:['id'],
++ responsible_play_profiles:['user_id'],responsible_play_deposit_reservations:['user_id','request_key'],marketing_webhook_events:['event_key'],
++};
++// A restored portal requires fresh sign-ins. The lock row is re-created by the
++// next transaction; restrictions and reservations remain in the durable tables.
++export const BACKUP_EXCLUDED_TABLES=['password_sessions','otp_challenges','rate_limits','responsible_play_locks'] as const;
+ const sha256=(value:Uint8Array|string)=>createHash('sha256').update(value).digest('hex');
+ export const BACKUP_SCHEMA_SHA256=sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:BACKUP_SCHEMA_VERSION,tables:BACKUP_TABLES}));
+ 
+-async function tableRows(db:D1Database,table:string){
++export function backupRestoreContract(schemaVersion:unknown,schemaSha256:unknown){
++ if(schemaVersion!==BACKUP_SCHEMA_VERSION)throw new Error('Backup schema version does not match this release');
++ if(schemaSha256===BACKUP_SCHEMA_SHA256)return {tables:BACKUP_TABLES,missingTables:[] as string[]};
++ // This exact prior release manifest omitted persistent webhook deduplication.
++ // Recover its existing records, but never label that receipt complete/current.
++ if(schemaSha256==='2648becd21723884358bcaf90f5928dc19c7cc58dcf090c87ca1db3c00c34d69')return {tables:LEGACY_0107_BACKUP_TABLES,missingTables:['marketing_webhook_events']};
++ throw new Error('Backup schema version does not match this release');
++}
++
++async function tableRows(db:D1Database,table:BackupTable){
+  const items:Record<string,unknown>[]=[];
+- // The adapter maps the same placeholders to SQLite and PostgreSQL. Ordering
+- // by the first selected column makes page boundaries deterministic while the
+- // bounded page size avoids the old 10,000-row truncation/failure mode.
++ // Use the full unique key, including every composite-key column, so the
++ // database may change its plan without repeating or omitting tied rows.
++ // Stable ordering alone does not provide a snapshot across concurrent writes.
++ const order=BACKUP_PRIMARY_KEYS[table].join(',');
+  for(let offset=0;;offset+=BACKUP_PAGE_SIZE){
+-  const result=await db.prepare(`SELECT * FROM ${table} ORDER BY 1 LIMIT ? OFFSET ?`).bind(BACKUP_PAGE_SIZE,offset).all();
++  const result=await db.prepare(`SELECT * FROM ${table} ORDER BY ${order} LIMIT ? OFFSET ?`).bind(BACKUP_PAGE_SIZE,offset).all();
+   const page=(result.results??[]) as Record<string,unknown>[];
+   items.push(...page);
+   if(page.length<BACKUP_PAGE_SIZE)break;
+@@ -52,7 +82,7 @@ export async function createEncryptedPortalBackup(db:D1Database,release:string,c
+   tables[table]=items;
+   manifestTables.push({name:table,rows:items.length,sha256:sha256(serialized)});
+  }
+- const createdAt=new Date().toISOString(),totalRecords=manifestTables.reduce((sum,item)=>sum+item.rows,0),payload={format:BACKUP_FORMAT,release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,createdAt,source:'master7-portal-logical-backup',restorePolicy:{forceNewSessions:true,excludedTables:[...EXCLUDED_TABLES]},manifest:{tableCount:manifestTables.length,totalRecords,tables:manifestTables},tables};
++ const createdAt=new Date().toISOString(),totalRecords=manifestTables.reduce((sum,item)=>sum+item.rows,0),payload={format:BACKUP_FORMAT,release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,createdAt,source:'master7-portal-logical-backup',restorePolicy:{forceNewSessions:true,excludedTables:[...BACKUP_EXCLUDED_TABLES]},manifest:{tableCount:manifestTables.length,totalRecords,tables:manifestTables},tables};
+  const publicKey=cryptoConfig.publicKey??BACKUP_PUBLIC_KEY,publicKeySha256=cryptoConfig.publicKeySha256??BACKUP_PUBLIC_KEY_SHA256,plaintext=Buffer.from(JSON.stringify(payload)),compressed=gzipSync(plaintext,{level:9}),contentKey=randomBytes(32),iv=randomBytes(12),cipher=createCipheriv('aes-256-gcm',contentKey,iv),ciphertext=Buffer.concat([cipher.update(compressed),cipher.final()]),authTag=cipher.getAuthTag(),encryptedKey=publicEncrypt({key:publicKey,oaepHash:'sha256',padding:constants.RSA_PKCS1_OAEP_PADDING},contentKey);
+  const envelope={format:BACKUP_FORMAT,release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,createdAt,publicKeySha256,encryption:{key:'RSA-OAEP-SHA256',content:'AES-256-GCM',compression:'gzip'},manifest:{tableCount:manifestTables.length,totalRecords,tables:manifestTables.map(item=>({name:item.name,rows:item.rows}))},encryptedKey:encryptedKey.toString('base64'),iv:iv.toString('base64'),authTag:authTag.toString('base64'),ciphertext:ciphertext.toString('base64'),ciphertextSha256:sha256(ciphertext),plaintextSha256:sha256(plaintext)};
+  return {envelope,metadata:{release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,createdAt,totalRecords,tableCount:manifestTables.length,publicKeySha256,ciphertextSha256:envelope.ciphertextSha256}};
+diff --git a/lib/game-catalogue.ts b/lib/game-catalogue.ts
+index ece65a1..198a94f 100644
+--- a/lib/game-catalogue.ts
++++ b/lib/game-catalogue.ts
+@@ -6,6 +6,11 @@ type Game={provider:string;providerName:string;gameCode:string;name:string;nameZ
+ type Cache={provider_id:string;status:string;games_json:string;checked_at:number;last_success_at:number;lease_until:number;upstream_status:number|null;complete:number};
+ const gateway='https://master7-integration-gateway.onrender.com';
+ const ttl=300,leaseSeconds=35,maxGames=2000;
++export function gameCatalogueCacheFresh(c:SyncContext,checkedAt:number){
++ // Ordinary synchronization starts at checked_at <= time - ttl. A summary
++ // may trust only the complementary interval, without starting that request.
++ return Number.isFinite(checkedAt)&&checkedAt>Math.floor(c.gameSyncNow?.()??Date.now()/1000)-ttl;
++}
+ const publicProviderIds=new Set<string>(GAME_PROVIDER_IDS);
+ export const gameSources:readonly Source[]=[
+  {id:'megah5',name:'MegaH5',path:'/providers/megah5/games',shape:'mega',imageHost:'gth.megah5.com'},
+diff --git a/lib/vpay.ts b/lib/vpay.ts
+index b9a8718..ef3dac7 100644
+--- a/lib/vpay.ts
++++ b/lib/vpay.ts
+@@ -2,7 +2,7 @@ import { createHash, timingSafeEqual } from 'node:crypto';
+ import { withdrawalWalletState } from './withdrawals.ts';
+ import {PaymentRequestError,definitivePaymentRejection,reconcileHistoricalPaymentRejections,recordPaymentDiagnostic,safeProviderCode,paymentUrlHost} from './payment-diagnostics.ts';
+ import {paymentCapability,unavailableBalanceCapability} from './payment-capabilities.ts';
+-import {providerPayoutCapabilities} from './payout-state.ts';
++import {vpayPayoutCapabilitySnapshot} from './vpay-payout.ts';
+ import {claimPaymentRecovery,finishPaymentRecovery,recoveryCandidates} from './payment-recovery.ts';
+ 
+ type Member = { id: string; username: string; role: string; approved: number; csrf: string };
+@@ -13,6 +13,9 @@ export type VPayContext = {
+   orderToken?: string;
+   queryToken?: string;
+   callbackToken?: string;
++  payoutToken?: string;
++  payoutEnabled?: string;
++  withdrawalDataKey?: string;
+   enabled?: string;
+   mode?: string;
+   vpayTraderId?: string;
+@@ -49,7 +52,7 @@ export function vpayCapabilitySnapshot(c:VPayContext,channelActive=false,remoteR
+  const configured=enabled(c),depositEnabled=configured&&channelActive&&c.enabled==='true'&&remoteReady;
+  return {
+   deposit:paymentCapability({implemented:true,configured,enabled:depositEnabled,blockers:[...(!configured?['deposit_configuration_incomplete']:[]),...(!channelActive?['channel_not_active']:[]),...(c.enabled!=='true'?['new_orders_disabled']:[]),...(channelActive&&c.enabled==='true'&&!remoteReady?['gateway_contract_not_ready']:[])]}),
+-  payout:providerPayoutCapabilities.vpay,
++  payout:vpayPayoutCapabilitySnapshot(c,channelActive),
+   balance:unavailableBalanceCapability(),
+  };
+ }
+@@ -208,7 +211,8 @@ async function reconcileVPayOrder(c:VPayContext,order:any,tradeNo:string){
+  const queried=await gatewayJson(c,'/platform/vpay/order-query',c.queryToken!,'POST',{outTradeNo:order.id,tradeNo}),envelope=queried.result,verified=envelope?.data;
+  const successCode=envelope?.code===0||envelope?.code==='0',returnedTrade=opaque(verified?.trade_no),returnedOrder=opaque(verified?.out_trade_no,50),returnedAmount=amountMinor(verified?.amount);
+  if(queried.provider!=='vpay'||!successCode)return 'awaiting_confirmation';
+- if(returnedOrder!==order.id||returnedTrade!==tradeNo||returnedAmount!==String(order.amount_minor)||(order.provider_trade_no&&order.provider_trade_no!==tradeNo)||(verified?.trader_id!==undefined&&String(verified.trader_id)!==String(c.vpayTraderId))){
++ // Legacy VPay replies may omit currency; an explicit currency must match MYR.
++ if(returnedOrder!==order.id||returnedTrade!==tradeNo||returnedAmount!==String(order.amount_minor)||(order.provider_trade_no&&order.provider_trade_no!==tradeNo)||(verified?.trader_id!==undefined&&String(verified.trader_id)!==String(c.vpayTraderId))||(verified?.currency!==undefined&&verified.currency!=='MYR')){
+   await holdLedgerReview(c,order,Math.floor(Date.now()/1000),'deposit_query_binding_review');return 'review';
+  }
+  if(String(verified?.state)!=='3')return 'awaiting_confirmation';
+diff --git a/public/assets/app.js b/public/assets/app.js
+index efd0ce0..10d69f9 100644
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -146,7 +146,7 @@ function renderApiSupplierButtons(){
+  const host=$("apiSupplierButtons");if(!host)return;clear(host);const category=state.gameCategory||"HOT",search=($("search")?.value||"").trim().toLowerCase(),categoryEntries=supplierEntriesForCategory(category),entries=categoryEntries.filter(entry=>!search||entry.name.toLowerCase().includes(search)),favorites=supplierFavoriteKeys();
+  if($("apiSupplierTitle"))$("apiSupplierTitle").textContent=state.lang==="zh"?"34 家独立游戏平台":"34 independent game platforms";if($("apiSupplierCountLabel"))$("apiSupplierCountLabel").textContent=`${entries.length} / 34 PLATFORMS`;const toggle=$("apiSupplierToggle");if(toggle)toggle.hidden=true;
+  if(!entries.length){host.append(node("p","muted",state.lang==="zh"?"这个分类目前没有游戏平台。":state.lang==="ms"?"Tiada platform dalam kategori ini.":"No platforms in this category yet."));return;}
+- for(const entry of entries){const index=categoryEntries.indexOf(entry),stateInfo=apiSupplierState(entry),connected=stateInfo.connected&&stateInfo.control==="active",tile=node("article","api-supplier-tile"),button=node("button",`api-supplier-button${connected?" connected":" pending"}`),art=supplierArtwork(entry,"api-supplier-art"),number=node("span","api-supplier-number",String(index+1).padStart(2,"0")),copy=node("span","api-supplier-copy"),name=node("strong","",entry.name),statusText=stateInfo.control==="closed"?(state.lang==="zh"?"已关闭":state.lang==="ms"?"Ditutup":"Closed"):stateInfo.control==="suspended"?(state.lang==="zh"?"维护中":state.lang==="ms"?"Penyelenggaraan":"Maintenance"):stateInfo.platformLaunchReady?(state.lang==="zh"?"平台入口已开放":state.lang==="ms"?"Pintu platform tersedia":"Platform entry ready"):stateInfo.connected?(state.lang==="zh"?"API 已连接 · 平台入口待厂家开放":state.lang==="ms"?"API disambung · pintu platform menunggu":"API connected · platform entry pending"):(state.lang==="zh"?"等待厂家 API":state.lang==="ms"?"Menunggu API penyedia":"Awaiting provider API"),status=node("small","",statusText),favorite=node("button",`api-supplier-favorite${favorites.has(entry.id)?" active":""}`,favorites.has(entry.id)?"♥":"♡");button.type="button";button.dataset.providerId=entry.id;button.setAttribute?.("aria-label",`${entry.name} platform entry`);copy.append(name,status);button.append(art,number,copy);button.onclick=()=>openCatalogProvider(entry.id,entry.name);favorite.type="button";favorite.setAttribute("aria-label",`${favorites.has(entry.id)?"Remove":"Add"} ${entry.name} favourite`);favorite.onclick=()=>toggleFavoriteProvider(entry.id);tile.append(button,favorite);host.append(tile);}
++ for(const entry of entries){const index=categoryEntries.indexOf(entry),stateInfo=apiSupplierState(entry),connected=stateInfo.connected&&stateInfo.control==="active",tile=node("article","api-supplier-tile"),button=node("button",`api-supplier-button${connected?" connected":" pending"}`),art=supplierArtwork(entry,"api-supplier-art"),number=node("span","api-supplier-number",String(index+1).padStart(2,"0")),copy=node("span","api-supplier-copy"),name=node("strong","",entry.name),statusText=stateInfo.control==="closed"?(state.lang==="zh"?"已关闭":state.lang==="ms"?"Ditutup":"Closed"):stateInfo.control==="suspended"?(state.lang==="zh"?"维护中":state.lang==="ms"?"Penyelenggaraan":"Maintenance"):stateInfo.platformLaunchReady?(state.lang==="zh"?"平台入口已开放":state.lang==="ms"?"Pintu platform tersedia":"Platform entry ready"):stateInfo.connected?(state.lang==="zh"?"目录已连接 · 游戏入口尚未就绪":state.lang==="ms"?"Katalog disambungkan · pintu permainan belum sedia":"Catalogue connected · game entry pending"):(state.lang==="zh"?"等待厂家 API":state.lang==="ms"?"Menunggu API penyedia":"Awaiting provider API"),status=node("small","",statusText),favorite=node("button",`api-supplier-favorite${favorites.has(entry.id)?" active":""}`,favorites.has(entry.id)?"♥":"♡");button.type="button";button.dataset.providerId=entry.id;button.setAttribute?.("aria-label",`${entry.name} platform entry`);copy.append(name,status);button.append(art,number,copy);button.onclick=()=>openCatalogProvider(entry.id,entry.name);favorite.type="button";favorite.setAttribute("aria-label",`${favorites.has(entry.id)?"Remove":"Add"} ${entry.name} favourite`);favorite.onclick=()=>toggleFavoriteProvider(entry.id);tile.append(button,favorite);host.append(tile);}
+ }
+ function renderApiSupplierAdminButtons(owner=true){const host=$("apiSupplierAdminButtons");if(!host)return;clear(host);for(const [index,entry] of apiSupplierEntries.entries()){const stateInfo=apiSupplierState(entry),operational=stateInfo.control==="active",card=node("article",`api-supplier-admin-button${stateInfo.connected&&operational?" connected":" pending"}`),art=supplierArtwork(entry,"api-supplier-admin-art"),number=node("span","api-supplier-number",String(index+1).padStart(2,"0")),text=node("span","api-supplier-admin-copy"),name=node("strong","",entry.name),statusText=stateInfo.control==="closed"?"Closed":stateInfo.control==="suspended"?"Maintenance":stateInfo.connected?"Provider API connected · Active":"Active · Connection not yet verified",status=node("small","",statusText),photo=node("small","",state.supplierArtwork?.[entry.id]?"Custom platform photo":"Original platform photo"),details=document.createElement("details"),summary=document.createElement("summary");summary.textContent="Manage platform";details.className="supplier-manage-details";details.append(summary);text.append(name,status,photo);card.append(art,number,text);if(owner){const label=node("label","api-supplier-upload","Platform photo · 800 × 600 px (4:3) · JPG/PNG/WebP · max 350 KB"),input=document.createElement("input");input.type="file";input.accept="image/jpeg,image/png,image/webp";input.setAttribute("aria-label",`Upload ${entry.name} platform artwork · 800 × 600 px`);label.append(input);input.onchange=async()=>{const file=input.files?.[0];if(!file)return;input.disabled=true;try{const imageData=await imageDataForUpload(file,800,600),result=await api("/api/admin/supplier-art","POST",{providerId:entry.id,imageData});state.supplierArtwork[entry.id]=result.updatedAt;renderApiSupplierButtons();renderApiSupplierAdminButtons(owner);notification(t("success"));}catch(error){notification(error.message);input.disabled=false;}};details.append(label);}const controls=gameStateButtons(stateInfo.control,async value=>{try{await api("/api/admin/supplier-art","POST",{providerId:entry.id,status:value});state.supplierControls[entry.id]=value;state.adminGames=null;await loadGameCatalogue();renderApiSupplierButtons();renderApiSupplierAdminButtons(owner);notification(t("success"));}catch(error){notification(error.message);renderApiSupplierAdminButtons(owner);}},owner);controls.setAttribute("aria-label",`${entry.name} supplier status controls`);details.append(controls);card.append(details);host.append(card);}}
+ 
+@@ -254,7 +254,7 @@ async function loadMemberWallet(){
+  if(state.depositProvider==="vpay"&&!vpayReady&&oneReady)state.depositProvider="1mpay";
+  if(state.depositProvider==="1mpay"&&!oneReady&&vpayReady)state.depositProvider="vpay";
+  const oneSelected=state.depositProvider==="1mpay",gspaySelected=state.depositProvider==="gspay",bankSelected=state.depositProvider==="manual-bank",bankReady=bankResult.status==="fulfilled"&&bankResult.value.items?.length>0,ready=bankSelected?bankReady:gspaySelected?gspayReady:oneSelected?oneReady:vpayReady;
+- const awaitingAcceptance=oneSelected&&oneReady&&state.oneMpayStatus?.settlementVerified!==true||gspaySelected&&gspayReady&&state.gspayStatus?.settlementVerified!==true;
++ const awaitingAcceptance=state.depositProvider==="vpay"&&vpayReady&&state.paymentStatus?.settlementVerified!==true||oneSelected&&oneReady&&state.oneMpayStatus?.settlementVerified!==true||gspaySelected&&gspayReady&&state.gspayStatus?.settlementVerified!==true;
+  const readinessLabel=awaitingAcceptance?"verificationPending":ready?"ready":"off";
+  $("walletPaymentStatus").textContent=`${bankSelected?"BANK TRANSFER":gspaySelected?"GSPAY+":oneSelected?"1MPay":"VPay"} · ${dt(readinessLabel)}`;
+  const select=$("vpayTradeCode"),selectedTradeCode=select.value;clear(select);for(const code of(vpayReady?state.paymentStatus.tradeCodes||[]:[])){const option=node("option","",`Payment option ${code}`);option.value=code;select.append(option);}
+@@ -536,9 +536,9 @@ function favoriteGameKeys(){return new Set(Array.isArray(state.favoriteGames)?st
+ function loadFavoriteGames(){try{const value=JSON.parse(localStorage.getItem("master7-favorite-games")||"[]");state.favoriteGames=Array.isArray(value)?value.filter(item=>typeof item==="string").slice(0,200):[];}catch{state.favoriteGames=[];}}
+ function toggleFavoriteGame(game){const key=gameIdentity(game),favorites=favoriteGameKeys();if(favorites.has(key))favorites.delete(key);else favorites.add(key);state.favoriteGames=[...favorites].slice(-200);try{localStorage.setItem("master7-favorite-games",JSON.stringify(state.favoriteGames));}catch{}renderCatalog();}
+ const gameWalletCopy={
+- zh:{loading:"正在读取游戏钱包…",waiting:"游戏入口已完成，正在等待厂家生产验收。",ready:"游戏钱包已连接，可以从游戏卡片进入。",none:"目前没有进行中的游戏。",active:"游戏进行中；退出后资金会结算回前台钱包。",deposit_pending:"正在确认转入游戏的资金。",deposit_unknown:"转入结果未确认，请查询厂家结果。",withdraw_pending:"正在结算回前台钱包。",withdraw_unknown:"结算结果未确认，请查询厂家结果。",manual_review:"这笔记录需要后台与厂家人工核对。",settled:"上一局已经结算回前台钱包。",failed:"游戏钱包暂时无法读取。",launching:"正在建立安全游戏连接…",opened:"游戏已在新窗口打开；关闭游戏后会自动结算。",settling:"正在结算回前台钱包…",settledNotice:"游戏资金已结算回前台钱包。",recovering:"正在查询厂家交易结果…",recovered:"厂家交易结果已更新。",popup:"浏览器拦截了游戏窗口，请允许弹出窗口后再试。"},
+- en:{loading:"Loading game wallet…",waiting:"The game entry is prepared and awaits provider production acceptance.",ready:"Game wallet connected. Enter from an enabled game card.",none:"No game is currently in progress.",active:"Game in progress. Funds settle to the portal wallet after exit.",deposit_pending:"Confirming the transfer into the game.",deposit_unknown:"The deposit outcome is unconfirmed. Check the provider result.",withdraw_pending:"Settling funds back to the portal wallet.",withdraw_unknown:"The settlement outcome is unconfirmed. Check the provider result.",manual_review:"This record requires backoffice and provider reconciliation.",settled:"The previous game has settled to the portal wallet.",failed:"The game wallet is temporarily unavailable.",launching:"Creating a secure game session…",opened:"Game opened in a new window. Closing it starts settlement.",settling:"Settling funds to the portal wallet…",settledNotice:"Game funds settled to the portal wallet.",recovering:"Checking the provider transfer result…",recovered:"The provider transfer result was updated.",popup:"The browser blocked the game window. Allow pop-ups and try again."},
+- ms:{loading:"Memuatkan dompet permainan…",waiting:"Pintu masuk permainan telah siap dan menunggu penerimaan produksi penyedia.",ready:"Dompet permainan disambungkan. Masuk melalui kad permainan yang aktif.",none:"Tiada permainan sedang berjalan.",active:"Permainan sedang berjalan. Dana kembali ke dompet portal selepas keluar.",deposit_pending:"Mengesahkan pindahan ke permainan.",deposit_unknown:"Hasil deposit belum disahkan. Semak keputusan penyedia.",withdraw_pending:"Menyelesaikan dana ke dompet portal.",withdraw_unknown:"Hasil penyelesaian belum disahkan. Semak keputusan penyedia.",manual_review:"Rekod ini perlu disemak dengan penyedia.",settled:"Permainan sebelumnya telah diselesaikan ke dompet portal.",failed:"Dompet permainan tidak tersedia buat sementara waktu.",launching:"Membina sesi permainan selamat…",opened:"Permainan dibuka dalam tetingkap baharu. Tutup untuk memulakan penyelesaian.",settling:"Menyelesaikan dana ke dompet portal…",settledNotice:"Dana permainan telah kembali ke dompet portal.",recovering:"Menyemak hasil pindahan penyedia…",recovered:"Hasil pindahan penyedia telah dikemas kini.",popup:"Tetingkap permainan disekat. Benarkan pop-up dan cuba lagi."}
++ zh:{loading:"正在读取游戏钱包…",waiting:"游戏启动或钱包结算尚未就绪，请查看该平台状态。",ready:"游戏钱包已连接，可以从游戏卡片进入。",none:"目前没有进行中的游戏。",active:"游戏进行中；退出后资金会结算回前台钱包。",deposit_pending:"正在确认转入游戏的资金。",deposit_unknown:"转入结果未确认，请查询厂家结果。",withdraw_pending:"正在结算回前台钱包。",withdraw_unknown:"结算结果未确认，请查询厂家结果。",manual_review:"这笔记录需要后台与厂家人工核对。",settled:"上一局已经结算回前台钱包。",failed:"游戏钱包暂时无法读取。",launching:"正在建立安全游戏连接…",opened:"游戏已在新窗口打开；关闭游戏后会自动结算。",settling:"正在结算回前台钱包…",settledNotice:"游戏资金已结算回前台钱包。",recovering:"正在查询厂家交易结果…",recovered:"厂家交易结果已更新。",popup:"浏览器拦截了游戏窗口，请允许弹出窗口后再试。"},
++ en:{loading:"Loading game wallet…",waiting:"Game launch or wallet settlement is not ready. Check this platform’s status.",ready:"Game wallet connected. Enter from an enabled game card.",none:"No game is currently in progress.",active:"Game in progress. Funds settle to the portal wallet after exit.",deposit_pending:"Confirming the transfer into the game.",deposit_unknown:"The deposit outcome is unconfirmed. Check the provider result.",withdraw_pending:"Settling funds back to the portal wallet.",withdraw_unknown:"The settlement outcome is unconfirmed. Check the provider result.",manual_review:"This record requires backoffice and provider reconciliation.",settled:"The previous game has settled to the portal wallet.",failed:"The game wallet is temporarily unavailable.",launching:"Creating a secure game session…",opened:"Game opened in a new window. Closing it starts settlement.",settling:"Settling funds to the portal wallet…",settledNotice:"Game funds settled to the portal wallet.",recovering:"Checking the provider transfer result…",recovered:"The provider transfer result was updated.",popup:"The browser blocked the game window. Allow pop-ups and try again."},
++ ms:{loading:"Memuatkan dompet permainan…",waiting:"Pelancaran permainan atau penyelesaian dompet belum sedia. Semak status platform ini.",ready:"Dompet permainan disambungkan. Masuk melalui kad permainan yang aktif.",none:"Tiada permainan sedang berjalan.",active:"Permainan sedang berjalan. Dana kembali ke dompet portal selepas keluar.",deposit_pending:"Mengesahkan pindahan ke permainan.",deposit_unknown:"Hasil deposit belum disahkan. Semak keputusan penyedia.",withdraw_pending:"Menyelesaikan dana ke dompet portal.",withdraw_unknown:"Hasil penyelesaian belum disahkan. Semak keputusan penyedia.",manual_review:"Rekod ini perlu disemak dengan penyedia.",settled:"Permainan sebelumnya telah diselesaikan ke dompet portal.",failed:"Dompet permainan tidak tersedia buat sementara waktu.",launching:"Membina sesi permainan selamat…",opened:"Permainan dibuka dalam tetingkap baharu. Tutup untuk memulakan penyelesaian.",settling:"Menyelesaikan dana ke dompet portal…",settledNotice:"Dana permainan telah kembali ke dompet portal.",recovering:"Menyemak hasil pindahan penyedia…",recovered:"Hasil pindahan penyedia telah dikemas kini.",popup:"Tetingkap permainan disekat. Benarkan pop-up dan cuba lagi."}
+ };
+ const gwt=key=>gameWalletCopy[state.lang]?.[key]||gameWalletCopy.en[key]||key;
+ function renderGameWallet(){
+@@ -581,7 +581,7 @@ async function recoverGameWallet(){
+ function recommendedCatalog(games){const ordered=[...games.filter(game=>game.status==="active"),...games.filter(game=>game.status!=="active")],groups=new Map();for(const game of ordered){if(!groups.has(game.provider))groups.set(game.provider,[]);groups.get(game.provider).push(game);}const result=[];for(let offset=0;;offset++){let added=false;for(const list of groups.values()){if(list[offset]){result.push(list[offset]);added=true;}}if(!added)return result;}}
+ function publicGameCard(game){
+  const card=node("article","provider-card game-card"),cover=node("div","game-cover"),image=document.createElement("img"),title=node("h3","",state.lang==="zh"&&game.nameZh?game.nameZh:game.name||game.gameCode),meta=node("p","muted",`${game.providerName||game.provider} · ${normalizedGameCategory(game)}`),status=node("span","tag"),favorite=node("button",`game-favorite-button${favoriteGameKeys().has(gameIdentity(game))?" active":""}`,favoriteGameKeys().has(gameIdentity(game))?"♥":"♡"),action=node("button",game.playable?"button button-primary small":"button button-outline small");
+- image.src=game.imageData||game.imageUrl||`/assets/providers/${game.provider}.webp`;image.alt=title.textContent;image.loading="lazy";image.onerror=()=>{image.onerror=null;image.src=`/assets/providers/${game.provider}.webp`;};cover.append(image);favorite.type="button";favorite.setAttribute("aria-label",`${favorite.textContent==="♥"?"Remove":"Add"} ${title.textContent} favourite`);favorite.onclick=()=>toggleFavoriteGame(game);status.textContent=game.status==="suspended"?(state.lang==="zh"?"维护中":"Maintenance"):game.playable?(state.lang==="zh"?"可以进入":"Ready"):(state.lang==="zh"?"游戏资料已连接":"Catalogue ready");action.type="button";action.disabled=!game.playable||state.gameLaunchBusy||game.status!=="active";action.textContent=game.playable?(state.lang==="zh"?"开始游戏":"Play"):(state.lang==="zh"?"等待厂家开放":"Awaiting launch");action.onclick=()=>startGame(game);card.append(cover,favorite,title,meta,status,action);return card;
++ image.src=game.imageData||game.imageUrl||`/assets/providers/${game.provider}.webp`;image.alt=title.textContent;image.loading="lazy";image.onerror=()=>{image.onerror=null;image.src=`/assets/providers/${game.provider}.webp`;};cover.append(image);favorite.type="button";favorite.setAttribute("aria-label",`${favorite.textContent==="♥"?"Remove":"Add"} ${title.textContent} favourite`);favorite.onclick=()=>toggleFavoriteGame(game);status.textContent=game.status==="suspended"?(state.lang==="zh"?"维护中":"Maintenance"):game.playable?(state.lang==="zh"?"可以进入":"Ready"):(state.lang==="zh"?"游戏资料已连接":"Catalogue ready");action.type="button";action.disabled=!game.playable||state.gameLaunchBusy||game.status!=="active";action.textContent=game.playable?(state.lang==="zh"?"开始游戏":"Play"):(state.lang==="zh"?"启动尚未就绪":"Launch not ready");action.onclick=()=>startGame(game);card.append(cover,favorite,title,meta,status,action);return card;
+ }
+ function renderCatalog(){
+  const host=$("providers");if(!host)return;clear(host);const category=state.gameCategory||"HOT",entries=supplierEntriesForCategory(category),connectedCount=apiSupplierEntries.filter(entry=>{const item=apiSupplierState(entry);return item.connected&&item.control==="active";}).length,clearProvider=$("clearProviderFilter"),searchBox=$("search");
+@@ -590,7 +590,7 @@ function renderCatalog(){
+  const entry=apiSupplierEntries.find(item=>item.id===state.selectedCatalogProvider);if(!entry){state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;renderApiSupplierButtons();renderCatalog();return;}const info=apiSupplierState(entry),loaded=state.gameCatalogue?.selectedProvider===entry.id,games=loaded&&Array.isArray(state.games)?state.games:[],card=node("article",`platform-entry-status${info.connected&&info.control==="active"?" connected":""}`),art=supplierArtwork(entry,"platform-entry-art"),copy=node("div","platform-entry-copy"),title=node("h2","",entry.name),categoryText=node("p","muted",Object.entries(apiSupplierCategoryIds).filter(([,ids])=>ids.includes(entry.id)).map(([name])=>name).join(" · ")),message=node("p","platform-entry-message"),action=node("button","button button-primary");
+  if(searchBox)searchBox.placeholder=state.lang==="zh"?`搜索 ${entry.name} 游戏`:`Search ${entry.name} games`;if(clearProvider){clearProvider.hidden=false;clearProvider.textContent=state.lang==="zh"?"← 返回 34 家游戏平台":state.lang==="ms"?"← Kembali ke 34 platform":"← Back to 34 game platforms";}
+  const allMaintenance=games.length>0&&games.every(game=>game.maintenance===true||game.status==="suspended");
+- let statusText;if(!loaded)statusText=state.lang==="zh"?"正在读取这家厂商的游戏…":"Loading this provider's games…";else if(info.control==="closed")statusText=state.lang==="zh"?"这个平台入口已关闭。":"This platform entry is closed.";else if(info.control==="suspended")statusText=state.lang==="zh"?"这个平台正在维护。":"This platform is under maintenance.";else if(games.length&&!info.connected)statusText=state.lang==="zh"?`保留 ${games.length} 款旧目录；厂家连接目前不可用，平台维护中。`:state.lang==="ms"?`${games.length} katalog lama disimpan; sambungan penyedia tidak tersedia dan platform sedang diselenggara.`:`${games.length} saved catalogue games; the provider connection is unavailable and the platform is under maintenance.`;else if(games.length&&allMaintenance)statusText=state.lang==="zh"?`已同步 ${games.length} 款游戏；目前全部维护中。`:state.lang==="ms"?`${games.length} permainan disegerakkan; semuanya sedang diselenggara.`:`${games.length} games synchronized; all are currently under maintenance.`;else if(games.length&&info.platformLaunchReady)statusText=state.lang==="zh"?`已连接 ${games.length} 款游戏，可以进入。`:`${games.length} games connected and ready.`;else if(games.length)statusText=state.lang==="zh"?`已连接 ${games.length} 款游戏；启动入口等待厂家开放。`:`${games.length} games connected; launch access is awaiting the provider.`;else statusText=state.lang==="zh"?"正在等待厂家游戏 API。":"Awaiting the provider game API.";
++ let statusText;if(!loaded)statusText=state.lang==="zh"?"正在读取这家厂商的游戏…":"Loading this provider's games…";else if(info.control==="closed")statusText=state.lang==="zh"?"这个平台入口已关闭。":"This platform entry is closed.";else if(info.control==="suspended")statusText=state.lang==="zh"?"这个平台正在维护。":"This platform is under maintenance.";else if(games.length&&!info.connected)statusText=state.lang==="zh"?`保留 ${games.length} 款旧目录；厂家连接目前不可用，平台维护中。`:state.lang==="ms"?`${games.length} katalog lama disimpan; sambungan penyedia tidak tersedia dan platform sedang diselenggara.`:`${games.length} saved catalogue games; the provider connection is unavailable and the platform is under maintenance.`;else if(games.length&&allMaintenance)statusText=state.lang==="zh"?`已同步 ${games.length} 款游戏；目前全部维护中。`:state.lang==="ms"?`${games.length} permainan disegerakkan; semuanya sedang diselenggara.`:`${games.length} games synchronized; all are currently under maintenance.`;else if(games.length&&info.platformLaunchReady)statusText=state.lang==="zh"?`已连接 ${games.length} 款游戏，可以进入。`:`${games.length} games connected and ready.`;else if(games.length)statusText=state.lang==="zh"?`已同步 ${games.length} 款游戏；启动或钱包接入尚未就绪。`:`${games.length} games synchronized; launch or wallet integration is not ready.`;else statusText=state.lang==="zh"?"供应商游戏接口尚未接通。":"The provider game API is not connected.";
+  message.textContent=statusText;action.type="button";action.disabled=!games.length;action.textContent=games.length?(state.lang==="zh"?`查看 ${games.length} 款游戏`:`View ${games.length} games`):(state.lang==="zh"?"等待厂家 API":"Awaiting provider API");action.onclick=()=>host.querySelector(".game-grid")?.scrollIntoView({behavior:"smooth",block:"start"});copy.append(title,categoryText,message,action);card.append(art,copy);host.append(card);
+  if(games.length){const search=(searchBox?.value||"").trim().toLowerCase(),favorites=favoriteGameKeys(),filtered=games.filter(game=>(!search||[game.name,game.nameZh,game.gameCode].some(value=>String(value||"").toLowerCase().includes(search)))&&(category==="HOT"||category==="FAV"&&favorites.has(gameIdentity(game))||normalizedGameCategory(game)===category)&&(state.gameAccessZone==="ALL"||game.accessZone===state.gameAccessZone)),grid=node("div","catalog-grid game-grid");for(const game of filtered.slice(0,state.gameLimit))grid.append(publicGameCard(game));host.append(grid);if(filtered.length>state.gameLimit){const more=node("button","button button-outline game-load-more",state.lang==="zh"?`显示更多（${state.gameLimit}/${filtered.length}）`:`Show more (${state.gameLimit}/${filtered.length})`);more.type="button";more.onclick=()=>{state.gameLimit+=24;renderCatalog();};host.append(more);}if(!filtered.length)host.append(node("p","notice",state.lang==="zh"?"这个筛选没有游戏。":"No games match this filter."));}
+  const status=$("gamesStatus");if(status)status.textContent=`${entry.name} · ${loaded?`${games.length} GAMES`:"LOADING"} · ${info.control==="active"?(info.connected?"API CONNECTED":"API PENDING"):info.control.toUpperCase()}`;
+@@ -728,8 +728,44 @@ function paintGameVisibility(owner=true){
+ }
+ async function renderGameVisibility(owner=true,force=false){const host=$("gameCatalogSettings");if(!host)return;if(force||!state.adminGames){host.replaceChildren(node("p","muted","Loading game controls…"));const data=await api("/api/admin/games");state.adminGames=data.games||[];}paintGameVisibility(owner);}
+ function setupGameControlPanel(owner=true){const details=$("gameCatalogDetails");if(!details)return;if(!details.dataset.bound){details.dataset.bound="true";details.addEventListener("toggle",()=>{if(details.open)renderGameVisibility(owner).catch(error=>notification(error.message));});$("adminGameSearch")?.addEventListener("input",event=>{state.adminGameSearch=event.target.value;state.adminGamePage=1;paintGameVisibility(owner);});$("adminGameProviderFilter")?.addEventListener("change",event=>{state.adminGameProvider=event.target.value;state.adminGamePage=1;paintGameVisibility(owner);});$("adminGameCategoryFilter")?.addEventListener("change",event=>{state.adminGameCategory=event.target.value;state.adminGamePage=1;paintGameVisibility(owner);});$("adminGamePrevious")?.addEventListener("click",()=>{state.adminGamePage=Math.max(1,state.adminGamePage-1);paintGameVisibility(owner);});$("adminGameNext")?.addEventListener("click",()=>{state.adminGamePage++;paintGameVisibility(owner);});}if(details.open)return renderGameVisibility(owner);$("gameCatalogSettings").replaceChildren(node("p","muted","Open the controls to load one page of games."));}
+-function paymentCheck(value){const mark=node("span",`gateway-check-mark ${value?"ok":"off"}`,value?"✅":"❌");mark.setAttribute("aria-label",value?"Passed":"Not passed");return mark;}
+-async function renderPaymentGatewayChecks(){const host=$("paymentGatewayChecks");if(!host)return;clear(host);const providers=[{name:"VPay",path:"/api/payments/vpay/status"},{name:"GSPAY+",path:"/api/payments/gspay/status"},{name:"1MPAY",path:"/api/payments/1mpay/status"}],results=await Promise.allSettled(providers.map(item=>api(item.path))),table=node("table","gateway-check-table"),head=document.createElement("thead"),headRow=document.createElement("tr");for(const label of ["Company","Deposit configured","New order","Query","Callback","Payout","Balance","Wallet verified"]){const cell=document.createElement("th");cell.textContent=label;headRow.append(cell);}head.append(headRow);const body=document.createElement("tbody");providers.forEach((item,index)=>{const status=results[index].status==="fulfilled"?results[index].value:null,capabilities=status?.capabilities||{},deposit=capabilities.deposit||{},payout=capabilities.payout||{},balance=capabilities.balance||{},row=document.createElement("tr"),name=document.createElement("th");name.scope="row";name.textContent=item.name;row.append(name);const checks=[deposit.configured===true,deposit.enabled===true,status?.queryReady===true,status?.callbacksReady===true,payout.enabled===true&&payout.submissionEnabled===true,balance.enabled===true,status?.settlementVerified===true&&status?.liveReady===true];for(const check of checks){const cell=document.createElement("td");cell.append(paymentCheck(check));row.append(cell);}body.append(row);});table.append(head,body);host.append(table);}
++function paymentGatewayLabels(){
++ const labels={
++  en:{headers:["Company","Deposit configured","New order","Query","Callback","Payout","Balance","Wallet verified"],yes:"Yes",no:"No",unavailable:"Status unavailable. Refresh to try again."},
++  zh:{headers:["供应商","充值已配置","新建充值单","查单","回调","出款","商户余额","钱包结算已验收"],yes:"是",no:"否",unavailable:"状态读取失败，请刷新重试。"},
++  ms:{headers:["Syarikat","Deposit dikonfigurasikan","Deposit baharu","Semakan","Panggilan balik","Pembayaran keluar","Baki peniaga","Penyelesaian dompet disahkan"],yes:"Ya",no:"Tidak",unavailable:"Status tidak tersedia. Muat semula untuk mencuba lagi."}
++ };
++ return labels[state.lang]||labels.en;
++}
++function paymentGatewayStatusAvailable(status){
++ const object=value=>Boolean(value)&&typeof value==="object"&&!Array.isArray(value);
++ if(!object(status)||!object(status.capabilities))return false;
++ const required=[
++  [status,["queryReady","callbacksReady","settlementVerified","liveReady"]],
++  [status.capabilities.deposit,["configured","enabled"]],
++  [status.capabilities.payout,["enabled","submissionEnabled"]],
++  [status.capabilities.balance,["enabled"]]
++ ];
++ return required.every(([value,keys])=>object(value)&&keys.every(key=>typeof value[key]==="boolean"));
++}
++function paymentCheck(value){const labels=paymentGatewayLabels(),mark=node("span",`gateway-check-mark ${value?"ok":"off"}`,value?"✅":"❌");mark.setAttribute("aria-label",value?labels.yes:labels.no);return mark;}
++async function renderPaymentGatewayChecks(){
++ const host=$("paymentGatewayChecks");if(!host)return;clear(host);
++ const providers=[{name:"VPay",path:"/api/payments/vpay/status"},{name:"GSPAY+",path:"/api/payments/gspay/status"},{name:"1MPAY",path:"/api/payments/1mpay/status"}];
++ const results=await Promise.allSettled(providers.map(item=>api(item.path))),labels=paymentGatewayLabels(),table=node("table","gateway-check-table"),head=document.createElement("thead"),headRow=document.createElement("tr");
++ for(const label of labels.headers){const cell=document.createElement("th");cell.scope="col";cell.textContent=label;headRow.append(cell);}head.append(headRow);
++ const body=document.createElement("tbody");
++ providers.forEach((item,index)=>{
++  const result=results[index],status=result.status==="fulfilled"?result.value:null,row=document.createElement("tr"),name=document.createElement("th");
++  name.scope="row";name.textContent=item.name;row.append(name);
++  if(!paymentGatewayStatusAvailable(status)){
++   const cell=document.createElement("td");cell.colSpan=labels.headers.length-1;cell.className="muted";cell.setAttribute("role","status");cell.textContent=labels.unavailable;row.append(cell);body.append(row);return;
++  }
++  const capabilities=status.capabilities||{},deposit=capabilities.deposit||{},payout=capabilities.payout||{},balance=capabilities.balance||{};
++  const checks=[deposit.configured===true,deposit.enabled===true,status.queryReady===true,status.callbacksReady===true,payout.enabled===true&&payout.submissionEnabled===true,balance.enabled===true,status.settlementVerified===true&&status.liveReady===true];
++  for(const check of checks){const cell=document.createElement("td");cell.append(paymentCheck(check));row.append(cell);}body.append(row);
++ });
++ table.append(head,body);host.append(table);
++}
+ async function renderPaymentChannelManager(owner=true){const data=await api("/api/admin/payment-channels"),host=$("paymentChannelSettings");await renderPaymentGatewayChecks();clear(host);for(const channel of data.items||[]){const row=node("article","row-item payment-channel-control"),info=node("div"),title=node("strong","",channel.provider_name),meta=node("small","","MYR · independent frontend and backoffice control"),status=gameStateButtons(channel.status,async value=>{try{await api("/api/admin/payment-channels","POST",{providerId:channel.provider_id,status:value});await loadPublic();await renderPaymentChannelManager(owner);}catch(error){notification(error.message);await renderPaymentChannelManager(owner);}},owner);status.setAttribute("aria-label",`${channel.provider_name} independent status controls`);info.append(title,meta);row.append(info,status);host.append(row);}}
+ 
+ function renderTicketUnreadBadges(){const count=Math.max(0,Number(state.ticketUnread)||0);document.querySelectorAll("[data-ticket-unread]").forEach(badge=>{badge.textContent=count>99?"99+":String(count);badge.hidden=count===0;});const admin=$("adminNotificationCount");if(admin)admin.textContent=String(count);}
+diff --git a/public/service-worker.js b/public/service-worker.js
+index dc317fa..423922c 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.94-readiness-split';
++const CACHE='master7-shell-17.0.0-selfbuilt.95-repair-candidate';
+ const SHELL=['/offline.html','/manifest.webmanifest','/favicon.svg','/assets/style.css','/assets/suite-theme.css','/assets/app.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/scripts/postgres-restore-dry-run.mjs b/scripts/postgres-restore-dry-run.mjs
+index b532de0..9ccbced 100644
+--- a/scripts/postgres-restore-dry-run.mjs
++++ b/scripts/postgres-restore-dry-run.mjs
+@@ -1,10 +1,11 @@
+ import {constants,createDecipheriv,createHash,privateDecrypt,randomBytes} from 'node:crypto';
+ import {readFileSync,writeFileSync} from 'node:fs';
+-import {basename,resolve} from 'node:path';
++import {basename} from 'node:path';
+ import {gunzipSync} from 'node:zlib';
+ import pg from 'pg';
+-import {BACKUP_FORMAT,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES} from '../lib/encrypted-backup.ts';
++import {BACKUP_EXCLUDED_TABLES,BACKUP_FORMAT,BACKUP_TABLES,backupRestoreContract} from '../lib/encrypted-backup.ts';
+ import {assertIsolatedRestoreTarget} from '../lib/restore-safety.mjs';
++import {initializeRehearsalSchema,withRollbackOnlyTransaction} from './restore-postgres-schema.mjs';
+ 
+ const rawArgs=process.argv.slice(2),confirmed=rawArgs.includes('--confirm-isolated'),args=rawArgs.filter(value=>value!=='--confirm-isolated');
+ const [backupPath,privateKeyPath,passphrasePath,receiptPath]=args;
+@@ -13,7 +14,7 @@ const connectionString=process.env.MASTER7_RESTORE_DATABASE_URL;
+ const target=assertIsolatedRestoreTarget(connectionString,[process.env.PORTAL_POSTGRES_URL,process.env.DATABASE_URL]);
+ const hash=value=>createHash('sha256').update(value).digest('hex'),backupBytes=readFileSync(backupPath),envelope=JSON.parse(backupBytes.toString('utf8'));
+ if(envelope.format!==BACKUP_FORMAT)throw new Error('Unsupported backup format');
+-if(envelope.schemaVersion!==BACKUP_SCHEMA_VERSION||envelope.schemaSha256!==BACKUP_SCHEMA_SHA256)throw new Error('Backup schema version does not match this release');
++const contract=backupRestoreContract(envelope.schemaVersion,envelope.schemaSha256);
+ const ciphertext=Buffer.from(envelope.ciphertext,'base64');if(hash(ciphertext)!==envelope.ciphertextSha256)throw new Error('Ciphertext hash mismatch');
+ const contentKey=privateDecrypt({key:readFileSync(privateKeyPath),passphrase:readFileSync(passphrasePath,'utf8').trim(),oaepHash:'sha256',padding:constants.RSA_PKCS1_OAEP_PADDING},Buffer.from(envelope.encryptedKey,'base64'));
+ const decipher=createDecipheriv('aes-256-gcm',contentKey,Buffer.from(envelope.iv,'base64'));decipher.setAuthTag(Buffer.from(envelope.authTag,'base64'));
+@@ -21,19 +22,17 @@ const plaintext=gunzipSync(Buffer.concat([decipher.update(ciphertext),decipher.f
+ const payload=JSON.parse(plaintext.toString('utf8'));
+ if(payload.format!==envelope.format||payload.release!==envelope.release||payload.schemaVersion!==envelope.schemaVersion||payload.schemaSha256!==envelope.schemaSha256)throw new Error('Envelope and payload metadata mismatch');
+ const manifestNames=payload.manifest?.tables?.map(item=>item.name)??[];
+-if(manifestNames.length!==BACKUP_TABLES.length||manifestNames.some((name,index)=>name!==BACKUP_TABLES[index]))throw new Error('Backup table manifest does not match this release');
++if(payload.manifest?.tableCount!==contract.tables.length||manifestNames.length!==contract.tables.length||manifestNames.some((name,index)=>name!==contract.tables[index]))throw new Error('Backup table manifest does not match this release');
+ for(const table of payload.manifest.tables){const rows=payload.tables[table.name];if(!Array.isArray(rows)||rows.length!==table.rows||hash(JSON.stringify(rows))!==table.sha256)throw new Error(`Manifest mismatch for ${table.name}`);}
+ 
+ const client=new pg.Client({connectionString,ssl:process.env.PGSSLMODE==='disable'?false:{rejectUnauthorized:process.env.PGSSL_REJECT_UNAUTHORIZED!=='false',...(process.env.PGSSL_CA?{ca:process.env.PGSSL_CA.replaceAll('\\n','\n')}:{})},connectionTimeoutMillis:10_000});
+-let began=false,receipt;
+-try{
+- await client.connect();await client.query('BEGIN');began=true;
++const receipt=await withRollbackOnlyTransaction(client,async()=>{
+  const rehearsalSchema=`restore_${randomBytes(8).toString('hex')}`;
+  await client.query(`CREATE SCHEMA "${rehearsalSchema}"`);
+  await client.query(`SET LOCAL search_path TO "${rehearsalSchema}", pg_catalog`);
+- await client.query(readFileSync(resolve('db/render-schema.sql'),'utf8'));
++ await initializeRehearsalSchema(client,readFileSync(new URL('../db/render-schema.sql',import.meta.url),'utf8'),JSON.parse(readFileSync(new URL('../db/vendor-directory.json',import.meta.url),'utf8')));
+  const quoted=BACKUP_TABLES.map(name=>`"${name}"`).join(',');await client.query(`TRUNCATE ${quoted} CASCADE`);
+- for(const table of BACKUP_TABLES){
++ for(const table of contract.tables){
+   for(const row of payload.tables[table]){
+    const columns=Object.keys(row);if(!columns.length)continue;
+    for(const column of columns)if(!/^[a-z][a-z0-9_]*$/.test(column))throw new Error(`Unsafe column name in ${table}`);
+@@ -41,14 +40,12 @@ try{
+    await client.query(`INSERT INTO "${table}"(${columnSql}) VALUES(${marks})`,values);
+   }
+  }
+- const restored=[];for(const table of BACKUP_TABLES){const result=await client.query(`SELECT COUNT(*)::bigint count FROM "${table}"`),count=Number(result.rows[0].count),expected=payload.manifest.tables.find(item=>item.name===table).rows;if(count!==expected)throw new Error(`Restore count mismatch for ${table}`);restored.push({name:table,rows:count});}
+- const excludedCounts={};for(const table of payload.restorePolicy?.excludedTables??[]){if(!/^[a-z][a-z0-9_]*$/.test(table))throw new Error('Unsafe excluded table name');const result=await client.query(`SELECT COUNT(*)::bigint count FROM "${table}"`);excludedCounts[table]=Number(result.rows[0].count);}
+- if(Object.values(excludedCounts).some(Number))throw new Error('Ephemeral authentication data was restored unexpectedly');
+- receipt={status:'verified',format:envelope.format,release:envelope.release,schemaVersion:envelope.schemaVersion,schemaSha256:envelope.schemaSha256,backupFile:basename(backupPath),backupSha256:hash(backupBytes),createdAt:envelope.createdAt,verifiedAt:new Date().toISOString(),publicKeySha256:envelope.publicKeySha256,plaintextSha256:envelope.plaintextSha256,tableCount:restored.length,totalRecords:restored.reduce((sum,item)=>sum+item.rows,0),tables:restored,excludedTables:excludedCounts,foreignKeyViolations:0,restoreTarget:`isolated PostgreSQL transaction on ${target.host}/${target.database}`,persistentWrites:false};
+-}finally{
+- if(began)await client.query('ROLLBACK').catch(()=>{});
+- await client.end().catch(()=>{});
+-}
++ const restored=[];for(const table of contract.tables){const result=await client.query(`SELECT COUNT(*)::bigint count FROM "${table}"`),count=Number(result.rows[0].count),expected=payload.manifest.tables.find(item=>item.name===table).rows;if(count!==expected)throw new Error(`Restore count mismatch for ${table}`);restored.push({name:table,rows:count});}
++ const excludedCounts={};for(const table of BACKUP_EXCLUDED_TABLES){const result=await client.query(`SELECT COUNT(*)::bigint count FROM "${table}"`);excludedCounts[table]=Number(result.rows[0].count);}
++ if(Object.values(excludedCounts).some(Number))throw new Error('Ephemeral authentication or lock data was restored unexpectedly');
++ const coverageComplete=contract.missingTables.length===0;
++ return {status:coverageComplete?'verified':'verified_legacy_coverage',coverageComplete,missingTables:contract.missingTables,format:envelope.format,release:envelope.release,schemaVersion:envelope.schemaVersion,schemaSha256:envelope.schemaSha256,backupFile:basename(backupPath),backupSha256:hash(backupBytes),createdAt:envelope.createdAt,verifiedAt:new Date().toISOString(),publicKeySha256:envelope.publicKeySha256,plaintextSha256:envelope.plaintextSha256,tableCount:restored.length,totalRecords:restored.reduce((sum,item)=>sum+item.rows,0),tables:restored,excludedTables:excludedCounts,foreignKeyViolations:0,restoreTarget:`isolated PostgreSQL transaction on ${target.host}/${target.database}`,persistentWrites:false};
++});
+ if(!receipt)throw new Error('Restore rehearsal did not produce a receipt');
+ if(receiptPath)writeFileSync(receiptPath,JSON.stringify(receipt,null,2)+'\n',{mode:0o600});
+-process.stdout.write(JSON.stringify({status:receipt.status,release:receipt.release,schemaSha256:receipt.schemaSha256,tableCount:receipt.tableCount,totalRecords:receipt.totalRecords,persistentWrites:false})+'\n');
++process.stdout.write(JSON.stringify({status:receipt.status,coverageComplete:receipt.coverageComplete,missingTables:receipt.missingTables,release:receipt.release,schemaSha256:receipt.schemaSha256,tableCount:receipt.tableCount,totalRecords:receipt.totalRecords,persistentWrites:false})+'\n');
+diff --git a/scripts/restore-postgres-schema.mjs b/scripts/restore-postgres-schema.mjs
+new file mode 100644
+index 0000000..29b030d
+--- /dev/null
++++ b/scripts/restore-postgres-schema.mjs
+@@ -0,0 +1,92 @@
++import {initializePortalDatabase} from '../lib/render-migrations.mjs';
++
++export async function withRollbackOnlyTransaction(client,restore){
++ let began=false;
++ try{
++  await client.connect();
++  await client.query('BEGIN');began=true;
++  return await restore();
++ }finally{
++  // A rollback error must prevent a successful receipt. Closing is attempted
++  // even when rollback fails, so the connection cannot retain the transaction.
++  try{if(began)await client.query('ROLLBACK');}
++  finally{await client.end();}
++ }
++}
++
++// Inspect statement starts, including batches, without treating function bodies,
++// quoted values or comments as SQL transaction boundaries. Fail closed on an
++// ambiguous literal instead of letting a future schema file commit the rehearsal.
++function assertNoTransactionControl(sql){
++ let i=0,start=true;
++ while(i<sql.length){
++  if(/\s/.test(sql[i])){i++;continue;}
++  if(sql.startsWith('--',i)){const end=sql.indexOf('\n',i+2);i=end<0?sql.length:end+1;continue;}
++  if(sql.startsWith('/*',i)){
++   let depth=1;i+=2;
++   while(i<sql.length&&depth){if(sql.startsWith('/*',i)){depth++;i+=2;}else if(sql.startsWith('*/',i)){depth--;i+=2;}else i++;}
++   if(depth)throw new Error('Unterminated restore bootstrap SQL comment');
++   continue;
++  }
++  if(sql[i]===';'){start=true;i++;continue;}
++  if(start){
++   const word=sql.slice(i).match(/^[a-z_]+/i)?.[0]??'';
++   if(/^(?:BEGIN|START|COMMIT|END|ROLLBACK|ABORT|SAVEPOINT|RELEASE|PREPARE)$/i.test(word))throw new Error('Unsupported restore bootstrap transaction statement');
++   start=false;
++  }
++  if(sql[i]==="'"||sql[i]==='"'){
++   const quote=sql[i],escapes=quote==="'"&&/[eE]/.test(sql[i-1]??'')&&!/[a-z0-9_$]/i.test(sql[i-2]??'');
++   let closed=false;i++;
++   while(i<sql.length){
++    if(sql[i]==='\\'&&quote==="'"){
++     if(!escapes)throw new Error('Ambiguous restore bootstrap SQL literal');
++     i+=2;continue;
++    }
++    if(sql[i]===quote){if(sql[i+1]===quote){i+=2;continue;}i++;closed=true;break;}
++    i++;
++   }
++   if(!closed)throw new Error('Unterminated restore bootstrap SQL literal');
++   continue;
++  }
++  const tag=sql[i]==='$'?sql.slice(i).match(/^\$(?:[a-z_][a-z0-9_]*)?\$/i)?.[0]:null;
++  if(tag){const end=sql.indexOf(tag,i+tag.length);if(end<0)throw new Error('Unterminated restore bootstrap SQL body');i=end+tag.length;continue;}
++  i++;
++ }
++}
++
++// The caller already owns a rollback-only transaction in a fresh schema.
++// Reuse the production schema initializer without allowing its transaction
++// boundaries to commit or abort that outer transaction.
++export async function initializeRehearsalSchema(client,schema,directoryEntries){
++ let active=false;
++ const isolated={
++  async query(sql,params){
++   if(typeof sql!=='string')throw new Error('Restore bootstrap requires SQL text');
++   const statement=String(sql).trim().replace(/;$/,'').toUpperCase();
++   if(statement==='BEGIN'){
++    if(active)throw new Error('Nested restore bootstrap transaction');
++    active=true;
++    return client.query('SAVEPOINT master7_restore_bootstrap');
++   }
++   if(statement==='COMMIT'){
++    if(!active)throw new Error('Restore bootstrap has no active savepoint');
++    const result=await client.query('RELEASE SAVEPOINT master7_restore_bootstrap');
++    active=false;
++    return result;
++   }
++   if(statement==='ROLLBACK'){
++    if(!active)throw new Error('Restore bootstrap has no active savepoint');
++    await client.query('ROLLBACK TO SAVEPOINT master7_restore_bootstrap');
++    const result=await client.query('RELEASE SAVEPOINT master7_restore_bootstrap');
++    active=false;
++    return result;
++   }
++   assertNoTransactionControl(sql);
++   return client.query(sql,params);
++  },
++  release(){},
++ };
++ const result=await initializePortalDatabase({connect:async()=>isolated},schema,directoryEntries);
++ if(active)throw new Error('Restore bootstrap did not finish its savepoint');
++ return result;
++}
+diff --git a/scripts/verify-encrypted-backup.mjs b/scripts/verify-encrypted-backup.mjs
+index ca2c883..d963724 100644
+--- a/scripts/verify-encrypted-backup.mjs
++++ b/scripts/verify-encrypted-backup.mjs
+@@ -1,15 +1,15 @@
+ import {constants,createDecipheriv,createHash,privateDecrypt} from 'node:crypto';
+-import {readFileSync,writeFileSync} from 'node:fs';
++import {readFileSync,readdirSync,writeFileSync} from 'node:fs';
+ import {DatabaseSync} from 'node:sqlite';
+ import {basename,join} from 'node:path';
+ import {gunzipSync} from 'node:zlib';
+-import {BACKUP_FORMAT,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES} from '../lib/encrypted-backup.ts';
++import {BACKUP_EXCLUDED_TABLES,BACKUP_FORMAT,BACKUP_TABLES,backupRestoreContract} from '../lib/encrypted-backup.ts';
+ 
+ const [backupPath,privateKeyPath,passphrasePath,receiptPath]=process.argv.slice(2);
+ if(!backupPath||!privateKeyPath||!passphrasePath)throw new Error('Usage: node scripts/verify-encrypted-backup.mjs BACKUP PRIVATE_KEY PASSPHRASE [RECEIPT]');
+ const hash=value=>createHash('sha256').update(value).digest('hex'),envelope=JSON.parse(readFileSync(backupPath,'utf8'));
+ if(envelope.format!==BACKUP_FORMAT)throw new Error('Unsupported backup format');
+-if(envelope.schemaVersion!==BACKUP_SCHEMA_VERSION||envelope.schemaSha256!==BACKUP_SCHEMA_SHA256)throw new Error('Backup schema version does not match this release');
++const contract=backupRestoreContract(envelope.schemaVersion,envelope.schemaSha256);
+ const ciphertext=Buffer.from(envelope.ciphertext,'base64');
+ if(hash(ciphertext)!==envelope.ciphertextSha256)throw new Error('Ciphertext hash mismatch');
+ const contentKey=privateDecrypt({key:readFileSync(privateKeyPath),passphrase:readFileSync(passphrasePath,'utf8').trim(),oaepHash:'sha256',padding:constants.RSA_PKCS1_OAEP_PADDING},Buffer.from(envelope.encryptedKey,'base64'));
+@@ -19,15 +19,15 @@ if(hash(plaintext)!==envelope.plaintextSha256)throw new Error('Plaintext hash mi
+ const payload=JSON.parse(plaintext.toString('utf8'));
+ if(payload.format!==envelope.format||payload.release!==envelope.release||payload.schemaVersion!==envelope.schemaVersion||payload.schemaSha256!==envelope.schemaSha256)throw new Error('Envelope and payload metadata mismatch');
+ const manifestNames=payload.manifest?.tables?.map(item=>item.name)??[];
+-if(payload.manifest?.tableCount!==BACKUP_TABLES.length||manifestNames.length!==BACKUP_TABLES.length||manifestNames.some((name,index)=>name!==BACKUP_TABLES[index]))throw new Error('Backup table manifest does not match this release');
++if(payload.manifest?.tableCount!==contract.tables.length||manifestNames.length!==contract.tables.length||manifestNames.some((name,index)=>name!==contract.tables[index]))throw new Error('Backup table manifest does not match this release');
+ for(const table of payload.manifest.tables){const rows=payload.tables[table.name];if(!Array.isArray(rows)||rows.length!==table.rows||hash(JSON.stringify(rows))!==table.sha256)throw new Error(`Manifest mismatch for ${table.name}`);}
+ 
+-const root=new URL('..',import.meta.url).pathname,migrations=['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql','0014_withdrawal_requests.sql','0019_game_catalogue_sync.sql','0020_manual_bank_deposits.sql','0021_api_supplier_status.sql','0022_referrals.sql','0023_marketing_campaigns.sql','0024_megah5_transfer_wallet.sql','0025_game_access_zones.sql','0027_marketing_contact_scale.sql','0090_security_wallet_reservations.sql','0091_operations_automation.sql','0092_support_marketing_notifications.sql','0093_reward_state_machines.sql','0094_payment_recovery_and_payout_state.sql','0100_whatsapp_campaign_delivery.sql','0101_rewards_hub.sql','0102_responsible_play.sql','0103_company_bank_artwork.sql'],db=new DatabaseSync(':memory:');
++const root=new URL('..',import.meta.url).pathname,migrations=readdirSync(join(root,'drizzle')).filter(name=>/^\d{4}_.+\.sql$/.test(name)).sort(),db=new DatabaseSync(':memory:');
+ for(const migration of migrations)db.exec(readFileSync(join(root,'drizzle',migration),'utf8'));
+ const tableNames=payload.manifest.tables.map(item=>item.name);for(const table of tableNames)if(!/^[a-z][a-z0-9_]*$/.test(table))throw new Error('Unsafe table name');
+ db.exec('PRAGMA foreign_keys=OFF; BEGIN');
+ try{
+- for(const table of [...tableNames].reverse())db.exec(`DELETE FROM ${table}`);
++ for(const table of [...BACKUP_TABLES].reverse())db.exec(`DELETE FROM ${table}`);
+  for(const table of tableNames){
+   const available=new Set(db.prepare(`PRAGMA table_info(${table})`).all().map(item=>item.name)),rows=payload.tables[table];
+   for(const row of rows){const columns=Object.keys(row);for(const column of columns)if(!available.has(column))throw new Error(`Restore schema missing ${table}.${column}`);const marks=columns.map(()=>'?').join(','),sql=`INSERT INTO ${table}(${columns.join(',')}) VALUES(${marks})`,values=columns.map(column=>{const value=row[column];if(typeof value==='boolean')return value?1:0;if(value&&typeof value==='object')return JSON.stringify(value);return value??null;});db.prepare(sql).run(...values);}
+@@ -36,7 +36,8 @@ try{
+ }catch(error){db.exec('ROLLBACK');throw error;}
+ const foreignKeyViolations=db.prepare('PRAGMA foreign_key_check').all();if(foreignKeyViolations.length)throw new Error(`Foreign key validation failed: ${foreignKeyViolations.length}`);
+ const restored=tableNames.map(name=>({name,rows:Number(db.prepare(`SELECT COUNT(*) count FROM ${name}`).get().count)}));for(const item of restored){const expected=payload.manifest.tables.find(table=>table.name===item.name)?.rows;if(item.rows!==expected)throw new Error(`Restore count mismatch for ${item.name}`);}
+-const excludedCounts=Object.fromEntries((payload.restorePolicy?.excludedTables??[]).map(name=>[name,Number(db.prepare(`SELECT COUNT(*) count FROM ${name}`).get().count)]));if(Object.values(excludedCounts).some(Number))throw new Error('Ephemeral authentication data was restored unexpectedly');
+-const receipt={status:'verified',format:envelope.format,release:envelope.release,schemaVersion:envelope.schemaVersion,schemaSha256:envelope.schemaSha256,backupFile:basename(backupPath),backupSha256:hash(readFileSync(backupPath)),createdAt:envelope.createdAt,verifiedAt:new Date().toISOString(),publicKeySha256:envelope.publicKeySha256,plaintextSha256:envelope.plaintextSha256,tableCount:restored.length,totalRecords:restored.reduce((sum,item)=>sum+item.rows,0),tables:restored,excludedTables:excludedCounts,foreignKeyViolations:0,restoreTarget:'isolated in-memory SQLite schema'};
++const excludedCounts=Object.fromEntries(BACKUP_EXCLUDED_TABLES.map(name=>[name,Number(db.prepare(`SELECT COUNT(*) count FROM ${name}`).get().count)]));if(Object.values(excludedCounts).some(Number))throw new Error('Ephemeral authentication or lock data was restored unexpectedly');
++const coverageComplete=contract.missingTables.length===0;
++const receipt={status:coverageComplete?'verified':'verified_legacy_coverage',coverageComplete,missingTables:contract.missingTables,format:envelope.format,release:envelope.release,schemaVersion:envelope.schemaVersion,schemaSha256:envelope.schemaSha256,backupFile:basename(backupPath),backupSha256:hash(readFileSync(backupPath)),createdAt:envelope.createdAt,verifiedAt:new Date().toISOString(),publicKeySha256:envelope.publicKeySha256,plaintextSha256:envelope.plaintextSha256,tableCount:restored.length,totalRecords:restored.reduce((sum,item)=>sum+item.rows,0),tables:restored,excludedTables:excludedCounts,foreignKeyViolations:0,restoreTarget:'isolated in-memory SQLite schema'};
+ if(receiptPath)writeFileSync(receiptPath,JSON.stringify(receipt,null,2)+'\n',{mode:0o600});
+-process.stdout.write(JSON.stringify({status:receipt.status,release:receipt.release,tableCount:receipt.tableCount,totalRecords:receipt.totalRecords,foreignKeyViolations:receipt.foreignKeyViolations})+'\n');
++process.stdout.write(JSON.stringify({status:receipt.status,coverageComplete,missingTables:contract.missingTables,release:receipt.release,tableCount:receipt.tableCount,totalRecords:receipt.totalRecords,foreignKeyViolations:receipt.foreignKeyViolations})+'\n');
+diff --git a/tests/backup-restore-rehearsal.test.mjs b/tests/backup-restore-rehearsal.test.mjs
+new file mode 100644
+index 0000000..94ec6d2
+--- /dev/null
++++ b/tests/backup-restore-rehearsal.test.mjs
+@@ -0,0 +1,141 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {constants,createCipheriv,createDecipheriv,createHash,createPublicKey,generateKeyPairSync,privateDecrypt,publicEncrypt,randomBytes} from 'node:crypto';
++import {spawnSync} from 'node:child_process';
++import {mkdtempSync,readFileSync,readdirSync,rmSync,writeFileSync} from 'node:fs';
++import {tmpdir} from 'node:os';
++import {join} from 'node:path';
++import {fileURLToPath} from 'node:url';
++import {DatabaseSync} from 'node:sqlite';
++import {gunzipSync,gzipSync} from 'node:zlib';
++import {BACKUP_EXCLUDED_TABLES,BACKUP_SCHEMA_VERSION,BACKUP_TABLES,createEncryptedPortalBackup} from '../lib/encrypted-backup.ts';
++
++const root=fileURLToPath(new URL('..',import.meta.url));
++
++async function fixture(t){
++ const directory=mkdtempSync(join(tmpdir(),'master7-synthetic-restore-'));
++ const sqlite=new DatabaseSync(':memory:');
++ t.after(()=>{sqlite.close();rmSync(directory,{recursive:true,force:true});});
++ sqlite.exec('PRAGMA foreign_keys=ON');
++ for(const migration of readdirSync(join(root,'drizzle')).filter(name=>/^\d{4}_.+\.sql$/.test(name)).sort())sqlite.exec(readFileSync(join(root,'drizzle',migration),'utf8'));
++ sqlite.exec(`
++  INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES
++   ('restore-owner','synthetic_restore_owner','owner',1,'synthetic-owner-csrf',1),
++   ('restore-member','synthetic_restore_member','member',1,'synthetic-member-csrf',1);
++  INSERT INTO benefit_rules(id,title,description,rules_json,status,created_by,created_at,updated_at)
++   VALUES('restore-benefit','Synthetic benefit','Local fixture only','{}','draft','restore-owner',1,1);
++  INSERT INTO benefit_claims(id,user_id,benefit_rule_id,request_key,rules_snapshot_json,reward_minor,expires_at,created_at,updated_at,review_status,reviewed_by,reviewed_at,review_note)
++   VALUES('restore-claim','restore-member','restore-benefit','restore-request','{}',8800,9999999999,1,2,'approved_pending_settlement','restore-owner',2,'Synthetic eligibility evidence');
++  INSERT INTO voucher_manual_reviews(claim_id,status,max_plays,plays_used,won_once,turnover_required_minor,payout_cap_minor,approved_by,approved_at,created_at,updated_at)
++   VALUES('restore-claim','approved',5,1,0,8800,8800,'restore-owner',2,2,3);
++  INSERT INTO voucher_manual_play_events(id,claim_id,play_number,outcome,evidence_reference,recorded_by,created_at)
++   VALUES('restore-play','restore-claim',1,'loss','synthetic-local-evidence','restore-owner',3);
++  INSERT INTO password_sessions(token_hash,user_id,csrf,credential_version,expires_at,created_at)
++   VALUES('synthetic-session-hash','restore-member','synthetic-session-csrf',1,9999999999,1);
++  INSERT INTO rate_limits(id,count,expires_at) VALUES('synthetic-limit',1,9999999999);
++  INSERT INTO marketing_contacts(id,phone,name,consent_status,source,created_at,updated_at)
++   VALUES('restore-contact','+60100000001','Synthetic contact','opted_out','local_fixture',1,1);
++  INSERT INTO marketing_campaigns(id,name,channel,message,status,created_by,created_at,updated_at,provider,template_name,template_params_json,audience_count)
++   VALUES('restore-campaign','Synthetic campaign','whatsapp','Local fixture only','paused','restore-owner',1,1,'whatsapp_business','synthetic_template','{"1":"local fixture"}',1);
++  INSERT INTO marketing_deliveries(campaign_id,contact_id,status,provider_message_id,updated_at,claim_token,locked_until,submitted_at,delivered_at)
++   VALUES('restore-campaign','restore-contact','delivered','synthetic-message',3,NULL,0,2,3);
++  INSERT INTO marketing_webhook_events(event_key,provider_message_id,event_type,status,payload_hash,received_at)
++   VALUES('synthetic-webhook','synthetic-message','status','delivered','synthetic-payload-hash',3);
++  INSERT INTO responsible_play_locks(user_id,touched_at) VALUES('restore-member',3);
++  INSERT INTO responsible_play_profiles(user_id,daily_limit_minor,self_excluded_until,last_change_id,created_at,updated_at)
++   VALUES('restore-member',10000,9999999999,'synthetic-profile-change',1,3);
++  INSERT INTO responsible_play_deposit_reservations(user_id,request_key,provider,amount_minor,status,expires_at,created_at,updated_at)
++   VALUES('restore-member','synthetic-reservation','vpay',1000,'reserved',9999999999,1,3);
++ `);
++ assert.deepEqual(sqlite.prepare('PRAGMA foreign_key_check').all(),[]);
++ const schemaTables=sqlite.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name").all().map(row=>row.name);
++ assert.deepEqual(schemaTables,[...BACKUP_TABLES,...BACKUP_EXCLUDED_TABLES].sort(),'Every release table must be durable or explicitly transient');
++ const passphrase=randomBytes(32).toString('hex');
++ const {publicKey,privateKey}=generateKeyPairSync('rsa',{
++  modulusLength:2048,
++  publicKeyEncoding:{type:'spki',format:'pem'},
++  privateKeyEncoding:{type:'pkcs8',format:'pem',cipher:'aes-256-cbc',passphrase},
++ });
++ const fingerprint=createHash('sha256').update(createPublicKey(publicKey).export({type:'spki',format:'der'})).digest('hex');
++ const db={prepare(sql){return {bind(...values){return {all:async()=>({results:sqlite.prepare(sql).all(...values)})};}};}};
++ const {envelope}=await createEncryptedPortalBackup(db,'synthetic-release-0107',{publicKey,publicKeySha256:fingerprint});
++ const backup=join(directory,'synthetic-backup.json'),key=join(directory,'synthetic-private.pem'),pass=join(directory,'synthetic-passphrase.txt'),receipt=join(directory,'synthetic-receipt.json');
++ writeFileSync(backup,JSON.stringify(envelope),{mode:0o600});
++ writeFileSync(key,privateKey,{mode:0o600});
++ writeFileSync(pass,passphrase,{mode:0o600});
++ return {sqlite,envelope,backup,key,pass,receipt,publicKey,privateKey,passphrase};
++}
++
++function repack(f,change){
++ const hash=value=>createHash('sha256').update(value).digest('hex');
++ const key=privateDecrypt({key:f.privateKey,passphrase:f.passphrase,oaepHash:'sha256',padding:constants.RSA_PKCS1_OAEP_PADDING},Buffer.from(f.envelope.encryptedKey,'base64'));
++ const decipher=createDecipheriv('aes-256-gcm',key,Buffer.from(f.envelope.iv,'base64'));
++ decipher.setAuthTag(Buffer.from(f.envelope.authTag,'base64'));
++ const payload=JSON.parse(gunzipSync(Buffer.concat([decipher.update(Buffer.from(f.envelope.ciphertext,'base64')),decipher.final()])).toString('utf8'));
++ change(payload);
++ payload.manifest.tables=payload.manifest.tables.map(table=>({...table,rows:payload.tables[table.name].length,sha256:hash(JSON.stringify(payload.tables[table.name]))}));
++ payload.manifest.tableCount=payload.manifest.tables.length;
++ payload.manifest.totalRecords=payload.manifest.tables.reduce((sum,table)=>sum+table.rows,0);
++ const plaintext=Buffer.from(JSON.stringify(payload)),contentKey=randomBytes(32),iv=randomBytes(12),cipher=createCipheriv('aes-256-gcm',contentKey,iv);
++ const ciphertext=Buffer.concat([cipher.update(gzipSync(plaintext)),cipher.final()]);
++ const envelope={...f.envelope,schemaSha256:payload.schemaSha256,manifest:{...payload.manifest,tables:payload.manifest.tables.map(({name,rows})=>({name,rows}))},encryptedKey:publicEncrypt({key:f.publicKey,oaepHash:'sha256',padding:constants.RSA_PKCS1_OAEP_PADDING},contentKey).toString('base64'),iv:iv.toString('base64'),authTag:cipher.getAuthTag().toString('base64'),ciphertext:ciphertext.toString('base64'),ciphertextSha256:hash(ciphertext),plaintextSha256:hash(plaintext)};
++ writeFileSync(f.backup,JSON.stringify(envelope),{mode:0o600});
++}
++
++function verify(f){return spawnSync(process.execPath,[join(root,'scripts/verify-encrypted-backup.mjs'),f.backup,f.key,f.pass,f.receipt],{cwd:root,encoding:'utf8',timeout:30000});}
++
++test('current release backup restores voucher tables and reviewed benefit columns in isolation',async t=>{
++ const f=await fixture(t);
++ assert.equal(BACKUP_SCHEMA_VERSION,'0107-benefit-claim-reviews');
++ assert.equal(f.envelope.manifest.tableCount,BACKUP_TABLES.length);
++ for(const table of ['benefit_claims','voucher_manual_reviews','voucher_manual_play_events','marketing_webhook_events','responsible_play_profiles','responsible_play_deposit_reservations'])assert.equal(f.envelope.manifest.tables.find(item=>item.name===table).rows,1);
++ const result=verify(f);
++ assert.equal(result.status,0,result.stderr);
++ const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));
++ assert.equal(receipt.tableCount,BACKUP_TABLES.length);
++ assert.equal(receipt.totalRecords,f.envelope.manifest.totalRecords);
++ assert.equal(receipt.foreignKeyViolations,0);
++ assert.equal(receipt.status,'verified');
++ assert.equal(receipt.coverageComplete,true);
++ assert.deepEqual(receipt.missingTables,[]);
++ assert.equal(receipt.restoreTarget,'isolated in-memory SQLite schema');
++ assert.deepEqual(receipt.tables.map(item=>item.name),[...BACKUP_TABLES]);
++ assert.deepEqual(receipt.excludedTables,{password_sessions:0,otp_challenges:0,rate_limits:0,responsible_play_locks:0});
++});
++
++test('restore refuses a backup from a different schema instead of dropping its fields',async t=>{
++ const f=await fixture(t);
++ writeFileSync(f.backup,JSON.stringify({...f.envelope,schemaVersion:'incompatible-schema'}),{mode:0o600});
++ const result=verify(f);
++ assert.notEqual(result.status,0);
++ assert.match(result.stderr,/Backup schema version does not match this release/);
++});
++
++test('known 0107 legacy backup remains recoverable with explicit incomplete-coverage receipt',async t=>{
++ const f=await fixture(t),legacyHash='2648becd21723884358bcaf90f5928dc19c7cc58dcf090c87ca1db3c00c34d69';
++ repack(f,payload=>{
++  delete payload.tables.marketing_webhook_events;
++  payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='marketing_webhook_events');
++  const calculated=createHash('sha256').update(JSON.stringify({format:payload.format,schemaVersion:payload.schemaVersion,tables:payload.manifest.tables.map(table=>table.name)})).digest('hex');
++  assert.equal(calculated,legacyHash);
++  payload.schemaSha256=legacyHash;
++  payload.restorePolicy.excludedTables=payload.restorePolicy.excludedTables.filter(name=>name!=='responsible_play_locks');
++ });
++ const result=verify(f);
++ assert.equal(result.status,0,result.stderr);
++ const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));
++ assert.equal(receipt.status,'verified_legacy_coverage');
++ assert.equal(receipt.coverageComplete,false);
++ assert.deepEqual(receipt.missingTables,['marketing_webhook_events']);
++ assert.equal(receipt.schemaSha256,legacyHash);
++ assert.equal(receipt.tableCount,50);
++ assert.equal(receipt.foreignKeyViolations,0);
++});
++
++test('authenticated backup rows with broken foreign keys still fail isolated restoration',async t=>{
++ const f=await fixture(t);
++ repack(f,payload=>{payload.tables.benefit_claims[0].user_id='missing-synthetic-member';});
++ const result=verify(f);
++ assert.notEqual(result.status,0);
++ assert.match(result.stderr,/Foreign key validation failed/);
++});
+diff --git a/tests/encrypted-backup-pagination.test.mjs b/tests/encrypted-backup-pagination.test.mjs
+new file mode 100644
+index 0000000..0ad4f63
+--- /dev/null
++++ b/tests/encrypted-backup-pagination.test.mjs
+@@ -0,0 +1,79 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {constants,createDecipheriv,generateKeyPairSync,privateDecrypt} from 'node:crypto';
++import {readFileSync,readdirSync} from 'node:fs';
++import {DatabaseSync} from 'node:sqlite';
++import {gunzipSync} from 'node:zlib';
++import {BACKUP_PAGE_SIZE,BACKUP_TABLES,createEncryptedPortalBackup} from '../lib/encrypted-backup.ts';
++
++function releaseTables(){
++ const db=new DatabaseSync(':memory:'),directory=new URL('../drizzle/',import.meta.url);
++ try{
++  for(const name of readdirSync(directory).filter(name=>/^\d{4}_.+\.sql$/.test(name)).sort())db.exec(readFileSync(new URL(name,directory),'utf8'));
++  return Object.fromEntries(BACKUP_TABLES.map(table=>{
++   const columns=db.prepare(`PRAGMA table_info(${table})`).all();
++   return [table,{columns:columns.map(column=>column.name),keys:columns.filter(column=>column.pk).sort((a,b)=>a.pk-b.pk).map(column=>column.name)}];
++  }));
++ }finally{db.close();}
++}
++
++function syntheticKeyPair(){return generateKeyPairSync('rsa',{modulusLength:2048,publicKeyEncoding:{type:'spki',format:'pem'},privateKeyEncoding:{type:'pkcs8',format:'pem'}});}
++
++function decrypt(envelope,privateKey){
++ const key=privateDecrypt({key:privateKey,oaepHash:'sha256',padding:constants.RSA_PKCS1_OAEP_PADDING},Buffer.from(envelope.encryptedKey,'base64'));
++ const cipher=createDecipheriv('aes-256-gcm',key,Buffer.from(envelope.iv,'base64'));cipher.setAuthTag(Buffer.from(envelope.authTag,'base64'));
++ return JSON.parse(gunzipSync(Buffer.concat([cipher.update(Buffer.from(envelope.ciphertext,'base64')),cipher.final()])).toString('utf8'));
++}
++
++const selectPattern=/^SELECT \* FROM ([a-z0-9_]+) ORDER BY ([a-z0-9_, ]+) LIMIT \? OFFSET \?$/;
++
++test('every backup table orders pages by its complete release primary key',async()=>{
++ const schema=releaseTables(),queries=[];
++ const db={prepare(sql){queries.push(sql);return {bind(){return {all:async()=>({results:[]})};}};}};
++ await createEncryptedPortalBackup(db,'synthetic-pagination-release',syntheticKeyPair());
++ assert.equal(queries.length,BACKUP_TABLES.length);
++ for(const sql of queries){
++  const match=sql.match(selectPattern);assert.ok(match,sql);
++  const {columns,keys}=schema[match[1]];
++  assert.ok(keys.length>0,`${match[1]} must have a stable key`);
++  const ordered=match[2].split(',').map(value=>value.trim()).map(value=>/^\d+$/.test(value)?columns[Number(value)-1]:value);
++  assert.deepEqual(ordered,keys,`${match[1]} must include every primary-key column`);
++ }
++});
++
++test('composite-key pages retain every row across changing legal tie orders',async t=>{
++ const schema=releaseTables(),composites=Object.entries(schema).filter(([,table])=>table.keys.length>1),sqlite=new DatabaseSync(':memory:');
++ t.after(()=>sqlite.close());
++ const count=BACKUP_PAGE_SIZE*2+5,queries=[];
++ sqlite.exec('BEGIN');
++ for(const [table,{keys}] of composites){
++  sqlite.exec(`CREATE TABLE ${table}(${keys.map(key=>`${key} TEXT NOT NULL`).join(',')},synthetic_marker INTEGER NOT NULL,PRIMARY KEY(${keys.join(',')}))`);
++  sqlite.exec(`CREATE INDEX ${table}_forward ON ${table}(${keys.map(key=>`${key} ASC`).join(',')})`);
++  sqlite.exec(`CREATE INDEX ${table}_reverse ON ${table}(${keys.map((key,index)=>`${key} ${index===0?'ASC':'DESC'}`).join(',')})`);
++  const insert=sqlite.prepare(`INSERT INTO ${table} VALUES(${[...keys,'synthetic_marker'].map(()=>'?').join(',')})`);
++  for(let i=0;i<count;i++)insert.run(...keys.map((_,index)=>index===keys.length-1?String(i).padStart(5,'0'):'same-prefix'),i);
++ }
++ sqlite.exec('COMMIT');
++ const db={prepare(sql){
++  const match=sql.match(selectPattern);assert.ok(match,sql);
++  const table=match[1];
++  return {bind(limit,offset){return {all:async()=>{
++   assert.equal(limit,BACKUP_PAGE_SIZE);queries.push({table,offset});
++   if(schema[table].keys.length===1)return {results:[]};
++   // Both indexes legally satisfy a prefix-only order, with opposite tie
++   // orders. A full primary-key ORDER BY must be invariant to that plan choice.
++   const direction=(offset/BACKUP_PAGE_SIZE)%2?'reverse':'forward';
++   const planned=sql.replace(`FROM ${table}`,`FROM ${table} INDEXED BY ${table}_${direction}`);
++   return {results:sqlite.prepare(planned).all(limit,offset)};
++  }};}};
++ }};
++ const key=syntheticKeyPair(),{envelope}=await createEncryptedPortalBackup(db,'synthetic-pagination-release',key),payload=decrypt(envelope,key.privateKey);
++ assert.equal(payload.manifest.totalRecords,composites.length*count);
++ for(const [table,{keys}] of composites){
++  const rows=payload.tables[table],identities=rows.map(row=>keys.map(column=>row[column]).join(':'));
++  assert.equal(rows.length,count,`${table} row count`);
++  assert.equal(new Set(identities).size,count,`${table} must not repeat or omit keys at page boundaries`);
++  assert.deepEqual(rows.map(row=>row.synthetic_marker),Array.from({length:count},(_,i)=>i),`${table} stable ordering`);
++  assert.deepEqual(queries.filter(query=>query.table===table).map(query=>query.offset),[0,BACKUP_PAGE_SIZE,BACKUP_PAGE_SIZE*2]);
++ }
++});
+diff --git a/tests/encrypted-backup.test.mjs b/tests/encrypted-backup.test.mjs
+index a773cc9..8dae686 100644
+--- a/tests/encrypted-backup.test.mjs
++++ b/tests/encrypted-backup.test.mjs
+@@ -2,12 +2,12 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {constants,createDecipheriv,createHash,createPublicKey,generateKeyPairSync,privateDecrypt} from 'node:crypto';
+ import {gunzipSync} from 'node:zlib';
+-import {BACKUP_FORMAT,BACKUP_PAGE_SIZE,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES,createEncryptedPortalBackup} from '../lib/encrypted-backup.ts';
++import {BACKUP_EXCLUDED_TABLES,BACKUP_FORMAT,BACKUP_PAGE_SIZE,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES,createEncryptedPortalBackup} from '../lib/encrypted-backup.ts';
+ 
+ test('portal backup encrypts every recovery table and excludes authentication sessions',async()=>{
+  const username='backup-test-owner',passwordHash='sensitive-password-hash',users=Array.from({length:10005},(_,index)=>({id:`owner-${String(index).padStart(5,'0')}`,username:index?`member-${index}`:username,role:index?'member':'owner',approved:1,csrf:index?'': 'private-csrf',created_at:index+1})),fixtures={users,password_credentials:[{user_id:'owner-00000',password_hash:passwordHash,salt:'private-salt',credential_version:1,updated_at:1}]},queries=[];
+  const db={prepare(sql){
+-  const match=sql.match(/^SELECT \* FROM ([a-z0-9_]+) ORDER BY 1 LIMIT \? OFFSET \?$/);assert.ok(match);
++  const match=sql.match(/^SELECT \* FROM ([a-z0-9_]+) ORDER BY [a-z_,]+ LIMIT \? OFFSET \?$/);assert.ok(match);
+   return {bind(limit,offset){
+    assert.equal(limit,BACKUP_PAGE_SIZE);queries.push({table:match[1],offset});
+    return {all:async()=>({results:(fixtures[match[1]]??[]).slice(offset,offset+limit)})};
+@@ -16,5 +16,5 @@ test('portal backup encrypts every recovery table and excludes authentication se
+  const {publicKey,privateKey}=generateKeyPairSync('rsa',{modulusLength:2048,publicKeyEncoding:{type:'spki',format:'pem'},privateKeyEncoding:{type:'pkcs8',format:'pem'}}),fingerprint=createHash('sha256').update(createPublicKey(publicKey).export({type:'spki',format:'der'})).digest('hex'),{envelope,metadata}=await createEncryptedPortalBackup(db,'test-release',{publicKey,publicKeySha256:fingerprint}),serialized=JSON.stringify(envelope);
+  assert.equal(envelope.format,BACKUP_FORMAT);assert.equal(metadata.tableCount,BACKUP_TABLES.length);assert.equal(metadata.totalRecords,10006);assert.equal(envelope.publicKeySha256,fingerprint);assert.equal(envelope.schemaVersion,BACKUP_SCHEMA_VERSION);assert.equal(envelope.schemaSha256,BACKUP_SCHEMA_SHA256);assert.ok(queries.some(item=>item.table==='users'&&item.offset===10000));assert.ok(!serialized.includes(username));assert.ok(!serialized.includes(passwordHash));assert.ok(!serialized.includes('private-csrf'));
+  const key=privateDecrypt({key:privateKey,oaepHash:'sha256',padding:constants.RSA_PKCS1_OAEP_PADDING},Buffer.from(envelope.encryptedKey,'base64')),decipher=createDecipheriv('aes-256-gcm',key,Buffer.from(envelope.iv,'base64'));decipher.setAuthTag(Buffer.from(envelope.authTag,'base64'));const payload=JSON.parse(gunzipSync(Buffer.concat([decipher.update(Buffer.from(envelope.ciphertext,'base64')),decipher.final()])).toString());
+- assert.equal(payload.tables.users[0].username,username);assert.equal(payload.tables.users.length,10005);assert.equal(payload.tables.password_credentials[0].password_hash,passwordHash);assert.deepEqual(payload.restorePolicy.excludedTables,['password_sessions','otp_challenges','rate_limits']);assert.equal(payload.manifest.totalRecords,10006);assert.equal(payload.schemaVersion,BACKUP_SCHEMA_VERSION);assert.equal(payload.schemaSha256,BACKUP_SCHEMA_SHA256);
++ assert.equal(payload.tables.users[0].username,username);assert.equal(payload.tables.users.length,10005);assert.equal(payload.tables.password_credentials[0].password_hash,passwordHash);assert.deepEqual(payload.restorePolicy.excludedTables,[...BACKUP_EXCLUDED_TABLES]);assert.equal(payload.manifest.totalRecords,10006);assert.equal(payload.schemaVersion,BACKUP_SCHEMA_VERSION);assert.equal(payload.schemaSha256,BACKUP_SCHEMA_SHA256);
+ });
+diff --git a/tests/game-launch.test.mjs b/tests/game-launch.test.mjs
+new file mode 100644
+index 0000000..49d3e97
+--- /dev/null
++++ b/tests/game-launch.test.mjs
+@@ -0,0 +1,161 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {DatabaseSync} from 'node:sqlite';
++import {readFileSync,readdirSync} from 'node:fs';
++import {handle} from '../lib/backend.ts';
++import {withdrawalWalletState} from '../lib/withdrawals.ts';
++
++// These requests exercise the real router and migrated database. The injected
++// gateway is a closed fixture; no test can contact a supplier or move real funds.
++const gateway='https://master7-integration-gateway.onrender.com';
++const gameToken='g'.repeat(48),walletToken='w'.repeat(48);
++const game={provider:'megah5',providerName:'MegaH5',gameCode:'55021',name:'Ocean Quest',category:'2',maintenance:false,playable:false};
++
++class Statement{
++ constructor(sqlite,sql,args=[]){this.sqlite=sqlite;this.sql=sql;this.args=args;}
++ bind(...args){return new Statement(this.sqlite,this.sql,args);}
++ async first(){return this.sqlite.prepare(this.sql).get(...this.args)??null;}
++ async all(){return {results:this.sqlite.prepare(this.sql).all(...this.args)};}
++ async run(){return this.sqlite.prepare(this.sql).run(...this.args);}
++}
++
++function harness(){
++ const sqlite=new DatabaseSync(':memory:');
++ const migrations=new URL('../drizzle/',import.meta.url);
++ for(const file of readdirSync(migrations).filter(name=>name.endsWith('.sql')).sort())sqlite.exec(readFileSync(new URL(file,migrations),'utf8'));
++ const db={prepare:sql=>new Statement(sqlite,sql),async batch(statements){sqlite.exec('BEGIN IMMEDIATE');try{const results=[];for(const statement of statements)results.push(await statement.run());sqlite.exec('COMMIT');return results;}catch(error){sqlite.exec('ROLLBACK');throw error;}}};
++ sqlite.prepare("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES('member','member@example.test','member',1,'fixture-csrf',0)").run();
++ sqlite.prepare("INSERT INTO providers(id,name,category,symbol,visible) VALUES('megah5','MegaH5','supplier','M7',1) ON CONFLICT(id) DO UPDATE SET visible=1").run();
++ sqlite.prepare("INSERT INTO api_supplier_artwork(provider_id,image_data,status,updated_by,updated_at) VALUES('megah5','','active','member',0) ON CONFLICT(provider_id) DO UPDATE SET status='active'").run();
++ sqlite.prepare("INSERT INTO game_visibility(provider_id,game_code,visible,status,image_data,category_override,updated_by,updated_at) VALUES('megah5','55021',1,'active','','','member',0)").run();
++ sqlite.prepare("INSERT INTO game_catalogue_cache(provider_id,status,games_json,checked_at,last_success_at,upstream_status,lease_until,complete) VALUES('megah5','available',?,?,?,200,0,1)").run(JSON.stringify([game]),Math.floor(Date.now()/1000),Math.floor(Date.now()/1000));
++ sqlite.prepare("INSERT INTO deposit_orders(id,user_id,request_key,fingerprint,provider,amount_minor,currency,trade_code,status,created_at,updated_at) VALUES('fixture-credit','member','fixture-credit-key','fixture','manual_bank',2000,'MYR','fixture','credited',0,0)").run();
++ sqlite.prepare("INSERT INTO wallet_ledger(id,order_id,user_id,account_code,amount_minor,currency,created_at) VALUES('fixture-member','fixture-credit','member','member',2000,'MYR',0),('fixture-clearing','fixture-credit','member','provider_clearing',-2000,'MYR',0)").run();
++ const calls=[];
++ const fixture={sessionStatus:200};
++ const fetchImpl=async(url,init)=>{
++  const path=new URL(url).pathname;
++  calls.push({path,method:init.method,authorization:new Headers(init.headers).get('authorization'),body:init.body?JSON.parse(init.body):null});
++  if(path==='/providers/megah5/games')return Response.json({provider:'megah5',result:{Status:200,Game:[{GameCode:'55021',GameName:'Ocean Quest',GameType:'2'}]}});
++  if(path==='/platform/megah5/session')return Response.json({provider:'megah5',upstreamStatus:200,result:{Status:fixture.sessionStatus,Url:'https://launch.example.test/session'}});
++  if(path==='/platform/megah5/balance')return Response.json({provider:'megah5',result:{Status:200,CurrentBalance:'0.00',Currency:'MYR'}});
++  if(path==='/platform/megah5/deposit')return Response.json({provider:'megah5',result:{Status:200}});
++  throw Error('Unexpected fixture gateway call: '+path);
++ };
++ const context={db,identity:{userId:'member',email:'member@example.test'},ownerEmail:'owner@example.test',gameGatewayUrl:gateway,gameGatewayToken:gameToken,gameGatewayWalletToken:walletToken,megaTransfersEnabled:'true',megaLiveGamesEnabled:'true',megaSettlementVerified:'true',gameGatewayFetch:fetchImpl};
++ async function request(path,{method='GET',data,extra={}}={}){
++  const response=await handle(new Request('https://portal.example.test'+path,{method,headers:{'content-type':'application/json',origin:'https://portal.example.test','x-csrf-token':'fixture-csrf','x-forwarded-for':'203.0.113.8'},...(data?{body:JSON.stringify(data)}:{})}),{...context,...extra});
++  return {status:response.status,data:await response.json()};
++ }
++ const launch=extra=>request('/api/game-launch',{method:'POST',data:{providerId:'megah5',gameCode:'55021'},extra});
++ return {sqlite,db,calls,fixture,context,request,launch,close:()=>sqlite.close()};
++}
++
++test('cached platform summary agrees with the selected MegaH5 catalogue without a gateway call',async()=>{
++ const h=harness();try{
++  const summary=await h.request('/api/games');
++  const selected=await h.request('/api/games?provider=megah5');
++  assert.equal(summary.status,200);assert.equal(selected.status,200);
++  assert.equal(selected.data.selectedPlatform.platformLaunchReady,true);
++  assert.equal(summary.data.providers.find(provider=>provider.id==='megah5').platformLaunchReady,true);
++  assert.equal(summary.data.providers.find(provider=>provider.id==='megah5').platformStatus,'ready');
++  assert.equal(summary.data.liveReady,true);assert.equal(summary.data.playable,true);assert.equal(summary.data.launchProvider,'megah5');
++  assert.deepEqual(summary.data.games,[]);assert.equal(summary.data.providersOnly,true);
++  assert.ok(summary.data.providers.filter(provider=>provider.id!=='megah5').every(provider=>provider.platformLaunchReady===false));
++  assert.equal(h.calls.length,0);
++ }finally{h.close();}
++});
++
++test('platform summary keeps every real readiness and catalogue control effective',async()=>{
++ const h=harness();try{
++  for(const extra of [{megaSettlementVerified:'false'},{megaLiveGamesEnabled:'false'},{megaTransfersEnabled:'false'},{gameGatewayToken:''},{gameGatewayWalletToken:gameToken},{gameGatewayUrl:'https://untrusted.example.test'}]){
++   const summary=await h.request('/api/games',{extra});
++   assert.equal(summary.status,200);assert.equal(summary.data.liveReady,false);assert.equal(summary.data.providers.find(provider=>provider.id==='megah5').platformLaunchReady,false);
++  }
++  for(const status of ['closed','suspended']){
++   h.sqlite.prepare("UPDATE api_supplier_artwork SET status=? WHERE provider_id='megah5'").run(status);
++   const summary=await h.request('/api/games');assert.equal(summary.data.liveReady,false);
++  }
++  h.sqlite.prepare("UPDATE api_supplier_artwork SET status='active' WHERE provider_id='megah5'").run();
++  h.sqlite.prepare("UPDATE game_visibility SET status='suspended' WHERE provider_id='megah5'").run();
++  assert.equal((await h.request('/api/games')).data.liveReady,false);
++  h.sqlite.prepare("UPDATE game_visibility SET status='active' WHERE provider_id='megah5'").run();
++  h.sqlite.prepare("UPDATE game_catalogue_cache SET complete=0 WHERE provider_id='megah5'").run();
++  assert.equal((await h.request('/api/games')).data.liveReady,false);
++  h.sqlite.prepare("UPDATE game_catalogue_cache SET complete=1,status='blocked' WHERE provider_id='megah5'").run();
++  assert.equal((await h.request('/api/games')).data.liveReady,false);
++  h.sqlite.prepare("UPDATE game_catalogue_cache SET status='available',games_json='invalid' WHERE provider_id='megah5'").run();
++  assert.equal((await h.request('/api/games')).data.liveReady,false);
++  assert.equal(h.calls.length,0);
++ }finally{h.close();}
++});
++
++test('a cached summary expires at the catalogue refresh boundary without contacting the supplier',async()=>{
++ const h=harness();try{
++  const checkedAt=1700000000;
++  h.sqlite.prepare("UPDATE game_catalogue_cache SET checked_at=?,last_success_at=? WHERE provider_id='megah5'").run(checkedAt,checkedAt);
++  const expiredCalls=[];
++  const rejectedRefresh=async(url,init)=>{expiredCalls.push({path:new URL(url).pathname,method:init.method});return Response.json({error:'provider_unavailable'},{status:502});};
++  const selectedFresh=await h.request('/api/games?provider=megah5',{extra:{gameSyncNow:()=>checkedAt+299,gameGatewayFetch:rejectedRefresh}});
++  assert.equal(selectedFresh.data.liveReady,true);assert.equal(expiredCalls.length,0);
++  for(const [elapsed,expected] of [[299,true],[300,false],[301,false]]){
++   const summary=await h.request('/api/games',{extra:{gameSyncNow:()=>checkedAt+elapsed,gameGatewayFetch:rejectedRefresh}});
++   assert.equal(summary.status,200);assert.equal(summary.data.liveReady,expected,'cache age '+elapsed);
++   assert.equal(summary.data.providers.find(provider=>provider.id==='megah5').platformLaunchReady,expected,'cache age '+elapsed);
++   assert.equal(expiredCalls.length,0,'the summary must never attempt a refresh');
++  }
++  const selectedExpired=await h.request('/api/games?provider=megah5',{extra:{gameSyncNow:()=>checkedAt+300,gameGatewayFetch:rejectedRefresh}});
++  assert.equal(selectedExpired.data.liveReady,false);
++  assert.deepEqual(expiredCalls,[{path:'/providers/megah5/games',method:'GET'}]);
++  assert.equal(h.calls.length,0);
++ }finally{h.close();}
++});
++
++test('a MegaH5 launch refreshes only its own catalogue and preserves scoped wallet credentials',async()=>{
++ const h=harness();try{
++  h.sqlite.prepare("UPDATE game_catalogue_cache SET checked_at=0 WHERE provider_id='megah5'").run();
++  const launched=await h.launch();
++  assert.equal(launched.status,200);assert.equal(launched.data.launchUrl,'https://launch.example.test/session');
++  assert.equal(launched.data.amountInGameMinor,'2000');
++  assert.deepEqual(h.calls.map(call=>call.path),['/providers/megah5/games','/platform/megah5/session','/platform/megah5/balance','/platform/megah5/deposit']);
++  assert.equal(h.calls.find(call=>call.path.endsWith('/session')).authorization,'Bearer '+gameToken);
++  assert.equal(h.calls.find(call=>call.path.endsWith('/deposit')).authorization,'Bearer '+walletToken);
++  assert.equal(h.calls.find(call=>call.path.endsWith('/deposit')).body.amount,'20.00');
++  assert.equal(h.sqlite.prepare('SELECT COUNT(*) count FROM game_wallet_sessions').get().count,1);
++ }finally{h.close();}
++});
++
++test('an incomplete catalogue cannot launch or reserve money through a direct POST',async()=>{
++ const h=harness();try{
++  h.sqlite.prepare("UPDATE game_catalogue_cache SET complete=0 WHERE provider_id='megah5'").run();
++  const selected=await h.request('/api/games?provider=megah5');assert.equal(selected.data.playable,false);
++  const launched=await h.launch();assert.equal(launched.status,409);
++  assert.equal(h.calls.length,0);
++  assert.equal(h.sqlite.prepare('SELECT COUNT(*) count FROM game_wallet_sessions').get().count,0);
++  assert.equal(h.sqlite.prepare('SELECT COUNT(*) count FROM wallet_reservations').get().count,0);
++  assert.equal((await withdrawalWalletState(h.db,'member')).availableMinor,'2000');
++ }finally{h.close();}
++});
++
++test('HTTP 200 with a rejected or missing GameLogin business status cannot prepare the wallet',async()=>{
++ for(const status of [403,'403',undefined]){
++  const h=harness();try{
++   h.fixture.sessionStatus=status;
++   const launched=await h.launch();assert.equal(launched.status,502,String(status));
++   assert.deepEqual(h.calls.map(call=>call.path),['/platform/megah5/session']);
++   assert.equal(h.sqlite.prepare('SELECT COUNT(*) count FROM game_wallet_sessions').get().count,0);
++   assert.equal(h.sqlite.prepare('SELECT COUNT(*) count FROM wallet_reservations').get().count,0);
++   assert.equal((await withdrawalWalletState(h.db,'member')).availableMinor,'2000');
++  }finally{h.close();}
++ }
++});
++
++test('a successful documented GameLogin string status still creates only one wallet transfer on retry',async()=>{
++ const h=harness();try{
++  h.fixture.sessionStatus='200';
++  assert.equal((await h.launch()).status,200);
++  assert.equal((await h.launch()).status,200);
++  assert.equal(h.calls.filter(call=>call.path.endsWith('/deposit')).length,1);
++  assert.equal(h.sqlite.prepare('SELECT COUNT(*) count FROM game_wallet_sessions').get().count,1);
++ }finally{h.close();}
++});
+diff --git a/tests/ios-pwa.test.mjs b/tests/ios-pwa.test.mjs
+index 9abeb42..9cbdb82 100644
+--- a/tests/ios-pwa.test.mjs
++++ b/tests/ios-pwa.test.mjs
+@@ -26,7 +26,7 @@ test('iPhone Safari Web App publishes a scoped standalone MASTER7 manifest',()=>
+ });
+ 
+ test('service worker keeps authentication and financial routes network-only',()=>{
+- assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.94-readiness-split/);
++ assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.95-repair-candidate/);
+  assert.match(app,/navigator\.serviceWorker\.register\("\/service-worker\.js",\{scope:"\/"\}\)/);
+  assert.match(worker,/request\.mode==='navigate'/);
+  assert.match(worker,/fetch\(request\)\.catch\(\(\)=>caches\.match\('\/offline\.html'\)\)/);
+diff --git a/tests/lobby-render.test.mjs b/tests/lobby-render.test.mjs
+index 572415d..866b3b6 100644
+--- a/tests/lobby-render.test.mjs
++++ b/tests/lobby-render.test.mjs
+@@ -55,7 +55,7 @@ test('customer rendering expands only the selected supplier into safe game cards
+ 
+ test('clicking a connected platform shows its platform state and only its own titles',()=>{
+  const connected=renderPlatformStatus('jili','active',true),view=JSON.stringify(connected.providers);
+- assert.match(view,/JILI/);assert.match(view,/1 games connected; launch access is awaiting the provider/);assert.match(view,/providers\/jili\.webp/);assert.match(view,/One title|game-card/);assert.equal(connected.gamesStatus.textContent,'JILI · 1 GAMES · API CONNECTED');
++ assert.match(view,/JILI/);assert.match(view,/1 games synchronized; launch or wallet integration is not ready/);assert.match(view,/providers\/jili\.webp/);assert.match(view,/One title|game-card/);assert.equal(connected.gamesStatus.textContent,'JILI · 1 GAMES · API CONNECTED');
+  const maintenance=JSON.stringify(renderPlatformStatus('awc','suspended',true).providers);assert.match(maintenance,/This platform is under maintenance/);
+  const stale=JSON.stringify(renderPlatformStatus('evo888h5','active',false,true).providers);assert.match(stale,/saved catalogue games; the provider connection is unavailable and the platform is under maintenance/);assert.doesNotMatch(stale,/games connected/);
+  const synchronizedMaintenance=JSON.stringify(renderPlatformStatus('evo888h5','active',true,true).providers);assert.match(synchronizedMaintenance,/games synchronized; all are currently under maintenance/);assert.doesNotMatch(synchronizedMaintenance,/provider connection is unavailable|saved catalogue/);
+@@ -240,7 +240,7 @@ test('payment checks and owner controls include the pending GSPAY deposit integr
+  assert.match(html,/Open GSPAY\+ reconciliation BO/);
+  assert.match(source,/path:"\/api\/payments\/gspay\/status"/);
+  assert.match(source,/providerId:channel\.provider_id,status:value/);
+- assert.match(source,/settlementVerified===true&&status\?\.liveReady===true/);
++ assert.match(source,/settlementVerified===true&&status\.liveReady===true/);
+  assert.match(source,/payout\.submissionEnabled===true/);
+ });
+ 
+diff --git a/tests/luxury-backoffice-ui.test.mjs b/tests/luxury-backoffice-ui.test.mjs
+index f8ab89a..a5d2826 100644
+--- a/tests/luxury-backoffice-ui.test.mjs
++++ b/tests/luxury-backoffice-ui.test.mjs
+@@ -27,7 +27,7 @@ test('bank, VIP, support and contact settings each use an independent compact co
+  assert.match(style,/\.admin-feature-cover\{display:block!important/);
+  assert.match(style,/\.admin-internal-sidebar a\.active::after/);
+  assert.match(style,/background:#5de9df/);
+- assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.94-readiness-split/);
++ assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.95-repair-candidate/);
+  assert.ok(html.lastIndexOf('/assets/suite-theme.css')>html.lastIndexOf('/assets/owner-manual.css'),'suite theme must load after all feature styles');
+  assert.match(suiteStyle,/--m7-gold:/);
+  assert.match(suiteStyle,/body\.admin-mode \.admin-internal-sidebar a\{/);
+diff --git a/tests/payment-capabilities.test.mjs b/tests/payment-capabilities.test.mjs
+index 959a6ea..f2c2a2a 100644
+--- a/tests/payment-capabilities.test.mjs
++++ b/tests/payment-capabilities.test.mjs
+@@ -30,3 +30,41 @@ test('internal recovery endpoint requires its private token and keeps all recove
+  let response=await handle(new Request(url,{method:'POST',headers:{authorization:'Bearer wrong'}}),{db,identity:null,ownerEmail:'',paymentRecoveryToken:token});assert.equal(response.status,401);
+  response=await handle(new Request(url,{method:'POST',headers:{authorization:'Bearer '+token}}),{db,identity:null,ownerEmail:'',paymentRecoveryToken:token});assert.equal(response.status,200);const body=await response.json();assert.equal(body.providers.vpay.enabled,false);assert.equal(body.providers.gspay.enabled,false);assert.equal(body.newOrdersChanged,false);assert.equal(body.payoutsSubmitted,false);
+ });
++
++test('VPay public status and health share the actual payout capability without changing controls',async t=>{
++ const gateway='https://master7-integration-gateway.onrender.com',returnUrl='https://master7-v17-staging.onrender.com/payment/return';
++ const cases=[
++  {name:'configured and enabled',configured:true,enabled:true},
++  {name:'missing payout token',patch:{vpayPayoutToken:undefined},configured:false,enabled:false},
++  {name:'missing withdrawal data key',patch:{withdrawalDataKey:undefined},configured:false,enabled:false},
++  {name:'reused payout and callback token',patch:{vpayPayoutToken:'c'.repeat(40)},configured:false,enabled:false},
++  {name:'payout switch disabled',patch:{vpayPayoutEnabled:'false'},configured:true,enabled:false},
++  {name:'payout switch absent',patch:{vpayPayoutEnabled:undefined},configured:true,enabled:false},
++  {name:'channel suspended',channel:'suspended',configured:true,enabled:false},
++  {name:'new deposits disabled independently',patch:{vpayOrdersEnabled:'false'},configured:true,enabled:true},
++  {name:'deposit gateway unavailable',gatewayUnavailable:true,configured:true,enabled:true},
++ ];
++ for(const scenario of cases)await t.test(scenario.name,async sub=>{
++  const {sqlite,db}=database(sub);sub.mock.method(globalThis,'fetch',async()=>{throw Error('Unexpected network request');});
++  sqlite.prepare("UPDATE payment_channel_controls SET status=? WHERE provider_id='vpay'").run(scenario.channel??'active');
++  const controls=sqlite.prepare('SELECT * FROM payment_channel_controls ORDER BY provider_id').all(),payoutControls=sqlite.prepare('SELECT * FROM provider_payout_controls ORDER BY provider_id').all();
++  let configReads=0;
++  const context={db,identity:null,ownerEmail:'',vpayGatewayUrl:gateway,vpayMode:'production',vpayTraderId:'3647',vpayOrdersEnabled:'true',vpayOrderToken:'o'.repeat(40),vpayQueryToken:'q'.repeat(40),vpayCallbackToken:'c'.repeat(40),vpayPayoutToken:'p'.repeat(40),vpayPayoutEnabled:'true',withdrawalDataKey:'w'.repeat(40),vpayReturnUrl:returnUrl,...scenario.patch,vpayFetch:async(input,init)=>{
++   assert.equal(String(input),gateway+'/platform/vpay/config');assert.equal(init.method,'GET');assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+'q'.repeat(40));configReads++;
++   if(scenario.gatewayUnavailable)throw Error('Synthetic unavailable gateway');
++   return Response.json({provider:'vpay',mode:'production',paymentReady:true,traderId:'3647',notifyUrl:gateway+'/callbacks/vpay/payment',returnUrl,tradeCodes:['2']});
++  }};
++  const bodies=[];
++  for(const path of ['/health','/api/payments/vpay/status']){const response=await handle(new Request('https://portal.example.test'+path),context);assert.equal(response.status,200);bodies.push(await response.json());}
++  const [health,status]=bodies,payout=status.capabilities.payout;
++  assert.deepEqual(payout,health.providerCapabilities.vpay.payout);
++  assert.equal(payout.configured,scenario.configured);assert.equal(payout.enabled,scenario.enabled);assert.equal(payout.submissionEnabled,scenario.enabled);
++  assert.equal(health.providerPayoutsEnabled.vpay,scenario.enabled);assert.equal(health.payoutsEnabled,scenario.enabled);
++  assert.equal(payout.verified,false);assert.equal(payout.settlementVerified,false);assert.equal(status.settlementVerified,false);assert.equal(health.settlementVerified,false);assert.equal(health.productionReady,false);
++  assert.equal(configReads,scenario.channel==='suspended'||scenario.patch?.vpayOrdersEnabled==='false'?0:2);
++  assert.deepEqual(sqlite.prepare('SELECT * FROM payment_channel_controls ORDER BY provider_id').all(),controls);
++  assert.deepEqual(sqlite.prepare('SELECT * FROM provider_payout_controls ORDER BY provider_id').all(),payoutControls);
++  for(const table of ['deposit_orders','withdrawal_requests','provider_payouts','wallet_ledger'])assert.equal(sqlite.prepare(`SELECT COUNT(*) n FROM ${table}`).get().n,0);
++  for(const secret of [context.vpayOrderToken,context.vpayQueryToken,context.vpayCallbackToken,context.vpayPayoutToken,context.withdrawalDataKey].filter(Boolean))assert.ok(!JSON.stringify(bodies).includes(secret));
++ });
++});
+diff --git a/tests/postgres-restore-safety.test.mjs b/tests/postgres-restore-safety.test.mjs
+index e946e9b..4a2c3f6 100644
+--- a/tests/postgres-restore-safety.test.mjs
++++ b/tests/postgres-restore-safety.test.mjs
+@@ -2,6 +2,8 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {readFileSync} from 'node:fs';
+ import {assertIsolatedRestoreTarget} from '../lib/restore-safety.mjs';
++import {BACKUP_EXCLUDED_TABLES,BACKUP_TABLES} from '../lib/encrypted-backup.ts';
++import {initializeRehearsalSchema,withRollbackOnlyTransaction} from '../scripts/restore-postgres-schema.mjs';
+ 
+ test('PostgreSQL restore rehearsal only accepts an explicitly isolated database',()=>{
+  assert.throws(()=>assertIsolatedRestoreTarget('postgres://user:pass@db.example/master7'),/isolated/);
+@@ -14,8 +16,77 @@ test('PostgreSQL restore rehearsal only accepts an explicitly isolated database'
+ 
+ test('restore rehearsal always rolls back and never contains a commit statement',()=>{
+  const source=readFileSync(new URL('../scripts/postgres-restore-dry-run.mjs',import.meta.url),'utf8');
+- assert.match(source,/client\.query\('ROLLBACK'\)/);
++ assert.match(source,/const receipt=await withRollbackOnlyTransaction\(client/);
+  assert.doesNotMatch(source,/client\.query\(['"]COMMIT/);
+  assert.match(source,/persistentWrites:false/);
+  assert.match(source,/--confirm-isolated/);
+ });
++
++test('PostgreSQL outer transaction always rolls back and closes on success or restore failure',async()=>{
++ for(const fail of [false,true]){
++  const events=[],client={connect:async()=>events.push('connect'),query:async sql=>events.push(sql),end:async()=>events.push('end')};
++  const restore=()=>withRollbackOnlyTransaction(client,async()=>{events.push('restore');if(fail)throw new Error('synthetic restore failure');return {verified:true};});
++  if(fail)await assert.rejects(restore,/synthetic restore failure/);
++  else assert.deepEqual(await restore(),{verified:true});
++  assert.deepEqual(events,['connect','BEGIN','restore','ROLLBACK','end']);
++ }
++});
++
++test('PostgreSQL rollback failure prevents a successful receipt and still closes the connection',async()=>{
++ const events=[],client={connect:async()=>events.push('connect'),query:async sql=>{events.push(sql);if(sql==='ROLLBACK')throw new Error('synthetic rollback failure');},end:async()=>events.push('end')};
++ await assert.rejects(()=>withRollbackOnlyTransaction(client,async()=>({verified:true})),/synthetic rollback failure/);
++ assert.deepEqual(events,['connect','BEGIN','ROLLBACK','end']);
++});
++
++class RehearsalClient {
++ constructor(failOn){this.events=[];this.failOn=failOn;this.applied=new Set();this.released=false;}
++ async query(sql,params=[]){
++  this.events.push({sql,params});
++  assert.doesNotMatch(sql,/^\s*(?:BEGIN|COMMIT|END|ABORT)\b/i,'The schema initializer must never control the outer transaction');
++  if(this.failOn?.test(sql))throw new Error('synthetic migration failure');
++  if(sql.startsWith('SELECT version FROM portal_schema_migrations'))return {rows:this.applied.has(params[0])?[{version:params[0]}]:[]};
++  if(sql.startsWith('INSERT INTO portal_schema_migrations'))this.applied.add(params[0]);
++  return {rows:[]};
++ }
++ release(){this.released=true;}
++}
++
++test('PostgreSQL rehearsal bootstraps the complete runtime schema inside one savepoint',async()=>{
++ const client=new RehearsalClient(),schema=readFileSync(new URL('../db/render-schema.sql',import.meta.url),'utf8');
++ await initializeRehearsalSchema(client,schema,[]);
++ const sql=client.events.map(event=>event.sql).join('\n');
++ const tables=[...new Set([...sql.matchAll(/CREATE TABLE IF NOT EXISTS ([a-z_]+)/g)].map(match=>match[1]))].sort();
++ assert.deepEqual(tables,[...BACKUP_TABLES,...BACKUP_EXCLUDED_TABLES].sort(),'Every release table must be created and classified');
++ for(const column of ['review_status','reviewed_by','reviewed_at','review_note'])assert.match(sql,new RegExp(`ALTER TABLE benefit_claims ADD COLUMN IF NOT EXISTS ${column}\\b`));
++ assert.match(sql,/ALTER TABLE marketing_campaigns ADD COLUMN IF NOT EXISTS template_params_json/);
++ assert.match(sql,/ALTER TABLE marketing_deliveries ADD COLUMN IF NOT EXISTS delivered_at/);
++ assert.equal(client.events[0].sql,'SAVEPOINT master7_restore_bootstrap');
++ assert.equal(client.events.at(-1).sql,'RELEASE SAVEPOINT master7_restore_bootstrap');
++ assert.equal(client.released,false,'The outer transaction owns the client');
++ assert.equal(client.events.some(event=>event.params[0]?.includes?.('open-explicit')),false,'Bootstrap must not activate payment providers');
++});
++
++test('PostgreSQL rehearsal rolls a late migration failure back to its savepoint',async()=>{
++ const client=new RehearsalClient(/ALTER TABLE benefit_claims ADD COLUMN IF NOT EXISTS review_note/);
++ await assert.rejects(()=>initializeRehearsalSchema(client,'SELECT 1;',[]),/synthetic migration failure/);
++ assert.deepEqual(client.events.slice(-2).map(event=>event.sql),['ROLLBACK TO SAVEPOINT master7_restore_bootstrap','RELEASE SAVEPOINT master7_restore_bootstrap']);
++ assert.equal(client.released,false);
++});
++
++test('PostgreSQL rehearsal rejects transaction control hidden in SQL batches or comments',async()=>{
++ for(const schema of ['SELECT 1; COMMIT;','-- schema header\nCOMMIT AND CHAIN;','SELECT 1; /* outer /* inner */ comment */ END;','SELECT 1; PREPARE TRANSACTION \'fixture\';','SELECT 1; ROLLBACK;']){
++  const client=new RehearsalClient();
++  await assert.rejects(()=>initializeRehearsalSchema(client,schema,[]),/Unsupported restore bootstrap transaction statement/);
++  assert.equal(client.events.some(event=>event.sql===schema),false,'Unsafe SQL must not reach the database');
++  assert.deepEqual(client.events.slice(-2).map(event=>event.sql),['ROLLBACK TO SAVEPOINT master7_restore_bootstrap','RELEASE SAVEPOINT master7_restore_bootstrap']);
++ }
++});
++
++test('PostgreSQL rehearsal permits transaction words inside strings and function bodies',async()=>{
++ const schema=`SELECT 'COMMIT; ''ROLLBACK''', E'escaped\\\'quote; COMMIT';
++ CREATE FUNCTION fixture_fn() RETURNS void LANGUAGE plpgsql AS $body$ BEGIN RETURN; END; $body$;`;
++ const client=new RehearsalClient();
++ await initializeRehearsalSchema(client,schema,[]);
++ assert.ok(client.events.some(event=>event.sql===schema));
++ assert.equal(client.events.at(-1).sql,'RELEASE SAVEPOINT master7_restore_bootstrap');
++});
+diff --git a/tests/vpay-portal.test.mjs b/tests/vpay-portal.test.mjs
+index 35c88da..4187766 100644
+--- a/tests/vpay-portal.test.mjs
++++ b/tests/vpay-portal.test.mjs
+@@ -26,14 +26,14 @@ function fixture(t,{status='created'}={}){
+   async run(){return sql.prepare(this.text).run(...this.args);}
+  }
+  const db={prepare:text=>new Statement(text),async batch(statements){sql.exec('BEGIN');try{const results=statements.map(statement=>sql.prepare(statement.text).run(...statement.args));sql.exec('COMMIT');return results;}catch(error){sql.exec('ROLLBACK');throw error;}}};
+- const state={queries:0};
++ const state={queries:0,queryPatch:data=>data};
+  const context={db,user:null,gatewayUrl:gateway,orderToken,queryToken,callbackToken,enabled:'true',mode:'production',vpayTraderId:traderId,returnUrl:'https://master7-v17-staging.onrender.com/payment/return',fetchImpl:async(input,init)=>{
+   state.queries++;const url=new URL(String(input));assert.equal(url.origin,gateway);assert.equal(url.pathname,'/platform/vpay/order-query');assert.equal(init.method,'POST');assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+queryToken);
+   const request=JSON.parse(init.body);assert.deepEqual(request,{outTradeNo:orderId,tradeNo});
+-  return Response.json({provider:'vpay',result:{code:0,data:{out_trade_no:orderId,trade_no:tradeNo,amount:'20.00',state:'3',trader_id:traderId}}});
++  return Response.json({provider:'vpay',result:{code:0,data:state.queryPatch({out_trade_no:orderId,trade_no:tradeNo,amount:'20.00',state:'3',trader_id:traderId})}});
+  }};
+- async function callback(){
+-  const response=await handleVPay(new Request(origin+'/api/payment-callbacks/vpay/payment',{method:'POST',headers:{Authorization:'Bearer '+callbackToken,'Content-Type':'application/json'},body:JSON.stringify({out_trade_no:orderId,trade_no:tradeNo,amount:'20.00',state:'3',trader_id:traderId})}),context);
++ async function callback(patch={},authorization='Bearer '+callbackToken){
++  const response=await handleVPay(new Request(origin+'/api/payment-callbacks/vpay/payment',{method:'POST',headers:{Authorization:authorization,'Content-Type':'application/json'},body:JSON.stringify({out_trade_no:orderId,trade_no:tradeNo,amount:'20.00',state:'3',trader_id:traderId,...patch})}),context);
+   return {status:response.status,body:await response.text()};
+  }
+  t.after(()=>sql.close());return {sql,state,orderId,tradeNo,callback,context};
+@@ -47,6 +47,45 @@ test('a verified VPay callback writes exactly one user-bound balanced ledger',as
+  assert.deepEqual(await f.callback(),{status:200,body:'SUCCESS'});assert.equal(f.state.queries,1);assert.equal(f.sql.prepare('SELECT COUNT(*) count FROM wallet_ledger').get().count,2);
+ });
+ 
++test('VPay explicitly confirmed MYR credits once and duplicate notifications remain idempotent',async t=>{
++ const f=fixture(t);f.state.queryPatch=data=>({...data,currency:'MYR'});
++ for(let i=0;i<3;i++)assert.deepEqual(await f.callback(),{status:200,body:'SUCCESS'});
++ assert.equal(f.state.queries,1);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,2);
++ assert.equal(f.sql.prepare('SELECT SUM(amount_minor) total FROM wallet_ledger').get().total,0);
++ assert.equal(f.sql.prepare("SELECT amount_minor FROM wallet_ledger WHERE account_code='member'").get().amount_minor,2000);
++});
++
++test('concurrent VPay success notifications create one balanced credit',async t=>{
++ const f=fixture(t),responses=await Promise.all([f.callback(),f.callback(),f.callback()]);
++ assert.ok(responses.every(response=>response.status===200&&response.body==='SUCCESS'));
++ const rows=f.sql.prepare('SELECT account_code,amount_minor FROM wallet_ledger WHERE order_id=? ORDER BY account_code').all(f.orderId);
++ assert.deepEqual(rows.map(row=>({...row})),[{account_code:'member',amount_minor:2000},{account_code:'provider_clearing',amount_minor:-2000}]);
++ assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(f.orderId).status,'credited');
++});
++
++test('VPay independently queried currency, amount and order bindings fail closed',async t=>{
++ for(const [field,value] of [['currency','USD'],['amount','21.00'],['out_trade_no','another-order'],['trade_no','another-trade']])await t.test(field,async sub=>{
++  const f=fixture(sub);f.state.queryPatch=data=>({...data,[field]:value});
++  assert.deepEqual(await f.callback(),{status:503,body:'LEDGER_REVIEW'});assert.equal(f.state.queries,1);
++  assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);
++  assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(f.orderId).status,'review');
++  assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit WHERE event='deposit_credited'").get().n,0);
++ });
++});
++
++test('VPay callback authentication and original order bindings reject invalid notifications without crediting',async t=>{
++ const cases=[
++  {name:'wrong gateway token',authorization:'Bearer invalid',status:401},
++  {name:'wrong amount',patch:{amount:'21.00'},status:502},
++  {name:'wrong order',patch:{out_trade_no:'another-order'},status:404},
++  {name:'wrong transaction',patch:{trade_no:'another-trade'},status:502},
++ ];
++ for(const scenario of cases)await t.test(scenario.name,async sub=>{
++  const f=fixture(sub),response=await f.callback(scenario.patch,scenario.authorization);assert.equal(response.status,scenario.status);
++  assert.equal(f.state.queries,0);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);
++ });
++});
++
+ test('partial or foreign-user VPay ledgers are held for review before any financial write',async t=>{
+  for(const [name,seed] of [
+   ['partial',sql=>sql.prepare("INSERT INTO wallet_ledger VALUES('partial',?,'alice','member',2000,'MYR',0)").run('fixture-vpay-order')],

@@ -1,0 +1,149 @@
+name: MASTER7 full repair candidate
+
+on:
+  push:
+    branches: [codex/master7-full-repair-20261107]
+    paths:
+      - .github/workflows/master7-full-repair.yml
+      - ci/full-repair/**
+      - docs/patches/full-closeout-20261107/**
+      - vercel.json
+      - domain-gateway/front/vercel.json
+      - domain-gateway/admin/vercel.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: master7-full-repair-20261107
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: github.repository == 'jackysim47-star/master7' && github.ref == 'refs/heads/codex/master7-full-repair-20261107'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Check out the exact candidate commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6, verified 2026-11-07
+        with:
+          ref: ${{ github.sha }}
+          path: review
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Read the immutable original release archive
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: e3faa8ddc6b6fe87768e9e71f466ce48538bfad7
+          path: baseline
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout-cone-mode: false
+          sparse-checkout: /master7-v17-render-staging.tar.gz
+
+      - name: Install exact Node runtime
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6, verified 2026-11-07
+        with:
+          node-version: 24.22.1
+          architecture: x64
+          check-latest: false
+          package-manager-cache: false
+
+      - name: Validate branch, deployment guards, source and unified patch
+        env:
+          SOURCE_COMMIT: ${{ github.sha }}
+          SOURCE_REF: ${{ github.ref }}
+          SOURCE_REPOSITORY: ${{ github.repository }}
+        run: |
+          python3 review/ci/full-repair/pipeline.py prepare \
+            --repo "$GITHUB_WORKSPACE/review" \
+            --archive "$GITHUB_WORKSPACE/baseline/master7-v17-render-staging.tar.gz" \
+            --work "$RUNNER_TEMP/master7-full-repair" \
+            --commit "$SOURCE_COMMIT" --ref "$SOURCE_REF" --repository "$SOURCE_REPOSITORY"
+
+      - name: Install pinned package manager and complete locked dependencies
+        run: python3 review/ci/full-repair/pipeline.py install --work "$RUNNER_TEMP/master7-full-repair"
+
+      - name: Rebuild, test and build without external networking
+        run: |
+          # Create a private network namespace, then immediately drop back to
+          # the ordinary runner UID/GID before any dependency or source runs.
+          runner_uid="$(id -u)"
+          runner_gid="$(id -g)"
+          runner_net_ns="$(readlink /proc/self/ns/net)"
+          sudo unshare --net -- \
+            setpriv --reuid="$runner_uid" --regid="$runner_gid" --init-groups \
+            env -i PATH="$PATH" CI=true TZ=UTC \
+            python3 "$GITHUB_WORKSPACE/review/ci/full-repair/pipeline.py" verify \
+            --work "$RUNNER_TEMP/master7-full-repair" --parent-netns "$runner_net_ns"
+
+      - name: Package only the reviewed candidate source
+        run: python3 review/ci/full-repair/pipeline.py package --work "$RUNNER_TEMP/master7-full-repair"
+
+      - name: Upload successful candidate and validation receipts
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6, verified 2026-11-07
+        with:
+          name: master7-full-repair-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/master7-full-repair/out/master7-v17-render-staging.tar.gz
+            ${{ runner.temp }}/master7-full-repair/out/MASTER7_FULL_REPAIR_CANDIDATE_20261107.json
+            ${{ runner.temp }}/master7-full-repair/out/SHA256SUMS
+            ${{ runner.temp }}/master7-full-repair/out/tests.tap
+            ${{ runner.temp }}/master7-full-repair/out/build.log
+            ${{ runner.temp }}/master7-full-repair/out/install.log
+            ${{ runner.temp }}/master7-full-repair/out/rebuild.log
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0
+
+      - name: Retain failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: master7-full-repair-failed-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/master7-full-repair/out/*.log
+            ${{ runner.temp }}/master7-full-repair/out/tests.tap
+            ${{ runner.temp }}/master7-full-repair/out/*network*.jsonl
+          if-no-files-found: warn
+          retention-days: 7
+
+  publish_candidate:
+    needs: verify
+    if: >-
+      github.repository == 'jackysim47-star/master7' &&
+      github.ref == 'refs/heads/codex/master7-full-repair-20261107' &&
+      github.event_name == 'push' &&
+      github.event.head_commit.message == '[publish-repair-candidate]' &&
+      needs.verify.result == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - name: Check out only the source commit that passed verification
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.sha }}
+          path: review
+          fetch-depth: 1
+          # Only this bounded publisher gets a persisted, temporary job token.
+          # It never executes the application, its dependencies, or its tests.
+          persist-credentials: true
+          token: ${{ github.token }}
+      - name: Download the successful artifact from this same workflow run
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6, verified 2026-11-07
+        with:
+          name: master7-full-repair-${{ github.sha }}
+          path: ${{ runner.temp }}/master7-candidate-publish
+      - name: Verify provenance and fast-forward only the two candidate files
+        env:
+          EXPECTED_SOURCE_SHA: ${{ github.sha }}
+        run: |
+          python3 review/ci/full-repair/publish-candidate.py \
+            --repo "$GITHUB_WORKSPACE/review" \
+            --artifacts "$RUNNER_TEMP/master7-candidate-publish" \
+            --expected-sha "$EXPECTED_SOURCE_SHA" --publish
