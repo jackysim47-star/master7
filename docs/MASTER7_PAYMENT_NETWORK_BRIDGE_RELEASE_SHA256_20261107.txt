@@ -11,5 +11,12 @@ Gateway source commit: 3ab04dc6b196dda33b684cee59e6664b7d4b427e
 Gateway validation: 103/103 passed.
 
 The release adds a GSPAY Portal-to-Gateway order/query/callback trust boundary.
-No real order, payout, live-game, wallet-transfer or settlement switch is
-enabled by this package.
+Publication commit: 7ef90f0fd8fbc979a980bfff6cbf82e4a09d4d3e
+Portal Render deploy: dep-dbndmfff3r2c738capjg
+Gateway Render deploy: dep-dbndm3ijnfac73c3l7sg
+Live verification: VPay, GSPAY and 1MPay order/query/callback routes ready;
+VPay trade codes 1/2/7; transactions and real-payment routes enabled.
+
+No paid order, wallet posting or merchant reconciliation is claimed by this
+receipt. Payout, settlement verification and all game launch controls remain
+closed pending their separate live acceptance.

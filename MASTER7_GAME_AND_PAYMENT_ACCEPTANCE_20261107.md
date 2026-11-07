@@ -170,6 +170,36 @@ Acceptance requires one authorized real payment to produce all of the following:
   transfer or settlement switch. Those controls remain closed until separate
   provider acceptance is complete.
 
+## Live verification · release `.91`
+
+- Portal service: `master7-v17-staging`
+  (`srv-dbl0iv7f3r2c73848ei0`, Singapore).
+- Publication commit:
+  `7ef90f0fd8fbc979a980bfff6cbf82e4a09d4d3e`.
+- Portal deploy `dep-dbndmfff3r2c738capjg` became `live` at
+  2026-11-07 16:04:36 MYT. Gateway deploy `dep-dbndm3ijnfac73c3l7sg`
+  became `live` at 16:02:49 MYT.
+- Live release and source release are
+  `17.0.0-selfbuilt.91-payment-network-bridge`; Gateway is `1.13.0`.
+- VPay, GSPAY and 1MPay each report configured order, query and callback routes
+  with `orderReady=true`. VPay lists MYR trade codes `1`, `2` and `7`.
+- Portal health reports PostgreSQL and SMS OTP ready,
+  `transactionsEnabled=true` and `realPayments=true`. Payouts remain disabled.
+- No paid supplier result has yet been reconciled to a balanced member wallet
+  entry, so `settlementVerified`, each provider `liveReady`, and global
+  `productionReady` correctly remain false.
+- GSPAY payment callback checks are active at the Gateway and Portal. Supplier
+  callback signature, bridge bearer and once-only ledger tests passed locally;
+  live paid-callback acceptance still requires the first real payment.
+- The game lobby returns 34 positions and 766 retained titles, with zero
+  launch-ready providers and zero playable titles. Live catalogue reads confirm
+  MegaH5 166, JILI 297, 918KISS H5 91 and Rectangle 64; EVO888H5 retains 148
+  maintenance titles. The other 29 positions have no current accepted
+  catalogue, and no provider has passed launch/wallet/settlement acceptance.
+- The final payment deployment window contains zero application
+  error/critical/fatal logs and zero HTTP 5xx responses on payment and callback
+  routes.
+
 ## Live verification · release `.90`
 
 - Render service: `master7-v17-staging`
