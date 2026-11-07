@@ -1,5 +1,35 @@
 # MASTER7 Current Deployment Receipt
 
+## `.84` management gate current live deployment
+
+- Live release: `17.0.0-selfbuilt.84-management-gate`.
+- Source commit: `24b17a4745d90a7db3d41701dbdb53cc83f0c3a5`.
+- Publication commit: `035f1907970c19cdfbc31a1b816e23b46ed0a53b`.
+- Render deploy: `dep-dbna5gvf3r2c73828a20`, `live` at
+  2026-11-07 12:03:39 MYT.
+- Bundle SHA-256:
+  `6568687ed13f8e521407b34a515ecae4b421300543a5b7639c34360596de842e`.
+- Corrects the signed-out management route: Rewards and member navigation no
+  longer leak into `/admin`; the page opens directly as an isolated Management
+  sign-in and successful authentication clears the entry-only body state.
+- The management entry now uses the `MASTER7 · Management Console` document
+  title and displays the MASTER7 logo, `SERVICE PORTAL` identity and management
+  badge. Customer member copy is absent from this route.
+- Desktop acceptance at 1440 px and mobile acceptance at 390 px both have exact
+  client and scroll widths, zero visible portal sections behind the dialog and
+  zero browser console errors. The member sign-in remains independently branded
+  with member OTP controls.
+- Runtime acceptance confirms `.84`, PostgreSQL ready and SMS OTP ready. The
+  post-deploy window contains zero application error/fatal logs and zero HTTP
+  5xx request logs.
+- Existing provider truth is unchanged: 34 supplier positions remain separate;
+  only the accepted launch adapter is playable. Payouts remain disabled,
+  payment settlement remains unverified and `productionReady=false`.
+- `master7.best` and `www.master7.site` return HTTP 200. `www.master7.best`
+  still has no resolvable DNS record and remains an external domain blocker.
+- Checksum receipt:
+  `docs/MASTER7_MANAGEMENT_GATE_RELEASE_SHA256_20261107.txt`.
+
 ## `.82` luxury casino suite current live deployment
 
 - Live release: `17.0.0-selfbuilt.82-luxury-casino-suite`.

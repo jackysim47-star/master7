@@ -21,4 +21,13 @@ Validation before publication:
 - Render production build: passed.
 - git diff --check: passed.
 
-Online deployment acceptance: pending.
+Online deployment acceptance:
+- Render deploy dep-dbna5gvf3r2c73828a20 reached live at 2026-11-07T04:03:39Z.
+- /health reports release/source 17.0.0-selfbuilt.84-management-gate, database ready and SMS OTP ready.
+- Desktop management entry: HTTP 200, Management Console title, isolated sign-in, MASTER7 SERVICE PORTAL brand, 1440/1440 width, zero console errors.
+- Mobile management entry: HTTP 200, isolated sign-in, 390/390 width, zero console errors.
+- Member mobile entry remains independently branded with member OTP controls.
+- Post-deploy application error/fatal logs: 0.
+- Post-deploy HTTP 5xx request logs: 0.
+- master7.best: HTTP 200; www.master7.site: HTTP 200.
+- www.master7.best: DNS unresolved; external domain configuration remains pending.
