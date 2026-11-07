@@ -7,9 +7,12 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
 import tarfile
 import importlib.util
 
+# Importing the helper must not create untracked files in the reviewed checkout.
+sys.dont_write_bytecode = True
 spec = importlib.util.spec_from_file_location("pipeline", Path(__file__).with_name("pipeline.py"))
 pipeline = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(pipeline)
