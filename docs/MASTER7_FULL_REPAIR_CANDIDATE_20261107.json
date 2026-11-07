@@ -1,0 +1,40 @@
+{
+  "archiveBytes": 3644079,
+  "archiveName": "master7-v17-render-staging.tar.gz",
+  "archiveSha256": "3a973778ea9bf53f31f812b7acbbf095f4e826fc796a588335cd4b96fad45bfe",
+  "baseArchiveSha256": "6d1a96b5a5cfa6e88a87908485c6af32e5d4cfc6a57da49420b1be48b76598d2",
+  "baseCommit": "e3faa8ddc6b6fe87768e9e71f466ce48538bfad7",
+  "baseDeclaredSourceCommit": "a0b3b2ede1f0e51f4dfeccc666637ca5f0643c05",
+  "branch": "codex/master7-full-repair-20261107",
+  "candidateRelease": "17.0.0-selfbuilt.95-repair-candidate",
+  "dependenciesInstalled": true,
+  "lockedPackageCount": 889,
+  "lockfileSha256": "6a276f81aab504274390bfd485a4b514abfb6b508cb5a4d64d38c864d1f8fc2d",
+  "node": "v24.22.1",
+  "patchPath": "docs/patches/full-closeout-20261107/master7-full-closeout.patch",
+  "patchSha256": "fc7513ab683f521cb70b01d57c4d04cca1dd025482a9b926473ab573414d89da",
+  "pnpm": "11.25.0",
+  "pnpmIntegrity": "sha512-XN6SW08HX3Jetx+64YpC/+eEUkeJ8ZthxzHLhyHsKKruFg4BqNWvT+2ypCzb8wDv4j2zVrDUoXtNY+EfirfJVg==",
+  "repository": "jackysim47-star/master7",
+  "scope": "Undeployed candidate source; no business controls or production acceptance changed",
+  "sourceCommit": "3f45a3b16beb1d14a8f4b3dd757cb8a5a1ef6ef8",
+  "sourceFileCount": 481,
+  "sourceManifestSha256": "569dda8f84879d4c9951ffabab5db4e02f57cf81efec3b064299bf25cd8c8b94",
+  "validation": {
+    "buildServerSha256": "8f63a34d43db1800b43685b8a9230985162b481e00d6dd8d720349ea431a5bdd",
+    "identityBoundaryIncluded": true,
+    "networkAttempts": 0,
+    "networkNamespaceIsolated": true,
+    "productionCredentialsInjected": false,
+    "realRenderBuild": true,
+    "testFiles": 78,
+    "tests": {
+      "cancelled": 0,
+      "fail": 0,
+      "pass": 455,
+      "skipped": 0,
+      "tests": 455,
+      "todo": 0
+    }
+  }
+}
