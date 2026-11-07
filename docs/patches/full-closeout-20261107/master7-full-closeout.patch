@@ -1277,6 +1277,51 @@ index 0000000..49d3e97
 +  assert.equal(h.sqlite.prepare('SELECT COUNT(*) count FROM game_wallet_sessions').get().count,1);
 + }finally{h.close();}
 +});
+diff --git a/tests/game-ranking-api.test.mjs b/tests/game-ranking-api.test.mjs
+index 59908de..0502ab5 100644
+--- a/tests/game-ranking-api.test.mjs
++++ b/tests/game-ranking-api.test.mjs
+@@ -1,6 +1,7 @@
+ import {test} from 'node:test';
+ import assert from 'node:assert/strict';
+ import {DatabaseSync} from 'node:sqlite';
++import {readFileSync,readdirSync} from 'node:fs';
+ import {handle} from '../lib/backend.ts';
+ 
+ class Statement{
+@@ -10,23 +11,20 @@ class Statement{
+  async all(){return {results:this.sqlite.prepare(this.sql).all(...this.args)};}
+  async run(){return this.sqlite.prepare(this.sql).run(...this.args);}
+ }
+-function fixture(){
+- const sqlite=new DatabaseSync(':memory:');sqlite.exec(`
+-  CREATE TABLE users(id TEXT PRIMARY KEY,username TEXT NOT NULL,role TEXT NOT NULL,approved INTEGER NOT NULL,csrf TEXT NOT NULL,created_at INTEGER NOT NULL);
+-  CREATE TABLE settings(id TEXT PRIMARY KEY,value TEXT NOT NULL);
+-  CREATE TABLE audit(id TEXT PRIMARY KEY,user_id TEXT NOT NULL,event TEXT NOT NULL,target TEXT NOT NULL,created_at INTEGER NOT NULL);
+-  CREATE TABLE rate_limits(id TEXT PRIMARY KEY,count INTEGER NOT NULL,expires_at INTEGER NOT NULL);
+-  CREATE TABLE game_catalogue_cache(provider_id TEXT PRIMARY KEY,status TEXT NOT NULL,complete INTEGER NOT NULL);
+-  CREATE TABLE api_supplier_artwork(provider_id TEXT PRIMARY KEY,status TEXT NOT NULL,image_data TEXT NOT NULL DEFAULT '',updated_at INTEGER NOT NULL);
+-  CREATE TABLE providers(id TEXT PRIMARY KEY,visible INTEGER NOT NULL);
+-  INSERT INTO users VALUES('owner','owner@example.test','owner',1,'owner-csrf',1),('staff','staff@example.test','staff',1,'staff-csrf',2);
++function fixture(t){
++ const sqlite=new DatabaseSync(':memory:');t.after(()=>sqlite.close());sqlite.exec('PRAGMA foreign_keys=ON');
++ // Ranking reads the same catalogue/readiness tables as the application.
++ // Use actual migrations so new columns and visibility controls are present.
++ for(const file of readdirSync(new URL('../drizzle/',import.meta.url)).filter(file=>file.endsWith('.sql')).sort())sqlite.exec(readFileSync(new URL('../drizzle/'+file,import.meta.url),'utf8'));
++ sqlite.exec(`
++  INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES('owner','owner@example.test','owner',1,'owner-csrf',1),('staff','staff@example.test','staff',1,'staff-csrf',2);
+  `);const db={prepare:sql=>new Statement(sqlite,sql),async batch(list){sqlite.exec('BEGIN');try{const results=[];for(const item of list)results.push(await item.run());sqlite.exec('COMMIT');return results;}catch(error){sqlite.exec('ROLLBACK');throw error;}}};
+  async function call(who,path,method='GET',data){const csrf=who==='owner'?'owner-csrf':who==='staff'?'staff-csrf':'',response=await handle(new Request(`https://portal.example.test${path}`,{method,headers:{'content-type':'application/json','origin':'https://portal.example.test','x-csrf-token':csrf},...(data===undefined?{}:{body:JSON.stringify(data)})}),{db,identity:who?{userId:who,email:`${who}@example.test`}:null,ownerEmail:'owner@example.test'});return {status:response.status,data:await response.json()};}
+  return {sqlite,call};
+ }
+ 
+-test('game ranking routes are owner controlled and reorder only the 34 platform cards',async()=>{
+- const {sqlite,call}=fixture(),publicDefault=await call(null,'/api/game-ranking');assert.equal(publicDefault.status,200);assert.equal(publicDefault.data.platformCount,34);assert.equal(publicDefault.data.automaticRanking,false);assert.equal(publicDefault.data.internalGamesRanked,false);assert.equal(publicDefault.data.ranking.categories.HOT[0],'megah5');assert.equal(Object.hasOwn(publicDefault.data,'updatedBy'),false);assert.equal(Object.hasOwn(publicDefault.data,'storage'),false);
++test('game ranking routes are owner controlled and reorder only the 34 platform cards',async t=>{
++ const {sqlite,call}=fixture(t),publicDefault=await call(null,'/api/game-ranking');assert.equal(publicDefault.status,200);assert.equal(publicDefault.data.platformCount,34);assert.equal(publicDefault.data.automaticRanking,false);assert.equal(publicDefault.data.internalGamesRanked,false);assert.equal(publicDefault.data.ranking.categories.HOT[0],'megah5');assert.equal(Object.hasOwn(publicDefault.data,'updatedBy'),false);assert.equal(Object.hasOwn(publicDefault.data,'storage'),false);
+  assert.equal((await call('staff','/api/admin/game-ranking')).status,403);const owner=await call('owner','/api/admin/game-ranking');assert.equal(owner.status,200);const ranking=structuredClone(owner.data.ranking);ranking.categories.HOT=[ranking.categories.HOT[1],ranking.categories.HOT[0],...ranking.categories.HOT.slice(2)];
+  ranking.categories.LIVE=[...ranking.categories.LIVE].reverse();ranking.categories.SLOT=[ranking.categories.SLOT.at(-1),...ranking.categories.SLOT.slice(0,-1)];
+  const duplicate=structuredClone(ranking);duplicate.categories.HOT[1]=duplicate.categories.HOT[0];assert.equal((await call('owner','/api/admin/game-ranking','POST',{ranking:duplicate})).status,400);
 diff --git a/tests/ios-pwa.test.mjs b/tests/ios-pwa.test.mjs
 index 9abeb42..9cbdb82 100644
 --- a/tests/ios-pwa.test.mjs
