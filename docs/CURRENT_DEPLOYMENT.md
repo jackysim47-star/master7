@@ -1,23 +1,32 @@
 # MASTER7 Current Deployment Receipt
 
-## `.90` callback-route readiness candidate
+## `.90` callback-route readiness current live deployment
 
-- Candidate release: `17.0.0-selfbuilt.90-callback-route-readiness`.
+- Live release: `17.0.0-selfbuilt.90-callback-route-readiness`.
 - Source commit: `4fd55d63d6f433167074166e92468bc7fa56c2e2`.
+- Publication commit: `021c5735ccd57ac5e750a049f5f758dbfb45dc03`.
+- Render deploy: `dep-dbnd4a3l550s73eso8ag`, `live` at
+  2026-11-07 15:26:05 MYT.
 - Bundle SHA-256:
   `a98bfc88723556b2b33c3c22a9830ede441d980b63dff9e10130db4bbdbda7f6`.
 - The GSPAY browser return is pinned to the direct Render application route;
   forwarding-domain return URLs fail closed.
 - Source validation and a clean extraction of the published archive each passed
   399/399 Portal tests, 3/3 Render database-adapter tests and the Render
-  production build. `.89` remains the current Portal live release until the
-  `.90` deployment receipt is added.
+  production build.
 - Integration gateway `1.12.1` is live from commit
   `4ebe8fe9141f9ee6a24b7a61902d7b50f734de84`, deploy
   `dep-dbnd0e3m8hqs73bsaug0`. It uses the current Portal origin and direct
   redirect default; its 102/102 tests passed.
 - All production payment, payout, settlement and live-game gates remain
   closed pending provider and end-to-end acceptance.
+- Online acceptance confirms PostgreSQL and OTP ready; HTTP 200 member,
+  registration, management, payment-return and GSPAY callback-check routes; 34
+  suppliers; 766 retained catalogue titles; and 0 playable titles. VPay,
+  1MPay and GSPAY new-order readiness remains false.
+- The deployment window contains zero application error/critical/fatal logs
+  and zero HTTP 5xx request logs. Autoscaling remains 1–3 instances at CPU 75%
+  and memory 75%.
 
 ## `.89` game-check truth current live deployment
 

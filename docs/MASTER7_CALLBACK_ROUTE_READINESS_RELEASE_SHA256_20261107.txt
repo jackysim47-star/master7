@@ -14,5 +14,13 @@ Gateway source commit: 4ebe8fe9141f9ee6a24b7a61902d7b50f734de84
 Gateway Render deploy: dep-dbnd0e3m8hqs73bsaug0
 Gateway validation: 102/102 passed.
 
+Publication commit: 021c5735ccd57ac5e750a049f5f758dbfb45dc03
+Portal Render deploy: dep-dbnd4a3l550s73eso8ag
+Portal live at: 2026-11-07 15:26:05 MYT
+Live verification: release/source release .90; PostgreSQL and OTP ready;
+member, registration, management, payment-return and callback-check routes 200;
+34 suppliers, 766 retained titles, 0 playable titles; zero deployment-window
+application error/critical/fatal logs and zero HTTP 5xx request logs.
+
 No payment, payout, live-game, wallet-transfer or settlement switch is enabled
 by this release.

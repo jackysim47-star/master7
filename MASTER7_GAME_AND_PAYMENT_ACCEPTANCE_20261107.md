@@ -149,6 +149,39 @@ Acceptance requires one authorized real payment to produce all of the following:
   transfer or settlement switch. Those controls remain closed until separate
   provider acceptance is complete.
 
+## Live verification · release `.90`
+
+- Render service: `master7-v17-staging`
+  (`srv-dbl0iv7f3r2c73848ei0`, Singapore).
+- Publication commit:
+  `021c5735ccd57ac5e750a049f5f758dbfb45dc03`.
+- Render deploy: `dep-dbnd4a3l550s73eso8ag`, `live` at
+  2026-11-07 15:26:05 MYT.
+- Live release and source release:
+  `17.0.0-selfbuilt.90-callback-route-readiness`.
+- `/health` is HTTP 200 with PostgreSQL and SMS OTP ready. `/signin`,
+  `/register`, `/admin` and `/payment/return` are HTTP 200.
+- The GSPAY callback check is HTTP 200 and truthfully reports `active=false`;
+  its public status reports an incomplete program, closed channel and
+  `orderReady=false`. VPay and 1MPay query/callback reconciliation remain
+  configured while both new-order paths report `orderReady=false`.
+- Live HTML references 21 exact `.90-callback-route-readiness` release assets
+  and no `.84` through `.89` release asset. The legacy
+  `www.master7.best/payment/return` URL is absent from the live assets.
+- The public lobby has exactly 34 supplier positions and 766 retained catalogue
+  titles: MegaH5 166, JILI 297, 918KISS H5 91, Rectangle 64 and EVO888H5 148.
+  All returned game cards remain `playable=false`; production-playable titles
+  remain 0.
+- Global controls remain fail-closed: `productionReady=false`,
+  `transactionsEnabled=false`, `realPayments=false`, `payoutsEnabled=false`,
+  `settlementVerified=false` and `liveGames=false`.
+- The deployment window contains zero application error/critical/fatal logs
+  and zero HTTP 5xx request logs.
+- Integration gateway `1.12.1` permits the current direct Portal origin and no
+  longer permits the retired `.vip` origin. It remains truthful at `mode=uat`,
+  `productionQa=not_verified` and `liveReady=false`.
+- Autoscaling remains enabled at minimum 1, maximum 3, CPU 75% and memory 75%.
+
 ## Live verification · release `.89`
 
 - Render service: `master7-v17-staging`
