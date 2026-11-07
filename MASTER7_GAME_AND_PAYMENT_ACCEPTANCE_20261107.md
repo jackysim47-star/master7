@@ -127,6 +127,27 @@ Acceptance requires one authorized real payment to produce all of the following:
 - This release changes read-only status presentation and cache versioning. It
   does not enable a payment, payout, game, wallet or settlement switch.
 
+## Release `.91` payment-network bridge package
+
+- Release: `17.0.0-selfbuilt.91-payment-network-bridge`.
+- Source commit: `308ca740b2995a1aaf857e8e8ff91fb0a168a6a8`.
+- Archive SHA-256:
+  `fc1db450bc3271e5bb9f4448e65afdc62472fa89637409729e93bf7c48608b93`.
+- Portal GSPAY order/query traffic is pinned to the current integration
+  gateway. Supplier credentials remain in the gateway, while order,
+  query/signing and callback forwarding use three independent internal values.
+- The gateway verifies the supplier callback and only acknowledges it after
+  the Portal confirms an exact durable `ok` or `success` response.
+- GSPAY public callback:
+  `https://master7-integration-gateway.onrender.com/callbacks/gspay/payment`.
+  Merchant BO whitelist recorded by the owner: `74.220.52.132`. Supplier
+  callback source recorded in the contract: `52.221.96.227`.
+- Source acceptance passed 400/400 Portal tests, 3/3 Render database-adapter
+  tests and the Render production build. Gateway `1.13.0` commit `3ab04dc6b196dda33b684cee59e6664b7d4b427e`
+  passed 103/103 tests.
+- Real orders remain closed pending a controlled paid MYR reconciliation. This
+  package does not claim supplier payment or wallet-settlement acceptance.
+
 ## Release `.90` callback-route readiness package
 
 - Release: `17.0.0-selfbuilt.90-callback-route-readiness`.

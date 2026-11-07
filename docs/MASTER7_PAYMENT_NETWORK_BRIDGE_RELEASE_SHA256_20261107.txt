@@ -1,0 +1,15 @@
+MASTER7 payment-network bridge release
+Date: 2026-11-07 MYT
+Release: 17.0.0-selfbuilt.91-payment-network-bridge
+Source commit: 308ca740b2995a1aaf857e8e8ff91fb0a168a6a8
+Archive: master7-v17-render-staging.tar.gz
+SHA-256: fc1db450bc3271e5bb9f4448e65afdc62472fa89637409729e93bf7c48608b93
+
+Source validation: Portal 400/400; Render DB adapter 3/3; production build passed.
+Gateway: 1.13.0
+Gateway source commit: 3ab04dc6b196dda33b684cee59e6664b7d4b427e
+Gateway validation: 103/103 passed.
+
+The release adds a GSPAY Portal-to-Gateway order/query/callback trust boundary.
+No real order, payout, live-game, wallet-transfer or settlement switch is
+enabled by this package.

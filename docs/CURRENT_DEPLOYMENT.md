@@ -1,5 +1,20 @@
 # MASTER7 Current Deployment Receipt
 
+## `.91` payment-network bridge package prepared
+
+- Prepared release: `17.0.0-selfbuilt.91-payment-network-bridge`.
+- Source commit: `308ca740b2995a1aaf857e8e8ff91fb0a168a6a8`.
+- Bundle SHA-256:
+  `fc1db450bc3271e5bb9f4448e65afdc62472fa89637409729e93bf7c48608b93`.
+- GSPAY Portal traffic now uses integration gateway `1.13.0` from commit
+  `3ab04dc6b196dda33b684cee59e6664b7d4b427e`. Supplier secrets stay in the gateway; Portal order,
+  query/signing and callback credentials are separate.
+- Source validation passed 400/400 Portal tests, 3/3 Render database-adapter
+  tests and the production build. Gateway validation passed 103/103 tests.
+- Real order, payout and settlement switches remain closed. Live deployment
+  and online network evidence will be recorded below only after both services
+  reach terminal `live` status and pass post-deploy checks.
+
 ## `.90` callback-route readiness current live deployment
 
 - Live release: `17.0.0-selfbuilt.90-callback-route-readiness`.
