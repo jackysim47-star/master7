@@ -1,5 +1,32 @@
 # MASTER7 Current Deployment Receipt
 
+## `.92` VPay payout current live deployment
+
+- Live release: `17.0.0-selfbuilt.92-vpay-payout`.
+- Portal source commit: `11df333549718f9767fb31e9f5aaf9f780192e35`.
+- Gateway source commit: `628bac71cea05eda4e3d739148908133ae4fee3d`.
+- Publication commit: `e6606fa0b79ac540dd8b9f7b603805d3a90e0e0f`.
+- Portal Render deploy: `dep-dbne6epsrm7s7396f0jg`, `live` at
+  2026-11-07 16:38:54 MYT.
+- Gateway Render deploy: `dep-dbne6e95efls73b3k9a0`, `live` at
+  2026-11-07 16:37:42 MYT.
+- Bundle SHA-256:
+  `1493e47649410a371bfc8d8986372dda2615005fbc8416dffd619379d8683545`.
+- VPay payout is implemented, configured and enabled behind an isolated
+  Portal-to-Gateway token. The member withdrawal API exposes 18 MYR banks.
+- Submission, independent status query, authenticated callback forwarding,
+  wallet reservation, idempotent completion, rejection release, reversal and
+  ambiguous-state recovery are deployed. The callback readiness check is
+  active and both services report complete VPay payout configuration.
+- Portal validation passed 406/406 tests and the Render production build.
+  Gateway validation passed 105/105 tests.
+- No real payout was submitted during deployment. VPay correctly retains
+  `verified=false` and `settlementVerified=false` until a controlled real
+  payout is reconciled against VPay, the MASTER7 withdrawal and wallet state.
+- GSPAY+ payout stays closed pending its exact `bank_target` list and a valid
+  current outbound-IP whitelist. 1MPay payout stays closed pending its exact
+  bank-code list and final callback/status/acknowledgement contract.
+
 ## `.91` payment-network bridge current live deployment
 
 - Live release: `17.0.0-selfbuilt.91-payment-network-bridge`.
