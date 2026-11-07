@@ -1,0 +1,17 @@
+MASTER7 backoffice benefit review release
+Date: 2026-11-07 MYT
+Release: 17.0.0-selfbuilt.93-benefit-review
+Source commit: 506f682897506711edad3a6e8eb1e075f608ba86
+Archive: master7-v17-render-staging.tar.gz
+SHA-256: 21b2e17166e9d26922663d589584abb79edcc3dff7972ff6851f234f3b180fe4
+
+Scope:
+- Owner can approve benefit eligibility or reject it with a required reason.
+- Reviewed state, reviewer, time and note persist and appear in the backoffice.
+- Every decision writes an audit event and repeated approval is idempotent.
+- Approval remains pending settlement; no wallet credit or turnover completion is invented.
+- PostgreSQL/D1 migration 0107 preserves existing claims and adds the review queue.
+
+Validation:
+- 406/406 full regression tests passed.
+- Render production bundle completed.
