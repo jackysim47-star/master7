@@ -1,0 +1,15 @@
+MASTER7 VPay payout release
+Date: 2026-11-07 MYT
+Release: 17.0.0-selfbuilt.92-vpay-payout
+Portal source commit: 11df333549718f9767fb31e9f5aaf9f780192e35
+Gateway source commit: 628bac71cea05eda4e3d739148908133ae4fee3d
+Archive: master7-v17-render-staging.tar.gz
+SHA-256: 1493e47649410a371bfc8d8986372dda2615005fbc8416dffd619379d8683545
+
+Validation: Portal 406/406 tests passed, Render production build passed,
+Gateway 105/105 tests passed, and both repositories passed git diff checks.
+
+This release adds isolated VPay payout submission, independent payout queries,
+authenticated callback forwarding, durable wallet reservations, idempotent
+completion, rejection release, reversal handling, and ambiguous-state recovery.
+No real payout or provider settlement is claimed by source validation.
