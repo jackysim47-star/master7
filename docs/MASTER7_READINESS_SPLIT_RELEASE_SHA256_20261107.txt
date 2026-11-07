@@ -1,0 +1,7 @@
+MASTER7 readiness split release
+Date: 2026-11-07 MYT
+Source release: 17.0.0-selfbuilt.94-readiness-split
+Source commit: a0b3b2ede1f0e51f4dfeccc666637ca5f0643c05
+Archive SHA-256: 6d1a96b5a5cfa6e88a87908485c6af32e5d4cfc6a57da49420b1be48b76598d2
+Validation: 406/406 Node tests passed; Render production build passed.
+Scope: Separates implemented controls from external production acceptance. No payment or game settlement is marked verified without real evidence.
