@@ -11,6 +11,14 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. Callback POST requests remain closed until each provider's signed callback contract is implemented; the reachability endpoint does not claim transaction readiness.
 
+## Version 1.12.1: current portal origins
+
+The default browser origin and MegaH5 session return URL now use the current
+direct Render portal. Retired `master7.vip` defaults are no longer accepted.
+Explicit environment values still take precedence, so the deployed
+`ALLOWED_ORIGINS` and `REDIRECT_URL` must be updated separately. This release
+does not enable game launch, transfers, payments or settlement.
+
 ## Version 1.12.0: Pragmatic Play read-only catalogue
 
 `GET /providers/pragmaticplay/games` reads the assigned production catalogue

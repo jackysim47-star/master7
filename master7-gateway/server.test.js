@@ -24,9 +24,21 @@ test('health exposes readiness without secrets', async () => {
   assert.equal(JSON.stringify(data).includes('secret'), false);
 });
 
-const PLATFORM_ORIGINS = ['https://www.master7.vip', 'https://www.master7.best', 'https://admin.master7.best'];
+const DIRECT_PORTAL_ORIGIN = 'https://master7-v17-staging.onrender.com';
+const PLATFORM_ORIGINS = ['https://master7.best', 'https://master7.site', DIRECT_PORTAL_ORIGIN];
 
-test('three configured platform origins work for GET and browser preflight', async () => {
+test('default browser origin is the current direct portal and excludes retired domains', async () => {
+  const app = makeApp({ env: {} });
+  const current = await run(app, '/health', { headers: { Origin: DIRECT_PORTAL_ORIGIN } });
+  assert.equal(current.headers.get('access-control-allow-origin'), DIRECT_PORTAL_ORIGIN);
+  assert.deepEqual((await current.json()).browserAccess.allowedOrigins, [DIRECT_PORTAL_ORIGIN]);
+  for (const origin of ['https://www.master7.vip', 'https://admin.master7.vip']) {
+    const retired = await run(app, '/health', { headers: { Origin: origin } });
+    assert.equal(retired.headers.get('access-control-allow-origin'), null);
+  }
+});
+
+test('three current platform origins work for GET and browser preflight', async () => {
   const app = makeApp({ env: { ALLOWED_ORIGINS: PLATFORM_ORIGINS.join(',') } });
   for (const origin of PLATFORM_ORIGINS) {
     const health = await run(app, '/health', { headers: { Origin: origin } });
@@ -49,7 +61,7 @@ test('three configured platform origins work for GET and browser preflight', asy
 
 test('untrusted, lookalike and opaque origins receive no browser access', async () => {
   const app = makeApp({ env: { ALLOWED_ORIGINS: PLATFORM_ORIGINS.join(',') } });
-  for (const origin of ['https://www.master7.best.attacker.test', 'https://master7.best', 'http://www.master7.best', 'null']) {
+  for (const origin of ['https://master7.best.attacker.test', 'https://www.master7.vip', 'http://master7.best', 'null']) {
     const res = await run(app, '/health', { headers: { Origin: origin } });
     assert.equal(res.headers.get('access-control-allow-origin'), null);
     assert.equal(res.headers.get('vary'), 'Origin');
@@ -80,9 +92,9 @@ test('legacy origin, explicit override and empty list behave predictably', async
   const legacy = makeApp({ env: { ALLOWED_ORIGIN: 'https://legacy.example/' } });
   const res = await run(legacy, '/health', { headers: { Origin: 'https://legacy.example' } });
   assert.equal(res.headers.get('access-control-allow-origin'), 'https://legacy.example');
-  const custom = makeApp({ env: { ALLOWED_ORIGIN: 'https://legacy.example', ALLOWED_ORIGINS: ' https://www.master7.best/, https://www.master7.best ' } });
+  const custom = makeApp({ env: { ALLOWED_ORIGIN: 'https://legacy.example', ALLOWED_ORIGINS: ' https://master7.best/, https://master7.best ' } });
   const status = await run(custom, '/health');
-  assert.deepEqual((await status.json()).browserAccess.allowedOrigins, ['https://www.master7.best']);
+  assert.deepEqual((await status.json()).browserAccess.allowedOrigins, ['https://master7.best']);
   const denied = await run(custom, '/health', { headers: { Origin: 'https://legacy.example' } });
   assert.equal(denied.headers.get('access-control-allow-origin'), null);
   const closed = await run(makeApp({ env: { ALLOWED_ORIGINS: '' } }), '/health', { headers: { Origin: PLATFORM_ORIGINS[0] } });
@@ -137,6 +149,7 @@ test('platform game credential can create only a MegaH5 session', async () => {
   assert.equal(request.body.PlayerId, payload.playerId);
   assert.equal(request.body.GameCode, payload.gameCode);
   assert.equal(request.body.Currency, 'MYR');
+  assert.equal(request.body.RedirectUrl, DIRECT_PORTAL_ORIGIN);
   assert.equal(request.body.Signature, megaSignature('GameLogin', '2026-11-06T01:00:00Z', 'master7', 'secret', payload.playerId));
   const adminDenied = await run(makeApp({ env, fetchImpl }), '/admin/evo888h5/player', {
     method: 'POST', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ userid: 'member123' }),

@@ -25,11 +25,12 @@ const {
 const { version: VERSION } = require('./package.json');
 const PROVIDERS = ['cosmoplay', 'creative-gaming', 'pgsoft', 'spade-gaming'];
 const PROVIDER_USER_AGENT = `MASTER7-Integration-Gateway/${VERSION}`;
+const DEFAULT_PORTAL_ORIGIN = 'https://master7-v17-staging.onrender.com';
 
 function browserOrigins(env) {
   const configured = env.ALLOWED_ORIGINS !== undefined
     ? env.ALLOWED_ORIGINS
-    : (env.ALLOWED_ORIGIN || 'https://www.master7.vip');
+    : (env.ALLOWED_ORIGIN || DEFAULT_PORTAL_ORIGIN);
   const origins = new Set();
   for (const item of String(configured).split(',')) {
     const value = item.trim();
@@ -798,7 +799,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           return send(res, 503, { error: 'vpay_payment_configuration_incomplete' });
         }
         const returnUrl = walletOrder ? peerConfiguration.returnUrl
-          : (env.VPAY_RETURN_URL ? vpayReturnUrl : normalizeHttpsUrl(String(env.REDIRECT_URL || 'https://www.master7.vip')));
+          : (env.VPAY_RETURN_URL ? vpayReturnUrl : normalizeHttpsUrl(String(env.REDIRECT_URL || DEFAULT_PORTAL_ORIGIN)));
         if (!returnUrl) return send(res, 503, { error: 'vpay_payment_configuration_incomplete' });
         const result = await vpay('TRADER_ORDER', {
           title,
@@ -928,7 +929,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           GameCode: gameCode,
           Currency: currency,
           Lang: String(payload.lang || 'en-us'),
-          RedirectUrl: String(env.REDIRECT_URL || 'https://www.master7.vip'),
+          RedirectUrl: String(env.REDIRECT_URL || DEFAULT_PORTAL_ORIGIN),
           LaunchDemo: Boolean(payload.demo),
         });
         const providerOK = Number(result.data && result.data.Status) === 200;
