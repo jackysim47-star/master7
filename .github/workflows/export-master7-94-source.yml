@@ -1,0 +1,61 @@
+# Development-only source integrity/export workflow. Never merge into release branches.
+name: Verify and export MASTER7 .94 source
+
+'on':
+  push:
+    branches:
+      - codex/master7-source-validation-20261107
+
+permissions:
+  contents: read
+
+concurrency:
+  group: master7-source-validation-94
+  cancel-in-progress: false
+
+jobs:
+  export-source:
+    if: >-
+      github.repository == 'jackysim47-star/master7' &&
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/codex/master7-source-validation-20261107' &&
+      github.event.deleted == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out the fixed release archive only
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: jackysim47-star/master7
+          ref: e3faa8ddc6b6fe87768e9e71f466ce48538bfad7
+          fetch-depth: 1
+          fetch-tags: false
+          persist-credentials: false
+          lfs: false
+          submodules: false
+          sparse-checkout: |
+            /master7-v17-render-staging.tar.gz
+          sparse-checkout-cone-mode: false
+
+      - name: Verify the source commit and archive bytes
+        shell: bash --noprofile --norc -euo pipefail {0}
+        run: |
+          test "$(git rev-parse HEAD)" = 'e3faa8ddc6b6fe87768e9e71f466ce48538bfad7'
+          test -f master7-v17-render-staging.tar.gz
+          test ! -L master7-v17-render-staging.tar.gz
+          test "$(stat -c '%s' -- master7-v17-render-staging.tar.gz)" = '3629527'
+          printf '%s  %s\n' '6d1a96b5a5cfa6e88a87908485c6af32e5d4cfc6a57da49420b1be48b76598d2' 'master7-v17-render-staging.tar.gz' | sha256sum --check --strict -
+
+      - name: Upload the verified original archive
+        id: source-artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: master7-94-source-e3faa8dd-${{ github.run_id }}-${{ github.run_attempt }}
+          path: master7-v17-render-staging.tar.gz
+          archive: true
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
+          overwrite: false
+          include-hidden-files: false
