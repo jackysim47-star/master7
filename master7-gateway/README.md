@@ -11,6 +11,19 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. Callback POST requests remain closed until each provider's signed callback contract is implemented; the reachability endpoint does not claim transaction readiness.
 
+## Version 1.12.0: Pragmatic Play read-only catalogue
+
+`GET /providers/pragmaticplay/games` reads the assigned production catalogue
+through the documented `getCasinoGames` request and sorted MD5 signature. The
+adapter pins the production host, bounds the response, rejects redirects and
+projects only public game fields. It never calls player, launch, wallet,
+free-round, bet, transfer or payout operations.
+
+The catalogue can populate the existing PRAGMATIC PLAY supplier button only
+after the provider accepts the Render request. A successful catalogue is not
+launch or wallet-settlement acceptance, so returned games remain non-playable
+until the separate end-to-end flow is verified.
+
 ## Version 1.11.0: JDB and RSGHub read-only catalogues
 
 The gateway now exposes authenticated, read-only game catalogues for JDB and

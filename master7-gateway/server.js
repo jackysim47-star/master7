@@ -8,6 +8,7 @@ const { jiliCatalogueBody } = require('./jili');
 const { venusCatalogue } = require('./venus');
 const { rsghubCatalogue } = require('./rsghub');
 const { jdbCatalogue } = require('./jdb');
+const { pragmaticCatalogue } = require('./pragmatic');
 const {
   configuredUrl,
   gamePeerCredential,
@@ -400,6 +401,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
             venusGames: `${base}/providers/venus/games`,
             rsghubGames: `${base}/providers/rsghub/games`,
             jdbGames: `${base}/providers/jdb/games`,
+            pragmaticPlayGames: `${base}/providers/pragmaticplay/games`,
             vpayStatus: `${base}/providers/vpay/status`,
             gspayStatus: `${base}/providers/gspay/status`,
             callbacks: `${base}/callbacks`,
@@ -428,6 +430,8 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
               && env.RSGHUB_DES_KEY && env.RSGHUB_DES_IV && env.RSGHUB_SYSTEM_CODE),
             jdb: Boolean(env.JDB_BASE_URL && env.JDB_DC && env.JDB_AES_KEY
               && env.JDB_AES_IV && env.JDB_AGENT_ID),
+            pragmaticplay: Boolean(env.PRAGMATIC_BASE_URL && env.PRAGMATIC_SECURE_LOGIN
+              && env.PRAGMATIC_SECRET_KEY),
             vpay: Boolean(vpayTraderId && vpayApiToken),
             gspay: gspayReadiness(env).credentialsConfigured,
           },
@@ -466,6 +470,11 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
 
       if (req.method === 'GET' && url.pathname === '/providers/jdb/games') {
         const result = await cached('jdb-games', async () => ({ ok: true, data: await jdbCatalogue({ env, fetchImpl, now }) }));
+        return send(res, 200, result.data, cors);
+      }
+
+      if (req.method === 'GET' && url.pathname === '/providers/pragmaticplay/games') {
+        const result = await cached('pragmaticplay-games', async () => ({ ok: true, data: await pragmaticCatalogue({ env, fetchImpl }) }));
         return send(res, 200, result.data, cors);
       }
 
