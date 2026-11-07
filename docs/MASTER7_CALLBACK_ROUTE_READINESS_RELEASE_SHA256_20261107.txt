@@ -1,0 +1,18 @@
+MASTER7 callback-route readiness release
+Date: 2026-11-07 MYT
+Release: 17.0.0-selfbuilt.90-callback-route-readiness
+Source commit: 4fd55d63d6f433167074166e92468bc7fa56c2e2
+Archive: master7-v17-render-staging.tar.gz
+SHA-256: a98bfc88723556b2b33c3c22a9830ede441d980b63dff9e10130db4bbdbda7f6
+
+Source validation: Portal 399/399; Render DB adapter 3/3; production build passed.
+Clean extracted-archive validation: Portal 399/399; Render DB adapter 3/3;
+production build passed.
+
+Gateway: 1.12.1
+Gateway source commit: 4ebe8fe9141f9ee6a24b7a61902d7b50f734de84
+Gateway Render deploy: dep-dbnd0e3m8hqs73bsaug0
+Gateway validation: 102/102 passed.
+
+No payment, payout, live-game, wallet-transfer or settlement switch is enabled
+by this release.

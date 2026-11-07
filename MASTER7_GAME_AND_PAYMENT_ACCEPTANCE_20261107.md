@@ -127,6 +127,28 @@ Acceptance requires one authorized real payment to produce all of the following:
 - This release changes read-only status presentation and cache versioning. It
   does not enable a payment, payout, game, wallet or settlement switch.
 
+## Release `.90` callback-route readiness package
+
+- Release: `17.0.0-selfbuilt.90-callback-route-readiness`.
+- Source commit: `4fd55d63d6f433167074166e92468bc7fa56c2e2`.
+- Archive SHA-256:
+  `a98bfc88723556b2b33c3c22a9830ede441d980b63dff9e10130db4bbdbda7f6`.
+- GSPAY customer return now uses the direct Render application route
+  `https://master7-v17-staging.onrender.com/payment/return`. The legacy
+  forwarding-domain return is rejected because its HTTP 302 can change a POST
+  request into a GET request or rewrite the path.
+- Source acceptance and a clean extraction of the published archive each passed
+  399/399 Portal tests, 3/3 Render database-adapter tests and the Render
+  production build.
+- Integration gateway `1.12.1` is live from commit
+  `4ebe8fe9141f9ee6a24b7a61902d7b50f734de84`, Render deploy
+  `dep-dbnd0e3m8hqs73bsaug0`. Its current Portal origin and redirect defaults
+  use the direct Render service; the retired `.vip` origins are no longer
+  accepted by default. Gateway tests passed 102/102.
+- This package does not enable a real payment, payout, live game, wallet
+  transfer or settlement switch. Those controls remain closed until separate
+  provider acceptance is complete.
+
 ## Live verification · release `.89`
 
 - Render service: `master7-v17-staging`
