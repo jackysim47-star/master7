@@ -6,6 +6,8 @@ const { verifyVpayNotification, vpaySignature } = require('./vpay');
 const { paymentOrderRequest, paymentOrderResponse } = require('./gspay');
 const { jiliCatalogueBody } = require('./jili');
 const { venusCatalogue } = require('./venus');
+const { rsghubCatalogue } = require('./rsghub');
+const { jdbCatalogue } = require('./jdb');
 const {
   configuredUrl,
   gamePeerCredential,
@@ -396,6 +398,8 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
             clotplayGames: `${base}/providers/clotplay/games`,
             jiliGames: `${base}/providers/jili/games?account=1to1`,
             venusGames: `${base}/providers/venus/games`,
+            rsghubGames: `${base}/providers/rsghub/games`,
+            jdbGames: `${base}/providers/jdb/games`,
             vpayStatus: `${base}/providers/vpay/status`,
             gspayStatus: `${base}/providers/gspay/status`,
             callbacks: `${base}/callbacks`,
@@ -420,6 +424,10 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
             kissh5: Object.fromEntries(Object.entries(catalogueProfiles['918kissh5'].accounts).map(([name, account]) => [name, Boolean(account.id && account.secret)])),
             clotplay: Boolean(clotplayToken),
             jili: Object.fromEntries(Object.entries(jiliAccounts).map(([name, account]) => [name, Boolean(account.id && account.secret)])),
+            rsghub: Boolean(env.RSGHUB_CLIENT_ID && env.RSGHUB_CLIENT_SECRET
+              && env.RSGHUB_DES_KEY && env.RSGHUB_DES_IV && env.RSGHUB_SYSTEM_CODE),
+            jdb: Boolean(env.JDB_BASE_URL && env.JDB_DC && env.JDB_AES_KEY
+              && env.JDB_AES_IV && env.JDB_AGENT_ID),
             vpay: Boolean(vpayTraderId && vpayApiToken),
             gspay: gspayReadiness(env).credentialsConfigured,
           },
@@ -448,6 +456,16 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
 
       if (req.method === 'GET' && url.pathname === '/providers/venus/games') {
         const result = await cached('venus-games', async () => ({ ok: true, data: await venusCatalogue({ env, fetchImpl, now }) }));
+        return send(res, 200, result.data, cors);
+      }
+
+      if (req.method === 'GET' && url.pathname === '/providers/rsghub/games') {
+        const result = await cached('rsghub-games', async () => ({ ok: true, data: await rsghubCatalogue({ env, fetchImpl, now }) }));
+        return send(res, 200, result.data, cors);
+      }
+
+      if (req.method === 'GET' && url.pathname === '/providers/jdb/games') {
+        const result = await cached('jdb-games', async () => ({ ok: true, data: await jdbCatalogue({ env, fetchImpl, now }) }));
         return send(res, 200, result.data, cors);
       }
 

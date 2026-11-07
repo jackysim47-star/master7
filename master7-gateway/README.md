@@ -11,6 +11,20 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. Callback POST requests remain closed until each provider's signed callback contract is implemented; the reachability endpoint does not claim transaction readiness.
 
+## Version 1.11.0: JDB and RSGHub read-only catalogues
+
+The gateway now exposes authenticated, read-only game catalogues for JDB and
+RSGHub at `GET /providers/jdb/games` and
+`GET /providers/rsghub/games`. JDB follows the official Action 49 AES-CBC
+contract. RSGHub follows the official encrypted
+`GameListByCurrency` contract. Both adapters validate configuration, upstream
+responses and public game fields before returning data, and never call player,
+launch, wallet, betting or transfer operations.
+
+Provider credentials remain in Render environment variables. A configured
+catalogue means only that the request can be attempted; it does not attest
+provider allowlisting, game launch, wallet settlement or production QA.
+
 ## Version 1.10.1: GSPAY merchant-evidence correction
 
 The owner confirmed that the previously cited supplier ticket does not belong
