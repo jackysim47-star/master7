@@ -110,6 +110,23 @@ Acceptance requires one authorized real payment to produce all of the following:
 - This release changes only truthful customer presentation and cache versioning.
   It does not enable a payment, payout, game, wallet or settlement switch.
 
+## Release `.89` game-check truth package
+
+- Source commit: `6bf4110ad12d1b2733c9ab3dbcbf1cba4e4ad226`.
+- Archive SHA-256: `70fd1a348dcebcfc12e30b11f5fdcb38fabe6c6a7cde8c9c230a81523fe2b59f`.
+- Archive members: 529 under one `master7-v17-render-staging/` root.
+- The 34-provider backoffice check now separates completed checks, acceptance
+  pending, vendor/maintenance waiting and explicit supplier errors. Catalogue
+  counts and the current blocker are shown per provider; a retained catalogue
+  never implies launch or wallet acceptance.
+- System-readiness entries for payment and game production flows now say
+  **Acceptance pending / 待生产验收** instead of the ambiguous **Maintenance**.
+- A clean extracted archive installed from the frozen lockfile, passed the full
+  398/398 suite and Render DB adapter 3/3, and completed the Render production
+  build. Focused game-check presentation tests passed 6/6.
+- This release changes read-only status presentation and cache versioning. It
+  does not enable a payment, payout, game, wallet or settlement switch.
+
 ## Live verification · release `.88`
 
 - Render service: `master7-v17-staging`

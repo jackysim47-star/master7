@@ -1,0 +1,11 @@
+MASTER7 release: 17.0.0-selfbuilt.89-game-check-truth
+Source commit: 6bf4110ad12d1b2733c9ab3dbcbf1cba4e4ad226
+Archive: master7-v17-render-staging.tar.gz
+Archive SHA-256: 70fd1a348dcebcfc12e30b11f5fdcb38fabe6c6a7cde8c9c230a81523fe2b59f
+Archive members: 529
+Full test suite: 398/398 passed
+Render database adapter: 3/3 passed
+Focused game-check presentation: 6/6 passed
+Render production build: passed
+Clean extracted archive frozen install and repeat validation: passed
+Payment, payout, game, wallet and settlement switches: unchanged and fail-closed
