@@ -1,6 +1,30 @@
 # MASTER7 Current Deployment Receipt
 
-## `.84` management gate current live deployment
+## `.88` payment-readiness current live deployment
+
+- Live release: `17.0.0-selfbuilt.88-payment-readiness`.
+- Source commit: `680e1c240011f740e68394764df39b54ea4b5fb4`.
+- Publication commit: `c39e0410b0f365ac0cb2ff22d00e938681d2abf9`.
+- Render deploy: `dep-dbnc8kajnfac73bvq1ug`, `live` at
+  2026-11-07 14:27:13 MYT.
+- Bundle SHA-256:
+  `de6c8a12ebe7eef6545355438d1a1d3ac01ca726dc17d1a21c4e0fbd62473553`.
+- The public VPay, GSPAY+ and 1MPay cards now require their provider status API
+  to report `orderReady=true` as well as an active owner channel before showing
+  Available. Current new-order routes remain closed and display maintenance.
+- Runtime verification confirms PostgreSQL and OTP ready, exact `.88` asset and
+  service-worker cache identifiers, 34 supplier positions, 766 retained titles
+  and 0 production-playable titles.
+- Full acceptance passed 392/392 Portal tests, 3/3 Render database-adapter
+  tests, a clean production build, zero post-deploy application errors and zero
+  HTTP 5xx responses.
+- Payment, payout, settlement and live-game gates remain closed. Domain callback
+  and provider end-to-end acceptance blockers remain recorded in the main
+  acceptance note.
+- Autoscaling is currently 1–3 instances at CPU 75% / memory 75%. The service
+  has remained at one instance; the cap limits unexpected compute cost.
+
+## `.84` management gate historical deployment
 
 - Live release: `17.0.0-selfbuilt.84-management-gate`.
 - Source commit: `24b17a4745d90a7db3d41701dbdb53cc83f0c3a5`.

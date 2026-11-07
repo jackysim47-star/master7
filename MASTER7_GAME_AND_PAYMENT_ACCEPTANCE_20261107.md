@@ -109,3 +109,71 @@ Acceptance requires one authorized real payment to produce all of the following:
   tests and the Render production build passed.
 - This release changes only truthful customer presentation and cache versioning.
   It does not enable a payment, payout, game, wallet or settlement switch.
+
+## Live verification · release `.88`
+
+- Render service: `master7-v17-staging`
+  (`srv-dbl0iv7f3r2c73848ei0`, Singapore).
+- Publication commit:
+  `c39e0410b0f365ac0cb2ff22d00e938681d2abf9`.
+- Render deploy: `dep-dbnc8kajnfac73bvq1ug`, `live` at
+  2026-11-07 14:27:13 MYT.
+- Live release: `17.0.0-selfbuilt.88-payment-readiness`.
+- Source commit:
+  `680e1c240011f740e68394764df39b54ea4b5fb4`.
+- Archive SHA-256:
+  `de6c8a12ebe7eef6545355438d1a1d3ac01ca726dc17d1a21c4e0fbd62473553`.
+- A clean archive extraction passed 392/392 complete tests, 3/3 Render
+  database-adapter tests and the Render production build.
+
+### Runtime and customer entry
+
+- `/health` returned HTTP 200 with PostgreSQL ready and SMS OTP ready.
+- `/signin`, `/register` and `/admin` returned HTTP 200; `/` redirected to the
+  canonical `/signin` member entry.
+- The live HTML references exactly 21 `.88-payment-readiness` asset URLs and no
+  `.84`, `.86` or `.87` release URL.
+- JS and CSS return
+  `Cache-Control: public, max-age=86400, stale-while-revalidate=604800`.
+  The service worker, manifest and offline shell remain no-cache. The live
+  service-worker cache name identifies `.88`.
+
+### Payment presentation and controls
+
+- VPay and 1MPay are configured for query/callback but their new-order routes
+  report `orderReady=false`. GSPAY+ reports `channelStatus=closed`, incomplete
+  production configuration and `orderReady=false`.
+- The live public cards read all three provider status APIs and display
+  **Available** only when the owner channel is active and that provider reports
+  `orderReady=true`. All three currently display maintenance or closed.
+- GSPAY+ still uses the current browser tab, validates only the exact HTTPS
+  `secured.gspay.online/channel` checkout, displays unknown states as
+  **Confirming / 确认中 / Sedang disahkan**, and preserves the member's deposit
+  record route for uncertain results.
+- No real order, transfer, wallet credit, wager or payout was created during
+  this acceptance.
+
+### Game, benefit and production truth
+
+- The lobby contains exactly 34 supplier positions and 766 retained catalogue
+  titles: MegaH5 166, JILI 297, 918KISS H5 91, Rectangle 64 and EVO888H5 148.
+- Production-playable titles remain 0. EVO888H5 is all-maintenance; JDB,
+  Pragmatic Play and ATG remain `awaiting_api` and are not shown launch-ready.
+- Customer benefits remain generic, preview-only and manual-review. No fixed
+  RM88 promotion is embedded in the member or management UI.
+- Global gates remain fail-closed: `productionReady=false`,
+  `transactionsEnabled=false`, `realPayments=false`, `payoutsEnabled=false`,
+  `settlementVerified=false` and `liveGames=false`.
+
+### Domains, logs and capacity
+
+- `master7.best`, `master7.site` and `www.master7.site` currently use HTTP 302
+  forwarding to Render. `www.master7.best` still has no DNS. A 302 forward is
+  not an accepted payment callback because POST method/body preservation is not
+  proven.
+- The `.88` deployment window contains zero application error/critical/fatal
+  logs and zero HTTP 5xx request logs. Database startup, port binding and the
+  accounting close completed.
+- Autoscaling is enabled at minimum 1, maximum 3, CPU 75% and memory 75%.
+  Metrics remained at one instance with low resource use. The three-instance
+  cap bounds compute cost while preserving a small scale-out allowance.
