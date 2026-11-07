@@ -4,15 +4,15 @@
 
 候选版本：17.0.0-selfbuilt.95-repair-candidate。它是待审查构建，不是已部署状态。
 
-本目录的 CI 和发布提案尚未写入远端、触发 Actions 或部署。普通提交与手动 dispatch 只运行 contents:read 的验收 job。主线程已经核对 17 个 Render 服务，确认没有服务跟踪该候选分支，因此已把候选专用发布 job 加入 workflow：只有完整提交信息恰好为 [publish-repair-candidate] 的固定分支 push，且验收成功后，才获得 contents:write 并写回候选 tar 与回执。publish-job.proposal.yaml 保留相同 job 作为审查记录，本身不被 GitHub 当作 workflow。
+本目录的 CI 已写入独立修复分支；第二轮完整验收和真实构建已通过。生产服务尚未部署本候选。普通提交与手动 dispatch 只运行 contents:read 的验收 job。主线程已经核对 17 个 Render 服务，确认没有服务跟踪该候选分支，因此已把候选专用发布 job 加入 workflow：只有完整提交信息恰好为 [publish-repair-candidate] 的固定分支 push，且验收成功后，才获得 contents:write 并写回候选 tar 与回执。publish-job.proposal.yaml 保留相同 job 作为审查记录，本身不被 GitHub 当作 workflow。
 
 ## 本地已验证范围
 
-LOCAL_VALIDATION.json 记录实际完成的检查：两个 Python 脚本语法、workflow/提案 YAML 和权限条件、全部固定 Action SHA、网络 guard 的 10 条拒绝路径、889 项锁文件完整性结构，以及用真实原始 archive 和当前候选临时 diff 跑通 prepare 阶段（476 个源文件）。主线程最终统一 patch 尚未用于这项 prepare 检查，CI 会重新核验。
+LOCAL_VALIDATION.json 记录实际完成的检查：两个 Python 脚本语法、workflow/提案 YAML 和权限条件、全部固定 Action SHA、网络 guard 的 10 条拒绝路径、889 项锁文件完整性结构，以及用真实原始 archive 和当前候选临时 diff 跑通 prepare 阶段（476 个源文件）。最初本地检查使用临时 patch；正式 CI 已重新核验统一 patch，每个后续提交也会重新核验。
 
 发布器另外完成 6 项合成验证：默认不写入、错误源提交拒绝、错误分支拒绝、错误 tar SHA 拒绝、远端 HEAD 前进时在复制前停止，以及仅暂存 tar/回执并构造固定分支普通 push。远端 fetch/push 在这些合成验证中被显式替身拦截，实际远端调用为 0；测试回执不作为真实构建证据输出。
 
-完整依赖安装、真实 Render build 和 GitHub runner 的 namespace 执行尚未在本地完成。不能把以上检查写成全量 CI 已通过。
+本地静态检查没有执行完整依赖安装或真实构建。随后远端第二轮 Actions 42380776014（源提交 91e0e9e24d25773631d167f69dcc9f643744129a）完成 447/447 测试、身份边界测试和真实 Render build，网络尝试为 0。加入最终快照修复后的本提交必须再次通过完整 CI，结果以同次构建回执为准。
 
 ## 接入文件
 
@@ -64,7 +64,7 @@ CI 只检查这三个设置，不自动重写配置或启停任何服务。缺�
 
 此前 406 项基线测试的唯一失败来自未安装 wrangler/package.json。该身份测试随后需要 Wrangler 依赖的 esbuild 来真正打包路由并验证调用方伪造身份头不会产生管理员身份。CI 安装开发依赖后必须执行它；不能拿另一个全局 esbuild 替代，也不能把该项标为 skipped。
 
-这里尚未完成官方 registry 的完整下载和实际 CI 构建，因此不能声明依赖已安装或完整构建已通过。若 registry 不再提供某个精确版本、SHA 不符、最小发布时间策略拒绝元数据、原生依赖离线构建失败，CI 会记录具体包和错误后停止。没有自动降级或改锁路径。
+官方 registry 的完整锁定依赖下载与真实 CI 构建已经在第二轮完成；最终修复提交仍重新执行相同校验。若 registry 不再提供某个精确版本、SHA 不符、最小发布时间策略拒绝元数据、原生依赖离线构建失败，CI 会记录具体包和错误后停止。没有自动降级或改锁路径。
 
 ## 凭据与业务边界
 

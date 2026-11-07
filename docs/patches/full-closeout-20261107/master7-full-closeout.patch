@@ -53,10 +53,10 @@ index a7ef654..5bb8cd8 100644
    <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
 diff --git a/docs/MASTER7_FULL_REPAIR_20261107.md b/docs/MASTER7_FULL_REPAIR_20261107.md
 new file mode 100644
-index 0000000..aa3d8ec
+index 0000000..7e1d83a
 --- /dev/null
 +++ b/docs/MASTER7_FULL_REPAIR_20261107.md
-@@ -0,0 +1,45 @@
+@@ -0,0 +1,51 @@
 +# MASTER7 .95 候选修复说明
 +
 +候选版本：`17.0.0-selfbuilt.95-repair-candidate`。这是基于已核验的线上 .94 归档制作的代码修复，不代表生产部署或真实支付／游戏验收已经完成。
@@ -92,6 +92,8 @@ index 0000000..aa3d8ec
 +- 当前备份契约纳入 `marketing_webhook_events`，共 51 个持久表；登录、OTP、限流和临时锁共 4 个临时表明确排除。
 +- 准确匹配的旧 50 表备份仍可恢复，但凭证标记为 `verified_legacy_coverage`，不能作为当前完整覆盖证明。
 +- PostgreSQL 演练初始化使用 savepoint，外层始终回滚；回滚失败不能产生成功凭证。
++- 备份分页按每张表的完整主键排序；6 张复合主键表分别使用 2,005 条同前缀合成记录验证跨页无重复、无遗漏。
++- Render 导出通过专用连接读取同一个只读事务快照；回滚并释放连接后才压缩、加密。无该能力的来源明确标记 `readConsistency: unverified`，不把普通逐页读取宣称为同一时点快照。
 +
 +## 验证与发布范围
 +
@@ -99,7 +101,11 @@ index 0000000..aa3d8ec
 +
 +候选仅写入独立修复分支；该分支的 Vercel Git 部署已禁用。它不改变生产分支、Render 服务、后台按钮、会员资料、余额、业务参数或验收标记。
 +
-+本地合成恢复测试以及模拟 PostgreSQL 客户端事务测试，不能替代当前生产加密备份、匹配私钥、隔离 PostgreSQL 引擎恢复和业务对账证据。实际充值、提现、游戏启动与钱包往返结算仍需独立的受控验收。
++本次没有新增数据库迁移，也没有更改启动脚本、初始化器或支付激活规则。`.95` 版本号不会清除或重跑已有迁移标记。已有控制值沿用原数据库和配置；无需通过后台按钮应用这些代码修复。
++
++实际发布会重启服务。原有初始化仍会补齐缺失的 schema／目录／预留记录，并继续已启用的目录同步、会计、支付恢复和 WhatsApp 任务。已有支付恢复可能核实历史订单并更新账本，所以不能将重启描述为“完全不写数据库”。本次未读取生产迁移标记，也未执行这些生产任务；发布应保持现有数据库与环境配置，不能用新的空库替换。
++
++本地合成恢复测试、SQLite WAL 双连接并发测试，以及模拟 PostgreSQL 客户端事务测试，不能替代当前生产加密备份、匹配私钥、隔离 PostgreSQL 引擎恢复和业务对账证据。当前 CI 不运行 PostgreSQL 服务。实际充值、提现、游戏启动与钱包往返结算仍需独立的受控验收。
 +
 +厂家返回与缺失协议详见同目录 `MASTER7_VENDOR_ACTIONS_20261107.md`；该文件是尚未发送的排障草稿。
 diff --git a/docs/MASTER7_VENDOR_ACTIONS_20261107.md b/docs/MASTER7_VENDOR_ACTIONS_20261107.md
@@ -156,10 +162,10 @@ index 0000000..acee13d
 +
 +本轮排查保留后台业务按钮及现有控制状态，**没有更改支付／游戏业务开关或结算 `verified` 标记，也没有发起真实充值、提现、游戏启动或钱包转账**。供应商修正授权或补齐合同后，仍需以实际响应及受控验收证据确认结果；本草稿不构成验收通过证明。
 diff --git a/docs/backup-restore-rehearsal.md b/docs/backup-restore-rehearsal.md
-index c34adb9..2ae7118 100644
+index c34adb9..b6b575f 100644
 --- a/docs/backup-restore-rehearsal.md
 +++ b/docs/backup-restore-rehearsal.md
-@@ -4,9 +4,44 @@ The portal backup is a release-bound logical backup. Its envelope and recovery
+@@ -4,9 +4,77 @@ The portal backup is a release-bound logical backup. Its envelope and recovery
  receipt include the application release, schema version, schema SHA-256,
  creation time, verification time, table manifest and content hashes.
  
@@ -197,6 +203,39 @@ index c34adb9..2ae7118 100644
 +readiness contract. Other versions or unrecognized manifests fail closed;
 +this compatibility rule does not claim support for every historical backup.
 +
++## Capture consistency
++
++On Render, `RenderD1Compat.withReadSnapshot` acquires one client from the pool
++and starts `BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY`. Every table and
++page is read through that client. The scoped reader accepts only the allowed
++backup page SELECT form and has no write or batch method. Ordinary application
++requests keep their existing pool path; this does not start a transaction on a
++shared request connection or change session-wide isolation settings.
++
++Once the rows are collected, the exporter rolls back the read-only transaction
++and releases the client before hashing, gzip compression or RSA/AES encryption.
++The owner route writes its backup-created audit event afterwards through the
++ordinary database object. Begin/read failures still attempt rollback and discard
++the client; rollback failures request client destruction. Release failures also
++fail the export. No failure silently retries through non-snapshot reads.
++
++The encrypted payload, envelope and metadata use
++`readConsistency: "transaction_snapshot"` when the snapshot capability was used.
++Sources without that capability, including native D1 and simple test adapters,
++use `readConsistency: "unverified"`. Historical files missing this field are
++also treated as unverified. The restore tools check envelope/payload consistency
++and carry that value into their receipt; their existing restore-status and
++readiness rules are unchanged. A successful restore receipt alone is not proof
++that an unverified capture was consistent during concurrent writes.
++
++PostgreSQL repeatable read fixes the snapshot at the first non-transaction-control
++statement and reuses it for later reads. It must use one acquired client, not
++`pool.query` across clients. Native D1 `withSession` provides sequential
++consistency, which is not a substitute for this snapshot contract. See the
++[PostgreSQL isolation documentation](https://www.postgresql.org/docs/current/transaction-iso.html),
++[node-postgres transaction guidance](https://node-postgres.com/features/transactions),
++and [D1 database API](https://developers.cloudflare.com/d1/worker-api/d1-database/).
++
 +## Run an isolated rehearsal
 +
 +Use an authorized encrypted backup JSON file, its matching RSA private key,
@@ -207,7 +246,7 @@ index c34adb9..2ae7118 100644
  
  Run the lightweight SQLite verification first:
  
-@@ -14,9 +49,17 @@ Run the lightweight SQLite verification first:
+@@ -14,9 +82,17 @@ Run the lightweight SQLite verification first:
  node scripts/verify-encrypted-backup.mjs BACKUP.json PRIVATE.pem PASSPHRASE.txt RECEIPT.json
  ```
  
@@ -226,7 +265,7 @@ index c34adb9..2ae7118 100644
  
  ```sh
  export MASTER7_RESTORE_DATABASE_URL='postgres://.../master7_restore_2026'
-@@ -24,10 +67,41 @@ pnpm backup:restore-dry-run -- BACKUP.json PRIVATE.pem PASSPHRASE.txt RECEIPT.js
+@@ -24,10 +100,51 @@ pnpm backup:restore-dry-run -- BACKUP.json PRIVATE.pem PASSPHRASE.txt RECEIPT.js
  ```
  
  The PostgreSQL tool creates a random schema inside one transaction, restores
@@ -257,12 +296,22 @@ index c34adb9..2ae7118 100644
 +savepoint/rollback lifecycle with a mock client; they do not replace a rehearsal
 +against an isolated PostgreSQL engine.
 +
++Snapshot regression tests also run two connections to a temporary SQLite WAL
++database. Another connection commits row additions, deletions and updates after
++the first export page; all exported pages and another table retain the original
++snapshot. The PostgreSQL client contract is checked for single-client use,
++read-only BEGIN, rollback/discard/release failure paths, and rejection of
++statements retained after release. These local tests do not claim to have tested
++concurrent PostgreSQL transactions on a running server.
++
 +Synthetic test success does not verify a production backup. Production recovery
 +evidence still requires a current backup file, the matching private key and
 +passphrase, successful restoration on the intended database engine, and review
 +of the resulting counts and business invariants. The exporter reads tables in
-+pages without a database-wide snapshot transaction; a file taken while writes
-+are occurring does not by itself prove point-in-time consistency.
++pages; point-in-time capture requires the snapshot-capable path described above.
++An `unverified` file taken while writes are occurring does not by itself prove
++point-in-time consistency. The `createdAt` timestamp describes file creation,
++not an exact database snapshot timestamp.
  
 -Upload the current receipt through the owner recovery control. Readiness only
 -applies when the receipt matches the running release and schema hashes and is
@@ -380,22 +429,27 @@ index abd7da4..45e587d 100644
    }
    if(p==='/api/providers'){const staff=!!(u&&['staff','owner'].includes(u.role)),[items,supplierControl]=await Promise.all([rows(db,'SELECT * FROM providers ORDER BY name'),supplierOperationalState(db)]);return json({items:(items as any[]).filter(item=>apiSupplierIdSet.has(String(item.id))).filter(item=>staff||Number(item.visible)===1&&supplierControl.states.get(item.id)!=='closed').map(item=>({...item,operationalStatus:supplierControl.states.get(item.id)??'active'})),playable:false});}
 diff --git a/lib/encrypted-backup.ts b/lib/encrypted-backup.ts
-index 0c4c559..0d96c7d 100644
+index 0c4c559..1ee2c66 100644
 --- a/lib/encrypted-backup.ts
 +++ b/lib/encrypted-backup.ts
-@@ -6,9 +6,8 @@ export const BACKUP_FORMAT='MASTER7-ENCRYPTED-BACKUP-1';
+@@ -6,9 +6,13 @@ export const BACKUP_FORMAT='MASTER7-ENCRYPTED-BACKUP-1';
  export const BACKUP_SCHEMA_VERSION='0107-benefit-claim-reviews';
  export const BACKUP_PAGE_SIZE=1000;
  
 -// Authentication sessions, OTP challenges and rate-limit buckets are deliberately
 -// excluded. A restored portal must require every person to sign in again.
 -export const BACKUP_TABLES=[
++export type BackupReader={
++ prepare(sql:string):{bind(...values:unknown[]):{all():Promise<{results?:unknown[]}>}};
++};
++type BackupSource=BackupReader&{withReadSnapshot?<T>(read:(db:BackupReader)=>Promise<T>):Promise<T>};
++
 +// Preserve the deployed 0107 manifest for explicitly identified legacy restores.
 +const LEGACY_0107_BACKUP_TABLES=[
   'users','password_credentials','referral_codes','referral_relationships',
   'marketing_contacts','marketing_campaigns','marketing_deliveries',
   'deposit_orders','wallet_ledger','wallet_reservations','game_wallet_sessions','game_wallet_ledger',
-@@ -27,17 +26,48 @@ export const BACKUP_TABLES=[
+@@ -27,17 +31,48 @@ export const BACKUP_TABLES=[
   'responsible_play_profiles','responsible_play_deposit_reservations'
  ] as const;
  
@@ -435,7 +489,7 @@ index 0c4c559..0d96c7d 100644
 + throw new Error('Backup schema version does not match this release');
 +}
 +
-+async function tableRows(db:D1Database,table:BackupTable){
++async function tableRows(db:BackupReader,table:BackupTable){
   const items:Record<string,unknown>[]=[];
 - // The adapter maps the same placeholders to SQLite and PostgreSQL. Ordering
 - // by the first selected column makes page boundaries deterministic while the
@@ -450,15 +504,44 @@ index 0c4c559..0d96c7d 100644
    const page=(result.results??[]) as Record<string,unknown>[];
    items.push(...page);
    if(page.length<BACKUP_PAGE_SIZE)break;
-@@ -52,7 +82,7 @@ export async function createEncryptedPortalBackup(db:D1Database,release:string,c
-   tables[table]=items;
+@@ -45,15 +80,30 @@ async function tableRows(db:D1Database,table:string){
+  return items;
+ }
+ 
+-export async function createEncryptedPortalBackup(db:D1Database,release:string,cryptoConfig:{publicKey?:string;publicKeySha256?:string}={}){
+- const tables:Record<string,Record<string,unknown>[]>=Object.create(null),manifestTables:{name:string;rows:number;sha256:string}[]=[];
++async function collectBackupTables(db:BackupReader){
++ const tables:Record<string,Record<string,unknown>[]>=Object.create(null);
++ for(const table of BACKUP_TABLES)tables[table]=await tableRows(db,table);
++ return tables;
++}
++
++export async function createEncryptedPortalBackup(db:BackupSource,release:string,cryptoConfig:{publicKey?:string;publicKeySha256?:string}={}){
++ let tables:Record<string,Record<string,unknown>[]>,readConsistency:'transaction_snapshot'|'unverified';
++ if(typeof db.withReadSnapshot==='function'){
++  tables=await db.withReadSnapshot(collectBackupTables);
++  readConsistency='transaction_snapshot';
++ }else{
++  tables=await collectBackupTables(db);
++  readConsistency='unverified';
++ }
++ // The scoped connection has been rolled back and released before hashing,
++ // compression or encryption. The caller records its audit event afterwards.
++ const manifestTables:{name:string;rows:number;sha256:string}[]=[];
+  for(const table of BACKUP_TABLES){
+-  const items=await tableRows(db,table),serialized=JSON.stringify(items);
+-  tables[table]=items;
++  const items=tables[table],serialized=JSON.stringify(items);
    manifestTables.push({name:table,rows:items.length,sha256:sha256(serialized)});
   }
 - const createdAt=new Date().toISOString(),totalRecords=manifestTables.reduce((sum,item)=>sum+item.rows,0),payload={format:BACKUP_FORMAT,release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,createdAt,source:'master7-portal-logical-backup',restorePolicy:{forceNewSessions:true,excludedTables:[...EXCLUDED_TABLES]},manifest:{tableCount:manifestTables.length,totalRecords,tables:manifestTables},tables};
-+ const createdAt=new Date().toISOString(),totalRecords=manifestTables.reduce((sum,item)=>sum+item.rows,0),payload={format:BACKUP_FORMAT,release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,createdAt,source:'master7-portal-logical-backup',restorePolicy:{forceNewSessions:true,excludedTables:[...BACKUP_EXCLUDED_TABLES]},manifest:{tableCount:manifestTables.length,totalRecords,tables:manifestTables},tables};
++ const createdAt=new Date().toISOString(),totalRecords=manifestTables.reduce((sum,item)=>sum+item.rows,0),payload={format:BACKUP_FORMAT,release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,createdAt,readConsistency,source:'master7-portal-logical-backup',restorePolicy:{forceNewSessions:true,excludedTables:[...BACKUP_EXCLUDED_TABLES]},manifest:{tableCount:manifestTables.length,totalRecords,tables:manifestTables},tables};
   const publicKey=cryptoConfig.publicKey??BACKUP_PUBLIC_KEY,publicKeySha256=cryptoConfig.publicKeySha256??BACKUP_PUBLIC_KEY_SHA256,plaintext=Buffer.from(JSON.stringify(payload)),compressed=gzipSync(plaintext,{level:9}),contentKey=randomBytes(32),iv=randomBytes(12),cipher=createCipheriv('aes-256-gcm',contentKey,iv),ciphertext=Buffer.concat([cipher.update(compressed),cipher.final()]),authTag=cipher.getAuthTag(),encryptedKey=publicEncrypt({key:publicKey,oaepHash:'sha256',padding:constants.RSA_PKCS1_OAEP_PADDING},contentKey);
-  const envelope={format:BACKUP_FORMAT,release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,createdAt,publicKeySha256,encryption:{key:'RSA-OAEP-SHA256',content:'AES-256-GCM',compression:'gzip'},manifest:{tableCount:manifestTables.length,totalRecords,tables:manifestTables.map(item=>({name:item.name,rows:item.rows}))},encryptedKey:encryptedKey.toString('base64'),iv:iv.toString('base64'),authTag:authTag.toString('base64'),ciphertext:ciphertext.toString('base64'),ciphertextSha256:sha256(ciphertext),plaintextSha256:sha256(plaintext)};
-  return {envelope,metadata:{release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,createdAt,totalRecords,tableCount:manifestTables.length,publicKeySha256,ciphertextSha256:envelope.ciphertextSha256}};
+- const envelope={format:BACKUP_FORMAT,release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,createdAt,publicKeySha256,encryption:{key:'RSA-OAEP-SHA256',content:'AES-256-GCM',compression:'gzip'},manifest:{tableCount:manifestTables.length,totalRecords,tables:manifestTables.map(item=>({name:item.name,rows:item.rows}))},encryptedKey:encryptedKey.toString('base64'),iv:iv.toString('base64'),authTag:authTag.toString('base64'),ciphertext:ciphertext.toString('base64'),ciphertextSha256:sha256(ciphertext),plaintextSha256:sha256(plaintext)};
+- return {envelope,metadata:{release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,createdAt,totalRecords,tableCount:manifestTables.length,publicKeySha256,ciphertextSha256:envelope.ciphertextSha256}};
++ const envelope={format:BACKUP_FORMAT,release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,createdAt,readConsistency,publicKeySha256,encryption:{key:'RSA-OAEP-SHA256',content:'AES-256-GCM',compression:'gzip'},manifest:{tableCount:manifestTables.length,totalRecords,tables:manifestTables.map(item=>({name:item.name,rows:item.rows}))},encryptedKey:encryptedKey.toString('base64'),iv:iv.toString('base64'),authTag:authTag.toString('base64'),ciphertext:ciphertext.toString('base64'),ciphertextSha256:sha256(ciphertext),plaintextSha256:sha256(plaintext)};
++ return {envelope,metadata:{release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,createdAt,readConsistency,totalRecords,tableCount:manifestTables.length,publicKeySha256,ciphertextSha256:envelope.ciphertextSha256}};
+ }
 diff --git a/lib/game-catalogue.ts b/lib/game-catalogue.ts
 index ece65a1..198a94f 100644
 --- a/lib/game-catalogue.ts
@@ -475,6 +558,82 @@ index ece65a1..198a94f 100644
  const publicProviderIds=new Set<string>(GAME_PROVIDER_IDS);
  export const gameSources:readonly Source[]=[
   {id:'megah5',name:'MegaH5',path:'/providers/megah5/games',shape:'mega',imageHost:'gth.megah5.com'},
+diff --git a/lib/render-d1.ts b/lib/render-d1.ts
+index 82151e8..90bdc92 100644
+--- a/lib/render-d1.ts
++++ b/lib/render-d1.ts
+@@ -1,5 +1,7 @@
+ import { Pool, type PoolClient, type QueryResult } from "pg";
+ import { postgresSql } from "./render-sql.mjs";
++import { withPostgresReadSnapshot } from "./render-read-snapshot.ts";
++import type { BackupReader } from "./encrypted-backup.ts";
+ 
+ type Result<T = Record<string, unknown>> = {
+   results: T[];
+@@ -71,6 +73,10 @@ export class RenderD1Compat {
+     return new D1Statement({ sql, values: [] });
+   }
+ 
++  async withReadSnapshot<T>(read: (database: BackupReader) => Promise<T>): Promise<T> {
++    return withPostgresReadSnapshot(getPool(), read);
++  }
++
+   async batch(statements: D1Statement[]): Promise<Result[]> {
+     const client = await getPool().connect();
+     try {
+diff --git a/lib/render-read-snapshot.ts b/lib/render-read-snapshot.ts
+new file mode 100644
+index 0000000..7ac30f5
+--- /dev/null
++++ b/lib/render-read-snapshot.ts
+@@ -0,0 +1,47 @@
++import {postgresSql} from './render-sql.mjs';
++import {BACKUP_TABLES,type BackupReader} from './encrypted-backup.ts';
++
++type SnapshotClient={
++ query(sql:string,values?:unknown[]):Promise<{rows:unknown[];rowCount?:number|null}>;
++ release(destroy?:boolean):void|Promise<void>;
++};
++type SnapshotPool={connect():Promise<SnapshotClient>};
++type SnapshotStatement={bind(...values:unknown[]):SnapshotStatement;all():Promise<{results:unknown[]}>};
++
++// Only this acquired client participates in the snapshot. Ordinary requests
++// retain their normal pool path, and no session-wide settings are changed.
++export async function withPostgresReadSnapshot<T>(pool:SnapshotPool,read:(db:BackupReader)=>Promise<T>):Promise<T>{
++ const client=await pool.connect(),errors:unknown[]=[];
++ let active=false,discard=false,result:{value:T}|undefined;
++ const assertActive=()=>{if(!active)throw new Error('Backup read snapshot is closed');};
++ const assertBackupSelect=(sql:string)=>{
++  const match=sql.match(/^SELECT \* FROM ([a-z][a-z0-9_]*) ORDER BY [a-z][a-z0-9_]*(?:,[a-z][a-z0-9_]*)* LIMIT \? OFFSET \?$/);
++  if(!match||!(BACKUP_TABLES as readonly string[]).includes(match[1]))throw new Error('Backup read snapshot only accepts a single backup page SELECT');
++ };
++ const statement=(sql:string,values:unknown[]):SnapshotStatement=>({
++  bind(...next:unknown[]){return statement(sql,next);},
++  async all(){
++   assertActive();
++   const result=await client.query(postgresSql(sql),values);
++   assertActive();
++   return {results:result.rows};
++  },
++ });
++ const reader:BackupReader={prepare(sql){assertActive();assertBackupSelect(sql);return statement(sql,[]);}};
++ try{
++  await client.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
++  active=true;
++  result={value:await read(reader)};
++ }catch(error){errors.push(error);discard=true;}
++ finally{
++  active=false;
++  // Attempt rollback even if BEGIN failed after reaching the server. A failed
++  // query or rollback discards this client instead of returning it for reuse.
++  try{await client.query('ROLLBACK');}catch(error){errors.push(error);discard=true;}
++  try{await client.release(discard);}catch(error){errors.push(error);}
++ }
++ if(errors.length===1)throw errors[0];
++ if(errors.length)throw new AggregateError(errors,'Backup read snapshot failed during reading or cleanup');
++ if(!result)throw new Error('Backup read snapshot did not complete');
++ return result.value;
++}
 diff --git a/lib/vpay.ts b/lib/vpay.ts
 index b9a8718..ef3dac7 100644
 --- a/lib/vpay.ts
@@ -628,7 +787,7 @@ index dc317fa..423922c 100644
  
  self.addEventListener('install',event=>{
 diff --git a/scripts/postgres-restore-dry-run.mjs b/scripts/postgres-restore-dry-run.mjs
-index b532de0..9ccbced 100644
+index b532de0..18fb61e 100644
 --- a/scripts/postgres-restore-dry-run.mjs
 +++ b/scripts/postgres-restore-dry-run.mjs
 @@ -1,10 +1,11 @@
@@ -645,7 +804,7 @@ index b532de0..9ccbced 100644
  
  const rawArgs=process.argv.slice(2),confirmed=rawArgs.includes('--confirm-isolated'),args=rawArgs.filter(value=>value!=='--confirm-isolated');
  const [backupPath,privateKeyPath,passphrasePath,receiptPath]=args;
-@@ -13,7 +14,7 @@ const connectionString=process.env.MASTER7_RESTORE_DATABASE_URL;
+@@ -13,27 +14,27 @@ const connectionString=process.env.MASTER7_RESTORE_DATABASE_URL;
  const target=assertIsolatedRestoreTarget(connectionString,[process.env.PORTAL_POSTGRES_URL,process.env.DATABASE_URL]);
  const hash=value=>createHash('sha256').update(value).digest('hex'),backupBytes=readFileSync(backupPath),envelope=JSON.parse(backupBytes.toString('utf8'));
  if(envelope.format!==BACKUP_FORMAT)throw new Error('Unsupported backup format');
@@ -654,9 +813,11 @@ index b532de0..9ccbced 100644
  const ciphertext=Buffer.from(envelope.ciphertext,'base64');if(hash(ciphertext)!==envelope.ciphertextSha256)throw new Error('Ciphertext hash mismatch');
  const contentKey=privateDecrypt({key:readFileSync(privateKeyPath),passphrase:readFileSync(passphrasePath,'utf8').trim(),oaepHash:'sha256',padding:constants.RSA_PKCS1_OAEP_PADDING},Buffer.from(envelope.encryptedKey,'base64'));
  const decipher=createDecipheriv('aes-256-gcm',contentKey,Buffer.from(envelope.iv,'base64'));decipher.setAuthTag(Buffer.from(envelope.authTag,'base64'));
-@@ -21,19 +22,17 @@ const plaintext=gunzipSync(Buffer.concat([decipher.update(ciphertext),decipher.f
+ const plaintext=gunzipSync(Buffer.concat([decipher.update(ciphertext),decipher.final()]));if(hash(plaintext)!==envelope.plaintextSha256)throw new Error('Plaintext hash mismatch');
  const payload=JSON.parse(plaintext.toString('utf8'));
  if(payload.format!==envelope.format||payload.release!==envelope.release||payload.schemaVersion!==envelope.schemaVersion||payload.schemaSha256!==envelope.schemaSha256)throw new Error('Envelope and payload metadata mismatch');
++const readConsistency=payload.readConsistency??'unverified';
++if(!['transaction_snapshot','unverified'].includes(readConsistency)||readConsistency!==(envelope.readConsistency??'unverified'))throw new Error('Backup read consistency metadata mismatch');
  const manifestNames=payload.manifest?.tables?.map(item=>item.name)??[];
 -if(manifestNames.length!==BACKUP_TABLES.length||manifestNames.some((name,index)=>name!==BACKUP_TABLES[index]))throw new Error('Backup table manifest does not match this release');
 +if(payload.manifest?.tableCount!==contract.tables.length||manifestNames.length!==contract.tables.length||manifestNames.some((name,index)=>name!==contract.tables[index]))throw new Error('Backup table manifest does not match this release');
@@ -678,7 +839,7 @@ index b532de0..9ccbced 100644
    for(const row of payload.tables[table]){
     const columns=Object.keys(row);if(!columns.length)continue;
     for(const column of columns)if(!/^[a-z][a-z0-9_]*$/.test(column))throw new Error(`Unsafe column name in ${table}`);
-@@ -41,14 +40,12 @@ try{
+@@ -41,14 +42,12 @@ try{
     await client.query(`INSERT INTO "${table}"(${columnSql}) VALUES(${marks})`,values);
    }
   }
@@ -694,12 +855,12 @@ index b532de0..9ccbced 100644
 + const excludedCounts={};for(const table of BACKUP_EXCLUDED_TABLES){const result=await client.query(`SELECT COUNT(*)::bigint count FROM "${table}"`);excludedCounts[table]=Number(result.rows[0].count);}
 + if(Object.values(excludedCounts).some(Number))throw new Error('Ephemeral authentication or lock data was restored unexpectedly');
 + const coverageComplete=contract.missingTables.length===0;
-+ return {status:coverageComplete?'verified':'verified_legacy_coverage',coverageComplete,missingTables:contract.missingTables,format:envelope.format,release:envelope.release,schemaVersion:envelope.schemaVersion,schemaSha256:envelope.schemaSha256,backupFile:basename(backupPath),backupSha256:hash(backupBytes),createdAt:envelope.createdAt,verifiedAt:new Date().toISOString(),publicKeySha256:envelope.publicKeySha256,plaintextSha256:envelope.plaintextSha256,tableCount:restored.length,totalRecords:restored.reduce((sum,item)=>sum+item.rows,0),tables:restored,excludedTables:excludedCounts,foreignKeyViolations:0,restoreTarget:`isolated PostgreSQL transaction on ${target.host}/${target.database}`,persistentWrites:false};
++ return {status:coverageComplete?'verified':'verified_legacy_coverage',coverageComplete,missingTables:contract.missingTables,readConsistency,format:envelope.format,release:envelope.release,schemaVersion:envelope.schemaVersion,schemaSha256:envelope.schemaSha256,backupFile:basename(backupPath),backupSha256:hash(backupBytes),createdAt:envelope.createdAt,verifiedAt:new Date().toISOString(),publicKeySha256:envelope.publicKeySha256,plaintextSha256:envelope.plaintextSha256,tableCount:restored.length,totalRecords:restored.reduce((sum,item)=>sum+item.rows,0),tables:restored,excludedTables:excludedCounts,foreignKeyViolations:0,restoreTarget:`isolated PostgreSQL transaction on ${target.host}/${target.database}`,persistentWrites:false};
 +});
  if(!receipt)throw new Error('Restore rehearsal did not produce a receipt');
  if(receiptPath)writeFileSync(receiptPath,JSON.stringify(receipt,null,2)+'\n',{mode:0o600});
 -process.stdout.write(JSON.stringify({status:receipt.status,release:receipt.release,schemaSha256:receipt.schemaSha256,tableCount:receipt.tableCount,totalRecords:receipt.totalRecords,persistentWrites:false})+'\n');
-+process.stdout.write(JSON.stringify({status:receipt.status,coverageComplete:receipt.coverageComplete,missingTables:receipt.missingTables,release:receipt.release,schemaSha256:receipt.schemaSha256,tableCount:receipt.tableCount,totalRecords:receipt.totalRecords,persistentWrites:false})+'\n');
++process.stdout.write(JSON.stringify({status:receipt.status,coverageComplete:receipt.coverageComplete,missingTables:receipt.missingTables,readConsistency,release:receipt.release,schemaSha256:receipt.schemaSha256,tableCount:receipt.tableCount,totalRecords:receipt.totalRecords,persistentWrites:false})+'\n');
 diff --git a/scripts/restore-postgres-schema.mjs b/scripts/restore-postgres-schema.mjs
 new file mode 100644
 index 0000000..29b030d
@@ -799,7 +960,7 @@ index 0000000..29b030d
 + return result;
 +}
 diff --git a/scripts/verify-encrypted-backup.mjs b/scripts/verify-encrypted-backup.mjs
-index ca2c883..d963724 100644
+index ca2c883..c3d9ed2 100644
 --- a/scripts/verify-encrypted-backup.mjs
 +++ b/scripts/verify-encrypted-backup.mjs
 @@ -1,15 +1,15 @@
@@ -821,9 +982,12 @@ index ca2c883..d963724 100644
  const ciphertext=Buffer.from(envelope.ciphertext,'base64');
  if(hash(ciphertext)!==envelope.ciphertextSha256)throw new Error('Ciphertext hash mismatch');
  const contentKey=privateDecrypt({key:readFileSync(privateKeyPath),passphrase:readFileSync(passphrasePath,'utf8').trim(),oaepHash:'sha256',padding:constants.RSA_PKCS1_OAEP_PADDING},Buffer.from(envelope.encryptedKey,'base64'));
-@@ -19,15 +19,15 @@ if(hash(plaintext)!==envelope.plaintextSha256)throw new Error('Plaintext hash mi
+@@ -18,16 +18,18 @@ const plaintext=gunzipSync(Buffer.concat([decipher.update(ciphertext),decipher.f
+ if(hash(plaintext)!==envelope.plaintextSha256)throw new Error('Plaintext hash mismatch');
  const payload=JSON.parse(plaintext.toString('utf8'));
  if(payload.format!==envelope.format||payload.release!==envelope.release||payload.schemaVersion!==envelope.schemaVersion||payload.schemaSha256!==envelope.schemaSha256)throw new Error('Envelope and payload metadata mismatch');
++const readConsistency=payload.readConsistency??'unverified';
++if(!['transaction_snapshot','unverified'].includes(readConsistency)||readConsistency!==(envelope.readConsistency??'unverified'))throw new Error('Backup read consistency metadata mismatch');
  const manifestNames=payload.manifest?.tables?.map(item=>item.name)??[];
 -if(payload.manifest?.tableCount!==BACKUP_TABLES.length||manifestNames.length!==BACKUP_TABLES.length||manifestNames.some((name,index)=>name!==BACKUP_TABLES[index]))throw new Error('Backup table manifest does not match this release');
 +if(payload.manifest?.tableCount!==contract.tables.length||manifestNames.length!==contract.tables.length||manifestNames.some((name,index)=>name!==contract.tables[index]))throw new Error('Backup table manifest does not match this release');
@@ -840,7 +1004,7 @@ index ca2c883..d963724 100644
   for(const table of tableNames){
    const available=new Set(db.prepare(`PRAGMA table_info(${table})`).all().map(item=>item.name)),rows=payload.tables[table];
    for(const row of rows){const columns=Object.keys(row);for(const column of columns)if(!available.has(column))throw new Error(`Restore schema missing ${table}.${column}`);const marks=columns.map(()=>'?').join(','),sql=`INSERT INTO ${table}(${columns.join(',')}) VALUES(${marks})`,values=columns.map(column=>{const value=row[column];if(typeof value==='boolean')return value?1:0;if(value&&typeof value==='object')return JSON.stringify(value);return value??null;});db.prepare(sql).run(...values);}
-@@ -36,7 +36,8 @@ try{
+@@ -36,7 +38,8 @@ try{
  }catch(error){db.exec('ROLLBACK');throw error;}
  const foreignKeyViolations=db.prepare('PRAGMA foreign_key_check').all();if(foreignKeyViolations.length)throw new Error(`Foreign key validation failed: ${foreignKeyViolations.length}`);
  const restored=tableNames.map(name=>({name,rows:Number(db.prepare(`SELECT COUNT(*) count FROM ${name}`).get().count)}));for(const item of restored){const expected=payload.manifest.tables.find(table=>table.name===item.name)?.rows;if(item.rows!==expected)throw new Error(`Restore count mismatch for ${item.name}`);}
@@ -848,16 +1012,16 @@ index ca2c883..d963724 100644
 -const receipt={status:'verified',format:envelope.format,release:envelope.release,schemaVersion:envelope.schemaVersion,schemaSha256:envelope.schemaSha256,backupFile:basename(backupPath),backupSha256:hash(readFileSync(backupPath)),createdAt:envelope.createdAt,verifiedAt:new Date().toISOString(),publicKeySha256:envelope.publicKeySha256,plaintextSha256:envelope.plaintextSha256,tableCount:restored.length,totalRecords:restored.reduce((sum,item)=>sum+item.rows,0),tables:restored,excludedTables:excludedCounts,foreignKeyViolations:0,restoreTarget:'isolated in-memory SQLite schema'};
 +const excludedCounts=Object.fromEntries(BACKUP_EXCLUDED_TABLES.map(name=>[name,Number(db.prepare(`SELECT COUNT(*) count FROM ${name}`).get().count)]));if(Object.values(excludedCounts).some(Number))throw new Error('Ephemeral authentication or lock data was restored unexpectedly');
 +const coverageComplete=contract.missingTables.length===0;
-+const receipt={status:coverageComplete?'verified':'verified_legacy_coverage',coverageComplete,missingTables:contract.missingTables,format:envelope.format,release:envelope.release,schemaVersion:envelope.schemaVersion,schemaSha256:envelope.schemaSha256,backupFile:basename(backupPath),backupSha256:hash(readFileSync(backupPath)),createdAt:envelope.createdAt,verifiedAt:new Date().toISOString(),publicKeySha256:envelope.publicKeySha256,plaintextSha256:envelope.plaintextSha256,tableCount:restored.length,totalRecords:restored.reduce((sum,item)=>sum+item.rows,0),tables:restored,excludedTables:excludedCounts,foreignKeyViolations:0,restoreTarget:'isolated in-memory SQLite schema'};
++const receipt={status:coverageComplete?'verified':'verified_legacy_coverage',coverageComplete,missingTables:contract.missingTables,readConsistency,format:envelope.format,release:envelope.release,schemaVersion:envelope.schemaVersion,schemaSha256:envelope.schemaSha256,backupFile:basename(backupPath),backupSha256:hash(readFileSync(backupPath)),createdAt:envelope.createdAt,verifiedAt:new Date().toISOString(),publicKeySha256:envelope.publicKeySha256,plaintextSha256:envelope.plaintextSha256,tableCount:restored.length,totalRecords:restored.reduce((sum,item)=>sum+item.rows,0),tables:restored,excludedTables:excludedCounts,foreignKeyViolations:0,restoreTarget:'isolated in-memory SQLite schema'};
  if(receiptPath)writeFileSync(receiptPath,JSON.stringify(receipt,null,2)+'\n',{mode:0o600});
 -process.stdout.write(JSON.stringify({status:receipt.status,release:receipt.release,tableCount:receipt.tableCount,totalRecords:receipt.totalRecords,foreignKeyViolations:receipt.foreignKeyViolations})+'\n');
-+process.stdout.write(JSON.stringify({status:receipt.status,coverageComplete,missingTables:contract.missingTables,release:receipt.release,tableCount:receipt.tableCount,totalRecords:receipt.totalRecords,foreignKeyViolations:receipt.foreignKeyViolations})+'\n');
++process.stdout.write(JSON.stringify({status:receipt.status,coverageComplete,missingTables:contract.missingTables,readConsistency,release:receipt.release,tableCount:receipt.tableCount,totalRecords:receipt.totalRecords,foreignKeyViolations:receipt.foreignKeyViolations})+'\n');
 diff --git a/tests/backup-restore-rehearsal.test.mjs b/tests/backup-restore-rehearsal.test.mjs
 new file mode 100644
-index 0000000..94ec6d2
+index 0000000..3c54cd3
 --- /dev/null
 +++ b/tests/backup-restore-rehearsal.test.mjs
-@@ -0,0 +1,141 @@
+@@ -0,0 +1,152 @@
 +import test from 'node:test';
 +import assert from 'node:assert/strict';
 +import {constants,createCipheriv,createDecipheriv,createHash,createPublicKey,generateKeyPairSync,privateDecrypt,publicEncrypt,randomBytes} from 'node:crypto';
@@ -957,6 +1121,7 @@ index 0000000..94ec6d2
 + assert.equal(receipt.foreignKeyViolations,0);
 + assert.equal(receipt.status,'verified');
 + assert.equal(receipt.coverageComplete,true);
++ assert.equal(receipt.readConsistency,'unverified');
 + assert.deepEqual(receipt.missingTables,[]);
 + assert.equal(receipt.restoreTarget,'isolated in-memory SQLite schema');
 + assert.deepEqual(receipt.tables.map(item=>item.name),[...BACKUP_TABLES]);
@@ -979,6 +1144,7 @@ index 0000000..94ec6d2
 +  const calculated=createHash('sha256').update(JSON.stringify({format:payload.format,schemaVersion:payload.schemaVersion,tables:payload.manifest.tables.map(table=>table.name)})).digest('hex');
 +  assert.equal(calculated,legacyHash);
 +  payload.schemaSha256=legacyHash;
++  delete payload.readConsistency;
 +  payload.restorePolicy.excludedTables=payload.restorePolicy.excludedTables.filter(name=>name!=='responsible_play_locks');
 + });
 + const result=verify(f);
@@ -990,6 +1156,15 @@ index 0000000..94ec6d2
 + assert.equal(receipt.schemaSha256,legacyHash);
 + assert.equal(receipt.tableCount,50);
 + assert.equal(receipt.foreignKeyViolations,0);
++ assert.equal(receipt.readConsistency,'unverified');
++});
++
++test('restore rejects an unauthenticated envelope snapshot claim',async t=>{
++ const f=await fixture(t);
++ writeFileSync(f.backup,JSON.stringify({...f.envelope,readConsistency:'transaction_snapshot'}),{mode:0o600});
++ const result=verify(f);
++ assert.notEqual(result.status,0);
++ assert.match(result.stderr,/Backup read consistency metadata mismatch/);
 +});
 +
 +test('authenticated backup rows with broken foreign keys still fail isolated restoration',async t=>{
@@ -1085,7 +1260,7 @@ index 0000000..0ad4f63
 + }
 +});
 diff --git a/tests/encrypted-backup.test.mjs b/tests/encrypted-backup.test.mjs
-index a773cc9..8dae686 100644
+index a773cc9..020e10b 100644
 --- a/tests/encrypted-backup.test.mjs
 +++ b/tests/encrypted-backup.test.mjs
 @@ -2,12 +2,12 @@ import test from 'node:test';
@@ -1103,12 +1278,15 @@ index a773cc9..8dae686 100644
    return {bind(limit,offset){
     assert.equal(limit,BACKUP_PAGE_SIZE);queries.push({table:match[1],offset});
     return {all:async()=>({results:(fixtures[match[1]]??[]).slice(offset,offset+limit)})};
-@@ -16,5 +16,5 @@ test('portal backup encrypts every recovery table and excludes authentication se
+@@ -15,6 +15,8 @@ test('portal backup encrypts every recovery table and excludes authentication se
+  }};
   const {publicKey,privateKey}=generateKeyPairSync('rsa',{modulusLength:2048,publicKeyEncoding:{type:'spki',format:'pem'},privateKeyEncoding:{type:'pkcs8',format:'pem'}}),fingerprint=createHash('sha256').update(createPublicKey(publicKey).export({type:'spki',format:'der'})).digest('hex'),{envelope,metadata}=await createEncryptedPortalBackup(db,'test-release',{publicKey,publicKeySha256:fingerprint}),serialized=JSON.stringify(envelope);
   assert.equal(envelope.format,BACKUP_FORMAT);assert.equal(metadata.tableCount,BACKUP_TABLES.length);assert.equal(metadata.totalRecords,10006);assert.equal(envelope.publicKeySha256,fingerprint);assert.equal(envelope.schemaVersion,BACKUP_SCHEMA_VERSION);assert.equal(envelope.schemaSha256,BACKUP_SCHEMA_SHA256);assert.ok(queries.some(item=>item.table==='users'&&item.offset===10000));assert.ok(!serialized.includes(username));assert.ok(!serialized.includes(passwordHash));assert.ok(!serialized.includes('private-csrf'));
++ assert.equal(envelope.readConsistency,'unverified');assert.equal(metadata.readConsistency,'unverified');
   const key=privateDecrypt({key:privateKey,oaepHash:'sha256',padding:constants.RSA_PKCS1_OAEP_PADDING},Buffer.from(envelope.encryptedKey,'base64')),decipher=createDecipheriv('aes-256-gcm',key,Buffer.from(envelope.iv,'base64'));decipher.setAuthTag(Buffer.from(envelope.authTag,'base64'));const payload=JSON.parse(gunzipSync(Buffer.concat([decipher.update(Buffer.from(envelope.ciphertext,'base64')),decipher.final()])).toString());
 - assert.equal(payload.tables.users[0].username,username);assert.equal(payload.tables.users.length,10005);assert.equal(payload.tables.password_credentials[0].password_hash,passwordHash);assert.deepEqual(payload.restorePolicy.excludedTables,['password_sessions','otp_challenges','rate_limits']);assert.equal(payload.manifest.totalRecords,10006);assert.equal(payload.schemaVersion,BACKUP_SCHEMA_VERSION);assert.equal(payload.schemaSha256,BACKUP_SCHEMA_SHA256);
 + assert.equal(payload.tables.users[0].username,username);assert.equal(payload.tables.users.length,10005);assert.equal(payload.tables.password_credentials[0].password_hash,passwordHash);assert.deepEqual(payload.restorePolicy.excludedTables,[...BACKUP_EXCLUDED_TABLES]);assert.equal(payload.manifest.totalRecords,10006);assert.equal(payload.schemaVersion,BACKUP_SCHEMA_VERSION);assert.equal(payload.schemaSha256,BACKUP_SCHEMA_SHA256);
++ assert.equal(payload.readConsistency,'unverified');
  });
 diff --git a/tests/game-launch.test.mjs b/tests/game-launch.test.mjs
 new file mode 100644
@@ -1507,6 +1685,178 @@ index e946e9b..4a2c3f6 100644
 + await initializeRehearsalSchema(client,schema,[]);
 + assert.ok(client.events.some(event=>event.sql===schema));
 + assert.equal(client.events.at(-1).sql,'RELEASE SAVEPOINT master7_restore_bootstrap');
++});
+diff --git a/tests/render-read-snapshot.test.mjs b/tests/render-read-snapshot.test.mjs
+new file mode 100644
+index 0000000..539988e
+--- /dev/null
++++ b/tests/render-read-snapshot.test.mjs
+@@ -0,0 +1,166 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {constants,createDecipheriv,createHash,createPublicKey,generateKeyPairSync,privateDecrypt} from 'node:crypto';
++import {mkdtempSync,readFileSync,readdirSync,rmSync} from 'node:fs';
++import {join} from 'node:path';
++import {tmpdir} from 'node:os';
++import {DatabaseSync} from 'node:sqlite';
++import {gunzipSync} from 'node:zlib';
++import {BACKUP_PAGE_SIZE,createEncryptedPortalBackup} from '../lib/encrypted-backup.ts';
++import {withPostgresReadSnapshot} from '../lib/render-read-snapshot.ts';
++
++const begin='BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY';
++
++function keys(){const key=generateKeyPairSync('rsa',{modulusLength:2048,publicKeyEncoding:{type:'spki',format:'pem'},privateKeyEncoding:{type:'pkcs8',format:'pem'}});return {...key,publicKeySha256:createHash('sha256').update(createPublicKey(key.publicKey).export({type:'spki',format:'der'})).digest('hex')};}
++
++function decrypt(envelope,key){
++ const contentKey=privateDecrypt({key,oaepHash:'sha256',padding:constants.RSA_PKCS1_OAEP_PADDING},Buffer.from(envelope.encryptedKey,'base64'));
++ const cipher=createDecipheriv('aes-256-gcm',contentKey,Buffer.from(envelope.iv,'base64'));cipher.setAuthTag(Buffer.from(envelope.authTag,'base64'));
++ return JSON.parse(gunzipSync(Buffer.concat([cipher.update(Buffer.from(envelope.ciphertext,'base64')),cipher.final()])).toString('utf8'));
++}
++
++function mockPool({failBegin=false,failRead=false,failRollback=false,failRelease=false,row}={}){
++ const events=[],client={
++  async query(sql,values=[]){
++   events.push({sql,values});
++   if(sql===begin&&failBegin)throw new Error('synthetic begin failure');
++   if(sql==='ROLLBACK'&&failRollback)throw new Error('synthetic rollback failure');
++   if(sql.startsWith('SELECT')&&failRead)throw new Error('synthetic read failure');
++   return {rows:sql.startsWith('SELECT * FROM settings')&&row?[row]:[],rowCount:0};
++  },
++  release(destroy){events.push({release:destroy});if(failRelease)throw new Error('synthetic release failure');},
++ };
++ return {events,pool:{connect:async()=>{events.push({connect:true});return client;},query:async()=>{throw new Error('The shared pool must not execute snapshot queries');}}};
++}
++
++const source=pool=>({prepare(){throw new Error('Snapshot must not fall back to ordinary reads');},withReadSnapshot:read=>withPostgresReadSnapshot(pool,read)});
++
++test('read snapshot uses one acquired client and expires its statements before releasing',async()=>{
++ const {pool,events}=mockPool();let escaped;
++ const result=await withPostgresReadSnapshot(pool,async db=>{
++  assert.equal(db.batch,undefined);
++  escaped=db.prepare('SELECT * FROM users ORDER BY id LIMIT ? OFFSET ?').bind(1000,0);
++  assert.equal(escaped.run,undefined);
++  await escaped.all();
++  await db.prepare('SELECT * FROM settings ORDER BY id LIMIT ? OFFSET ?').bind(1000,0).all();
++  return {complete:true};
++ });
++ assert.deepEqual(result,{complete:true});
++ assert.deepEqual(events,[{connect:true},{sql:begin,values:[]},{sql:'SELECT * FROM users ORDER BY id LIMIT $1 OFFSET $2',values:[1000,0]},{sql:'SELECT * FROM settings ORDER BY id LIMIT $1 OFFSET $2',values:[1000,0]},{sql:'ROLLBACK',values:[]},{release:false}]);
++ await assert.rejects(()=>escaped.all(),/snapshot is closed/);
++ assert.equal(events.length,6,'An escaped statement must not reuse a released connection');
++});
++
++test('read and begin failures roll back, discard the client, and never fall back',async()=>{
++ for(const failure of ['failBegin','failRead']){
++  const {pool,events}=mockPool({[failure]:true});let accessedCrypto=false;
++  const cryptoConfig={get publicKey(){accessedCrypto=true;throw new Error('Encryption must not run');}};
++  await assert.rejects(()=>createEncryptedPortalBackup(source(pool),'synthetic-release',cryptoConfig),new RegExp(failure==='failBegin'?'synthetic begin failure':'synthetic read failure'));
++  assert.deepEqual(events.slice(-2),[{sql:'ROLLBACK',values:[]},{release:true}]);
++  assert.equal(accessedCrypto,false);
++ }
++});
++
++test('rollback and release failures prevent any successful backup envelope',async()=>{
++ for(const failure of ['failRollback','failRelease']){
++  const {pool,events}=mockPool({[failure]:true});let accessedCrypto=false;
++  const cryptoConfig={get publicKey(){accessedCrypto=true;throw new Error('Encryption must not run');}};
++  await assert.rejects(()=>createEncryptedPortalBackup(source(pool),'synthetic-release',cryptoConfig),new RegExp(failure==='failRollback'?'synthetic rollback failure':'synthetic release failure'));
++  assert.deepEqual(events.slice(-2),[{sql:'ROLLBACK',values:[]},{release:failure==='failRollback'}]);
++  assert.equal(accessedCrypto,false);
++ }
++});
++
++test('multiple failures preserve the read and cleanup errors and still attempt release',async()=>{
++ const {pool,events}=mockPool({failRead:true,failRollback:true,failRelease:true});
++ await assert.rejects(()=>withPostgresReadSnapshot(pool,db=>db.prepare('SELECT * FROM users ORDER BY id LIMIT ? OFFSET ?').bind(1000,0).all()),error=>{
++  assert.ok(error instanceof AggregateError);
++  assert.deepEqual(error.errors.map(item=>item.message),['synthetic read failure','synthetic rollback failure','synthetic release failure']);
++  return true;
++ });
++ assert.deepEqual(events.at(-1),{release:true});
++});
++
++test('serialization and encryption start only after snapshot rollback and release',async()=>{
++ let events;
++ const row={toJSON(){assert.deepEqual(events.at(-1),{release:false});return {id:'synthetic-setting',value:'local only'};}};
++ const fake=mockPool({row});events=fake.events;
++ const cryptoConfig={get publicKey(){assert.deepEqual(events.at(-1),{release:false});return 'deliberately invalid synthetic public key';}};
++ await assert.rejects(()=>createEncryptedPortalBackup(source(fake.pool),'synthetic-release',cryptoConfig));
++ assert.deepEqual(events.slice(-2),[{sql:'ROLLBACK',values:[]},{release:false}]);
++});
++
++function concurrentFixture(t){
++ const directory=mkdtempSync(join(tmpdir(),'master7-snapshot-')),path=join(directory,'synthetic.sqlite');
++ const writer=new DatabaseSync(path);writer.exec('PRAGMA journal_mode=WAL');
++ const migrations=new URL('../drizzle/',import.meta.url);
++ for(const name of readdirSync(migrations).filter(name=>/^\d{4}_.+\.sql$/.test(name)).sort())writer.exec(readFileSync(new URL(name,migrations),'utf8'));
++ const count=BACKUP_PAGE_SIZE*2+5;
++ writer.exec('BEGIN');
++ const insert=writer.prepare("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES(?,?,'member',1,'synthetic',1)");
++ for(let i=0;i<count;i++)insert.run(`snapshot-user-${String(i).padStart(5,'0')}`,`synthetic_before_${i}`);
++ writer.exec("INSERT INTO settings(id,value) VALUES('snapshot_generation','before'); COMMIT");
++ const reader=new DatabaseSync(path);reader.exec('PRAGMA query_only=ON');
++ let closed=false;
++ t.after(()=>{if(!closed)reader.close();writer.close();rmSync(directory,{recursive:true,force:true});});
++ return {writer,reader,count,close(){reader.close();closed=true;}};
++}
++
++test('all pages and tables keep one real SQLite snapshot while another connection commits',async t=>{
++ const fixture=concurrentFixture(t),events=[];let changed=false;
++ const client={
++  async query(sql,values=[]){
++   events.push(sql);
++   if(sql===begin){fixture.reader.exec('BEGIN');return {rows:[]};}
++   if(sql==='ROLLBACK'){fixture.reader.exec(sql);return {rows:[]};}
++   const rows=fixture.reader.prepare(sql.replace(/\$\d+/g,'?')).all(...values);
++   if(!changed&&sql.startsWith('SELECT * FROM users')){
++    changed=true;
++    fixture.writer.exec(`BEGIN;
++     DELETE FROM users WHERE id='snapshot-user-00000';
++     UPDATE users SET username='synthetic_after_update' WHERE id='snapshot-user-01000';
++     INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES('snapshot-user-new','synthetic_after_insert','member',1,'synthetic',2);
++     UPDATE settings SET value='after' WHERE id='snapshot_generation';
++     COMMIT`);
++   }
++   return {rows};
++  },
++  release(destroy){assert.equal(destroy,false);events.push('release');fixture.close();},
++ };
++ const pool={connect:async()=>client,query:async()=>{throw new Error('Shared-pool read attempted');}},key=keys();
++ const {envelope,metadata}=await createEncryptedPortalBackup(source(pool),'synthetic-concurrent-release',key),payload=decrypt(envelope,key.privateKey);
++ assert.equal(changed,true);
++ assert.equal(envelope.readConsistency,'transaction_snapshot');
++ assert.equal(metadata.readConsistency,'transaction_snapshot');
++ assert.equal(payload.readConsistency,'transaction_snapshot');
++ assert.equal(payload.tables.users.length,fixture.count);
++ assert.deepEqual(payload.tables.users.map(row=>row.id),Array.from({length:fixture.count},(_,i)=>`snapshot-user-${String(i).padStart(5,'0')}`));
++ assert.equal(payload.tables.users[1000].username,'synthetic_before_1000');
++ assert.equal(payload.tables.settings.find(row=>row.id==='snapshot_generation').value,'before');
++ assert.equal(fixture.writer.prepare("SELECT value FROM settings WHERE id='snapshot_generation'").get().value,'after');
++ assert.equal(fixture.writer.prepare("SELECT username FROM users WHERE id='snapshot-user-01000'").get().username,'synthetic_after_update');
++ assert.deepEqual(events.slice(-2),['ROLLBACK','release']);
++ assert.equal(events.filter(sql=>sql===begin).length,1);
++});
++
++test('the scoped database rejects writes and transaction escape statements before executing them',async t=>{
++ const fixture=concurrentFixture(t),events=[];
++ const client={
++  async query(sql,values=[]){
++   events.push(sql);
++   if(sql===begin){fixture.reader.exec('BEGIN');return {rows:[]};}
++   if(sql==='ROLLBACK'){fixture.reader.exec(sql);return {rows:[]};}
++   return {rows:fixture.reader.prepare(sql.replace(/\$\d+/g,'?')).all(...values)};
++  },
++  release(destroy){assert.equal(destroy,true);events.push('release');fixture.close();},
++ };
++ await assert.rejects(()=>withPostgresReadSnapshot({connect:async()=>client},async db=>{
++  for(const sql of ["UPDATE settings SET value=? WHERE id='snapshot_generation' RETURNING value",'COMMIT','SELECT * FROM settings ORDER BY id LIMIT ? OFFSET ?; COMMIT']){
++   assert.throws(()=>db.prepare(sql),/only accepts a single backup page SELECT/);
++  }
++  throw new Error('synthetic rejected-write test complete');
++ }),/synthetic rejected-write test complete/);
++ assert.equal(fixture.writer.prepare("SELECT value FROM settings WHERE id='snapshot_generation'").get().value,'before');
++ assert.deepEqual(events.slice(-2),['ROLLBACK','release']);
++ assert.deepEqual(events,[begin,'ROLLBACK','release']);
 +});
 diff --git a/tests/vpay-portal.test.mjs b/tests/vpay-portal.test.mjs
 index 35c88da..4187766 100644
