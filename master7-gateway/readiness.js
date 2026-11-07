@@ -135,7 +135,6 @@ function gspayReadiness(env = {}) {
   const queryTokenConfigured = Boolean(gspayPeerCredential(env, 'PLATFORM_GSPAY_QUERY_TOKEN'));
   const callbackTokenConfigured = Boolean(gspayPeerCredential(env, 'PLATFORM_GSPAY_CALLBACK_TOKEN'));
   const paymentForwardConfigured = configuredUrl(env.GSPAY_PAYMENT_FORWARD_URL);
-  const duitNowForwardConfigured = configuredUrl(env.GSPAY_DUITNOW_FORWARD_URL);
   const switches = {
     orders: String(env.GSPAY_MYR_ORDERS_ENABLED || '').toLowerCase() === 'true',
     queries: String(env.GSPAY_MYR_QUERIES_ENABLED || '').toLowerCase() === 'true',
@@ -144,43 +143,41 @@ function gspayReadiness(env = {}) {
   const common = [];
   if (!credentialsConfigured) common.push('provider_credentials_missing_or_invalid');
   if (!baseConfigured) common.push('public_callback_base_missing_or_invalid');
-  const channels = {
+  const requirements = {
     orders: [...common, ...(!orderTokenConfigured ? ['platform_order_token_missing_or_aliased'] : []),
-      ...(!switches.orders ? ['transaction_switch_off'] : []),
-      'provider_order_response_contract_unconfirmed',
-      'supplier_uat_not_verified'],
-    queries: [...common, ...(!queryTokenConfigured ? ['platform_query_token_missing_or_aliased'] : []),
-      ...(!switches.queries ? ['transaction_switch_off'] : []),
-      'provider_query_response_envelope_unconfirmed', 'supplier_uat_not_verified'],
-    callbacks: [...common, ...(!callbackTokenConfigured ? ['platform_callback_token_missing_or_aliased'] : []),
-      ...(!paymentForwardConfigured || !duitNowForwardConfigured ? ['platform_callback_url_missing_or_invalid'] : []),
-      ...(!switches.callbacks ? ['transaction_switch_off'] : []),
-      'provider_callback_ack_contract_unconfirmed', 'supplier_uat_not_verified'],
+      ...(!queryTokenConfigured ? ['platform_signing_token_missing_or_aliased'] : [])],
+    queries: [...common, ...(!orderTokenConfigured ? ['platform_auth_token_missing_or_aliased'] : []),
+      ...(!queryTokenConfigured ? ['platform_query_token_missing_or_aliased'] : [])],
+    callbacks: [...common, ...(!orderTokenConfigured ? ['platform_auth_token_missing_or_aliased'] : []),
+      ...(!queryTokenConfigured ? ['platform_signing_token_missing_or_aliased'] : []),
+      ...(!callbackTokenConfigured ? ['platform_callback_token_missing_or_aliased'] : []),
+      ...(!paymentForwardConfigured ? ['platform_callback_url_missing_or_invalid'] : [])],
   };
   const requestedMode = String(env.GSPAY_MODE || 'disabled').toLowerCase();
-  // The only create-success example previously linked to this merchant was
-  // later confirmed by the owner to belong to a different supplier ticket.
-  // Keep the parser available for offline work, but do not expose an order
-  // route until MASTER7 receives merchant-specific contract evidence.
-  const orderProgramReady = false;
   return {
     mode: ['disabled', 'uat', 'production'].includes(requestedMode) ? requestedMode : 'disabled',
     providerBase: 'https://api.thegspay.com',
     contract: {
-      observedAt: '2026-11-05',
+      observedAt: '2026-11-07',
       providerServerIps: ['52.221.96.227'],
-      confirmed: ['myr_order_request', 'myr_query_request', 'myr_payment_status_fields', 'myr_signature_formulas'],
-      unconfirmed: ['myr_order_success_response_for_master7', 'callback_acknowledgement_and_retry'],
+      confirmed: ['myr_order_request', 'myr_order_response', 'myr_query_request',
+        'myr_payment_status_fields', 'myr_signature_formulas', 'callback_ack_ok_or_success'],
+      unconfirmed: ['master7_paid_settlement_acceptance'],
     },
     credentialsConfigured,
     switches,
-    channels: Object.fromEntries(Object.entries(channels).map(([name, blockers]) => [name, {
-      enabled: switches[name],
-      programReady: name === 'orders' ? orderProgramReady : false,
-      routeReady: name === 'orders' ? orderProgramReady && switches.orders : false,
-      configurationReady: false, blockers,
-      productionQa: 'not_verified', liveReady: false,
-    }])),
+    channels: Object.fromEntries(Object.entries(requirements).map(([name, required]) => {
+      const programReady = required.length === 0;
+      const blockers = [...required, ...(!switches[name] ? ['transaction_switch_off'] : []),
+        'supplier_uat_not_verified'];
+      return [name, {
+        enabled: switches[name],
+        programReady,
+        routeReady: programReady && switches[name],
+        configurationReady: programReady, blockers,
+        productionQa: 'not_verified', liveReady: false,
+      }];
+    })),
   };
 }
 

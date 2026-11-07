@@ -3,7 +3,14 @@
 const http = require('node:http');
 const crypto = require('node:crypto');
 const { verifyVpayNotification, vpaySignature } = require('./vpay');
-const { paymentOrderRequest, paymentOrderResponse } = require('./gspay');
+const {
+  paymentOrderRequest,
+  paymentOrderResponse,
+  paymentOrderSignature,
+  paymentQueryRequest,
+  paymentSignature,
+  paymentStatusPayload,
+} = require('./gspay');
 const { jiliCatalogueBody } = require('./jili');
 const { venusCatalogue } = require('./venus');
 const { rsghubCatalogue } = require('./rsghub');
@@ -85,6 +92,25 @@ function safeEqual(a, b) {
   const left = Buffer.from(String(a || ''));
   const right = Buffer.from(String(b || ''));
   return left.length === right.length && crypto.timingSafeEqual(left, right);
+}
+
+function gspayEnvelopePayload(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)
+      || ![200, '200'].includes(value.code)) throw new TypeError('invalid_gspay_envelope');
+  let payload = value.data ?? value;
+  if (typeof payload === 'string') {
+    if (Buffer.byteLength(payload, 'utf8') > 65536) throw new TypeError('invalid_gspay_envelope');
+    try { payload = JSON.parse(payload); }
+    catch { throw new TypeError('invalid_gspay_envelope'); }
+  }
+  if (Array.isArray(payload)) {
+    if (payload.length !== 1) throw new TypeError('invalid_gspay_envelope');
+    [payload] = payload;
+  }
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    throw new TypeError('invalid_gspay_envelope');
+  }
+  return payload;
 }
 
 function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new Date() } = {}) {
@@ -211,6 +237,8 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
   function gspayConfiguration() {
     const readiness = gspayReadiness(env);
     const orderReady = readiness.channels.orders.routeReady === true;
+    const queryReady = readiness.channels.queries.routeReady === true;
+    const callbacksReady = readiness.channels.callbacks.routeReady === true;
     return {
       provider: 'gspay',
       currency: 'MYR',
@@ -218,11 +246,11 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
       configured: readiness.credentialsConfigured,
       providerBase: readiness.providerBase,
       contract: readiness.contract,
-      transactionRoutesActive: false,
+      transactionRoutesActive: orderReady || queryReady || callbacksReady,
       createProgramReady: readiness.channels.orders.programReady === true,
       orderReady,
-      queryReady: false,
-      callbacksReady: false,
+      queryReady,
+      callbacksReady,
       callbackUrls: {
         payment: callbackUrls().gspayPayment,
         duitNow: callbackUrls().gspayDuitNow,
@@ -279,7 +307,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
       let data;
       try { data = raw ? JSON.parse(raw) : {}; }
       catch { data = { message: raw.slice(0, 500) }; }
-      return { ok: response.ok, status: response.status, data, acknowledgement: raw === 'SUCCESS' };
+      return { ok: response.ok, status: response.status, data, raw, acknowledgement: raw === 'SUCCESS' };
     } finally {
       clearTimeout(timer);
     }
@@ -620,6 +648,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
 
       if (req.method === 'GET' && url.pathname === '/providers/gspay/status') {
         const readiness = gspayReadiness(env);
+        const transactionRoutesActive = Object.values(readiness.channels).some(channel => channel.routeReady);
         return send(res, 200, {
           provider: 'gspay',
           currency: 'MYR',
@@ -627,7 +656,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           mode: readiness.mode,
           createProgramReady: readiness.channels.orders.programReady === true,
           orderRouteEnabled: readiness.channels.orders.routeReady === true,
-          transactionRoutesActive: false,
+          transactionRoutesActive,
           productionQa: 'not_verified',
           liveReady: false,
           contract: readiness.contract,
@@ -638,22 +667,162 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         }, cors);
       }
 
+      const gspayProviderBridgeMatch = url.pathname.match(
+        /^\/v2\/integrations\/operators\/([^/]+)\/(payment|getpayment)$/,
+      );
+      if (gspayProviderBridgeMatch) {
+        let suppliedAuth;
+        try { suppliedAuth = decodeURIComponent(gspayProviderBridgeMatch[1]); }
+        catch { return send(res, 401, { error: 'invalid_gspay_platform_auth' }); }
+        const operation = gspayProviderBridgeMatch[2];
+        const readiness = gspayReadiness(env);
+        const internalAuth = gspayPeerCredential(env, 'PLATFORM_GSPAY_ORDER_TOKEN');
+        const internalSecret = gspayPeerCredential(env, 'PLATFORM_GSPAY_QUERY_TOKEN');
+        if (!internalAuth || !internalSecret || !safeEqual(suppliedAuth, internalAuth)) {
+          if (req.method === 'POST') await body(req);
+          return send(res, 401, { error: 'invalid_gspay_platform_auth' });
+        }
+
+        if (operation === 'payment' && req.method === 'POST') {
+          if (!readiness.channels.orders.routeReady) {
+            await body(req);
+            return send(res, 503, { error: 'gspay_orders_disabled' });
+          }
+          const payload = await body(req);
+          let expectedSignature;
+          try {
+            expectedSignature = paymentOrderSignature({
+              transactionId: payload.transaction_id,
+              playerUsername: payload.player_username,
+              amount: payload.amount,
+            }, internalSecret);
+          } catch { return send(res, 400, { error: 'invalid_gspay_order' }); }
+          if (!safeEqual(payload.signature, expectedSignature)) {
+            return send(res, 401, { error: 'invalid_gspay_order_signature' });
+          }
+          let providerRequest;
+          try {
+            providerRequest = paymentOrderRequest({
+              transactionId: payload.transaction_id,
+              playerUsername: payload.player_username,
+              amount: payload.amount,
+            }, env.GSPAY_OPERATOR_AUTH_KEY, env.GSPAY_OPERATOR_SECRET_KEY);
+          } catch { return send(res, 503, { error: 'gspay_provider_not_configured' }); }
+          const result = await upstream(providerRequest.url, {
+            method: providerRequest.method,
+            headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(providerRequest.body),
+            redirect: 'error',
+          });
+          if (!result.ok) return send(res, 502, { error: 'gspay_provider_rejected_order', upstreamStatus: result.status });
+          try { paymentOrderResponse(result.data); }
+          catch { return send(res, 502, { error: 'gspay_invalid_order_response', upstreamStatus: result.status }); }
+          return send(res, 200, result.data);
+        }
+
+        if (operation === 'getpayment' && req.method === 'GET') {
+          if (!readiness.channels.queries.routeReady) {
+            return send(res, 503, { error: 'gspay_queries_disabled' });
+          }
+          const transactionId = url.searchParams.get('transaction_id') || '';
+          if (!safeEqual(url.searchParams.get('auth_key'), internalAuth)
+              || !/^[A-Za-z0-9_-]{8,100}$/.test(transactionId)) {
+            return send(res, 400, { error: 'invalid_gspay_query' });
+          }
+          let providerRequest;
+          try { providerRequest = paymentQueryRequest(transactionId, env.GSPAY_OPERATOR_AUTH_KEY); }
+          catch { return send(res, 503, { error: 'gspay_provider_not_configured' }); }
+          const result = await upstream(providerRequest.url, {
+            method: providerRequest.method,
+            headers: { Accept: 'application/json' },
+            redirect: 'error',
+          });
+          if (!result.ok) return send(res, 502, { error: 'gspay_provider_query_failed', upstreamStatus: result.status });
+          let verified;
+          try { verified = paymentStatusPayload(gspayEnvelopePayload(result.data), env.GSPAY_OPERATOR_SECRET_KEY); }
+          catch { return send(res, 502, { error: 'gspay_invalid_query_response', upstreamStatus: result.status }); }
+          return send(res, 200, {
+            code: 200,
+            message: 'ok',
+            data: {
+              payment_id: verified.paymentId,
+              transaction_id: verified.transactionId,
+              player_username: verified.playerUsername,
+              amount: verified.amount,
+              completed: verified.completed,
+              success: verified.success,
+              remark: verified.remark,
+              signature: paymentSignature({
+                paymentId: verified.paymentId,
+                amount: verified.amount,
+                transactionId: verified.transactionId,
+              }, internalSecret),
+            },
+          });
+        }
+
+        if (req.method === 'POST') await body(req);
+        return send(res, 405, { error: 'method_not_allowed' });
+      }
+
       const gspayCallbackMatch = url.pathname.match(/^\/callbacks\/gspay\/(payment|duitnow)$/);
       if (gspayCallbackMatch && req.method === 'GET') {
+        const readiness = gspayReadiness(env);
         return send(res, 200, {
           ok: true,
           provider: 'gspay',
           callback: gspayCallbackMatch[1],
-          active: false,
+          active: gspayCallbackMatch[1] === 'payment' && readiness.channels.callbacks.routeReady,
           productionQa: 'not_verified',
         });
       }
       if (gspayCallbackMatch && req.method === 'POST') {
-        // The supplier acknowledgement and retry contract is still unknown.
-        // Consume only a bounded JSON object, never forward it and never return
-        // a success acknowledgement that could stop a legitimate retry.
-        await body(req);
-        return send(res, 503, { error: 'gspay_callback_contract_not_active' });
+        const readiness = gspayReadiness(env);
+        if (gspayCallbackMatch[1] !== 'payment' || !readiness.channels.callbacks.routeReady) {
+          await body(req);
+          return send(res, 503, { error: 'gspay_callback_contract_not_active' });
+        }
+        const payload = await body(req);
+        if (!safeEqual(payload.auth_key, env.GSPAY_OPERATOR_AUTH_KEY)) {
+          return send(res, 401, { error: 'invalid_gspay_callback_auth' });
+        }
+        let verified;
+        try { verified = paymentStatusPayload(payload, env.GSPAY_OPERATOR_SECRET_KEY); }
+        catch { return send(res, 401, { error: 'invalid_gspay_callback_signature' }); }
+        const internalAuth = gspayPeerCredential(env, 'PLATFORM_GSPAY_ORDER_TOKEN');
+        const internalSecret = gspayPeerCredential(env, 'PLATFORM_GSPAY_QUERY_TOKEN');
+        const callbackToken = gspayPeerCredential(env, 'PLATFORM_GSPAY_CALLBACK_TOKEN');
+        const forwardUrl = normalizeHttpsUrl(String(env.GSPAY_PAYMENT_FORWARD_URL || ''));
+        if (!internalAuth || !internalSecret || !callbackToken || !forwardUrl) {
+          return send(res, 503, { error: 'platform_gspay_callback_not_configured' });
+        }
+        const forwarded = {
+          auth_key: internalAuth,
+          success: verified.success,
+          completed: verified.completed,
+          payment_id: verified.paymentId,
+          transaction_id: verified.transactionId,
+          player_username: verified.playerUsername,
+          amount: verified.amount,
+          remark: verified.remark,
+          signature: paymentSignature({
+            paymentId: verified.paymentId,
+            amount: verified.amount,
+            transactionId: verified.transactionId,
+          }, internalSecret),
+        };
+        const forward = await upstream(forwardUrl, {
+          method: 'POST',
+          headers: {
+            Accept: 'text/plain,application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${callbackToken}`,
+          },
+          body: JSON.stringify(forwarded),
+        });
+        return forward.ok && /^(?:ok|success)$/i.test(forward.raw.trim())
+          ? sendText(res, 200, 'ok')
+          : send(res, 502, { error: 'platform_gspay_callback_failed' });
       }
 
       const vpayCallbackMatch = url.pathname.match(/^\/callbacks\/vpay\/(payment|withdrawal)$/);
@@ -768,8 +937,42 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
 
       if (req.method === 'POST' && url.pathname === '/platform/gspay/order-query') {
         if (!isGspayPeer(req, 'PLATFORM_GSPAY_QUERY_TOKEN')) return send(res, 401, { error: 'unauthorized' });
-        await body(req);
-        return send(res, 503, { error: 'gspay_query_contract_not_active' });
+        const readiness = gspayReadiness(env);
+        if (!readiness.channels.queries.routeReady) {
+          await body(req);
+          return send(res, 503, { error: 'gspay_queries_disabled' });
+        }
+        const payload = await body(req);
+        const transactionId = typeof payload.transactionId === 'string' ? payload.transactionId : '';
+        if (!/^[A-Za-z0-9_-]{8,100}$/.test(transactionId)) {
+          return send(res, 400, { error: 'invalid_gspay_query' });
+        }
+        let providerRequest;
+        try { providerRequest = paymentQueryRequest(transactionId, env.GSPAY_OPERATOR_AUTH_KEY); }
+        catch { return send(res, 503, { error: 'gspay_provider_not_configured' }); }
+        const result = await upstream(providerRequest.url, {
+          method: providerRequest.method,
+          headers: { Accept: 'application/json' },
+          redirect: 'error',
+        });
+        if (!result.ok) return send(res, 502, { error: 'gspay_provider_query_failed', upstreamStatus: result.status });
+        let verified;
+        try { verified = paymentStatusPayload(gspayEnvelopePayload(result.data), env.GSPAY_OPERATOR_SECRET_KEY); }
+        catch { return send(res, 502, { error: 'gspay_invalid_query_response', upstreamStatus: result.status }); }
+        return send(res, 200, {
+          provider: 'gspay_myr',
+          contract: 'gspay-myr-query-v1',
+          upstreamStatus: result.status,
+          result: {
+            paymentId: verified.paymentId,
+            transactionId: verified.transactionId,
+            playerUsername: verified.playerUsername,
+            amount: verified.amount,
+            completed: verified.completed,
+            success: verified.success,
+            remark: verified.remark,
+          },
+        });
       }
 
       if (req.method === 'POST' && ['/admin/vpay/order', '/platform/vpay/order'].includes(url.pathname)) {

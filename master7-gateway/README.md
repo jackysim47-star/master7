@@ -9,7 +9,20 @@ Implemented:
 - Stable callback URL reservations for Cosmoplay, Creative Gaming, PGSOFT and Spade Gaming.
 - Health reporting without exposing credentials.
 
-Provider secrets are supplied only through Render environment variables. Callback POST requests remain closed until each provider's signed callback contract is implemented; the reachability endpoint does not claim transaction readiness.
+Provider secrets are supplied only through Render environment variables. A callback POST remains closed until that provider's signed callback contract is implemented; a reachability endpoint never claims transaction readiness.
+
+## Version 1.13.0: GSPAY Portal bridge
+
+The official MYR order, query, signature and `ok`/`success` callback contract
+is implemented through an isolated Portal bridge. Provider credentials stay in
+the gateway; the Portal uses three separate internal credentials. Orders,
+queries and callbacks each retain an independent environment switch.
+
+The gateway validates and re-signs both query results and callbacks at the
+trust boundary. It acknowledges a supplier callback only after the Portal
+durably accepts it. Configuration readiness is distinct from paid settlement
+acceptance: `productionQa` and `liveReady` remain unverified until a real paid
+order produces one balanced member-wallet ledger and matches the merchant BO.
 
 ## Version 1.12.1: current portal origins
 
