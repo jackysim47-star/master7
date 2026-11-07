@@ -1,0 +1,10 @@
+MASTER7 release: 17.0.0-selfbuilt.88-payment-readiness
+Source commit: 680e1c240011f740e68394764df39b54ea4b5fb4
+Archive: master7-v17-render-staging.tar.gz
+Archive SHA-256: de6c8a12ebe7eef6545355438d1a1d3ac01ca726dc17d1a21c4e0fbd62473553
+Archive members: 528
+Full test suite: 392/392 passed
+Render database adapter: 3/3 passed
+Focused payment-preview acceptance: passed
+Render production build: passed
+Payment, payout, game, wallet and settlement switches: unchanged and fail-closed

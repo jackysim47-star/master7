@@ -96,3 +96,16 @@ Acceptance requires one authorized real payment to produce all of the following:
   archive installed from its frozen lockfile, repeated the full suite and
   completed the Render production build.
 - Production payment and game switches are unchanged by this release.
+
+## Release `.88` payment-preview truth package
+
+- Source commit: `680e1c240011f740e68394764df39b54ea4b5fb4`.
+- Archive SHA-256: `de6c8a12ebe7eef6545355438d1a1d3ac01ca726dc17d1a21c4e0fbd62473553`.
+- The customer VPay, GSPAY+ and 1MPay cards now require both the owner channel
+  control and the provider status API `orderReady=true` before they display
+  **Available**. An active database control cannot advertise a disabled
+  new-order route.
+- Full suite: 392/392 passed. Render DB adapter: 3/3 passed. Focused payment UI
+  tests and the Render production build passed.
+- This release changes only truthful customer presentation and cache versioning.
+  It does not enable a payment, payout, game, wallet or settlement switch.
