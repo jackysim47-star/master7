@@ -1,0 +1,24 @@
+MASTER7 management gate release receipt
+Generated: 2026-11-07 UTC
+Release: 17.0.0-selfbuilt.84-management-gate
+Source commit: 24b17a4745d90a7db3d41701dbdb53cc83f0c3a5
+Publication branch: codex/v17-render-staging-20261104
+Archive: master7-v17-render-staging.tar.gz
+Archive SHA-256: 6568687ed13f8e521407b34a515ecae4b421300543a5b7639c34360596de842e
+Archive entries: 525
+
+Corrections:
+- Management URL renders the Management Console document title.
+- Management sign-in shows the MASTER7 company mark and SERVICE PORTAL identity.
+- Customer member tagline is removed from the management gate.
+- Rewards and public/member navigation remain isolated from signed-out management.
+- Mobile management entry remains width-safe with no inherited public overflow.
+
+Validation before publication:
+- Full Node test suite: 387/387 passed.
+- Render database compatibility tests: 3/3 passed.
+- Lint: passed.
+- Render production build: passed.
+- git diff --check: passed.
+
+Online deployment acceptance: pending.
