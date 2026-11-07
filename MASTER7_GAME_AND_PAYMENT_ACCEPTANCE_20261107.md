@@ -3,11 +3,31 @@
 This note records verified production behaviour only. Credentials, player data,
 bank details and provider response bodies are intentionally excluded.
 
+## VPay
+
+- The portal and gateway have the merchant configuration, signed order route,
+  independent order query and authenticated callback forwarding in place.
+- Three observed production order attempts reached VPay. VPay returned HTTP 200
+  with provider business code `-1`; therefore no checkout URL was accepted and
+  no wallet entry was created. The public VPay documentation defines only code
+  `0` as success and does not define `-1`.
+- The gateway's observed Render egress IP is not the IP in the merchant handover
+  and is not guaranteed to remain a single address. VPay must confirm the
+  meaning of `-1`, the purpose of the handed-over IP, the accepted outbound
+  allowlist and the enabled MYR trade codes.
+- New VPay orders remain disabled. Query and callback reconciliation stay
+  configured so an existing order can still be checked without resubmission.
+- The callback implementation verifies the VPay signature and order binding,
+  performs an independent provider query, commits one balanced wallet ledger,
+  and returns the exact uppercase `SUCCESS` acknowledgement only after that
+  durable result.
+
 ## 1MPay
 
 - Merchant configuration, order creation and order query reached the provider.
-- The observed customer checkout did not complete and no successful callback or
-  balanced member-wallet settlement was received.
+- One provider-style callback was accepted and independently queried. This
+  proves callback reachability and validation, but the query was not shown to
+  be successfully paid and no balanced member-wallet settlement was proven.
 - New 1MPay orders are therefore disabled in the Render environment. Existing
   orders and reconciliation records remain available; they are not recreated or
   deleted.
@@ -21,6 +41,24 @@ Acceptance requires one authorized real payment to produce all of the following:
 3. an independent successful provider query;
 4. exactly one balanced member and provider-clearing ledger pair;
 5. a matching wallet and accounting record.
+
+## GSPAY+ MYR
+
+- The customer flow, idempotent platform order, provider-order binding, HTTPS
+  checkout-host validation, authenticated callback, independent status query
+  and single balanced wallet settlement are implemented and covered by local
+  contract tests.
+- The supplied successful create example proves only the create response shape:
+  outer code `200` with a JSON string containing `payment_id` and an HTTPS URL
+  on `secured.gspay.online`. It is not settlement evidence.
+- The production portal channel is closed and the current portal configuration
+  is incomplete. Customer order creation therefore remains unavailable and the
+  lobby must show maintenance.
+- Production acceptance still requires the supplier's final query-success
+  response, callback acknowledgement and retry contract, plus one reconciled
+  payment across the supplier order, MASTER7 order, wallet ledger and accounts.
+- DuitNow, USDT and payout are outside this MYR deposit acceptance and remain
+  separately disabled.
 
 ## Game catalogues
 
@@ -47,27 +85,14 @@ Acceptance requires one authorized real payment to produce all of the following:
 - No test in this release creates a player, transfers funds, places a wager or
   submits a payout.
 
-## Live verification
+## Release `.87` package
 
-- Portal deploy: `17.0.0-selfbuilt.86-game-catalogue-recovery`, database ready.
-- Gateway deploy: `1.12.0`.
-- Customer entry: `https://master7.best/` reaches the sign-in page.
-- Backoffice entry: `https://master7.site/` and `https://www.master7.site/`
-  reach `/admin`.
-- The public lobby returns exactly 34 supplier buttons and 766 retained
-  catalogue records across five suppliers: MegaH5 166, JILI 297, 918KISS H5 91,
-  Rectangle 64 and EVO888H5 148. Launch-ready and playable counts are both zero.
-- JDB and Pragmatic Play are present as independent supplier buttons with zero
-  trusted games and `awaiting_api` status. ATG is mapped to its assigned direct
-  source and currently remains `awaiting_api`.
-- 1MPay reports `orderReady: false`, `settlementVerified: false`; the new-order
-  environment switch is off while the existing program/query configuration is
-  retained.
-- VPay new orders are disabled after the observed gateway failure and because
-  settlement acceptance remains false. GSPAY remains closed. Existing payment
-  records and read-only reconciliation routes are retained.
-- MegaH5 catalogue data remains visible, but new game launch and transfer-wallet
-  switches are off because a real transfer, wager and exit-settlement acceptance
-  run has not been evidenced.
-- Overall production readiness remains false. This is intentional until payment
-  settlement and provider launch/wallet acceptance are complete.
+- Source commit: `9b8af5ee47d8db8922d49edcbde7adad0945a979`.
+- Archive SHA-256: `92d6066a8fcb8176a8fddf2c47437e83827c4dab400a881e21a23cea00d7d995`.
+- The archive contains one root and no Git metadata, dependency directory,
+  generated build, runtime database, non-template environment file or known
+  credential value.
+- Full suite: 391/391 passed. Render DB adapter: 3/3 passed. A clean extracted
+  archive installed from its frozen lockfile, repeated the full suite and
+  completed the Render production build.
+- Production payment and game switches are unchanged by this release.

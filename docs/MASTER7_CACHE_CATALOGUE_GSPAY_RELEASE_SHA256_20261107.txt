@@ -1,0 +1,10 @@
+MASTER7 release: 17.0.0-selfbuilt.87-cache-refresh
+Source commit: 9b8af5ee47d8db8922d49edcbde7adad0945a979
+Archive: master7-v17-render-staging.tar.gz
+Archive SHA-256: 92d6066a8fcb8176a8fddf2c47437e83827c4dab400a881e21a23cea00d7d995
+Archive members: 528
+Full test suite: 391/391 passed
+Render database adapter: 3/3 passed
+Clean extracted archive: install, full tests and Render production build passed
+GSPAY+ MYR production order creation: closed pending real acceptance
+Game launch / wallet / settlement production acceptance: not verified
