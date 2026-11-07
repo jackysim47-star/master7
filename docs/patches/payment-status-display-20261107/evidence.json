@@ -1,0 +1,240 @@
+{
+  "source": {
+    "url": "https://master7-v17-staging.onrender.com/assets/app.js",
+    "sha256": "ba2a9a390d008cf338d8db36a735aa2a76f7e0732f6012e29bfc728e2b28c118",
+    "byteLength": 257388
+  },
+  "release": "17.0.0-selfbuilt.94-readiness-split",
+  "health": {
+    "providerCapabilities": {
+      "vpay": {
+        "deposit": {
+          "implemented": true,
+          "configured": true,
+          "enabled": true,
+          "verified": false,
+          "settlementVerified": false,
+          "blockers": []
+        },
+        "payout": {
+          "implemented": true,
+          "configured": true,
+          "enabled": true,
+          "verified": false,
+          "settlementVerified": false,
+          "submissionEnabled": true,
+          "blockers": []
+        },
+        "balance": {
+          "implemented": false,
+          "configured": false,
+          "enabled": false,
+          "verified": false,
+          "settlementVerified": false,
+          "blockers": [
+            "provider_balance_adapter_not_implemented"
+          ]
+        }
+      },
+      "gspay": {
+        "deposit": {
+          "implemented": true,
+          "configured": true,
+          "enabled": true,
+          "verified": false,
+          "settlementVerified": false,
+          "blockers": []
+        },
+        "payout": {
+          "implemented": true,
+          "configured": false,
+          "enabled": false,
+          "verified": false,
+          "settlementVerified": false,
+          "submissionEnabled": false,
+          "blockers": [
+            "bank_targets_not_configured",
+            "submission_disabled",
+            "payout_control_disabled"
+          ]
+        },
+        "balance": {
+          "implemented": true,
+          "configured": false,
+          "enabled": false,
+          "verified": false,
+          "settlementVerified": false,
+          "blockers": [
+            "balance_configuration_incomplete",
+            "balance_query_disabled"
+          ]
+        }
+      },
+      "1mpay": {
+        "deposit": {
+          "implemented": true,
+          "configured": true,
+          "enabled": true,
+          "verified": false,
+          "settlementVerified": false,
+          "blockers": []
+        },
+        "payout": {
+          "implemented": false,
+          "configured": false,
+          "enabled": false,
+          "verified": false,
+          "settlementVerified": false,
+          "submissionEnabled": false,
+          "blockers": [
+            "provider_payout_contract_incomplete",
+            "submission_disabled"
+          ]
+        },
+        "balance": {
+          "implemented": false,
+          "configured": false,
+          "enabled": false,
+          "verified": false,
+          "settlementVerified": false,
+          "blockers": [
+            "provider_balance_adapter_not_implemented"
+          ]
+        }
+      }
+    },
+    "transactionsEnabled": true,
+    "realPayments": true,
+    "payoutsEnabled": true,
+    "settlementVerified": false,
+    "productionReady": false
+  },
+  "statuses": {
+    "vpay": {
+      "provider": "vpay",
+      "capabilities": {
+        "deposit": {
+          "implemented": true,
+          "configured": true,
+          "enabled": true,
+          "verified": false,
+          "settlementVerified": false,
+          "blockers": []
+        },
+        "payout": {
+          "implemented": true,
+          "configured": false,
+          "enabled": false,
+          "verified": false,
+          "settlementVerified": false,
+          "submissionEnabled": false,
+          "blockers": [
+            "payout_configuration_incomplete",
+            "submission_disabled"
+          ]
+        },
+        "balance": {
+          "implemented": false,
+          "configured": false,
+          "enabled": false,
+          "verified": false,
+          "settlementVerified": false,
+          "blockers": [
+            "provider_balance_adapter_not_implemented"
+          ]
+        }
+      },
+      "orderReady": true,
+      "queryReady": true,
+      "callbacksReady": true,
+      "settlementVerified": false,
+      "liveReady": false
+    },
+    "gspay": {
+      "provider": "gspay",
+      "capabilities": {
+        "deposit": {
+          "implemented": true,
+          "configured": true,
+          "enabled": true,
+          "verified": false,
+          "settlementVerified": false,
+          "blockers": []
+        },
+        "payout": {
+          "implemented": true,
+          "configured": false,
+          "enabled": false,
+          "verified": false,
+          "settlementVerified": false,
+          "submissionEnabled": false,
+          "blockers": [
+            "bank_targets_not_configured",
+            "submission_disabled",
+            "payout_control_disabled"
+          ]
+        },
+        "balance": {
+          "implemented": true,
+          "configured": false,
+          "enabled": false,
+          "verified": false,
+          "settlementVerified": false,
+          "blockers": [
+            "balance_configuration_incomplete",
+            "balance_query_disabled"
+          ]
+        }
+      },
+      "orderReady": true,
+      "queryReady": true,
+      "callbacksReady": true,
+      "settlementVerified": false,
+      "liveReady": false
+    },
+    "1mpay": {
+      "provider": "1mpay",
+      "capabilities": {
+        "deposit": {
+          "implemented": true,
+          "configured": true,
+          "enabled": true,
+          "verified": false,
+          "settlementVerified": false,
+          "blockers": []
+        },
+        "payout": {
+          "implemented": false,
+          "configured": false,
+          "enabled": false,
+          "verified": false,
+          "settlementVerified": false,
+          "submissionEnabled": false,
+          "blockers": [
+            "provider_payout_contract_incomplete",
+            "submission_disabled"
+          ]
+        },
+        "balance": {
+          "implemented": false,
+          "configured": false,
+          "enabled": false,
+          "verified": false,
+          "settlementVerified": false,
+          "blockers": [
+            "provider_balance_adapter_not_implemented"
+          ]
+        }
+      },
+      "orderReady": true,
+      "queryReady": true,
+      "callbacksReady": true,
+      "settlementVerified": false,
+      "liveReady": false
+    }
+  },
+  "checkedAt": "2026-11-07T12:47:46Z",
+  "checkedAtMYT": "2026-11-07 20:47:46 MYT",
+  "environment": "public anonymous GETs; live response evidence only; no order or payout submitted",
+  "patchedSourceSha256": "b5146b9f05e73cbcc682bf4764f963e3672e013b29d497f22e1a7dec92fdfc70"
+}
