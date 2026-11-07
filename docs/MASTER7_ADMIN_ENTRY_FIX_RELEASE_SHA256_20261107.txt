@@ -1,0 +1,25 @@
+MASTER7 management-entry correction release receipt
+Generated: 2026-11-07 UTC
+Release: 17.0.0-selfbuilt.83-admin-entry-fix
+Source commit: 9abd688678e47b0e7cbeb257cb360fdd576914fc
+Publication branch: codex/v17-render-staging-20261104
+Archive: master7-v17-render-staging.tar.gz
+Archive SHA-256: 99526c4349592e0463ff17238b10fc96a7d503c62b70532960ff88cb6edd3c74
+Archive entries: 525
+
+Corrections:
+- Rewards Center renders only when its section is active.
+- Signed-out /admin opens an isolated Management sign-in view.
+- Customer navigation and public footer are hidden from signed-out management entry.
+- Successful authentication clears auth-entry state before portal rendering.
+- Mobile management entry no longer inherits the public layout overflow.
+
+Validation before publication:
+- Full Node test suite: 387/387 passed.
+- Render database compatibility tests: 3/3 passed.
+- Lint: passed.
+- Render production build: passed.
+- git diff --check: passed.
+- Archive excludes .git, node_modules, build output, and secret .env files.
+
+Online deployment acceptance: pending.
