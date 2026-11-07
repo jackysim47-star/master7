@@ -1,6 +1,28 @@
 # MASTER7 Current Deployment Receipt
 
-## `.88` payment-readiness current live deployment
+## `.89` game-check truth current live deployment
+
+- Live release: `17.0.0-selfbuilt.89-game-check-truth`.
+- Source commit: `6bf4110ad12d1b2733c9ab3dbcbf1cba4e4ad226`.
+- Publication commit: `67115be2825a2cca3d3ab19af0050a4e92e94e14`.
+- Render deploy: `dep-dbncn4h5efls73avifj0`, `live` at
+  2026-11-07 14:57:47 MYT.
+- Bundle SHA-256:
+  `70fd1a348dcebcfc12e30b11f5fdcb38fabe6c6a7cde8c9c230a81523fe2b59f`.
+- The 34-provider backoffice check separates complete, acceptance pending,
+  waiting/maintenance and explicit-error states, shows catalogue counts and
+  names the current blocker. Payment and game production readiness now reads
+  **Acceptance pending** instead of the ambiguous **Maintenance**.
+- Runtime acceptance confirms PostgreSQL and OTP ready, 21 exact `.89` assets,
+  34 supplier positions, 766 retained titles and 0 production-playable titles.
+- Full acceptance passed 398/398 Portal tests, 3/3 Render database-adapter
+  tests, a clean extracted archive build, zero deployment-window application
+  errors and zero HTTP 5xx responses.
+- Payment, payout, settlement and live-game gates remain closed pending real
+  provider and settlement acceptance.
+- Autoscaling is 1–3 instances at CPU 75% / memory 75%, currently one instance.
+
+## `.88` payment-readiness historical deployment
 
 - Live release: `17.0.0-selfbuilt.88-payment-readiness`.
 - Source commit: `680e1c240011f740e68394764df39b54ea4b5fb4`.

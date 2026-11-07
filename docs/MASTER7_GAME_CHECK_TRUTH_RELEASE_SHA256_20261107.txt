@@ -9,3 +9,9 @@ Focused game-check presentation: 6/6 passed
 Render production build: passed
 Clean extracted archive frozen install and repeat validation: passed
 Payment, payout, game, wallet and settlement switches: unchanged and fail-closed
+Publication commit: 67115be2825a2cca3d3ab19af0050a4e92e94e14
+Render deploy: dep-dbncn4h5efls73avifj0
+Live at: 2026-11-07 14:57:47 MYT
+Online release, database, assets, provider inventory and cache acceptance: passed
+Acceptance-window application error/critical/fatal logs: 0
+Acceptance-window HTTP 5xx requests: 0

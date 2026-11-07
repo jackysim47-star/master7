@@ -127,6 +127,39 @@ Acceptance requires one authorized real payment to produce all of the following:
 - This release changes read-only status presentation and cache versioning. It
   does not enable a payment, payout, game, wallet or settlement switch.
 
+## Live verification · release `.89`
+
+- Render service: `master7-v17-staging`
+  (`srv-dbl0iv7f3r2c73848ei0`, Singapore).
+- Publication commit:
+  `67115be2825a2cca3d3ab19af0050a4e92e94e14`.
+- Render deploy: `dep-dbncn4h5efls73avifj0`, `live` at
+  2026-11-07 14:57:47 MYT.
+- Live release and source release:
+  `17.0.0-selfbuilt.89-game-check-truth`.
+- Source commit:
+  `6bf4110ad12d1b2733c9ab3dbcbf1cba4e4ad226`.
+- Archive SHA-256:
+  `70fd1a348dcebcfc12e30b11f5fdcb38fabe6c6a7cde8c9c230a81523fe2b59f`.
+- `/health` is HTTP 200 with PostgreSQL and SMS OTP ready. `/signin`,
+  `/register` and `/admin` are HTTP 200.
+- Live HTML references exactly 21 `.89-game-check-truth` assets and no `.84`,
+  `.86`, `.87` or `.88` asset. The app asset contains the new four-state game
+  checks and acceptance-pending readiness label; the former generic red-cross
+  and maintenance label are absent.
+- JS/CSS use one-day browser cache plus stale revalidation. The service worker,
+  manifest and offline shell remain no-cache and the service-worker cache is
+  `.89`.
+- The public lobby still contains exactly 34 suppliers. Read-only catalogues are
+  MegaH5 166, JILI 297, 918KISS H5 91 and Rectangle 64; EVO888H5 retains 148
+  maintenance titles. JDB, Pragmatic Play and ATG remain `awaiting_api`.
+- Production-playable titles remain 0. Payment, payout, settlement and live-game
+  gates remain false; the status presentation release did not open them.
+- The deployment window contains zero application error/critical/fatal logs and
+  zero HTTP 5xx request logs.
+- Autoscaling remains enabled at minimum 1, maximum 3, CPU 75% and memory 75%;
+  the service currently runs one instance.
+
 ## Live verification · release `.88`
 
 - Render service: `master7-v17-staging`
