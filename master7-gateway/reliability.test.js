@@ -10,8 +10,9 @@ const env = {
   VPAY_TRADER_ID: '123456', VPAY_API_TOKEN: 'fixture-only-token',
   VPAY_ORDERS_ENABLED: 'true', VPAY_WITHDRAWALS_ENABLED: 'true',
   PUBLIC_BASE_URL: 'https://gateway.example.test',
-  VPAY_PAYMENT_FORWARD_URL: 'https://wallet.example.test/deposit',
+  VPAY_PAYMENT_FORWARD_URL: 'https://master7-v17-staging.onrender.com/api/payment-callbacks/vpay/payment',
   VPAY_WITHDRAWAL_FORWARD_URL: 'https://wallet.example.test/withdrawal',
+  VPAY_RETURN_URL: 'https://master7-v17-staging.onrender.com/payment/return',
   PLATFORM_CALLBACK_TOKEN: 'wallet-fixture-'.repeat(4),
   PLATFORM_PAYOUT_TOKEN: 'payout-fixture-'.repeat(4),
   EVO_API_TOKEN: 'fixture-evo',
@@ -108,6 +109,28 @@ test('enabled payment switches cannot create orders without wallet routing', asy
   assert.equal(calls,0);
 });
 
+test('VPay admin orders keep the staging return fallback and reject an invalid explicit return', async () => {
+  const fallbackEnv = { ...env };
+  delete fallbackEnv.VPAY_RETURN_URL;
+  let upstream;
+  const app = makeApp({ env: fallbackEnv, fetchImpl: async (_url, options) => {
+    upstream = JSON.parse(options.body);
+    return Response.json({ code: 0, data: { trade_no: 'provider_fallback_1' } });
+  } });
+  const order = { outTradeNo: 'fallback_order_1', title: 'Fixture deposit', amount: '1.00',
+    tradeCode: '2', payerName: 'FIXTURE MEMBER' };
+  assert.equal((await request(app, '/admin/vpay/order', order)).status, 200);
+  assert.equal(upstream.callback_url, 'https://master7-v17-staging.onrender.com/payment/return');
+
+  let invalidCalls = 0;
+  const invalid = makeApp({
+    env: { ...env, VPAY_RETURN_URL: 'https://attacker.example.test/payment/return' },
+    fetchImpl: async () => { invalidCalls++; throw Error('must not call upstream'); },
+  });
+  assert.equal((await request(invalid, '/admin/vpay/order', order)).status, 503);
+  assert.equal(invalidCalls, 0);
+});
+
 test('VPay accepts explicit success codes only across every admin operation', async () => {
   const cases=[['/admin/vpay/order',order],['/admin/vpay/withdrawal',withdrawal],
     ['/admin/vpay/order-query',{outTradeNo:'fixture-1'}],['/admin/vpay/withdrawal-query',{outMoneyId:'fixture-1'}],['/admin/vpay/balance',{}]];
@@ -160,7 +183,10 @@ test('timeouts return a stable code without error-message credential leakage', a
 test('signed callbacks require secure wallet target and callback token', async () => {
   let calls=0;
   for(const changes of [{PLATFORM_CALLBACK_TOKEN:''},{VPAY_PAYMENT_FORWARD_URL:'http://wallet.example.test'},
-    {VPAY_PAYMENT_FORWARD_URL:'https://user:password@wallet.example.test'}]) {
+    {VPAY_PAYMENT_FORWARD_URL:'https://user:password@master7.best/api/payment-callbacks/vpay/payment'},
+    {VPAY_PAYMENT_FORWARD_URL:'https://admin.master7.best/api/payment-callbacks/vpay/payment'},
+    {VPAY_PAYMENT_FORWARD_URL:'https://master7.best/api/v1/payment-callbacks/vpay/payment'},
+    {VPAY_PAYMENT_FORWARD_URL:'https://master7.best/api/payment-callbacks/vpay/payment?source=gateway'}]) {
     const app=makeApp({env:{...env,...changes},fetchImpl:async()=>{calls++;throw Error('unexpected');}});
     assert.equal((await request(app,'/callbacks/vpay/payment',notification())).status,503);
   }

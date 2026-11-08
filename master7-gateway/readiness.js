@@ -21,6 +21,34 @@ function configuredUrl(value) {
   return Boolean(normalizeHttpsUrl(value));
 }
 
+// VPay payment redirects and wallet callbacks carry live transaction context.
+// Keep them on the exact portal hosts we operate; a generic HTTPS URL or a
+// forwarding service must never become a payment destination.
+const VPAY_PORTAL_ORIGINS = new Set([
+  'https://master7-v17-staging.onrender.com',
+  'https://master7.best',
+  'https://www.master7.best',
+]);
+
+function officialVpayPortalUrl(value, expectedPath) {
+  const normalized = normalizeHttpsUrl(value);
+  if (!normalized || value.includes('?')) return '';
+  try {
+    const url = new URL(normalized);
+    if (!VPAY_PORTAL_ORIGINS.has(url.origin) || url.pathname !== expectedPath
+        || url.search || url.hash || url.username || url.password || url.port) return '';
+    return url.href;
+  } catch { return ''; }
+}
+
+function officialVpayReturnUrl(value) {
+  return officialVpayPortalUrl(value, '/payment/return');
+}
+
+function officialVpayPaymentForwardUrl(value) {
+  return officialVpayPortalUrl(value, '/api/payment-callbacks/vpay/payment');
+}
+
 // The callback, query and order credentials share the same byte limits and may
 // never alias another peer credential or the full administrator credential.
 const VPAY_PEERS = ['PLATFORM_CALLBACK_TOKEN', 'PLATFORM_QUERY_TOKEN', 'PLATFORM_ORDER_TOKEN',
@@ -101,7 +129,9 @@ function vpayReadiness(env = {}) {
     ['withdrawal', 'VPAY_WITHDRAWALS_ENABLED', 'VPAY_WITHDRAWAL_FORWARD_URL'],
   ]) {
     const enabled = String(env[flag] || '').toLowerCase() === 'true';
-    const forwardConfigured = configuredUrl(env[target]);
+    const forwardConfigured = kind === 'payment'
+      ? Boolean(officialVpayPaymentForwardUrl(env[target]))
+      : configuredUrl(env[target]);
     const blockers = [];
     if (!credentialsConfigured) blockers.push('provider_credentials_missing');
     if (!baseConfigured) blockers.push('public_callback_base_missing_or_invalid');
@@ -110,6 +140,12 @@ function vpayReadiness(env = {}) {
       blockers.push('platform_payout_token_missing_or_aliased');
     }
     if (!forwardConfigured) blockers.push('platform_callback_url_missing_or_invalid');
+    // Admin-created orders retain the existing staging return fallback when
+    // no dedicated return URL is set. An explicitly configured value must be
+    // one of the exact official portal return URLs.
+    if (kind === 'payment' && env.VPAY_RETURN_URL && !officialVpayReturnUrl(env.VPAY_RETURN_URL)) {
+      blockers.push('payment_return_url_missing_or_invalid');
+    }
     if (!enabled) blockers.push('transaction_switch_off');
     channels[kind] = {
       enabled, callbackForwardingConfigured: forwardConfigured && callbackTokenConfigured,
@@ -208,6 +244,8 @@ module.exports = {
   integrationReadiness,
   megah5TransferReadiness,
   normalizeHttpsUrl,
+  officialVpayPaymentForwardUrl,
+  officialVpayReturnUrl,
   peerCredential,
   vpayReadiness,
 };

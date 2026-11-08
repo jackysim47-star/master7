@@ -283,7 +283,15 @@ URLs. No provider credentials, merchant balance or secrets are included.
 `POST /platform/vpay/order` requires a separate `PLATFORM_ORDER_TOKEN` (32–1024
 bytes) and the existing order fields plus `notifyUrl` and `callbackUrl`. It can
 only create orders. Set `VPAY_ENABLED_TRADE_CODES` to the confirmed active method
-codes as a JSON array of strings, and explicitly set the HTTPS `VPAY_RETURN_URL`.
+codes as a JSON array of strings, and explicitly set the HTTPS `VPAY_RETURN_URL`
+for platform-created orders. VPay payment redirects and payment callback
+forwarding accept only these portal origins: `https://master7-v17-staging.onrender.com`,
+`https://master7.best`, and `https://www.master7.best`. The return path must be
+exactly `/payment/return`; the payment forwarding path must be exactly
+`/api/payment-callbacks/vpay/payment`. Queries, fragments, credentials, custom
+ports, other subdomains, and alternate paths fail closed. If an administrator
+creates an order without `VPAY_RETURN_URL`, the existing staging return route is
+used. This fallback does not make the wallet peer order route ready.
 The peer route checks both URLs against server-selected values and refuses
 unconfirmed methods. Existing callback routing/readiness and
 `VPAY_ORDERS_ENABLED` must also be configured. `VPAY_MODE` must match the wallet's
@@ -315,9 +323,9 @@ durably acknowledge them before the gateway returns `SUCCESS`.
 `PUBLIC_BASE_URL` must be a standalone HTTPS origin: no non-root path, query,
 fragment, credentials or non-default port. Host casing, the default HTTPS port
 and an optional root slash are normalized before callback paths are appended.
-`VPAY_RETURN_URL` and the payment/withdrawal forwarding URLs retain their full
-HTTPS paths and query strings, but reject credentials, fragments (including an
-empty `#`), whitespace and control characters. Return and forwarding addresses
-are normalized before use; peers must submit the canonical URLs returned by
-`GET /platform/vpay/config`. Provider API URLs still support their required
-paths and signed query parameters.
+`VPAY_WITHDRAWAL_FORWARD_URL` retains its full HTTPS path and query string, but
+rejects credentials, fragments (including an empty `#`), whitespace and control
+characters. VPay payment return and payment forwarding routes use the stricter
+official-origin and exact-path rules above. Addresses are normalized before
+use; peers must submit the canonical URLs returned by `GET /platform/vpay/config`.
+Provider API URLs still support their required paths and signed query parameters.

@@ -29,7 +29,7 @@ test('query-only credentials cannot create, withdraw, inspect merchant balance o
 });
 
 const orderToken='synthetic-order-only-wallet-credential-32-bytes';
-const readyEnv={...env,PLATFORM_ORDER_TOKEN:orderToken,VPAY_ORDERS_ENABLED:'true',VPAY_ENABLED_TRADE_CODES:'["2"]',VPAY_MODE:'uat',PUBLIC_BASE_URL:'https://master7-integration-gateway.onrender.com',PLATFORM_CALLBACK_TOKEN:'synthetic-callback-token-at-least-32-bytes',VPAY_PAYMENT_FORWARD_URL:'https://portal.example.test/api/v1/payment-callbacks/vpay/payment',VPAY_RETURN_URL:'https://portal.example.test/payment-return'};
+const readyEnv={...env,PLATFORM_ORDER_TOKEN:orderToken,VPAY_ORDERS_ENABLED:'true',VPAY_ENABLED_TRADE_CODES:'["2"]',VPAY_MODE:'uat',PUBLIC_BASE_URL:'https://master7-integration-gateway.onrender.com',PLATFORM_CALLBACK_TOKEN:'synthetic-callback-token-at-least-32-bytes',VPAY_PAYMENT_FORWARD_URL:'https://master7.best/api/payment-callbacks/vpay/payment',VPAY_RETURN_URL:'https://master7.best/payment/return'};
 const payoutEnv={...readyEnv,PLATFORM_PAYOUT_TOKEN:payoutToken,VPAY_WITHDRAWALS_ENABLED:'true',VPAY_WITHDRAWAL_FORWARD_URL:'https://portal.example.test/api/payment-callbacks/vpay/withdrawal'};
 const draft={outTradeNo:'order_1',title:'MASTER7 deposit',amount:'1.00',tradeCode:'2',payerName:'SYNTHETIC MEMBER',notifyUrl:readyEnv.PUBLIC_BASE_URL+'/callbacks/vpay/payment',callbackUrl:readyEnv.VPAY_RETURN_URL};
 test('authenticated wallet configuration pins the merchant, environment, activated methods and callback URLs without exposing credentials',async()=>{

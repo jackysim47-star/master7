@@ -3,7 +3,13 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const http = require('node:http');
 const { makeApp } = require('./server');
-const { normalizeHttpsUrl, peerCredential, vpayReadiness } = require('./readiness');
+const {
+  normalizeHttpsUrl,
+  officialVpayPaymentForwardUrl,
+  officialVpayReturnUrl,
+  peerCredential,
+  vpayReadiness,
+} = require('./readiness');
 const { signWithDateTime } = require('./vpay');
 
 const queryToken = 'q'.repeat(48);
@@ -49,6 +55,40 @@ test('public callback bases normalize only standalone HTTPS origins', () => {
     ' https://gateway.example.test',
     'https://gateway.example.test\n',
   ]) assert.equal(normalizeHttpsUrl(value, { originOnly: true }), '', value);
+});
+
+test('VPay payment destinations accept only exact official portal routes', () => {
+  for (const origin of [
+    'https://master7-v17-staging.onrender.com',
+    'https://master7.best',
+    'https://www.master7.best',
+  ]) {
+    assert.equal(officialVpayReturnUrl(`${origin}/payment/return`), `${origin}/payment/return`);
+    assert.equal(officialVpayPaymentForwardUrl(`${origin}/api/payment-callbacks/vpay/payment`),
+      `${origin}/api/payment-callbacks/vpay/payment`);
+  }
+  assert.equal(officialVpayReturnUrl('HTTPS://WWW.Master7.Best:443/payment/return'),
+    'https://www.master7.best/payment/return');
+
+  for (const value of [
+    'http://www.master7.best/payment/return',
+    'https://admin.master7.best/payment/return',
+    'https://master7.site/payment/return',
+    'https://master7.best.example.test/payment/return',
+    'https://user@master7.best/payment/return',
+    'https://master7.best:8443/payment/return',
+    'https://master7.best/payment/return/',
+    'https://master7.best/payment/return?source=gateway',
+    'https://master7.best/payment/return?',
+    'https://master7.best/payment/return#fragment',
+  ]) assert.equal(officialVpayReturnUrl(value), '', value);
+
+  for (const value of [
+    'https://master7.best/api/v1/payment-callbacks/vpay/payment',
+    'https://master7.best/api/payment-callbacks/vpay/payment/',
+    'https://master7.best/api/payment-callbacks/vpay/payment?source=gateway',
+    'https://wallet.example.test/api/payment-callbacks/vpay/payment',
+  ]) assert.equal(officialVpayPaymentForwardUrl(value), '', value);
 });
 
 test('return, forward and provider URLs retain canonical HTTPS paths and queries', () => {
@@ -107,8 +147,8 @@ test('configuration returns canonical peer URLs and invalid origins stay unready
     VPAY_ORDERS_ENABLED: 'true',
     VPAY_ENABLED_TRADE_CODES: '["2"]',
     PUBLIC_BASE_URL: 'HTTPS://Gateway.Example.Test:443/',
-    VPAY_PAYMENT_FORWARD_URL: 'https://Portal.Example.Test/api/v1/payment-callbacks/vpay/payment?source=gateway',
-    VPAY_RETURN_URL: 'https://Portal.Example.Test:443/payment-return?source=wallet',
+    VPAY_PAYMENT_FORWARD_URL: 'HTTPS://WWW.Master7.Best:443/api/payment-callbacks/vpay/payment',
+    VPAY_RETURN_URL: 'HTTPS://WWW.Master7.Best:443/payment/return',
   };
   const app = makeApp({ env: base, fetchImpl: async () => { throw Error('configuration must not call upstream'); } });
   const response = await request(app, '/platform/vpay/config', { token: queryToken });
@@ -116,7 +156,7 @@ test('configuration returns canonical peer URLs and invalid origins stay unready
   assert.deepEqual(JSON.parse(response.text), {
     provider: 'vpay', traderId: '123456', mode: 'uat', configured: true, paymentReady: true,
     tradeCodes: ['2'], notifyUrl: 'https://gateway.example.test/callbacks/vpay/payment',
-    returnUrl: 'https://portal.example.test/payment-return?source=wallet',
+    returnUrl: 'https://www.master7.best/payment/return',
   });
 
   for (const value of ['https://gateway.example.test/prefix', 'https://gateway.example.test?x=1',
@@ -138,7 +178,7 @@ test('invalid callback credentials fail closed while disabled creation still per
     VPAY_API_TOKEN: 'fixture-provider-key',
     VPAY_ORDERS_ENABLED: 'false',
     PUBLIC_BASE_URL: 'https://gateway.example.test',
-    VPAY_PAYMENT_FORWARD_URL: 'https://portal.example.test/api/v1/payment-callbacks/vpay/payment?source=gateway',
+    VPAY_PAYMENT_FORWARD_URL: 'https://master7-v17-staging.onrender.com/api/payment-callbacks/vpay/payment',
   };
   const payload = {
     trader_id: base.VPAY_TRADER_ID,

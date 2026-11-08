@@ -27,6 +27,8 @@ const {
   peerCredential,
   vpayReadiness,
   integrationReadiness,
+  officialVpayPaymentForwardUrl,
+  officialVpayReturnUrl,
 } = require('./readiness');
 
 const { version: VERSION } = require('./package.json');
@@ -123,7 +125,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
   const vpayTraderId = String(env.VPAY_TRADER_ID || '').trim();
   const vpayApiToken = String(env.VPAY_API_TOKEN || '').trim();
   const vpayTimeZone = String(env.VPAY_TIME_ZONE || 'Asia/Kuala_Lumpur');
-  const vpayReturnUrl = normalizeHttpsUrl(String(env.VPAY_RETURN_URL || ''));
+  const vpayReturnUrl = officialVpayReturnUrl(String(env.VPAY_RETURN_URL || ''));
   const clotplayBase = cleanBase(env.CLOTPLAY_BASE_URL, 'https://api.coldboxservice.com/api/MOGI');
   const clotplayToken = String(env.CLOTPLAY_OPERATOR_TOKEN || '').trim();
   const jiliBase = cleanBase(env.JILI_BASE_URL, 'https://wb-api-2.jiscc77s.com/api1');
@@ -847,9 +849,9 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         if (String(payload.trader_id || '') !== vpayTraderId || !verifyVpayNotification(payload, vpayApiToken)) {
           return send(res, 401, { error: 'invalid_vpay_signature' });
         }
-        const forwardUrl = normalizeHttpsUrl(vpayCallbackMatch[1] === 'payment'
-          ? String(env.VPAY_PAYMENT_FORWARD_URL || '')
-          : String(env.VPAY_WITHDRAWAL_FORWARD_URL || ''));
+        const forwardUrl = vpayCallbackMatch[1] === 'payment'
+          ? officialVpayPaymentForwardUrl(String(env.VPAY_PAYMENT_FORWARD_URL || ''))
+          : normalizeHttpsUrl(String(env.VPAY_WITHDRAWAL_FORWARD_URL || ''));
         const callbackToken = walletPeerCredential('PLATFORM_CALLBACK_TOKEN');
         if (!forwardUrl || !callbackToken) {
           return send(res, 503, { error: 'platform_wallet_callback_not_configured' });
@@ -1008,7 +1010,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           return send(res, 503, { error: 'vpay_payment_configuration_incomplete' });
         }
         const returnUrl = walletOrder ? peerConfiguration.returnUrl
-          : (env.VPAY_RETURN_URL ? vpayReturnUrl : normalizeHttpsUrl(String(env.REDIRECT_URL || DEFAULT_PORTAL_ORIGIN)));
+          : (env.VPAY_RETURN_URL ? vpayReturnUrl : officialVpayReturnUrl(`${DEFAULT_PORTAL_ORIGIN}/payment/return`));
         if (!returnUrl) return send(res, 503, { error: 'vpay_payment_configuration_incomplete' });
         const result = await vpay('TRADER_ORDER', {
           title,
