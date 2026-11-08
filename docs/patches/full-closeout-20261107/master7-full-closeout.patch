@@ -1,5 +1,5 @@
 diff --git a/app/portal.html b/app/portal.html
-index a7ef654..120e1b7 100644
+index a7ef654..9119475 100644
 --- a/app/portal.html
 +++ b/app/portal.html
 @@ -15,27 +15,27 @@
@@ -27,27 +27,27 @@ index a7ef654..120e1b7 100644
 -  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
 -  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
 -  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
-+  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.99-provider-entry">
-+  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.99-provider-entry">
-+  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.99-provider-entry">
-+  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.99-provider-entry">
-+  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.99-provider-entry">
-+  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.99-provider-entry">
-+  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.99-provider-entry">
-+  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.99-provider-entry">
-+  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.99-provider-entry">
-+  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.99-provider-entry">
-+  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.99-provider-entry">
-+  <script src="/assets/app.js?v=17.0.0-selfbuilt.99-provider-entry" defer></script>
-+  <script src="/assets/vip.js?v=17.0.0-selfbuilt.99-provider-entry" defer></script>
-+  <script src="/assets/finance.js?v=17.0.0-selfbuilt.99-provider-entry" defer></script>
-+  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.99-provider-entry" defer></script>
-+  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.99-provider-entry" defer></script>
-+  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.99-provider-entry" defer></script>
-+  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.99-provider-entry" defer></script>
-+  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.99-provider-entry" defer></script>
-+  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.99-provider-entry" defer></script>
-+  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.99-provider-entry" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.99-payment-settlement">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.99-payment-settlement">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.99-payment-settlement">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.99-payment-settlement">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.99-payment-settlement">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.99-payment-settlement">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.99-payment-settlement">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.99-payment-settlement">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.99-payment-settlement">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.99-payment-settlement">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.99-payment-settlement">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.99-payment-settlement" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.99-payment-settlement" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.99-payment-settlement" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.99-payment-settlement" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.99-payment-settlement" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.99-payment-settlement" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.99-payment-settlement" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.99-payment-settlement" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.99-payment-settlement" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.99-payment-settlement" defer></script>
  </head>
  <body>
    <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
@@ -554,6 +554,48 @@ index 0000000..c447c9c
 +No test here creates a production payment order, submits a payout, starts a game, transfers customer funds or credits a wallet. Three configured payment adapters do not establish real settlement acceptance. Four fresh catalogues do not establish four playable platforms. This source retains the existing game-adapter coverage and honest acceptance fields.
 +
 +Local Chromium visual execution was blocked by the environment's socket restriction; an escalation for an in-memory test page was rejected by its approval policy. The offline browser script is not counted as a passing test. Public browser/served-asset verification after deployment and synthetic interaction tests are separate evidence; neither is an authenticated member payment acceptance.
+diff --git a/docs/MASTER7_DEPOSIT_SETTLEMENT_20261108.md b/docs/MASTER7_DEPOSIT_SETTLEMENT_20261108.md
+new file mode 100644
+index 0000000..dc92620
+--- /dev/null
++++ b/docs/MASTER7_DEPOSIT_SETTLEMENT_20261108.md
+@@ -0,0 +1,36 @@
++# MASTER7 充值状态确认与恢复修复
++
++候选版本：`17.0.0-selfbuilt.99-payment-settlement`。上线状态须以同次完整 CI、生产分支、Render 部署及 `/health` 为准。
++
++## 本轮范围
++
++本轮只处理充值。以已上线 `.98-customer-cashier` 为基线，保留 VPay、GSPAY+、1MPAY 三个会员前台独立入口、厂家建单字段及付款页跳转；后台继续提供通道状态、订单、财务与记录。本轮不包含尚未上线的游戏目录页面修正。
++
++## GSPAY 普通 Payment 的状态依据
++
++厂家普通 Payment 与 DuitNow 是两套接口。已提供的普通 `/payment` 建单资料要求金额及交易号，返回厂家付款页；`/getpayment` 使用商户 `transaction_id` 查询，即使建单响应未返回 `payment_id`，仍可按原商户交易号查询。查询结果必须通过既有签名、金额、会员标识、商户交易号及已知厂家流水号绑定校验。
++
++`completed=false` 表示处理中。只有有效的 `completed=true` 结果才能进一步判断 `success`。回调签名没有覆盖这两个状态字段，因此不能只凭回调的失败标志改变钱包最终状态。缺失或畸形的状态、网络异常、无法读取的查询结果，也不是付款失败证明。
++
++原资料中“十分钟无回调自动拒绝”的可核验页面是 `/duitnow/payment`，不能据此把普通 `/payment` 的待确认订单终结。厂家付款页的两分钟有效期保持；付款页不能再打开与订单是否已付款须分别判断。
++
++## 修复后的判定与保护
++
++- 已验签、已绑定的普通充值回调使用原 GetPayment 结果确认终态，不使用未签入的回调状态直接判失败。
++- 普通 Payment 不再仅凭本地订单年龄把待确认、查询异常或建单结果不明的订单改成失败。
++- 丢失建单响应时，以原商户交易号查询恢复，不重新建单。
++- 只有完整、合法且绑定正确的独立查询结果可确认成功或失败；处理中与无法确认继续保留待确认。
++- 查询已确认成功的订单，仍须通过会员绑定与原双分录校验；重复通知不能重复入账。
++- 历史已标记 failed／review 的订单保留原人工核对边界，不批量改状态或自动补款。
++
++厂家地址、MD5 字段顺序、建单字段、付款页允许域名、MYR 钱包、会员审批、CSRF／Origin 和账本唯一性约束继续沿用原合同。没有数据库迁移、生产凭据更换或 payout 开启。
++
++## 验证边界
++
++回归使用合成订单和独立测试数据库，覆盖回调乱序、缺失状态、网络异常、超时旧订单、无厂家流水号的恢复、真实失败与重复通知。最终完整测试数量和真实 Render 构建结果以同次 CI 收据为准。离线通过与 `orderReady=true` 都不是实际付款入账验收。
++
++前台充值需要已审批会员账号。Admin／Staff 账号用于管理与查看记录，不能代替会员钱包创建充值订单。三家实际收款验收仍需账户持有人在会员会话完成付款，再核对厂家结果、钱包一次入账及后台记录一致。
++
++## 参考依据
++
++本轮重新核对用户提供的 GSPAY 普通 Payment、GetPayment、Callback 与 DuitNow 原图，未混用不同接口的超时规则。旧版本文档如记载普通 Payment 十分钟自动失败，以本轮修复后的实现与验证收据为准。
 diff --git a/docs/MASTER7_FULL_REPAIR_20261107.md b/docs/MASTER7_FULL_REPAIR_20261107.md
 new file mode 100644
 index 0000000..7e1d83a
@@ -692,52 +734,6 @@ index 0000000..8d920f0
 +- The supplied `1mpay (9).pdf`, API Specification 1.3 dated 23 June 2026, includes payout creation, bank codes and envelope encryption in section 9 (pages 11–15). It does not document a merchant-balance query. It does not explicitly establish payout callback/query final-state semantics, ambiguous submission recovery without `trxno`, or whether deposit sections 7–8 apply unchanged to payouts. The portal therefore retains its unimplemented payout/balance capability rather than inventing those contracts.
 +
 +All validation for this change uses synthetic responses and isolated SQLite databases. No real customer order, payout, wallet transfer or provider acceptance is performed.
-diff --git a/docs/MASTER7_PROVIDER_ENTRY_20261108.md b/docs/MASTER7_PROVIDER_ENTRY_20261108.md
-new file mode 100644
-index 0000000..168abff
---- /dev/null
-+++ b/docs/MASTER7_PROVIDER_ENTRY_20261108.md
-@@ -0,0 +1,40 @@
-+# MASTER7：厂家 API 前台入口与后台管理
-+
-+候选版本：`17.0.0-selfbuilt.99-provider-entry`。是否上线以正式分支、Render 部署及 `/health` 的一致结果为准。
-+
-+## 本轮用户要求
-+
-+游戏和充值均由顾客在前台选择独立厂商品牌，MASTER7 服务器按对应厂家合同建立订单或游戏会话、处理签名及钱包结果。后台负责会员服务、订单、财务、游戏钱包记录和异常核对。厂家要求的字段、成功判定、签名和资金流程继续遵循原接口。
-+
-+旧 Active／Maintenance／Closed 可用性控制在前轮已移除。本轮后端复核确认，旧 supplier/game 状态、visible 列以及门户旧 Mega 开关不会阻挡具备实际接入能力的游戏。会员身份与审批、厂家维护、钱包预留、超时恢复和幂等仍属于真实操作条件。
-+
-+## 本轮修复的前台问题
-+
-+1. **厂家搜索误筛游戏。** 线上只读浏览已复现：搜索 JILI 后点品牌，页面称 297 款，但厂家搜索词继续筛选游戏，只剩一个名字含 JILI 的条目；清空后恢复正常第一页。进入厂家及返回品牌列表现在清空各自不适用的搜索词，游戏关键词也不再筛掉品牌入口。
-+2. **目录被无关请求延后。** 原先先等待八项公共资料或支付状态请求，再读取游戏目录。目录现独立开始读取；首次未读与读取失败显示明确状态，不用 0 家连接冒充实际检查结果。
-+3. **失败没有明确重试。** 目录读取失败显示读取问题，并提供只重新 GET 该厂家目录的按钮。异常响应及返回错误厂家的响应不能显示为成功；该按钮不创建玩家、启动会话或转移资金。
-+4. **切换时旧响应污染当前页面。** 返回品牌、切换分类或改选厂家时，旧请求结果不能重新填入已经离开的视图。首次目录尚未取得时返回列表，补读一次根目录摘要。
-+5. **管理员误触会员启动。** owner／staff 在打开窗口和发出启动 POST 之前收到会员专用提示。获批会员仍使用现有 `/api/game-launch`、原请求字段和超时规则。
-+
-+## 厂家合同与当前能力边界
-+
-+本轮现场确认根目录返回 34 家、4 家目录已连接、1 家具备启动／钱包适配能力；目录加载完成后的前台与该结果一致。未新增厂家启动或钱包适配器，也未生成真实结算验收记录。
-+
-+- MegaH5：现有逐游戏启动及转账钱包适配器继续工作。网关代码接受 `GameCode=0` 的默认值，但本轮没有厂家原件证明它表示原厂大厅，因此不据此擅自改变顾客启动路线。
-+- JILI：当前目录账户与已取得的 SSS Seamless 文档不能直接等同。官方 OpenAPI 的币种只有 SC／GC，启动要求 GameId，并需要运营方认证／下注／取消回调；不能直接套入当前 MYR 钱包。
-+- 918KISS H5：目录签名相似不能证明玩家、启动、转入、转出和恢复合同相同。
-+- RECTANGLE：已有目录及 Transfer／MYR 配置证据，完整启动与钱包文档访问仍未解决。
-+- RSG Hub：正式协议包含独立大厅启动和转账恢复，但尚未确认其商户授权对应现有 34 品牌中的哪项；不能猜测品牌映射。
-+
-+官方参考：
-+
-+- JILI SSS 手册：<https://wbgame.tadagaming.com/sss-doc/SSS_Seamless_API_Manual_TW.html>
-+- JILI SSS OpenAPI：<https://wbgame.tadagaming.com/sss-doc/openapi/SSS_Seamless_OpenAPI_EN.yaml>
-+- RSG Hub Transfer：<https://docs.rsghub.dev/v1/transfer/en/>
-+- RECTANGLE 文档入口：<https://integration.rg-lgna.com/>
-+
-+## 验证及发布
-+
-+新增合成行为回归覆盖搜索、请求乱序、失败重试、首次载入和身份边界；原合法会员启动合同继续验证。完整测试数量、实际 Render 构建结果和源包哈希以同一次 GitHub Actions 的收据为准。测试不带生产凭据，不调用真实充值、游戏会话、钱包转账或下注。
-+
-+本轮不需要数据库迁移或配置变更。`.98` 正式提交 `7fe425bb784ffb6918e957245a3bc7b906bcf59d` 和其已核验源包保留用于源码回滚；这不代表已经完成独立数据库备份或恢复演练。
 diff --git a/docs/MASTER7_VENDOR_ACTIONS_20261107.md b/docs/MASTER7_VENDOR_ACTIONS_20261107.md
 new file mode 100644
 index 0000000..acee13d
@@ -954,7 +950,7 @@ index c34adb9..b6b575f 100644
 +violations, and timestamps within the configured freshness window. Running the
 +local scripts neither calls this endpoint nor changes online readiness.
 diff --git a/lib/backend.ts b/lib/backend.ts
-index abd7da4..3280e6c 100644
+index abd7da4..55fe9d4 100644
 --- a/lib/backend.ts
 +++ b/lib/backend.ts
 @@ -1,14 +1,15 @@
@@ -981,7 +977,7 @@ index abd7da4..3280e6c 100644
  import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
  import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
 -export const RELEASE = '17.0.0-selfbuilt.94-readiness-split';
-+export const RELEASE = '17.0.0-selfbuilt.99-provider-entry';
++export const RELEASE = '17.0.0-selfbuilt.99-payment-settlement';
  export const SOURCE_RELEASE = RELEASE;
  const CUSTOMER_ORIGIN='https://master7.best';
  const MARKETING_CONTACT_LIMIT=1_000_000;
@@ -1546,7 +1542,7 @@ index ece65a1..552ead6 100644
   return {mode:'catalogue-only',playable:false,syncIntervalSeconds:ttl,providers:results.map(x=>x.provider),games:results.flatMap(x=>x.games)};
  }
 diff --git a/lib/gspay.ts b/lib/gspay.ts
-index bf6752a..58477f3 100644
+index bf6752a..b664bed 100644
 --- a/lib/gspay.ts
 +++ b/lib/gspay.ts
 @@ -1,6 +1,6 @@
@@ -1570,7 +1566,80 @@ index bf6752a..58477f3 100644
    payout:paymentCapability({implemented:true,configured:payoutConfigured,enabled:payoutEnabled,submissionEnabled:payoutEnabled,blockers:[...(!credentials(c)?['payout_credentials_incomplete']:[]),...(!withdrawalDataKeyReady(c.withdrawalDataKey)?['withdrawal_security_not_configured']:[]),...(c.payoutIpWhitelistConfirmed!=='true'?['server_ip_whitelist_not_confirmed']:[]),...(!payoutBankTargets(c)?['bank_targets_not_configured']:[]),...(c.payoutEnabled!=='true'?['submission_disabled']:[]),...(!channelActive?['channel_not_active']:[]),...(!submissionEnabled?['payout_control_disabled']:[])]}),
    balance:paymentCapability({implemented:true,configured:balanceConfigured,enabled:balanceConfigured&&c.balanceEnabled==='true',blockers:[...(!balanceConfigured?['balance_configuration_incomplete']:[]),...(c.balanceEnabled!=='true'?['balance_query_disabled']:[])]}),
   };
-@@ -287,12 +287,12 @@ export async function handleGSPayCallback(req:Request,c:GSPayContext):Promise<Re
+@@ -107,12 +107,15 @@ const orderEndpoint=(c:GSPayContext)=>`/v2/integrations/operators/${encodeURICom
+ const queryEndpoint=(c:GSPayContext)=>`/v2/integrations/operators/${encodeURIComponent(c.authKey!)}/getpayment`;
+ const payoutEndpoint=(c:GSPayContext)=>`/v2/integrations/operators/${encodeURIComponent(c.authKey!)}/payout`;
+ const payoutStatusEndpoint=(c:GSPayContext)=>`/v2/integrations/operators/${encodeURIComponent(c.authKey!)}/payout/status`;
++const queryBoolean=(value:unknown)=>value===true||value===1||value==='1'?true:value===false||value===0||value==='0'?false:null;
+ async function queryPayment(c:GSPayContext,order:any,expectedPaymentId?:string){
+  const amount=money(`${BigInt(order.amount_minor)/100n}.${String(BigInt(order.amount_minor)%100n).padStart(2,'0')}`)!;
+  const envelope=await providerJson(c,queryEndpoint(c),'GET',undefined,{auth_key:c.authKey!,transaction_id:order.id}),result=providerData(envelope,envelope.code!==undefined);
+  const reference=paymentId(result?.payment_id),returnedAmount=money(result?.amount),player=gspayPlayerUsername(order.user_id),signature=typeof result?.signature==='string'?result.signature:'',expectedSignature=reference?gspayResultSignature(reference,amount.decimal,order.id,c.secretKey!):'';
+- if(!result||!reference||result.transaction_id!==order.id||result.player_username!==player||returnedAmount?.minor!==amount.minor||!constantEqual(signature,expectedSignature)||(expectedPaymentId&&reference!==expectedPaymentId)||(order.provider_trade_no&&reference!==String(order.provider_trade_no)))throw Error('QUERY_BINDING_MISMATCH');
+- return {paymentId:reference,completed:boolean(result.completed),success:boolean(result.success)};
++ if(!result||!reference||typeof result.transaction_id!=='string'||!result.transaction_id||typeof result.player_username!=='string'||!result.player_username||!returnedAmount||!signature)throw Error('QUERY_RESPONSE_UNCONFIRMED');
++ if(result.transaction_id!==order.id||result.player_username!==player||returnedAmount.minor!==amount.minor||!constantEqual(signature,expectedSignature)||(expectedPaymentId&&reference!==expectedPaymentId)||(order.provider_trade_no&&reference!==String(order.provider_trade_no)))throw Error('QUERY_BINDING_MISMATCH');
++ const completed=queryBoolean(result.completed),success=queryBoolean(result.success);if(completed===null||success===null||success&&!completed)throw Error('QUERY_STATUS_UNCONFIRMED');
++ return {paymentId:reference,completed,success};
+ }
+ 
+ const decimalFromMinor=(value:unknown)=>{try{const minor=BigInt(String(value));if(minor<=0n||minor>10000000n)return null;return `${minor/100n}.${String(minor%100n).padStart(2,'0')}`;}catch{return null;}};
+@@ -214,30 +217,35 @@ async function credit(c:GSPayContext,order:any,reference:string){
+  if((existing.results??[]).length&&!await verifyLedger(c,order)){await c.db.prepare("UPDATE deposit_orders SET status='review',updated_at=? WHERE id=?").bind(Math.floor(Date.now()/1000),order.id).run();throw Error('LEDGER_REVIEW_REQUIRED');}
+  const timestamp=Math.floor(Date.now()/1000);
+  await c.db.batch([
+-  c.db.prepare("INSERT INTO wallet_ledger(id,order_id,user_id,account_code,amount_minor,currency,created_at) SELECT ?,id,user_id,'member',amount_minor,'MYR',? FROM deposit_orders WHERE id=? AND provider='gspay' AND status!='review' AND (provider_trade_no IS NULL OR provider_trade_no=?) ON CONFLICT(order_id,account_code) DO NOTHING").bind(crypto.randomUUID(),timestamp,order.id,reference),
+-  c.db.prepare("INSERT INTO wallet_ledger(id,order_id,user_id,account_code,amount_minor,currency,created_at) SELECT ?,id,user_id,'provider_clearing',-amount_minor,'MYR',? FROM deposit_orders WHERE id=? AND provider='gspay' AND status!='review' AND (provider_trade_no IS NULL OR provider_trade_no=?) ON CONFLICT(order_id,account_code) DO NOTHING").bind(crypto.randomUUID(),timestamp,order.id,reference),
+-  c.db.prepare("UPDATE deposit_orders SET status='credited',provider_trade_no=?,updated_at=? WHERE id=? AND provider='gspay' AND status!='review' AND (provider_trade_no IS NULL OR provider_trade_no=?)").bind(reference,timestamp,order.id,reference),
+-  c.db.prepare('INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,?,?,?)').bind(crypto.randomUUID(),order.user_id,'gspay_deposit_credited',order.id,timestamp),
++  // Hold the order row lock for the whole batch so a concurrent terminal result cannot split the accounting decision.
++  c.db.prepare("UPDATE deposit_orders SET updated_at=updated_at WHERE id=? AND provider='gspay'").bind(order.id),
++  c.db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,user_id,'gspay_late_success_review',id,? FROM deposit_orders WHERE id=? AND provider='gspay' AND status='failed'").bind(crypto.randomUUID(),timestamp,order.id),
++  c.db.prepare("UPDATE deposit_orders SET status='review',provider_trade_no=COALESCE(provider_trade_no,?),updated_at=? WHERE id=? AND provider='gspay' AND status='failed'").bind(reference,timestamp,order.id),
++  c.db.prepare("INSERT INTO wallet_ledger(id,order_id,user_id,account_code,amount_minor,currency,created_at) SELECT ?,id,user_id,'member',amount_minor,'MYR',? FROM deposit_orders WHERE id=? AND provider='gspay' AND status NOT IN ('credited','failed','review') AND (provider_trade_no IS NULL OR provider_trade_no=?) ON CONFLICT(order_id,account_code) DO NOTHING").bind(crypto.randomUUID(),timestamp,order.id,reference),
++  c.db.prepare("INSERT INTO wallet_ledger(id,order_id,user_id,account_code,amount_minor,currency,created_at) SELECT ?,id,user_id,'provider_clearing',-amount_minor,'MYR',? FROM deposit_orders WHERE id=? AND provider='gspay' AND status NOT IN ('credited','failed','review') AND (provider_trade_no IS NULL OR provider_trade_no=?) ON CONFLICT(order_id,account_code) DO NOTHING").bind(crypto.randomUUID(),timestamp,order.id,reference),
++  c.db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,user_id,'gspay_deposit_credited',id,? FROM deposit_orders WHERE id=? AND provider='gspay' AND status NOT IN ('credited','failed','review') AND (provider_trade_no IS NULL OR provider_trade_no=?)").bind(crypto.randomUUID(),timestamp,order.id,reference),
++  c.db.prepare("UPDATE deposit_orders SET status='credited',provider_trade_no=?,updated_at=? WHERE id=? AND provider='gspay' AND status NOT IN ('credited','failed','review') AND (provider_trade_no IS NULL OR provider_trade_no=?)").bind(reference,timestamp,order.id,reference),
+  ]);
+- if(!await verifyLedger(c,order))throw Error('LEDGER_REVIEW_REQUIRED');
++ const current=await c.db.prepare('SELECT status FROM deposit_orders WHERE id=?').bind(order.id).first<{status:string}>();
++ if(current?.status==='review')return 'review';
++ if(current?.status!=='credited'||!await verifyLedger(c,order))throw Error('LEDGER_REVIEW_REQUIRED');
++ return 'credited';
+ }
+ async function reconcile(c:GSPayContext,order:any,expectedPaymentId?:string){
+- const timestamp=Math.floor(Date.now()/1000),age=timestamp-Number(order.created_at),reference=expectedPaymentId??paymentId(order.provider_trade_no)??undefined,rejected=order.status==='failed';
++ const timestamp=Math.floor(Date.now()/1000),reference=expectedPaymentId??paymentId(order.provider_trade_no)??undefined,rejected=order.status==='failed';
+  if(order.status==='review')return 'review';
+- if(!reference){if(age>=600)await c.db.prepare("UPDATE deposit_orders SET status='failed',updated_at=? WHERE id=? AND status NOT IN ('credited','review')").bind(timestamp,order.id).run();return age>=600?'expired':'awaiting_confirmation';}
+  try{
+   const result=await queryPayment(c,order,reference);
+   if(result.completed&&result.success){
+    if(rejected){await c.db.batch([c.db.prepare("UPDATE deposit_orders SET status='review',provider_trade_no=COALESCE(provider_trade_no,?),updated_at=? WHERE id=? AND status='failed'").bind(result.paymentId,timestamp,order.id),c.db.prepare('INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,?,?,?)').bind(crypto.randomUUID(),order.user_id,'gspay_late_success_review',order.id,timestamp)]);return 'review';}
+    const member=await c.db.prepare("SELECT id FROM users WHERE id=? AND role='member' AND approved=1").bind(order.user_id).first<{id:string}>();
+    if(!member){await c.db.batch([c.db.prepare("UPDATE deposit_orders SET status='review',provider_trade_no=COALESCE(provider_trade_no,?),updated_at=? WHERE id=? AND status!='credited'").bind(result.paymentId,timestamp,order.id),c.db.prepare('INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,?,?,?)').bind(crypto.randomUUID(),order.user_id,'gspay_member_binding_review',order.id,timestamp)]);return 'review';}
+-   await credit(c,order,result.paymentId);return 'credited';
++   return await credit(c,order,result.paymentId);
+   }
+-  if(result.completed||age>=600){await c.db.prepare("UPDATE deposit_orders SET status='failed',provider_trade_no=COALESCE(provider_trade_no,?),updated_at=? WHERE id=? AND status NOT IN ('credited','review')").bind(reference,timestamp,order.id).run();return result.completed?'failed':'expired';}
++  if(result.completed){await c.db.prepare("UPDATE deposit_orders SET status='failed',provider_trade_no=COALESCE(provider_trade_no,?),updated_at=? WHERE id=? AND status NOT IN ('credited','review')").bind(result.paymentId,timestamp,order.id).run();return 'failed';}
+   return 'awaiting_confirmation';
+  }catch(error){
+   if(error instanceof Error&&error.message==='QUERY_BINDING_MISMATCH'){await c.db.prepare("UPDATE deposit_orders SET status='review',updated_at=? WHERE id=? AND status!='credited'").bind(timestamp,order.id).run();throw error;}
+-  if(age>=600){await c.db.prepare("UPDATE deposit_orders SET status='failed',updated_at=? WHERE id=? AND status NOT IN ('credited','review')").bind(timestamp,order.id).run();return 'expired';}
+   throw error;
+  }
+ }
+@@ -281,18 +289,19 @@ export async function handleGSPayCallback(req:Request,c:GSPayContext):Promise<Re
+  const order=await c.db.prepare("SELECT * FROM deposit_orders WHERE id=? AND provider='gspay'").bind(orderId).first<any>();if(!order)return ack('unknown_order',404);
+  if(String(order.amount_minor)!==amount.minor||gspayPlayerUsername(order.user_id)!==data.player_username||(order.provider_trade_no&&String(order.provider_trade_no)!==reference))return ack('review_required',409);
+  if(order.status==='credited')return await verifyLedger(c,order)?ack():ack('ledger_review',503);
+- if(!boolean(data.completed)||!boolean(data.success)){if(boolean(data.completed))await c.db.prepare("UPDATE deposit_orders SET status='failed',provider_trade_no=COALESCE(provider_trade_no,?),updated_at=? WHERE id=? AND status NOT IN ('credited','review')").bind(reference,Math.floor(Date.now()/1000),order.id).run();return ack();}
+- try{const status=await reconcile(c,order,reference);return status==='credited'||status==='review'?ack():ack('pending',503);}catch{return ack('pending',503);}
++ // Callback MD5 binds the payment, amount and order, but not completed/success.
++ // Only an independently bound GetPayment result can decide either terminal outcome.
++ try{const status=await reconcile(c,order,reference);return status==='credited'||status==='review'||status==='failed'?ack():ack('pending',503);}catch{return ack('pending',503);}
+ }
  
  export async function handleGSPay(req:Request,c:GSPayContext):Promise<Response|null>{
   const path=new URL(req.url).pathname;if(path!=='/api/payments/gspay/status'||req.method!=='GET')return null;
@@ -1939,14 +2008,14 @@ index b9a8718..2fcc6bf 100644
   }
   if(String(verified?.state)!=='3')return 'awaiting_confirmation';
 diff --git a/public/assets/app.js b/public/assets/app.js
-index efd0ce0..7b7abf2 100644
+index efd0ce0..16b0156 100644
 --- a/public/assets/app.js
 +++ b/public/assets/app.js
 @@ -1,18 +1,18 @@
  "use strict";
  const $ = id => document.getElementById(id);
 -const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", register:false, providers:[], games:[], gameCatalogue:null, gameRanking:null, gameCatalogueRequestId:0, gameWallet:null, gameWindow:null, gameWindowPoll:null, gameLaunchBusy:false, gameSettlementBusy:false, lastLaunchedGame:null, supplierArtwork:{}, supplierControls:{}, supplierExpanded:false, gameCategory:"HOT", gameAccessZone:"ALL", gameLimit:12, adminGames:null, adminCustomGames:[], adminGameSearch:"", adminGameProvider:"ALL", adminGameCategory:"ALL", adminGamePage:1, adminGamePageSize:24, favoriteGames:[], favoriteProviders:[], selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], ticketPage:1, ticketHasMore:false, ticketUnread:0, ticketLatestEvent:null, ticketPollBusy:false, social:null, ads:[], benefits:[], manualBanks:[], manualBankAttempt:null, adIndex:0, adTimer:null, editAdId:null, editAnnouncementId:null, editBenefitId:null, editCustomGameId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, oneMpayStatus:null, gspayStatus:null, depositProvider:"vpay", paymentChannels:{}, withdrawalPendingSeen:null, financialSoundEnabled:true, financialAudioArmed:false, accountingPeriod:"yesterday", accountingMonth:"", adminPanel:"operationsPanel", section:"lobby", referral:null, commission:null, commissionTab:"settings", marketingContactPage:1, marketingContactPages:1, marketingEditingImage:false, marketingMaximumContacts:1000000, marketingAudienceCount:0, adminLoadedPanels:new Set(), adminPendingPanels:new Map(), adminBaseLoaded:false, adminBasePending:null, adminSummary:null, adminOperations:null, adminSecurity:null, financialEventCursor:null};
-+const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", register:false, providers:[], games:[], gameCatalogue:null, gameRanking:null, gameCatalogueRequestId:0, gameCatalogueLoading:false, gameCatalogueError:null, gameCatalogueRequestProvider:null, gameWallet:null, gameWindow:null, gameWindowPoll:null, gameLaunchBusy:false, gameSettlementBusy:false, lastLaunchedGame:null, supplierArtwork:{}, gameCategory:"HOT", gameAccessZone:"ALL", gameLimit:12, adminGames:null, adminGameSearch:"", adminGameProvider:"ALL", adminGameCategory:"ALL", adminGamePage:1, adminGamePageSize:24, favoriteGames:[], favoriteProviders:[], selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], ticketPage:1, ticketHasMore:false, ticketUnread:0, ticketLatestEvent:null, ticketPollBusy:false, social:null, ads:[], benefits:[], manualBanks:[], manualBankMemberId:null, memberWalletRequestId:0, manualBankAttempt:null, adIndex:0, adTimer:null, editAdId:null, editAnnouncementId:null, editBenefitId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, oneMpayStatus:null, gspayStatus:null, depositProvider:"vpay", paymentChannels:{}, withdrawalPendingSeen:null, financialSoundEnabled:true, financialAudioArmed:false, accountingPeriod:"yesterday", accountingMonth:"", adminPanel:"operationsPanel", section:"lobby", referral:null, commission:null, commissionTab:"settings", marketingContactPage:1, marketingContactPages:1, marketingEditingImage:false, marketingMaximumContacts:1000000, marketingAudienceCount:0, adminLoadedPanels:new Set(), adminPendingPanels:new Map(), adminBaseLoaded:false, adminBasePending:null, adminSummary:null, adminOperations:null, adminSecurity:null, financialEventCursor:null};
++const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", register:false, providers:[], games:[], gameCatalogue:null, gameRanking:null, gameCatalogueRequestId:0, gameWallet:null, gameWindow:null, gameWindowPoll:null, gameLaunchBusy:false, gameSettlementBusy:false, lastLaunchedGame:null, supplierArtwork:{}, gameCategory:"HOT", gameAccessZone:"ALL", gameLimit:12, adminGames:null, adminGameSearch:"", adminGameProvider:"ALL", adminGameCategory:"ALL", adminGamePage:1, adminGamePageSize:24, favoriteGames:[], favoriteProviders:[], selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], ticketPage:1, ticketHasMore:false, ticketUnread:0, ticketLatestEvent:null, ticketPollBusy:false, social:null, ads:[], benefits:[], manualBanks:[], manualBankMemberId:null, memberWalletRequestId:0, manualBankAttempt:null, adIndex:0, adTimer:null, editAdId:null, editAnnouncementId:null, editBenefitId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, oneMpayStatus:null, gspayStatus:null, depositProvider:"vpay", paymentChannels:{}, withdrawalPendingSeen:null, financialSoundEnabled:true, financialAudioArmed:false, accountingPeriod:"yesterday", accountingMonth:"", adminPanel:"operationsPanel", section:"lobby", referral:null, commission:null, commissionTab:"settings", marketingContactPage:1, marketingContactPages:1, marketingEditingImage:false, marketingMaximumContacts:1000000, marketingAudienceCount:0, adminLoadedPanels:new Set(), adminPendingPanels:new Map(), adminBaseLoaded:false, adminBasePending:null, adminSummary:null, adminOperations:null, adminSecurity:null, financialEventCursor:null};
  const translations = {
   zh: {
    requestTimeout:"连接超时，操作结果未确认。请检查连接和记录后再试。",networkError:"无法连接服务。请检查网络后重试。",serviceUnavailable:"服务暂时不可用。请稍后重试。",otpNotConfigured:"短信 OTP 尚未在服务器配置。请联系平台负责人。",
@@ -1965,26 +2034,13 @@ index efd0ce0..7b7abf2 100644
   }
  };
  
-@@ -93,8 +93,9 @@ function renderBonusBrandPreview(){
-  }
- }
- function openCatalogProvider(providerId,providerName){
-- if(!apiSupplierIdSet.has(providerId))return;window.Master7Engagement?.recordRecentProvider(providerId,providerName);state.selectedCatalogProvider=providerId;state.selectedCatalogProviderName=providerName;state.gameLimit=12;state.games=[];selected('lobby');renderCatalog();loadGameCatalogue(providerId);$("providers").scrollIntoView({behavior:'smooth',block:'start'});
-+ if(!apiSupplierIdSet.has(providerId))return;window.Master7Engagement?.recordRecentProvider(providerId,providerName);state.selectedCatalogProvider=providerId;state.selectedCatalogProviderName=providerName;state.gameLimit=12;state.games=[];$("search").value="";selected('lobby');$("providers").scrollIntoView({behavior:'smooth',block:'start'});return loadGameCatalogue(providerId);
- }
-+function clearCatalogProviderSelection(){state.gameCatalogueRequestId++;state.gameCatalogueLoading=false;state.gameCatalogueError=null;state.gameCatalogueRequestProvider=null;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;state.gameLimit=12;state.games=[];$("search").value="";if(state.gameCatalogue)state.gameCatalogue={...state.gameCatalogue,games:[],providersOnly:true,platformsOnly:true,selectedProvider:null,selectedPlatform:null};else return loadGameCatalogue(null);}
- function openProviderBonus(code){
-  const provider=bonusBrandLookup(code);if(!provider)return;
-  const dialog=$("bonusDialog"),host=$("providerBonusOffers");dialog.dataset.brand=code;$("bonusDialogTitle").textContent=provider.label;$("bonusDialogNotice").textContent=bonusText("dialogNotice").replace("{name}",provider.label);clear(host);
-@@ -139,16 +140,37 @@ function supplierFavoriteKeys(){return new Set(Array.isArray(state.favoriteProvi
+@@ -139,16 +139,35 @@ function supplierFavoriteKeys(){return new Set(Array.isArray(state.favoriteProvi
  function loadFavoriteProviders(){try{const value=JSON.parse(localStorage.getItem("master7-favorite-providers")||"[]");state.favoriteProviders=Array.isArray(value)?value.filter(id=>apiSupplierIdSet.has(id)).slice(0,34):[];}catch{state.favoriteProviders=[];}}
  function toggleFavoriteProvider(providerId){const favorites=supplierFavoriteKeys();if(favorites.has(providerId))favorites.delete(providerId);else favorites.add(providerId);state.favoriteProviders=[...favorites];try{localStorage.setItem("master7-favorite-providers",JSON.stringify(state.favoriteProviders));}catch{}renderApiSupplierButtons();renderCatalog();}
  function supplierEntriesForCategory(category=state.gameCategory||"HOT"){const rankCategory=category==="FAV"?"HOT":category,ranked=window.Master7GameRanking?.orderEntries(apiSupplierEntries,rankCategory,state.gameRanking),fallback=apiSupplierEntries.filter(entry=>new Set(apiSupplierCategoryIds[rankCategory]||apiSupplierCategoryIds.HOT).has(entry.id)),entries=Array.isArray(ranked)?ranked:fallback;if(category==="FAV"){const favorites=supplierFavoriteKeys();return entries.filter(entry=>favorites.has(entry.id));}return entries;}
 -function apiSupplierState(entry){const source=(state.gameCatalogue?.providers||[]).find(item=>item.id===entry.id),control=state.supplierControls?.[entry.id]||source?.operationalStatus||"active",connected=source?.connectionVerified===true&&source?.catalogueSynced===true;return {connected,platformLaunchReady:source?.platformLaunchReady===true,control};}
-+function apiSupplierState(entry){const source=(state.gameCatalogue?.providers||[]).find(item=>item.id===entry.id),unavailable=!!state.gameCatalogueError&&(state.gameCatalogueError.providerId===null||state.gameCatalogueError.providerId===entry.id),loading=!unavailable&&(!state.gameCatalogue||state.gameCatalogueLoading===true&&(state.gameCatalogueRequestProvider===null||state.gameCatalogueRequestProvider===entry.id)),connected=!unavailable&&source?.connectionVerified===true&&source?.catalogueSynced===true;return {connected,loading,unavailable,platformLaunchReady:!unavailable&&source?.platformLaunchReady===true,maintenance:source?.maintenance===true||source?.status==="maintenance"};}
++function apiSupplierState(entry){const source=(state.gameCatalogue?.providers||[]).find(item=>item.id===entry.id),connected=source?.connectionVerified===true&&source?.catalogueSynced===true;return {connected,platformLaunchReady:source?.platformLaunchReady===true,maintenance:source?.maintenance===true||source?.status==="maintenance"};}
 +function apiSupplierStatusText(info){
-+ if(info.unavailable)return gameCatalogueText("unavailable");
-+ if(info.loading)return gameCatalogueText("loading");
 + if(info.maintenance)return state.lang==="zh"?"厂家维护中":state.lang==="ms"?"Penyelenggaraan penyedia":"Provider maintenance";
 + if(info.platformLaunchReady)return state.lang==="zh"?"游戏入口可用":state.lang==="ms"?"Pintu permainan tersedia":"Game entry available";
 + if(info.connected)return state.lang==="zh"?"目录已连接 · 游戏入口尚未就绪":state.lang==="ms"?"Katalog disambungkan · pintu permainan belum sedia":"Catalogue connected · game entry pending";
@@ -1993,9 +2049,8 @@ index efd0ce0..7b7abf2 100644
  function applyDefaultSupplierArtwork(image,entry,fallback){const liveIndex=liveSupplierPortraits[entry.id],cartoonIndex=cartoonSupplierPortraits[entry.id],sprite=Number.isInteger(liveIndex)?{index:liveIndex,count:7,url:"/assets/master7-live-hosts.webp",y:"20%",kind:"live"}:Number.isInteger(cartoonIndex)?{index:cartoonIndex,count:12,url:"/assets/master7-cartoon-providers.webp",y:"22%",kind:"cartoon"}:null;image.classList.toggle("supplier-sprite",!!sprite);if(!sprite){image.src=fallback;return;}image.src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";image.dataset.spriteKind=sprite.kind;image.style.backgroundImage=`url(${sprite.url})`;image.style.backgroundSize=`${sprite.count*100}% auto`;image.style.backgroundPosition=`${sprite.index/(sprite.count-1)*100}% ${sprite.y}`;}
  function supplierArtwork(entry,css){const image=document.createElement("img"),fallback=`/assets/providers/${entry.id}.webp`,version=state.supplierArtwork?.[entry.id];image.className=css;image.alt=`${entry.name} game platform`;image.loading="lazy";if(version){image.src=`/api/supplier-art?provider=${encodeURIComponent(entry.id)}&v=${encodeURIComponent(version)}`;image.onerror=()=>{image.onerror=null;applyDefaultSupplierArtwork(image,entry,fallback);};}else applyDefaultSupplierArtwork(image,entry,fallback);return image;}
  function renderApiSupplierButtons(){
-- const host=$("apiSupplierButtons");if(!host)return;clear(host);const category=state.gameCategory||"HOT",search=($("search")?.value||"").trim().toLowerCase(),categoryEntries=supplierEntriesForCategory(category),entries=categoryEntries.filter(entry=>!search||entry.name.toLowerCase().includes(search)),favorites=supplierFavoriteKeys();
+  const host=$("apiSupplierButtons");if(!host)return;clear(host);const category=state.gameCategory||"HOT",search=($("search")?.value||"").trim().toLowerCase(),categoryEntries=supplierEntriesForCategory(category),entries=categoryEntries.filter(entry=>!search||entry.name.toLowerCase().includes(search)),favorites=supplierFavoriteKeys();
 - if($("apiSupplierTitle"))$("apiSupplierTitle").textContent=state.lang==="zh"?"34 家独立游戏平台":"34 independent game platforms";if($("apiSupplierCountLabel"))$("apiSupplierCountLabel").textContent=`${entries.length} / 34 PLATFORMS`;const toggle=$("apiSupplierToggle");if(toggle)toggle.hidden=true;
-+ const host=$("apiSupplierButtons");if(!host)return;clear(host);const category=state.gameCategory||"HOT",search=state.selectedCatalogProvider?"":($("search")?.value||"").trim().toLowerCase(),categoryEntries=supplierEntriesForCategory(category),entries=categoryEntries.filter(entry=>!search||entry.name.toLowerCase().includes(search)),favorites=supplierFavoriteKeys();
 + if($("apiSupplierTitle"))$("apiSupplierTitle").textContent=state.lang==="zh"?"34 家独立游戏平台":"34 independent game platforms";if($("apiSupplierCountLabel"))$("apiSupplierCountLabel").textContent=`${entries.length} / 34 PLATFORMS`;
   if(!entries.length){host.append(node("p","muted",state.lang==="zh"?"这个分类目前没有游戏平台。":state.lang==="ms"?"Tiada platform dalam kategori ini.":"No platforms in this category yet."));return;}
 - for(const entry of entries){const index=categoryEntries.indexOf(entry),stateInfo=apiSupplierState(entry),connected=stateInfo.connected&&stateInfo.control==="active",tile=node("article","api-supplier-tile"),button=node("button",`api-supplier-button${connected?" connected":" pending"}`),art=supplierArtwork(entry,"api-supplier-art"),number=node("span","api-supplier-number",String(index+1).padStart(2,"0")),copy=node("span","api-supplier-copy"),name=node("strong","",entry.name),statusText=stateInfo.control==="closed"?(state.lang==="zh"?"已关闭":state.lang==="ms"?"Ditutup":"Closed"):stateInfo.control==="suspended"?(state.lang==="zh"?"维护中":state.lang==="ms"?"Penyelenggaraan":"Maintenance"):stateInfo.platformLaunchReady?(state.lang==="zh"?"平台入口已开放":state.lang==="ms"?"Pintu platform tersedia":"Platform entry ready"):stateInfo.connected?(state.lang==="zh"?"API 已连接 · 平台入口待厂家开放":state.lang==="ms"?"API disambung · pintu platform menunggu":"API connected · platform entry pending"):(state.lang==="zh"?"等待厂家 API":state.lang==="ms"?"Menunggu API penyedia":"Awaiting provider API"),status=node("small","",statusText),favorite=node("button",`api-supplier-favorite${favorites.has(entry.id)?" active":""}`,favorites.has(entry.id)?"♥":"♡");button.type="button";button.dataset.providerId=entry.id;button.setAttribute?.("aria-label",`${entry.name} platform entry`);copy.append(name,status);button.append(art,number,copy);button.onclick=()=>openCatalogProvider(entry.id,entry.name);favorite.type="button";favorite.setAttribute("aria-label",`${favorites.has(entry.id)?"Remove":"Add"} ${entry.name} favourite`);favorite.onclick=()=>toggleFavoriteProvider(entry.id);tile.append(button,favorite);host.append(tile);}
@@ -2019,7 +2074,7 @@ index efd0ce0..7b7abf2 100644
  
  const paymentPreview = Object.freeze([
   {code:"vpay",label:"VPAY"},
-@@ -157,46 +179,75 @@ const paymentPreview = Object.freeze([
+@@ -157,46 +176,75 @@ const paymentPreview = Object.freeze([
   {code:"manual-bank",label:"BANK TRANSFER"}
  ]);
  const paymentPreviewCopy = {
@@ -2118,7 +2173,7 @@ index efd0ce0..7b7abf2 100644
   ms:{signIn:"Log masuk dengan akaun ahli yang diluluskan untuk melihat status dompet.",pending:"Akaun ahli menunggu kelulusan pentadbir. Deposit belum tersedia.",unavailable:"Status dompet tidak tersedia buat sementara.",balance:"Baki tersedia",vpayReady:"Deposit VPay tersedia.",vpayOff:"VPay sedang diselenggara. Pesanan tidak boleh dihantar.",vpayError:"Status VPay tidak dapat disahkan. Deposit kekal dilumpuhkan.",none:"Tiada rekod deposit.",loadError:"Rekod deposit tidak dapat dimuatkan.",refreshing:"Menyegarkan…",provider:"VPay",loading:"Memeriksa status VPay…",requestCreated:"Halaman pembayaran dibuka. Semak hasil pada halaman penyedia.",requestPending:"Permintaan direkodkan; pengesahan belum selesai. Jangan hantar semula sebelum menyemak rekod.",requestRejected:"Penyedia menolak permintaan ini. Tiada pesanan bayaran dibuat; anda boleh menghantar percubaan baharu.",requestFailed:"Permintaan deposit tidak dibuat. Semak status kemudian.",status:{pending:"Menunggu",creating:"Sedang dibuat",created:"Menunggu bayaran",unknown:"Sedang disahkan",credited:"Dikreditkan",failed:"Gagal",expired:"Tamat tempoh",cancelled:"Dibatalkan"}}
  };
  function wt(key){return walletCopy[state.lang]?.[key]||walletCopy.en[key]||key;}
-@@ -210,12 +261,19 @@ const depositCopy={
+@@ -210,12 +258,19 @@ const depositCopy={
  const dt=key=>depositCopy[state.lang]?.[key]||depositCopy.en[key]||key;
  const depositRequestTimeoutMs=35000;
  const depositTerminalStatuses=new Set(["credited","failed","expired","cancelled"]);
@@ -2142,7 +2197,7 @@ index efd0ce0..7b7abf2 100644
  function definitiveDepositFailure(error){return Number(error?.status)===422&&error?.message==="PROVIDER_REJECTED";}
  function releaseDepositAttemptAfterError(provider,error){if(!definitiveDepositFailure(error))return false;clearDepositAttempt(provider);return true;}
  function clearCompletedDepositAttempts(items){
-@@ -230,7 +288,7 @@ function renderPaymentRecords(host,items){
+@@ -230,7 +285,7 @@ function renderPaymentRecords(host,items){
    const row=node("div","wallet-record-row"),left=node("div"),title=node("strong","",`${paymentProviderLabel(item.provider||"VPay")} · ${moneyMinor(item.amount_minor)}`),time=node("small","",new Date(Number(item.created_at||0)*1000).toLocaleString()),status=node("span","wallet-record-status",walletCopy[state.lang]?.status?.[item.status]||item.status||"—");
    left.append(title,time,node("small","",`${dt("reference")}: ${item.id}`));
    if(item.provider_trade_no)left.append(node("small","",`${dt("vendorRef")}: ${item.provider_trade_no}`));
@@ -2151,7 +2206,7 @@ index efd0ce0..7b7abf2 100644
     const button=node("button","button button-outline small",dt("check"));button.type="button";
     button.onclick=async()=>{button.disabled=true;try{const result=await api(`/api/payments/${item.provider}/orders/query`,"POST",{orderId:item.id});notification(dt(result.status==="credited"?"credited":"pending"));await loadMemberWallet();}catch(error){notification(error.message);button.disabled=false;}};
     left.append(button);
-@@ -239,33 +297,19 @@ function renderPaymentRecords(host,items){
+@@ -239,33 +294,19 @@ function renderPaymentRecords(host,items){
   }
  }
  async function loadMemberWallet(){
@@ -2194,7 +2249,7 @@ index efd0ce0..7b7abf2 100644
  function renderManualBankCopyDetails(){const bank=state.manualBanks.find(item=>item.id===$("manualBankAccount").value),panel=$("manualBankCopyDetails"),photo=$("manualBankPhoto"),fallback=$("manualBankPhotoFallback");panel.hidden=!bank;if(!bank)return;$("manualBankCopyName").textContent=bank.account_name;$("manualBankCopyNumber").textContent=bank.account_number;const hasPhoto=typeof bank.image_data==="string"&&bank.image_data.startsWith("data:image/");photo.hidden=!hasPhoto;fallback.hidden=hasPhoto;if(hasPhoto)photo.src=bank.image_data;else photo.removeAttribute("src");}
  function showCompanyBankImagePreview(imageData=""){const preview=$("companyBankImagePreview"),image=preview?.querySelector("img"),valid=typeof imageData==="string"&&imageData.startsWith("data:image/");if(!preview||!image)return;preview.hidden=!valid;if(valid)image.src=imageData;else image.removeAttribute("src");}
  function selectManualBankAdminTab(tab){const selected=tab==="receipts"?"receipts":"accounts";document.querySelectorAll("[data-bank-admin-tab]").forEach(button=>{const active=button.dataset.bankAdminTab===selected;button.classList.toggle("active",active);button.setAttribute("aria-selected",String(active));});document.querySelectorAll("[data-bank-admin-view]").forEach(view=>{view.hidden=view.dataset.bankAdminView!==selected;});}
-@@ -288,47 +332,104 @@ function trustedGSPayCheckout(value){
+@@ -288,47 +329,104 @@ function trustedGSPayCheckout(value){
   const returnValue=url.searchParams.get("return");if(returnValue){let target;try{target=new URL(returnValue);}catch{return null;}if(!["https://www.master7.best","https://master7.best","https://master7-v17-staging.onrender.com"].includes(target.origin)||target.username||target.password||target.port)return null;}
   return url;
  }
@@ -2333,7 +2388,7 @@ index efd0ce0..7b7abf2 100644
  }
  function renderFinancialAudioControl(){const button=$("financialAudioToggle");if(!button)return;const armed=state.financialSoundEnabled!==false&&state.financialAudioArmed===true,label=armed?"财务提示音已开启；点击关闭":state.financialSoundEnabled===false?"财务提示音已关闭；点击开启":"点击开启并试听财务提示音";button.textContent=armed?"🔔":state.financialSoundEnabled===false?"🔕":"🔈";button.setAttribute("aria-pressed",String(armed));button.setAttribute("aria-label",label);button.title=label;}
  function playFinancialTone(){const c=state.financialAudio;if(!c||c.state!=="running")return false;const start=c.currentTime+.02;for(const [index,frequency] of [784,988,1175].entries()){const o=c.createOscillator(),g=c.createGain(),at=start+index*.16;o.type="sine";o.frequency.setValueAtTime(frequency,at);g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(.11,at+.025);g.gain.exponentialRampToValueAtTime(.0001,at+.14);o.connect(g);g.connect(c.destination);o.start(at);o.stop(at+.15);}return true;}
-@@ -374,10 +475,15 @@ function renderMemberWithdrawals(items){const host=$("memberWithdrawalRecords");
+@@ -374,10 +472,15 @@ function renderMemberWithdrawals(items){const host=$("memberWithdrawalRecords");
  async function loadWithdrawals(){const message=$("withdrawMessage"),u=state.user;if(!u||u.role!=="member"){message.textContent=withdrawText("signIn");$("withdrawAvailable").textContent="—";renderMemberWithdrawals([]);return;}if(!u.approved){message.textContent=withdrawText("pendingAccount");$("withdrawAvailable").textContent="—";renderMemberWithdrawals([]);return;}try{const [config,data]=await Promise.all([api("/api/withdrawal-banks"),api("/api/withdrawals")]),select=$("withdrawBank"),selected=select.value,providerSelect=$("withdrawProvider"),selectedProvider=providerSelect.value;clear(select);const placeholder=node("option","","Choose bank");placeholder.value="";select.append(placeholder);for(const bank of config.banks||[]){const option=node("option","",bank.name);option.value=bank.id;select.append(option);}select.value=selected;clear(providerSelect);const providerPlaceholder=node("option","","Choose company");providerPlaceholder.value="";providerSelect.append(providerPlaceholder);const availableProviders=(config.providers||[]).filter(item=>item.enabled===true);for(const provider of availableProviders){const option=node("option","",provider.name);option.value=provider.id;providerSelect.append(option);}if(availableProviders.some(item=>item.id===selectedProvider))providerSelect.value=selectedProvider;$("withdrawSubmit").disabled=availableProviders.length===0;$("withdrawAvailable").textContent=moneyMinor(data.wallet.availableMinor);renderMemberWithdrawals(data.items);message.textContent=availableProviders.length?"Choose a company and Malaysian bank, then submit the RM amount.":"Withdrawal providers are awaiting verified payout configuration.";}catch{message.textContent=withdrawText("loadError");}}
  async function submitWithdrawalForm(e){e.preventDefault();const button=$("withdrawSubmit"),message=$("withdrawMessage");button.disabled=true;message.textContent="Submitting…";try{await api("/api/withdrawals","POST",{providerId:$("withdrawProvider").value,bankCode:$("withdrawBank").value,accountHolder:$("withdrawAccountHolder").value.trim(),accountNumber:$("withdrawAccountNumber").value.trim(),amount:$("withdrawAmount").value,requestKey:crypto.randomUUID()});$("withdrawalForm").reset();message.textContent=withdrawText("submitted");await loadWithdrawals();}catch(error){message.textContent=error.message;}finally{button.disabled=$("withdrawProvider").options.length<=1;}}
  async function renderAdminWithdrawals(){const panel=$("adminWithdrawalPanel"),isOwner=state.user?.role==="owner";panel.hidden=!isOwner;if(!isOwner)return;const host=$("adminWithdrawalRecords");try{const data=await api("/api/admin/withdrawals");clear(host);const openCount=(data.items||[]).filter(item=>["pending","approved","processing"].includes(item.status)).length;$("adminWithdrawalTitle").textContent=`Withdrawal records · ${openCount} pending`;if(!data.items?.length){host.append(node("p","muted","No withdrawal records."));return;}for(const item of data.items){const row=node("article","withdraw-admin-row"),info=node("div","withdraw-admin-info"),title=node("strong","",`${item.username} · ${item.providerName} · ${moneyMinor(item.amountMinor)}`),details=node("small","",`${item.bankName} · ${item.accountHolder} · ${item.accountNumber} · ${new Date(item.createdAt*1000).toLocaleString()}`),reference=node("small","",`MASTER7 ${item.id}`),status=node("span","wallet-record-status",item.status);info.append(title,details,reference);if(item.ownerNote)info.append(node("small","",`Note: ${item.ownerNote}`));row.append(info,status);host.append(row);}}catch{clear(host);host.append(node("p","muted","Could not load withdrawal records."));}}
@@ -2350,7 +2405,7 @@ index efd0ce0..7b7abf2 100644
    if(!items.length){host.append(node("p","muted","目前没有游戏钱包记录。"));return;}
    for(const item of items){
     const row=node("article","game-wallet-admin-row"),info=node("div","game-wallet-admin-info"),amounts=node("div","game-wallet-admin-amounts"),status=node("span",`wallet-record-status ${item.status}`,item.status);
-@@ -414,7 +520,7 @@ function renderMarketingSummary(data){
+@@ -414,7 +517,7 @@ function renderMarketingSummary(data){
   updateMarketingDuration();
  }
  function renderMarketingProvider(data){
@@ -2359,7 +2414,7 @@ index efd0ce0..7b7abf2 100644
   details.append(node("span","",`WhatsApp Business 号码：${provider.businessNumber}`),node("span","",`模板：${provider.templateName?`${provider.templateName}${provider.templateLanguage?` · ${provider.templateLanguage}`:""}`:"未设置"}`),node("span","",`已验证受众额度：${provider.recipientLimit?provider.recipientLimit.toLocaleString():"未设置"}`));
   if(provider.blockers.length)details.append(node("span","",`待处理：${provider.blockers.join("、")}`));else if(provider.status&&!provider.ready)details.append(node("span","",provider.status));
   return provider;
-@@ -504,7 +610,7 @@ async function api(url,method="GET",payload=undefined,timeoutMs=12000){
+@@ -504,7 +607,7 @@ async function api(url,method="GET",payload=undefined,timeoutMs=12000){
    if(!body||typeof body!=="object"||Array.isArray(body))throw unavailable("badResponse",resp.status);
    if(!resp.ok){
     if(resp.status>=500)throw unavailable("serviceUnavailable",resp.status);
@@ -2368,7 +2423,7 @@ index efd0ce0..7b7abf2 100644
    }
    return body;
   }catch(error){
-@@ -515,7 +621,7 @@ async function api(url,method="GET",payload=undefined,timeoutMs=12000){
+@@ -515,7 +618,7 @@ async function api(url,method="GET",payload=undefined,timeoutMs=12000){
  }
  function selected(section){const canManage=!!(state.user&&(state.user.role==="owner"||state.user.role==="staff"));if((section==="deposit"||section==="withdraw")&&state.user?.role!=="member")section=canManage?"admin":"lobby";else if(section==="responsible-play"&&state.user?.role!=="member")section=canManage?"admin":"lobby";state.section=section;document.body?.classList?.toggle("admin-mode",section==="admin");document.querySelectorAll(".section").forEach(el=>el.classList.toggle("active",el.id===section));document.querySelectorAll(".nav-button").forEach(el=>{const active=el.dataset.section===section;el.classList.toggle("active",active);if(active)el.setAttribute("aria-current","page");else el.removeAttribute("aria-current");});window.scrollTo({top:0,behavior:"smooth"});if(section==="vip")window.Master7Vip?.loadPublic();if(section==="rewards")window.Master7Rewards?.loadPublic();if(section==="events")window.Master7Engagement?.loadPublic();if(section==="responsible-play")window.Master7ResponsiblePlay?.load();if(section==="withdraw")loadWithdrawals();if(section==="support")refreshTickets();if(section==="admin")renderAdmin();}
  function openAdminNotifications(){if(!["owner","staff"].includes(state.user?.role))return;selected("support");}
@@ -2377,29 +2432,20 @@ index efd0ce0..7b7abf2 100644
  function renderAnnouncements(){const host=$("announcements");clear(host);if(!state.announcements.length){host.append(node("p","muted",t("noAnnouncements")));return;}for(const a of state.announcements){const card=node("article","announcement"),title=node("h3","",a.title),body=node("p","",a.body),time=node("time","",new Date(a.created_at*1000).toLocaleDateString(state.lang==="zh"?"zh-CN":state.lang));card.append(title,body,time);host.append(card);}}
  function normalizedGameCategory(game){
   const raw=String(game.categoryOverride||game.category||"").trim().toLowerCase().replace(/[_-]+/g," ").replace(/\s+/g," ");
-@@ -536,9 +642,9 @@ function favoriteGameKeys(){return new Set(Array.isArray(state.favoriteGames)?st
+@@ -536,9 +639,9 @@ function favoriteGameKeys(){return new Set(Array.isArray(state.favoriteGames)?st
  function loadFavoriteGames(){try{const value=JSON.parse(localStorage.getItem("master7-favorite-games")||"[]");state.favoriteGames=Array.isArray(value)?value.filter(item=>typeof item==="string").slice(0,200):[];}catch{state.favoriteGames=[];}}
  function toggleFavoriteGame(game){const key=gameIdentity(game),favorites=favoriteGameKeys();if(favorites.has(key))favorites.delete(key);else favorites.add(key);state.favoriteGames=[...favorites].slice(-200);try{localStorage.setItem("master7-favorite-games",JSON.stringify(state.favoriteGames));}catch{}renderCatalog();}
  const gameWalletCopy={
 - zh:{loading:"正在读取游戏钱包…",waiting:"游戏入口已完成，正在等待厂家生产验收。",ready:"游戏钱包已连接，可以从游戏卡片进入。",none:"目前没有进行中的游戏。",active:"游戏进行中；退出后资金会结算回前台钱包。",deposit_pending:"正在确认转入游戏的资金。",deposit_unknown:"转入结果未确认，请查询厂家结果。",withdraw_pending:"正在结算回前台钱包。",withdraw_unknown:"结算结果未确认，请查询厂家结果。",manual_review:"这笔记录需要后台与厂家人工核对。",settled:"上一局已经结算回前台钱包。",failed:"游戏钱包暂时无法读取。",launching:"正在建立安全游戏连接…",opened:"游戏已在新窗口打开；关闭游戏后会自动结算。",settling:"正在结算回前台钱包…",settledNotice:"游戏资金已结算回前台钱包。",recovering:"正在查询厂家交易结果…",recovered:"厂家交易结果已更新。",popup:"浏览器拦截了游戏窗口，请允许弹出窗口后再试。"},
 - en:{loading:"Loading game wallet…",waiting:"The game entry is prepared and awaits provider production acceptance.",ready:"Game wallet connected. Enter from an enabled game card.",none:"No game is currently in progress.",active:"Game in progress. Funds settle to the portal wallet after exit.",deposit_pending:"Confirming the transfer into the game.",deposit_unknown:"The deposit outcome is unconfirmed. Check the provider result.",withdraw_pending:"Settling funds back to the portal wallet.",withdraw_unknown:"The settlement outcome is unconfirmed. Check the provider result.",manual_review:"This record requires backoffice and provider reconciliation.",settled:"The previous game has settled to the portal wallet.",failed:"The game wallet is temporarily unavailable.",launching:"Creating a secure game session…",opened:"Game opened in a new window. Closing it starts settlement.",settling:"Settling funds to the portal wallet…",settledNotice:"Game funds settled to the portal wallet.",recovering:"Checking the provider transfer result…",recovered:"The provider transfer result was updated.",popup:"The browser blocked the game window. Allow pop-ups and try again."},
 - ms:{loading:"Memuatkan dompet permainan…",waiting:"Pintu masuk permainan telah siap dan menunggu penerimaan produksi penyedia.",ready:"Dompet permainan disambungkan. Masuk melalui kad permainan yang aktif.",none:"Tiada permainan sedang berjalan.",active:"Permainan sedang berjalan. Dana kembali ke dompet portal selepas keluar.",deposit_pending:"Mengesahkan pindahan ke permainan.",deposit_unknown:"Hasil deposit belum disahkan. Semak keputusan penyedia.",withdraw_pending:"Menyelesaikan dana ke dompet portal.",withdraw_unknown:"Hasil penyelesaian belum disahkan. Semak keputusan penyedia.",manual_review:"Rekod ini perlu disemak dengan penyedia.",settled:"Permainan sebelumnya telah diselesaikan ke dompet portal.",failed:"Dompet permainan tidak tersedia buat sementara waktu.",launching:"Membina sesi permainan selamat…",opened:"Permainan dibuka dalam tetingkap baharu. Tutup untuk memulakan penyelesaian.",settling:"Menyelesaikan dana ke dompet portal…",settledNotice:"Dana permainan telah kembali ke dompet portal.",recovering:"Menyemak hasil pindahan penyedia…",recovered:"Hasil pindahan penyedia telah dikemas kini.",popup:"Tetingkap permainan disekat. Benarkan pop-up dan cuba lagi."}
-+ zh:{loading:"正在读取游戏钱包…",member:"请使用会员账号进入游戏。管理账号只用于后台管理。",waiting:"游戏启动或钱包结算尚未就绪，请查看该平台状态。",ready:"游戏钱包已连接，可以从游戏卡片进入。",none:"目前没有进行中的游戏。",active:"游戏进行中；退出后资金会结算回前台钱包。",deposit_pending:"正在确认转入游戏的资金。",deposit_unknown:"转入结果未确认，请查询厂家结果。",withdraw_pending:"正在结算回前台钱包。",withdraw_unknown:"结算结果未确认，请查询厂家结果。",manual_review:"这笔记录需要后台与厂家人工核对。",settled:"上一局已经结算回前台钱包。",failed:"游戏钱包暂时无法读取。",launching:"正在建立安全游戏连接…",opened:"游戏已在新窗口打开；关闭游戏后会自动结算。",settling:"正在结算回前台钱包…",settledNotice:"游戏资金已结算回前台钱包。",recovering:"正在查询厂家交易结果…",recovered:"厂家交易结果已更新。",popup:"浏览器拦截了游戏窗口，请允许弹出窗口后再试。"},
-+ en:{loading:"Loading game wallet…",member:"Use a member account to play. Management accounts are for backoffice operations.",waiting:"Game launch or wallet settlement is not ready. Check this platform’s status.",ready:"Game wallet connected. Enter from an enabled game card.",none:"No game is currently in progress.",active:"Game in progress. Funds settle to the portal wallet after exit.",deposit_pending:"Confirming the transfer into the game.",deposit_unknown:"The deposit outcome is unconfirmed. Check the provider result.",withdraw_pending:"Settling funds back to the portal wallet.",withdraw_unknown:"The settlement outcome is unconfirmed. Check the provider result.",manual_review:"This record requires backoffice and provider reconciliation.",settled:"The previous game has settled to the portal wallet.",failed:"The game wallet is temporarily unavailable.",launching:"Creating a secure game session…",opened:"Game opened in a new window. Closing it starts settlement.",settling:"Settling funds to the portal wallet…",settledNotice:"Game funds settled to the portal wallet.",recovering:"Checking the provider transfer result…",recovered:"The provider transfer result was updated.",popup:"The browser blocked the game window. Allow pop-ups and try again."},
-+ ms:{loading:"Memuatkan dompet permainan…",member:"Gunakan akaun ahli untuk bermain. Akaun pengurusan digunakan untuk pentadbiran.",waiting:"Pelancaran permainan atau penyelesaian dompet belum sedia. Semak status platform ini.",ready:"Dompet permainan disambungkan. Masuk melalui kad permainan yang aktif.",none:"Tiada permainan sedang berjalan.",active:"Permainan sedang berjalan. Dana kembali ke dompet portal selepas keluar.",deposit_pending:"Mengesahkan pindahan ke permainan.",deposit_unknown:"Hasil deposit belum disahkan. Semak keputusan penyedia.",withdraw_pending:"Menyelesaikan dana ke dompet portal.",withdraw_unknown:"Hasil penyelesaian belum disahkan. Semak keputusan penyedia.",manual_review:"Rekod ini perlu disemak dengan penyedia.",settled:"Permainan sebelumnya telah diselesaikan ke dompet portal.",failed:"Dompet permainan tidak tersedia buat sementara waktu.",launching:"Membina sesi permainan selamat…",opened:"Permainan dibuka dalam tetingkap baharu. Tutup untuk memulakan penyelesaian.",settling:"Menyelesaikan dana ke dompet portal…",settledNotice:"Dana permainan telah kembali ke dompet portal.",recovering:"Menyemak hasil pindahan penyedia…",recovered:"Hasil pindahan penyedia telah dikemas kini.",popup:"Tetingkap permainan disekat. Benarkan pop-up dan cuba lagi."}
++ zh:{loading:"正在读取游戏钱包…",waiting:"游戏启动或钱包结算尚未就绪，请查看该平台状态。",ready:"游戏钱包已连接，可以从游戏卡片进入。",none:"目前没有进行中的游戏。",active:"游戏进行中；退出后资金会结算回前台钱包。",deposit_pending:"正在确认转入游戏的资金。",deposit_unknown:"转入结果未确认，请查询厂家结果。",withdraw_pending:"正在结算回前台钱包。",withdraw_unknown:"结算结果未确认，请查询厂家结果。",manual_review:"这笔记录需要后台与厂家人工核对。",settled:"上一局已经结算回前台钱包。",failed:"游戏钱包暂时无法读取。",launching:"正在建立安全游戏连接…",opened:"游戏已在新窗口打开；关闭游戏后会自动结算。",settling:"正在结算回前台钱包…",settledNotice:"游戏资金已结算回前台钱包。",recovering:"正在查询厂家交易结果…",recovered:"厂家交易结果已更新。",popup:"浏览器拦截了游戏窗口，请允许弹出窗口后再试。"},
++ en:{loading:"Loading game wallet…",waiting:"Game launch or wallet settlement is not ready. Check this platform’s status.",ready:"Game wallet connected. Enter from an enabled game card.",none:"No game is currently in progress.",active:"Game in progress. Funds settle to the portal wallet after exit.",deposit_pending:"Confirming the transfer into the game.",deposit_unknown:"The deposit outcome is unconfirmed. Check the provider result.",withdraw_pending:"Settling funds back to the portal wallet.",withdraw_unknown:"The settlement outcome is unconfirmed. Check the provider result.",manual_review:"This record requires backoffice and provider reconciliation.",settled:"The previous game has settled to the portal wallet.",failed:"The game wallet is temporarily unavailable.",launching:"Creating a secure game session…",opened:"Game opened in a new window. Closing it starts settlement.",settling:"Settling funds to the portal wallet…",settledNotice:"Game funds settled to the portal wallet.",recovering:"Checking the provider transfer result…",recovered:"The provider transfer result was updated.",popup:"The browser blocked the game window. Allow pop-ups and try again."},
++ ms:{loading:"Memuatkan dompet permainan…",waiting:"Pelancaran permainan atau penyelesaian dompet belum sedia. Semak status platform ini.",ready:"Dompet permainan disambungkan. Masuk melalui kad permainan yang aktif.",none:"Tiada permainan sedang berjalan.",active:"Permainan sedang berjalan. Dana kembali ke dompet portal selepas keluar.",deposit_pending:"Mengesahkan pindahan ke permainan.",deposit_unknown:"Hasil deposit belum disahkan. Semak keputusan penyedia.",withdraw_pending:"Menyelesaikan dana ke dompet portal.",withdraw_unknown:"Hasil penyelesaian belum disahkan. Semak keputusan penyedia.",manual_review:"Rekod ini perlu disemak dengan penyedia.",settled:"Permainan sebelumnya telah diselesaikan ke dompet portal.",failed:"Dompet permainan tidak tersedia buat sementara waktu.",launching:"Membina sesi permainan selamat…",opened:"Permainan dibuka dalam tetingkap baharu. Tutup untuk memulakan penyelesaian.",settling:"Menyelesaikan dana ke dompet portal…",settledNotice:"Dana permainan telah kembali ke dompet portal.",recovering:"Menyemak hasil pindahan penyedia…",recovered:"Hasil pindahan penyedia telah dikemas kini.",popup:"Tetingkap permainan disekat. Benarkan pop-up dan cuba lagi."}
  };
  const gwt=key=>gameWalletCopy[state.lang]?.[key]||gameWalletCopy.en[key]||key;
  function renderGameWallet(){
-@@ -557,7 +663,7 @@ function stopGameWindowWatch(){if(state.gameWindowPoll){clearInterval(state.game
- function settleClosedGameWindow(){if(state.gameWindow?.closed){stopGameWindowWatch();state.gameWindow=null;settleGameWallet(true);}}
- function watchGameWindow(popup){stopGameWindowWatch();state.gameWindow=popup;state.gameWindowPoll=setInterval(settleClosedGameWindow,1000);}
- async function startGame(game){
-- if(state.gameLaunchBusy)return;if(!state.user){showAuth();return;}if(!state.user.approved){notification(t("accountPending"));return;}if(!apiSupplierIdSet.has(game.provider)||!game.playable){notification(gwt("waiting"));return;}if(["deposit_pending","deposit_unknown","active","withdraw_pending","withdraw_unknown","manual_review"].includes(state.gameWallet?.session?.status)){notification($("gameWalletSession").textContent);return;}
-+ if(state.gameLaunchBusy)return;if(!state.user){showAuth();return;}if(state.user.role!=="member"){notification(gwt("member"));return;}if(!state.user.approved){notification(t("accountPending"));return;}if(!apiSupplierIdSet.has(game.provider)||!game.playable){notification(gwt("waiting"));return;}if(["deposit_pending","deposit_unknown","active","withdraw_pending","withdraw_unknown","manual_review"].includes(state.gameWallet?.session?.status)){notification($("gameWalletSession").textContent);return;}
-  const popupKey=`${game.provider||"provider"}_${game.gameCode||""}`.replace(/[^A-Za-z0-9_-]/g,"");const popup=window.open("about:blank",`master7_game_${popupKey}`,"popup=yes,width=1180,height=780,resizable=yes,scrollbars=yes");if(!popup){notification(gwt("popup"));return;}
-  state.gameLaunchBusy=true;renderCatalog();
-  try{popup.opener=null;popup.document.title="MASTER7";popup.document.body.textContent=gwt("launching");}catch{}
-@@ -576,24 +682,26 @@ async function recoverGameWallet(){
+@@ -576,24 +679,21 @@ async function recoverGameWallet(){
   if(state.gameSettlementBusy)return;state.gameSettlementBusy=true;renderGameWallet();notification(gwt("recovering"));
   try{await api("/api/game-wallet/recover","POST",{},25000);notification(gwt("recovered"));}catch(error){notification(error.message);}finally{state.gameSettlementBusy=false;await Promise.allSettled([loadGameWallet(),loadMemberWallet(),loadGameCatalogue()]);renderGameWallet();}
  }
@@ -2411,33 +2457,25 @@ index efd0ce0..7b7abf2 100644
 - image.src=game.imageData||game.imageUrl||`/assets/providers/${game.provider}.webp`;image.alt=title.textContent;image.loading="lazy";image.onerror=()=>{image.onerror=null;image.src=`/assets/providers/${game.provider}.webp`;};cover.append(image);favorite.type="button";favorite.setAttribute("aria-label",`${favorite.textContent==="♥"?"Remove":"Add"} ${title.textContent} favourite`);favorite.onclick=()=>toggleFavoriteGame(game);status.textContent=game.status==="suspended"?(state.lang==="zh"?"维护中":"Maintenance"):game.playable?(state.lang==="zh"?"可以进入":"Ready"):(state.lang==="zh"?"游戏资料已连接":"Catalogue ready");action.type="button";action.disabled=!game.playable||state.gameLaunchBusy||game.status!=="active";action.textContent=game.playable?(state.lang==="zh"?"开始游戏":"Play"):(state.lang==="zh"?"等待厂家开放":"Awaiting launch");action.onclick=()=>startGame(game);card.append(cover,favorite,title,meta,status,action);return card;
 + image.src=game.imageData||game.imageUrl||`/assets/providers/${game.provider}.webp`;image.alt=title.textContent;image.loading="lazy";image.onerror=()=>{image.onerror=null;image.src=`/assets/providers/${game.provider}.webp`;};cover.append(image);favorite.type="button";favorite.setAttribute("aria-label",`${favorite.textContent==="♥"?"Remove":"Add"} ${title.textContent} favourite`);favorite.onclick=()=>toggleFavoriteGame(game);status.textContent=game.status==="suspended"?(state.lang==="zh"?"维护中":"Maintenance"):game.playable?(state.lang==="zh"?"可以进入":"Ready"):(state.lang==="zh"?"游戏资料已连接":"Catalogue ready");action.type="button";action.disabled=!game.playable||state.gameLaunchBusy||game.status!=="active";action.textContent=game.playable?(state.lang==="zh"?"开始游戏":"Play"):(state.lang==="zh"?"启动尚未就绪":"Launch not ready");action.onclick=()=>startGame(game);card.append(cover,favorite,title,meta,status,action);return card;
  }
-+function gameCatalogueText(key){const copy={
-+ en:{loading:"Checking API status…",unavailable:"Status unavailable · select to retry",rootError:"Game provider status could not be read. Select a platform to retry.",providerError:"This provider's games could not be read. Try again.",retry:"Retry"},
-+ zh:{loading:"正在读取 API 状态…",unavailable:"状态读取失败 · 点击重试",rootError:"暂时无法读取游戏平台状态，请选择一家重新检查。",providerError:"暂时无法读取这家厂家的游戏，请重试。",retry:"重新读取"},
-+ ms:{loading:"Menyemak status API…",unavailable:"Status tidak tersedia · pilih untuk cuba lagi",rootError:"Status penyedia permainan tidak dapat dibaca. Pilih platform untuk cuba lagi.",providerError:"Permainan penyedia ini tidak dapat dibaca. Cuba lagi.",retry:"Cuba lagi"}
-+ };return copy[state.lang]?.[key]||copy.en[key]||key;}
  function renderCatalog(){
 - const host=$("providers");if(!host)return;clear(host);const category=state.gameCategory||"HOT",entries=supplierEntriesForCategory(category),connectedCount=apiSupplierEntries.filter(entry=>{const item=apiSupplierState(entry);return item.connected&&item.control==="active";}).length,clearProvider=$("clearProviderFilter"),searchBox=$("search");
-- if($("lobbyGameCount"))$("lobbyGameCount").textContent=String(apiSupplierEntries.length);if($("lobbyProviderCount"))$("lobbyProviderCount").textContent=String(connectedCount);
-- if(!state.selectedCatalogProvider){if(clearProvider)clearProvider.hidden=true;if(searchBox)searchBox.placeholder=state.lang==="zh"?"搜索游戏平台":"Search platform name";const status=$("gamesStatus");if(status)status.textContent=state.lang==="zh"?`${entries.length} 家平台 · 请选择一个独立入口`:state.lang==="ms"?`${entries.length} platform · Pilih satu pintu masuk`:`${entries.length} platforms · Choose one independent entry`;return;}
-- const entry=apiSupplierEntries.find(item=>item.id===state.selectedCatalogProvider);if(!entry){state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;renderApiSupplierButtons();renderCatalog();return;}const info=apiSupplierState(entry),loaded=state.gameCatalogue?.selectedProvider===entry.id,games=loaded&&Array.isArray(state.games)?state.games:[],card=node("article",`platform-entry-status${info.connected&&info.control==="active"?" connected":""}`),art=supplierArtwork(entry,"platform-entry-art"),copy=node("div","platform-entry-copy"),title=node("h2","",entry.name),categoryText=node("p","muted",Object.entries(apiSupplierCategoryIds).filter(([,ids])=>ids.includes(entry.id)).map(([name])=>name).join(" · ")),message=node("p","platform-entry-message"),action=node("button","button button-primary");
 + const host=$("providers");if(!host)return;clear(host);const category=state.gameCategory||"HOT",entries=supplierEntriesForCategory(category),connectedCount=apiSupplierEntries.filter(entry=>{const item=apiSupplierState(entry);return item.connected;}).length,clearProvider=$("clearProviderFilter"),searchBox=$("search");
-+ if($("lobbyGameCount"))$("lobbyGameCount").textContent=String(apiSupplierEntries.length);if($("lobbyProviderCount"))$("lobbyProviderCount").textContent=!state.gameCatalogue||state.gameCatalogueError?.providerId===null?"—":String(connectedCount);
-+ if(!state.selectedCatalogProvider){if(clearProvider)clearProvider.hidden=true;if(searchBox)searchBox.placeholder=state.lang==="zh"?"搜索游戏平台":"Search platform name";const status=$("gamesStatus");if(status)status.textContent=state.gameCatalogueError?.providerId===null?gameCatalogueText("rootError"):!state.gameCatalogue?gameCatalogueText("loading"):state.lang==="zh"?`${entries.length} 家平台 · 请选择一个独立入口`:state.lang==="ms"?`${entries.length} platform · Pilih satu pintu masuk`:`${entries.length} platforms · Choose one independent entry`;return;}
-+ const entry=apiSupplierEntries.find(item=>item.id===state.selectedCatalogProvider);if(!entry){state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;renderApiSupplierButtons();renderCatalog();return;}const info=apiSupplierState(entry),readFailed=state.gameCatalogueError?.providerId===entry.id,loaded=!state.gameCatalogueLoading&&!readFailed&&state.gameCatalogue?.selectedProvider===entry.id,games=loaded&&Array.isArray(state.games)?state.games:[],card=node("article",`platform-entry-status${info.connected?" connected":""}`),art=supplierArtwork(entry,"platform-entry-art"),copy=node("div","platform-entry-copy"),title=node("h2","",entry.name),categoryText=node("p","muted",Object.entries(apiSupplierCategoryIds).filter(([,ids])=>ids.includes(entry.id)).map(([name])=>name).join(" · ")),message=node("p","platform-entry-message"),action=node("button","button button-primary");
+  if($("lobbyGameCount"))$("lobbyGameCount").textContent=String(apiSupplierEntries.length);if($("lobbyProviderCount"))$("lobbyProviderCount").textContent=String(connectedCount);
+  if(!state.selectedCatalogProvider){if(clearProvider)clearProvider.hidden=true;if(searchBox)searchBox.placeholder=state.lang==="zh"?"搜索游戏平台":"Search platform name";const status=$("gamesStatus");if(status)status.textContent=state.lang==="zh"?`${entries.length} 家平台 · 请选择一个独立入口`:state.lang==="ms"?`${entries.length} platform · Pilih satu pintu masuk`:`${entries.length} platforms · Choose one independent entry`;return;}
+- const entry=apiSupplierEntries.find(item=>item.id===state.selectedCatalogProvider);if(!entry){state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;renderApiSupplierButtons();renderCatalog();return;}const info=apiSupplierState(entry),loaded=state.gameCatalogue?.selectedProvider===entry.id,games=loaded&&Array.isArray(state.games)?state.games:[],card=node("article",`platform-entry-status${info.connected&&info.control==="active"?" connected":""}`),art=supplierArtwork(entry,"platform-entry-art"),copy=node("div","platform-entry-copy"),title=node("h2","",entry.name),categoryText=node("p","muted",Object.entries(apiSupplierCategoryIds).filter(([,ids])=>ids.includes(entry.id)).map(([name])=>name).join(" · ")),message=node("p","platform-entry-message"),action=node("button","button button-primary");
++ const entry=apiSupplierEntries.find(item=>item.id===state.selectedCatalogProvider);if(!entry){state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;renderApiSupplierButtons();renderCatalog();return;}const info=apiSupplierState(entry),loaded=state.gameCatalogue?.selectedProvider===entry.id,games=loaded&&Array.isArray(state.games)?state.games:[],card=node("article",`platform-entry-status${info.connected?" connected":""}`),art=supplierArtwork(entry,"platform-entry-art"),copy=node("div","platform-entry-copy"),title=node("h2","",entry.name),categoryText=node("p","muted",Object.entries(apiSupplierCategoryIds).filter(([,ids])=>ids.includes(entry.id)).map(([name])=>name).join(" · ")),message=node("p","platform-entry-message"),action=node("button","button button-primary");
   if(searchBox)searchBox.placeholder=state.lang==="zh"?`搜索 ${entry.name} 游戏`:`Search ${entry.name} games`;if(clearProvider){clearProvider.hidden=false;clearProvider.textContent=state.lang==="zh"?"← 返回 34 家游戏平台":state.lang==="ms"?"← Kembali ke 34 platform":"← Back to 34 game platforms";}
   const allMaintenance=games.length>0&&games.every(game=>game.maintenance===true||game.status==="suspended");
 - let statusText;if(!loaded)statusText=state.lang==="zh"?"正在读取这家厂商的游戏…":"Loading this provider's games…";else if(info.control==="closed")statusText=state.lang==="zh"?"这个平台入口已关闭。":"This platform entry is closed.";else if(info.control==="suspended")statusText=state.lang==="zh"?"这个平台正在维护。":"This platform is under maintenance.";else if(games.length&&!info.connected)statusText=state.lang==="zh"?`保留 ${games.length} 款旧目录；厂家连接目前不可用，平台维护中。`:state.lang==="ms"?`${games.length} katalog lama disimpan; sambungan penyedia tidak tersedia dan platform sedang diselenggara.`:`${games.length} saved catalogue games; the provider connection is unavailable and the platform is under maintenance.`;else if(games.length&&allMaintenance)statusText=state.lang==="zh"?`已同步 ${games.length} 款游戏；目前全部维护中。`:state.lang==="ms"?`${games.length} permainan disegerakkan; semuanya sedang diselenggara.`:`${games.length} games synchronized; all are currently under maintenance.`;else if(games.length&&info.platformLaunchReady)statusText=state.lang==="zh"?`已连接 ${games.length} 款游戏，可以进入。`:`${games.length} games connected and ready.`;else if(games.length)statusText=state.lang==="zh"?`已连接 ${games.length} 款游戏；启动入口等待厂家开放。`:`${games.length} games connected; launch access is awaiting the provider.`;else statusText=state.lang==="zh"?"正在等待厂家游戏 API。":"Awaiting the provider game API.";
-- message.textContent=statusText;action.type="button";action.disabled=!games.length;action.textContent=games.length?(state.lang==="zh"?`查看 ${games.length} 款游戏`:`View ${games.length} games`):(state.lang==="zh"?"等待厂家 API":"Awaiting provider API");action.onclick=()=>host.querySelector(".game-grid")?.scrollIntoView({behavior:"smooth",block:"start"});copy.append(title,categoryText,message,action);card.append(art,copy);host.append(card);
-+ let statusText;if(readFailed)statusText=gameCatalogueText("providerError");else if(!loaded)statusText=state.lang==="zh"?"正在读取这家厂商的游戏…":"Loading this provider's games…";else if(info.maintenance)statusText=state.lang==="zh"?"厂家目前维护中。":"The provider is under maintenance.";else if(games.length&&!info.connected)statusText=state.lang==="zh"?`保留 ${games.length} 款旧目录；厂家连接目前不可用，平台维护中。`:state.lang==="ms"?`${games.length} katalog lama disimpan; sambungan penyedia tidak tersedia dan platform sedang diselenggara.`:`${games.length} saved catalogue games; the provider connection is unavailable and the platform is under maintenance.`;else if(games.length&&allMaintenance)statusText=state.lang==="zh"?`已同步 ${games.length} 款游戏；目前全部维护中。`:state.lang==="ms"?`${games.length} permainan disegerakkan; semuanya sedang diselenggara.`:`${games.length} games synchronized; all are currently under maintenance.`;else if(games.length&&info.platformLaunchReady)statusText=state.lang==="zh"?`已连接 ${games.length} 款游戏，可以进入。`:`${games.length} games connected and ready.`;else if(games.length)statusText=state.lang==="zh"?`已同步 ${games.length} 款游戏；启动或钱包接入尚未就绪。`:`${games.length} games synchronized; launch or wallet integration is not ready.`;else statusText=state.lang==="zh"?"供应商游戏接口尚未接通。":"The provider game API is not connected.";
-+ message.textContent=statusText;action.type="button";action.disabled=!readFailed&&!games.length;action.textContent=readFailed?gameCatalogueText("retry"):games.length?(state.lang==="zh"?`查看 ${games.length} 款游戏`:`View ${games.length} games`):(state.lang==="zh"?"等待厂家 API":"Awaiting provider API");action.onclick=()=>readFailed?loadGameCatalogue(entry.id):host.querySelector(".game-grid")?.scrollIntoView({behavior:"smooth",block:"start"});copy.append(title,categoryText,message,action);card.append(art,copy);host.append(card);
++ let statusText;if(!loaded)statusText=state.lang==="zh"?"正在读取这家厂商的游戏…":"Loading this provider's games…";else if(info.maintenance)statusText=state.lang==="zh"?"厂家目前维护中。":"The provider is under maintenance.";else if(games.length&&!info.connected)statusText=state.lang==="zh"?`保留 ${games.length} 款旧目录；厂家连接目前不可用，平台维护中。`:state.lang==="ms"?`${games.length} katalog lama disimpan; sambungan penyedia tidak tersedia dan platform sedang diselenggara.`:`${games.length} saved catalogue games; the provider connection is unavailable and the platform is under maintenance.`;else if(games.length&&allMaintenance)statusText=state.lang==="zh"?`已同步 ${games.length} 款游戏；目前全部维护中。`:state.lang==="ms"?`${games.length} permainan disegerakkan; semuanya sedang diselenggara.`:`${games.length} games synchronized; all are currently under maintenance.`;else if(games.length&&info.platformLaunchReady)statusText=state.lang==="zh"?`已连接 ${games.length} 款游戏，可以进入。`:`${games.length} games connected and ready.`;else if(games.length)statusText=state.lang==="zh"?`已同步 ${games.length} 款游戏；启动或钱包接入尚未就绪。`:`${games.length} games synchronized; launch or wallet integration is not ready.`;else statusText=state.lang==="zh"?"供应商游戏接口尚未接通。":"The provider game API is not connected.";
+  message.textContent=statusText;action.type="button";action.disabled=!games.length;action.textContent=games.length?(state.lang==="zh"?`查看 ${games.length} 款游戏`:`View ${games.length} games`):(state.lang==="zh"?"等待厂家 API":"Awaiting provider API");action.onclick=()=>host.querySelector(".game-grid")?.scrollIntoView({behavior:"smooth",block:"start"});copy.append(title,categoryText,message,action);card.append(art,copy);host.append(card);
   if(games.length){const search=(searchBox?.value||"").trim().toLowerCase(),favorites=favoriteGameKeys(),filtered=games.filter(game=>(!search||[game.name,game.nameZh,game.gameCode].some(value=>String(value||"").toLowerCase().includes(search)))&&(category==="HOT"||category==="FAV"&&favorites.has(gameIdentity(game))||normalizedGameCategory(game)===category)&&(state.gameAccessZone==="ALL"||game.accessZone===state.gameAccessZone)),grid=node("div","catalog-grid game-grid");for(const game of filtered.slice(0,state.gameLimit))grid.append(publicGameCard(game));host.append(grid);if(filtered.length>state.gameLimit){const more=node("button","button button-outline game-load-more",state.lang==="zh"?`显示更多（${state.gameLimit}/${filtered.length}）`:`Show more (${state.gameLimit}/${filtered.length})`);more.type="button";more.onclick=()=>{state.gameLimit+=24;renderCatalog();};host.append(more);}if(!filtered.length)host.append(node("p","notice",state.lang==="zh"?"这个筛选没有游戏。":"No games match this filter."));}
 - const status=$("gamesStatus");if(status)status.textContent=`${entry.name} · ${loaded?`${games.length} GAMES`:"LOADING"} · ${info.control==="active"?(info.connected?"API CONNECTED":"API PENDING"):info.control.toUpperCase()}`;
-+ const status=$("gamesStatus");if(status)status.textContent=readFailed?`${entry.name} · STATUS UNAVAILABLE`:`${entry.name} · ${loaded?`${games.length} GAMES`:"LOADING"} · ${info.maintenance?"PROVIDER MAINTENANCE":info.connected?"API CONNECTED":"API PENDING"}`;
++ const status=$("gamesStatus");if(status)status.textContent=`${entry.name} · ${loaded?`${games.length} GAMES`:"LOADING"} · ${info.maintenance?"PROVIDER MAINTENANCE":info.connected?"API CONNECTED":"API PENDING"}`;
  }
  
  function renderAdGrid(items){const host=$("lobbyAdGrid");if(!host)return;clear(host);host.hidden=items.length<2;if(items.length<2)return;for(const ad of items.slice(0,6)){const target=typeof ad.target_url==="string"&&/^https:\/\//i.test(ad.target_url),card=document.createElement(target?"a":"article"),image=document.createElement("img"),label=node("span","",ad.title);card.className="lobby-ad-card";if(target){card.href=ad.target_url;card.target="_blank";card.rel="noopener noreferrer";}image.src=ad.image_data;image.alt=ad.title;image.loading="lazy";card.append(image,label);host.append(card);}}
-@@ -644,29 +752,37 @@ async function renderBenefitManager(owner=true){
+@@ -644,29 +744,37 @@ async function renderBenefitManager(owner=true){
    }
   }
  }
@@ -2485,7 +2523,7 @@ index efd0ce0..7b7abf2 100644
   if(result.launchVerified!==true&&result.walletVerified!==true)return copy.reasonLaunchWallet;
   if(result.launchVerified!==true)return copy.reasonLaunch;
   if(result.walletVerified!==true)return copy.reasonWallet;
-@@ -675,12 +791,10 @@ function gameCheckReason(result,copy){
+@@ -675,12 +783,10 @@ function gameCheckReason(result,copy){
  function gameCheckPresentation(result,key,copy){
   const count=gameCheckCount(result),error=gameCheckExplicitError(result),current=result?.connectionVerified===true&&result?.catalogueSynced===true&&result?.stale!==true;
   if(!result)return {tone:"waiting",label:copy.noResult};
@@ -2499,7 +2537,7 @@ index efd0ce0..7b7abf2 100644
    return {tone:"waiting",label:result.status==="not_configured"||result.platformStatus==="awaiting_api"?copy.waitingApi:copy.connectionPending};
   }
   if(key==="catalogueSynced"){
-@@ -692,9 +806,11 @@ function gameCheckPresentation(result,key,copy){
+@@ -692,9 +798,11 @@ function gameCheckPresentation(result,key,copy){
   }
   if(key==="launchVerified"){
    if(result.launchVerified===true)return {tone:"ready",label:copy.launchReady};
@@ -2511,7 +2549,7 @@ index efd0ce0..7b7abf2 100644
   return result.launchVerified===true||current?{tone:"progress",label:copy.walletPending}:{tone:"waiting",label:copy.walletWaiting};
  }
  async function renderGameSync(force=false){
-@@ -707,7 +823,7 @@ async function renderGameSync(force=false){
+@@ -707,7 +815,7 @@ async function renderGameSync(force=false){
     const result=(data.providers||[]).find(x=>x.id===entry.id),row=node("tr"),provider=node("th","game-sync-name"),name=node("strong","",entry.name),reason=node("small","",gameCheckReason(result,copy));row.dataset.provider=entry.id;provider.append(name,reason);row.append(provider);
     for(const key of ["connectionVerified","catalogueSynced","launchVerified","walletVerified"]){const status=gameCheckPresentation(result,key,copy),cell=node("td","game-check-cell"),pill=node("span",`game-check-pill is-${status.tone}`,status.label);pill.setAttribute("aria-label",`${copy[key==="catalogueSynced"?"sync":key==="connectionVerified"?"connection":key==="launchVerified"?"launch":"wallet"]}: ${status.label}`);cell.append(pill);row.append(cell);}body.append(row);
    }
@@ -2520,7 +2558,7 @@ index efd0ce0..7b7abf2 100644
    if(force)await loadGameCatalogue();
   }catch{notice.textContent=copy.error;}
   finally{button.disabled=false;}
-@@ -723,22 +839,69 @@ function paintGameVisibility(owner=true){
+@@ -723,21 +831,63 @@ function paintGameVisibility(owner=true){
   if(!shown.length){host.append(node("p","muted","No matching supplier games."));return;}
   for(const game of shown){const category=normalizedGameCategory(game),row=node("article","game-control-row"),preview=document.createElement("img");preview.className="game-control-preview";preview.alt="";preview.loading="lazy";preview.src=game.imageData||game.imageUrl||`/assets/providers/${game.provider}.webp`;
    const info=node("div","game-control-info"),title=node("strong","",game.name||game.nameZh),meta=node("small","",`${game.providerName} · ${game.gameCode||"No game ID"} · ${category} · ${(game.accessZone||"paid").toUpperCase()} · effective ${String(game.status||"closed").toUpperCase()}${game.supplierStatus&&game.supplierStatus!=="active"?` · supplier ${game.supplierStatus}`:""}`),upload=document.createElement("input");upload.type="file";upload.accept="image/jpeg,image/png,image/webp";upload.className="game-art-upload";upload.disabled=!owner;upload.setAttribute("aria-label",`Upload ${game.name} game artwork · 800 × 600 px`);
@@ -2586,18 +2624,11 @@ index efd0ce0..7b7abf2 100644
  async function refreshTickets(append=false){if(!state.user){state.tickets=[];state.ticketPage=1;state.ticketHasMore=false;state.ticketUnread=0;state.ticketLatestEvent=null;renderTicketUnreadBadges();renderTickets();return;}const page=append?state.ticketPage+1:1;try{const r=await api(`/api/tickets?page=${page}&limit=20`);state.tickets=append?[...state.tickets,...(r.items||[])]:r.items||[];state.ticketPage=Number(r.page)||page;state.ticketHasMore=!!r.hasMore;state.ticketUnread=Number(r.unread)||0;if(state.ticketLatestEvent===null)state.ticketLatestEvent=r.latestEvent||"";else if(typeof r.latestEvent==="string")state.ticketLatestEvent=r.latestEvent;renderTicketUnreadBadges();renderTickets();if(state.section==="support")await markVisibleTicketsRead();}catch(e){notification(e.message)}}
  async function pollTicketNotifications(){if(state.ticketPollBusy||document.visibilityState!=="visible"||!state.user)return;state.ticketPollBusy=true;try{const data=await api("/api/tickets/notifications"),next=typeof data.latestEvent==="string"?data.latestEvent:"",previous=state.ticketLatestEvent;state.ticketUnread=Number(data.unread)||0;state.ticketLatestEvent=next;renderTicketUnreadBadges();if(previous!==null&&next&&next!==previous&&state.ticketUnread>0){try{if(state.financialSoundEnabled!==false&&!playTicketTone())armFinancialAudio();}catch{}notification("💬 收到新的客服消息 / New support message");}if(state.section==="support"&&state.ticketUnread>0)await refreshTickets();}catch{}finally{state.ticketPollBusy=false;}}
 -async function loadPublic(){try{const [providers,anns,social,channels,supplierArt,vpayStatus,oneMpayStatus,gspayStatus]=await Promise.all([api("/api/providers"),api("/api/announcements"),api("/api/social-links"),api("/api/payment-channels"),api("/api/supplier-art-list"),api("/api/payments/vpay/status").catch(()=>null),api("/api/payments/1mpay/status").catch(()=>null),api("/api/payments/gspay/status").catch(()=>null)]);state.paymentChannels=Object.fromEntries((channels.items||[]).map(x=>[x.provider_id,x.status]));state.paymentStatus=vpayStatus;state.oneMpayStatus=oneMpayStatus;state.gspayStatus=gspayStatus;state.providers=providers.items;state.announcements=anns.items;state.social=social;state.supplierArtwork=Object.fromEntries((supplierArt.items||[]).filter(x=>x.image_updated_at).map(x=>[x.provider_id,x.image_updated_at]));state.supplierControls=Object.fromEntries((supplierArt.items||[]).map(x=>[x.provider_id,x.status||"active"]));renderAnnouncements();renderSocial();renderBonusBrandPreview();renderPaymentPreview();renderApiSupplierButtons();}catch(e){notification(e.message)}await Promise.all([loadGameCatalogue(),loadLobbyContent(),window.Master7Engagement?.loadPublic()]);}
--async function loadGameCatalogue(providerId=state.selectedCatalogProvider){const requestId=++state.gameCatalogueRequestId,url=providerId?`/api/games?provider=${encodeURIComponent(providerId)}`:"/api/games";try{const catalogue=await api(url);if(requestId!==state.gameCatalogueRequestId)return;state.gameCatalogue=catalogue;state.gameRanking=catalogue.ranking||state.gameRanking;state.games=Array.isArray(catalogue.games)?catalogue.games:[];renderCatalog();renderApiSupplierButtons();}catch{if(requestId!==state.gameCatalogueRequestId)return;state.gameCatalogue={...(state.gameCatalogue||{}),selectedProvider:providerId,providers:state.gameCatalogue?.providers||[],games:[]};state.games=[];renderCatalog();renderApiSupplierButtons();}}
-+async function loadPublic(){const catalogueLoading=loadGameCatalogue();try{const [providers,anns,social,channels,supplierArt,vpayStatus,oneMpayStatus,gspayStatus]=await Promise.all([api("/api/providers"),api("/api/announcements"),api("/api/social-links"),api("/api/payment-channels"),api("/api/supplier-art-list"),api("/api/payments/vpay/status").catch(()=>null),api("/api/payments/1mpay/status").catch(()=>null),api("/api/payments/gspay/status").catch(()=>null)]);state.paymentChannels=Object.fromEntries((channels.items||[]).map(x=>[x.provider_id,x.status]));state.paymentStatus=vpayStatus;state.oneMpayStatus=oneMpayStatus;state.gspayStatus=gspayStatus;state.providers=providers.items;state.announcements=anns.items;state.social=social;state.supplierArtwork=Object.fromEntries((supplierArt.items||[]).filter(x=>x.image_updated_at).map(x=>[x.provider_id,x.image_updated_at]));renderAnnouncements();renderSocial();renderBonusBrandPreview();renderPaymentPreview();renderApiSupplierButtons();}catch(e){notification(e.message)}await Promise.all([catalogueLoading,loadLobbyContent(),window.Master7Engagement?.loadPublic()]);}
-+async function loadGameCatalogue(providerId=state.selectedCatalogProvider){
-+ const requestId=++state.gameCatalogueRequestId,url=providerId?`/api/games?provider=${encodeURIComponent(providerId)}`:"/api/games";state.gameCatalogueLoading=true;state.gameCatalogueError=null;state.gameCatalogueRequestProvider=providerId||null;renderCatalog();renderApiSupplierButtons();
-+ try{const catalogue=await api(url);if(requestId!==state.gameCatalogueRequestId)return;if(!catalogue||!Array.isArray(catalogue.providers)||!Array.isArray(catalogue.games)||providerId&&catalogue.selectedProvider!==providerId)throw new Error("Invalid catalogue response");state.gameCatalogue=catalogue;state.gameRanking=catalogue.ranking||state.gameRanking;state.games=catalogue.games;}
-+ catch{if(requestId!==state.gameCatalogueRequestId)return;state.gameCatalogueError={providerId:providerId||null};state.games=[];}
-+ finally{if(requestId===state.gameCatalogueRequestId){state.gameCatalogueLoading=false;renderCatalog();renderApiSupplierButtons();}}
-+}
++async function loadPublic(){try{const [providers,anns,social,channels,supplierArt,vpayStatus,oneMpayStatus,gspayStatus]=await Promise.all([api("/api/providers"),api("/api/announcements"),api("/api/social-links"),api("/api/payment-channels"),api("/api/supplier-art-list"),api("/api/payments/vpay/status").catch(()=>null),api("/api/payments/1mpay/status").catch(()=>null),api("/api/payments/gspay/status").catch(()=>null)]);state.paymentChannels=Object.fromEntries((channels.items||[]).map(x=>[x.provider_id,x.status]));state.paymentStatus=vpayStatus;state.oneMpayStatus=oneMpayStatus;state.gspayStatus=gspayStatus;state.providers=providers.items;state.announcements=anns.items;state.social=social;state.supplierArtwork=Object.fromEntries((supplierArt.items||[]).filter(x=>x.image_updated_at).map(x=>[x.provider_id,x.image_updated_at]));renderAnnouncements();renderSocial();renderBonusBrandPreview();renderPaymentPreview();renderApiSupplierButtons();}catch(e){notification(e.message)}await Promise.all([loadGameCatalogue(),loadLobbyContent(),window.Master7Engagement?.loadPublic()]);}
+ async function loadGameCatalogue(providerId=state.selectedCatalogProvider){const requestId=++state.gameCatalogueRequestId,url=providerId?`/api/games?provider=${encodeURIComponent(providerId)}`:"/api/games";try{const catalogue=await api(url);if(requestId!==state.gameCatalogueRequestId)return;state.gameCatalogue=catalogue;state.gameRanking=catalogue.ranking||state.gameRanking;state.games=Array.isArray(catalogue.games)?catalogue.games:[];renderCatalog();renderApiSupplierButtons();}catch{if(requestId!==state.gameCatalogueRequestId)return;state.gameCatalogue={...(state.gameCatalogue||{}),selectedProvider:providerId,providers:state.gameCatalogue?.providers||[],games:[]};state.games=[];renderCatalog();renderApiSupplierButtons();}}
  
  function renderItem(host,left,right,buttonLabel,action,disabled=false){const row=node("div","row-item"),lhs=node("div"),name=node("strong","",left);lhs.append(name);if(right)lhs.append(node("small","",right));row.append(lhs);if(buttonLabel){const btn=node("button","button button-outline",buttonLabel);btn.type="button";btn.disabled=disabled;btn.addEventListener("click",action);row.append(btn);}host.append(row);}
- const previewDashboardCopy = {
-@@ -761,7 +924,6 @@ async function loadAdminBase(force=false){if(state.adminBasePending)return state
+@@ -761,7 +911,6 @@ async function loadAdminBase(force=false){if(state.adminBasePending)return state
  const adminPanelLoaders=Object.freeze({
   operationsPanel:()=>renderPreviewDashboards(),
   operationsAiPanel:()=>window.Master7OperationsIntelligence?.load(),
@@ -2605,7 +2636,7 @@ index efd0ce0..7b7abf2 100644
   financeCenterPanel:()=>window.Master7Finance?.load(),
   accountingPanel:()=>loadAccounting(),
   paymentChannelManager:()=>renderPaymentChannelManager(state.user?.role==="owner"),
-@@ -773,7 +935,6 @@ const adminPanelLoaders=Object.freeze({
+@@ -773,7 +922,6 @@ const adminPanelLoaders=Object.freeze({
   announcementPanel:()=>renderAnnouncementManager(),
   providerPanel:()=>renderProviderManager($("providerManager"),state.user?.role==="owner"),
   apiSupplierManager:()=>renderApiSupplierAdminButtons(state.user?.role==="owner"),
@@ -2613,7 +2644,7 @@ index efd0ce0..7b7abf2 100644
   gameRankingPanel:()=>window.Master7GameRanking?.loadAdmin(),
   gameSyncPanel:()=>renderGameSync(),
   gameCatalogManager:()=>setupGameControlPanel(state.user?.role==="owner"),
-@@ -795,7 +956,7 @@ const adminPanelLoaders=Object.freeze({
+@@ -795,7 +943,7 @@ const adminPanelLoaders=Object.freeze({
  });
  async function loadAdminPanel(panelId=state.adminPanel,{force=false}={}){const auth=state.user&&["owner","staff"].includes(state.user.role);if(!auth)return;if(state.adminPendingPanels.has(panelId))return state.adminPendingPanels.get(panelId);if(state.adminLoadedPanels.has(panelId)&&!force){if(panelId==="operationsPanel"&&state.adminSummary&&state.adminOperations)paintOperationsDashboard(state.adminSummary,state.adminOperations);else if(panelId==="securityPanel"&&state.adminSecurity)paintSecurityDashboard(state.adminSecurity);return;}const loader=adminPanelLoaders[panelId]||(()=>{}),task=(async()=>{if(panelId==="operationsPanel")await loadAdminBase();await loader(force);state.adminLoadedPanels.add(panelId);})();state.adminPendingPanels.set(panelId,task);try{await task;}finally{if(state.adminPendingPanels.get(panelId)===task)state.adminPendingPanels.delete(panelId);}}
  function toggleAdminMenu(open){document.body.classList.toggle("admin-menu-open",!!open);$("adminMenuToggle")?.setAttribute("aria-expanded",String(!!open));if($("adminMenuBackdrop"))$("adminMenuBackdrop").hidden=!open;}
@@ -2622,7 +2653,7 @@ index efd0ce0..7b7abf2 100644
  async function renderAdmin({forceBase=false,forcePanel=false}={}){const auth=state.user&&(state.user.role==="owner"||state.user.role==="staff");$("adminBody").hidden=!auth;$("adminDenied").hidden=!!auth;if(!auth)return;const owner=state.user.role==="owner";$("adminCommandUser").textContent=`${state.user.username} · ${owner?"Admin":"Staff"}`;$("pendingPanel").hidden=!owner;$("auditPanel").hidden=!owner;selectAdminPanel(state.adminPanel,false);try{await loadAdminBase(forceBase);await loadAdminPanel(state.adminPanel,{force:forcePanel});selectAdminPanel(state.adminPanel,false);}catch(e){notification(e.message)}}
  function showAuth(mode="login"){
   state.authMode=mode;$("passwordForm").reset();$("authFeedback").textContent="";$("memberReferralCode").value=mode==="register"?referralCodeFromUrl():"";
-@@ -895,41 +1056,6 @@ function bindPasswordAuth(){
+@@ -895,41 +1043,6 @@ function bindPasswordAuth(){
    }finally{submit.disabled=false;renderAuthMode();}
   });
  }
@@ -2664,7 +2695,7 @@ index efd0ce0..7b7abf2 100644
  const customerFeatureGuides=Object.freeze({
   home:["查看 MASTER7 公告、品牌入口与平台状态，再进入游戏大厅。","前台只显示顾客功能；管理后台固定使用 master7.site/admin。"],
   lobby:["选择游戏类别或厂家大厅；34 家厂家保留各自原有 ID 和内部游戏。","赔率、RTP、注单和结算由厂家提供，平台只显示已开放的入口。"],
-@@ -937,22 +1063,14 @@ const customerFeatureGuides=Object.freeze({
+@@ -937,22 +1050,14 @@ const customerFeatureGuides=Object.freeze({
   withdraw:["填写本人银行资料并提交提款申请。","实际处理时间及状态以后台审核和出款通道结果为准。"],
   wallet:["查看真钱钱包、充值提款记录和游戏钱包状态。","显示金额来自已保存账本，不把处理中订单当成已入账。"],
   vip:["查看当前 VIP、升级进度、Cashback、礼金和限制。","只有已开启且数据来源通过验收的权益才会派发。"],
@@ -2687,7 +2718,7 @@ index efd0ce0..7b7abf2 100644
 -}
 -function bind(){installFeatureGuides();bindPlatformGames();updateOrganicPromotion();$("organicPromoLanguage").onchange=updateOrganicPromotion;document.querySelectorAll("[data-organic-share]").forEach(button=>button.onclick=()=>shareOrganicPromotion(button.dataset.organicShare));$("socialEnabled").onchange=()=>paintContactAdminState();$("metaPixelEnabled").onchange=()=>paintContactAdminState();$("iosInstallGuide").onclick=()=>$("iosInstallDialog").showModal();$("iosInstallClose").onclick=$("iosInstallDone").onclick=()=>$("iosInstallDialog").close();$("marketingImportForm").addEventListener("submit",importMarketingContacts);$("marketingCampaignForm").addEventListener("submit",saveMarketingCampaign);$("marketingCampaignImage").addEventListener("change",previewMarketingImageSelection);$("marketingContactsRefresh").onclick=()=>loadMarketingContacts(state.marketingContactPage);$("marketingContactSearchButton").onclick=()=>loadMarketingContacts(1);$("marketingContactSearch").onkeydown=event=>{if(event.key==="Enter"){event.preventDefault();loadMarketingContacts(1);}};$("marketingContactConsent").onchange=()=>loadMarketingContacts(1);$("marketingContactsPrev").onclick=()=>loadMarketingContacts(Math.max(1,state.marketingContactPage-1));$("marketingContactsNext").onclick=()=>loadMarketingContacts(Math.min(state.marketingContactPages,state.marketingContactPage+1));$("marketingSendRate").addEventListener("input",updateMarketingDuration);updateMarketingDuration();$("marketingLaunch").onclick=()=>notification("请在下方选择已就绪的单个活动启动发送");$("createEncryptedBackup").onclick=createEncryptedBackup;try{state.financialSoundEnabled=localStorage.getItem("m7-financial-sound")!=="off";}catch{}renderFinancialAudioControl();$("financialAudioToggle").onclick=toggleFinancialAudio;document.addEventListener?.("pointerdown",event=>{if(!event.target?.closest?.("#financialAudioToggle"))armFinancialAudio();},{once:true});$("referralSettingsForm").addEventListener("submit",async event=>{event.preventDefault();$("commissionSaveStatus").textContent="Saving…";try{await api("/api/admin/referrals","POST",{action:"save",settings:commissionFormPayload()});await loadReferralAdmin();$("commissionSaveStatus").textContent="✅ Saved";notification("Commission settings saved");}catch(error){$("commissionSaveStatus").textContent=error.message;notification(error.message);}});$("refreshReferrals").onclick=()=>loadAdminPanel("referralAdminPanel",{force:true});$("copyAdminReferral").onclick=async()=>{const value=$("adminReferralLink").value;if(!value)return;try{await navigator.clipboard.writeText(value);notification("注册链接已复制");}catch{notification(value);}};$("commissionBasis").onchange=updateCommissionBasisNotice;$("commissionRunNow").onclick=async()=>{try{const result=await api("/api/admin/referrals","POST",{action:"run"});await loadReferralAdmin();selectCommissionTab("ledger");notification(result.message);}catch(error){notification(error.message);}};document.querySelectorAll("[data-commission-tab]").forEach(button=>button.onclick=()=>selectCommissionTab(button.dataset.commissionTab));$("supportAutomationForm").addEventListener("submit",async event=>{event.preventDefault();try{await api("/api/admin/support-settings","POST",{aiEnabled:$("supportAiEnabled").checked,humanHandoff:$("supportHumanHandoff").checked});await loadSupportAutomation();notification("Support settings saved");}catch(error){notification(error.message);}});$("telegramBotTest").onclick=async()=>{const button=$("telegramBotTest");button.disabled=true;try{await api("/api/admin/telegram-bot","POST",{action:"test"});notification("Telegram 测试通知已发送");await loadTelegramBot();}catch(error){notification(error.message);}finally{button.disabled=false;}};$("refreshSystemReadiness").onclick=()=>loadAdminPanel("systemReadinessPanel",{force:true});$("adminMenuToggle").onclick=()=>toggleAdminMenu(true);$("adminMenuClose").onclick=()=>toggleAdminMenu(false);$("adminMenuBackdrop").onclick=()=>toggleAdminMenu(false);$("adminNotificationButton").onclick=openAdminNotifications;document.querySelectorAll("[data-admin-shortcut]").forEach(link=>link.onclick=event=>{event.preventDefault();selectAdminPanel(link.dataset.adminShortcut);});document.addEventListener("keydown",event=>{if(event.key==="Escape")toggleAdminMenu(false);});document.querySelectorAll("[data-accounting-period]").forEach(button=>button.onclick=()=>loadAccounting(button.dataset.accountingPeriod,""));$("refreshAccounting").onclick=()=>loadAdminPanel("accountingPanel",{force:true});$("loadAccountingMonth").onclick=()=>{const month=$("accountingMonth").value;if(month)loadAccounting("month",month);};for(const link of document.querySelectorAll(".admin-internal-sidebar a")){link.onclick=event=>{event.preventDefault();selectAdminPanel(link.getAttribute("href").slice(1));toggleAdminMenu(false);};}for(const id of ["benefitExampleDeposit","benefitAmount","benefitPercent","benefitMinDeposit","benefitMaxReward","benefitMultiplier","benefitTurnoverBase","benefitTurnover"]){$(id)?.addEventListener("input",renderBenefitCalculationPreview);$(id)?.addEventListener("change",renderBenefitCalculationPreview);}renderBenefitCalculationPreview();$("apiSupplierToggle")?.addEventListener("click",()=>{state.supplierExpanded=!state.supplierExpanded;renderApiSupplierButtons();});document.querySelectorAll("[data-game-zone]").forEach(button=>button.onclick=()=>{state.gameAccessZone=button.dataset.gameZone;state.gameLimit=12;document.querySelectorAll("[data-game-zone]").forEach(x=>x.classList.toggle("active",x===button));renderCatalog();});document.querySelectorAll("[data-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.gameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.sidebarGameCategory===state.gameCategory));renderApiSupplierButtons();renderCatalog();});document.querySelectorAll("[data-sidebar-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.sidebarGameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x===button));selected("lobby");renderApiSupplierButtons();renderCatalog();document.querySelector(".game-category-filters")?.scrollIntoView({behavior:"smooth",block:"start"});});$("clearProviderFilter").onclick=()=>{state.gameCatalogueRequestId++;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;state.gameLimit=12;state.games=[];state.gameCatalogue={...(state.gameCatalogue||{}),games:[],providersOnly:true,platformsOnly:true,selectedProvider:null,selectedPlatform:null};renderCatalog();$("apiSupplierButtons").scrollIntoView({behavior:"smooth",block:"start"});};document.querySelectorAll("[data-section]").forEach(b=>b.onclick=()=>selected(b.dataset.section));$("exploreButton").onclick=()=>selected("lobby");$("aboutButton").onclick=async()=>{try{const data=await api("/health");notification(`${t("statusTitle")}: ${data.status} · ${data.release} · ${t("statusMessage")}`);}catch(e){notification(e.message)}};$("loginButton").onclick=()=>showAuth();$("closeAuth").onclick=()=>$("authDialog").close();$("refreshTickets").onclick=refreshTickets;$("refreshWallet").onclick=loadMemberWallet;$("refreshPaymentRecords").onclick=loadMemberWallet;$("refreshGameWallet").onclick=loadGameWallet;$("gameWalletSettle").onclick=()=>settleGameWallet(false);$("gameWalletRecover").onclick=recoverGameWallet;$("refreshAdminGameWallet").onclick=()=>loadAdminPanel("gameWalletAdminPanel",{force:true});$("refreshAdminDeposits").onclick=()=>loadAdminPanel("adminDepositPanel",{force:true});$("syncGamesNow").onclick=async()=>{await renderGameSync(true);state.adminLoadedPanels.add("gameSyncPanel");};$("refreshWithdrawals").onclick=loadWithdrawals;$("refreshAdminWithdrawals").onclick=()=>loadAdminPanel("adminWithdrawalPanel",{force:true});$("withdrawalForm").addEventListener("submit",submitWithdrawalForm);$("vpayOrderForm").addEventListener("submit",submitVPayOrder);$("oneMpayOrderForm").addEventListener("submit",submitOneMpayOrder);$("search").oninput=()=>{renderApiSupplierButtons();renderCatalog();};$("category").onchange=renderCatalog;$("locale").onchange=e=>{state.lang=e.target.value;try{localStorage.setItem("m7-language",state.lang);}catch{}applyLang();renderApiSupplierButtons();};$("lobbyAdPrevious").onclick=()=>{state.adIndex--;renderCarousel();};$("lobbyAdNext").onclick=()=>{state.adIndex++;renderCarousel();};$("lobbyAdCancel").onclick=resetAdForm;$("lobbyAdForm").addEventListener("submit",async e=>{e.preventDefault();const button=$("lobbyAdSave");button.disabled=true;try{const file=$("lobbyAdFile").files[0],imageData=file?await imageDataForUpload(file):"";await api("/api/admin/ads","POST",{action:"save",id:state.editAdId||undefined,title:$("lobbyAdTitle").value,targetUrl:$("lobbyAdTarget").value,imageData,status:$("lobbyAdStatus").value,startsAt:$("lobbyAdStartsAt").value,endsAt:$("lobbyAdEndsAt").value,position:state.adminAds?.length||0});resetAdForm();await loadLobbyContent();await renderAdManager();notification(t("success"));}catch(err){$("lobbyAdFormStatus").textContent=err.message;}finally{button.disabled=false;}});$("benefitCancel").onclick=resetBenefitForm;$("benefitForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/benefits","POST",benefitFormPayload("draft"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}});$("benefitPublish").onclick=async()=>{if(!$("benefitForm").reportValidity())return;try{await api("/api/admin/benefits","POST",benefitFormPayload("active"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}};$("ticketForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user){showAuth();return;}try{await api("/api/tickets","POST",{subject:$("ticketSubject").value,message:$("ticketMessage").value});$("ticketForm").reset();await refreshTickets();notification(t("success"));}catch(err){notification(err.message)}});$("socialForm").addEventListener("submit",async e=>{e.preventDefault();$("socialFormStatus").textContent="Saving…";try{await api("/api/admin/social-links","POST",{enabled:$("socialEnabled").checked,hotline:$("hotlineContact").value,whatsapp:$("whatsappContact").value,wechat:$("wechatContact").value,lineUrl:$("lineContact").value,telegramUrl:$("telegramContact").value,facebookUrl:$("facebookLink").value,instagramUrl:$("instagramLink").value,pixelEnabled:$("metaPixelEnabled").checked,metaPixelId:$("metaPixelId").value});await loadPublic();await renderSocialAdmin(true);$("socialFormStatus").textContent="✅ Saved";notification(t("success"));}catch(err){$("socialFormStatus").textContent=err.message;notification(err.message)}});$("announcementCancel").onclick=resetAnnouncementForm;$("announcementForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/announcement","POST",{action:"save",id:state.editAnnouncementId||undefined,title:$("announcementTitle").value,body:$("announcementBody").value,status:$("announcementStatus").value,startsAt:$("announcementStartsAt").value,endsAt:$("announcementEndsAt").value});resetAnnouncementForm();await loadPublic();await renderAnnouncementManager();notification(t("success"));}catch(err){$("announcementFormStatus").textContent=err.message;}});}
 +function installFeatureGuides(){for(const [id,lines] of Object.entries(customerFeatureGuides)){const host=$(id);if(host&&!host.querySelector(":scope > .feature-inline-guide"))host.append(featureGuide("顾客前台",lines));}}
-+function bind(){installFeatureGuides();updateOrganicPromotion();$("organicPromoLanguage").onchange=updateOrganicPromotion;document.querySelectorAll("[data-organic-share]").forEach(button=>button.onclick=()=>shareOrganicPromotion(button.dataset.organicShare));$("socialEnabled").onchange=()=>paintContactAdminState();$("metaPixelEnabled").onchange=()=>paintContactAdminState();$("iosInstallGuide").onclick=()=>$("iosInstallDialog").showModal();$("iosInstallClose").onclick=$("iosInstallDone").onclick=()=>$("iosInstallDialog").close();$("marketingImportForm").addEventListener("submit",importMarketingContacts);$("marketingCampaignForm").addEventListener("submit",saveMarketingCampaign);$("marketingCampaignImage").addEventListener("change",previewMarketingImageSelection);$("marketingContactsRefresh").onclick=()=>loadMarketingContacts(state.marketingContactPage);$("marketingContactSearchButton").onclick=()=>loadMarketingContacts(1);$("marketingContactSearch").onkeydown=event=>{if(event.key==="Enter"){event.preventDefault();loadMarketingContacts(1);}};$("marketingContactConsent").onchange=()=>loadMarketingContacts(1);$("marketingContactsPrev").onclick=()=>loadMarketingContacts(Math.max(1,state.marketingContactPage-1));$("marketingContactsNext").onclick=()=>loadMarketingContacts(Math.min(state.marketingContactPages,state.marketingContactPage+1));$("marketingSendRate").addEventListener("input",updateMarketingDuration);updateMarketingDuration();$("createEncryptedBackup").onclick=createEncryptedBackup;try{state.financialSoundEnabled=localStorage.getItem("m7-financial-sound")!=="off";}catch{}renderFinancialAudioControl();$("financialAudioToggle").onclick=toggleFinancialAudio;document.addEventListener?.("pointerdown",event=>{if(!event.target?.closest?.("#financialAudioToggle"))armFinancialAudio();},{once:true});$("referralSettingsForm").addEventListener("submit",async event=>{event.preventDefault();$("commissionSaveStatus").textContent="Saving…";try{await api("/api/admin/referrals","POST",{action:"save",settings:commissionFormPayload()});await loadReferralAdmin();$("commissionSaveStatus").textContent="✅ Saved";notification("Commission settings saved");}catch(error){$("commissionSaveStatus").textContent=error.message;notification(error.message);}});$("refreshReferrals").onclick=()=>loadAdminPanel("referralAdminPanel",{force:true});$("copyAdminReferral").onclick=async()=>{const value=$("adminReferralLink").value;if(!value)return;try{await navigator.clipboard.writeText(value);notification("注册链接已复制");}catch{notification(value);}};$("commissionBasis").onchange=updateCommissionBasisNotice;$("commissionRunNow").onclick=async()=>{try{const result=await api("/api/admin/referrals","POST",{action:"run"});await loadReferralAdmin();selectCommissionTab("ledger");notification(result.message);}catch(error){notification(error.message);}};document.querySelectorAll("[data-commission-tab]").forEach(button=>button.onclick=()=>selectCommissionTab(button.dataset.commissionTab));$("supportAutomationForm").addEventListener("submit",async event=>{event.preventDefault();try{await api("/api/admin/support-settings","POST",{aiEnabled:$("supportAiEnabled").checked,humanHandoff:$("supportHumanHandoff").checked});await loadSupportAutomation();notification("Support settings saved");}catch(error){notification(error.message);}});$("telegramBotTest").onclick=async()=>{const button=$("telegramBotTest");button.disabled=true;try{await api("/api/admin/telegram-bot","POST",{action:"test"});notification("Telegram 测试通知已发送");await loadTelegramBot();}catch(error){notification(error.message);}finally{button.disabled=false;}};$("refreshSystemReadiness").onclick=()=>loadAdminPanel("systemReadinessPanel",{force:true});$("adminMenuToggle").onclick=()=>toggleAdminMenu(true);$("adminMenuClose").onclick=()=>toggleAdminMenu(false);$("adminMenuBackdrop").onclick=()=>toggleAdminMenu(false);$("adminNotificationButton").onclick=openAdminNotifications;$("adminSupportButton").onclick=event=>{event.preventDefault();openAdminNotifications();};document.querySelectorAll("[data-admin-shortcut]").forEach(link=>link.onclick=event=>{event.preventDefault();selectAdminPanel(link.dataset.adminShortcut);});document.addEventListener("keydown",event=>{if(event.key==="Escape")toggleAdminMenu(false);});document.querySelectorAll("[data-accounting-period]").forEach(button=>button.onclick=()=>loadAccounting(button.dataset.accountingPeriod,""));$("refreshAccounting").onclick=()=>loadAdminPanel("accountingPanel",{force:true});$("loadAccountingMonth").onclick=()=>{const month=$("accountingMonth").value;if(month)loadAccounting("month",month);};for(const link of document.querySelectorAll(".admin-internal-sidebar a")){link.onclick=event=>{event.preventDefault();selectAdminPanel(link.getAttribute("href").slice(1));toggleAdminMenu(false);};}for(const id of ["benefitExampleDeposit","benefitAmount","benefitPercent","benefitMinDeposit","benefitMaxReward","benefitMultiplier","benefitTurnoverBase","benefitTurnover"]){$(id)?.addEventListener("input",renderBenefitCalculationPreview);$(id)?.addEventListener("change",renderBenefitCalculationPreview);}renderBenefitCalculationPreview();document.querySelectorAll("[data-game-zone]").forEach(button=>button.onclick=()=>{state.gameAccessZone=button.dataset.gameZone;state.gameLimit=12;document.querySelectorAll("[data-game-zone]").forEach(x=>x.classList.toggle("active",x===button));renderCatalog();});document.querySelectorAll("[data-game-category]").forEach(button=>button.onclick=()=>{if(state.selectedCatalogProvider)clearCatalogProviderSelection();state.gameCategory=button.dataset.gameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.sidebarGameCategory===state.gameCategory));renderApiSupplierButtons();renderCatalog();});document.querySelectorAll("[data-sidebar-game-category]").forEach(button=>button.onclick=()=>{if(state.selectedCatalogProvider)clearCatalogProviderSelection();state.gameCategory=button.dataset.sidebarGameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x===button));selected("lobby");renderApiSupplierButtons();renderCatalog();document.querySelector(".game-category-filters")?.scrollIntoView({behavior:"smooth",block:"start"});});$("clearProviderFilter").onclick=()=>{clearCatalogProviderSelection();renderApiSupplierButtons();renderCatalog();$("apiSupplierButtons").scrollIntoView({behavior:"smooth",block:"start"});};document.querySelectorAll("[data-section]").forEach(b=>b.onclick=()=>selected(b.dataset.section));$("exploreButton").onclick=()=>selected("lobby");$("aboutButton").onclick=async()=>{try{const data=await api("/health");notification(`${t("statusTitle")}: ${data.status} · ${data.release} · ${t("statusMessage")}`);}catch(e){notification(e.message)}};$("loginButton").onclick=()=>showAuth();$("closeAuth").onclick=()=>$("authDialog").close();$("refreshTickets").onclick=()=>refreshTickets();$("refreshWallet").onclick=loadMemberWallet;$("refreshPaymentRecords").onclick=loadMemberWallet;$("refreshGameWallet").onclick=loadGameWallet;$("gameWalletSettle").onclick=()=>settleGameWallet(false);$("gameWalletRecover").onclick=recoverGameWallet;$("refreshAdminGameWallet").onclick=()=>loadAdminPanel("gameWalletAdminPanel",{force:true});$("refreshAdminDeposits").onclick=()=>loadAdminPanel("adminDepositPanel",{force:true});$("syncGamesNow").onclick=async()=>{await renderGameSync(true);state.adminLoadedPanels.add("gameSyncPanel");};$("refreshWithdrawals").onclick=loadWithdrawals;$("refreshAdminWithdrawals").onclick=()=>loadAdminPanel("adminWithdrawalPanel",{force:true});$("withdrawalForm").addEventListener("submit",submitWithdrawalForm);$("vpayOrderForm").addEventListener("submit",submitVPayOrder);$("oneMpayOrderForm").addEventListener("submit",submitOneMpayOrder);$("search").oninput=()=>{renderApiSupplierButtons();renderCatalog();};$("locale").onchange=e=>{state.lang=e.target.value;try{localStorage.setItem("m7-language",state.lang);}catch{}applyLang();renderApiSupplierButtons();};$("lobbyAdPrevious").onclick=()=>{state.adIndex--;renderCarousel();};$("lobbyAdNext").onclick=()=>{state.adIndex++;renderCarousel();};$("lobbyAdCancel").onclick=resetAdForm;$("lobbyAdForm").addEventListener("submit",async e=>{e.preventDefault();const button=$("lobbyAdSave");button.disabled=true;try{const file=$("lobbyAdFile").files[0],imageData=file?await imageDataForUpload(file):"";await api("/api/admin/ads","POST",{action:"save",id:state.editAdId||undefined,title:$("lobbyAdTitle").value,targetUrl:$("lobbyAdTarget").value,imageData,status:$("lobbyAdStatus").value,startsAt:$("lobbyAdStartsAt").value,endsAt:$("lobbyAdEndsAt").value,position:state.adminAds?.length||0});resetAdForm();await loadLobbyContent();await renderAdManager();notification(t("success"));}catch(err){$("lobbyAdFormStatus").textContent=err.message;}finally{button.disabled=false;}});$("benefitCancel").onclick=resetBenefitForm;$("benefitForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/benefits","POST",benefitFormPayload("draft"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}});$("benefitPublish").onclick=async()=>{if(!$("benefitForm").reportValidity())return;try{await api("/api/admin/benefits","POST",benefitFormPayload("active"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}};$("ticketForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user){showAuth();return;}try{await api("/api/tickets","POST",{subject:$("ticketSubject").value,message:$("ticketMessage").value});$("ticketForm").reset();await refreshTickets();notification(t("success"));}catch(err){notification(err.message)}});$("socialForm").addEventListener("submit",async e=>{e.preventDefault();$("socialFormStatus").textContent="Saving…";try{await api("/api/admin/social-links","POST",{enabled:$("socialEnabled").checked,hotline:$("hotlineContact").value,whatsapp:$("whatsappContact").value,wechat:$("wechatContact").value,lineUrl:$("lineContact").value,telegramUrl:$("telegramContact").value,facebookUrl:$("facebookLink").value,instagramUrl:$("instagramLink").value,pixelEnabled:$("metaPixelEnabled").checked,metaPixelId:$("metaPixelId").value});await loadPublic();await renderSocialAdmin(true);$("socialFormStatus").textContent="✅ Saved";notification(t("success"));}catch(err){$("socialFormStatus").textContent=err.message;notification(err.message)}});$("announcementCancel").onclick=resetAnnouncementForm;$("announcementForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/announcement","POST",{action:"save",id:state.editAnnouncementId||undefined,title:$("announcementTitle").value,body:$("announcementBody").value,status:$("announcementStatus").value,startsAt:$("announcementStartsAt").value,endsAt:$("announcementEndsAt").value});resetAnnouncementForm();await loadPublic();await renderAnnouncementManager();notification(t("success"));}catch(err){$("announcementFormStatus").textContent=err.message;}});}
++function bind(){installFeatureGuides();updateOrganicPromotion();$("organicPromoLanguage").onchange=updateOrganicPromotion;document.querySelectorAll("[data-organic-share]").forEach(button=>button.onclick=()=>shareOrganicPromotion(button.dataset.organicShare));$("socialEnabled").onchange=()=>paintContactAdminState();$("metaPixelEnabled").onchange=()=>paintContactAdminState();$("iosInstallGuide").onclick=()=>$("iosInstallDialog").showModal();$("iosInstallClose").onclick=$("iosInstallDone").onclick=()=>$("iosInstallDialog").close();$("marketingImportForm").addEventListener("submit",importMarketingContacts);$("marketingCampaignForm").addEventListener("submit",saveMarketingCampaign);$("marketingCampaignImage").addEventListener("change",previewMarketingImageSelection);$("marketingContactsRefresh").onclick=()=>loadMarketingContacts(state.marketingContactPage);$("marketingContactSearchButton").onclick=()=>loadMarketingContacts(1);$("marketingContactSearch").onkeydown=event=>{if(event.key==="Enter"){event.preventDefault();loadMarketingContacts(1);}};$("marketingContactConsent").onchange=()=>loadMarketingContacts(1);$("marketingContactsPrev").onclick=()=>loadMarketingContacts(Math.max(1,state.marketingContactPage-1));$("marketingContactsNext").onclick=()=>loadMarketingContacts(Math.min(state.marketingContactPages,state.marketingContactPage+1));$("marketingSendRate").addEventListener("input",updateMarketingDuration);updateMarketingDuration();$("createEncryptedBackup").onclick=createEncryptedBackup;try{state.financialSoundEnabled=localStorage.getItem("m7-financial-sound")!=="off";}catch{}renderFinancialAudioControl();$("financialAudioToggle").onclick=toggleFinancialAudio;document.addEventListener?.("pointerdown",event=>{if(!event.target?.closest?.("#financialAudioToggle"))armFinancialAudio();},{once:true});$("referralSettingsForm").addEventListener("submit",async event=>{event.preventDefault();$("commissionSaveStatus").textContent="Saving…";try{await api("/api/admin/referrals","POST",{action:"save",settings:commissionFormPayload()});await loadReferralAdmin();$("commissionSaveStatus").textContent="✅ Saved";notification("Commission settings saved");}catch(error){$("commissionSaveStatus").textContent=error.message;notification(error.message);}});$("refreshReferrals").onclick=()=>loadAdminPanel("referralAdminPanel",{force:true});$("copyAdminReferral").onclick=async()=>{const value=$("adminReferralLink").value;if(!value)return;try{await navigator.clipboard.writeText(value);notification("注册链接已复制");}catch{notification(value);}};$("commissionBasis").onchange=updateCommissionBasisNotice;$("commissionRunNow").onclick=async()=>{try{const result=await api("/api/admin/referrals","POST",{action:"run"});await loadReferralAdmin();selectCommissionTab("ledger");notification(result.message);}catch(error){notification(error.message);}};document.querySelectorAll("[data-commission-tab]").forEach(button=>button.onclick=()=>selectCommissionTab(button.dataset.commissionTab));$("supportAutomationForm").addEventListener("submit",async event=>{event.preventDefault();try{await api("/api/admin/support-settings","POST",{aiEnabled:$("supportAiEnabled").checked,humanHandoff:$("supportHumanHandoff").checked});await loadSupportAutomation();notification("Support settings saved");}catch(error){notification(error.message);}});$("telegramBotTest").onclick=async()=>{const button=$("telegramBotTest");button.disabled=true;try{await api("/api/admin/telegram-bot","POST",{action:"test"});notification("Telegram 测试通知已发送");await loadTelegramBot();}catch(error){notification(error.message);}finally{button.disabled=false;}};$("refreshSystemReadiness").onclick=()=>loadAdminPanel("systemReadinessPanel",{force:true});$("adminMenuToggle").onclick=()=>toggleAdminMenu(true);$("adminMenuClose").onclick=()=>toggleAdminMenu(false);$("adminMenuBackdrop").onclick=()=>toggleAdminMenu(false);$("adminNotificationButton").onclick=openAdminNotifications;$("adminSupportButton").onclick=event=>{event.preventDefault();openAdminNotifications();};document.querySelectorAll("[data-admin-shortcut]").forEach(link=>link.onclick=event=>{event.preventDefault();selectAdminPanel(link.dataset.adminShortcut);});document.addEventListener("keydown",event=>{if(event.key==="Escape")toggleAdminMenu(false);});document.querySelectorAll("[data-accounting-period]").forEach(button=>button.onclick=()=>loadAccounting(button.dataset.accountingPeriod,""));$("refreshAccounting").onclick=()=>loadAdminPanel("accountingPanel",{force:true});$("loadAccountingMonth").onclick=()=>{const month=$("accountingMonth").value;if(month)loadAccounting("month",month);};for(const link of document.querySelectorAll(".admin-internal-sidebar a")){link.onclick=event=>{event.preventDefault();selectAdminPanel(link.getAttribute("href").slice(1));toggleAdminMenu(false);};}for(const id of ["benefitExampleDeposit","benefitAmount","benefitPercent","benefitMinDeposit","benefitMaxReward","benefitMultiplier","benefitTurnoverBase","benefitTurnover"]){$(id)?.addEventListener("input",renderBenefitCalculationPreview);$(id)?.addEventListener("change",renderBenefitCalculationPreview);}renderBenefitCalculationPreview();document.querySelectorAll("[data-game-zone]").forEach(button=>button.onclick=()=>{state.gameAccessZone=button.dataset.gameZone;state.gameLimit=12;document.querySelectorAll("[data-game-zone]").forEach(x=>x.classList.toggle("active",x===button));renderCatalog();});document.querySelectorAll("[data-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.gameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.sidebarGameCategory===state.gameCategory));renderApiSupplierButtons();renderCatalog();});document.querySelectorAll("[data-sidebar-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.sidebarGameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x===button));selected("lobby");renderApiSupplierButtons();renderCatalog();document.querySelector(".game-category-filters")?.scrollIntoView({behavior:"smooth",block:"start"});});$("clearProviderFilter").onclick=()=>{state.gameCatalogueRequestId++;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;state.gameLimit=12;state.games=[];state.gameCatalogue={...(state.gameCatalogue||{}),games:[],providersOnly:true,platformsOnly:true,selectedProvider:null,selectedPlatform:null};renderCatalog();$("apiSupplierButtons").scrollIntoView({behavior:"smooth",block:"start"});};document.querySelectorAll("[data-section]").forEach(b=>b.onclick=()=>selected(b.dataset.section));$("exploreButton").onclick=()=>selected("lobby");$("aboutButton").onclick=async()=>{try{const data=await api("/health");notification(`${t("statusTitle")}: ${data.status} · ${data.release} · ${t("statusMessage")}`);}catch(e){notification(e.message)}};$("loginButton").onclick=()=>showAuth();$("closeAuth").onclick=()=>$("authDialog").close();$("refreshTickets").onclick=()=>refreshTickets();$("refreshWallet").onclick=loadMemberWallet;$("refreshPaymentRecords").onclick=loadMemberWallet;$("refreshGameWallet").onclick=loadGameWallet;$("gameWalletSettle").onclick=()=>settleGameWallet(false);$("gameWalletRecover").onclick=recoverGameWallet;$("refreshAdminGameWallet").onclick=()=>loadAdminPanel("gameWalletAdminPanel",{force:true});$("refreshAdminDeposits").onclick=()=>loadAdminPanel("adminDepositPanel",{force:true});$("syncGamesNow").onclick=async()=>{await renderGameSync(true);state.adminLoadedPanels.add("gameSyncPanel");};$("refreshWithdrawals").onclick=loadWithdrawals;$("refreshAdminWithdrawals").onclick=()=>loadAdminPanel("adminWithdrawalPanel",{force:true});$("withdrawalForm").addEventListener("submit",submitWithdrawalForm);$("vpayOrderForm").addEventListener("submit",submitVPayOrder);$("oneMpayOrderForm").addEventListener("submit",submitOneMpayOrder);$("search").oninput=()=>{renderApiSupplierButtons();renderCatalog();};$("locale").onchange=e=>{state.lang=e.target.value;try{localStorage.setItem("m7-language",state.lang);}catch{}applyLang();renderApiSupplierButtons();};$("lobbyAdPrevious").onclick=()=>{state.adIndex--;renderCarousel();};$("lobbyAdNext").onclick=()=>{state.adIndex++;renderCarousel();};$("lobbyAdCancel").onclick=resetAdForm;$("lobbyAdForm").addEventListener("submit",async e=>{e.preventDefault();const button=$("lobbyAdSave");button.disabled=true;try{const file=$("lobbyAdFile").files[0],imageData=file?await imageDataForUpload(file):"";await api("/api/admin/ads","POST",{action:"save",id:state.editAdId||undefined,title:$("lobbyAdTitle").value,targetUrl:$("lobbyAdTarget").value,imageData,status:$("lobbyAdStatus").value,startsAt:$("lobbyAdStartsAt").value,endsAt:$("lobbyAdEndsAt").value,position:state.adminAds?.length||0});resetAdForm();await loadLobbyContent();await renderAdManager();notification(t("success"));}catch(err){$("lobbyAdFormStatus").textContent=err.message;}finally{button.disabled=false;}});$("benefitCancel").onclick=resetBenefitForm;$("benefitForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/benefits","POST",benefitFormPayload("draft"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}});$("benefitPublish").onclick=async()=>{if(!$("benefitForm").reportValidity())return;try{await api("/api/admin/benefits","POST",benefitFormPayload("active"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}};$("ticketForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user){showAuth();return;}try{await api("/api/tickets","POST",{subject:$("ticketSubject").value,message:$("ticketMessage").value});$("ticketForm").reset();await refreshTickets();notification(t("success"));}catch(err){notification(err.message)}});$("socialForm").addEventListener("submit",async e=>{e.preventDefault();$("socialFormStatus").textContent="Saving…";try{await api("/api/admin/social-links","POST",{enabled:$("socialEnabled").checked,hotline:$("hotlineContact").value,whatsapp:$("whatsappContact").value,wechat:$("wechatContact").value,lineUrl:$("lineContact").value,telegramUrl:$("telegramContact").value,facebookUrl:$("facebookLink").value,instagramUrl:$("instagramLink").value,pixelEnabled:$("metaPixelEnabled").checked,metaPixelId:$("metaPixelId").value});await loadPublic();await renderSocialAdmin(true);$("socialFormStatus").textContent="✅ Saved";notification(t("success"));}catch(err){$("socialFormStatus").textContent=err.message;notification(err.message)}});$("announcementCancel").onclick=resetAnnouncementForm;$("announcementForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/announcement","POST",{action:"save",id:state.editAnnouncementId||undefined,title:$("announcementTitle").value,body:$("announcementBody").value,status:$("announcementStatus").value,startsAt:$("announcementStartsAt").value,endsAt:$("announcementEndsAt").value});resetAnnouncementForm();await loadPublic();await renderAnnouncementManager();notification(t("success"));}catch(err){$("announcementFormStatus").textContent=err.message;}});}
  (function restoreLanguage(){try{const saved=localStorage.getItem("m7-language");if(["en","zh","ms"].includes(saved))state.lang=saved;}catch{}})();
  Object.assign(translations.zh,{registrationDone:"注册成功，手机号已验证。请使用会员 ID、密码和手机 OTP 登录。",registerSaved:"注册成功，请登录。",loginNotice:"输入会员 ID 和密码，再把发送到登记手机的 6 位 OTP 填入小格。",managementSignIn:"后台管理登录",managementLoginNotice:"请输入管理员或员工 ID 与密码。",featureOtpDesc:"注册时验证马来西亚手机号；会员登录使用 ID、密码和短信 OTP"});
  Object.assign(translations.en,{registrationDone:"Registration complete and phone verified. Sign in with your member ID, password and mobile OTP.",registerSaved:"Registered. Please sign in.",loginNotice:"Enter your member ID and password, then type the 6-digit OTP sent to your registered mobile.",managementSignIn:"Management sign-in",managementLoginNotice:"Enter your administrator or staff ID and password.",featureOtpDesc:"Verify your Malaysian phone at registration; member sign-in uses ID, password and SMS OTP"});
@@ -3131,12 +3162,12 @@ index 9e3f061..dc93cfb 100644
   function renderTierEditor(program){const host=byId("vipTierEditor"),tiers=tiersFrom(program);host.replaceChildren();for(const section of vipMatrixSections){const view=text("section","vip-tier-matrix-view");view.dataset.vipMatrixView=section.id;const scroll=text("div","vip-tier-matrix-scroll"),table=text("table","vip-tier-admin-table"),caption=text("caption","sr-only",`VIP ${section.id} settings`),head=document.createElement("thead"),headRow=document.createElement("tr");headRow.append(text("th","vip-tier-setting-head","Setting"));for(const [index,tier] of tiers.entries()){const cell=text("th","vip-tier-column-head");cell.dataset.vipTier=String(index);cell.style.setProperty("--vip-tier-color",tier.color);cell.append(text("small","",`VIP ${tier.level}`),text("strong","",tier.name));headRow.append(cell);}head.append(headRow);const body=document.createElement("tbody");for(const row of section.rows){const line=document.createElement("tr"),label=text("th","vip-tier-row-label",row.label);label.scope="row";line.append(label);for(const [index,tier] of tiers.entries()){const cell=document.createElement("td");cell.append(vipMatrixInput(row,tier,index));line.append(cell);}body.append(line);}table.append(caption,head,body);scroll.append(table);view.append(scroll);host.append(view);}selectVipMatrixTab(adminState.matrixTab);}
   function readinessCard(host,label,ready,description){const card=text("article","vip-readiness-card");card.append(text("strong","",label),text("span",`vip-status-chip ${ready?"ready":"pending"}`,ready?"READY":"DISABLED"),text("p","",description));host.append(card);}
 diff --git a/public/service-worker.js b/public/service-worker.js
-index dc317fa..807ab20 100644
+index dc317fa..f85be95 100644
 --- a/public/service-worker.js
 +++ b/public/service-worker.js
 @@ -1,4 +1,4 @@
 -const CACHE='master7-shell-17.0.0-selfbuilt.94-readiness-split';
-+const CACHE='master7-shell-17.0.0-selfbuilt.99-provider-entry';
++const CACHE='master7-shell-17.0.0-selfbuilt.99-payment-settlement';
  const SHELL=['/offline.html','/manifest.webmanifest','/favicon.svg','/assets/style.css','/assets/suite-theme.css','/assets/app.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
  
  self.addEventListener('install',event=>{
@@ -4292,119 +4323,6 @@ index 0000000..7939433
 + service:'master7-integration-gateway',scope:'configuration_only',productionQa:'not_verified',liveReady:false,
 + megah5Transfer:{mode:'fund_transfer',credentialsConfigured:true,walletTokenConfigured:true,switches:{status:true,transfers:true},channels:Object.fromEntries(['status','deposit','withdrawal'].map(name=>[name,{enabled:true,configurationReady:true,blockers:[],productionQa:'not_verified',liveReady:false}]))},
 +};}
-diff --git a/tests/game-api-entry-ui.test.mjs b/tests/game-api-entry-ui.test.mjs
-new file mode 100644
-index 0000000..abc61a5
---- /dev/null
-+++ b/tests/game-api-entry-ui.test.mjs
-@@ -0,0 +1,107 @@
-+import test from 'node:test';
-+import assert from 'node:assert/strict';
-+import {readFileSync} from 'node:fs';
-+import vm from 'node:vm';
-+
-+const source=readFileSync(new URL('../public/assets/app.js',import.meta.url),'utf8');
-+const html=readFileSync(new URL('../app/portal.html',import.meta.url),'utf8');
-+const definitions=source.slice(0,source.indexOf('(async function start(){'));
-+class Element{
-+ constructor(tag='div'){this.tagName=tag;this.children=[];this.dataset={};this.value='';this.hidden=false;this.disabled=false;this._text='';this.className='';this.classList={toggle(){},add(){},remove(){}};this.style={setProperty(){}};}
-+ set textContent(value){this._text=String(value);this.children=[];}
-+ get textContent(){return this._text+this.children.map(child=>child.textContent||'').join('');}
-+ append(...children){this.children.push(...children);}
-+ replaceChildren(...children){this._text='';this.children=[...children];}
-+ setAttribute(name,value){this[name]=String(value);}
-+ removeAttribute(name){delete this[name];}
-+ addEventListener(name,handler){this[name]=handler;}
-+ querySelector(selector){return descendants(this).slice(1).find(el=>el.className?.split(' ').includes(selector.slice(1)))||null;}
-+ scrollIntoView(){}
-+}
-+const descendants=element=>[element,...element.children.flatMap(descendants)];
-+function fixture({read,post,user={id:'synthetic-member',role:'member',approved:true}}={}){
-+ const nodes=new Map([...html.matchAll(/<(\w+)[^>]*\bid="([^"]+)"/g)].map(match=>[match[2],new Element(match[1])])),calls=[],notices=[],popups=[],categories=['HOT','SLOT'].map(category=>Object.assign(new Element('button'),{dataset:{gameCategory:category}}));
-+ const context=vm.createContext({document:{body:new Element('body'),getElementById:id=>nodes.get(id)||null,querySelectorAll:selector=>selector==='[data-game-category]'?categories:[],querySelector:()=>null,createElement:tag=>new Element(tag),createTextNode:text=>Object.assign(new Element('#text'),{textContent:text})},window:{scrollTo(){},open(){const popup={opener:null,closed:false,document:{title:'',body:{}},location:{replace(url){popup.url=url;}},close(){popup.closed=true;}};popups.push(popup);return popup;}},location:{pathname:'/',href:'https://fixture.test/'},URL,URLSearchParams,AbortController,setTimeout,clearTimeout,localStorage:{getItem:()=>null,setItem(){}},sessionStorage:{getItem:()=>null,setItem(){},removeItem(){}}});
-+ vm.runInContext(definitions,context);
-+ const state=vm.runInContext('state',context);state.lang='en';state.user=user;
-+ const entries=JSON.parse(vm.runInContext('JSON.stringify(apiSupplierEntries)',context));
-+ const catalogue=(providerId=null)=>({selectedProvider:providerId,providers:entries.map(entry=>({id:entry.id,connectionVerified:['megah5','jili','918kissh5','rectangle'].includes(entry.id),catalogueSynced:['megah5','jili','918kissh5','rectangle'].includes(entry.id),platformLaunchReady:entry.id==='megah5',status:'active',maintenance:false})),games:providerId?[{provider:providerId,gameCode:'fixture-1',name:'Lucky Fortune',providerName:providerId,category:'SLOT',accessZone:'paid',status:'active',maintenance:false,playable:providerId==='megah5'}]:[]});
-+ context.api=async(path,method='GET',payload,timeout)=>{calls.push({path,method,payload,timeout});if(method!=='GET')return post?post(path,payload):Promise.reject(new Error('Synthetic POST rejected'));return read?read(path,catalogue):path.startsWith('/api/games')?catalogue(new URL(path,'https://fixture.test').searchParams.get('provider')):{items:[]};};
-+ context.notification=message=>notices.push(message);context.showAuth=()=>notices.push('sign-in');context.loadGameWallet=async()=>{};context.watchGameWindow=()=>{};
-+ context.loadLobbyContent=async()=>{};context.renderAnnouncements=()=>{};context.renderSocial=()=>{};context.renderBonusBrandPreview=()=>{};context.renderPaymentPreview=()=>{};
-+ const backBinding=source.match(/\$\("clearProviderFilter"\)\.onclick=\(\)=>\{[\s\S]*?\};document\.querySelectorAll\("\[data-section\]"\)/);
-+ assert.ok(backBinding);vm.runInContext(backBinding[0].slice(0,backBinding[0].lastIndexOf('document.querySelectorAll')),context);
-+ return {context,state,nodes,calls,notices,popups,catalogue,categories};
-+}
-+async function open(f,provider){const reading=f.context.openCatalogProvider(provider,provider.toUpperCase());await reading;await new Promise(resolve=>setTimeout(resolve,0));}
-+
-+test('a platform-name search does not filter out its returned vendor games',async()=>{
-+ const f=fixture();f.nodes.get('search').value='JILI';await open(f,'jili');
-+ assert.equal(f.nodes.get('search').value,'');assert.match(f.nodes.get('providers').textContent,/Lucky Fortune/);assert.doesNotMatch(f.nodes.get('providers').textContent,/No games match/);
-+ assert.deepEqual(f.calls.map(call=>[call.path,call.method]),[['/api/games?provider=jili','GET']]);
-+});
-+
-+test('game-title search and returning to platforms do not leave the brand chooser empty',async()=>{
-+ const f=fixture();await open(f,'jili');f.nodes.get('search').value='Fortune';f.context.renderApiSupplierButtons();f.context.renderCatalog();
-+ assert.equal(f.nodes.get('apiSupplierButtons').children.length,34);assert.match(f.nodes.get('providers').textContent,/Lucky Fortune/);
-+ f.nodes.get('clearProviderFilter').onclick();assert.equal(f.nodes.get('search').value,'');assert.equal(f.state.selectedCatalogProvider,null);assert.equal(f.nodes.get('apiSupplierButtons').children.length,34);
-+ assert.equal(f.calls.filter(call=>call.method!=='GET').length,0);
-+});
-+
-+test('a failed selected catalogue shows a GET-only retry instead of inventing vendor disconnection',async()=>{
-+ let failed=true;const f=fixture({read:(path,catalogue)=>{if(failed)throw new Error('Synthetic unavailable');return catalogue('jili');}});await open(f,'jili');
-+ assert.match(f.nodes.get('providers').textContent,/could not be read/i);assert.doesNotMatch(f.nodes.get('providers').textContent,/provider game API is not connected/i);assert.match(f.nodes.get('gamesStatus').textContent,/STATUS UNAVAILABLE/);assert.doesNotMatch(f.nodes.get('gamesStatus').textContent,/LOADING/);
-+ const retry=descendants(f.nodes.get('providers')).find(el=>el.tagName==='button'&&/retry/i.test(el.textContent));assert.ok(retry);assert.equal(retry.disabled,false);
-+ failed=false;await retry.onclick();assert.match(f.nodes.get('providers').textContent,/Lucky Fortune/);assert.equal(f.calls.length,2);assert.ok(f.calls.every(call=>call.method==='GET'));
-+});
-+
-+test('root catalogue starts before unrelated payment status completes and still renders real API counts',async()=>{
-+ let finish;const status=new Promise(resolve=>{finish=resolve;});const f=fixture({read:(path,catalogue)=>path==='/api/payments/vpay/status'?status:path==='/api/games'?catalogue():{items:[]}});
-+ const pending=f.context.loadPublic();await Promise.resolve();await Promise.resolve();const started=f.calls.some(call=>call.path==='/api/games');finish({orderReady:true});await pending;
-+ assert.equal(started,true,'root catalogue must not wait for the payment-status response');assert.equal(f.nodes.get('lobbyProviderCount').textContent,'4');
-+ assert.match(f.nodes.get('apiSupplierButtons').textContent,/Game entry available/);assert.match(f.nodes.get('apiSupplierButtons').textContent,/Catalogue connected/);
-+});
-+
-+test('unread and failed root status never claim zero verified connections',async()=>{
-+ const f=fixture({read:()=>Promise.reject(new Error('Synthetic unavailable'))});f.context.renderApiSupplierButtons();f.context.renderCatalog();
-+ assert.equal(f.nodes.get('lobbyProviderCount').textContent,'—');assert.match(f.nodes.get('apiSupplierButtons').textContent,/Checking API status/);await f.context.loadGameCatalogue();
-+ assert.equal(f.nodes.get('lobbyProviderCount').textContent,'—');assert.match(f.nodes.get('gamesStatus').textContent,/could not be read/);assert.match(f.nodes.get('apiSupplierButtons').textContent,/Status unavailable/);
-+});
-+
-+test('leaving a provider cancels its late response and removes game search before selecting a category',async()=>{
-+ let finish;const f=fixture({read:(path,catalogue)=>new Promise(resolve=>{finish=()=>resolve(catalogue('jili'));})});f.state.gameCatalogue=f.catalogue();const pending=f.context.openCatalogProvider('jili','JILI');f.nodes.get('search').value='Fortune';
-+ const binding=source.match(/document\.querySelectorAll\("\[data-game-category\]"\)\.forEach\(button=>button\.onclick=\(\)=>\{[\s\S]*?\}\);document\.querySelectorAll\("\[data-sidebar-game-category\]"\)/);assert.ok(binding);
-+ vm.runInContext(binding[0].slice(0,binding[0].lastIndexOf('document.querySelectorAll')),f.context);f.categories[1].onclick();finish();await pending;await new Promise(resolve=>setTimeout(resolve,0));
-+ assert.equal(f.state.selectedCatalogProvider,null);assert.equal(f.nodes.get('search').value,'');assert.equal(f.state.games.length,0);assert.equal(f.state.gameCategory,'SLOT');
-+});
-+
-+test('owner and staff cannot create a popup or launch request from customer game cards',async()=>{
-+ for(const role of ['owner','staff']){const f=fixture({user:{id:'synthetic-admin',role,approved:true}});await f.context.startGame(f.catalogue('megah5').games[0]);assert.equal(f.popups.length,0);assert.equal(f.calls.length,0);assert.match(f.notices.join(' '),/member account/i);}
-+});
-+
-+test('only an approved member with real playable capability reaches the unchanged launch API',async()=>{
-+ const game={provider:'megah5',gameCode:'fixture-1',name:'Lucky Fortune',playable:true,status:'active'};
-+ for(const user of [null,{id:'pending',role:'member',approved:false}]){const f=fixture({user});await f.context.startGame(game);assert.equal(f.calls.length,0);assert.equal(f.popups.length,0);}
-+ const f=fixture({post:()=>({launchUrl:'https://synthetic-game.example/session'})});await f.context.startGame({...game,playable:false});assert.equal(f.calls.length,0);await f.context.startGame(game);
-+ assert.equal(f.calls.length,1);assert.equal(f.calls[0].path,'/api/game-launch');assert.equal(f.calls[0].method,'POST');assert.equal(f.calls[0].timeout,45000);assert.deepEqual(JSON.parse(JSON.stringify(f.calls[0].payload)),{providerId:'megah5',gameCode:'fixture-1'});assert.equal(f.popups[0].url,'https://synthetic-game.example/session');
-+});
-+
-+test('malformed or wrong-provider success responses never show another vendor game list',async()=>{
-+ for(const response of [{},{providers:[],games:[]},{selectedProvider:'megah5',providers:[],games:[{provider:'megah5',name:'Wrong vendor',playable:true}]}]){
-+  const f=fixture({read:()=>response});await open(f,'jili');assert.match(f.nodes.get('providers').textContent,/could not be read/);assert.doesNotMatch(f.nodes.get('providers').textContent,/Wrong vendor/);assert.equal(f.state.games.length,0);assert.equal(f.popups.length,0);
-+ }
-+});
-+
-+for(const leaveBy of ['back','category'])test(`cold root and provider reads recover with one root GET when leaving by ${leaveBy}`,async()=>{
-+ const pending=[];const f=fixture({read:(path,catalogue)=>new Promise(resolve=>pending.push({path,resolve,catalogue}))});
-+ const initial=f.context.loadGameCatalogue(),provider=f.context.openCatalogProvider('jili','JILI');f.nodes.get('search').value='Fortune';
-+ if(leaveBy==='back')f.nodes.get('clearProviderFilter').onclick();else{
-+  const binding=source.match(/document\.querySelectorAll\("\[data-game-category\]"\)\.forEach\(button=>button\.onclick=\(\)=>\{[\s\S]*?\}\);document\.querySelectorAll\("\[data-sidebar-game-category\]"\)/);assert.ok(binding);
-+  vm.runInContext(binding[0].slice(0,binding[0].lastIndexOf('document.querySelectorAll')),f.context);f.categories[1].onclick();
-+ }
-+ const requests=f.calls.map(call=>call.path);pending[0].resolve(pending[0].catalogue());pending[1].resolve(pending[1].catalogue('jili'));await Promise.all([initial,provider]);
-+ assert.equal(f.state.gameCatalogue,null,'cancelled root and selected-provider replies must remain ignored');
-+ if(pending[2])pending[2].resolve(pending[2].catalogue());await new Promise(resolve=>setTimeout(resolve,0));
-+ assert.deepEqual(requests,['/api/games','/api/games?provider=jili','/api/games']);assert.ok(f.calls.every(call=>call.method==='GET'));
-+ assert.equal(f.state.selectedCatalogProvider,null);assert.equal(f.state.gameCatalogue.selectedProvider,null);assert.equal(f.state.gameCatalogueLoading,false);assert.equal(f.state.games.length,0);assert.equal(f.nodes.get('search').value,'');assert.equal(f.nodes.get('lobbyProviderCount').textContent,'4');assert.doesNotMatch(f.nodes.get('apiSupplierButtons').textContent,/Checking API status/);
-+});
 diff --git a/tests/game-check-ui.test.mjs b/tests/game-check-ui.test.mjs
 index 879be4d..c71dac6 100644
 --- a/tests/game-check-ui.test.mjs
@@ -4736,9 +4654,27 @@ index 59908de..0502ab5 100644
   ranking.categories.LIVE=[...ranking.categories.LIVE].reverse();ranking.categories.SLOT=[ranking.categories.SLOT.at(-1),...ranking.categories.SLOT.slice(0,-1)];
   const duplicate=structuredClone(ranking);duplicate.categories.HOT[1]=duplicate.categories.HOT[0];assert.equal((await call('owner','/api/admin/game-ranking','POST',{ranking:duplicate})).status,400);
 diff --git a/tests/gspay-portal.test.mjs b/tests/gspay-portal.test.mjs
-index 51557be..0a0f1fd 100644
+index 51557be..3dbfede 100644
 --- a/tests/gspay-portal.test.mjs
 +++ b/tests/gspay-portal.test.mjs
+@@ -27,7 +27,7 @@ function fixture(t,{base=apiBase,callbackToken:callbackCredential}={}){
+   async run(){return sql.prepare(this.text).run(...this.args);}
+  }
+  const db={prepare:text=>new Statement(text),async batch(statements){sql.exec('BEGIN');try{const result=[];for(const statement of statements)result.push(sql.prepare(statement.text).run(...statement.args));sql.exec('COMMIT');return result;}catch(error){sql.exec('ROLLBACK');throw error;}}};
+- const state={createCalls:0,queryCalls:0,fetchCalls:0,orders:new Map(),completed:true,success:true,createPatch:value=>value,queryPatch:value=>value,checkout:`https://secured.gspay.online/channel?id=${fixedPaymentId}&key=${checkoutKey}`,throwCreate:false};
++ const state={createCalls:0,queryCalls:0,fetchCalls:0,orders:new Map(),completed:true,success:true,createPatch:value=>value,queryPatch:value=>value,queryResponse:value=>Response.json(value),checkout:`https://secured.gspay.online/channel?id=${fixedPaymentId}&key=${checkoutKey}`,throwCreate:false};
+  const config={db,identity:null,ownerEmail:'owner@example.test',gspayApiBase:base,gspayAuthKey:authKey,gspaySecretKey:secretKey,gspayCallbackToken:callbackCredential,gspayOrdersEnabled:'true',gspayReturnUrl:returnUrl,gspayFetch:async(input,init={})=>{
+   state.fetchCalls++;const url=new URL(String(input));assert.equal(url.origin,base);assert.equal(init.redirect,'error');assert.equal(new Headers(init.headers).get('authorization'),null);
+   const createPath=`/v2/integrations/operators/${authKey}/payment`,queryPath=`/v2/integrations/operators/${authKey}/getpayment`;
+@@ -40,7 +40,7 @@ function fixture(t,{base=apiBase,callbackToken:callbackCredential}={}){
+   }
+   assert.equal(url.pathname,queryPath);assert.equal(init.method,'GET');assert.equal(init.body,undefined);assert.deepEqual([...url.searchParams.keys()].sort(),['auth_key','transaction_id']);assert.equal(url.searchParams.get('auth_key'),authKey);const id=url.searchParams.get('transaction_id'),order=state.orders.get(id);assert.ok(order);state.queryCalls++;
+   const result={payment_id:order.paymentId,transaction_id:id,player_username:order.player_username,amount:order.amountDecimal,completed:state.completed,success:state.success,remark:state.success?'paid':'pending',signature:gspayResultSignature(order.paymentId,order.amountDecimal,id,secretKey)};
+-  return Response.json({code:200,data:JSON.stringify([state.queryPatch(result)]),message:'ok'});
++  return state.queryResponse({code:200,data:JSON.stringify([state.queryPatch(result)]),message:'ok'});
+  }};
+  async function call(path,{who='alice',method='GET',data,headers={},extra={}}={}){
+   const request=new Request(origin+path,{method,headers:{Origin:origin,'Content-Type':'application/json','X-CSRF-Token':'csrf-'+who,...headers},...(data===undefined?{}:{body:JSON.stringify(data)})});
 @@ -73,10 +73,9 @@ test('order uses the exact official URL and JSON, parses the sample string-array
   const conflict=await f.call('/api/payments/gspay/orders',{method:'POST',data:{amount:'21.00',requestKey:'synthetic-gspay-key-0001'}});assert.equal(conflict.status,409);assert.equal(f.state.createCalls,1);
  });
@@ -4751,8 +4687,158 @@ index 51557be..0a0f1fd 100644
   f.config.gspayAuthKey='a'.repeat(31)+'ａ';status=await f.call('/api/payments/gspay/status',{who:null});assert.equal(status.data.programConfigured,false);assert.equal(status.data.orderReady,false);assert.equal((await f.create()).status,503);assert.equal(f.state.fetchCalls,0);
  });
  
+@@ -110,9 +109,9 @@ test('callback authentication, MD5 and order binding failures cannot query or cr
+  }
+ });
+ 
+-test('pending and failed signed callbacks do not credit; success still requires a trusted matching query',async t=>{
+- const f=fixture(t),created=await f.create();let result=await f.callback(created.data.id,{completed:false,success:false},{resign:true});assert.equal(result.status,200);assert.equal(f.state.queryCalls,0);assert.equal(f.ledgerCount(),0);
+- f.state.queryPatch=value=>({...value,signature:'0'.repeat(32)});result=await f.callback(created.data.id);assert.equal(result.status,503);assert.equal(f.state.queryCalls,1);assert.equal(f.ledgerCount(),0);
++test('pending callback hints cannot settle without an independently verified matching query',async t=>{
++ const f=fixture(t),created=await f.create();f.state.completed=false;f.state.success=false;let result=await f.callback(created.data.id,{completed:false,success:false});assert.equal(result.status,503);assert.equal(result.data,'pending');assert.equal(f.state.queryCalls,1);assert.equal(f.ledgerCount(),0);assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'created');
++ f.state.queryPatch=value=>({...value,signature:'0'.repeat(32)});result=await f.callback(created.data.id);assert.equal(result.status,503);assert.equal(f.state.queryCalls,2);assert.equal(f.ledgerCount(),0);
+ });
+ 
+ test('member query is owner-bound, uses exact GET parameters, and can reconcile after channel closure',async t=>{
+@@ -120,15 +119,18 @@ test('member query is owner-bound, uses exact GET parameters, and can reconcile
+  const result=await f.call('/api/payments/gspay/orders/query',{method:'POST',data:{orderId:created.data.id}});assert.equal(result.status,200);assert.equal(result.data.status,'credited');assert.equal(f.state.queryCalls,1);assert.equal(f.ledgerCount(),2);
+ });
+ 
+-test('unpaid orders are rejected after ten minutes with no callback',async t=>{
+- const f=fixture(t),created=await f.create();f.state.completed=false;f.state.success=false;f.sql.prepare('UPDATE deposit_orders SET created_at=? WHERE id=?').run(Math.floor(Date.now()/1000)-601,created.data.id);const result=await f.call('/api/payments/gspay/orders/query',{method:'POST',data:{orderId:created.data.id}});assert.equal(result.status,202);assert.equal(result.data.status,'expired');assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'failed');assert.equal(f.ledgerCount(),0);
++test('an old ordinary Payment query stays pending until the provider confirms a terminal result',async t=>{
++ const f=fixture(t),created=await f.create();f.state.completed=false;f.state.success=false;f.sql.prepare('UPDATE deposit_orders SET created_at=? WHERE id=?').run(Math.floor(Date.now()/1000)-601,created.data.id);
++ let result=await f.call('/api/payments/gspay/orders/query',{method:'POST',data:{orderId:created.data.id}});assert.equal(result.status,202);assert.equal(result.data.status,'awaiting_confirmation');assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'created');assert.equal(f.ledgerCount(),0);
++ f.state.completed=true;f.state.success=true;result=await f.call('/api/payments/gspay/orders/query',{method:'POST',data:{orderId:created.data.id}});assert.equal(result.status,200);assert.equal(result.data.status,'credited');assert.equal(f.ledgerCount(),2);assert.equal(f.state.queryCalls,2);
++ result=await f.callback(created.data.id);assert.equal(result.status,200);assert.equal(f.state.queryCalls,2);assert.equal(f.ledgerCount(),2);assert.equal(f.state.createCalls,1);
+ });
+ 
+-test('independently verified success after the ten-minute rejection is held for owner review',async t=>{
+- const f=fixture(t),created=await f.create();f.state.completed=false;f.state.success=false;f.sql.prepare('UPDATE deposit_orders SET created_at=? WHERE id=?').run(Math.floor(Date.now()/1000)-601,created.data.id);
+- let result=await f.call('/api/payments/gspay/orders/query',{method:'POST',data:{orderId:created.data.id}});assert.equal(result.data.status,'expired');assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'failed');assert.equal(f.ledgerCount(),0);
+- f.state.completed=true;f.state.success=true;result=await f.callback(created.data.id);assert.equal(result.status,200);assert.equal(result.data,'ok');assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'review');assert.equal(f.ledgerCount(),0);assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit WHERE event='gspay_late_success_review' AND target=?").get(created.data.id).n,1);assert.equal(f.state.queryCalls,2);
+- result=await f.callback(created.data.id);assert.equal(result.status,200);assert.equal(result.data,'ok');assert.equal(f.state.queryCalls,2);assert.equal(f.ledgerCount(),0);
++test('historical failed orders with independently verified success still require owner review',async t=>{
++ const f=fixture(t),created=await f.create();f.sql.prepare("UPDATE deposit_orders SET status='failed',created_at=? WHERE id=?").run(Math.floor(Date.now()/1000)-601,created.data.id);
++ let result=await f.callback(created.data.id);assert.equal(result.status,200);assert.equal(result.data,'ok');assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'review');assert.equal(f.ledgerCount(),0);
++ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit WHERE event='gspay_late_success_review' AND target=?").get(created.data.id).n,1);assert.equal(f.state.queryCalls,1);
++ result=await f.callback(created.data.id);assert.equal(result.status,200);assert.equal(f.state.queryCalls,1);assert.equal(f.ledgerCount(),0);
+ });
+ 
+ test('atomic ledger failure rolls back both entries and a later callback retries safely',async t=>{
+@@ -150,3 +152,110 @@ test('DuitNow stays disabled and an unconfigured payout callback fails closed be
+  response=await handle(new Request(origin+'/api/payment/gspay/payout/callback',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'}),{...f.config,identity:null});assert.equal(response.status,503);assert.equal(await response.text(),'unavailable');
+  assert.equal(f.state.fetchCalls,before);assert.equal(f.ledgerCount(),0);assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM deposit_orders WHERE provider='gspay'").get().n,0);
+ });
++
++test('unsigned failure hints cannot reject a successful payment; reversed and duplicate callbacks credit once',async t=>{
++ const f=fixture(t),created=await f.create();
++ // completed/success are not part of the provider's MD5 formula. Keep the original signature.
++ const first=await f.callback(created.data.id,{completed:true,success:false});assert.equal(first.status,200);assert.equal(first.data,'ok');assert.equal(f.state.queryCalls,1);
++ assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'credited');assert.equal(f.ledgerCount(),2);
++ for(const patch of [{completed:true,success:true},{completed:true,success:false},{completed:false,success:false}]){const repeated=await f.callback(created.data.id,patch);assert.equal(repeated.status,200);assert.equal(repeated.data,'ok');}
++ assert.equal(f.state.queryCalls,1);assert.equal(f.ledgerCount(),2);assert.equal((await f.call('/api/wallet')).data.balanceMinor,'2000');
++ const rows=f.sql.prepare('SELECT amount_minor,currency,user_id FROM wallet_ledger WHERE order_id=?').all(created.data.id);assert.equal(rows.reduce((sum,row)=>sum+row.amount_minor,0),0);assert.ok(rows.every(row=>row.currency==='MYR'&&row.user_id==='alice'));
++ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit WHERE event='gspay_deposit_credited' AND target=?").get(created.data.id).n,1);assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit WHERE event='gspay_late_success_review' AND target=?").get(created.data.id).n,0);
++});
++
++for(const age of [0,601])for(const failure of ['timeout','invalid-json'])test(`callback query ${failure} at age ${age}s preserves the order and remains retryable`,async t=>{
++ const f=fixture(t),created=await f.create();f.sql.prepare('UPDATE deposit_orders SET created_at=?,updated_at=? WHERE id=?').run(Math.floor(Date.now()/1000)-age,123,created.data.id);
++ const before={...f.sql.prepare('SELECT * FROM deposit_orders WHERE id=?').get(created.data.id)},normalResponse=f.state.queryResponse;
++ f.state.queryResponse=failure==='timeout'?()=>{throw new Error('synthetic query timeout');}:()=>new Response('not-json',{headers:{'Content-Type':'application/json'}});
++ let response=await f.callback(created.data.id);assert.equal(response.status,503);assert.equal(response.data,'pending');assert.equal(f.state.queryCalls,1);assert.deepEqual({...f.sql.prepare('SELECT * FROM deposit_orders WHERE id=?').get(created.data.id)},before);assert.equal(f.ledgerCount(),0);
++ f.state.queryResponse=normalResponse;response=await f.callback(created.data.id,{completed:true,success:false});assert.equal(response.status,200);assert.equal(response.data,'ok');assert.equal(f.state.queryCalls,2);assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'credited');assert.equal(f.ledgerCount(),2);
++});
++
++test('a true terminal provider failure is independently confirmed and later conflicting success stays in review',async t=>{
++ const f=fixture(t),created=await f.create();f.state.success=false;
++ let response=await f.callback(created.data.id,{completed:true,success:false});assert.equal(response.status,200);assert.equal(response.data,'ok');assert.equal(f.state.queryCalls,1);assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'failed');assert.equal(f.ledgerCount(),0);
++ response=await f.callback(created.data.id);assert.equal(response.status,200);assert.equal(response.data,'ok');assert.equal(f.state.queryCalls,2);assert.equal(f.ledgerCount(),0);
++ f.state.success=true;response=await f.callback(created.data.id,{completed:true,success:false});assert.equal(response.status,200);assert.equal(response.data,'ok');assert.equal(f.state.queryCalls,3);assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'review');assert.equal(f.ledgerCount(),0);
++ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit WHERE event='gspay_late_success_review' AND target=?").get(created.data.id).n,1);
++ response=await f.callback(created.data.id);assert.equal(response.status,200);assert.equal(f.state.queryCalls,3);assert.equal(f.ledgerCount(),0);
++});
++
++test('concurrent opposite callback hints cannot duplicate the balanced deposit ledger',async t=>{
++ const f=fixture(t),created=await f.create();const replies=await Promise.all([f.callback(created.data.id,{completed:true,success:false}),f.callback(created.data.id)]);assert.ok(replies.every(response=>response.status===200));
++ assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'credited');assert.equal(f.ledgerCount(),2);assert.equal((await f.call('/api/wallet')).data.balanceMinor,'2000');
++ assert.equal(f.sql.prepare('SELECT SUM(amount_minor) amount FROM wallet_ledger WHERE order_id=?').get(created.data.id).amount,0);
++});
++
++test('an old order with an atomic ledger error stays retryable instead of becoming expired',async t=>{
++ const f=fixture(t),created=await f.create();f.sql.prepare('UPDATE deposit_orders SET created_at=? WHERE id=?').run(Math.floor(Date.now()/1000)-601,created.data.id);
++ f.sql.exec("CREATE TRIGGER fixture_old_fail_clearing BEFORE INSERT ON wallet_ledger WHEN NEW.account_code='provider_clearing' BEGIN SELECT RAISE(ABORT,'fixture failure'); END;");
++ let response=await f.callback(created.data.id);assert.equal(response.status,503);assert.equal(f.ledgerCount(),0);assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'created');
++ f.sql.exec('DROP TRIGGER fixture_old_fail_clearing');response=await f.callback(created.data.id);assert.equal(response.status,200);assert.equal(f.ledgerCount(),2);assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'credited');
++});
++
++test('an unknown old order without payment_id recovers by transaction_id without creating a second order',async t=>{
++ const f=fixture(t);f.state.throwCreate=true;const created=await f.create();f.sql.prepare('UPDATE deposit_orders SET created_at=? WHERE id=?').run(Math.floor(Date.now()/1000)-601,created.data.id);
++ assert.equal(f.sql.prepare('SELECT provider_trade_no FROM deposit_orders WHERE id=?').get(created.data.id).provider_trade_no,null);
++ const result=await f.call('/api/payments/gspay/orders/query',{method:'POST',data:{orderId:created.data.id}});assert.equal(result.status,200);assert.equal(result.data.status,'credited');assert.equal(f.state.queryCalls,1);assert.equal(f.state.createCalls,1);assert.equal(f.ledgerCount(),2);
++ assert.equal(f.sql.prepare('SELECT provider_trade_no FROM deposit_orders WHERE id=?').get(created.data.id).provider_trade_no,fixedPaymentId);
++ assert.equal((await f.create()).data.status,'credited');assert.equal(f.state.createCalls,1);assert.equal((await f.callback(created.data.id)).status,200);assert.equal(f.state.queryCalls,1);assert.equal(f.ledgerCount(),2);
++});
++
++test('an unknown old order remains unknown while the provider query is pending',async t=>{
++ const f=fixture(t);f.state.throwCreate=true;const created=await f.create();f.state.completed=false;f.state.success=false;f.sql.prepare('UPDATE deposit_orders SET created_at=? WHERE id=?').run(Math.floor(Date.now()/1000)-601,created.data.id);
++ const result=await f.call('/api/payments/gspay/orders/query',{method:'POST',data:{orderId:created.data.id}});assert.equal(result.status,202);assert.equal(result.data.status,'awaiting_confirmation');assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'unknown');assert.equal(f.state.queryCalls,1);assert.equal(f.ledgerCount(),0);
++ const again=await f.create();assert.equal(again.data.id,created.data.id);assert.equal(f.state.createCalls,1);assert.equal(f.ledgerCount(),0);
++});
++
++test('a no-reference order records only the independently verified failed payment reference',async t=>{
++ const f=fixture(t);f.state.throwCreate=true;const created=await f.create();f.state.success=false;
++ const result=await f.call('/api/payments/gspay/orders/query',{method:'POST',data:{orderId:created.data.id}});assert.equal(result.status,202);assert.equal(result.data.status,'failed');
++ const order=f.sql.prepare('SELECT status,provider_trade_no FROM deposit_orders WHERE id=?').get(created.data.id);assert.equal(order.status,'failed');assert.equal(order.provider_trade_no,fixedPaymentId);assert.equal(f.ledgerCount(),0);assert.equal(f.state.createCalls,1);
++});
++
++test('incomplete or invalid query results do not invent a failed or review state',async t=>{
++ const cases=[['missing-success',{success:undefined}],['missing-completed',{completed:undefined}],['bad-success',{success:'false'}],['bad-completed',{completed:2}],['inconsistent-flags',{completed:false,success:true}],['missing-payment-id',{payment_id:undefined}],['missing-transaction',{transaction_id:undefined}],['missing-player',{player_username:undefined}],['missing-amount',{amount:undefined}],['missing-signature',{signature:undefined}]];
++ for(const [name,patch]of cases)await t.test(name,async sub=>{
++  const f=fixture(sub),created=await f.create();f.sql.prepare('UPDATE deposit_orders SET created_at=? WHERE id=?').run(Math.floor(Date.now()/1000)-601,created.data.id);f.state.queryPatch=value=>({...value,...patch});
++  const before={...f.sql.prepare('SELECT * FROM deposit_orders WHERE id=?').get(created.data.id)},response=await f.callback(created.data.id);assert.equal(response.status,503);assert.equal(response.data,'pending');assert.deepEqual({...f.sql.prepare('SELECT * FROM deposit_orders WHERE id=?').get(created.data.id)},before);assert.equal(f.ledgerCount(),0);
++ });
++ for(const [name,envelope]of [['business-error',{code:404,message:'not available',data:null}],['empty-data',{code:200,data:[]}],['missing-reference',{code:200,data:{completed:true,success:false}}]])await t.test(name+'-without-reference',async sub=>{
++  const f=fixture(sub);f.state.throwCreate=true;const created=await f.create();f.sql.prepare('UPDATE deposit_orders SET created_at=? WHERE id=?').run(Math.floor(Date.now()/1000)-601,created.data.id);f.state.queryResponse=()=>Response.json(envelope);
++  const result=await f.call('/api/payments/gspay/orders/query',{method:'POST',data:{orderId:created.data.id}});assert.equal(result.status,202);assert.equal(result.data.status,'awaiting_confirmation');assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'unknown');assert.equal(f.ledgerCount(),0);assert.equal(f.state.createCalls,1);assert.equal(f.state.queryCalls,1);
++ });
++});
++
++test('identified query binding contradictions still require review and cannot credit',async t=>{
++ for(const patch of [{transaction_id:'other-order'},{player_username:'another-player'},{amount:'21.00'},{payment_id:'99999999'},{signature:'0'.repeat(32)}])await t.test(Object.keys(patch)[0],async sub=>{
++  const f=fixture(sub),created=await f.create();f.state.queryPatch=value=>({...value,...patch});const response=await f.callback(created.data.id);assert.equal(response.status,503);assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'review');assert.equal(f.ledgerCount(),0);
++ });
++});
++
++test('documented boolean flags and existing zero/one string compatibility are preserved',async t=>{
++ for(const [completed,success,expected]of [[1,1,'credited'],['1','1','credited'],[true,false,'failed'],['1','0','failed'],[0,0,'awaiting_confirmation']])await t.test(JSON.stringify([completed,success]),async sub=>{
++  const f=fixture(sub),created=await f.create();f.state.queryPatch=value=>({...value,completed,success});const result=await f.call('/api/payments/gspay/orders/query',{method:'POST',data:{orderId:created.data.id}});assert.equal(result.data.status,expected);assert.equal(f.ledgerCount(),expected==='credited'?2:0);
++ });
++});
++
++test('an aged member query transport failure remains unconfirmed with the original order unchanged',async t=>{
++ const f=fixture(t),created=await f.create();f.sql.prepare('UPDATE deposit_orders SET created_at=? WHERE id=?').run(Math.floor(Date.now()/1000)-601,created.data.id);const before={...f.sql.prepare('SELECT * FROM deposit_orders WHERE id=?').get(created.data.id)};f.state.queryResponse=()=>{throw new Error('synthetic query timeout');};
++ const result=await f.call('/api/payments/gspay/orders/query',{method:'POST',data:{orderId:created.data.id}});assert.equal(result.status,202);assert.equal(result.data.status,'awaiting_confirmation');assert.deepEqual({...f.sql.prepare('SELECT * FROM deposit_orders WHERE id=?').get(created.data.id)},before);assert.equal(f.ledgerCount(),0);
++});
++
++for(const first of ['failure','success'])test(`concurrent bound failure and success preserve terminal accounting when ${first} lands first`,async t=>{
++ const f=fixture(t),created=await f.create(),pending=[];f.state.queryResponse=envelope=>new Promise(resolve=>pending.push({envelope,resolve}));
++ const waitForQueries=async count=>{for(let i=0;i<40&&pending.length<count;i++)await new Promise(setImmediate);assert.equal(pending.length,count);};
++ f.state.success=false;const failure=f.callback(created.data.id,{completed:true,success:false});await waitForQueries(1);
++ f.state.success=true;const success=f.callback(created.data.id);await waitForQueries(2);assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'created');
++ if(first==='failure'){
++  pending[0].resolve(Response.json(pending[0].envelope));assert.equal((await failure).status,200);assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'failed');
++  pending[1].resolve(Response.json(pending[1].envelope));assert.equal((await success).status,200);assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'review');assert.equal(f.ledgerCount(),0);
++ }else{
++  pending[1].resolve(Response.json(pending[1].envelope));assert.equal((await success).status,200);assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'credited');
++  pending[0].resolve(Response.json(pending[0].envelope));assert.equal((await failure).status,200);assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(created.data.id).status,'credited');assert.equal(f.ledgerCount(),2);assert.equal((await f.call('/api/wallet')).data.balanceMinor,'2000');
++ }
++ assert.equal(f.state.queryCalls,2);assert.equal(f.state.createCalls,1);
++ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit WHERE event='gspay_deposit_credited' AND target=?").get(created.data.id).n,first==='failure'?0:1);
++ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit WHERE event='gspay_late_success_review' AND target=?").get(created.data.id).n,first==='failure'?1:0);
++});
 diff --git a/tests/ios-pwa.test.mjs b/tests/ios-pwa.test.mjs
-index 9abeb42..5fc662f 100644
+index 9abeb42..c4cb82e 100644
 --- a/tests/ios-pwa.test.mjs
 +++ b/tests/ios-pwa.test.mjs
 @@ -26,7 +26,7 @@ test('iPhone Safari Web App publishes a scoped standalone MASTER7 manifest',()=>
@@ -4760,12 +4846,12 @@ index 9abeb42..5fc662f 100644
  
  test('service worker keeps authentication and financial routes network-only',()=>{
 - assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.94-readiness-split/);
-+ assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.98-customer-cashier/);
++ assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.99-payment-settlement/);
   assert.match(app,/navigator\.serviceWorker\.register\("\/service-worker\.js",\{scope:"\/"\}\)/);
   assert.match(worker,/request\.mode==='navigate'/);
   assert.match(worker,/fetch\(request\)\.catch\(\(\)=>caches\.match\('\/offline\.html'\)\)/);
 diff --git a/tests/lobby-render.test.mjs b/tests/lobby-render.test.mjs
-index 572415d..9777c2b 100644
+index 572415d..a55bb81 100644
 --- a/tests/lobby-render.test.mjs
 +++ b/tests/lobby-render.test.mjs
 @@ -23,7 +23,7 @@ function supplierConstants(){
@@ -4849,15 +4935,6 @@ index 572415d..9777c2b 100644
   assert.match(source,/imageDataForUpload\(file,800,600\)/);
  });
  
-@@ -159,7 +177,7 @@ test('a stale platform-summary response cannot replace the newest public summary
-  pending[1].resolve({providers:[{id:'megah5'}],games:[],platformsOnly:true});await newer;
-  pending[0].resolve({providers:[{id:'jili'}],games:[{provider:'jili',gameCode:'must-not-render'}],platformsOnly:true});await older;
-  assert.equal(state.gameCatalogue.providers[0].id,'megah5');assert.equal(state.games.length,0);
-- assert.match(source,/clearProviderFilter"\)\.onclick=\(\)=>\{state\.gameCatalogueRequestId\+\+/);
-+ assert.match(source,/clearProviderFilter"\)\.onclick=\(\)=>\{clearCatalogProviderSelection\(\)/);assert.match(source,/function clearCatalogProviderSelection\(\)\{state\.gameCatalogueRequestId\+\+/);
- });
- 
- test('customer lobby exposes selected game cards while wallet settlement remains protected',()=>{
 @@ -200,9 +218,11 @@ test('34 supplied API providers have independent customer and backoffice button
   assert.match(source,/\/api\/supplier-art-list/);
   assert.match(source,/\/api\/admin\/supplier-art/);
@@ -4892,7 +4969,7 @@ index 572415d..9777c2b 100644
   assert.match(html,/福利规则/);
   assert.match(html,/id="benefitCalculationPreview"/);
 diff --git a/tests/luxury-backoffice-ui.test.mjs b/tests/luxury-backoffice-ui.test.mjs
-index f8ab89a..387b46e 100644
+index f8ab89a..bedac98 100644
 --- a/tests/luxury-backoffice-ui.test.mjs
 +++ b/tests/luxury-backoffice-ui.test.mjs
 @@ -27,7 +27,7 @@ test('bank, VIP, support and contact settings each use an independent compact co
@@ -4900,7 +4977,7 @@ index f8ab89a..387b46e 100644
   assert.match(style,/\.admin-internal-sidebar a\.active::after/);
   assert.match(style,/background:#5de9df/);
 - assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.94-readiness-split/);
-+ assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.98-customer-cashier/);
++ assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.99-payment-settlement/);
   assert.ok(html.lastIndexOf('/assets/suite-theme.css')>html.lastIndexOf('/assets/owner-manual.css'),'suite theme must load after all feature styles');
   assert.match(suiteStyle,/--m7-gold:/);
   assert.match(suiteStyle,/body\.admin-mode \.admin-internal-sidebar a\{/);
