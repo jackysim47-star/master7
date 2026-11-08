@@ -1,5 +1,5 @@
 diff --git a/app/portal.html b/app/portal.html
-index a7ef654..40a5a8c 100644
+index a7ef654..e867f56 100644
 --- a/app/portal.html
 +++ b/app/portal.html
 @@ -15,27 +15,27 @@
@@ -27,31 +27,39 @@ index a7ef654..40a5a8c 100644
 -  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
 -  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
 -  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.94-readiness-split" defer></script>
-+  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.96-api-automatic">
-+  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.96-api-automatic">
-+  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.96-api-automatic">
-+  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.96-api-automatic">
-+  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.96-api-automatic">
-+  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.96-api-automatic">
-+  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.96-api-automatic">
-+  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.96-api-automatic">
-+  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.96-api-automatic">
-+  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.96-api-automatic">
-+  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.96-api-automatic">
-+  <script src="/assets/app.js?v=17.0.0-selfbuilt.96-api-automatic" defer></script>
-+  <script src="/assets/vip.js?v=17.0.0-selfbuilt.96-api-automatic" defer></script>
-+  <script src="/assets/finance.js?v=17.0.0-selfbuilt.96-api-automatic" defer></script>
-+  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.96-api-automatic" defer></script>
-+  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.96-api-automatic" defer></script>
-+  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.96-api-automatic" defer></script>
-+  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.96-api-automatic" defer></script>
-+  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.96-api-automatic" defer></script>
-+  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.96-api-automatic" defer></script>
-+  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.96-api-automatic" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.97-interface-cleanup">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.97-interface-cleanup">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.97-interface-cleanup">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.97-interface-cleanup">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.97-interface-cleanup">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.97-interface-cleanup">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.97-interface-cleanup">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.97-interface-cleanup">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.97-interface-cleanup">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.97-interface-cleanup">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.97-interface-cleanup">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.97-interface-cleanup" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.97-interface-cleanup" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.97-interface-cleanup" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.97-interface-cleanup" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.97-interface-cleanup" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.97-interface-cleanup" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.97-interface-cleanup" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.97-interface-cleanup" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.97-interface-cleanup" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.97-interface-cleanup" defer></script>
  </head>
  <body>
    <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
-@@ -421,7 +421,7 @@
+@@ -276,7 +276,6 @@
+       <section class="api-supplier-lobby" id="apiSupplierLobby" aria-labelledby="apiSupplierTitle">
+         <div class="provider-directory-heading"><div><p class="eyebrow">PREMIUM GAME COLLECTION</p><h2 id="apiSupplierTitle">34 家独立游戏平台</h2><p class="muted">外面先显示 34 家独立平台；选择一家后，只展开该厂商已连接的游戏。</p></div><span id="apiSupplierCountLabel" class="tiny-label">34 PLATFORMS</span></div>
+         <div id="apiSupplierButtons" class="api-supplier-grid" aria-live="polite"></div>
+-        <button id="apiSupplierToggle" class="button button-outline api-supplier-toggle" type="button" hidden>查看全部品牌</button>
+       </section>
+       <button id="clearProviderFilter" class="button button-ghost small" type="button" hidden>Back to 34 game platforms</button>
+       <p id="gamesStatus" class="notice" role="status" aria-live="polite">34 platforms · Choose one independent entry</p>
+@@ -421,7 +420,7 @@
              <a href="#supportOperationsPanel" data-owner-only>💬 Stephanie 客服</a>
              <p class="admin-sidebar-heading">MONEY · 钱与银行</p>
              <a href="#manualBankAdminPanel">🏦 公司银行与银行单</a>
@@ -60,7 +68,7 @@ index a7ef654..40a5a8c 100644
              <a href="#adminWithdrawalPanel" data-owner-only>📤 提款审核</a>
              <a href="#paymentChannelManager">💳 三家支付通道</a>
              <a href="#financeCenterPanel">💹 财务与三方对账</a>
-@@ -518,15 +518,22 @@
+@@ -518,15 +517,22 @@
            <div id="accountingSummary" class="stats"></div><div id="accountingBreakdown"></div>
          </section>
          <section class="surface stack" id="paymentChannelManager" aria-labelledby="paymentChannelManagerTitle">
@@ -87,7 +95,7 @@ index a7ef654..40a5a8c 100644
            <div id="adminDepositRecords"><p class="muted">Loading records…</p></div>
          </section>
          <section class="surface stack admin-feature-cover bank-admin-cover" id="manualBankAdminPanel" hidden aria-labelledby="manualBankAdminTitle">
-@@ -593,11 +600,11 @@
+@@ -593,11 +599,11 @@
          </div>
          <div class="two-col">
            <div id="announcementPanel" class="surface stack"><form class="stack" id="announcementForm"><h2 data-i18n="publishAnnouncement">发布公告</h2><p class="muted">公告时间使用马来西亚时间（MYT）。草稿不会在前台出现。</p><label for="announcementTitle" data-i18n="subject">主题</label><input id="announcementTitle" maxlength="100" minlength="3" required><label for="announcementBody" data-i18n="message">内容</label><textarea id="announcementBody" maxlength="1000" minlength="5" rows="4" required></textarea><div class="commission-fields two"><label>开始时间（MYT，可选）<input id="announcementStartsAt" type="datetime-local"></label><label>结束时间（MYT，可选）<input id="announcementEndsAt" type="datetime-local"></label></div><label>状态<select id="announcementStatus"><option value="draft">草稿</option><option value="published">发布</option></select></label><div class="ad-form-actions"><button type="submit" class="button button-primary">保存公告</button><button id="announcementCancel" type="button" class="button button-outline" hidden>取消编辑</button></div><small id="announcementFormStatus" class="muted" role="status"></small></form><h3>已保存公告</h3><div id="announcementAdminList" class="ad-admin-list"><p class="muted">Loading…</p></div></div>
@@ -101,7 +109,7 @@ index a7ef654..40a5a8c 100644
            <div id="apiSupplierAdminButtons" class="api-supplier-admin-grid"></div>
          </section>
          <section class="surface stack game-ranking-panel" id="gameRankingPanel" hidden data-owner-only aria-labelledby="gameRankingTitle">
-@@ -628,9 +635,9 @@
+@@ -628,9 +634,9 @@
            <div id="gameSyncResults"></div>
          </section>
          <section class="surface stack" id="gameCatalogManager" aria-labelledby="gameCatalogTitle">
@@ -113,6 +121,19 @@ index a7ef654..40a5a8c 100644
              <div class="game-catalog-toolbar">
                <label>Search <input id="adminGameSearch" type="search" maxlength="100" placeholder="Game name or ID"></label>
                <label>Supplier <select id="adminGameProviderFilter"><option value="ALL">All suppliers</option></select></label>
+@@ -847,12 +853,6 @@
+     <div id="providerBonusOffers" class="provider-bonus-offers"></div>
+     <button class="button button-outline full" id="dismissBonusDialog" type="button" data-bonus-i18n="close">Close</button>
+   </dialog>
+-  <dialog id="paymentDialog" class="payment-dialog" aria-labelledby="paymentDialogTitle" aria-describedby="paymentDialogText">
+-    <div class="dialog-head"><div class="brand-mini" aria-hidden="true">7</div><div><p class="eyebrow">MYR · PAYMENT STATUS</p><h2 id="paymentDialogTitle">VPAY</h2></div><button id="closePaymentDialog" class="close" aria-label="Close payment details" type="button">×</button></div>
+-    <p id="paymentDialogText" class="muted"></p>
+-    <p class="payment-dialog-warning" data-payment-i18n="dialogWarning">此通道正在维护，暂时不能创建充值订单。</p>
+-    <button id="dismissPaymentDialog" class="button button-outline full" type="button" data-payment-i18n="dismiss">关闭</button>
+-  </dialog>
+   <dialog id="iosInstallDialog" class="ios-install-dialog" aria-labelledby="iosInstallTitle">
+     <div class="dialog-head"><div class="brand-mini" aria-hidden="true">7</div><div><p class="eyebrow">MASTER7 · iPHONE WEB APP</p><h2 id="iosInstallTitle">安装到 iPhone 主画面</h2></div><button id="iosInstallClose" class="close" type="button" aria-label="Close iPhone install guide">×</button></div>
+     <ol class="ios-install-steps">
 diff --git a/docs/GAME_AUTOMATIC_AVAILABILITY.md b/docs/GAME_AUTOMATIC_AVAILABILITY.md
 new file mode 100644
 index 0000000..5abbd24
@@ -148,13 +169,13 @@ index 0000000..5abbd24
 +Tests use only synthetic users, mock gateway responses and isolated SQLite databases. They cover legacy closed/disabled records with working API contracts, missing credentials/contracts, rejected supplier business statuses, maintenance, stale/incomplete catalogues, a refresh lease, no-write deprecated endpoints, editorial compatibility, absent mini-game engines, token scope, single-transfer retries, reservations and recovery. No production database, supplier session or real wallet transfer is used. Real supplier acceptance and PostgreSQL runtime validation are outside these local tests.
 diff --git a/docs/MASTER7_API_AUTOMATIC_20261108.md b/docs/MASTER7_API_AUTOMATIC_20261108.md
 new file mode 100644
-index 0000000..874e143
+index 0000000..dd1c95c
 --- /dev/null
 +++ b/docs/MASTER7_API_AUTOMATIC_20261108.md
-@@ -0,0 +1,34 @@
+@@ -0,0 +1,40 @@
 +# MASTER7：按厂家 API 提供前台服务
 +
-+版本：`17.0.0-selfbuilt.96-api-automatic`。此文件说明本次实现；生产是否已更新以 Render 部署记录和线上 `/health` 返回为准。
++版本：`17.0.0-selfbuilt.97-interface-cleanup`。此文件说明本次实现；生产是否已更新以 Render 部署记录和线上 `/health` 返回为准。
 +
 +## 用户确认的流程
 +
@@ -171,6 +192,12 @@ index 0000000..874e143
 +- 废弃的后台状态修改接口先检查身份、权限与 CSRF，再明确拒绝修改，不写控制表或限流计数。普通封面和分类编辑仍保留原有权限与审计。
 +- 原厂 API 地址、参数、签名、回调与业务成功规则保持原协议。会话鉴权、会员批准、钱包预留、超时查单、恢复、幂等及安心设置继续执行。
 +- 后台充值日报按 MYT 日期显示已入账金额、人数、笔数、通道汇总和订单当前状态；已入账总额独立聚合，不受明细分页影响。明细分页支持完整历史浏览，后台不会替会员创建充值订单。
++
++## .97 界面清理
++
++在 .96 自动连接及报表功能基础上，删除无引用的三态按钮样式、一直隐藏的全品牌展开按钮和旧充值维护弹窗。匿名用户仍进入登录，会员仍进入对应充值表单；owner／staff 点击顾客充值入口时只提示“充值仅供会员账号使用”，不再误报厂家维护。
++
++三个付款厂商品牌、人工银行、34 家游戏品牌、后台实际自建游戏管理、客服和报表均保留。已有自建管理具有真实入口与读写流程，不能当作无用代码删除。本轮清理不更改厂家协议、钱包记账、数据库结构或接口就绪判断。
 +
 +## 验证与边界
 +
@@ -540,7 +567,7 @@ index c34adb9..b6b575f 100644
 +violations, and timestamps within the configured freshness window. Running the
 +local scripts neither calls this endpoint nor changes online readiness.
 diff --git a/lib/backend.ts b/lib/backend.ts
-index abd7da4..96c473a 100644
+index abd7da4..3558600 100644
 --- a/lib/backend.ts
 +++ b/lib/backend.ts
 @@ -1,14 +1,15 @@
@@ -567,7 +594,7 @@ index abd7da4..96c473a 100644
  import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
  import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
 -export const RELEASE = '17.0.0-selfbuilt.94-readiness-split';
-+export const RELEASE = '17.0.0-selfbuilt.96-api-automatic';
++export const RELEASE = '17.0.0-selfbuilt.97-interface-cleanup';
  export const SOURCE_RELEASE = RELEASE;
  const CUSTOMER_ORIGIN='https://master7.best';
  const MARKETING_CONTACT_LIMIT=1_000_000;
@@ -1484,14 +1511,14 @@ index b9a8718..2fcc6bf 100644
   }
   if(String(verified?.state)!=='3')return 'awaiting_confirmation';
 diff --git a/public/assets/app.js b/public/assets/app.js
-index efd0ce0..34dcd0c 100644
+index efd0ce0..c49d7bc 100644
 --- a/public/assets/app.js
 +++ b/public/assets/app.js
 @@ -1,18 +1,18 @@
  "use strict";
  const $ = id => document.getElementById(id);
 -const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", register:false, providers:[], games:[], gameCatalogue:null, gameRanking:null, gameCatalogueRequestId:0, gameWallet:null, gameWindow:null, gameWindowPoll:null, gameLaunchBusy:false, gameSettlementBusy:false, lastLaunchedGame:null, supplierArtwork:{}, supplierControls:{}, supplierExpanded:false, gameCategory:"HOT", gameAccessZone:"ALL", gameLimit:12, adminGames:null, adminCustomGames:[], adminGameSearch:"", adminGameProvider:"ALL", adminGameCategory:"ALL", adminGamePage:1, adminGamePageSize:24, favoriteGames:[], favoriteProviders:[], selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], ticketPage:1, ticketHasMore:false, ticketUnread:0, ticketLatestEvent:null, ticketPollBusy:false, social:null, ads:[], benefits:[], manualBanks:[], manualBankAttempt:null, adIndex:0, adTimer:null, editAdId:null, editAnnouncementId:null, editBenefitId:null, editCustomGameId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, oneMpayStatus:null, gspayStatus:null, depositProvider:"vpay", paymentChannels:{}, withdrawalPendingSeen:null, financialSoundEnabled:true, financialAudioArmed:false, accountingPeriod:"yesterday", accountingMonth:"", adminPanel:"operationsPanel", section:"lobby", referral:null, commission:null, commissionTab:"settings", marketingContactPage:1, marketingContactPages:1, marketingEditingImage:false, marketingMaximumContacts:1000000, marketingAudienceCount:0, adminLoadedPanels:new Set(), adminPendingPanels:new Map(), adminBaseLoaded:false, adminBasePending:null, adminSummary:null, adminOperations:null, adminSecurity:null, financialEventCursor:null};
-+const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", register:false, providers:[], games:[], gameCatalogue:null, gameRanking:null, gameCatalogueRequestId:0, gameWallet:null, gameWindow:null, gameWindowPoll:null, gameLaunchBusy:false, gameSettlementBusy:false, lastLaunchedGame:null, supplierArtwork:{}, supplierExpanded:false, gameCategory:"HOT", gameAccessZone:"ALL", gameLimit:12, adminGames:null, adminCustomGames:[], adminGameSearch:"", adminGameProvider:"ALL", adminGameCategory:"ALL", adminGamePage:1, adminGamePageSize:24, favoriteGames:[], favoriteProviders:[], selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], ticketPage:1, ticketHasMore:false, ticketUnread:0, ticketLatestEvent:null, ticketPollBusy:false, social:null, ads:[], benefits:[], manualBanks:[], manualBankAttempt:null, adIndex:0, adTimer:null, editAdId:null, editAnnouncementId:null, editBenefitId:null, editCustomGameId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, oneMpayStatus:null, gspayStatus:null, depositProvider:"vpay", paymentChannels:{}, withdrawalPendingSeen:null, financialSoundEnabled:true, financialAudioArmed:false, accountingPeriod:"yesterday", accountingMonth:"", adminPanel:"operationsPanel", section:"lobby", referral:null, commission:null, commissionTab:"settings", marketingContactPage:1, marketingContactPages:1, marketingEditingImage:false, marketingMaximumContacts:1000000, marketingAudienceCount:0, adminLoadedPanels:new Set(), adminPendingPanels:new Map(), adminBaseLoaded:false, adminBasePending:null, adminSummary:null, adminOperations:null, adminSecurity:null, financialEventCursor:null};
++const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", register:false, providers:[], games:[], gameCatalogue:null, gameRanking:null, gameCatalogueRequestId:0, gameWallet:null, gameWindow:null, gameWindowPoll:null, gameLaunchBusy:false, gameSettlementBusy:false, lastLaunchedGame:null, supplierArtwork:{}, gameCategory:"HOT", gameAccessZone:"ALL", gameLimit:12, adminGames:null, adminCustomGames:[], adminGameSearch:"", adminGameProvider:"ALL", adminGameCategory:"ALL", adminGamePage:1, adminGamePageSize:24, favoriteGames:[], favoriteProviders:[], selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], ticketPage:1, ticketHasMore:false, ticketUnread:0, ticketLatestEvent:null, ticketPollBusy:false, social:null, ads:[], benefits:[], manualBanks:[], manualBankAttempt:null, adIndex:0, adTimer:null, editAdId:null, editAnnouncementId:null, editBenefitId:null, editCustomGameId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, oneMpayStatus:null, gspayStatus:null, depositProvider:"vpay", paymentChannels:{}, withdrawalPendingSeen:null, financialSoundEnabled:true, financialAudioArmed:false, accountingPeriod:"yesterday", accountingMonth:"", adminPanel:"operationsPanel", section:"lobby", referral:null, commission:null, commissionTab:"settings", marketingContactPage:1, marketingContactPages:1, marketingEditingImage:false, marketingMaximumContacts:1000000, marketingAudienceCount:0, adminLoadedPanels:new Set(), adminPendingPanels:new Map(), adminBaseLoaded:false, adminBasePending:null, adminSummary:null, adminOperations:null, adminSecurity:null, financialEventCursor:null};
  const translations = {
   zh: {
    requestTimeout:"连接超时，操作结果未确认。请检查连接和记录后再试。",networkError:"无法连接服务。请检查网络后重试。",serviceUnavailable:"服务暂时不可用。请稍后重试。",otpNotConfigured:"短信 OTP 尚未在服务器配置。请联系平台负责人。",
@@ -1526,7 +1553,8 @@ index efd0ce0..34dcd0c 100644
  function supplierArtwork(entry,css){const image=document.createElement("img"),fallback=`/assets/providers/${entry.id}.webp`,version=state.supplierArtwork?.[entry.id];image.className=css;image.alt=`${entry.name} game platform`;image.loading="lazy";if(version){image.src=`/api/supplier-art?provider=${encodeURIComponent(entry.id)}&v=${encodeURIComponent(version)}`;image.onerror=()=>{image.onerror=null;applyDefaultSupplierArtwork(image,entry,fallback);};}else applyDefaultSupplierArtwork(image,entry,fallback);return image;}
  function renderApiSupplierButtons(){
   const host=$("apiSupplierButtons");if(!host)return;clear(host);const category=state.gameCategory||"HOT",search=($("search")?.value||"").trim().toLowerCase(),categoryEntries=supplierEntriesForCategory(category),entries=categoryEntries.filter(entry=>!search||entry.name.toLowerCase().includes(search)),favorites=supplierFavoriteKeys();
-  if($("apiSupplierTitle"))$("apiSupplierTitle").textContent=state.lang==="zh"?"34 家独立游戏平台":"34 independent game platforms";if($("apiSupplierCountLabel"))$("apiSupplierCountLabel").textContent=`${entries.length} / 34 PLATFORMS`;const toggle=$("apiSupplierToggle");if(toggle)toggle.hidden=true;
+- if($("apiSupplierTitle"))$("apiSupplierTitle").textContent=state.lang==="zh"?"34 家独立游戏平台":"34 independent game platforms";if($("apiSupplierCountLabel"))$("apiSupplierCountLabel").textContent=`${entries.length} / 34 PLATFORMS`;const toggle=$("apiSupplierToggle");if(toggle)toggle.hidden=true;
++ if($("apiSupplierTitle"))$("apiSupplierTitle").textContent=state.lang==="zh"?"34 家独立游戏平台":"34 independent game platforms";if($("apiSupplierCountLabel"))$("apiSupplierCountLabel").textContent=`${entries.length} / 34 PLATFORMS`;
   if(!entries.length){host.append(node("p","muted",state.lang==="zh"?"这个分类目前没有游戏平台。":state.lang==="ms"?"Tiada platform dalam kategori ini.":"No platforms in this category yet."));return;}
 - for(const entry of entries){const index=categoryEntries.indexOf(entry),stateInfo=apiSupplierState(entry),connected=stateInfo.connected&&stateInfo.control==="active",tile=node("article","api-supplier-tile"),button=node("button",`api-supplier-button${connected?" connected":" pending"}`),art=supplierArtwork(entry,"api-supplier-art"),number=node("span","api-supplier-number",String(index+1).padStart(2,"0")),copy=node("span","api-supplier-copy"),name=node("strong","",entry.name),statusText=stateInfo.control==="closed"?(state.lang==="zh"?"已关闭":state.lang==="ms"?"Ditutup":"Closed"):stateInfo.control==="suspended"?(state.lang==="zh"?"维护中":state.lang==="ms"?"Penyelenggaraan":"Maintenance"):stateInfo.platformLaunchReady?(state.lang==="zh"?"平台入口已开放":state.lang==="ms"?"Pintu platform tersedia":"Platform entry ready"):stateInfo.connected?(state.lang==="zh"?"API 已连接 · 平台入口待厂家开放":state.lang==="ms"?"API disambung · pintu platform menunggu":"API connected · platform entry pending"):(state.lang==="zh"?"等待厂家 API":state.lang==="ms"?"Menunggu API penyedia":"Awaiting provider API"),status=node("small","",statusText),favorite=node("button",`api-supplier-favorite${favorites.has(entry.id)?" active":""}`,favorites.has(entry.id)?"♥":"♡");button.type="button";button.dataset.providerId=entry.id;button.setAttribute?.("aria-label",`${entry.name} platform entry`);copy.append(name,status);button.append(art,number,copy);button.onclick=()=>openCatalogProvider(entry.id,entry.name);favorite.type="button";favorite.setAttribute("aria-label",`${favorites.has(entry.id)?"Remove":"Add"} ${entry.name} favourite`);favorite.onclick=()=>toggleFavoriteProvider(entry.id);tile.append(button,favorite);host.append(tile);}
 + for(const entry of entries){const index=categoryEntries.indexOf(entry),stateInfo=apiSupplierState(entry),connected=stateInfo.connected,tile=node("article","api-supplier-tile"),button=node("button",`api-supplier-button${connected?" connected":" pending"}`),art=supplierArtwork(entry,"api-supplier-art"),number=node("span","api-supplier-number",String(index+1).padStart(2,"0")),copy=node("span","api-supplier-copy"),name=node("strong","",entry.name),statusText=apiSupplierStatusText(stateInfo),status=node("small","",statusText),favorite=node("button",`api-supplier-favorite${favorites.has(entry.id)?" active":""}`,favorites.has(entry.id)?"♥":"♡");button.type="button";button.dataset.providerId=entry.id;button.setAttribute?.("aria-label",`${entry.name} platform entry`);copy.append(name,status);button.append(art,number,copy);button.onclick=()=>openCatalogProvider(entry.id,entry.name);favorite.type="button";favorite.setAttribute("aria-label",`${favorites.has(entry.id)?"Remove":"Add"} ${entry.name} favourite`);favorite.onclick=()=>toggleFavoriteProvider(entry.id);tile.append(button,favorite);host.append(tile);}
@@ -1556,14 +1584,19 @@ index efd0ce0..34dcd0c 100644
 - zh:{title:"四个充值方式",notice:"选择充值方式；维护中的通道暂时不能提交。",vpayHint:"独立入口 · MYR",gspayHint:"独立入口 · MYR",oneMpayHint:"独立入口 · MYR",status:"查看状态",maintenance:"维护中",active:"已开放",closed:"已关闭",caveat:"每个通道独立显示状态；开放后可直接进入付款流程。",dialogText:"{name} 目前正在维护，请稍后再试或联系在线客服。",dialogWarning:"维护期间不能创建充值订单，也不会扣款。",dismiss:"关闭"},
 - en:{title:"Four deposit options",notice:"Choose a deposit option. Channels under maintenance cannot accept orders yet.",vpayHint:"Separate option · MYR",gspayHint:"Separate option · MYR",oneMpayHint:"Separate option · MYR",status:"View status",maintenance:"Maintenance",active:"Available",closed:"Closed",caveat:"Each channel has its own status. Available channels open their payment flow directly.",dialogText:"{name} is under maintenance. Please try again later or contact support.",dialogWarning:"No deposit order or charge is created while this channel is under maintenance.",dismiss:"Close"},
 - ms:{title:"Empat pilihan deposit",notice:"Pilih pilihan deposit. Saluran dalam penyelenggaraan belum boleh menerima pesanan.",vpayHint:"Pilihan berasingan · MYR",gspayHint:"Pilihan berasingan · MYR",oneMpayHint:"Pilihan berasingan · MYR",status:"Lihat status",maintenance:"Penyelenggaraan",active:"Tersedia",closed:"Ditutup",caveat:"Setiap saluran mempunyai status sendiri. Saluran tersedia membuka proses pembayaran terus.",dialogText:"{name} sedang diselenggara. Cuba lagi kemudian atau hubungi sokongan.",dialogWarning:"Tiada pesanan deposit atau caj dibuat semasa penyelenggaraan.",dismiss:"Tutup"}
-+ zh:{title:"四个充值方式",notice:"选择充值方式；可用通道可直接提交充值。",vpayHint:"独立入口 · MYR",gspayHint:"独立入口 · MYR",oneMpayHint:"独立入口 · MYR",status:"查看状态",unavailable:"暂不可用",maintenance:"维护中",active:"已开放",closed:"已关闭",caveat:"每个通道独立显示状态；开放后可直接进入付款流程。",dialogText:"{name} 目前无法提供充值，请稍后再试或联系在线客服。",dialogWarning:"维护期间不能创建充值订单，也不会扣款。",dismiss:"关闭"},
-+ en:{title:"Four deposit options",notice:"Choose an available deposit option to continue to payment.",vpayHint:"Separate option · MYR",gspayHint:"Separate option · MYR",oneMpayHint:"Separate option · MYR",status:"View status",unavailable:"Unavailable",maintenance:"Maintenance",active:"Available",closed:"Closed",caveat:"Each channel has its own status. Available channels open their payment flow directly.",dialogText:"{name} is currently unavailable. Please try again later or contact support.",dialogWarning:"No deposit order or charge is created while this channel is under maintenance.",dismiss:"Close"},
-+ ms:{title:"Empat pilihan deposit",notice:"Pilih saluran deposit yang tersedia untuk meneruskan pembayaran.",vpayHint:"Pilihan berasingan · MYR",gspayHint:"Pilihan berasingan · MYR",oneMpayHint:"Pilihan berasingan · MYR",status:"Lihat status",unavailable:"Tidak tersedia",maintenance:"Penyelenggaraan",active:"Tersedia",closed:"Ditutup",caveat:"Setiap saluran mempunyai status sendiri. Saluran tersedia membuka proses pembayaran terus.",dialogText:"{name} tidak tersedia buat masa ini. Cuba lagi kemudian atau hubungi sokongan.",dialogWarning:"Tiada pesanan deposit atau caj dibuat semasa penyelenggaraan.",dismiss:"Tutup"}
++ zh:{title:"四个充值方式",notice:"选择充值方式；可用通道可直接提交充值。",vpayHint:"独立入口 · MYR",gspayHint:"独立入口 · MYR",oneMpayHint:"独立入口 · MYR",status:"查看状态",unavailable:"暂不可用",maintenance:"维护中",active:"已开放",closed:"已关闭",caveat:"每个通道独立显示状态；开放后可直接进入付款流程。",memberRequired:"充值仅供会员账号使用。"},
++ en:{title:"Four deposit options",notice:"Choose an available deposit option to continue to payment.",vpayHint:"Separate option · MYR",gspayHint:"Separate option · MYR",oneMpayHint:"Separate option · MYR",status:"View status",unavailable:"Unavailable",maintenance:"Maintenance",active:"Available",closed:"Closed",caveat:"Each channel has its own status. Available channels open their payment flow directly.",memberRequired:"Deposits are available to member accounts."},
++ ms:{title:"Empat pilihan deposit",notice:"Pilih saluran deposit yang tersedia untuk meneruskan pembayaran.",vpayHint:"Pilihan berasingan · MYR",gspayHint:"Pilihan berasingan · MYR",oneMpayHint:"Pilihan berasingan · MYR",status:"Lihat status",unavailable:"Tidak tersedia",maintenance:"Penyelenggaraan",active:"Tersedia",closed:"Ditutup",caveat:"Setiap saluran mempunyai status sendiri. Saluran tersedia membuka proses pembayaran terus.",memberRequired:"Deposit tersedia untuk akaun ahli."}
  };
  function paymentText(key){return paymentPreviewCopy[state.lang]?.[key] || paymentPreviewCopy.en[key] || key;}
  function paymentPreviewStatus(code){return paymentPreview.find(p=>p.code===code) || null;}
-@@ -174,7 +193,7 @@ function renderPaymentPreview(){
-  if(current){const p=paymentPreviewStatus(current);if(p)$("paymentDialogText").textContent=paymentText("dialogText").replace("{name}",p.label);}
+@@ -169,34 +188,24 @@ function paymentPreviewOrderReady(code){
+ }
+ function renderPaymentPreview(){
+  document.querySelectorAll("[data-payment-i18n]").forEach(el=>{el.textContent=paymentText(el.dataset.paymentI18n);});
+- const dialog=$("paymentDialog");
+- const current=dialog?.dataset.channel;
+- if(current){const p=paymentPreviewStatus(current);if(p)$("paymentDialogText").textContent=paymentText("dialogText").replace("{name}",p.label);}
   for(const button of document.querySelectorAll("[data-payment-channel]")){
    const p=paymentPreviewStatus(button.dataset.paymentChannel);
 -  if(p){const channelStatus=state.paymentChannels[p.code]||"suspended",providerChannel=["vpay","gspay","1mpay"].includes(p.code),status=channelStatus==="closed"?"closed":channelStatus==="active"&&(!providerChannel||paymentPreviewOrderReady(p.code))?"active":"suspended",label=paymentText(status==="suspended"?"maintenance":status);button.hidden=false;button.querySelector(".payment-state").textContent=label;button.setAttribute("aria-label",p.label+" · "+label);}
@@ -1571,7 +1604,24 @@ index efd0ce0..34dcd0c 100644
   }
  }
  function bindPaymentPreview(){
-@@ -195,8 +214,8 @@ function bindPaymentPreview(){
+  document.querySelectorAll("[data-payment-channel]").forEach(button=>button.addEventListener("click",()=>{
+    const p=paymentPreviewStatus(button.dataset.paymentChannel);if(!p)return;
+-   if(p.code==="vpay"||p.code==="gspay"||p.code==="1mpay"||p.code==="manual-bank"){
+-    state.depositProvider=p.code;
+-    if(!state.user){showAuth();return;}
+-    if(state.user.role==="member"){$("memberWallet").scrollIntoView({behavior:"smooth",block:"center"});loadMemberWallet();return;}
+-   }
+-   $("paymentDialog").dataset.channel=p.code;
+-   $("paymentDialogTitle").textContent=p.label;
+-   $("paymentDialogText").textContent=paymentText("dialogText").replace("{name}",p.label);
+-   $("paymentDialog").showModal();
++   state.depositProvider=p.code;
++   if(!state.user){showAuth();return;}
++   if(state.user.role!=="member"){notification(paymentText("memberRequired"));return;}
++   $("memberWallet").scrollIntoView({behavior:"smooth",block:"center"});loadMemberWallet();
+  }));
+- $("closePaymentDialog").addEventListener("click",()=>$("paymentDialog").close());
+- $("dismissPaymentDialog").addEventListener("click",()=>$("paymentDialog").close());
  }
  
  const walletCopy={
@@ -1582,7 +1632,7 @@ index efd0ce0..34dcd0c 100644
   ms:{signIn:"Log masuk dengan akaun ahli yang diluluskan untuk melihat status dompet.",pending:"Akaun ahli menunggu kelulusan pentadbir. Deposit belum tersedia.",unavailable:"Status dompet tidak tersedia buat sementara.",balance:"Baki tersedia",vpayReady:"Deposit VPay tersedia.",vpayOff:"VPay sedang diselenggara. Pesanan tidak boleh dihantar.",vpayError:"Status VPay tidak dapat disahkan. Deposit kekal dilumpuhkan.",none:"Tiada rekod deposit.",loadError:"Rekod deposit tidak dapat dimuatkan.",refreshing:"Menyegarkan…",provider:"VPay",loading:"Memeriksa status VPay…",requestCreated:"Halaman pembayaran dibuka. Semak hasil pada halaman penyedia.",requestPending:"Permintaan direkodkan; pengesahan belum selesai. Jangan hantar semula sebelum menyemak rekod.",requestRejected:"Penyedia menolak permintaan ini. Tiada pesanan bayaran dibuat; anda boleh menghantar percubaan baharu.",requestFailed:"Permintaan deposit tidak dibuat. Semak status kemudian.",status:{pending:"Menunggu",creating:"Sedang dibuat",created:"Menunggu bayaran",unknown:"Sedang disahkan",credited:"Dikreditkan",failed:"Gagal",expired:"Tamat tempoh",cancelled:"Dibatalkan"}}
  };
  function wt(key){return walletCopy[state.lang]?.[key]||walletCopy.en[key]||key;}
-@@ -254,7 +273,7 @@ async function loadMemberWallet(){
+@@ -254,7 +263,7 @@ async function loadMemberWallet(){
   if(state.depositProvider==="vpay"&&!vpayReady&&oneReady)state.depositProvider="1mpay";
   if(state.depositProvider==="1mpay"&&!oneReady&&vpayReady)state.depositProvider="vpay";
   const oneSelected=state.depositProvider==="1mpay",gspaySelected=state.depositProvider==="gspay",bankSelected=state.depositProvider==="manual-bank",bankReady=bankResult.status==="fulfilled"&&bankResult.value.items?.length>0,ready=bankSelected?bankReady:gspaySelected?gspayReady:oneSelected?oneReady:vpayReady;
@@ -1591,7 +1641,7 @@ index efd0ce0..34dcd0c 100644
   const readinessLabel=awaitingAcceptance?"verificationPending":ready?"ready":"off";
   $("walletPaymentStatus").textContent=`${bankSelected?"BANK TRANSFER":gspaySelected?"GSPAY+":oneSelected?"1MPay":"VPay"} · ${dt(readinessLabel)}`;
   const select=$("vpayTradeCode"),selectedTradeCode=select.value;clear(select);for(const code of(vpayReady?state.paymentStatus.tradeCodes||[]:[])){const option=node("option","",`Payment option ${code}`);option.value=code;select.append(option);}
-@@ -325,10 +344,44 @@ async function submitVPayOrder(e){
+@@ -325,10 +334,44 @@ async function submitVPayOrder(e){
   }catch(error){const finalFailure=releaseDepositAttemptAfterError("vpay",error);message.textContent=error?.status===503?wt("vpayOff"):finalFailure?wt("requestRejected"):wt("requestPending");if(finalFailure)await loadMemberWallet();}
   finally{button.disabled=false;}
  }
@@ -1639,7 +1689,7 @@ index efd0ce0..34dcd0c 100644
  }
  function renderFinancialAudioControl(){const button=$("financialAudioToggle");if(!button)return;const armed=state.financialSoundEnabled!==false&&state.financialAudioArmed===true,label=armed?"财务提示音已开启；点击关闭":state.financialSoundEnabled===false?"财务提示音已关闭；点击开启":"点击开启并试听财务提示音";button.textContent=armed?"🔔":state.financialSoundEnabled===false?"🔕":"🔈";button.setAttribute("aria-pressed",String(armed));button.setAttribute("aria-label",label);button.title=label;}
  function playFinancialTone(){const c=state.financialAudio;if(!c||c.state!=="running")return false;const start=c.currentTime+.02;for(const [index,frequency] of [784,988,1175].entries()){const o=c.createOscillator(),g=c.createGain(),at=start+index*.16;o.type="sine";o.frequency.setValueAtTime(frequency,at);g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(.11,at+.025);g.gain.exponentialRampToValueAtTime(.0001,at+.14);o.connect(g);g.connect(c.destination);o.start(at);o.stop(at+.15);}return true;}
-@@ -536,9 +589,9 @@ function favoriteGameKeys(){return new Set(Array.isArray(state.favoriteGames)?st
+@@ -536,9 +579,9 @@ function favoriteGameKeys(){return new Set(Array.isArray(state.favoriteGames)?st
  function loadFavoriteGames(){try{const value=JSON.parse(localStorage.getItem("master7-favorite-games")||"[]");state.favoriteGames=Array.isArray(value)?value.filter(item=>typeof item==="string").slice(0,200):[];}catch{state.favoriteGames=[];}}
  function toggleFavoriteGame(game){const key=gameIdentity(game),favorites=favoriteGameKeys();if(favorites.has(key))favorites.delete(key);else favorites.add(key);state.favoriteGames=[...favorites].slice(-200);try{localStorage.setItem("master7-favorite-games",JSON.stringify(state.favoriteGames));}catch{}renderCatalog();}
  const gameWalletCopy={
@@ -1652,7 +1702,7 @@ index efd0ce0..34dcd0c 100644
  };
  const gwt=key=>gameWalletCopy[state.lang]?.[key]||gameWalletCopy.en[key]||key;
  function renderGameWallet(){
-@@ -581,19 +634,19 @@ async function recoverGameWallet(){
+@@ -581,19 +624,19 @@ async function recoverGameWallet(){
  function recommendedCatalog(games){const ordered=[...games.filter(game=>game.status==="active"),...games.filter(game=>game.status!=="active")],groups=new Map();for(const game of ordered){if(!groups.has(game.provider))groups.set(game.provider,[]);groups.get(game.provider).push(game);}const result=[];for(let offset=0;;offset++){let added=false;for(const list of groups.values()){if(list[offset]){result.push(list[offset]);added=true;}}if(!added)return result;}}
  function publicGameCard(game){
   const card=node("article","provider-card game-card"),cover=node("div","game-cover"),image=document.createElement("img"),title=node("h3","",state.lang==="zh"&&game.nameZh?game.nameZh:game.name||game.gameCode),meta=node("p","muted",`${game.providerName||game.provider} · ${normalizedGameCategory(game)}`),status=node("span","tag"),favorite=node("button",`game-favorite-button${favoriteGameKeys().has(gameIdentity(game))?" active":""}`,favoriteGameKeys().has(gameIdentity(game))?"♥":"♡"),action=node("button",game.playable?"button button-primary small":"button button-outline small");
@@ -1677,7 +1727,7 @@ index efd0ce0..34dcd0c 100644
  }
  
  function renderAdGrid(items){const host=$("lobbyAdGrid");if(!host)return;clear(host);host.hidden=items.length<2;if(items.length<2)return;for(const ad of items.slice(0,6)){const target=typeof ad.target_url==="string"&&/^https:\/\//i.test(ad.target_url),card=document.createElement(target?"a":"article"),image=document.createElement("img"),label=node("span","",ad.title);card.className="lobby-ad-card";if(target){card.href=ad.target_url;card.target="_blank";card.rel="noopener noreferrer";}image.src=ad.image_data;image.alt=ad.title;image.loading="lazy";card.append(image,label);host.append(card);}}
-@@ -644,29 +697,40 @@ async function renderBenefitManager(owner=true){
+@@ -644,29 +687,40 @@ async function renderBenefitManager(owner=true){
    }
   }
  }
@@ -1726,7 +1776,7 @@ index efd0ce0..34dcd0c 100644
   if(result.launchVerified!==true&&result.walletVerified!==true)return copy.reasonLaunchWallet;
   if(result.launchVerified!==true)return copy.reasonLaunch;
   if(result.walletVerified!==true)return copy.reasonWallet;
-@@ -675,12 +739,10 @@ function gameCheckReason(result,copy){
+@@ -675,12 +729,10 @@ function gameCheckReason(result,copy){
  function gameCheckPresentation(result,key,copy){
   const count=gameCheckCount(result),error=gameCheckExplicitError(result),current=result?.connectionVerified===true&&result?.catalogueSynced===true&&result?.stale!==true;
   if(!result)return {tone:"waiting",label:copy.noResult};
@@ -1740,7 +1790,7 @@ index efd0ce0..34dcd0c 100644
    return {tone:"waiting",label:result.status==="not_configured"||result.platformStatus==="awaiting_api"?copy.waitingApi:copy.connectionPending};
   }
   if(key==="catalogueSynced"){
-@@ -692,9 +754,11 @@ function gameCheckPresentation(result,key,copy){
+@@ -692,9 +744,11 @@ function gameCheckPresentation(result,key,copy){
   }
   if(key==="launchVerified"){
    if(result.launchVerified===true)return {tone:"ready",label:copy.launchReady};
@@ -1752,7 +1802,7 @@ index efd0ce0..34dcd0c 100644
   return result.launchVerified===true||current?{tone:"progress",label:copy.walletPending}:{tone:"waiting",label:copy.walletWaiting};
  }
  async function renderGameSync(force=false){
-@@ -707,7 +771,7 @@ async function renderGameSync(force=false){
+@@ -707,7 +761,7 @@ async function renderGameSync(force=false){
     const result=(data.providers||[]).find(x=>x.id===entry.id),row=node("tr"),provider=node("th","game-sync-name"),name=node("strong","",entry.name),reason=node("small","",gameCheckReason(result,copy));row.dataset.provider=entry.id;provider.append(name,reason);row.append(provider);
     for(const key of ["connectionVerified","catalogueSynced","launchVerified","walletVerified"]){const status=gameCheckPresentation(result,key,copy),cell=node("td","game-check-cell"),pill=node("span",`game-check-pill is-${status.tone}`,status.label);pill.setAttribute("aria-label",`${copy[key==="catalogueSynced"?"sync":key==="connectionVerified"?"connection":key==="launchVerified"?"launch":"wallet"]}: ${status.label}`);cell.append(pill);row.append(cell);}body.append(row);
    }
@@ -1761,7 +1811,7 @@ index efd0ce0..34dcd0c 100644
    if(force)await loadGameCatalogue();
   }catch{notice.textContent=copy.error;}
   finally{button.disabled=false;}
-@@ -723,21 +787,63 @@ function paintGameVisibility(owner=true){
+@@ -723,21 +777,63 @@ function paintGameVisibility(owner=true){
   if(!shown.length){host.append(node("p","muted","No matching supplier games."));return;}
   for(const game of shown){const category=normalizedGameCategory(game),row=node("article","game-control-row"),preview=document.createElement("img");preview.className="game-control-preview";preview.alt="";preview.loading="lazy";preview.src=game.imageData||game.imageUrl||`/assets/providers/${game.provider}.webp`;
    const info=node("div","game-control-info"),title=node("strong","",game.name||game.nameZh),meta=node("small","",`${game.providerName} · ${game.gameCode||"No game ID"} · ${category} · ${(game.accessZone||"paid").toUpperCase()} · effective ${String(game.status||"closed").toUpperCase()}${game.supplierStatus&&game.supplierStatus!=="active"?` · supplier ${game.supplierStatus}`:""}`),upload=document.createElement("input");upload.type="file";upload.accept="image/jpeg,image/png,image/webp";upload.className="game-art-upload";upload.disabled=!owner;upload.setAttribute("aria-label",`Upload ${game.name} game artwork · 800 × 600 px`);
@@ -1831,7 +1881,7 @@ index efd0ce0..34dcd0c 100644
  async function loadGameCatalogue(providerId=state.selectedCatalogProvider){const requestId=++state.gameCatalogueRequestId,url=providerId?`/api/games?provider=${encodeURIComponent(providerId)}`:"/api/games";try{const catalogue=await api(url);if(requestId!==state.gameCatalogueRequestId)return;state.gameCatalogue=catalogue;state.gameRanking=catalogue.ranking||state.gameRanking;state.games=Array.isArray(catalogue.games)?catalogue.games:[];renderCatalog();renderApiSupplierButtons();}catch{if(requestId!==state.gameCatalogueRequestId)return;state.gameCatalogue={...(state.gameCatalogue||{}),selectedProvider:providerId,providers:state.gameCatalogue?.providers||[],games:[]};state.games=[];renderCatalog();renderApiSupplierButtons();}}
  
  function renderItem(host,left,right,buttonLabel,action,disabled=false){const row=node("div","row-item"),lhs=node("div"),name=node("strong","",left);lhs.append(name);if(right)lhs.append(node("small","",right));row.append(lhs);if(buttonLabel){const btn=node("button","button button-outline",buttonLabel);btn.type="button";btn.disabled=disabled;btn.addEventListener("click",action);row.append(btn);}host.append(row);}
-@@ -901,7 +1007,7 @@ const adminFeatureGuides=Object.freeze({
+@@ -901,7 +997,7 @@ const adminFeatureGuides=Object.freeze({
   platformSuitePanel:["以会员、资金、游戏、福利、推广和营运六组查看当前完整功能。","内置、管理员配置、外部连接与预留位分开标示；目录不会把未接通功能写成已完成。"],
   financeCenterPanel:["核对公司银行、支付公司和会员钱包三方记录，并按日、月、半年或年度查看。","只有已完成结算且资料来源通过验收的金额才进入确认结果。"],
   accountingPanel:["每天 MYT 00:05 封存前一日已结算现金流，也可查看月、半年和年度。","这里是现金流账，不把未连接的游戏盈亏、厂家费或优惠成本当作已知利润。"],
@@ -1840,7 +1890,7 @@ index efd0ce0..34dcd0c 100644
   adminDepositPanel:["查看前台会员的充值订单与最终状态。","支付商回调和幂等键防止同一笔充值重复入账。"],
   manualBankAdminPanel:["录入公司银行户口给顾客复制；顾客人工转账后上传银行单。","后台确认公司真实收款后批准一次，才会进入会员钱包；不保存网银密码。"],
   adminWithdrawalPanel:["查看会员提款资料、银行资料和处理状态。","出款和余额扣减必须按已验收通道及审核流程执行。"],
-@@ -911,8 +1017,8 @@ const adminFeatureGuides=Object.freeze({
+@@ -911,8 +1007,8 @@ const adminFeatureGuides=Object.freeze({
   referralAdminPanel:["设置 L1/L2/L3 推荐关系、佣金基准、周期、封顶、冻结和到期。","Deposit 可按已入账充值计算；Turnover 与公司利润需可信数据源才可结算。"],
   rewardsManager:["管理非现金积分、签到、任务、推荐里程碑和优惠券资格。","Rewards 积分没有现金价值，除非另行完成兑换与钱包验收。"],
   apiSupplierManager:["34 家厂家各有独立大厅位置、图片、状态和原厂家 ID。","这里不拆出厂家的内部小游戏，也不会更改厂家赔率或 RTP。"],
@@ -1851,6 +1901,15 @@ index efd0ce0..34dcd0c 100644
   gameRankingPanel:["用已验收的真实数据或管理员策划顺序显示排行榜。","没有可信投注数据时只显示策划排序，不制造假的最热门或赢钱数据。"],
   gameWalletAdminPanel:["查看游戏平台钱包会话、转入、转出和回收状态。","钱包和注单结算通过前不能把厂家标记为可玩。"],
   lobbyAdManager:["上传平台首页广告图片、链接、显示时间和顺序。","保存草稿不会自动对外投放；只有启用且在有效期内的广告显示在前台。"],
+@@ -952,7 +1048,7 @@ function bindPlatformGames(){
+   catch(error){$("platformGameFormStatus").textContent=error.message;}finally{button.disabled=false;}
+  });
+ }
+-function bind(){installFeatureGuides();bindPlatformGames();updateOrganicPromotion();$("organicPromoLanguage").onchange=updateOrganicPromotion;document.querySelectorAll("[data-organic-share]").forEach(button=>button.onclick=()=>shareOrganicPromotion(button.dataset.organicShare));$("socialEnabled").onchange=()=>paintContactAdminState();$("metaPixelEnabled").onchange=()=>paintContactAdminState();$("iosInstallGuide").onclick=()=>$("iosInstallDialog").showModal();$("iosInstallClose").onclick=$("iosInstallDone").onclick=()=>$("iosInstallDialog").close();$("marketingImportForm").addEventListener("submit",importMarketingContacts);$("marketingCampaignForm").addEventListener("submit",saveMarketingCampaign);$("marketingCampaignImage").addEventListener("change",previewMarketingImageSelection);$("marketingContactsRefresh").onclick=()=>loadMarketingContacts(state.marketingContactPage);$("marketingContactSearchButton").onclick=()=>loadMarketingContacts(1);$("marketingContactSearch").onkeydown=event=>{if(event.key==="Enter"){event.preventDefault();loadMarketingContacts(1);}};$("marketingContactConsent").onchange=()=>loadMarketingContacts(1);$("marketingContactsPrev").onclick=()=>loadMarketingContacts(Math.max(1,state.marketingContactPage-1));$("marketingContactsNext").onclick=()=>loadMarketingContacts(Math.min(state.marketingContactPages,state.marketingContactPage+1));$("marketingSendRate").addEventListener("input",updateMarketingDuration);updateMarketingDuration();$("marketingLaunch").onclick=()=>notification("请在下方选择已就绪的单个活动启动发送");$("createEncryptedBackup").onclick=createEncryptedBackup;try{state.financialSoundEnabled=localStorage.getItem("m7-financial-sound")!=="off";}catch{}renderFinancialAudioControl();$("financialAudioToggle").onclick=toggleFinancialAudio;document.addEventListener?.("pointerdown",event=>{if(!event.target?.closest?.("#financialAudioToggle"))armFinancialAudio();},{once:true});$("referralSettingsForm").addEventListener("submit",async event=>{event.preventDefault();$("commissionSaveStatus").textContent="Saving…";try{await api("/api/admin/referrals","POST",{action:"save",settings:commissionFormPayload()});await loadReferralAdmin();$("commissionSaveStatus").textContent="✅ Saved";notification("Commission settings saved");}catch(error){$("commissionSaveStatus").textContent=error.message;notification(error.message);}});$("refreshReferrals").onclick=()=>loadAdminPanel("referralAdminPanel",{force:true});$("copyAdminReferral").onclick=async()=>{const value=$("adminReferralLink").value;if(!value)return;try{await navigator.clipboard.writeText(value);notification("注册链接已复制");}catch{notification(value);}};$("commissionBasis").onchange=updateCommissionBasisNotice;$("commissionRunNow").onclick=async()=>{try{const result=await api("/api/admin/referrals","POST",{action:"run"});await loadReferralAdmin();selectCommissionTab("ledger");notification(result.message);}catch(error){notification(error.message);}};document.querySelectorAll("[data-commission-tab]").forEach(button=>button.onclick=()=>selectCommissionTab(button.dataset.commissionTab));$("supportAutomationForm").addEventListener("submit",async event=>{event.preventDefault();try{await api("/api/admin/support-settings","POST",{aiEnabled:$("supportAiEnabled").checked,humanHandoff:$("supportHumanHandoff").checked});await loadSupportAutomation();notification("Support settings saved");}catch(error){notification(error.message);}});$("telegramBotTest").onclick=async()=>{const button=$("telegramBotTest");button.disabled=true;try{await api("/api/admin/telegram-bot","POST",{action:"test"});notification("Telegram 测试通知已发送");await loadTelegramBot();}catch(error){notification(error.message);}finally{button.disabled=false;}};$("refreshSystemReadiness").onclick=()=>loadAdminPanel("systemReadinessPanel",{force:true});$("adminMenuToggle").onclick=()=>toggleAdminMenu(true);$("adminMenuClose").onclick=()=>toggleAdminMenu(false);$("adminMenuBackdrop").onclick=()=>toggleAdminMenu(false);$("adminNotificationButton").onclick=openAdminNotifications;document.querySelectorAll("[data-admin-shortcut]").forEach(link=>link.onclick=event=>{event.preventDefault();selectAdminPanel(link.dataset.adminShortcut);});document.addEventListener("keydown",event=>{if(event.key==="Escape")toggleAdminMenu(false);});document.querySelectorAll("[data-accounting-period]").forEach(button=>button.onclick=()=>loadAccounting(button.dataset.accountingPeriod,""));$("refreshAccounting").onclick=()=>loadAdminPanel("accountingPanel",{force:true});$("loadAccountingMonth").onclick=()=>{const month=$("accountingMonth").value;if(month)loadAccounting("month",month);};for(const link of document.querySelectorAll(".admin-internal-sidebar a")){link.onclick=event=>{event.preventDefault();selectAdminPanel(link.getAttribute("href").slice(1));toggleAdminMenu(false);};}for(const id of ["benefitExampleDeposit","benefitAmount","benefitPercent","benefitMinDeposit","benefitMaxReward","benefitMultiplier","benefitTurnoverBase","benefitTurnover"]){$(id)?.addEventListener("input",renderBenefitCalculationPreview);$(id)?.addEventListener("change",renderBenefitCalculationPreview);}renderBenefitCalculationPreview();$("apiSupplierToggle")?.addEventListener("click",()=>{state.supplierExpanded=!state.supplierExpanded;renderApiSupplierButtons();});document.querySelectorAll("[data-game-zone]").forEach(button=>button.onclick=()=>{state.gameAccessZone=button.dataset.gameZone;state.gameLimit=12;document.querySelectorAll("[data-game-zone]").forEach(x=>x.classList.toggle("active",x===button));renderCatalog();});document.querySelectorAll("[data-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.gameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.sidebarGameCategory===state.gameCategory));renderApiSupplierButtons();renderCatalog();});document.querySelectorAll("[data-sidebar-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.sidebarGameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x===button));selected("lobby");renderApiSupplierButtons();renderCatalog();document.querySelector(".game-category-filters")?.scrollIntoView({behavior:"smooth",block:"start"});});$("clearProviderFilter").onclick=()=>{state.gameCatalogueRequestId++;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;state.gameLimit=12;state.games=[];state.gameCatalogue={...(state.gameCatalogue||{}),games:[],providersOnly:true,platformsOnly:true,selectedProvider:null,selectedPlatform:null};renderCatalog();$("apiSupplierButtons").scrollIntoView({behavior:"smooth",block:"start"});};document.querySelectorAll("[data-section]").forEach(b=>b.onclick=()=>selected(b.dataset.section));$("exploreButton").onclick=()=>selected("lobby");$("aboutButton").onclick=async()=>{try{const data=await api("/health");notification(`${t("statusTitle")}: ${data.status} · ${data.release} · ${t("statusMessage")}`);}catch(e){notification(e.message)}};$("loginButton").onclick=()=>showAuth();$("closeAuth").onclick=()=>$("authDialog").close();$("refreshTickets").onclick=refreshTickets;$("refreshWallet").onclick=loadMemberWallet;$("refreshPaymentRecords").onclick=loadMemberWallet;$("refreshGameWallet").onclick=loadGameWallet;$("gameWalletSettle").onclick=()=>settleGameWallet(false);$("gameWalletRecover").onclick=recoverGameWallet;$("refreshAdminGameWallet").onclick=()=>loadAdminPanel("gameWalletAdminPanel",{force:true});$("refreshAdminDeposits").onclick=()=>loadAdminPanel("adminDepositPanel",{force:true});$("syncGamesNow").onclick=async()=>{await renderGameSync(true);state.adminLoadedPanels.add("gameSyncPanel");};$("refreshWithdrawals").onclick=loadWithdrawals;$("refreshAdminWithdrawals").onclick=()=>loadAdminPanel("adminWithdrawalPanel",{force:true});$("withdrawalForm").addEventListener("submit",submitWithdrawalForm);$("vpayOrderForm").addEventListener("submit",submitVPayOrder);$("oneMpayOrderForm").addEventListener("submit",submitOneMpayOrder);$("search").oninput=()=>{renderApiSupplierButtons();renderCatalog();};$("category").onchange=renderCatalog;$("locale").onchange=e=>{state.lang=e.target.value;try{localStorage.setItem("m7-language",state.lang);}catch{}applyLang();renderApiSupplierButtons();};$("lobbyAdPrevious").onclick=()=>{state.adIndex--;renderCarousel();};$("lobbyAdNext").onclick=()=>{state.adIndex++;renderCarousel();};$("lobbyAdCancel").onclick=resetAdForm;$("lobbyAdForm").addEventListener("submit",async e=>{e.preventDefault();const button=$("lobbyAdSave");button.disabled=true;try{const file=$("lobbyAdFile").files[0],imageData=file?await imageDataForUpload(file):"";await api("/api/admin/ads","POST",{action:"save",id:state.editAdId||undefined,title:$("lobbyAdTitle").value,targetUrl:$("lobbyAdTarget").value,imageData,status:$("lobbyAdStatus").value,startsAt:$("lobbyAdStartsAt").value,endsAt:$("lobbyAdEndsAt").value,position:state.adminAds?.length||0});resetAdForm();await loadLobbyContent();await renderAdManager();notification(t("success"));}catch(err){$("lobbyAdFormStatus").textContent=err.message;}finally{button.disabled=false;}});$("benefitCancel").onclick=resetBenefitForm;$("benefitForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/benefits","POST",benefitFormPayload("draft"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}});$("benefitPublish").onclick=async()=>{if(!$("benefitForm").reportValidity())return;try{await api("/api/admin/benefits","POST",benefitFormPayload("active"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}};$("ticketForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user){showAuth();return;}try{await api("/api/tickets","POST",{subject:$("ticketSubject").value,message:$("ticketMessage").value});$("ticketForm").reset();await refreshTickets();notification(t("success"));}catch(err){notification(err.message)}});$("socialForm").addEventListener("submit",async e=>{e.preventDefault();$("socialFormStatus").textContent="Saving…";try{await api("/api/admin/social-links","POST",{enabled:$("socialEnabled").checked,hotline:$("hotlineContact").value,whatsapp:$("whatsappContact").value,wechat:$("wechatContact").value,lineUrl:$("lineContact").value,telegramUrl:$("telegramContact").value,facebookUrl:$("facebookLink").value,instagramUrl:$("instagramLink").value,pixelEnabled:$("metaPixelEnabled").checked,metaPixelId:$("metaPixelId").value});await loadPublic();await renderSocialAdmin(true);$("socialFormStatus").textContent="✅ Saved";notification(t("success"));}catch(err){$("socialFormStatus").textContent=err.message;notification(err.message)}});$("announcementCancel").onclick=resetAnnouncementForm;$("announcementForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/announcement","POST",{action:"save",id:state.editAnnouncementId||undefined,title:$("announcementTitle").value,body:$("announcementBody").value,status:$("announcementStatus").value,startsAt:$("announcementStartsAt").value,endsAt:$("announcementEndsAt").value});resetAnnouncementForm();await loadPublic();await renderAnnouncementManager();notification(t("success"));}catch(err){$("announcementFormStatus").textContent=err.message;}});}
++function bind(){installFeatureGuides();bindPlatformGames();updateOrganicPromotion();$("organicPromoLanguage").onchange=updateOrganicPromotion;document.querySelectorAll("[data-organic-share]").forEach(button=>button.onclick=()=>shareOrganicPromotion(button.dataset.organicShare));$("socialEnabled").onchange=()=>paintContactAdminState();$("metaPixelEnabled").onchange=()=>paintContactAdminState();$("iosInstallGuide").onclick=()=>$("iosInstallDialog").showModal();$("iosInstallClose").onclick=$("iosInstallDone").onclick=()=>$("iosInstallDialog").close();$("marketingImportForm").addEventListener("submit",importMarketingContacts);$("marketingCampaignForm").addEventListener("submit",saveMarketingCampaign);$("marketingCampaignImage").addEventListener("change",previewMarketingImageSelection);$("marketingContactsRefresh").onclick=()=>loadMarketingContacts(state.marketingContactPage);$("marketingContactSearchButton").onclick=()=>loadMarketingContacts(1);$("marketingContactSearch").onkeydown=event=>{if(event.key==="Enter"){event.preventDefault();loadMarketingContacts(1);}};$("marketingContactConsent").onchange=()=>loadMarketingContacts(1);$("marketingContactsPrev").onclick=()=>loadMarketingContacts(Math.max(1,state.marketingContactPage-1));$("marketingContactsNext").onclick=()=>loadMarketingContacts(Math.min(state.marketingContactPages,state.marketingContactPage+1));$("marketingSendRate").addEventListener("input",updateMarketingDuration);updateMarketingDuration();$("marketingLaunch").onclick=()=>notification("请在下方选择已就绪的单个活动启动发送");$("createEncryptedBackup").onclick=createEncryptedBackup;try{state.financialSoundEnabled=localStorage.getItem("m7-financial-sound")!=="off";}catch{}renderFinancialAudioControl();$("financialAudioToggle").onclick=toggleFinancialAudio;document.addEventListener?.("pointerdown",event=>{if(!event.target?.closest?.("#financialAudioToggle"))armFinancialAudio();},{once:true});$("referralSettingsForm").addEventListener("submit",async event=>{event.preventDefault();$("commissionSaveStatus").textContent="Saving…";try{await api("/api/admin/referrals","POST",{action:"save",settings:commissionFormPayload()});await loadReferralAdmin();$("commissionSaveStatus").textContent="✅ Saved";notification("Commission settings saved");}catch(error){$("commissionSaveStatus").textContent=error.message;notification(error.message);}});$("refreshReferrals").onclick=()=>loadAdminPanel("referralAdminPanel",{force:true});$("copyAdminReferral").onclick=async()=>{const value=$("adminReferralLink").value;if(!value)return;try{await navigator.clipboard.writeText(value);notification("注册链接已复制");}catch{notification(value);}};$("commissionBasis").onchange=updateCommissionBasisNotice;$("commissionRunNow").onclick=async()=>{try{const result=await api("/api/admin/referrals","POST",{action:"run"});await loadReferralAdmin();selectCommissionTab("ledger");notification(result.message);}catch(error){notification(error.message);}};document.querySelectorAll("[data-commission-tab]").forEach(button=>button.onclick=()=>selectCommissionTab(button.dataset.commissionTab));$("supportAutomationForm").addEventListener("submit",async event=>{event.preventDefault();try{await api("/api/admin/support-settings","POST",{aiEnabled:$("supportAiEnabled").checked,humanHandoff:$("supportHumanHandoff").checked});await loadSupportAutomation();notification("Support settings saved");}catch(error){notification(error.message);}});$("telegramBotTest").onclick=async()=>{const button=$("telegramBotTest");button.disabled=true;try{await api("/api/admin/telegram-bot","POST",{action:"test"});notification("Telegram 测试通知已发送");await loadTelegramBot();}catch(error){notification(error.message);}finally{button.disabled=false;}};$("refreshSystemReadiness").onclick=()=>loadAdminPanel("systemReadinessPanel",{force:true});$("adminMenuToggle").onclick=()=>toggleAdminMenu(true);$("adminMenuClose").onclick=()=>toggleAdminMenu(false);$("adminMenuBackdrop").onclick=()=>toggleAdminMenu(false);$("adminNotificationButton").onclick=openAdminNotifications;document.querySelectorAll("[data-admin-shortcut]").forEach(link=>link.onclick=event=>{event.preventDefault();selectAdminPanel(link.dataset.adminShortcut);});document.addEventListener("keydown",event=>{if(event.key==="Escape")toggleAdminMenu(false);});document.querySelectorAll("[data-accounting-period]").forEach(button=>button.onclick=()=>loadAccounting(button.dataset.accountingPeriod,""));$("refreshAccounting").onclick=()=>loadAdminPanel("accountingPanel",{force:true});$("loadAccountingMonth").onclick=()=>{const month=$("accountingMonth").value;if(month)loadAccounting("month",month);};for(const link of document.querySelectorAll(".admin-internal-sidebar a")){link.onclick=event=>{event.preventDefault();selectAdminPanel(link.getAttribute("href").slice(1));toggleAdminMenu(false);};}for(const id of ["benefitExampleDeposit","benefitAmount","benefitPercent","benefitMinDeposit","benefitMaxReward","benefitMultiplier","benefitTurnoverBase","benefitTurnover"]){$(id)?.addEventListener("input",renderBenefitCalculationPreview);$(id)?.addEventListener("change",renderBenefitCalculationPreview);}renderBenefitCalculationPreview();document.querySelectorAll("[data-game-zone]").forEach(button=>button.onclick=()=>{state.gameAccessZone=button.dataset.gameZone;state.gameLimit=12;document.querySelectorAll("[data-game-zone]").forEach(x=>x.classList.toggle("active",x===button));renderCatalog();});document.querySelectorAll("[data-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.gameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.sidebarGameCategory===state.gameCategory));renderApiSupplierButtons();renderCatalog();});document.querySelectorAll("[data-sidebar-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.sidebarGameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x===button));selected("lobby");renderApiSupplierButtons();renderCatalog();document.querySelector(".game-category-filters")?.scrollIntoView({behavior:"smooth",block:"start"});});$("clearProviderFilter").onclick=()=>{state.gameCatalogueRequestId++;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;state.gameLimit=12;state.games=[];state.gameCatalogue={...(state.gameCatalogue||{}),games:[],providersOnly:true,platformsOnly:true,selectedProvider:null,selectedPlatform:null};renderCatalog();$("apiSupplierButtons").scrollIntoView({behavior:"smooth",block:"start"});};document.querySelectorAll("[data-section]").forEach(b=>b.onclick=()=>selected(b.dataset.section));$("exploreButton").onclick=()=>selected("lobby");$("aboutButton").onclick=async()=>{try{const data=await api("/health");notification(`${t("statusTitle")}: ${data.status} · ${data.release} · ${t("statusMessage")}`);}catch(e){notification(e.message)}};$("loginButton").onclick=()=>showAuth();$("closeAuth").onclick=()=>$("authDialog").close();$("refreshTickets").onclick=refreshTickets;$("refreshWallet").onclick=loadMemberWallet;$("refreshPaymentRecords").onclick=loadMemberWallet;$("refreshGameWallet").onclick=loadGameWallet;$("gameWalletSettle").onclick=()=>settleGameWallet(false);$("gameWalletRecover").onclick=recoverGameWallet;$("refreshAdminGameWallet").onclick=()=>loadAdminPanel("gameWalletAdminPanel",{force:true});$("refreshAdminDeposits").onclick=()=>loadAdminPanel("adminDepositPanel",{force:true});$("syncGamesNow").onclick=async()=>{await renderGameSync(true);state.adminLoadedPanels.add("gameSyncPanel");};$("refreshWithdrawals").onclick=loadWithdrawals;$("refreshAdminWithdrawals").onclick=()=>loadAdminPanel("adminWithdrawalPanel",{force:true});$("withdrawalForm").addEventListener("submit",submitWithdrawalForm);$("vpayOrderForm").addEventListener("submit",submitVPayOrder);$("oneMpayOrderForm").addEventListener("submit",submitOneMpayOrder);$("search").oninput=()=>{renderApiSupplierButtons();renderCatalog();};$("category").onchange=renderCatalog;$("locale").onchange=e=>{state.lang=e.target.value;try{localStorage.setItem("m7-language",state.lang);}catch{}applyLang();renderApiSupplierButtons();};$("lobbyAdPrevious").onclick=()=>{state.adIndex--;renderCarousel();};$("lobbyAdNext").onclick=()=>{state.adIndex++;renderCarousel();};$("lobbyAdCancel").onclick=resetAdForm;$("lobbyAdForm").addEventListener("submit",async e=>{e.preventDefault();const button=$("lobbyAdSave");button.disabled=true;try{const file=$("lobbyAdFile").files[0],imageData=file?await imageDataForUpload(file):"";await api("/api/admin/ads","POST",{action:"save",id:state.editAdId||undefined,title:$("lobbyAdTitle").value,targetUrl:$("lobbyAdTarget").value,imageData,status:$("lobbyAdStatus").value,startsAt:$("lobbyAdStartsAt").value,endsAt:$("lobbyAdEndsAt").value,position:state.adminAds?.length||0});resetAdForm();await loadLobbyContent();await renderAdManager();notification(t("success"));}catch(err){$("lobbyAdFormStatus").textContent=err.message;}finally{button.disabled=false;}});$("benefitCancel").onclick=resetBenefitForm;$("benefitForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/benefits","POST",benefitFormPayload("draft"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}});$("benefitPublish").onclick=async()=>{if(!$("benefitForm").reportValidity())return;try{await api("/api/admin/benefits","POST",benefitFormPayload("active"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}};$("ticketForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user){showAuth();return;}try{await api("/api/tickets","POST",{subject:$("ticketSubject").value,message:$("ticketMessage").value});$("ticketForm").reset();await refreshTickets();notification(t("success"));}catch(err){notification(err.message)}});$("socialForm").addEventListener("submit",async e=>{e.preventDefault();$("socialFormStatus").textContent="Saving…";try{await api("/api/admin/social-links","POST",{enabled:$("socialEnabled").checked,hotline:$("hotlineContact").value,whatsapp:$("whatsappContact").value,wechat:$("wechatContact").value,lineUrl:$("lineContact").value,telegramUrl:$("telegramContact").value,facebookUrl:$("facebookLink").value,instagramUrl:$("instagramLink").value,pixelEnabled:$("metaPixelEnabled").checked,metaPixelId:$("metaPixelId").value});await loadPublic();await renderSocialAdmin(true);$("socialFormStatus").textContent="✅ Saved";notification(t("success"));}catch(err){$("socialFormStatus").textContent=err.message;notification(err.message)}});$("announcementCancel").onclick=resetAnnouncementForm;$("announcementForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/announcement","POST",{action:"save",id:state.editAnnouncementId||undefined,title:$("announcementTitle").value,body:$("announcementBody").value,status:$("announcementStatus").value,startsAt:$("announcementStartsAt").value,endsAt:$("announcementEndsAt").value});resetAnnouncementForm();await loadPublic();await renderAnnouncementManager();notification(t("success"));}catch(err){$("announcementFormStatus").textContent=err.message;}});}
+ (function restoreLanguage(){try{const saved=localStorage.getItem("m7-language");if(["en","zh","ms"].includes(saved))state.lang=saved;}catch{}})();
+ Object.assign(translations.zh,{registrationDone:"注册成功，手机号已验证。请使用会员 ID、密码和手机 OTP 登录。",registerSaved:"注册成功，请登录。",loginNotice:"输入会员 ID 和密码，再把发送到登记手机的 6 位 OTP 填入小格。",managementSignIn:"后台管理登录",managementLoginNotice:"请输入管理员或员工 ID 与密码。",featureOtpDesc:"注册时验证马来西亚手机号；会员登录使用 ID、密码和短信 OTP"});
+ Object.assign(translations.en,{registrationDone:"Registration complete and phone verified. Sign in with your member ID, password and mobile OTP.",registerSaved:"Registered. Please sign in.",loginNotice:"Enter your member ID and password, then type the 6-digit OTP sent to your registered mobile.",managementSignIn:"Management sign-in",managementLoginNotice:"Enter your administrator or staff ID and password.",featureOtpDesc:"Verify your Malaysian phone at registration; member sign-in uses ID, password and SMS OTP"});
 diff --git a/public/assets/owner-manual.js b/public/assets/owner-manual.js
 index da26627..99dd296 100644
 --- a/public/assets/owner-manual.js
@@ -1895,13 +1954,73 @@ index da26627..99dd296 100644
   ];
   const byId=id=>document.getElementById(id);
   const node=(tag,className="",text="")=>{const item=document.createElement(tag);if(className)item.className=className;if(text)item.textContent=text;return item;};
+diff --git a/public/assets/style.css b/public/assets/style.css
+index da09a05..f019dd5 100644
+--- a/public/assets/style.css
++++ b/public/assets/style.css
+@@ -24,9 +24,7 @@
+ .payment-hint{font-size:12px;color:#c1d1e2}
+ .payment-state{margin-top:auto;border-radius:30px;border:1px solid #8e713d;background:#4c3a1b77;color:#f0cc88;padding:6px 10px;font-size:11px;line-height:1.4}
+ .payment-caveat{font-size:12px;color:#bdc8d9;line-height:1.8;margin:17px 1px 0}
+-.payment-dialog{width:min(490px,calc(100vw - 25px))}
+-.payment-dialog p.muted{line-height:1.8;margin:18px 0}
+-.payment-dialog-warning{border:1px solid #705a36;border-radius:11px;padding:13px 15px;background:#4d3a1b73;color:#f1d3a2;font-size:13px;line-height:1.7}
++
+ .member-wallet{margin:24px 0;padding:24px;border-color:#3b6383;background:linear-gradient(135deg,#102547,#0b172d)}
+ .wallet-heading,.wallet-records-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+ .wallet-heading h2,.wallet-records-heading h2{margin:0 0 5px}
+@@ -609,7 +607,7 @@ body {
+ .brand-mini, .lock-brand, .sidebar-icon {
+   background: #def4fd; border-color: var(--brand-gold-border); color: #075e83;
+ }
+-.demo-ribbon, .payment-caveat, .payment-dialog-warning, .bonus-disclosure {
++.demo-ribbon, .payment-caveat, .bonus-disclosure {
+   background: #fff7e4; color: #715015; border-color: #d6b263;
+ }
+ .nav-button, .sidebar-nav-button, .admin-internal-sidebar a { color: #355b72; }
+@@ -695,7 +693,7 @@ dialog::backdrop { background: #173b5366; }
+ .footer { border-top-color: var(--brand-gold-border); }
+ :focus-visible { outline: 3px solid #096c94; outline-offset: 3px; }
+ 
+-.game-entry-button{margin-top:10px;width:100%;min-height:38px;padding:8px 10px;font-size:11px}.game-entry-button:disabled{opacity:.78;cursor:not-allowed}.state-button-group{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;min-width:255px}.state-button{padding:8px 7px;border:1px solid var(--line);background:var(--panel-2);color:var(--muted);font-size:10px;box-shadow:none}.state-button.active{border-color:var(--brand-gold-border);background:var(--brand-gold-soft);color:var(--brand-gold-strong)}.payment-channel-control{padding:14px 0}.game-control-row>.state-button-group{align-self:center}@media(max-width:650px){.state-button-group{grid-template-columns:repeat(3,1fr);min-width:0;width:100%}.game-control-row>.state-button-group{grid-column:1/-1}.payment-channel-control .state-button-group{flex-basis:100%}}
++.game-entry-button{margin-top:10px;width:100%;min-height:38px;padding:8px 10px;font-size:11px}.game-entry-button:disabled{opacity:.78;cursor:not-allowed}.payment-channel-control{padding:14px 0}
+ .api-supplier-lobby{margin:22px 0 34px;padding:20px;border:1px solid var(--line);border-radius:18px;background:var(--panel)}.api-supplier-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.api-supplier-button,.api-supplier-admin-button{display:flex;align-items:center;gap:9px;min-width:0;border:1px solid var(--line);border-radius:11px;background:var(--panel-2);color:var(--txt);text-align:left;cursor:pointer;overflow:hidden}.api-supplier-button{min-height:172px;padding:9px;display:grid;grid-template-columns:auto 1fr;grid-template-rows:112px auto;align-items:center}.api-supplier-art{grid-column:1/-1;width:100%;height:112px;padding:8px;border-radius:8px;background:linear-gradient(145deg,#eaf8ff,#fff9df);object-fit:contain}.api-supplier-copy{min-width:0}.api-supplier-button strong{display:block;font-size:12px;overflow-wrap:anywhere}.api-supplier-button small,.api-supplier-admin-button small{display:block;color:var(--muted);font-size:9px;line-height:1.4}.api-supplier-number{color:var(--brand-gold-strong);font-size:10px;font-weight:800}.api-supplier-button.connected,.api-supplier-admin-button.connected{border-color:#4bbca0;background:linear-gradient(135deg,#e9fbf7,var(--panel-2))}.api-supplier-button.pending:hover,.api-supplier-admin-button.pending:hover{border-color:var(--brand-gold-border)}.api-supplier-admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.api-supplier-admin-button{padding:10px}.api-supplier-admin-art{width:52px;height:52px;padding:4px;flex:0 0 auto;border-radius:8px;background:#fff;object-fit:contain}.api-supplier-admin-button span:last-child{min-width:0}.api-supplier-admin-button strong{display:block;font-size:11px;overflow-wrap:anywhere}@media(max-width:760px){.api-supplier-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.api-supplier-admin-grid{grid-template-columns:1fr}.api-supplier-button{min-height:152px;grid-template-rows:94px auto}.api-supplier-art{height:94px}}
+ 
+ /* Owner-confirmed screenshot theme. Visual arrangement only: existing routes,
+@@ -1170,7 +1168,7 @@ body.auth-entry #authDialog.customer-auth #referralField{order:5}
+ .android-download-panel{display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:14px;margin:0 0 15px;padding:13px 15px;border:1px solid #285d62;border-radius:14px;background:linear-gradient(120deg,#0b2527,#101a2c 62%,#16142b);box-shadow:0 10px 28px #0004}.android-download-icon{width:58px;height:58px;object-fit:contain;border-radius:13px;background:#071019}.android-download-panel h2{margin:0;font-size:16px}.android-download-panel p{margin:2px 0;color:#9cabbc;font-size:10px}.android-download-panel .eyebrow{color:#79eee5}.android-download-actions{display:flex;align-items:center;flex-wrap:wrap;justify-content:flex-end;gap:8px}.ios-ready{padding:7px 9px;border:1px solid #286b65;border-radius:9px;background:#0b2927;color:#9ff8ed;font-size:9px;font-weight:750;white-space:nowrap}.ios-install-dialog{width:min(92vw,520px);border-color:#2a716c;background:linear-gradient(145deg,#0b2024,#101827);color:#eefcfb}.ios-install-steps{display:grid;gap:11px;margin:18px 0;padding-left:24px;color:#b9c9d3}.ios-install-steps li{padding-left:4px}.ios-install-steps strong{color:#8df9f1}.ios-install-steps code{padding:2px 6px;border-radius:6px;background:#071219;color:#e8c278}@media(max-width:700px){.android-download-panel{grid-template-columns:48px 1fr}.android-download-icon{width:48px;height:48px}.android-download-actions{grid-column:1/-1;justify-content:stretch}.android-download-actions .button{flex:1 1 145px}.ios-ready{width:100%;text-align:center}}
+ 
+ /* Paginated supplier and per-game controls. */
+-.api-supplier-toggle{display:none;margin:14px auto 0}
++
+ .game-catalog-details{border:1px solid rgba(255,255,255,.11);border-radius:14px;background:rgba(3,9,20,.25);padding:12px}
+ .game-catalog-details>summary{cursor:pointer;color:#f5d77f;font-weight:800}
+ .game-catalog-details[open]>summary{margin-bottom:14px}
+@@ -1180,7 +1178,7 @@ body.auth-entry #authDialog.customer-auth #referralField{order:5}
+ .game-control-info select{width:min(100%,220px);padding:7px 8px;font-size:10px}
+ .game-control-info .game-art-label{display:grid;gap:4px;color:#d9c27f;font-size:9px;font-weight:700}
+ .game-control-info .game-art-upload{max-width:220px}
+-@media(max-width:760px){.api-supplier-toggle:not([hidden]){display:block}.game-catalog-toolbar{grid-template-columns:1fr}.game-catalog-pager{justify-content:space-between}.game-control-info select,.game-control-info .game-art-upload{width:100%;max-width:none}}
++@media(max-width:760px){.game-catalog-toolbar{grid-template-columns:1fr}.game-catalog-pager{justify-content:space-between}.game-control-info select,.game-control-info .game-art-upload{width:100%;max-width:none}}
+ 
+ /* Release 17.0.74 · complete MASTER7 sign-in destination after logout. */
+ body.auth-entry{
+@@ -1679,7 +1677,7 @@ body.admin-mode .ops-ai-hero,body.admin-mode .finance-center-hero{background:lin
+ 
+ /* Complete suite directory and reserved MASTER7 game slots. */
+ .platform-suite-hero{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:19px;border:1px solid #4b4464;border-radius:12px;background:linear-gradient(105deg,rgba(13,18,32,.96),rgba(16,15,35,.84) 62%,rgba(6,31,35,.7)),url('/assets/master7-casino-backoffice-premium.webp') 72% 48%/cover no-repeat}.platform-suite-hero h2{margin:2px 0 6px;color:#fff0c9}.platform-suite-hero p:last-child{max-width:880px;margin:0;color:#b9c5d3;font-size:11px;line-height:1.65}.platform-suite-version{padding:6px 9px;border:1px solid #55d9ce;border-radius:999px;background:#08282b;color:#a9fff6;font-size:8px;letter-spacing:.14em;white-space:nowrap}.platform-suite-legend{display:flex;gap:6px;flex-wrap:wrap}.suite-state{display:inline-flex;align-items:center;justify-content:center;min-height:21px;padding:3px 7px;border:1px solid #3b4559;border-radius:999px;background:#111826;color:#acb8c8;font-size:8px;font-style:normal;white-space:nowrap}.suite-state.built{border-color:#387d73;background:#0d302e;color:#8ff3e7}.suite-state.owner{border-color:#78633d;background:#322719;color:#ebcd8b}.suite-state.external{border-color:#69425c;background:#301a29;color:#e7a8cc}.suite-state.reserved{border-color:#57527c;background:#211d3b;color:#c7bfff}.platform-suite-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.platform-suite-grid article{display:grid;gap:9px;padding:13px;border:1px solid #2e3549;border-radius:10px;background:linear-gradient(145deg,#0e1422,#090d16)}.platform-suite-grid h3{margin:0;color:#ede7d8}.platform-suite-grid ul{display:grid;gap:5px;margin:0;padding:0;list-style:none}.platform-suite-grid li{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 7px;border-bottom:1px solid #222a39;color:#aeb9c9;font-size:9px}.platform-suite-grid li:last-child{border-bottom:0}.platform-suite-grid .button{justify-self:start}.platform-suite-note{margin:0;padding:10px 12px;border:1px solid #504528;border-radius:9px;background:#2c241766;color:#d8c38f;font-size:9px;line-height:1.6}
+-.platform-games-layout{display:grid;grid-template-columns:minmax(240px,.7fr) minmax(0,1.3fr);gap:12px}.platform-game-form{padding:12px;border:1px solid #2e354a;border-radius:10px;background:#0b101b}.platform-game-form label{display:grid;gap:4px;color:#9fa9ba;font-size:9px}.platform-game-list{display:grid;gap:7px}.platform-game-row{display:grid;grid-template-columns:82px minmax(0,1fr) auto;align-items:center;gap:9px;padding:8px;border:1px solid #2b3245;border-radius:9px;background:#0a101a}.platform-game-row>img{width:82px;height:61px;object-fit:cover;border-radius:7px;background:#111827}.platform-game-copy{display:grid;gap:3px;min-width:0}.platform-game-copy strong,.platform-game-copy small{overflow-wrap:anywhere}.platform-game-copy strong{font-size:11px}.platform-game-copy small{color:#8894a7;font-size:8px}.platform-game-copy .status{justify-self:start;font-size:7px}.platform-game-row .admin-row-actions{justify-content:flex-end}.platform-game-row .state-button-group{flex-wrap:nowrap}.platform-game-row .state-button{min-height:30px;padding:5px 7px;font-size:8px}
++.platform-games-layout{display:grid;grid-template-columns:minmax(240px,.7fr) minmax(0,1.3fr);gap:12px}.platform-game-form{padding:12px;border:1px solid #2e354a;border-radius:10px;background:#0b101b}.platform-game-form label{display:grid;gap:4px;color:#9fa9ba;font-size:9px}.platform-game-list{display:grid;gap:7px}.platform-game-row{display:grid;grid-template-columns:82px minmax(0,1fr) auto;align-items:center;gap:9px;padding:8px;border:1px solid #2b3245;border-radius:9px;background:#0a101a}.platform-game-row>img{width:82px;height:61px;object-fit:cover;border-radius:7px;background:#111827}.platform-game-copy{display:grid;gap:3px;min-width:0}.platform-game-copy strong,.platform-game-copy small{overflow-wrap:anywhere}.platform-game-copy strong{font-size:11px}.platform-game-copy small{color:#8894a7;font-size:8px}.platform-game-copy .status{justify-self:start;font-size:7px}.platform-game-row .admin-row-actions{justify-content:flex-end}
+ 
+ /* Unified compact white-label backoffice template. Desktop density is applied
+    from the shared admin shell so every menu receives the same proportions. */
 diff --git a/public/service-worker.js b/public/service-worker.js
-index dc317fa..0b36680 100644
+index dc317fa..1ab7656 100644
 --- a/public/service-worker.js
 +++ b/public/service-worker.js
 @@ -1,4 +1,4 @@
 -const CACHE='master7-shell-17.0.0-selfbuilt.94-readiness-split';
-+const CACHE='master7-shell-17.0.0-selfbuilt.96-api-automatic';
++const CACHE='master7-shell-17.0.0-selfbuilt.97-interface-cleanup';
  const SHELL=['/offline.html','/manifest.webmanifest','/favicon.svg','/assets/style.css','/assets/suite-theme.css','/assets/app.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
  
  self.addEventListener('install',event=>{
@@ -2274,10 +2393,10 @@ index 1178486..e1eeef7 100644
    const png=Buffer.from([0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a,0,0,0,0,0,0,0,0,0,0,0,0]),receiptData='data:image/png;base64,'+png.toString('base64');
 diff --git a/tests/automatic-availability-ui.test.mjs b/tests/automatic-availability-ui.test.mjs
 new file mode 100644
-index 0000000..50f1240
+index 0000000..4d2a9c8
 --- /dev/null
 +++ b/tests/automatic-availability-ui.test.mjs
-@@ -0,0 +1,56 @@
+@@ -0,0 +1,62 @@
 +import test from 'node:test';
 +import assert from 'node:assert/strict';
 +import {readFileSync} from 'node:fs';
@@ -2305,14 +2424,20 @@ index 0000000..50f1240
 + assert.equal(context.apiSupplierStatusText(info),'Awaiting API connection');
 +});
 +
-+test('customer payment options use actual order readiness rather than saved channel switches',()=>{
-+ const buttons=['vpay','gspay','1mpay'].map(code=>{const el=new Element('button');el.dataset.paymentChannel=code;el.label=new Element('small');el.querySelector=()=>el.label;return el;});
-+ const state={lang:'en',paymentChannels:{vpay:'closed',gspay:'suspended','1mpay':'closed'},paymentStatus:{orderReady:true},gspayStatus:{orderReady:true},oneMpayStatus:{orderReady:false}};
-+ const context={state,$:()=>null,document:{querySelectorAll:selector=>selector==='[data-payment-channel]'?buttons:[]}};
-+ vm.runInNewContext(extract('const paymentPreview =','function bindPaymentPreview('),context);
++test('customer payment options follow readiness and route only members to the four deposit forms',()=>{
++ const buttons=['vpay','gspay','1mpay','manual-bank'].map(code=>{const el=new Element('button');el.dataset.paymentChannel=code;el.label=new Element('small');el.querySelector=()=>el.label;el.addEventListener=(name,handler)=>{assert.equal(name,'click');el.click=handler;};return el;});
++ const state={lang:'en',user:null,paymentChannels:{vpay:'closed',gspay:'suspended','1mpay':'closed','manual-bank':'active'},paymentStatus:{orderReady:true},gspayStatus:{orderReady:true},oneMpayStatus:{orderReady:false}},calls=[];
++ const context={state,$:id=>{assert.equal(id,'memberWallet');return {scrollIntoView:()=>calls.push('wallet')};},document:{querySelectorAll:selector=>selector==='[data-payment-channel]'?buttons:[]},showAuth:()=>calls.push('auth'),loadMemberWallet:()=>calls.push('load'),notification:message=>calls.push(message)};
++ vm.runInNewContext(extract('const paymentPreview =','const walletCopy='),context);
 + context.renderPaymentPreview();
-+ assert.deepEqual(buttons.map(item=>item.label.textContent),['Available','Available','Unavailable']);
++ assert.deepEqual(buttons.map(item=>item.label.textContent),['Available','Available','Unavailable','Available']);
 + state.gspayStatus=null;context.renderPaymentPreview();assert.equal(buttons[1].label.textContent,'Unavailable');
++ context.bindPaymentPreview();
++ for(const button of buttons){
++  calls.length=0;state.user=null;button.click();assert.deepEqual(calls,['auth']);
++  for(const role of ['owner','staff']){calls.length=0;state.user={role};button.click();assert.deepEqual(calls,['Deposits are available to member accounts.']);}
++  calls.length=0;state.user={role:'member'};button.click();assert.deepEqual(calls,['wallet','load']);assert.equal(state.depositProvider,button.dataset.paymentChannel);
++ }
 +});
 +
 +test('payment backoffice renders read-only connection records and never constructs a mutation',async()=>{
@@ -3117,7 +3242,7 @@ index 51557be..0a0f1fd 100644
  });
  
 diff --git a/tests/ios-pwa.test.mjs b/tests/ios-pwa.test.mjs
-index 9abeb42..f0698e5 100644
+index 9abeb42..0c3903d 100644
 --- a/tests/ios-pwa.test.mjs
 +++ b/tests/ios-pwa.test.mjs
 @@ -26,7 +26,7 @@ test('iPhone Safari Web App publishes a scoped standalone MASTER7 manifest',()=>
@@ -3125,12 +3250,12 @@ index 9abeb42..f0698e5 100644
  
  test('service worker keeps authentication and financial routes network-only',()=>{
 - assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.94-readiness-split/);
-+ assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.96-api-automatic/);
++ assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.97-interface-cleanup/);
   assert.match(app,/navigator\.serviceWorker\.register\("\/service-worker\.js",\{scope:"\/"\}\)/);
   assert.match(worker,/request\.mode==='navigate'/);
   assert.match(worker,/fetch\(request\)\.catch\(\(\)=>caches\.match\('\/offline\.html'\)\)/);
 diff --git a/tests/lobby-render.test.mjs b/tests/lobby-render.test.mjs
-index 572415d..40f6c3e 100644
+index 572415d..a7e77a9 100644
 --- a/tests/lobby-render.test.mjs
 +++ b/tests/lobby-render.test.mjs
 @@ -23,7 +23,7 @@ function supplierConstants(){
@@ -3162,16 +3287,21 @@ index 572415d..40f6c3e 100644
   assert.match(source,/imageDataForUpload\(file,800,600\)/);
  });
  
-@@ -200,7 +200,7 @@ test('34 supplied API providers have independent customer and backoffice button
+@@ -200,9 +200,11 @@ test('34 supplied API providers have independent customer and backoffice button
   assert.match(source,/\/api\/supplier-art-list/);
   assert.match(source,/\/api\/admin\/supplier-art/);
   assert.match(source,/Platform photo · 800 × 600 px \(4:3\)/);
 - assert.match(source,/supplier status controls/);
 + assert.doesNotMatch(source,/supplier status controls/);
   assert.match(source,/supplier-manage-details/);
-  assert.match(html,/id="apiSupplierToggle"/);
+- assert.match(html,/id="apiSupplierToggle"/);
++ assert.doesNotMatch(html,/apiSupplierToggle|paymentDialog/);
++ assert.doesNotMatch(source,/supplierExpanded|apiSupplierToggle|paymentDialog/);
++ assert.doesNotMatch(style,/state-button|api-supplier-toggle|payment-dialog/);
   assert.match(html,/id="apiSupplierCountLabel"/);
-@@ -239,15 +239,15 @@ test('payment checks and owner controls include the pending GSPAY deposit integr
+  assert.match(source,/34 independent game platforms/);
+  assert.match(source,/const apiSupplierCategoryIds=Object\.freeze/);
+@@ -239,15 +241,15 @@ test('payment checks and owner controls include the pending GSPAY deposit integr
   assert.match(html,/bo\.thegspay\.com\/index/);
   assert.match(html,/Open GSPAY\+ reconciliation BO/);
   assert.match(source,/path:"\/api\/payments\/gspay\/status"/);
@@ -3191,7 +3321,7 @@ index 572415d..40f6c3e 100644
   assert.match(html,/福利规则/);
   assert.match(html,/id="benefitCalculationPreview"/);
 diff --git a/tests/luxury-backoffice-ui.test.mjs b/tests/luxury-backoffice-ui.test.mjs
-index f8ab89a..e4541be 100644
+index f8ab89a..725c757 100644
 --- a/tests/luxury-backoffice-ui.test.mjs
 +++ b/tests/luxury-backoffice-ui.test.mjs
 @@ -27,7 +27,7 @@ test('bank, VIP, support and contact settings each use an independent compact co
@@ -3199,7 +3329,7 @@ index f8ab89a..e4541be 100644
   assert.match(style,/\.admin-internal-sidebar a\.active::after/);
   assert.match(style,/background:#5de9df/);
 - assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.94-readiness-split/);
-+ assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.96-api-automatic/);
++ assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.97-interface-cleanup/);
   assert.ok(html.lastIndexOf('/assets/suite-theme.css')>html.lastIndexOf('/assets/owner-manual.css'),'suite theme must load after all feature styles');
   assert.match(suiteStyle,/--m7-gold:/);
   assert.match(suiteStyle,/body\.admin-mode \.admin-internal-sidebar a\{/);
