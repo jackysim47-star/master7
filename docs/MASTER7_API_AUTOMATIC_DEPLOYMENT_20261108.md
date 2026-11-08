@@ -1,38 +1,33 @@
-# MASTER7 API automatic deployment — 8 November 2026
+# MASTER7 .97 interface cleanup deployment review — 8 November 2026
 
-## Authorized outcome
+## Purpose and behavior
 
-Keep original supplier brands and customer buttons. Approved members initiate deposits and games from the frontend; the server follows existing supplier contracts and records the result. Backoffice availability is read-only. Remove extra manual Active / Maintenance / Close gates and deliver complete MYT deposit reporting. Do not change vendor API addresses, signing rules, callback formats or business success criteria.
+The owner requested supplier API driven customer deposits and games, a backoffice for service and records, and removal of obsolete availability controls. The .96 release already implemented automatic deposit/game readiness and MYT deposit reporting. This .97 follow-up removes unused three-state CSS, a permanently hidden supplier expansion control, and the retired payment-maintenance dialog that misleadingly appeared for owner/staff users.
 
-## Exact verified package
+Guest payment selection still opens sign-in. Member selection still opens the corresponding wallet deposit flow. Owner/staff selection now explains that deposits require a member account. VPay, GSPAY+, 1MPay, manual bank deposits, all 34 game brands, active self-built game management, support and reports remain. Original vendor request parameters, signatures, callbacks, success rules and wallet accounting are unchanged.
 
-- Release: `17.0.0-selfbuilt.96-api-automatic`
-- Production baseline: `e3faa8ddc6b6fe87768e9e71f466ce48538bfad7`
-- Reviewed source commit: `8bee8877f8b7c7db05236678c95b3de92f58ea4f`
-- Candidate archive retention commit: `1a4b8b4a117b3e4c6a31acbeefbf6d6154a431c9`
-- Actions: https://github.com/jackysim47-star/master7/actions/runs/42447333367
-- Archive: `master7-v17-render-staging.tar.gz`, 3663047 bytes
-- Archive SHA-256: `734c7082dd1f76bc7b33d467c46832e605b6bdd3631ebbbc7c40cb3c79504026`
-- Archive Git blob: `a7904c0c50767a4139de102faf645571111bd439`
-- Source files: 490; every reconstructed file matches the reviewed local source.
-- Complete validation: 488 tests in 82 files; 0 failed, skipped, cancelled or todo.
-- Actual Render build passed; hosted identity boundary included; no production credentials; isolated network namespace; 0 external network attempts.
-- Dependencies unchanged: 889 locked packages, Node 24.22.1, pnpm 11.25.0.
+## Exact validation and provenance
 
-## Production change
+- Release: `17.0.0-selfbuilt.97-interface-cleanup`
+- Prior production commit: `2ff29c5a6fc3fb138f56057da8b43806272590cc`
+- Reviewed source commit: `00c671effaf10f7596ea3231f246aa24f4ee5a8d`
+- Candidate archive publisher: `5ed8f6742e6ff654ed9a901414bfc0561a5a834a`
+- CI: https://github.com/jackysim47-star/master7/actions/runs/42448782666
+- Complete suite: 488/488 passing, 82 files; zero failures, skips, cancellations or todos.
+- Hosted identity boundary included; actual Render build passed; external network isolated; no production credentials; zero test network attempts.
+- Immutable .94 base archive SHA-256: `6d1a96b5a5cfa6e88a87908485c6af32e5d4cfc6a57da49420b1be48b76598d2`
+- Full cumulative patch SHA-256: `c462ebded2127b22ad5bb58e48ad3027fcefba8b75840eab9ae81a2bc08efef0`
+- Archive SHA-256: `01a5b5c73b14affecad1d5b580d4bc82f9b5626e9568ae0a889c15ef14df9120`
+- Archive Git blob: `b81be1248cd0390b4c38fe22a2e4d1c69372c545`
+- Archive size: 3662909 bytes; source files: 490.
+- Source manifest SHA-256: `f489cc26317265fcdcf3875989ad79617ccbc6a9cb1a539c9c51d5a43644570c`
+- Independently reconstructed the archive from the verified .94 baseline plus the full patch. All source paths, bytes and modes match the reviewed local worktree; deterministic archive bytes match the CI-published Git blob.
+- Independent review found no must-fix issue in the cleanup. Related UI/startup/deposit regressions passed 103/103 before the complete CI gate.
 
-Fast-forward only `codex/v17-render-staging-20261104` from the exact baseline. Replace the source archive, retain its CI receipt and add this review. Then manually deploy Render service `srv-dbl0iv7f3r2c73848ei0`, whose automatic deploy setting is off. Keep existing build/start commands, database and environment settings. Do not redeploy the separate integration gateway.
+## Deployment scope and evidence boundaries
 
-The package includes previous .95 repairs plus API-based deposit and game capability, deprecated manual availability write routes, preserved brand buttons, truthful acceptance fields and paginated MYT deposit reporting. Legacy stored controls remain as historical data. Original authentication, approvals, Origin/CSRF, responsible-play, payment verification, amount/currency checks, wallet reservations, idempotency and recovery continue.
+Only the source archive, candidate receipt and this review replace the corresponding production-branch files. Existing deployment configuration remains. The Render portal tracks `codex/v17-render-staging-20261104` with automatic deployments off; the verified commit is deployed once through the existing service. The separate integration gateway is unchanged.
 
-No new schema migration is included. Normal existing startup initialization and already configured background recovery jobs may operate after restart. No real test order, payout, game session or wallet transfer is authorized or initiated by this deployment procedure.
+This software release does not attest real payment or game settlement acceptance. Three deposit capabilities currently report configured readiness, but `settlementVerified` remains false. MegaH5 has an implemented launch/wallet path; other vendors must have their matched original contracts and adapters. The most recent provider results and remaining external errors are reported separately with timestamps. No real deposit, payout, game session or wallet transfer was initiated by this release procedure.
 
-## What this deployment does not attest
-
-Configuration and adapter readiness are distinct from successful real-money settlement. `verified` fields are not forced true. Current source contains eight catalogue adapters and one complete Portal game launch/wallet adapter (MegaH5); all 34 brand entries remain. Other vendors require their matching implementation, valid configuration and resolution of real upstream errors. Existing provider documents and supplied credentials are not presumed missing merely because no adapter exists.
-
-## Verification and rollback
-
-After Render reports this exact commit live, verify the actual .96 release, public payment statuses and game directory/selected-provider capability. Check that unauthenticated visitors cannot access private deposit reports. Verify customer/staff entry pages and that returned frontend assets contain no manual availability controls.
-
-If startup or the application is materially broken, restore the source archive from the exact baseline through a new reviewed fast-forward commit and manually redeploy. Do not revert database data, erase new orders or change callback processing. Record the exact failed deployment and live health results.
+After deployment, verify the exact release through /health, three payment status routes, MegaH5 readiness, the public served interface and protected report boundary.
