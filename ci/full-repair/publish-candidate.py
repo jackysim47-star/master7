@@ -74,7 +74,7 @@ def main(args):
     pipeline.require(changed and set(changed) <= set(allowed), "Unexpected publish paths")
     subprocess.run(["git", "-C", str(repo), "-c", "user.name=github-actions[bot]",
                     "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com",
-                    "commit", "-m", "build: retain verified .97 interface cleanup archive"], check=True)
+                    "commit", "-m", "build: retain verified .98 customer cashier archive"], check=True)
     # Ordinary fast-forward push rejects an intervening branch update. Never
     # use force, rebase, merges, tags, releases, or a production branch here.
     subprocess.run(["git", "-C", str(repo), "push", "origin", "HEAD:" + branch_ref], check=True)
