@@ -16,7 +16,7 @@ BRANCH = "codex/master7-full-repair-20261107"
 BASE_COMMIT = "e3faa8ddc6b6fe87768e9e71f466ce48538bfad7"
 BASE_SHA256 = "6d1a96b5a5cfa6e88a87908485c6af32e5d4cfc6a57da49420b1be48b76598d2"
 BASE_DECLARED_SOURCE_COMMIT = "a0b3b2ede1f0e51f4dfeccc666637ca5f0643c05"
-CANDIDATE_RELEASE = "17.0.0-selfbuilt.95-repair-candidate"
+CANDIDATE_RELEASE = "17.0.0-selfbuilt.96-api-automatic"
 ARCHIVE_ROOT = "master7-v17-render-staging"
 ARCHIVE_NAME = ARCHIVE_ROOT + ".tar.gz"
 PATCH_PATH = "docs/patches/full-closeout-20261107/master7-full-closeout.patch"
@@ -296,7 +296,7 @@ def package(args):
     receipt.update({"archiveName": ARCHIVE_NAME, "archiveSha256": digest(archive_path),
                     "archiveBytes": archive_path.stat().st_size, "sourceFileCount": len(state["files"]),
                     "sourceManifestSha256": hashlib.sha256(json.dumps(state["files"], sort_keys=True).encode()).hexdigest(),
-                    "scope": "Undeployed candidate source; no business controls or production acceptance changed"})
+                    "scope": "Undeployed API-automatic candidate source; no real transactions or acceptance attestation performed"})
     write_json(out / RECEIPT_NAME, receipt)
     (out / "SHA256SUMS").write_text(digest(archive_path) + "  " + ARCHIVE_NAME + "\n"
                                    + digest(out / RECEIPT_NAME) + "  " + RECEIPT_NAME + "\n")
