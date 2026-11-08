@@ -1,5 +1,6 @@
 # Plan-only until the exact Render adoption preview is reviewed and authorized.
 # Existing environment variables are deliberately omitted and preserved.
+# Preserve legacy publish-path metadata if Render accepts it for this native Node service.
 previews:
   generation: 'off'
 services:
@@ -20,3 +21,4 @@ services:
   domains:
   - www.master7.best
   - www.master7.site
+  staticPublishPath: public
