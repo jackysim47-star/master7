@@ -12,16 +12,11 @@ services:
   repo: https://github.com/jackysim47-star/master7
   branch: codex/v17-render-staging-20261104
   autoDeployTrigger: 'off'
-  # The bound 0.5c-1g PostgreSQL plan permits 100 connections. Each application
-  # instance has a hard pool maximum of 5, and one elected scheduler holds one
-  # additional connection. Capping the fleet at 5 keeps the steady application
-  # budget at 26 connections and prevents the previous uncapped 28-instance
-  # transition that exhausted PostgreSQL (SQLSTATE 53300).
-  scaling:
-    minInstances: 1
-    maxInstances: 5
-    targetCPUPercent: 70
-    targetMemoryPercent: 75
+  # Cost guardrail: keep exactly one 2c-4g application instance. Render's
+  # Blueprint autoscaling adoption returned min=5/max=100 instead of the
+  # reviewed min=1/max=5 settings, so autoscaling remains disabled until the
+  # platform reports the requested limits correctly.
+  numInstances: 1
   renderSubdomainPolicy: enabled
   buildCommand: set -e; mkdir -p .render-v17; tar -xzf master7-v17-render-staging.tar.gz -C .render-v17; cd .render-v17/master7-v17-render-staging; corepack pnpm
     install --frozen-lockfile; corepack pnpm run test:render-db; corepack pnpm run build:render

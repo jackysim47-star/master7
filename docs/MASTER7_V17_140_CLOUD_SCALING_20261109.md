@@ -1,4 +1,4 @@
-# MASTER7 V17.140 cloud scaling
+# MASTER7 V17.140 cloud capacity guardrail
 
 The Render web service uses the `2c-4g` compute plan in Singapore. Its bound
 PostgreSQL 18 database uses the `0.5c-1g` plan in the same region and workspace.
@@ -9,15 +9,22 @@ instance to five pooled connections. One elected scheduler holds one additional
 connection. With a maximum of five web instances, the steady application
 budget is therefore 26 connections.
 
-The Blueprint now configures:
+The intended Blueprint configuration was:
 
 - minimum instances: 1;
 - maximum instances: 5;
 - CPU target: 70%; and
 - memory target: 75%.
 
-This cap replaces the earlier unsafe transition that retained 28 instances and
-exhausted PostgreSQL with SQLSTATE `53300`. It does not enable deposits, game
-launches, payouts, real payments, live games or production readiness.
+Render planned those exact values, but the service detail returned autoscaling
+enabled with `min=5`, `max=100`, and CPU/memory targets of 80%. That result did
+not match the reviewed plan and could create unexpected cost. The Blueprint was
+therefore rolled back to exactly one `2c-4g` instance. Autoscaling remains
+disabled until Render can apply and report the requested limits correctly.
+
+This guardrail also prevents the earlier unsafe transition that retained 28
+instances and exhausted PostgreSQL with SQLSTATE `53300`. It does not enable
+deposits, game launches, payouts, real payments, live games or production
+readiness.
 
 Reference: <https://render.com/docs/compute-plans.md>
