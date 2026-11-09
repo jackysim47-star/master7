@@ -1,0 +1,38 @@
+{
+  "syntheticOnly": true,
+  "productionAcceptance": false,
+  "release": "17.0.0-selfbuilt.131-portal-navigation",
+  "checks": 420,
+  "roles": [
+    {
+      "role": "qa-owner",
+      "checks": 234
+    },
+    {
+      "role": "qa-staff",
+      "checks": 132
+    },
+    {
+      "role": "qa-member",
+      "checks": 54
+    }
+  ],
+  "widths": [
+    390,
+    1280
+  ],
+  "languages": [
+    "en",
+    "zh",
+    "ms"
+  ],
+  "brokenTargets": 0,
+  "horizontalPageOverflows": 0,
+  "apiErrors": 0,
+  "browserErrors": 0,
+  "assetSha256": {
+    "acceptance-blockers.css": "2a01ed88f4f4c9c3f59806eea32e9c32d25d0f8b8f1481d59c93494f5456f0ab",
+    "acceptance-blockers.js": "aff741e8b5d38da869f24c2f62eeecb2fc642bd9a2d4f713d9c65e6fd94259af",
+    "rewards.css": "9afa72c90f9cad81a2d44587c5fae0b55702774bb2c1ccda9a789bdce5de624a"
+  }
+}

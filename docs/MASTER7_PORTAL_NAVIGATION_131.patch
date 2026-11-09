@@ -1,0 +1,185 @@
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,30 +15,30 @@
+   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.130-manual-bank">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.130-manual-bank">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.130-manual-bank">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.130-manual-bank">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.130-manual-bank">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.130-manual-bank">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.130-manual-bank">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.130-manual-bank">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.130-manual-bank">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.130-manual-bank">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.130-manual-bank">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.130-manual-bank">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.130-manual-bank" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.130-manual-bank" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.130-manual-bank" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.130-manual-bank" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.130-manual-bank" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.130-manual-bank" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.130-manual-bank" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.130-manual-bank" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.130-manual-bank" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.130-manual-bank" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.130-manual-bank" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.130-manual-bank" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.131-portal-navigation">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.131-portal-navigation">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.131-portal-navigation">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.131-portal-navigation">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.131-portal-navigation">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.131-portal-navigation">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.131-portal-navigation">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.131-portal-navigation">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.131-portal-navigation">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.131-portal-navigation">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.131-portal-navigation">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.131-portal-navigation">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.131-portal-navigation" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.131-portal-navigation" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.131-portal-navigation" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.131-portal-navigation" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.131-portal-navigation" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.131-portal-navigation" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.131-portal-navigation" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.131-portal-navigation" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.131-portal-navigation" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.131-portal-navigation" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.131-portal-navigation" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.131-portal-navigation" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
+--- a/docs/MASTER7_PORTAL_NAVIGATION_20261109.md
++++ b/docs/MASTER7_PORTAL_NAVIGATION_20261109.md
+@@ -0,0 +1,9 @@
++# MASTER7 V17 .131 — portal navigation
++
++When an owner or staff member opened payment readiness, game readiness or Rewards on a narrow phone, nested grid items expanded to the full table/editor width. The resulting horizontal page overflow made the menu and adjacent actions hard to reach. Tables and the seven-day editor now scroll inside their own containers; table regions also support keyboard focus and have localized accessible names.
++
++The existing shared owner/staff entry and server role checks remain in use. Frontend menu navigation was exercised against the actual API handler and a complete isolated SQLite schema with synthetic role accounts. No supplier API, bank transfer or production wallet write is part of this test.
++
++Verification: `pnpm run verify:render` passed (maintenance 12, release probes 25, regression 1154, database adapter 3, TypeScript, lint and Render build). The browser audit passed 420 navigation checks: owner 234, staff 132, member 54, at 390/1280px in English, Chinese and Malay, with zero broken targets, page overflows, API error responses or uncaught browser errors. Browser navigation does not attest supplier authorization, actual payment, wallet credit from a real deposit, game launch acceptance or production DNS.
++
++There are no database migrations or new secrets in this release. Cash acceptance and provider recovery controls keep their existing settings. Rollback uses the preceding .130 archive/commit; no data rollback is necessary for this presentation change.
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -33,7 +33,7 @@
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.130-manual-bank';
++export const RELEASE = '17.0.0-selfbuilt.131-portal-navigation';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.130-manual-bank node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.130-manual-bank node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.131-portal-navigation node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.131-portal-navigation node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.130-manual-bank node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.131-portal-navigation node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs"
+   },
+   "dependencies": {
+--- a/public/assets/acceptance-blockers.css
++++ b/public/assets/acceptance-blockers.css
+@@ -3,7 +3,8 @@
+ .acceptance-blockers-head h2,.acceptance-blockers h3{margin:0}
+ .acceptance-summary{margin:0;padding:10px 12px;border:1px solid rgba(88,218,205,.24);border-radius:10px;background:rgba(22,82,80,.15);color:#bffcf5;font-size:12px;font-weight:700}
+ .acceptance-load-warning{margin:0;padding:10px 12px;border:1px solid rgba(228,185,104,.4);border-radius:10px;background:rgba(85,60,15,.2);color:#f1cd89;font-size:12px}
+-.acceptance-matrix-scroll{width:100%;overflow-x:auto;overscroll-behavior-inline:contain}
++.acceptance-blockers>section{min-width:0;max-width:100%}
++.acceptance-matrix-scroll{width:100%;min-width:0;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain}
+ .acceptance-matrix-table{width:100%;min-width:1340px;border-collapse:separate;border-spacing:0;table-layout:fixed;font-size:11px}
+ .acceptance-matrix-table th,.acceptance-matrix-table td{padding:8px 5px;border-bottom:1px solid rgba(130,158,218,.14);text-align:center;vertical-align:middle}
+ .acceptance-matrix-table th:first-child{width:225px;text-align:left;overflow-wrap:anywhere}
+@@ -22,3 +23,5 @@
+ .payment-blockers-table{min-width:1460px}
+ @media(max-width:480px){.acceptance-matrix-table{min-width:1250px}.payment-blockers-table{min-width:1380px}.acceptance-matrix-table th,.acceptance-matrix-table td{padding:7px 4px}.acceptance-state{font-size:9px}}
+ 
++
++.acceptance-matrix-scroll:focus-visible{outline:2px solid #61eee4;outline-offset:2px}
+--- a/public/assets/acceptance-blockers.js
++++ b/public/assets/acceptance-blockers.js
+@@ -85,13 +85,13 @@
+   }
+   function infoCell(value,tone='info'){const cell=document.createElement('td'),pill=document.createElement('span');pill.className=`acceptance-state is-${tone}`;pill.textContent=value;cell.append(pill);return cell;}
+   function renderGames(host,rows,copy){
+-    const section=document.createElement('section'),heading=document.createElement('h3'),scroller=document.createElement('div'),table=document.createElement('table'),body=document.createElement('tbody');heading.textContent=copy.games;scroller.className='acceptance-matrix-scroll';table.className='acceptance-matrix-table';table.append(header([copy.profile,copy.contract,copy.adapter,copy.catalogue,copy.launch,copy.wallet,copy.settlement,copy.recovery,copy.blocker]));
++    const section=document.createElement('section'),heading=document.createElement('h3'),scroller=document.createElement('div'),table=document.createElement('table'),body=document.createElement('tbody');heading.textContent=copy.games;scroller.className='acceptance-matrix-scroll';scroller.tabIndex=0;scroller.setAttribute('role','region');scroller.setAttribute('aria-label',heading.textContent);table.className='acceptance-matrix-table';table.append(header([copy.profile,copy.contract,copy.adapter,copy.catalogue,copy.launch,copy.wallet,copy.settlement,copy.recovery,copy.blocker]));
+     for(const item of rows){const row=document.createElement('tr'),name=document.createElement('th'),strong=document.createElement('strong'),meta=document.createElement('small');name.scope='row';strong.textContent=item.name;meta.textContent=`${item.profileId} · ${item.walletMode} · 1:${item.unitScale}`;name.append(strong,meta);row.append(name,infoCell(item.contract==='documented'?copy.documented:item.contract==='incomplete'?copy.incomplete:copy.missing,item.contract==='documented'?'info':'blocked'),infoCell(item.adapter==='implemented'?copy.implemented:copy.adapterMissing,item.adapter==='implemented'?'available':'blocked'));
+       const checked=item.checkedAt>0?` · ${new Date(item.checkedAt*1000).toISOString().replace('.000Z','Z')}`:'',catalogue=item.catalogueAccepted?copy.currentAccepted(item.catalogueCount):item.catalogueCurrent?copy.current(item.catalogueCount):item.catalogueStale?copy.stale(item.catalogueCount):copy.noCatalogue;row.append(infoCell(`${catalogue}${checked}`,item.catalogueAccepted?'verified':item.catalogueCurrent?'info':'blocked'),statusCell(item.launch,copy),statusCell(item.wallet,copy),statusCell(item.settlement,copy),statusCell(item.recovery,copy),infoCell(blockerLabel(item.blocker,copy),item.blocker?'blocked':'verified'));body.append(row);}
+     table.append(body);scroller.append(table);section.append(heading,scroller);host.append(section);
+   }
+   function renderPayments(host,rows,copy){
+-    const section=document.createElement('section'),heading=document.createElement('h3'),scroller=document.createElement('div'),table=document.createElement('table'),body=document.createElement('tbody');heading.textContent=copy.payments;scroller.className='acceptance-matrix-scroll';table.className='acceptance-matrix-table payment-blockers-table';table.append(header([copy.profile,copy.contract,copy.adapter,copy.order,copy.payment,copy.callback,copy.query,copy.credit,copy.live,copy.blocker]));
++    const section=document.createElement('section'),heading=document.createElement('h3'),scroller=document.createElement('div'),table=document.createElement('table'),body=document.createElement('tbody');heading.textContent=copy.payments;scroller.className='acceptance-matrix-scroll';scroller.tabIndex=0;scroller.setAttribute('role','region');scroller.setAttribute('aria-label',heading.textContent);table.className='acceptance-matrix-table payment-blockers-table';table.append(header([copy.profile,copy.contract,copy.adapter,copy.order,copy.payment,copy.callback,copy.query,copy.credit,copy.live,copy.blocker]));
+     for(const item of rows){const row=document.createElement('tr'),name=document.createElement('th'),strong=document.createElement('strong'),meta=document.createElement('small');name.scope='row';strong.textContent=item.name;meta.textContent=`${item.id} · ${item.currency}`;name.append(strong,meta);row.append(name,infoCell(item.contract==='configured'?copy.configured:item.contract==='manual'?copy.manual:copy.notConfigured,item.contract==='configured'?'available':item.contract==='manual'?'info':'blocked'),infoCell(item.adapter==='implemented'?copy.implemented:item.adapter==='manual'?copy.manual:copy.adapterMissing,item.adapter==='implemented'?'available':item.adapter==='manual'?'info':'blocked'),statusCell(item.order,copy),statusCell(item.payment,copy),statusCell(item.callback,copy),statusCell(item.query,copy),statusCell(item.credit,copy),statusCell(item.live,copy),infoCell(item.blockers.map(code=>blockerLabel(code,copy)).join(' · ')||copy.none,item.blockers.length?'blocked':'verified'));body.append(row);}
+     table.append(body);scroller.append(table);section.append(heading,scroller);host.append(section);
+   }
+--- a/public/assets/rewards.css
++++ b/public/assets/rewards.css
+@@ -1,2 +1,4 @@
+-.rewards-center{gap:1.2rem}.rewards-center.active{display:grid}.rewards-hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.5rem;overflow:hidden;padding:clamp(1.4rem,4vw,2.6rem);border:1px solid rgba(83,238,224,.32);border-radius:26px;background:radial-gradient(circle at 90% 20%,rgba(83,238,224,.18),transparent 32%),linear-gradient(145deg,#0b1730,#111b37 62%,#122f3b);box-shadow:0 24px 60px rgba(0,0,0,.3)}.rewards-hero:after{content:"";position:absolute;inset:auto -8% -65% 32%;height:220px;border:1px solid rgba(92,235,224,.22);border-radius:50%;transform:rotate(-8deg)}.rewards-hero-copy{position:relative;z-index:1;max-width:720px}.rewards-hero-copy h1{margin:.25rem 0 .7rem;font-size:clamp(2rem,6vw,4rem);letter-spacing:-.04em}.rewards-hero-copy p{max-width:650px;color:#b9c7dc}.rewards-hero-mark{position:relative;z-index:1;display:grid;place-items:center;align-content:center;width:150px;aspect-ratio:1;border:1px solid rgba(92,235,224,.42);border-radius:42px;background:linear-gradient(145deg,rgba(84,241,224,.19),rgba(46,82,142,.22));box-shadow:inset 0 0 28px rgba(89,239,224,.12),0 0 42px rgba(64,229,214,.1);transform:rotate(5deg)}.rewards-hero-mark strong{font-size:2.7rem;line-height:1;color:#69f3df}.rewards-hero-mark span{font-size:.72rem;letter-spacing:.22em;color:#b7fff5}.rewards-status-row{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1rem}.rewards-chip{display:inline-flex;align-items:center;gap:.35rem;padding:.44rem .72rem;border:1px solid rgba(146,166,200,.25);border-radius:999px;background:rgba(10,16,33,.42);color:#bac7db;font-size:.7rem;font-weight:800;letter-spacing:.07em}.rewards-chip.ready{border-color:rgba(70,235,207,.38);color:#70f2df}.rewards-chip.pending{color:#e4c98a}.rewards-noncash{margin:0;padding:.85rem 1rem;border:1px solid rgba(232,194,95,.25);border-radius:14px;background:rgba(232,194,95,.07);color:#dbc78f;font-size:.86rem}.rewards-member-overview{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(220px,.5fr);gap:1rem}.rewards-points-card,.rewards-checkin-card,.rewards-panel{padding:1.2rem;border:1px solid rgba(113,145,193,.2);border-radius:20px;background:linear-gradient(145deg,rgba(18,31,58,.95),rgba(11,19,38,.96))}.rewards-points-card{display:flex;align-items:center;justify-content:space-between;gap:1rem}.rewards-points-card strong{display:block;font-size:clamp(2rem,7vw,3.2rem);line-height:1;color:#72f0de}.rewards-points-card span,.rewards-meta{color:#8fa2bf;font-size:.78rem}.rewards-points-orb{display:grid;place-items:center;width:78px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#9dfff0,#35c8bb 38%,#136c78 72%);box-shadow:0 0 32px rgba(75,237,218,.24);color:#06151c;font-weight:950;font-size:1.4rem}.rewards-section-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1rem}.rewards-section-heading h2,.rewards-section-heading h3{margin:.1rem 0}.rewards-week{display:grid;grid-template-columns:repeat(7,minmax(68px,1fr));gap:.55rem;overflow-x:auto;padding-bottom:.25rem}.rewards-day{min-width:68px;padding:.8rem .4rem;border:1px solid rgba(122,148,188,.2);border-radius:14px;background:rgba(7,14,29,.42);text-align:center}.rewards-day.current{border-color:#4de3d1;box-shadow:inset 0 0 0 1px rgba(77,227,209,.2),0 0 20px rgba(77,227,209,.08)}.rewards-day.claimed{background:rgba(63,217,192,.12)}.rewards-day strong,.rewards-day span{display:block}.rewards-day strong{margin:.35rem 0;color:#e8f4ff}.rewards-day span{font-size:.68rem;color:#8fa2bf}.rewards-checkin-actions{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1rem}.rewards-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.rewards-card{padding:1rem;border:1px solid rgba(119,147,191,.18);border-radius:16px;background:rgba(5,12,27,.38)}.rewards-card-head{display:flex;justify-content:space-between;gap:.8rem}.rewards-card h3{margin:0 0 .3rem;font-size:1rem}.rewards-card p{margin:.35rem 0;color:#91a4bf;font-size:.82rem}.rewards-progress{height:7px;margin:.8rem 0 .4rem;overflow:hidden;border-radius:99px;background:#182640}.rewards-progress span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#3fcaba,#71f4df)}.rewards-empty{padding:1rem;border:1px dashed rgba(129,153,190,.24);border-radius:15px;color:#8497b4;text-align:center}.rewards-ledger{display:grid;gap:.45rem}.rewards-ledger-row{display:grid;grid-template-columns:1fr auto;gap:.8rem;padding:.7rem .8rem;border-radius:12px;background:rgba(6,13,28,.45)}.rewards-ledger-row span{font-size:.76rem;color:#8da0bc}.rewards-ledger-row strong{color:#6cead7}.rewards-admin-manager{display:grid;gap:1rem}.rewards-admin-banner{display:flex;justify-content:space-between;gap:1rem;padding:1rem;border:1px solid rgba(77,227,209,.24);border-radius:16px;background:rgba(60,202,187,.07)}.rewards-editor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.rewards-editor-grid label,.rewards-editor-card label{display:grid;gap:.4rem;color:#99aac3;font-size:.78rem}.rewards-editor-grid input,.rewards-editor-grid select,.rewards-editor-card input,.rewards-editor-card select,.rewards-editor-card textarea{width:100%}.rewards-switch{display:flex!important;grid-column:span 1;align-items:center;grid-template-columns:auto 1fr!important}.rewards-switch input{width:auto}.rewards-day-editor{display:grid;grid-template-columns:repeat(7,minmax(72px,1fr));gap:.55rem}.rewards-day-editor label{display:grid;gap:.35rem;color:#8fa2bd;font-size:.72rem}.rewards-editor-list{display:grid;gap:.7rem}.rewards-editor-card{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;align-items:end;gap:.65rem;padding:.85rem;border:1px solid rgba(117,143,183,.2);border-radius:15px;background:rgba(5,12,26,.38)}.rewards-editor-card.coupon{grid-template-columns:repeat(3,minmax(0,1fr))}.rewards-editor-card .wide{grid-column:span 2}.rewards-editor-actions{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}.rewards-source-status{font-size:.72rem;color:#e4c98a}.rewards-source-status.connected{color:#68e8d6}
++.rewards-center{gap:1.2rem}.rewards-center.active{display:grid}.rewards-hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.5rem;overflow:hidden;padding:clamp(1.4rem,4vw,2.6rem);border:1px solid rgba(83,238,224,.32);border-radius:26px;background:radial-gradient(circle at 90% 20%,rgba(83,238,224,.18),transparent 32%),linear-gradient(145deg,#0b1730,#111b37 62%,#122f3b);box-shadow:0 24px 60px rgba(0,0,0,.3)}.rewards-hero:after{content:"";position:absolute;inset:auto -8% -65% 32%;height:220px;border:1px solid rgba(92,235,224,.22);border-radius:50%;transform:rotate(-8deg)}.rewards-hero-copy{position:relative;z-index:1;max-width:720px}.rewards-hero-copy h1{margin:.25rem 0 .7rem;font-size:clamp(2rem,6vw,4rem);letter-spacing:-.04em}.rewards-hero-copy p{max-width:650px;color:#b9c7dc}.rewards-hero-mark{position:relative;z-index:1;display:grid;place-items:center;align-content:center;width:150px;aspect-ratio:1;border:1px solid rgba(92,235,224,.42);border-radius:42px;background:linear-gradient(145deg,rgba(84,241,224,.19),rgba(46,82,142,.22));box-shadow:inset 0 0 28px rgba(89,239,224,.12),0 0 42px rgba(64,229,214,.1);transform:rotate(5deg)}.rewards-hero-mark strong{font-size:2.7rem;line-height:1;color:#69f3df}.rewards-hero-mark span{font-size:.72rem;letter-spacing:.22em;color:#b7fff5}.rewards-status-row{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1rem}.rewards-chip{display:inline-flex;align-items:center;gap:.35rem;padding:.44rem .72rem;border:1px solid rgba(146,166,200,.25);border-radius:999px;background:rgba(10,16,33,.42);color:#bac7db;font-size:.7rem;font-weight:800;letter-spacing:.07em}.rewards-chip.ready{border-color:rgba(70,235,207,.38);color:#70f2df}.rewards-chip.pending{color:#e4c98a}.rewards-noncash{margin:0;padding:.85rem 1rem;border:1px solid rgba(232,194,95,.25);border-radius:14px;background:rgba(232,194,95,.07);color:#dbc78f;font-size:.86rem}.rewards-member-overview{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(220px,.5fr);gap:1rem}.rewards-points-card,.rewards-checkin-card,.rewards-panel{padding:1.2rem;border:1px solid rgba(113,145,193,.2);border-radius:20px;background:linear-gradient(145deg,rgba(18,31,58,.95),rgba(11,19,38,.96))}.rewards-points-card{display:flex;align-items:center;justify-content:space-between;gap:1rem}.rewards-points-card strong{display:block;font-size:clamp(2rem,7vw,3.2rem);line-height:1;color:#72f0de}.rewards-points-card span,.rewards-meta{color:#8fa2bf;font-size:.78rem}.rewards-points-orb{display:grid;place-items:center;width:78px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#9dfff0,#35c8bb 38%,#136c78 72%);box-shadow:0 0 32px rgba(75,237,218,.24);color:#06151c;font-weight:950;font-size:1.4rem}.rewards-section-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1rem}.rewards-section-heading h2,.rewards-section-heading h3{margin:.1rem 0}.rewards-week{display:grid;grid-template-columns:repeat(7,minmax(68px,1fr));gap:.55rem;overflow-x:auto;padding-bottom:.25rem}.rewards-day{min-width:68px;padding:.8rem .4rem;border:1px solid rgba(122,148,188,.2);border-radius:14px;background:rgba(7,14,29,.42);text-align:center}.rewards-day.current{border-color:#4de3d1;box-shadow:inset 0 0 0 1px rgba(77,227,209,.2),0 0 20px rgba(77,227,209,.08)}.rewards-day.claimed{background:rgba(63,217,192,.12)}.rewards-day strong,.rewards-day span{display:block}.rewards-day strong{margin:.35rem 0;color:#e8f4ff}.rewards-day span{font-size:.68rem;color:#8fa2bf}.rewards-checkin-actions{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1rem}.rewards-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.rewards-card{padding:1rem;border:1px solid rgba(119,147,191,.18);border-radius:16px;background:rgba(5,12,27,.38)}.rewards-card-head{display:flex;justify-content:space-between;gap:.8rem}.rewards-card h3{margin:0 0 .3rem;font-size:1rem}.rewards-card p{margin:.35rem 0;color:#91a4bf;font-size:.82rem}.rewards-progress{height:7px;margin:.8rem 0 .4rem;overflow:hidden;border-radius:99px;background:#182640}.rewards-progress span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#3fcaba,#71f4df)}.rewards-empty{padding:1rem;border:1px dashed rgba(129,153,190,.24);border-radius:15px;color:#8497b4;text-align:center}.rewards-ledger{display:grid;gap:.45rem}.rewards-ledger-row{display:grid;grid-template-columns:1fr auto;gap:.8rem;padding:.7rem .8rem;border-radius:12px;background:rgba(6,13,28,.45)}.rewards-ledger-row span{font-size:.76rem;color:#8da0bc}.rewards-ledger-row strong{color:#6cead7}.rewards-admin-manager{display:grid;gap:1rem;min-width:0}.rewards-admin-manager>*{min-width:0}.rewards-admin-banner{display:flex;justify-content:space-between;gap:1rem;padding:1rem;border:1px solid rgba(77,227,209,.24);border-radius:16px;background:rgba(60,202,187,.07)}.rewards-editor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.rewards-editor-grid label,.rewards-editor-card label{display:grid;gap:.4rem;color:#99aac3;font-size:.78rem}.rewards-editor-grid input,.rewards-editor-grid select,.rewards-editor-card input,.rewards-editor-card select,.rewards-editor-card textarea{width:100%}.rewards-switch{display:flex!important;grid-column:span 1;align-items:center;grid-template-columns:auto 1fr!important}.rewards-switch input{width:auto}.rewards-day-editor{min-width:0;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;padding-bottom:.4rem;display:grid;grid-template-columns:repeat(7,minmax(72px,1fr));gap:.55rem}.rewards-day-editor label{display:grid;gap:.35rem;color:#8fa2bd;font-size:.72rem}.rewards-editor-list{display:grid;gap:.7rem}.rewards-editor-card{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;align-items:end;gap:.65rem;padding:.85rem;border:1px solid rgba(117,143,183,.2);border-radius:15px;background:rgba(5,12,26,.38)}.rewards-editor-card.coupon{grid-template-columns:repeat(3,minmax(0,1fr))}.rewards-editor-card .wide{grid-column:span 2}.rewards-editor-actions{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}.rewards-source-status{font-size:.72rem;color:#e4c98a}.rewards-source-status.connected{color:#68e8d6}
+ @media(max-width:760px){.rewards-hero{grid-template-columns:1fr}.rewards-hero-mark{width:100px;border-radius:28px}.rewards-member-overview,.rewards-grid,.rewards-editor-grid{grid-template-columns:1fr}.rewards-week,.rewards-day-editor{grid-template-columns:repeat(7,72px)}.rewards-editor-card,.rewards-editor-card.coupon{grid-template-columns:1fr}.rewards-editor-card .wide{grid-column:auto}.rewards-checkin-actions,.rewards-section-heading{align-items:stretch;flex-direction:column}.rewards-points-card{align-items:flex-start}.rewards-admin-banner{flex-direction:column}}
++
++.rewards-center>*{min-width:0;max-width:100%}.rewards-member-overview,.rewards-member-overview>*{min-width:0}.rewards-week{min-width:0;max-width:100%}
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.130-manual-bank';
++const CACHE='master7-shell-17.0.0-selfbuilt.131-portal-navigation';
+ const SHELL=['/offline.html','/manifest.webmanifest','/favicon.svg','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+--- a/tests/ios-pwa.test.mjs
++++ b/tests/ios-pwa.test.mjs
+@@ -26,7 +26,7 @@
+ });
+ 
+ test('service worker keeps authentication and financial routes network-only',()=>{
+- assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.130-manual-bank/);
++ assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.131-portal-navigation/);
+  assert.match(app,/navigator\.serviceWorker\.register\("\/service-worker\.js",\{scope:"\/"\}\)/);
+  assert.match(worker,/request\.mode==='navigate'/);
+  assert.match(worker,/fetch\(request\)\.catch\(\(\)=>caches\.match\('\/offline\.html'\)\)/);
+--- a/tests/luxury-backoffice-ui.test.mjs
++++ b/tests/luxury-backoffice-ui.test.mjs
+@@ -27,7 +27,7 @@
+  assert.match(style,/\.admin-feature-cover\{display:block!important/);
+  assert.match(style,/\.admin-internal-sidebar a\.active::after/);
+  assert.match(style,/background:#5de9df/);
+- assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.130-manual-bank/);
++ assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.131-portal-navigation/);
+  assert.ok(html.lastIndexOf('/assets/suite-theme.css')>html.lastIndexOf('/assets/owner-manual.css'),'suite theme must load after all feature styles');
+  assert.match(suiteStyle,/--m7-gold:/);
+  assert.match(suiteStyle,/body\.admin-mode \.admin-internal-sidebar a\{/);
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.130-manual-bank';
++const release='17.0.0-selfbuilt.131-portal-navigation';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
