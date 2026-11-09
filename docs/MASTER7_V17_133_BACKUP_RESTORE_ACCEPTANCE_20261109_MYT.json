@@ -1,0 +1,53 @@
+{
+  "release": "17.0.0-selfbuilt.133-operations-hardening",
+  "capturedAt": "2026-11-09T10:56:03.111Z",
+  "verifiedAt": "2026-11-09T10:57:16.163Z",
+  "backup": {
+    "format": "MASTER7-ENCRYPTED-BACKUP-1",
+    "schemaVersion": "0117-flexible-public-contacts",
+    "readConsistency": "transaction_snapshot",
+    "tableCount": 69,
+    "totalRecords": 405,
+    "sha256": "f0b736140c0016246e4b47815fc9cbb321c5c122b61abaa5b95128aced629f6f",
+    "privateArtifact": "/workspace/master7-production-backups/master7-encrypted-backup-2026-11-09T10-56-03-111Z.json"
+  },
+  "keyVerification": {
+    "matchingPrivateKeyAvailable": true,
+    "publicKeyFingerprint": "922c18278bcd0521b73eb40166e3a111765157e4f0179fa18b07bb53cb151359",
+    "privateKeyDisclosed": false
+  },
+  "sqliteRestore": {
+    "status": "verified",
+    "tableCount": 69,
+    "totalRecords": 405,
+    "foreignKeyViolations": 0
+  },
+  "postgresRestore": {
+    "engine": "PostgreSQL 18 isolated ephemeral container",
+    "status": "verified",
+    "coverageComplete": true,
+    "tableCount": 69,
+    "totalRecords": 405,
+    "foreignKeyViolations": 0,
+    "persistentWrites": false,
+    "receiptSha256": "8a502c57874c3d919e4aca11e73c5471559f7ac6991ac0087d1322507c431241",
+    "privateReceipt": "/workspace/master7-production-backups/master7-restore-postgres-2026-11-09T10-56-03-111Z.json"
+  },
+  "productionAudit": {
+    "backupAuditRecorded": true,
+    "restoreReceiptRecorded": true,
+    "productionDataMutatedByRestore": false
+  },
+  "healthAfterRecording": {
+    "database": "ready",
+    "backupReady": true,
+    "restoreReady": true,
+    "productionReady": false,
+    "remainingBlockers": [
+      "deposit_provider_not_ready",
+      "payout_provider_not_ready",
+      "payment_settlement_not_verified",
+      "game_launch_or_settlement_not_ready"
+    ]
+  }
+}

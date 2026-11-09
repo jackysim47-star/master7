@@ -1,0 +1,57 @@
+{
+  "release": "17.0.0-selfbuilt.134-scheduler-leader",
+  "files": 631,
+  "changed": [
+    "app/portal.html",
+    "docs/MASTER7_SCHEDULER_LEADER_134.md",
+    "lib/backend.ts",
+    "package.json",
+    "public/service-worker.js",
+    "scripts/production-readiness-probe.mjs",
+    "scripts/scheduler-leader.mjs",
+    "scripts/start-render.mjs",
+    "tests/ios-pwa.test.mjs",
+    "tests/luxury-backoffice-ui.test.mjs",
+    "tests/official-entries-probe.test.mjs",
+    "tests/production-readiness-probe.test.mjs",
+    "tests/scheduler-leader.test.mjs"
+  ],
+  "archiveSha256": "702b4f495373b906341f39bb17caffcdbd60b2a7e906a58e31fd27245676777f",
+  "patchSha256": "c504c646323e7ce02a9b40079acf3abc0ca0d77287e746f78163c6758196824b",
+  "manifestSha256": "730084e12d22948b3988d3a413b1e5f2db5d3359aab330e79966486edcc18b3e",
+  "reproducible": true,
+  "patchReplayMatched": true,
+  "archiveReplayMatched": true,
+  "productionCredentialsAbsent": true,
+  "validation": {
+    "maintenanceTests": 12,
+    "releaseProbes": 27,
+    "regressionTests": 1206,
+    "renderDatabaseTests": 3,
+    "schedulerLeaderTests": 5,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "archiveTypecheck": true,
+    "archiveRenderBuild": true,
+    "realMoneyAcceptance": false,
+    "realProviderAcceptance": false
+  },
+  "runtime": {
+    "renderInstances": 1,
+    "autoscalingEnabled": false,
+    "plan": "2c-4g",
+    "postgresPoolMaxPerInstance": 5,
+    "schedulerLeaderConnectionMax": 1
+  },
+  "backupBoundary": {
+    "priorReleaseBackupVerified": true,
+    "priorReleaseRestoreVerified": true,
+    "mustRefreshAfterDeployment": true
+  },
+  "activation": {
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false
+  }
+}

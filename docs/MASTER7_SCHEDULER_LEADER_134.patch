@@ -1,0 +1,545 @@
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,30 +15,30 @@
+   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.133-operations-hardening">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.133-operations-hardening">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.133-operations-hardening">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.133-operations-hardening">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.133-operations-hardening">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.133-operations-hardening">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.133-operations-hardening">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.133-operations-hardening">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.133-operations-hardening">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.133-operations-hardening">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.133-operations-hardening">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.133-operations-hardening">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.134-scheduler-leader">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.134-scheduler-leader">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.134-scheduler-leader">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.134-scheduler-leader">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.134-scheduler-leader">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.134-scheduler-leader">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.134-scheduler-leader">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.134-scheduler-leader">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.134-scheduler-leader">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.134-scheduler-leader">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.134-scheduler-leader">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.134-scheduler-leader">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.134-scheduler-leader" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.134-scheduler-leader" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.134-scheduler-leader" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.134-scheduler-leader" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.134-scheduler-leader" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.134-scheduler-leader" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.134-scheduler-leader" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.134-scheduler-leader" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.134-scheduler-leader" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.134-scheduler-leader" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.134-scheduler-leader" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.134-scheduler-leader" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
+--- /dev/null
++++ b/docs/MASTER7_SCHEDULER_LEADER_134.md
+@@ -0,0 +1,40 @@
++# MASTER7 V17 `.134` scheduler leadership
++
++Release: `17.0.0-selfbuilt.134-scheduler-leader`
++
++This release ensures that catalogue synchronization, accounting close, payment recovery, and approved WhatsApp dispatch are started by only one web instance at a time.
++
++## Leadership
++
++- Each instance may contend for a fixed PostgreSQL advisory lock.
++- Only the session that owns the lock starts the four background schedulers.
++- Standby instances close their contender connection and retry without starting timers.
++- If the leader connection fails, every scheduler timer is stopped before leadership is retried.
++- Existing catalogue leases, accounting uniqueness, payment recovery leases, and WhatsApp delivery claims remain in force during handover.
++- Connection errors log only a bounded error code; database URLs and credentials are never logged.
++
++The leader uses one dedicated PostgreSQL connection. This removes duplicate scheduler polling without creating a separately billed Render worker.
++
++## Readiness probe
++
++The production probe now accepts either truthful backup state:
++
++- backup and restore are still pending, with both blockers present; or
++- the current encrypted backup and its matching isolated restore rehearsal are verified, with those blockers absent.
++
++Restore readiness without matching backup readiness is rejected.
++
++## Scaling boundary
++
++The live service remains fixed at one 2c/4g instance. With five web instances, capped application pools would use at most 25 connections and the leader one more. A blue/green handover can temporarily double that budget. Autoscaling must remain disabled until a controlled five-instance load and deployment-overlap rehearsal proves the current PostgreSQL plan can sustain the workload.
++
++## Verification
++
++- Scheduler leadership: 5/5
++- Maintenance controls: 12/12
++- Release probes: 27/27
++- Regression: full suite required after integration
++- Render database adapter: 3/3
++- TypeScript, lint, and Render build: required after integration
++
++This release does not open new deposits, game launches, payouts, or unaccepted providers.
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -35,7 +35,7 @@
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.133-operations-hardening';
++export const RELEASE = '17.0.0-selfbuilt.134-scheduler-leader';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.133-operations-hardening node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.133-operations-hardening node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.134-scheduler-leader node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.134-scheduler-leader node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.133-operations-hardening node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.134-scheduler-leader node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.133-operations-hardening';
++const CACHE='master7-shell-17.0.0-selfbuilt.134-scheduler-leader';
+ const SHELL=['/offline.html','/manifest.webmanifest','/favicon.svg','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+--- a/scripts/production-readiness-probe.mjs
++++ b/scripts/production-readiness-probe.mjs
+@@ -9,7 +9,7 @@
+ const CLOSED_HEALTH_FLAGS=['productionReady','settlementVerified','transactionsEnabled','realPayments','payoutsEnabled','liveGames','newDepositsEnabled','newGameLaunchesEnabled','newPayoutsEnabled'];
+ const PAYMENT_PROVIDERS=['vpay','gspay','1mpay'];
+ const PAYMENT_PROFILES=['vpay','gspay','gspay_usdt','1mpay'];
+-const READINESS_BLOCKERS=['deposit_provider_not_ready','payout_provider_not_ready','payment_settlement_not_verified','game_launch_or_settlement_not_ready','encrypted_backup_not_ready','restore_rehearsal_not_verified'];
++const REQUIRED_READINESS_BLOCKERS=['deposit_provider_not_ready','payout_provider_not_ready','payment_settlement_not_verified','game_launch_or_settlement_not_ready'];
+ const GAME_PROVIDER_IDS=['megah5','jili','918kissh5','gameplay','lionking','suncity','pgsoft','gfg','sagaming','ps9','dragoonsoft','jdb','bg','allbet','quickspin','astar','metagaming','fuma','yl','funky','gamitech','spadegaming','turbo','ct855','pragmaticplay','joker','cg','atg','rectangle','m8bet','awc','evo888h5','cosmoplay','geminiupdown','epicwin','venus','clotplay'];
+ 
+ export function validateBaseUrl(value){
+@@ -39,9 +39,10 @@
+  for(const flag of CLOSED_HEALTH_FLAGS)check(checks,`health.${flag}`,health?.[flag]===false);
+  check(checks,'health.providerOrdersEnabled',paymentMapClosed(health?.providerOrdersEnabled));
+  check(checks,'health.providerPayoutsEnabled',paymentMapClosed(health?.providerPayoutsEnabled));
+- check(checks,'health.backupReady',health?.backupReady===false);
+- check(checks,'health.restoreReady',health?.restoreReady===false);
+- check(checks,'health.readinessBlockers',Array.isArray(health?.readinessBlockers)&&health.readinessBlockers.length===READINESS_BLOCKERS.length&&READINESS_BLOCKERS.every(item=>health.readinessBlockers.includes(item)));
++ check(checks,'health.backupReady',typeof health?.backupReady==='boolean');
++ check(checks,'health.restoreReady',typeof health?.restoreReady==='boolean'&&(!health.restoreReady||health.backupReady===true));
++ const expectedReadinessBlockers=[...REQUIRED_READINESS_BLOCKERS,...(health?.backupReady===true?[]:['encrypted_backup_not_ready']),...(health?.restoreReady===true?[]:['restore_rehearsal_not_verified'])];
++ check(checks,'health.readinessBlockers',Array.isArray(health?.readinessBlockers)&&health.readinessBlockers.length===expectedReadinessBlockers.length&&expectedReadinessBlockers.every(item=>health.readinessBlockers.includes(item)));
+  check(checks,'health.providerCapabilities',PAYMENT_PROVIDERS.every(provider=>health?.providerCapabilities?.[provider]?.deposit?.enabled===false&&Array.isArray(health?.providerCapabilities?.[provider]?.deposit?.blockers)&&health.providerCapabilities[provider].deposit.blockers.includes('new_deposits_paused'))&&health?.providerCapabilities?.gspay_usdt?.deposit?.enabled===false&&health.providerCapabilities.gspay_usdt.deposit.implemented===false&&health.providerCapabilities.gspay_usdt.deposit.blockers?.includes('deposit_adapter_not_implemented'));
+  if(expectedReleasePrefix)check(checks,'health.releasePrefix',typeof health?.release==='string'&&health.release.startsWith(expectedReleasePrefix));
+  check(checks,'version.releaseMatchesHealth',version?.release===health?.release&&version?.sourceRelease===health?.sourceRelease);
+--- /dev/null
++++ b/scripts/scheduler-leader.mjs
+@@ -0,0 +1,139 @@
++import pg from "pg";
++
++const DEFAULT_RETRY_MS = 15_000;
++const DEFAULT_HEARTBEAT_MS = 30_000;
++const LOCK_NAMESPACE = 1_297_304_916;
++const LOCK_RESOURCE = 17;
++
++function boundedInterval(value, fallback) {
++  const parsed = Number(value);
++  return Number.isSafeInteger(parsed) && parsed >= 1_000 && parsed <= 300_000 ? parsed : fallback;
++}
++
++function safeCode(error) {
++  return typeof error?.code === "string" && /^[A-Z0-9_]{1,32}$/.test(error.code)
++    ? error.code
++    : "UNKNOWN";
++}
++
++function stopWorkers(workers) {
++  for (const worker of workers.splice(0)) {
++    try { worker?.stop?.(); } catch {}
++  }
++}
++
++export function startSchedulerLeadership(options = {}) {
++  const connectionString = String(options.connectionString ?? "");
++  const startWorkers = options.startWorkers;
++  if (!connectionString || typeof startWorkers !== "function") {
++    return { enabled: false, ready: Promise.resolve(false), isLeader: () => false, stop: async () => {} };
++  }
++
++  const retryMs = boundedInterval(options.retryMs, DEFAULT_RETRY_MS);
++  const heartbeatMs = boundedInterval(options.heartbeatMs, DEFAULT_HEARTBEAT_MS);
++  const clientFactory = options.clientFactory ?? (() => new pg.Client({ connectionString, ssl: options.ssl }));
++  const logger = options.logger ?? console;
++  let stopped = false;
++  let attempting = false;
++  let activeClient = null;
++  let workers = [];
++  let retryTimer;
++  let heartbeatTimer;
++  const closedClients = new WeakSet();
++
++  const closeClient = async client => {
++    if (!client || closedClients.has(client)) return;
++    closedClients.add(client);
++    try { await client.end(); } catch {}
++  };
++
++  const scheduleRetry = () => {
++    if (stopped || retryTimer || activeClient) return;
++    retryTimer = setTimeout(() => {
++      retryTimer = undefined;
++      void attempt();
++    }, retryMs);
++    retryTimer.unref?.();
++  };
++
++  const loseLeadership = async (client, error) => {
++    if (client !== activeClient) {
++      await closeClient(client);
++      scheduleRetry();
++      return;
++    }
++    activeClient = null;
++    clearInterval(heartbeatTimer);
++    heartbeatTimer = undefined;
++    stopWorkers(workers);
++    await closeClient(client);
++    if (!stopped) logger.error?.(`MASTER7 scheduler leadership lost (${safeCode(error)}); retrying.`);
++    scheduleRetry();
++  };
++
++  const attempt = async () => {
++    if (stopped || attempting || activeClient) return false;
++    attempting = true;
++    let client;
++    try {
++      client = clientFactory();
++      const onError = error => { void loseLeadership(client, error); };
++      client.on?.("error", onError);
++      await client.connect();
++      const result = await client.query(
++        "SELECT pg_try_advisory_lock($1::integer,$2::integer) AS acquired",
++        [LOCK_NAMESPACE, LOCK_RESOURCE],
++      );
++      if (result?.rows?.[0]?.acquired !== true || stopped) {
++        if (result?.rows?.[0]?.acquired === true) {
++          try { await client.query("SELECT pg_advisory_unlock($1::integer,$2::integer)", [LOCK_NAMESPACE, LOCK_RESOURCE]); } catch {}
++        }
++        await closeClient(client);
++        scheduleRetry();
++        return false;
++      }
++      activeClient = client;
++      const started = startWorkers();
++      workers = Array.isArray(started) ? started.filter(Boolean) : [];
++      heartbeatTimer = setInterval(async () => {
++        try { await client.query("SELECT 1"); }
++        catch (error) { await loseLeadership(client, error); }
++      }, heartbeatMs);
++      heartbeatTimer.unref?.();
++      logger.log?.("MASTER7 scheduler leadership acquired.");
++      return true;
++    } catch (error) {
++      if (client === activeClient) {
++        await loseLeadership(client, error);
++      } else {
++        await closeClient(client);
++        if (!stopped) logger.error?.(`MASTER7 scheduler leadership unavailable (${safeCode(error)}); retrying.`);
++        scheduleRetry();
++      }
++      return false;
++    } finally {
++      attempting = false;
++    }
++  };
++
++  const ready = attempt();
++  return {
++    enabled: true,
++    ready,
++    isLeader: () => activeClient !== null,
++    async stop() {
++      stopped = true;
++      clearTimeout(retryTimer);
++      clearInterval(heartbeatTimer);
++      retryTimer = undefined;
++      heartbeatTimer = undefined;
++      stopWorkers(workers);
++      const client = activeClient;
++      activeClient = null;
++      if (client) {
++        try { await client.query("SELECT pg_advisory_unlock($1::integer,$2::integer)", [LOCK_NAMESPACE, LOCK_RESOURCE]); } catch {}
++        await closeClient(client);
++      }
++    },
++  };
++}
+--- a/scripts/start-render.mjs
++++ b/scripts/start-render.mjs
+@@ -11,14 +11,16 @@
+   process.exit(1);
+ }
+ 
++const ssl = process.env.PGSSLMODE === "disable"
++  ? false
++  : {
++      rejectUnauthorized: process.env.PGSSL_REJECT_UNAUTHORIZED !== "false",
++      ...(process.env.PGSSL_CA ? { ca: process.env.PGSSL_CA.replaceAll("\\n", "\n") } : {}),
++    };
++
+ const pool = registerPostgresPoolErrorHandler(new pg.Pool({
+   connectionString,
+-  ssl: process.env.PGSSLMODE === "disable"
+-    ? false
+-    : {
+-        rejectUnauthorized: process.env.PGSSL_REJECT_UNAUTHORIZED !== "false",
+-        ...(process.env.PGSSL_CA ? { ca: process.env.PGSSL_CA.replaceAll("\\n", "\n") } : {}),
+-      },
++  ssl,
+   ...postgresPoolRuntimeOptions(process.env),
+ }));
+ 
+@@ -37,11 +39,27 @@
+ await pool.end();
+ await import("../.output/server/index.mjs");
+ 
+-const {startCatalogueSync}=await import("./catalogue-sync-job.mjs");
+-startCatalogueSync();
+-const {startAccountingCloseScheduler}=await import("./accounting-close-job.mjs");
+-startAccountingCloseScheduler();
+-const {startPaymentRecovery}=await import("./payment-recovery-job.mjs");
+-startPaymentRecovery();
+-const {startWhatsAppDispatch}=await import("./whatsapp-dispatch-job.mjs");
+-startWhatsAppDispatch();
++const [
++  { startSchedulerLeadership },
++  { startCatalogueSync },
++  { startAccountingCloseScheduler },
++  { startPaymentRecovery },
++  { startWhatsAppDispatch },
++] = await Promise.all([
++  import("./scheduler-leader.mjs"),
++  import("./catalogue-sync-job.mjs"),
++  import("./accounting-close-job.mjs"),
++  import("./payment-recovery-job.mjs"),
++  import("./whatsapp-dispatch-job.mjs"),
++]);
++
++startSchedulerLeadership({
++  connectionString,
++  ssl,
++  startWorkers: () => [
++    startCatalogueSync(),
++    startAccountingCloseScheduler(),
++    startPaymentRecovery(),
++    startWhatsAppDispatch(),
++  ],
++});
+--- a/tests/ios-pwa.test.mjs
++++ b/tests/ios-pwa.test.mjs
+@@ -26,7 +26,7 @@
+ });
+ 
+ test('service worker keeps authentication and financial routes network-only',()=>{
+- assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.133-operations-hardening/);
++ assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.134-scheduler-leader/);
+  assert.match(app,/navigator\.serviceWorker\.register\("\/service-worker\.js",\{scope:"\/"\}\)/);
+  assert.match(worker,/request\.mode==='navigate'/);
+  assert.match(worker,/fetch\(request\)\.catch\(\(\)=>caches\.match\('\/offline\.html'\)\)/);
+--- a/tests/luxury-backoffice-ui.test.mjs
++++ b/tests/luxury-backoffice-ui.test.mjs
+@@ -27,7 +27,7 @@
+  assert.match(style,/\.admin-feature-cover\{display:block!important/);
+  assert.match(style,/\.admin-internal-sidebar a\.active::after/);
+  assert.match(style,/background:#5de9df/);
+- assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.133-operations-hardening/);
++ assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.134-scheduler-leader/);
+  assert.ok(html.lastIndexOf('/assets/suite-theme.css')>html.lastIndexOf('/assets/owner-manual.css'),'suite theme must load after all feature styles');
+  assert.match(suiteStyle,/--m7-gold:/);
+  assert.match(suiteStyle,/body\.admin-mode \.admin-internal-sidebar a\{/);
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.133-operations-hardening';
++const release='17.0.0-selfbuilt.134-scheduler-leader';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+--- a/tests/production-readiness-probe.test.mjs
++++ b/tests/production-readiness-probe.test.mjs
+@@ -34,6 +34,19 @@
+  assert.equal(result.ok,true);assert.equal(result.scope,'maintenance_safety_only');assert.equal(result.maintenanceVerified,true);assert.equal(result.productionReady,false);assert.equal(result.providerPositions,37);assert.equal(result.channelCount,4);
+  assert.deepEqual(new Set(calls.map(item=>item.url)),new Set(Object.keys(payloads)));assert.ok(calls.every(item=>item.method==='GET'));
+  assert.ok(calls.every(item=>item.authorization===undefined&&item.cookie===undefined));
++});
++
++test('read-only probe accepts verified backup and restore evidence while money and games remain closed',async t=>{
++ const changed=structuredClone(payloads);changed['/health'].backupReady=true;changed['/health'].restoreReady=true;changed['/health'].readinessBlockers=['deposit_provider_not_ready','payout_provider_not_ready','payment_settlement_not_verified','game_launch_or_settlement_not_ready'];
++ const baseUrl=await serve(t,(req,res)=>{res.statusCode=req.url.includes('__probe_invalid__')?400:200;res.setHeader('content-type','application/json');res.setHeader('cache-control','no-store');res.end(JSON.stringify(changed[req.url]));});
++ const result=await probeProductionReadiness({baseUrl});assert.equal(result.ok,true);assert.equal(result.productionReady,false);
++ assert.equal(result.checks.find(item=>item.name==='health.backupReady').pass,true);assert.equal(result.checks.find(item=>item.name==='health.restoreReady').pass,true);assert.equal(result.checks.find(item=>item.name==='health.readinessBlockers').pass,true);
++});
++
++test('probe rejects restore readiness without matching backup readiness',async t=>{
++ const changed=structuredClone(payloads);changed['/health'].restoreReady=true;changed['/health'].readinessBlockers=['deposit_provider_not_ready','payout_provider_not_ready','payment_settlement_not_verified','game_launch_or_settlement_not_ready','encrypted_backup_not_ready'];
++ const baseUrl=await serve(t,(req,res)=>{res.statusCode=req.url.includes('__probe_invalid__')?400:200;res.setHeader('content-type','application/json');res.setHeader('cache-control','no-store');res.end(JSON.stringify(changed[req.url]));});
++ const result=await probeProductionReadiness({baseUrl});assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.name==='health.restoreReady').pass,false);
+ });
+ 
+ for(const flag of ['newDepositsEnabled','newGameLaunchesEnabled','newPayoutsEnabled','productionReady','transactionsEnabled','realPayments','payoutsEnabled','liveGames'])test(`probe rejects open health flag ${flag}`,async t=>{
+--- /dev/null
++++ b/tests/scheduler-leader.test.mjs
+@@ -0,0 +1,120 @@
++import test from "node:test";
++import assert from "node:assert/strict";
++import { EventEmitter } from "node:events";
++import { readFileSync } from "node:fs";
++import { startSchedulerLeadership } from "../scripts/scheduler-leader.mjs";
++
++class FakeClient extends EventEmitter {
++  constructor(acquired = true) {
++    super();
++    this.acquired = acquired;
++    this.queries = [];
++    this.connects = 0;
++    this.ends = 0;
++  }
++  async connect() { this.connects++; }
++  async query(sql, values) {
++    this.queries.push({ sql, values });
++    if (sql.includes("pg_try_advisory_lock")) return { rows: [{ acquired: this.acquired }] };
++    if (sql === "SELECT 1") return { rows: [{ "?column?": 1 }] };
++    return { rows: [{ pg_advisory_unlock: true }] };
++  }
++  async end() { this.ends++; }
++}
++
++const quiet = () => ({ log() {}, error() {} });
++
++test("only the PostgreSQL advisory-lock owner starts background schedulers", async () => {
++  const leaderClient = new FakeClient(true);
++  const standbyClient = new FakeClient(false);
++  let starts = 0;
++  let stops = 0;
++  const startWorkers = () => {
++    starts++;
++    return [{ stop() { stops++; } }, { stop() { stops++; } }];
++  };
++  const leader = startSchedulerLeadership({
++    connectionString: "postgres://fixture/leader",
++    clientFactory: () => leaderClient,
++    startWorkers,
++    retryMs: 60_000,
++    heartbeatMs: 60_000,
++    logger: quiet(),
++  });
++  const standby = startSchedulerLeadership({
++    connectionString: "postgres://fixture/standby",
++    clientFactory: () => standbyClient,
++    startWorkers,
++    retryMs: 60_000,
++    heartbeatMs: 60_000,
++    logger: quiet(),
++  });
++  assert.equal(await leader.ready, true);
++  assert.equal(await standby.ready, false);
++  assert.equal(starts, 1);
++  assert.equal(leader.isLeader(), true);
++  assert.equal(standby.isLeader(), false);
++  assert.equal(standbyClient.ends, 1);
++  await standby.stop();
++  await leader.stop();
++  assert.equal(stops, 2);
++  assert.equal(leaderClient.ends, 1);
++  assert.ok(leaderClient.queries.some(item => item.sql.includes("pg_advisory_unlock")));
++});
++
++test("connection loss stops every scheduler without leaking connection details", async () => {
++  const client = new FakeClient(true);
++  let stopped = 0;
++  const messages = [];
++  const leadership = startSchedulerLeadership({
++    connectionString: "postgres://fixture/leader",
++    clientFactory: () => client,
++    startWorkers: () => [{ stop() { stopped++; } }],
++    retryMs: 60_000,
++    heartbeatMs: 60_000,
++    logger: { log() {}, error(message) { messages.push(message); } },
++  });
++  assert.equal(await leadership.ready, true);
++  client.emit("error", Object.assign(new Error("postgres://user:secret@private-db/internal"), { code: "ECONNRESET" }));
++  await new Promise(resolve => setImmediate(resolve));
++  assert.equal(leadership.isLeader(), false);
++  assert.equal(stopped, 1);
++  assert.deepEqual(messages, ["MASTER7 scheduler leadership lost (ECONNRESET); retrying."]);
++  assert.doesNotMatch(messages[0], /secret|private-db|postgres:\/\//);
++  await leadership.stop();
++});
++
++test("missing database configuration keeps scheduler leadership inert", async () => {
++  let starts = 0;
++  const leadership = startSchedulerLeadership({ connectionString: "", startWorkers: () => { starts++; return []; } });
++  assert.equal(leadership.enabled, false);
++  assert.equal(await leadership.ready, false);
++  assert.equal(starts, 0);
++  await leadership.stop();
++});
++
++test("a failed client factory stays fail-closed and schedules no worker", async () => {
++  let starts = 0;
++  const messages = [];
++  const leadership = startSchedulerLeadership({
++    connectionString: "postgres://fixture/leader",
++    clientFactory: () => { throw Object.assign(new Error("postgres://secret"), { code: "ECONNREFUSED" }); },
++    startWorkers: () => { starts++; return []; },
++    retryMs: 60_000,
++    logger: { log() {}, error(message) { messages.push(message); } },
++  });
++  assert.equal(await leadership.ready, false);
++  assert.equal(starts, 0);
++  assert.deepEqual(messages, ["MASTER7 scheduler leadership unavailable (ECONNREFUSED); retrying."]);
++  assert.doesNotMatch(messages[0], /secret|postgres:\/\//);
++  await leadership.stop();
++});
++
++test("Render starts schedulers only through the advisory-lock leader", () => {
++  const source = readFileSync(new URL("../scripts/start-render.mjs", import.meta.url), "utf8");
++  assert.match(source, /startSchedulerLeadership\(\{/);
++  assert.match(source, /startWorkers:\s*\(\)\s*=>\s*\[/);
++  for (const name of ["startCatalogueSync", "startAccountingCloseScheduler", "startPaymentRecovery", "startWhatsAppDispatch"]) {
++    assert.equal((source.match(new RegExp(`${name}\\(\\)`, "g")) ?? []).length, 1, name);
++  }
++});
