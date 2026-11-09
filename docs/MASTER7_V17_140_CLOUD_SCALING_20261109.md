@@ -28,3 +28,23 @@ deposits, game launches, payouts, real payments, live games or production
 readiness.
 
 Reference: <https://render.com/docs/compute-plans.md>
+
+## Applied result
+
+- Autoscaling preview: `exe-dbp1c0rm8hqs73drc45g`
+- Cost-guardrail rollback: `exe-dbp1cle1egvs739ql1q0`
+- Final service plan: `2c-4g`
+- Final running instances: 1
+- Final autoscaling state: disabled
+- Health check: `/health/live` returned HTTP 200
+- Database state: ready
+- Backup and isolated restore evidence: ready
+- Provider catalogue: 37 brands
+- Transaction controls: deposits, launches, payouts, real payments and live
+  games remain disabled
+
+The post-change smoke load sent 120 requests at concurrency 10. All 120
+returned HTTP 200. Throughput was 21.8 requests per second, average latency was
+425.3 ms, p95 latency was 887.7 ms, and maximum latency was 964.5 ms. Render
+reported no application errors and no HTTP 5xx responses between the V17.140
+deployment and the end of this check.
