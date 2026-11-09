@@ -1,6 +1,7 @@
 # MASTER7 V17.140 online acceptance
 
-**Render-origin result:** PASS  
+**Render-origin result:** PASS
+
 **Production go-live:** NOT APPROVED
 
 Release `17.0.0-selfbuilt.140-profile-catalogue-count`, commit
