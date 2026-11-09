@@ -1036,8 +1036,12 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         const outTradeNo = String(payload.outTradeNo || '');
         if (!/^[A-Za-z0-9_-]{1,50}$/.test(outTradeNo)) return send(res, 400, { error: 'invalid_out_trade_no' });
         const tradeNo = String(payload.tradeNo || '');
-        if (walletQuery && !/^[A-Za-z0-9_-]{1,128}$/.test(tradeNo)) return send(res, 400, { error: 'invalid_trade_no' });
-        const result = await vpay('ORDER_GET', { out_trade_no: outTradeNo, ...(walletQuery ? { trade_no: tradeNo } : {}) });
+        const hasTradeNo = Object.hasOwn(payload, 'tradeNo');
+        if (walletQuery && hasTradeNo && !/^[A-Za-z0-9_-]{1,128}$/.test(tradeNo)) return send(res, 400, { error: 'invalid_trade_no' });
+        // An ambiguous create may have no supplier reference. ORDER_GET already
+        // supports the merchant order ID on the admin path; allow the same
+        // read-only lookup for the query peer. Never create or infer a payment.
+        const result = await vpay('ORDER_GET', { out_trade_no: outTradeNo, ...(walletQuery && hasTradeNo ? { trade_no: tradeNo } : {}) });
         const providerOK = result.data?.code === 0 || result.data?.code === '0';
         return send(res, result.ok && providerOK ? 200 : 502, {
           provider: 'vpay',

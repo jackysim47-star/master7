@@ -20,6 +20,16 @@ test('wallet query credential confirms only existing orders with both stable ref
  assert(upstream.url.startsWith('https://gateway.vpay.club/app/v1/trader/rest?t='));assert.equal(upstream.payload.action,'ORDER_GET');assert.equal(upstream.payload.out_trade_no,'order_1');assert.equal(upstream.payload.trade_no,'provider_1');
  assert(!JSON.stringify(result.body).includes(peer));assert(!JSON.stringify(result.body).includes(env.VPAY_API_TOKEN));
 });
+test('query peer can look up an ambiguous existing order by merchant ID without issuing a new order',async()=>{
+ const calls=[];const app=makeApp({env:{...env,VPAY_ORDERS_ENABLED:'false'},fetchImpl:async(url,options)=>{const payload=JSON.parse(options.body);calls.push({url,payload});return Response.json({code:0,data:{out_trade_no:'order_1',trade_no:'recovered_reference',trader_id:'123456',amount:'1.00',state:'3'}});}});
+ const result=await request(app,'/platform/vpay/order-query',peer,{outTradeNo:'order_1'});
+ assert.equal(result.status,200);assert.equal(result.body.result.data.trade_no,'recovered_reference');assert.equal(calls.length,1);assert.equal(calls[0].payload.action,'ORDER_GET');assert.equal(calls[0].payload.out_trade_no,'order_1');assert.equal(Object.hasOwn(calls[0].payload,'trade_no'),false);assert.equal(calls[0].payload.trader_id,'123456');assert.ok(calls[0].payload.sign);assert(!JSON.stringify(result.body).includes(env.VPAY_API_TOKEN));
+});
+test('missing-reference lookup retains query scope and preserves provider failure as unverified',async()=>{
+ let calls=0;const app=makeApp({env,fetchImpl:async(_url,options)=>{calls++;assert.equal(JSON.parse(options.body).action,'ORDER_GET');return Response.json({code:-1,msg:'synthetic supplier rejection'});}});
+ for(const token of [undefined,env.GATEWAY_ADMIN_TOKEN,'bad'])assert.equal((await request(app,'/platform/vpay/order-query',token,{outTradeNo:'order_1'})).status,401);
+ assert.equal(calls,0);const result=await request(app,'/platform/vpay/order-query',peer,{outTradeNo:'order_1'});assert.equal(result.status,502);assert.equal(result.body.result.code,-1);assert.equal(calls,1);
+});
 test('query-only credentials cannot create, withdraw, inspect merchant balance or use admin APIs',async()=>{
  let calls=0;const app=makeApp({env,fetchImpl:async()=>{calls++;throw Error('Must not call supplier');}});
  for(const path of ['/platform/vpay/order','/admin/vpay/order','/admin/vpay/withdrawal','/admin/vpay/balance','/admin/vpay/order-query','/admin/vpay/withdrawal-query','/admin/mega/balance']){
@@ -63,7 +73,7 @@ test('missing, short, wrong or admin credentials do not grant the wallet peer sc
 });
 test('invalid or missing bound order IDs are rejected before any supplier call',async()=>{
  let calls=0;const app=makeApp({env,fetchImpl:async()=>{calls++;throw Error('Must not call supplier');}});
- for(const payload of [{outTradeNo:'order_1'},{outTradeNo:'../order',tradeNo:'provider_1'},{outTradeNo:'order_1',tradeNo:'x'.repeat(129)}])assert.equal((await request(app,'/platform/vpay/order-query',peer,payload)).status,400);
+ for(const payload of [{},{outTradeNo:'../order',tradeNo:'provider_1'},{outTradeNo:'order_1',tradeNo:'x'.repeat(129)},{outTradeNo:'order_1',tradeNo:''},{outTradeNo:'order_1',tradeNo:null}])assert.equal((await request(app,'/platform/vpay/order-query',peer,payload)).status,400);
  assert.equal(calls,0);
 });
 test('aliasing peer credentials to another privilege scope fails closed',async()=>{
