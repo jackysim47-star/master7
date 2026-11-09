@@ -1,0 +1,125 @@
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/app/portal.html b/app/portal.html
+--- a/app/portal.html	2026-11-09 14:19:46.691859358 +0000
++++ b/app/portal.html	2026-11-09 14:51:16.824517270 +0000
+@@ -18,25 +18,25 @@
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.140-profile-catalogue-count">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.140-profile-catalogue-count">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.140-profile-catalogue-count">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.140-profile-catalogue-count">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.140-profile-catalogue-count">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.140-profile-catalogue-count">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.140-profile-catalogue-count">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.140-profile-catalogue-count">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.140-profile-catalogue-count">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.140-profile-catalogue-count">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.140-profile-catalogue-count">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.140-profile-catalogue-count">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.140-profile-catalogue-count" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.140-profile-catalogue-count" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.140-profile-catalogue-count" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.140-profile-catalogue-count" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.140-profile-catalogue-count" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.140-profile-catalogue-count" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.140-profile-catalogue-count" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.140-profile-catalogue-count" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.140-profile-catalogue-count" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.140-profile-catalogue-count" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.140-profile-catalogue-count" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.140-profile-catalogue-count" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.140-profile-catalogue-count" defer></script>
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/docs/MASTER7_V17_140_PROFILE_CATALOGUE_COUNT.md b/docs/MASTER7_V17_140_PROFILE_CATALOGUE_COUNT.md
+--- a/docs/MASTER7_V17_140_PROFILE_CATALOGUE_COUNT.md	1970-01-01 00:00:00.000000000 +0000
++++ b/docs/MASTER7_V17_140_PROFILE_CATALOGUE_COUNT.md	2026-11-09 14:50:37.871567195 +0000
+@@ -0,0 +1,11 @@
++# MASTER7 V17.140 profile catalogue count
++
++Release `17.0.0-selfbuilt.140-profile-catalogue-count` makes the selected
++platform's cached game count use the selected profile catalogue. Normal MYR,
++MY1 1:100, and Free Credit MYR now report 92, 92, and 88 respectively in both
++the selected game count and selected platform cache count.
++
++This release does not change provider contracts, wallet behavior, credentials,
++DNS, bank targets, payment records, game sessions, Render capacity, or
++databases. It does not enable deposits, game launches, payouts, real payments,
++live games, or `productionReady`.
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/lib/backend.ts b/lib/backend.ts
+--- a/lib/backend.ts	2026-11-09 14:25:22.641522554 +0000
++++ b/lib/backend.ts	2026-11-09 14:50:25.743268234 +0000
+@@ -40 +40 @@
+-export const RELEASE = '17.0.0-selfbuilt.139-profile-status-consistency';
++export const RELEASE = '17.0.0-selfbuilt.140-profile-catalogue-count';
+@@ -685 +685 @@
+-   const trustedSource=configuredGameCatalogueSourceIds(c).includes(selectedProvider),capability=await megaProviderCapability(c),catalogue=trustedSource?await automaticCatalogue(c,await getGameCatalogue(c,{providerId:selectedProvider,profileId:requestedProfileId??undefined}),capability):{providers:[],games:[]},games=catalogue.games.filter((game:any)=>game.provider===selectedProvider),fresh=await publicSupplierPlatforms(c,capability),selected=(catalogue.providers??[]).find((provider:any)=>provider.id===selectedProvider),providers=fresh.providers.map((provider:any)=>provider.id===selectedProvider&&selected?{...provider,...selected}:provider),selectedPlatform=providers.find((provider:any)=>provider.id===selectedProvider)??null,liveReady=selectedPlatform?.platformLaunchReady===true;
++   const trustedSource=configuredGameCatalogueSourceIds(c).includes(selectedProvider),capability=await megaProviderCapability(c),catalogue=trustedSource?await automaticCatalogue(c,await getGameCatalogue(c,{providerId:selectedProvider,profileId:requestedProfileId??undefined}),capability):{providers:[],games:[]},games=catalogue.games.filter((game:any)=>game.provider===selectedProvider),fresh=await publicSupplierPlatforms(c,capability),selected=(catalogue.providers??[]).find((provider:any)=>provider.id===selectedProvider),providers=fresh.providers.map((provider:any)=>provider.id===selectedProvider&&selected?{...provider,...selected,cachedGameCount:Number(selected.count??0)}:provider),selectedPlatform=providers.find((provider:any)=>provider.id===selectedProvider)??null,liveReady=selectedPlatform?.platformLaunchReady===true;
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+--- a/lib/production-acceptance.ts	2026-11-09 14:19:46.699758400 +0000
++++ b/lib/production-acceptance.ts	2026-11-09 14:50:29.051351423 +0000
+@@ -13 +13 @@
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.139-profile-status-consistency' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.140-profile-catalogue-count' as const;
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/package.json b/package.json
+--- a/package.json	2026-11-09 14:19:46.719532410 +0000
++++ b/package.json	2026-11-09 14:50:36.407531424 +0000
+@@ -23,2 +23,2 @@
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.139-profile-status-consistency node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.139-profile-status-consistency node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.140-profile-catalogue-count node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.140-profile-catalogue-count node scripts/postgres-readiness-gate.mjs",
+@@ -30 +30 @@
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.139-profile-status-consistency node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.140-profile-catalogue-count node scripts/probe-official-entries.mjs",
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/public/service-worker.js b/public/service-worker.js
+--- a/public/service-worker.js	2026-11-09 14:19:46.723259109 +0000
++++ b/public/service-worker.js	2026-11-09 14:50:30.515387483 +0000
+@@ -1 +1 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.139-profile-status-consistency';
++const CACHE='master7-shell-17.0.0-selfbuilt.140-profile-catalogue-count';
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/game-launch.test.mjs b/tests/game-launch.test.mjs
+--- a/tests/game-launch.test.mjs	2026-11-09 14:25:22.642400578 +0000
++++ b/tests/game-launch.test.mjs	2026-11-09 14:50:27.435309566 +0000
+@@ -100 +100 @@
+-   assert.equal(response.data.selectedPlatform.catalogueProfileId,profileId);assert.equal(response.data.selectedPlatform.catalogueAccount,account);assert.equal(response.data.selectedPlatform.providerCurrency,currency);
++   assert.equal(response.data.selectedPlatform.catalogueProfileId,profileId);assert.equal(response.data.selectedPlatform.catalogueAccount,account);assert.equal(response.data.selectedPlatform.providerCurrency,currency);assert.equal(response.data.selectedPlatform.cachedGameCount,count);
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/ios-pwa.test.mjs b/tests/ios-pwa.test.mjs
+--- a/tests/ios-pwa.test.mjs	2026-11-09 14:19:46.749151740 +0000
++++ b/tests/ios-pwa.test.mjs	2026-11-09 14:50:34.939495563 +0000
+@@ -29 +29 @@
+- assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.139-profile-status-consistency/);
++ assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.140-profile-catalogue-count/);
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/luxury-backoffice-ui.test.mjs b/tests/luxury-backoffice-ui.test.mjs
+--- a/tests/luxury-backoffice-ui.test.mjs	2026-11-09 14:19:46.752903147 +0000
++++ b/tests/luxury-backoffice-ui.test.mjs	2026-11-09 14:50:33.471459708 +0000
+@@ -30 +30 @@
+- assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.139-profile-status-consistency/);
++ assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.140-profile-catalogue-count/);
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+--- a/tests/official-entries-probe.test.mjs	2026-11-09 14:19:46.745287909 +0000
++++ b/tests/official-entries-probe.test.mjs	2026-11-09 14:50:32.003423832 +0000
+@@ -5 +5 @@
+-const release='17.0.0-selfbuilt.139-profile-status-consistency';
++const release='17.0.0-selfbuilt.140-profile-catalogue-count';

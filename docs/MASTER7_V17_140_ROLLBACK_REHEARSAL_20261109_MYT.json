@@ -1,0 +1,98 @@
+{
+  "checkedAt": "2026-11-09T14:58:29Z",
+  "scope": "isolated_v140_v139_v140_application_rollback",
+  "productionServiceMutated": false,
+  "productionDatabaseMutated": false,
+  "result": "passed",
+  "releases": {
+    "rollbackFrom": {
+      "release": "17.0.0-selfbuilt.140-profile-catalogue-count",
+      "archiveSha256": "cde3b4b1902503cd0d3661e9a689f740cc2f2988ef2116468414988fbf1816e7",
+      "releaseBoundRollbackSubject": "rollback_rehearsal_17.0.0-selfbuilt.140-profile-catalogue-count"
+    },
+    "rollbackTo": {
+      "release": "17.0.0-selfbuilt.139-profile-status-consistency",
+      "gitCommit": "d4b367124f61dd09f4737a7916d9e1db7d878ba4",
+      "archiveSha256": "7f5bda11f277d00a3e46ff5a11b9d7fe559059e3e727b2d8c769b35eb5341965"
+    }
+  },
+  "compatibility": {
+    "renderSchemaSha256": "56c35a4f8c3460e91c57b1918fa5718009d2e3874a73c58b25f8004f65315085",
+    "schemaIdentical": true,
+    "pnpmLockSha256": "6a276f81aab504274390bfd485a4b514abfb6b508cb5a4d64d38c864d1f8fc2d",
+    "dependencyLockIdentical": true,
+    "v140ProductionBuildPassed": true,
+    "v139ProductionBuildPassed": true,
+    "releaseBoundRollbackGatePresent": true
+  },
+  "environment": {
+    "database": "PostgreSQL 18 Alpine on Docker tmpfs",
+    "persistentStorage": false,
+    "loopbackOnlyDatabasePort": true,
+    "sanitizedProcessEnvironment": true,
+    "providerCredentialsPresent": false,
+    "providerNetworkTransactions": false,
+    "realMoneyTransactions": false
+  },
+  "phases": [
+    {
+      "phase": "v140_initial",
+      "release": "17.0.0-selfbuilt.140-profile-catalogue-count",
+      "database": "ready",
+      "providerPositions": 37,
+      "requiredProfiles": 41,
+      "acceptedProfiles": 0,
+      "liveProfiles": 0,
+      "playableProviders": 0,
+      "productionReady": false,
+      "liveGames": false,
+      "allTransactionFlagsClosed": true,
+      "rawPgDumpSha256": "0fde51f05b329c7a151e8ebbc32b234634236e0713d9bbb4e030727cd3a18875"
+    },
+    {
+      "phase": "v139_rollback",
+      "release": "17.0.0-selfbuilt.139-profile-status-consistency",
+      "database": "ready",
+      "providerPositions": 37,
+      "requiredProfiles": 41,
+      "acceptedProfiles": 0,
+      "liveProfiles": 0,
+      "playableProviders": 0,
+      "productionReady": false,
+      "liveGames": false,
+      "allTransactionFlagsClosed": true,
+      "rawPgDumpSha256": "8e82430796fc9813c55d89566e59e4a2bffdd2d921bf5f86071e42013936882c"
+    },
+    {
+      "phase": "v140_restored",
+      "release": "17.0.0-selfbuilt.140-profile-catalogue-count",
+      "database": "ready",
+      "providerPositions": 37,
+      "requiredProfiles": 41,
+      "acceptedProfiles": 0,
+      "liveProfiles": 0,
+      "playableProviders": 0,
+      "productionReady": false,
+      "liveGames": false,
+      "allTransactionFlagsClosed": true,
+      "rawPgDumpSha256": "4a47743434c48fc424d51fcd1662032a140c2d62310edf9228f8f0d66e167a71"
+    }
+  ],
+  "dataIntegrity": {
+    "tableCount": 76,
+    "totalRows": 135,
+    "stableBusinessDataFingerprintSha256": "a8f5d75ec0cf771947fa8edaa70ca0f890712994e0012fb6b6cdc5d1b05c0ff6",
+    "stableFingerprintDefinition": "SHA-256 of PostgreSQL data-only column-insert dump after removing comments, SET and set_config boilerplate, blank lines, and PostgreSQL 18 random \\restrict/\\unrestrict session guards; no table row, INSERT statement, sequence state, release row, health row, or business field is excluded",
+    "rawDumpDigestsExpectedToDiffer": true,
+    "rawDumpDifferenceReason": "PostgreSQL 18 emits a newly randomized \\restrict/\\unrestrict session guard in each pg_dump output",
+    "unchangedAfterRollback": true,
+    "unchangedAfterRestore": true
+  },
+  "cleanup": {
+    "isolatedContainerRemoved": true,
+    "temporaryDatabaseCredentialRemoved": true,
+    "temporarySourceTreesRemoved": true,
+    "productionCredentialsUsed": false
+  },
+  "limitation": "This proves candidate-release application and schema rollback compatibility without changing Render or production data. It does not constitute owner sign-off, operations sign-off, provider acceptance, real-money acceptance, official DNS acceptance, or a Render control-plane rollback."
+}

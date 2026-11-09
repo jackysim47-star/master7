@@ -1,0 +1,61 @@
+{
+  "release": "17.0.0-selfbuilt.140-profile-catalogue-count",
+  "baselineRelease": "17.0.0-selfbuilt.139-profile-status-consistency",
+  "files": 644,
+  "changed": [
+    "app/portal.html",
+    "docs/MASTER7_V17_140_PROFILE_CATALOGUE_COUNT.md",
+    "lib/backend.ts",
+    "lib/production-acceptance.ts",
+    "package.json",
+    "public/service-worker.js",
+    "tests/game-launch.test.mjs",
+    "tests/ios-pwa.test.mjs",
+    "tests/luxury-backoffice-ui.test.mjs",
+    "tests/official-entries-probe.test.mjs"
+  ],
+  "archiveSha256": "cde3b4b1902503cd0d3661e9a689f740cc2f2988ef2116468414988fbf1816e7",
+  "patchSha256": "3d573678e321b415a5e4a477e257e2895e85e47fbb33bdb7d5fb553733343729",
+  "manifestSha256": "b2b22386c2cf2e54a7592fc21978838e8313047eda7806b2a626dcfbd8f621b5",
+  "reproducible": true,
+  "patchReplayMatched": true,
+  "archiveReplayMatched": true,
+  "securityScan": {
+    "privateKeyHeaders": 0,
+    "sensitiveFiles": 0,
+    "knownCloudTokenPrefixes": 0,
+    "credentialBearingUrlsProduction": 0,
+    "credentialBearingTestFixtures": 5,
+    "archiveExcludedPathViolations": 0
+  },
+  "validation": {
+    "focusedGameTests": 34,
+    "uiAndPwaTests": 12,
+    "maintenanceTests": 12,
+    "releaseProbes": 27,
+    "regressionTests": 1227,
+    "renderDatabaseTests": 3,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "isolatedRollbackRehearsal": true,
+    "realMoneyAcceptance": false,
+    "realProviderAcceptance": false
+  },
+  "profileCatalogueCounts": {
+    "normalMyr": 92,
+    "normalMy1": 92,
+    "freeMyr": 88,
+    "selectedPlatformCountMatchesSelectedCatalogue": true,
+    "gameLaunchActivated": false,
+    "gameWalletActivated": false
+  },
+  "activation": {
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPayments": false,
+    "liveGames": false,
+    "productionReady": false
+  }
+}
