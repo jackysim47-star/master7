@@ -1,0 +1,56 @@
+{
+  "checkedAt": "2026-11-09T11:17:30Z",
+  "release": "17.0.0-selfbuilt.134-scheduler-leader",
+  "gitCommit": "5f98ee8aa10b3115ac5c8d4af5ddca58eb185f24",
+  "renderDeploy": "dep-dboql095efls73enad90",
+  "deployStatus": "live",
+  "finishedAt": "2026-11-09T11:13:41.747543Z",
+  "runtime": {
+    "plan": "2c-4g",
+    "instances": 1,
+    "autoscalingEnabled": false,
+    "schedulerLeadershipAcquired": true,
+    "healthCheckPath": "/health/live",
+    "database": "ready",
+    "steadyPostgresConnections": 6
+  },
+  "validation": {
+    "maintenanceTests": 12,
+    "releaseTests": 27,
+    "regressionTests": 1206,
+    "databaseAdapterTests": 3,
+    "schedulerLeaderTests": 5,
+    "onlineMaintenanceSafetyChecks": 48,
+    "consecutiveLivenessChecks": 12,
+    "http5xxObserved": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "archiveReplayMatched": true
+  },
+  "backupAndRestore": {
+    "backupReady": true,
+    "restoreReady": true,
+    "tableCount": 69,
+    "recordCount": 407,
+    "foreignKeyViolations": 0,
+    "persistentWrites": false
+  },
+  "readiness": {
+    "productionReady": false,
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPayments": false,
+    "liveGames": false,
+    "remainingBlockers": [
+      "deposit_provider_not_ready",
+      "payout_provider_not_ready",
+      "payment_settlement_not_verified",
+      "game_launch_or_settlement_not_ready"
+    ]
+  },
+  "realMoneyAcceptance": false,
+  "realProviderAcceptance": false,
+  "commercialGoLiveApproved": false
+}

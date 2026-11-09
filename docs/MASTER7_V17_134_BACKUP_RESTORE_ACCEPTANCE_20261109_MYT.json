@@ -1,0 +1,57 @@
+{
+  "release": "17.0.0-selfbuilt.134-scheduler-leader",
+  "gitCommit": "5f98ee8",
+  "renderDeploy": "dep-dboql095efls73enad90",
+  "capturedAt": "2026-11-09T11:15:25.204Z",
+  "verifiedAt": "2026-11-09T11:15:52.815Z",
+  "backup": {
+    "format": "MASTER7-ENCRYPTED-BACKUP-1",
+    "schemaVersion": "0117-flexible-public-contacts",
+    "readConsistency": "transaction_snapshot",
+    "tableCount": 69,
+    "totalRecords": 407,
+    "sha256": "53729ce52b714be6dd682d02ae32f37c7ff88d527d10b104f3f2693901343cef",
+    "privateArtifact": "/workspace/master7-production-backups/master7-encrypted-backup-v134-2026-11-09T11-15-25-204Z.json"
+  },
+  "keyVerification": {
+    "matchingPrivateKeyAvailable": true,
+    "publicKeyFingerprint": "922c18278bcd0521b73eb40166e3a111765157e4f0179fa18b07bb53cb151359",
+    "privateKeyDisclosed": false
+  },
+  "sqliteRestore": {
+    "status": "verified",
+    "tableCount": 69,
+    "totalRecords": 407,
+    "foreignKeyViolations": 0
+  },
+  "postgresRestore": {
+    "engine": "PostgreSQL 18 isolated ephemeral container",
+    "status": "verified",
+    "coverageComplete": true,
+    "tableCount": 69,
+    "totalRecords": 407,
+    "foreignKeyViolations": 0,
+    "persistentWrites": false,
+    "receiptSha256": "9a77e0b724b796dd25189df55fcc4667626be0c71fd1e6d4b25095b732df8252",
+    "privateReceipt": "/workspace/master7-production-backups/master7-v134-restore-postgres-2026-11-09T11-15-25-204Z.json"
+  },
+  "productionAudit": {
+    "backupAuditRecorded": true,
+    "restoreReceiptRecorded": true,
+    "productionDataMutatedByRestore": false
+  },
+  "healthAfterRecording": {
+    "database": "ready",
+    "backupReady": true,
+    "restoreReady": true,
+    "productionReady": false,
+    "onlineProbePassed": 48,
+    "consecutiveLivenessPassed": 12,
+    "remainingBlockers": [
+      "deposit_provider_not_ready",
+      "payout_provider_not_ready",
+      "payment_settlement_not_verified",
+      "game_launch_or_settlement_not_ready"
+    ]
+  }
+}
