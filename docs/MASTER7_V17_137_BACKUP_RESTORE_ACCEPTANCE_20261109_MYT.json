@@ -1,0 +1,89 @@
+{
+  "release": "17.0.0-selfbuilt.137-backup-lock-fix",
+  "gitCommit": "564f0dd71836784d9654276b6b881c21de88bdfd",
+  "renderDeploy": "dep-dbos9hm7bikc73a4rvsg",
+  "capturedAt": "2026-11-09T13:06:27.910Z",
+  "verifiedAt": "2026-11-09T13:06:29.194Z",
+  "backup": {
+    "format": "MASTER7-ENCRYPTED-BACKUP-1",
+    "schemaVersion": "0118-production-acceptance-evidence",
+    "schemaSha256": "e67f7c6ebf850a6f35227c27bffab627baae479fa2e15990d6169e8616f3a37b",
+    "readConsistency": "transaction_snapshot",
+    "tableCount": 71,
+    "totalRecords": 420,
+    "sha256": "5b5428658f101b766af2341c855f6b8a0f3e9d9c219fab143a4c8c048ee54d94",
+    "plaintextSha256": "640a680c3038def2d5016e1c88e41b33fa653df133122e0a737f20c7894ded71",
+    "ciphertextSha256": "57b9b17b3a66d79337b917a4421bd7a9d6e6b97eca237854c7dcb463cc7bef12",
+    "privateArtifactStored": true
+  },
+  "keyVerification": {
+    "matchingPrivateKeyAvailable": true,
+    "publicKeyFingerprint": "922c18278bcd0521b73eb40166e3a111765157e4f0179fa18b07bb53cb151359",
+    "privateKeyDisclosed": false,
+    "jobTokenDisclosed": false
+  },
+  "sqliteRestore": {
+    "status": "verified",
+    "tableCount": 71,
+    "totalRecords": 420,
+    "foreignKeyViolations": 0,
+    "receiptSha256": "dab6379e1629b756670d755afa9efb5c5f34f7e2e20a845bc244ec8530909dbf"
+  },
+  "postgresRestore": {
+    "engine": "PostgreSQL 18 isolated ephemeral container",
+    "status": "verified",
+    "coverageComplete": true,
+    "missingTables": [],
+    "tableCount": 71,
+    "totalRecords": 420,
+    "foreignKeyViolations": 0,
+    "persistentWrites": false,
+    "restoreTargetKind": "isolated_postgresql_transaction",
+    "receiptSha256": "bcb708099071347bedba3240f7051a0d682773ed247515c22b313eb7e66919d9",
+    "privateReceiptStored": true
+  },
+  "productionAudit": {
+    "actor": "system:backup-job",
+    "backupAuditRecorded": true,
+    "restoreReceiptRecorded": true,
+    "createHttpStatus": 200,
+    "recordRehearsalHttpStatus": 200,
+    "productionDataMutatedByRestore": false
+  },
+  "healthAfterRecording": {
+    "database": "ready",
+    "backupReady": true,
+    "restoreReady": true,
+    "backupCreatedAt": "2026-11-09T13:06:27.910Z",
+    "restoreVerifiedAt": "2026-11-09T13:06:29.194Z",
+    "productionReady": false,
+    "onlineProbePassed": 49,
+    "onlineProbeTotal": 49,
+    "consecutiveLivenessPassed": 12,
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "transactionsEnabled": false,
+    "realPayments": false,
+    "payoutsEnabled": false,
+    "liveGames": false,
+    "remainingBlockers": [
+      "deposit_provider_not_ready",
+      "payout_provider_not_ready",
+      "payment_settlement_not_verified",
+      "game_launch_or_settlement_not_ready",
+      "official_domain_tls_not_verified",
+      "credential_rotation_not_verified",
+      "production_signoff_not_verified"
+    ]
+  },
+  "preflightIncident": {
+    "release": "17.0.0-selfbuilt.136-backup-automation",
+    "httpStatus": 503,
+    "postgresErrorCode": "22003",
+    "cause": "backup lease claim exceeded the signed PostgreSQL INTEGER range",
+    "backupAuditRecorded": false,
+    "privateArtifactCreated": false,
+    "fixedInRelease": "17.0.0-selfbuilt.137-backup-lock-fix"
+  }
+}
