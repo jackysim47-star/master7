@@ -1,0 +1,559 @@
+diff --git a/.env.example b/.env.example
+index 272f9dec4cacd981de1084110243830359af5cc0..6ca189c0b12bc6fcd6efc6685944c9b9abd3df8c 100644
+--- a/.env.example
++++ b/.env.example
+@@ -24,6 +24,11 @@ OTP_HASH_SECRET=
+ # least 32 characters in the Render service environment.
+ ACCOUNTING_JOB_TOKEN=
+ 
++# Independent random token (32-1024 bytes) for the backup automation endpoint.
++# Keep it only in the Render service/worker environment. It cannot change
++# payment, game or payout controls and never appears in backup metadata.
++BACKUP_JOB_TOKEN=
++
+ # Optional owner-only Telegram backoffice alerts. Values stay in the Render
+ # environment; the portal exposes only configured/ready booleans.
+ TELEGRAM_BOT_TOKEN=
+diff --git a/app/api/[...path]/route.ts b/app/api/[...path]/route.ts
+index 210ff35a4536929536eec80cdcd1444a8c61ed74..fea002735033df5c4ea475ad6c3ae6cca68cfa5d 100644
+--- a/app/api/[...path]/route.ts
++++ b/app/api/[...path]/route.ts
+@@ -11,6 +11,6 @@ function hostedIdentityHeadersTrusted(config:Record<string,string>){
+  // request headers, so OAI identity headers must never authenticate there.
+  return !config.RENDER_EXTERNAL_URL&&config.OAI_HOSTED_IDENTITY_TRUSTED==='true';
+ }
+-async function dispatch(req:Request){if(!env.DB)return Response.json({error:'Database unavailable'},{status:503});const config=env as unknown as Record<string,string>;return handle(req,{db:env.DB,identity:await getChatGPTUser({trustedHeaders:hostedIdentityHeadersTrusted(config)}),ownerEmail:config.OWNER_EMAIL??'',manualComplianceEnforced:config.PORTAL_MANUAL_COMPLIANCE_ENFORCED,newDepositsEnabled:config.PORTAL_NEW_DEPOSITS_ENABLED,newGameLaunchesEnabled:config.PORTAL_NEW_GAME_LAUNCHES_ENABLED,newPayoutsEnabled:config.PORTAL_NEW_PAYOUTS_ENABLED,ownerLoginId:config.OWNER_LOGIN_ID,allowedOrigins:trustedOrigins(config),jdbTransferProfilesJson:config.JDB_TRANSFER_PROFILES_JSON,gameGatewayUrl:config.GAME_GATEWAY_URL,gameGatewayToken:config.GAME_GATEWAY_TOKEN,gameGatewayWalletToken:config.GAME_GATEWAY_WALLET_TOKEN,megaTransfersEnabled:config.PORTAL_MEGA_TRANSFERS_ENABLED,megaLiveGamesEnabled:config.PORTAL_MEGA_LIVE_GAMES_ENABLED,megaSettlementVerified:config.PORTAL_MEGA_SETTLEMENT_VERIFIED,vpayGatewayUrl:config.VPAY_GATEWAY_URL,vpayOrderToken:config.VPAY_ORDER_TOKEN,vpayQueryToken:config.VPAY_QUERY_TOKEN,vpayCallbackToken:config.VPAY_CALLBACK_TOKEN,vpayPayoutToken:config.VPAY_PAYOUT_TOKEN,vpayPayoutEnabled:config.VPAY_PAYOUT_ENABLED,vpayOrdersEnabled:config.VPAY_ORDERS_ENABLED,vpayMode:config.VPAY_MODE,vpayTraderId:config.VPAY_TRADER_ID,vpayReturnUrl:config.VPAY_RETURN_URL,vpayRecoveryEnabled:config.VPAY_RECOVERY_ENABLED,gspayApiBase:config.GSPAY_API_BASE_URL,gspayAuthKey:config.GSPAY_AUTH_KEY,gspaySecretKey:config.GSPAY_SECRET_KEY,gspayCallbackToken:config.GSPAY_CALLBACK_TOKEN,gspayOrdersEnabled:config.GSPAY_ORDERS_ENABLED,gspayReturnUrl:config.GSPAY_RETURN_URL,gspayRecoveryEnabled:config.GSPAY_RECOVERY_ENABLED,gspayBalanceEnabled:config.GSPAY_BALANCE_QUERY_ENABLED,gspayPayoutEnabled:config.GSPAY_PAYOUT_ENABLED,gspayPayoutIpWhitelistConfirmed:config.GSPAY_PAYOUT_IP_WHITELIST_CONFIRMED,gspayPayoutBankTargetsJson:config.GSPAY_BANK_TARGETS_JSON,gspayUsdtApiBase:config.GSPAY_USDT_API_BASE_URL,gspayUsdtAuthKey:config.GSPAY_USDT_AUTH_KEY,gspayUsdtSecretKey:config.GSPAY_USDT_SECRET_KEY,gspayUsdtCallbackToken:config.GSPAY_USDT_CALLBACK_TOKEN,gspayUsdtOrdersEnabled:config.GSPAY_USDT_ORDERS_ENABLED,gspayUsdtReturnUrl:config.GSPAY_USDT_RETURN_URL,gspayUsdtCallbackUrl:config.GSPAY_USDT_CALLBACK_URL,gspayUsdtRecoveryEnabled:config.GSPAY_USDT_RECOVERY_ENABLED,gspayUsdtBalanceEnabled:config.GSPAY_USDT_BALANCE_QUERY_ENABLED,gspayUsdtContractVerified:config.GSPAY_USDT_CONTRACT_VERIFIED,gspayUsdtAssetNetwork:config.GSPAY_USDT_ASSET_NETWORK,gspayUsdtCurrencyScale:config.GSPAY_USDT_CURRENCY_SCALE,gspayUsdtCheckoutOrigin:config.GSPAY_USDT_CHECKOUT_ORIGIN,paymentRecoveryToken:config.PAYMENT_RECOVERY_TOKEN,depositIncidentTokenHash:config.PORTAL_DEPOSIT_FORENSICS_TOKEN_HASH,depositIncidentExpiresAt:Number(config.PORTAL_DEPOSIT_FORENSICS_EXPIRES_AT??0),ownerSetupHash:config.OWNER_SETUP_TOKEN_HASH,ownerSetupExpires:Number(config.OWNER_SETUP_EXPIRES_AT??0),ownerResetHash:config.OWNER_RESET_TOKEN_HASH,ownerResetExpires:Number(config.OWNER_RESET_EXPIRES_AT??0),ownerResetIssuedAt:Number(config.OWNER_RESET_ISSUED_AT??0),anchorApiBaseUrl:config.ANCHOR_SMS_API_BASE_URL,anchorUsername:config.ANCHOR_SMS_USERNAME,anchorPassword:config.ANCHOR_SMS_PASSWORD,anchorSenderId:config.ANCHOR_SMS_SENDER_ID,otpHashSecret:config.OTP_HASH_SECRET,withdrawalDataKey:config.WITHDRAWAL_DATA_KEY,oneMpayApiBase:config.ONE_MPAY_API_BASE_URL,oneMpayMerchant:config.ONE_MPAY_MERCHANT,oneMpaySecretKey:config.ONE_MPAY_SECRET_KEY,oneMpayOrdersEnabled:config.ONE_MPAY_ORDERS_ENABLED,oneMpayCallbackUrl:config.ONE_MPAY_CALLBACK_URL,oneMpayReturnUrl:config.ONE_MPAY_RETURN_URL,oneMpayDiagnosticToken:config.ONE_MPAY_DIAGNOSTICS_TOKEN,oneMpayRecoveryEnabled:config.ONE_MPAY_RECOVERY_ENABLED,rectangleApiBase:config.RECTANGLE_API_BASE_URL,rectangleOperatorCode:config.RECTANGLE_OPERATOR_CODE,rectangleApiKey:config.RECTANGLE_API_KEY,godeeApiBase:config.GODEE_API_BASE_URL,godeeOperatorId:config.GODEE_OPERATOR_ID,godeeApiKey:config.GODEE_API_KEY,gameSyncToken:config.GAME_CATALOGUE_SYNC_TOKEN,accountingJobToken:config.ACCOUNTING_JOB_TOKEN,telegramBotToken:config.TELEGRAM_BOT_TOKEN,telegramAdminChatId:config.TELEGRAM_ADMIN_CHAT_ID,whatsappEnabled:config.WHATSAPP_SENDING_ENABLED,whatsappGraphApiVersion:config.WHATSAPP_GRAPH_API_VERSION,whatsappPhoneNumberId:config.WHATSAPP_PHONE_NUMBER_ID,whatsappWabaId:config.WHATSAPP_WABA_ID,whatsappAccessToken:config.WHATSAPP_ACCESS_TOKEN,whatsappAppSecret:config.WHATSAPP_APP_SECRET,whatsappWebhookVerifyToken:config.WHATSAPP_WEBHOOK_VERIFY_TOKEN,whatsappBusinessNumber:config.WHATSAPP_BUSINESS_NUMBER,whatsappTemplateName:config.WHATSAPP_TEMPLATE_NAME,whatsappTemplateLanguage:config.WHATSAPP_TEMPLATE_LANGUAGE,whatsappRecipientLimit:config.WHATSAPP_RECIPIENT_LIMIT,whatsappWorkerToken:config.WHATSAPP_WORKER_TOKEN,whatsappWorkerBatchSize:config.WHATSAPP_WORKER_BATCH_SIZE,supportAiEnabled:config.SUPPORT_AI_ENABLED,supportAiApiBaseUrl:config.SUPPORT_AI_API_BASE_URL,supportAiApiKey:config.SUPPORT_AI_API_KEY,supportAiModel:config.SUPPORT_AI_MODEL});}
++async function dispatch(req:Request){if(!env.DB)return Response.json({error:'Database unavailable'},{status:503});const config=env as unknown as Record<string,string>;return handle(req,{db:env.DB,identity:await getChatGPTUser({trustedHeaders:hostedIdentityHeadersTrusted(config)}),ownerEmail:config.OWNER_EMAIL??'',manualComplianceEnforced:config.PORTAL_MANUAL_COMPLIANCE_ENFORCED,newDepositsEnabled:config.PORTAL_NEW_DEPOSITS_ENABLED,newGameLaunchesEnabled:config.PORTAL_NEW_GAME_LAUNCHES_ENABLED,newPayoutsEnabled:config.PORTAL_NEW_PAYOUTS_ENABLED,ownerLoginId:config.OWNER_LOGIN_ID,allowedOrigins:trustedOrigins(config),jdbTransferProfilesJson:config.JDB_TRANSFER_PROFILES_JSON,gameGatewayUrl:config.GAME_GATEWAY_URL,gameGatewayToken:config.GAME_GATEWAY_TOKEN,gameGatewayWalletToken:config.GAME_GATEWAY_WALLET_TOKEN,megaTransfersEnabled:config.PORTAL_MEGA_TRANSFERS_ENABLED,megaLiveGamesEnabled:config.PORTAL_MEGA_LIVE_GAMES_ENABLED,megaSettlementVerified:config.PORTAL_MEGA_SETTLEMENT_VERIFIED,vpayGatewayUrl:config.VPAY_GATEWAY_URL,vpayOrderToken:config.VPAY_ORDER_TOKEN,vpayQueryToken:config.VPAY_QUERY_TOKEN,vpayCallbackToken:config.VPAY_CALLBACK_TOKEN,vpayPayoutToken:config.VPAY_PAYOUT_TOKEN,vpayPayoutEnabled:config.VPAY_PAYOUT_ENABLED,vpayOrdersEnabled:config.VPAY_ORDERS_ENABLED,vpayMode:config.VPAY_MODE,vpayTraderId:config.VPAY_TRADER_ID,vpayReturnUrl:config.VPAY_RETURN_URL,vpayRecoveryEnabled:config.VPAY_RECOVERY_ENABLED,gspayApiBase:config.GSPAY_API_BASE_URL,gspayAuthKey:config.GSPAY_AUTH_KEY,gspaySecretKey:config.GSPAY_SECRET_KEY,gspayCallbackToken:config.GSPAY_CALLBACK_TOKEN,gspayOrdersEnabled:config.GSPAY_ORDERS_ENABLED,gspayReturnUrl:config.GSPAY_RETURN_URL,gspayRecoveryEnabled:config.GSPAY_RECOVERY_ENABLED,gspayBalanceEnabled:config.GSPAY_BALANCE_QUERY_ENABLED,gspayPayoutEnabled:config.GSPAY_PAYOUT_ENABLED,gspayPayoutIpWhitelistConfirmed:config.GSPAY_PAYOUT_IP_WHITELIST_CONFIRMED,gspayPayoutBankTargetsJson:config.GSPAY_BANK_TARGETS_JSON,gspayUsdtApiBase:config.GSPAY_USDT_API_BASE_URL,gspayUsdtAuthKey:config.GSPAY_USDT_AUTH_KEY,gspayUsdtSecretKey:config.GSPAY_USDT_SECRET_KEY,gspayUsdtCallbackToken:config.GSPAY_USDT_CALLBACK_TOKEN,gspayUsdtOrdersEnabled:config.GSPAY_USDT_ORDERS_ENABLED,gspayUsdtReturnUrl:config.GSPAY_USDT_RETURN_URL,gspayUsdtCallbackUrl:config.GSPAY_USDT_CALLBACK_URL,gspayUsdtRecoveryEnabled:config.GSPAY_USDT_RECOVERY_ENABLED,gspayUsdtBalanceEnabled:config.GSPAY_USDT_BALANCE_QUERY_ENABLED,gspayUsdtContractVerified:config.GSPAY_USDT_CONTRACT_VERIFIED,gspayUsdtAssetNetwork:config.GSPAY_USDT_ASSET_NETWORK,gspayUsdtCurrencyScale:config.GSPAY_USDT_CURRENCY_SCALE,gspayUsdtCheckoutOrigin:config.GSPAY_USDT_CHECKOUT_ORIGIN,paymentRecoveryToken:config.PAYMENT_RECOVERY_TOKEN,backupJobToken:config.BACKUP_JOB_TOKEN,depositIncidentTokenHash:config.PORTAL_DEPOSIT_FORENSICS_TOKEN_HASH,depositIncidentExpiresAt:Number(config.PORTAL_DEPOSIT_FORENSICS_EXPIRES_AT??0),ownerSetupHash:config.OWNER_SETUP_TOKEN_HASH,ownerSetupExpires:Number(config.OWNER_SETUP_EXPIRES_AT??0),ownerResetHash:config.OWNER_RESET_TOKEN_HASH,ownerResetExpires:Number(config.OWNER_RESET_EXPIRES_AT??0),ownerResetIssuedAt:Number(config.OWNER_RESET_ISSUED_AT??0),anchorApiBaseUrl:config.ANCHOR_SMS_API_BASE_URL,anchorUsername:config.ANCHOR_SMS_USERNAME,anchorPassword:config.ANCHOR_SMS_PASSWORD,anchorSenderId:config.ANCHOR_SMS_SENDER_ID,otpHashSecret:config.OTP_HASH_SECRET,withdrawalDataKey:config.WITHDRAWAL_DATA_KEY,oneMpayApiBase:config.ONE_MPAY_API_BASE_URL,oneMpayMerchant:config.ONE_MPAY_MERCHANT,oneMpaySecretKey:config.ONE_MPAY_SECRET_KEY,oneMpayOrdersEnabled:config.ONE_MPAY_ORDERS_ENABLED,oneMpayCallbackUrl:config.ONE_MPAY_CALLBACK_URL,oneMpayReturnUrl:config.ONE_MPAY_RETURN_URL,oneMpayDiagnosticToken:config.ONE_MPAY_DIAGNOSTICS_TOKEN,oneMpayRecoveryEnabled:config.ONE_MPAY_RECOVERY_ENABLED,rectangleApiBase:config.RECTANGLE_API_BASE_URL,rectangleOperatorCode:config.RECTANGLE_OPERATOR_CODE,rectangleApiKey:config.RECTANGLE_API_KEY,godeeApiBase:config.GODEE_API_BASE_URL,godeeOperatorId:config.GODEE_OPERATOR_ID,godeeApiKey:config.GODEE_API_KEY,gameSyncToken:config.GAME_CATALOGUE_SYNC_TOKEN,accountingJobToken:config.ACCOUNTING_JOB_TOKEN,telegramBotToken:config.TELEGRAM_BOT_TOKEN,telegramAdminChatId:config.TELEGRAM_ADMIN_CHAT_ID,whatsappEnabled:config.WHATSAPP_SENDING_ENABLED,whatsappGraphApiVersion:config.WHATSAPP_GRAPH_API_VERSION,whatsappPhoneNumberId:config.WHATSAPP_PHONE_NUMBER_ID,whatsappWabaId:config.WHATSAPP_WABA_ID,whatsappAccessToken:config.WHATSAPP_ACCESS_TOKEN,whatsappAppSecret:config.WHATSAPP_APP_SECRET,whatsappWebhookVerifyToken:config.WHATSAPP_WEBHOOK_VERIFY_TOKEN,whatsappBusinessNumber:config.WHATSAPP_BUSINESS_NUMBER,whatsappTemplateName:config.WHATSAPP_TEMPLATE_NAME,whatsappTemplateLanguage:config.WHATSAPP_TEMPLATE_LANGUAGE,whatsappRecipientLimit:config.WHATSAPP_RECIPIENT_LIMIT,whatsappWorkerToken:config.WHATSAPP_WORKER_TOKEN,whatsappWorkerBatchSize:config.WHATSAPP_WORKER_BATCH_SIZE,supportAiEnabled:config.SUPPORT_AI_ENABLED,supportAiApiBaseUrl:config.SUPPORT_AI_API_BASE_URL,supportAiApiKey:config.SUPPORT_AI_API_KEY,supportAiModel:config.SUPPORT_AI_MODEL});}
+ export const GET=dispatch;
+ export const POST=dispatch;
+diff --git a/app/portal.html b/app/portal.html
+index 59c9156b1927fd4334fa01f3114994a9164c7218..809f0e8e1cba8da1a85063d9861801535f9b2401 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,31 +15,31 @@
+   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.135-acceptance-operations">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.135-acceptance-operations">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.135-acceptance-operations">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.135-acceptance-operations">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.135-acceptance-operations">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.135-acceptance-operations">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.135-acceptance-operations">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.135-acceptance-operations">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.135-acceptance-operations">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.135-acceptance-operations">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.135-acceptance-operations">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.135-acceptance-operations">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.135-acceptance-operations" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.135-acceptance-operations" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.135-acceptance-operations" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.135-acceptance-operations" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.135-acceptance-operations" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.135-acceptance-operations" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.135-acceptance-operations" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.135-acceptance-operations" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.135-acceptance-operations" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.135-acceptance-operations" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.135-acceptance-operations" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.135-acceptance-operations" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.135-acceptance-operations" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.136-backup-automation">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.136-backup-automation">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.136-backup-automation">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.136-backup-automation">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.136-backup-automation">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.136-backup-automation">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.136-backup-automation">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.136-backup-automation">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.136-backup-automation">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.136-backup-automation">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.136-backup-automation">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.136-backup-automation">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
+diff --git a/docs/MASTER7_V17_136_BACKUP_AUTOMATION.md b/docs/MASTER7_V17_136_BACKUP_AUTOMATION.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..df8d298924b0044f3972d6e2988caadfbfed8e3d
+--- /dev/null
++++ b/docs/MASTER7_V17_136_BACKUP_AUTOMATION.md
+@@ -0,0 +1,88 @@
++# MASTER7 V17.136 backup automation
++
++## Release scope
++
++Release `17.0.0-selfbuilt.136-backup-automation` adds a machine-authenticated
++backup job without changing the existing owner backup workflow. Both entry
++points call the same backup and restore-rehearsal handlers, so they enforce the
++same release, schema, manifest and hash checks.
++
++This release does not enable deposits, payouts, game launches, real payments or
++live games. Those controls remain fail closed until their separate production
++acceptance evidence is recorded.
++
++## Entry points
++
++- The existing owner route remains available at `POST /api/admin/backup` and
++  continues to require an authenticated owner session, trusted origin and CSRF
++  token.
++- The automated route is `POST /api/jobs/backup`. It accepts only JSON and an
++  exact `Authorization: Bearer ...` credential supplied through the service
++  environment.
++- The machine credential must be 32 to 1,024 bytes. Missing, malformed,
++  undersized, oversized and incorrect credentials fail closed. Comparison is
++  length checked and constant time.
++- The credential is never returned by the endpoint or stored in backup or audit
++  output. Machine activity is attributed to `system:backup-job`; it does not
++  impersonate an owner account.
++- Responses use `Cache-Control: no-store`.
++
++The automated route supports two actions:
++
++1. `create` produces the release-bound encrypted backup envelope and records
++   the encrypted-backup audit evidence.
++2. `record_rehearsal` records a successful isolated restore only after the
++   receipt matches the latest backup, current release and schema, ordered table
++   manifest, content hashes, public-key fingerprint, record count, snapshot
++   consistency and zero foreign-key violations.
++
++## Coverage and concurrency
++
++- The current schema contains 71 durable tables.
++- Five transient synchronization or authentication tables are intentionally
++  empty after restore: `password_sessions`, `otp_challenges`, `rate_limits`,
++  `responsible_play_locks` and `member_wallet_guards`.
++- Capture on Render uses one PostgreSQL repeatable-read, read-only transaction
++  and reports `readConsistency: "transaction_snapshot"`.
++- A 30-minute atomic lease in the excluded `rate_limits` table prevents two
++  backup or receipt-recording operations from running concurrently. The lease
++  is released in `finally`; an expired lease can be reclaimed.
++- Replaying the same valid restore receipt is idempotent and does not add a
++  second audit event.
++- A valid rehearsal must target an explicitly isolated PostgreSQL transaction,
++  report `persistentWrites: false`, cover all 71 durable tables, and match the
++  latest encrypted backup hashes and record count.
++
++## Security and operational boundaries
++
++- The service receives only the public encryption key. The matching private key
++  and its passphrase stay outside the application service in the controlled
++  restore environment.
++- The machine credential is stored as a service secret and is not placed in
++  source control, artifacts, logs, URLs or query parameters.
++- Backup operations do not read or modify payment, payout, game-launch or
++  provider-acceptance switches.
++- An encrypted file and a locally passing test do not establish production
++  recovery readiness. Readiness requires a backup from the deployed release,
++  a successful restore into an isolated PostgreSQL target, a matching receipt
++  recorded online, and a subsequent health check.
++
++## Validation completed before deployment
++
++- Backup endpoint and shared-handler focused tests passed.
++- Authentication rejection, JSON-only handling, concurrent-operation rejection,
++  valid backup creation, invalid receipt rejection, idempotent receipt replay,
++  owner-route regression and closed money/game controls are covered.
++- Maintenance tests passed: 12 of 12.
++- Release probe tests passed: 27 of 27.
++- Full regression, TypeScript validation, ESLint, Render database compatibility
++  checks and the production build completed successfully.
++- `git diff --check` completed without errors.
++
++## Production acceptance status
++
++Code and build validation are complete for this release. Production backup and
++restore acceptance remains pending until the deployed V17.136 service creates
++the current encrypted backup and the same file passes the PostgreSQL isolation
++rehearsal. Payment, game-provider, domain, credential-rotation and final owner
++sign-off remain independent acceptance requirements.
+diff --git a/docs/backup-restore-rehearsal.md b/docs/backup-restore-rehearsal.md
+index b6b575f981013e6303e756f7360227e934629efa..f9fa2071189651ca1082120319ce1a3428569448 100644
+--- a/docs/backup-restore-rehearsal.md
++++ b/docs/backup-restore-rehearsal.md
+@@ -6,22 +6,22 @@ creation time, verification time, table manifest and content hashes.
+ 
+ ## Coverage and compatibility
+ 
+-The current `0107-benefit-claim-reviews` contract contains 51 durable tables.
+-It includes `marketing_webhook_events`, which preserves callback deduplication
+-and opt-out event history, as well as the voucher workflow and benefit review
+-fields. The schema hash includes the exact ordered table manifest; adding the
+-previously omitted event table changes that hash without inventing a database
+-migration version.
++The current `0118-production-acceptance-evidence` contract contains 71 durable
++tables. It includes the production and game-provider acceptance ledgers,
++provider-wallet operations, manual-bank evidence, public-contact revisions,
++game adapters and `marketing_webhook_events`. The schema hash includes the exact
++ordered table manifest.
+ 
+ Each table is paged in complete primary-key order, including all columns of
+ composite keys. Regression tests compare those keys with the actual release
+ migrations and export 2,005 rows sharing the same key prefix for each composite
+ table, checking that changing legal index plans cannot repeat or omit rows.
+ 
+-Four transient tables are deliberately empty after restoration:
++Five transient tables are deliberately empty after restoration:
+ `password_sessions`, `otp_challenges`, `rate_limits`, and
+-`responsible_play_locks`. People must sign in again. The responsible-play lock
+-row only serializes transactions and is recreated by the next operation;
++`responsible_play_locks`, plus `member_wallet_guards`. People must sign in
++again. The responsible-play and wallet guard rows only serialize transactions
++and are recreated by the next operation;
+ `responsible_play_profiles` and `responsible_play_deposit_reservations` remain
+ in the backup, preserving limits, cooling-off/self-exclusion windows, pending
+ limit changes, and outstanding reservations.
+@@ -73,8 +73,11 @@ and [D1 database API](https://developers.cloudflare.com/d1/worker-api/d1-databas
+ Use an authorized encrypted backup JSON file, its matching RSA private key,
+ and the private-key passphrase. Keep the file away from the application
+ database and the private key/passphrase in a separate secret store. Creating
+-a backup through the owner API writes an audit event; it is a separate
+-authorized action from running these local verification commands.
++a backup through the owner API or the machine-authenticated backup job API
++writes an audit event; it is a separate authorized action from running these
++local verification commands. The job API accepts only an exact 32-1024 byte
++Bearer secret stored in the service environment, uses an excluded short lease
++to reject concurrent jobs, and cannot change payment, payout or game controls.
+ 
+ Run the lightweight SQLite verification first:
+ 
+@@ -85,7 +88,7 @@ node scripts/verify-encrypted-backup.mjs BACKUP.json PRIVATE.pem PASSPHRASE.txt
+ This verifier builds a fresh in-memory database from every ordered SQL
+ migration in `drizzle/`, including 0105 and 0107. It restores only the exact
+ recognized manifest, checks each table's row count and all foreign keys, and
+-checks that the four transient tables remain empty. The database is discarded
++checks that the five transient tables remain empty. The database is discarded
+ when the process exits; only the optional receipt file is written.
+ 
+ For a PostgreSQL rehearsal, provision or select a database whose name includes
+@@ -101,7 +104,7 @@ pnpm backup:restore-dry-run -- BACKUP.json PRIVATE.pem PASSPHRASE.txt RECEIPT.js
+ 
+ The PostgreSQL tool creates a random schema inside one transaction, restores
+ and counts every table, checks foreign keys through normal PostgreSQL inserts,
+-and checks the four transient tables. It uses the same schema initializer as
++and checks the five transient tables. It uses the same schema initializer as
+ Render startup, so incremental marketing and benefit-review columns are
+ present. Initializer transaction commands become savepoint operations. Other
+ top-level transaction commands, including ones inside SQL batches, are rejected.
+@@ -116,7 +119,7 @@ file is ever executed as code or used as SQL schema.
+ ## Evidence and recording the result
+ 
+ The local regression suite creates an encrypted backup from synthetic SQLite
+-records with a temporary test RSA key. It verifies current 51-table restoration,
++records with a temporary test RSA key. It verifies current 71-table restoration,
+ known legacy 50-table restoration, explicit transient-table exclusion, and
+ rejection of incompatible schemas and broken foreign keys. A coverage assertion
+ requires every release table to be either durable or explicitly transient.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 2a65b0690dfb686b0273e91dc654c0e2d875e689..da3a0473b90662f74c09e4b0225eedea3fe77033 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -16,8 +16,9 @@ import {manualBankPayoutGet,manualBankPayoutPost} from './manual-bank-payouts.ts
+ import { manualBankGet, manualBankPost,manualBankAvailability } from './manual-bank.ts';
+ import {MegaWalletError,adminMegaWalletSessions,megaWalletCapabilities,megaWalletConfigured,memberMegaWalletState,prepareMegaWallet,recoverMegaWallet,settleMegaWallet,claimMegaLaunch,markMegaLaunchIssued,markMegaLaunchUnknown,type MegaWalletContext,type MegaWalletCapability} from './megah5-wallet.ts';
+ import {adminProfileGameWallets,memberProfileGameWallet} from './game-wallet-records.ts';
+-import {BACKUP_FORMAT,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES,createEncryptedPortalBackup} from './encrypted-backup.ts';
++import {BACKUP_FORMAT,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES} from './encrypted-backup.ts';
+ import {BACKUP_PUBLIC_KEY_SHA256} from './backup-public-key.ts';
++import {BackupOperationsError,createPortalBackup,latestEncryptedBackupAudit,recordPortalRestoreRehearsal} from './backup-operations.ts';
+ import {ACCOUNTING_REPORT_TYPE,accountingSnapshot,previousMytDayStart,runAccountingCatchUp,settledCashflow,mytDateStart} from './accounting.ts';
+ import {financeCenterReport} from './finance-center.ts';
+ import {operationsIntelligenceReport,operationsWindow} from './operations-intelligence.ts';
+@@ -36,7 +37,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.135-acceptance-operations';
++export const RELEASE = '17.0.0-selfbuilt.136-backup-automation';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+@@ -52,7 +53,7 @@ async function depositControls(db:D1Database){
+  const values=new Map(result.results.map(row=>[row.id,row.value]));
+  return Object.fromEntries(depositControlProviders.map(provider=>{const key='deposit_control:'+provider,value=values.get(key);return [provider,!values.has(key)||value==='auto'?'auto':'paused'];})) as Record<DepositControlProvider,'auto'|'paused'>;
+ }
+-export type Context={db:D1Database;identity:Identity|null;ownerEmail:string;manualComplianceEnforced?:string;newDepositsEnabled?:string;newGameLaunchesEnabled?:string;newPayoutsEnabled?:string;ownerLoginId?:string;allowedOrigins?:string[];gameGatewayUrl?:string;gameGatewayToken?:string;gameGatewayWalletToken?:string;jdbTransferProfilesJson?:string;providerTransferFetch?:typeof fetch;megaTransfersEnabled?:string;megaLiveGamesEnabled?:string;megaSettlementVerified?:string;gameGatewayFetch?:typeof fetch;gameArtFetch?:typeof fetch;vpayGatewayUrl?:string;vpayOrderToken?:string;vpayQueryToken?:string;vpayCallbackToken?:string;vpayPayoutToken?:string;vpayPayoutEnabled?:string;vpayOrdersEnabled?:string;vpayMode?:string;vpayTraderId?:string;vpayReturnUrl?:string;vpayRecoveryEnabled?:string;vpayFetch?:typeof fetch;gspayApiBase?:string;gspayAuthKey?:string;gspaySecretKey?:string;gspayCallbackToken?:string;gspayOrdersEnabled?:string;gspayReturnUrl?:string;gspayRecoveryEnabled?:string;gspayBalanceEnabled?:string;gspayPayoutEnabled?:string;gspayPayoutIpWhitelistConfirmed?:string;gspayPayoutBankTargetsJson?:string;gspayUsdtApiBase?:string;gspayUsdtAuthKey?:string;gspayUsdtSecretKey?:string;gspayUsdtCallbackToken?:string;gspayUsdtOrdersEnabled?:string;gspayUsdtReturnUrl?:string;gspayUsdtCallbackUrl?:string;gspayUsdtRecoveryEnabled?:string;gspayUsdtBalanceEnabled?:string;gspayUsdtContractVerified?:string;gspayUsdtAssetNetwork?:string;gspayUsdtCurrencyScale?:string;gspayUsdtCheckoutOrigin?:string;paymentRecoveryToken?:string;depositIncidentTokenHash?:string;depositIncidentExpiresAt?:number;gspayFetch?:typeof fetch;ownerSetupHash?:string;ownerSetupExpires?:number;ownerResetHash?:string;ownerResetExpires?:number;ownerResetIssuedAt?:number;anchorApiBaseUrl?:string;anchorUsername?:string;anchorPassword?:string;anchorSenderId?:string;otpHashSecret?:string;smsFetch?:typeof fetch;withdrawalDataKey?:string;oneMpayApiBase?:string;oneMpayMerchant?:string;oneMpaySecretKey?:string;oneMpayOrdersEnabled?:string;oneMpayCallbackUrl?:string;oneMpayReturnUrl?:string;oneMpayDiagnosticToken?:string;oneMpayRecoveryEnabled?:string;oneMpayFetch?:typeof fetch;rectangleApiBase?:string;rectangleOperatorCode?:string;rectangleApiKey?:string;godeeApiBase?:string;godeeOperatorId?:string;godeeApiKey?:string;gameCatalogueFetch?:typeof fetch;gameSyncToken?:string;accountingJobToken?:string;telegramBotToken?:string;telegramAdminChatId?:string;telegramFetch?:typeof fetch;whatsappEnabled?:string;whatsappGraphApiVersion?:string;whatsappPhoneNumberId?:string;whatsappWabaId?:string;whatsappAccessToken?:string;whatsappAppSecret?:string;whatsappWebhookVerifyToken?:string;whatsappBusinessNumber?:string;whatsappTemplateName?:string;whatsappTemplateLanguage?:string;whatsappRecipientLimit?:string;whatsappWorkerToken?:string;whatsappWorkerBatchSize?:string;whatsappFetch?:typeof fetch;supportAiEnabled?:string;supportAiApiBaseUrl?:string;supportAiApiKey?:string;supportAiModel?:string;supportAiFetch?:typeof fetch};
++export type Context={db:D1Database;identity:Identity|null;ownerEmail:string;manualComplianceEnforced?:string;newDepositsEnabled?:string;newGameLaunchesEnabled?:string;newPayoutsEnabled?:string;ownerLoginId?:string;allowedOrigins?:string[];gameGatewayUrl?:string;gameGatewayToken?:string;gameGatewayWalletToken?:string;jdbTransferProfilesJson?:string;providerTransferFetch?:typeof fetch;megaTransfersEnabled?:string;megaLiveGamesEnabled?:string;megaSettlementVerified?:string;gameGatewayFetch?:typeof fetch;gameArtFetch?:typeof fetch;vpayGatewayUrl?:string;vpayOrderToken?:string;vpayQueryToken?:string;vpayCallbackToken?:string;vpayPayoutToken?:string;vpayPayoutEnabled?:string;vpayOrdersEnabled?:string;vpayMode?:string;vpayTraderId?:string;vpayReturnUrl?:string;vpayRecoveryEnabled?:string;vpayFetch?:typeof fetch;gspayApiBase?:string;gspayAuthKey?:string;gspaySecretKey?:string;gspayCallbackToken?:string;gspayOrdersEnabled?:string;gspayReturnUrl?:string;gspayRecoveryEnabled?:string;gspayBalanceEnabled?:string;gspayPayoutEnabled?:string;gspayPayoutIpWhitelistConfirmed?:string;gspayPayoutBankTargetsJson?:string;gspayUsdtApiBase?:string;gspayUsdtAuthKey?:string;gspayUsdtSecretKey?:string;gspayUsdtCallbackToken?:string;gspayUsdtOrdersEnabled?:string;gspayUsdtReturnUrl?:string;gspayUsdtCallbackUrl?:string;gspayUsdtRecoveryEnabled?:string;gspayUsdtBalanceEnabled?:string;gspayUsdtContractVerified?:string;gspayUsdtAssetNetwork?:string;gspayUsdtCurrencyScale?:string;gspayUsdtCheckoutOrigin?:string;paymentRecoveryToken?:string;backupJobToken?:string;depositIncidentTokenHash?:string;depositIncidentExpiresAt?:number;gspayFetch?:typeof fetch;ownerSetupHash?:string;ownerSetupExpires?:number;ownerResetHash?:string;ownerResetExpires?:number;ownerResetIssuedAt?:number;anchorApiBaseUrl?:string;anchorUsername?:string;anchorPassword?:string;anchorSenderId?:string;otpHashSecret?:string;smsFetch?:typeof fetch;withdrawalDataKey?:string;oneMpayApiBase?:string;oneMpayMerchant?:string;oneMpaySecretKey?:string;oneMpayOrdersEnabled?:string;oneMpayCallbackUrl?:string;oneMpayReturnUrl?:string;oneMpayDiagnosticToken?:string;oneMpayRecoveryEnabled?:string;oneMpayFetch?:typeof fetch;rectangleApiBase?:string;rectangleOperatorCode?:string;rectangleApiKey?:string;godeeApiBase?:string;godeeOperatorId?:string;godeeApiKey?:string;gameCatalogueFetch?:typeof fetch;gameSyncToken?:string;accountingJobToken?:string;telegramBotToken?:string;telegramAdminChatId?:string;telegramFetch?:typeof fetch;whatsappEnabled?:string;whatsappGraphApiVersion?:string;whatsappPhoneNumberId?:string;whatsappWabaId?:string;whatsappAccessToken?:string;whatsappAppSecret?:string;whatsappWebhookVerifyToken?:string;whatsappBusinessNumber?:string;whatsappTemplateName?:string;whatsappTemplateLanguage?:string;whatsappRecipientLimit?:string;whatsappWorkerToken?:string;whatsappWorkerBatchSize?:string;whatsappFetch?:typeof fetch;supportAiEnabled?:string;supportAiApiBaseUrl?:string;supportAiApiKey?:string;supportAiModel?:string;supportAiFetch?:typeof fetch};
+ function vpaySettings(c:Context,user:User|null,acceptance?:{realPaymentVerified:boolean;settlementVerified:boolean}){return {...vpayPayoutSettings(c),user,orderToken:c.vpayOrderToken,queryToken:c.vpayQueryToken,enabled:c.vpayOrdersEnabled,newDepositsEnabled:c.newDepositsEnabled,mode:c.vpayMode,portalOrigins:c.allowedOrigins,returnUrl:c.vpayReturnUrl,recoveryEnabled:c.vpayRecoveryEnabled,acceptance};}
+ function vpayPayoutSettings(c:Context){return {db:c.db,gatewayUrl:c.vpayGatewayUrl,payoutToken:c.vpayPayoutToken,callbackToken:c.vpayCallbackToken,payoutEnabled:c.vpayPayoutEnabled,newPayoutsEnabled:c.newPayoutsEnabled,vpayTraderId:c.vpayTraderId,withdrawalDataKey:c.withdrawalDataKey,fetchImpl:c.vpayFetch};}
+ function gspaySettings(c:Context,user:User|null,acceptance?:{realPaymentVerified:boolean;settlementVerified:boolean}){return {db:c.db,user,apiBase:c.gspayApiBase,authKey:c.gspayAuthKey,secretKey:c.gspaySecretKey,callbackToken:c.gspayCallbackToken,enabled:c.gspayOrdersEnabled,newDepositsEnabled:c.newDepositsEnabled,portalOrigins:c.allowedOrigins,returnUrl:c.gspayReturnUrl,recoveryEnabled:c.gspayRecoveryEnabled,balanceEnabled:c.gspayBalanceEnabled,payoutEnabled:c.gspayPayoutEnabled,newPayoutsEnabled:c.newPayoutsEnabled,payoutIpWhitelistConfirmed:c.gspayPayoutIpWhitelistConfirmed,payoutBankTargetsJson:c.gspayPayoutBankTargetsJson,withdrawalDataKey:c.withdrawalDataKey,acceptance,fetchImpl:c.gspayFetch};}
+@@ -147,13 +148,10 @@ function advertisementUrl(v:unknown){if(v===undefined||v===null||v==='')return '
+ function scheduleEpoch(value:unknown,name:string){if(value===undefined||value===null||value==='')return null;if(typeof value==='number'&&Number.isSafeInteger(value)&&value>=0)return value;if(typeof value!=='string'||value.length>32||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?$/.test(value))throw new ApiError(400,`Invalid ${name}`);const epoch=Math.floor(Date.parse((value.length===16?value+':00':value)+'+08:00')/1000);if(!Number.isSafeInteger(epoch)||epoch<0)throw new ApiError(400,`Invalid ${name}`);return epoch;}
+ function scheduleWindow(startsValue:unknown,endsValue:unknown){const startsAt=scheduleEpoch(startsValue,'start time'),endsAt=scheduleEpoch(endsValue,'end time');if(startsAt!==null&&endsAt!==null&&endsAt<=startsAt)throw new ApiError(400,'End time must be after start time');return {startsAt,endsAt};}
+ function freshIso(value:unknown,maxAgeSeconds:number,timestamp=now()){if(typeof value!=='string')return false;const epoch=Math.floor(Date.parse(value)/1000);return Number.isFinite(epoch)&&epoch<=timestamp+300&&epoch>=timestamp-maxAgeSeconds;}
+-function sha256Hex(value:string|Uint8Array){return createHash('sha256').update(value).digest('hex');}
+ function validSha256(value:unknown){return typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);}
+-function isolatedPostgresRestoreTarget(value:unknown){
+- if(typeof value!=='string'||value.length>500)return null;
+- const match=value.match(/^isolated PostgreSQL transaction on ([A-Za-z0-9.-]{1,253})\/([A-Za-z0-9_-]{1,128})$/);
+- if(!match||!/(?:^|[_-])(restore|rehearsal|sandbox|test)(?:$|[_-])/i.test(match[2]))return null;
+- return value;
++function authorizedBearer(req:Request,token:unknown){
++ const configured=typeof token==='string'?token:'',auth=req.headers.get('authorization')??'',given=auth.startsWith('Bearer ')?auth.slice(7):'',bytes=Buffer.byteLength(configured);
++ return bytes>=32&&bytes<=1024&&Buffer.byteLength(given)===bytes&&timingSafeEqual(Buffer.from(given),Buffer.from(configured));
+ }
+ function validImageData(value:string){try{const encoded=value.slice(value.indexOf(',')+1),bytes=atob(encoded);if(bytes.length<16||bytes.length>350000)return false;const prefix=(start:number,end:number)=>[...bytes.slice(start,end)].map(char=>char.charCodeAt(0));const b=prefix(0,12);return value.startsWith('data:image/jpeg;')&&b[0]===0xff&&b[1]===0xd8&&b[2]===0xff||value.startsWith('data:image/png;')&&b[0]===0x89&&b[1]===0x50&&b[2]===0x4e&&b[3]===0x47&&b[4]===0x0d&&b[5]===0x0a&&b[6]===0x1a&&b[7]===0x0a||value.startsWith('data:image/webp;')&&String.fromCharCode(...b.slice(0,4))==='RIFF'&&String.fromCharCode(...b.slice(8,12))==='WEBP';}catch{return false;}}
+ function assertAdvertisementPublishable(ad:{title:unknown;image_data:unknown;target_url?:unknown}){
+@@ -192,11 +190,6 @@ function decodeFinancialEventCursor(value:string|null){
+ async function currentUser(c:Context,create=false){if(!c.identity)return null;const {userId,email}=c.identity;let u=await c.db.prepare('SELECT * FROM users WHERE id=?').bind(userId).first<User>();if(!u&&create){await c.db.prepare('INSERT OR IGNORE INTO users(id,username,role,approved,csrf,created_at) VALUES(?,?,?,?,?,?)').bind(userId,email,'member',0,uuid()+uuid(),now()).run();u=await c.db.prepare('SELECT * FROM users WHERE id=?').bind(userId).first<User>();}return u;}
+ function auditStmt(db:D1Database,u:User,event:string,target:string){return db.prepare('INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,?,?,?)').bind(uuid(),u.id,event,target,now());}
+ async function rows(db:D1Database,sql:string,...values:(string|number)[]){return (await db.prepare(sql).bind(...values).all()).results;}
+-async function latestEncryptedBackupAudit(db:D1Database){
+- const result=await db.prepare("SELECT target,created_at FROM audit WHERE event='encrypted_backup_created' AND created_at=(SELECT MAX(created_at) FROM audit WHERE event='encrypted_backup_created')").all<{target:string;created_at:number}>();let latest:{metadata:any;created_at:number}|null=null;
+- for(const row of result.results??[]){let metadata:any=null;try{metadata=JSON.parse(row.target);}catch{}if(!metadata||!freshIso(metadata.createdAt,30*86400))continue;if(!latest||Date.parse(metadata.createdAt)>Date.parse(latest.metadata.createdAt))latest={metadata,created_at:Number(row.created_at)};}
+- return latest;
+-}
+ async function productionRecoveryReadiness(db:D1Database){
+  const [backupAudit,rehearsalRow]=await Promise.all([
+   latestEncryptedBackupAudit(db),
+@@ -539,7 +532,7 @@ export async function handle(req:Request,c:Context):Promise<Response>{
+   if(e instanceof GameProviderAcceptanceError)return json({error:e.message,code:e.code},e.status);
+   if(e instanceof ProductionAcceptanceError)return json({error:e.message,code:e.code},e.status);
+   if(e instanceof ResponsiblePlayError){logDepositOrderConflict(req,e.status,e.code);return json({error:e.message,code:e.code},e.status);}
+-  if(e instanceof ApiError||e instanceof AuthError||e instanceof MegaWalletError||e instanceof RewardStateError||e instanceof VipError||e instanceof RewardsHubError||e instanceof GameRankingError||e instanceof BonusRiskError||e instanceof EngagementError||e instanceof WhatsAppCampaignError)return json({error:e.message},e.status);
++  if(e instanceof ApiError||e instanceof AuthError||e instanceof BackupOperationsError||e instanceof MegaWalletError||e instanceof RewardStateError||e instanceof VipError||e instanceof RewardsHubError||e instanceof GameRankingError||e instanceof BonusRiskError||e instanceof EngagementError||e instanceof WhatsAppCampaignError)return json({error:e.message},e.status);
+   const code=e&&typeof e==='object'&&'code'in e&&typeof e.code==='string'&&/^[A-Z0-9]{5}$/.test(e.code)?e.code:'unknown';console.error('MASTER7 API unavailable',e instanceof Error?e.name:'Error',code);return json({error:'服务暂时不可用 / Service temporarily unavailable'},503);
+  }
+ }
+@@ -547,6 +540,14 @@ async function route(req:Request,c:Context){
+  const p=new URL(req.url).pathname,db=c.db;
+  if(req.method==='GET'&&p==='/health/live'){await db.prepare('SELECT id FROM users LIMIT 1').all();return json({status:'ok',release:RELEASE,database:'ready',scope:'portal-liveness'});}
+  if(req.method==='GET'&&(p==='/health'||p==='/api/version')){await db.prepare('SELECT id FROM users LIMIT 1').all();const megaWalletCredentialsConfigured=c.gameGatewayUrl==='https://master7-integration-gateway.onrender.com'&&!!c.gameGatewayToken&&!!c.gameGatewayWalletToken&&c.gameGatewayToken!==c.gameGatewayWalletToken&&Buffer.byteLength(c.gameGatewayToken)>=32&&Buffer.byteLength(c.gameGatewayWalletToken)>=32,{payments,readiness}=await canonicalOperationsReadiness(c),megaAcceptance=readiness.gameAcceptance.profiles.find(profile=>profile.profileId==='megah5_myr'),megaLiveReady=megaAcceptance?.effectiveReady===true,smsOtpReady=!!(c.anchorApiBaseUrl&&c.anchorUsername&&c.anchorPassword&&c.anchorSenderId&&c.otpHashSecret&&c.otpHashSecret.length>=32),productionReady=readiness.productionReady,readinessBlockers=[...(!payments.realPayments?['deposit_provider_not_ready']:[]),...(!payments.payoutsEnabled?['payout_provider_not_ready']:[]),...(!payments.settlementVerified?['payment_settlement_not_verified']:[]),...(!readiness.gamesReady?['game_launch_or_settlement_not_ready']:[]),...(!readiness.backupReady?['encrypted_backup_not_ready']:[]),...(!readiness.restoreReady?['restore_rehearsal_not_verified']:[]),...(!readiness.productionAcceptance.domainReady?['official_domain_tls_not_verified']:[]),...(!readiness.productionAcceptance.credentialRotationReady?['credential_rotation_not_verified']:[]),...(!readiness.productionAcceptance.signoffReady?['production_signoff_not_verified']:[])];return json({status:'ok',release:RELEASE,sourceRelease:SOURCE_RELEASE,database:'ready',smsOtpReady,mode:'selfbuilt-service-portal',...payments,providerAcceptance:{requiredProfileCount:readiness.gameAcceptance.requiredProfileCount,acceptedProfileCount:readiness.gameAcceptance.acceptedProfileCount,liveProfileCount:readiness.gameAcceptance.liveProfileCount,allAcceptanceEvidencePassed:readiness.gameAcceptance.allAcceptanceEvidencePassed,allGamesVerified:readiness.allGamesVerified},externalAcceptance:{domainReady:readiness.productionAcceptance.domainReady,credentialRotationReady:readiness.productionAcceptance.credentialRotationReady,paymentReady:readiness.productionAcceptance.paymentReady,signoffReady:readiness.productionAcceptance.signoffReady},backupReady:readiness.backupReady,restoreReady:readiness.restoreReady,backupCreatedAt:readiness.backupCreatedAt,restoreVerifiedAt:readiness.restoreVerifiedAt,megaWallet:{configured:megaWalletCredentialsConfigured,...automaticAvailability,enabled:megaLiveReady,liveGamesEnabled:megaLiveReady,launchReady:readiness.megaAvailable,launchVerified:megaAcceptance?.capabilities.launch===true,walletVerified:megaAcceptance?.capabilities.wallet===true,settlementVerified:megaAcceptance?.capabilities.settlement===true,recoveryVerified:megaAcceptance?.capabilities.recovery===true,liveReady:megaLiveReady},liveGames:readiness.gamesReady,productionReady,readinessBlockers,scope:'portal-database-health'});}
++ if(p==='/api/jobs/backup'){
++  if(req.method!=='POST')return json({error:'Method not allowed'},405);
++  if(!authorizedBearer(req,c.backupJobToken))return json({error:'Access denied'},401);
++  if(!req.headers.get('content-type')?.toLowerCase().startsWith('application/json'))return json({error:'JSON required'},415);
++  const d=await body(req,24000);
++  if(d.action==='record_rehearsal'){const result=await recordPortalRestoreRehearsal(db,RELEASE,'system:backup-job',d);return json({status:'ok',verified:true,...(result.idempotent?{idempotent:true}:{})});}
++  if(d.action!=='create')throw new ApiError(400,'Invalid backup action');const backup=await createPortalBackup(db,RELEASE,'system:backup-job');return new Response(backup.serialized,{headers:{...responseHeaders,'Content-Disposition':`attachment; filename="${backup.filename}"`}});
++ }
+  if(req.method==='GET'&&p==='/api/internal/catalogue-sync'){const token=c.gameSyncToken??'',auth=req.headers.get('authorization')??'',given=auth.startsWith('Bearer ')?auth.slice(7):'';if(token.length<32||Buffer.byteLength(given)!==Buffer.byteLength(token)||!timingSafeEqual(Buffer.from(given),Buffer.from(token)))return json({error:'Access denied'},401);const catalogue=customerSupplierCatalogue(await getGameCatalogue(c));return json({providers:catalogue.providers,gameCount:catalogue.games.length,playable:false});}
+  if(req.method==='POST'&&p==='/api/internal/accounting-close'){
+   const token=c.accountingJobToken??'',auth=req.headers.get('authorization')??'',given=auth.startsWith('Bearer ')?auth.slice(7):'';
+@@ -898,15 +899,8 @@ async function route(req:Request,c:Context){
+ 	   if(p==='/api/admin/payments/gspay/balance'){role(u,['owner']);return queryGSPayBalance(gspayContext);}
+ 	   if(p==='/api/admin/backup'){
+ 	    role(u,['owner']);
+-	    if(d.action==='record_rehearsal'){
+-		     const latest=await latestEncryptedBackupAudit(db),evidence=latest?.metadata??null;
+-		     const tableCount=Number(d.tableCount),totalRecords=Number(d.totalRecords),foreignKeyViolations=Number(d.foreignKeyViolations),verifiedAt=typeof d.verifiedAt==='string'?d.verifiedAt:'',createdAt=typeof d.createdAt==='string'?d.createdAt:'',restoreTarget=isolatedPostgresRestoreTarget(d.restoreTarget),createdEpoch=Date.parse(createdAt),verifiedEpoch=Date.parse(verifiedAt);
+-		     const receiptMatchesBackup=!!evidence&&evidence.format===BACKUP_FORMAT&&evidence.release===RELEASE&&evidence.schemaVersion===BACKUP_SCHEMA_VERSION&&evidence.schemaSha256===BACKUP_SCHEMA_SHA256&&evidence.publicKeySha256===BACKUP_PUBLIC_KEY_SHA256&&evidence.readConsistency==='transaction_snapshot'&&evidence.tableCount===BACKUP_TABLES.length&&Number.isSafeInteger(evidence.totalRecords)&&evidence.totalRecords>=0&&validSha256(evidence.backupSha256)&&validSha256(evidence.plaintextSha256)&&validSha256(evidence.ciphertextSha256)&&freshIso(evidence.createdAt,7*86400)&&Number(latest?.created_at??0)>=now()-7*86400&&d.createdAt===evidence.createdAt&&d.backupSha256===evidence.backupSha256&&d.plaintextSha256===evidence.plaintextSha256&&totalRecords===evidence.totalRecords;
+-		     if(d.status!=='verified'||d.format!==BACKUP_FORMAT||d.release!==RELEASE||d.schemaVersion!==BACKUP_SCHEMA_VERSION||d.schemaSha256!==BACKUP_SCHEMA_SHA256||d.publicKeySha256!==BACKUP_PUBLIC_KEY_SHA256||d.coverageComplete!==true||!Array.isArray(d.missingTables)||d.missingTables.length!==0||d.readConsistency!=='transaction_snapshot'||d.persistentWrites!==false||!restoreTarget||tableCount!==BACKUP_TABLES.length||!Number.isSafeInteger(totalRecords)||totalRecords<0||foreignKeyViolations!==0||!freshIso(createdAt,30*86400)||!freshIso(verifiedAt,30*86400)||!Number.isFinite(createdEpoch)||!Number.isFinite(verifiedEpoch)||verifiedEpoch<createdEpoch||!receiptMatchesBackup)throw new ApiError(400,'Invalid recovery rehearsal receipt');
+-		     const receipt={status:'verified',format:BACKUP_FORMAT,release:RELEASE,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,backupSha256:evidence.backupSha256,plaintextSha256:evidence.plaintextSha256,publicKeySha256:BACKUP_PUBLIC_KEY_SHA256,tableCount,totalRecords,foreignKeyViolations:0,coverageComplete:true,missingTables:[],readConsistency:'transaction_snapshot',persistentWrites:false,restoreTargetKind:'isolated_postgresql_transaction',restoreTargetSha256:sha256Hex(restoreTarget),createdAt,verifiedAt,recordedAt:new Date().toISOString()},value=JSON.stringify(receipt);
+-	     await db.batch([db.prepare("INSERT INTO settings(id,value) VALUES('backup_restore_rehearsal',?) ON CONFLICT(id) DO UPDATE SET value=excluded.value").bind(value),auditStmt(db,u,'backup_restore_rehearsal',JSON.stringify({verifiedAt,tableCount,totalRecords,backupSha256:evidence.backupSha256,restoreTargetSha256:receipt.restoreTargetSha256}))]);return json({status:'ok',verified:true});
+-	    }
+-	    if(d.action!=='create')throw new ApiError(400,'Invalid backup action');const {envelope,metadata}=await createEncryptedPortalBackup(db,RELEASE),serialized=JSON.stringify(envelope),evidence={format:BACKUP_FORMAT,...metadata,backupSha256:sha256Hex(serialized),plaintextSha256:envelope.plaintextSha256};await auditStmt(db,u,'encrypted_backup_created',JSON.stringify(evidence)).run();return new Response(serialized,{headers:{...responseHeaders,'Content-Disposition':`attachment; filename="master7-encrypted-backup-${metadata.createdAt.replace(/[:.]/g,'-')}.json"`}});
++	    if(d.action==='record_rehearsal'){const result=await recordPortalRestoreRehearsal(db,RELEASE,u.id,d);return json({status:'ok',verified:true,...(result.idempotent?{idempotent:true}:{})});}
++	    if(d.action!=='create')throw new ApiError(400,'Invalid backup action');const backup=await createPortalBackup(db,RELEASE,u.id);return new Response(backup.serialized,{headers:{...responseHeaders,'Content-Disposition':`attachment; filename="${backup.filename}"`}});
+ 	   }
+ 	   if(p==='/api/admin/marketing'){
+ 	    role(u,['owner']);const action=textField(d.action,3,20);
+diff --git a/lib/backup-operations.ts b/lib/backup-operations.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..ec41abc026d3f8b935431108ab94a1ceccae0d30
+--- /dev/null
++++ b/lib/backup-operations.ts
+@@ -0,0 +1,45 @@
++import {createHash} from 'node:crypto';
++import {BACKUP_FORMAT,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES,createEncryptedPortalBackup} from './encrypted-backup.ts';
++import {BACKUP_PUBLIC_KEY_SHA256} from './backup-public-key.ts';
++
++export class BackupOperationsError extends Error{
++ status:number;
++ constructor(status:number,message:string){super(message);this.status=status;}
++}
++
++const now=()=>Math.floor(Date.now()/1000);
++const uuid=()=>crypto.randomUUID();
++const sha256Hex=(value:string|Uint8Array)=>createHash('sha256').update(value).digest('hex');
++const validSha256=(value:unknown)=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
++const freshIso=(value:unknown,maxAgeSeconds:number,timestamp=now())=>{if(typeof value!=='string')return false;const epoch=Math.floor(Date.parse(value)/1000);return Number.isFinite(epoch)&&epoch<=timestamp+300&&epoch>=timestamp-maxAgeSeconds;};
++const restoreTarget=(value:unknown)=>{if(typeof value!=='string'||value.length>500)return null;const match=value.match(/^isolated PostgreSQL transaction on ([A-Za-z0-9.-]{1,253})\/([A-Za-z0-9_-]{1,128})$/);return match&&/(?:^|[_-])(restore|rehearsal|sandbox|test)(?:$|[_-])/i.test(match[2])?value:null;};
++const audit=(db:D1Database,actorId:string,event:string,target:string)=>db.prepare('INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,?,?,?)').bind(uuid(),actorId,event,target,now());
++
++async function locked<T>(db:D1Database,operation:()=>Promise<T>){
++ const lockId='internal:backup_job',claim=Number.parseInt(sha256Hex(uuid()).slice(0,8),16),expiresAt=now()+1800;
++ const acquired=await db.prepare('INSERT INTO rate_limits(id,count,expires_at) VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET count=excluded.count,expires_at=excluded.expires_at WHERE rate_limits.expires_at<=? RETURNING count').bind(lockId,claim,expiresAt,now()).first<{count:number}>();
++ if(Number(acquired?.count)!==claim)throw new BackupOperationsError(409,'A backup operation is already running');
++ try{return await operation();}
++ finally{try{await db.prepare('DELETE FROM rate_limits WHERE id=? AND count=? AND expires_at=?').bind(lockId,claim,expiresAt).run();}catch{}}
++}
++
++export async function latestEncryptedBackupAudit(db:D1Database){
++ const result=await db.prepare("SELECT target,created_at FROM audit WHERE event='encrypted_backup_created' AND created_at=(SELECT MAX(created_at) FROM audit WHERE event='encrypted_backup_created')").all<{target:string;created_at:number}>();let latest:{metadata:any;created_at:number}|null=null;
++ for(const row of result.results??[]){let metadata:any=null;try{metadata=JSON.parse(row.target);}catch{}if(!metadata||!freshIso(metadata.createdAt,30*86400))continue;if(!latest||Date.parse(metadata.createdAt)>Date.parse(latest.metadata.createdAt))latest={metadata,created_at:Number(row.created_at)};}
++ return latest;
++}
++
++export async function createPortalBackup(db:D1Database,release:string,actorId:string){
++ return locked(db,async()=>{const {envelope,metadata}=await createEncryptedPortalBackup(db,release),serialized=JSON.stringify(envelope),evidence={format:BACKUP_FORMAT,...metadata,backupSha256:sha256Hex(serialized),plaintextSha256:envelope.plaintextSha256};await audit(db,actorId,'encrypted_backup_created',JSON.stringify(evidence)).run();return {serialized,metadata,filename:`master7-encrypted-backup-${metadata.createdAt.replace(/[:.]/g,'-')}.json`};});
++}
++
++export async function recordPortalRestoreRehearsal(db:D1Database,release:string,actorId:string,d:any){
++ return locked(db,async()=>{
++  const latest=await latestEncryptedBackupAudit(db),evidence=latest?.metadata??null,tableCount=Number(d.tableCount),totalRecords=Number(d.totalRecords),foreignKeyViolations=Number(d.foreignKeyViolations),verifiedAt=typeof d.verifiedAt==='string'?d.verifiedAt:'',createdAt=typeof d.createdAt==='string'?d.createdAt:'',target=restoreTarget(d.restoreTarget),createdEpoch=Date.parse(createdAt),verifiedEpoch=Date.parse(verifiedAt);
++  const matches=!!evidence&&evidence.format===BACKUP_FORMAT&&evidence.release===release&&evidence.schemaVersion===BACKUP_SCHEMA_VERSION&&evidence.schemaSha256===BACKUP_SCHEMA_SHA256&&evidence.publicKeySha256===BACKUP_PUBLIC_KEY_SHA256&&evidence.readConsistency==='transaction_snapshot'&&evidence.tableCount===BACKUP_TABLES.length&&Number.isSafeInteger(evidence.totalRecords)&&evidence.totalRecords>=0&&validSha256(evidence.backupSha256)&&validSha256(evidence.plaintextSha256)&&validSha256(evidence.ciphertextSha256)&&freshIso(evidence.createdAt,7*86400)&&Number(latest?.created_at??0)>=now()-7*86400&&createdAt===evidence.createdAt&&d.backupSha256===evidence.backupSha256&&d.plaintextSha256===evidence.plaintextSha256&&totalRecords===evidence.totalRecords;
++  if(d.status!=='verified'||d.format!==BACKUP_FORMAT||d.release!==release||d.schemaVersion!==BACKUP_SCHEMA_VERSION||d.schemaSha256!==BACKUP_SCHEMA_SHA256||d.publicKeySha256!==BACKUP_PUBLIC_KEY_SHA256||d.coverageComplete!==true||!Array.isArray(d.missingTables)||d.missingTables.length!==0||d.readConsistency!=='transaction_snapshot'||d.persistentWrites!==false||!target||tableCount!==BACKUP_TABLES.length||!Number.isSafeInteger(totalRecords)||totalRecords<0||foreignKeyViolations!==0||!freshIso(createdAt,30*86400)||!freshIso(verifiedAt,30*86400)||!Number.isFinite(createdEpoch)||!Number.isFinite(verifiedEpoch)||verifiedEpoch<createdEpoch||!matches)throw new BackupOperationsError(400,'Invalid recovery rehearsal receipt');
++  const receipt={status:'verified',format:BACKUP_FORMAT,release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,backupSha256:evidence.backupSha256,plaintextSha256:evidence.plaintextSha256,publicKeySha256:BACKUP_PUBLIC_KEY_SHA256,tableCount,totalRecords,foreignKeyViolations:0,coverageComplete:true,missingTables:[],readConsistency:'transaction_snapshot',persistentWrites:false,restoreTargetKind:'isolated_postgresql_transaction',restoreTargetSha256:sha256Hex(target),createdAt,verifiedAt,recordedAt:new Date().toISOString()};
++  const current=await db.prepare("SELECT value FROM settings WHERE id='backup_restore_rehearsal'").first<{value:string}>();if(current?.value){try{const existing=JSON.parse(current.value);if(existing.backupSha256===receipt.backupSha256&&existing.plaintextSha256===receipt.plaintextSha256&&existing.restoreTargetSha256===receipt.restoreTargetSha256&&existing.verifiedAt===receipt.verifiedAt)return {receipt:existing,idempotent:true};}catch{}}
++  await db.batch([db.prepare("INSERT INTO settings(id,value) VALUES('backup_restore_rehearsal',?) ON CONFLICT(id) DO UPDATE SET value=excluded.value").bind(JSON.stringify(receipt)),audit(db,actorId,'backup_restore_rehearsal',JSON.stringify({verifiedAt,tableCount,totalRecords,backupSha256:evidence.backupSha256,restoreTargetSha256:receipt.restoreTargetSha256}))]);return {receipt,idempotent:false};
++ });
++}
+diff --git a/lib/render-env.ts b/lib/render-env.ts
+index 28110fb3f012671472c9b9c3c2b1121f0978b0e6..bf26f3e1cd36eb15bcc116ad1b1099c931467b09 100644
+--- a/lib/render-env.ts
++++ b/lib/render-env.ts
+@@ -50,6 +50,7 @@ export const env = {
+   GODEE_API_KEY: process.env.GODEE_API_KEY,
+   GAME_CATALOGUE_SYNC_TOKEN: process.env.GAME_CATALOGUE_SYNC_TOKEN,
+   ACCOUNTING_JOB_TOKEN: process.env.ACCOUNTING_JOB_TOKEN,
++  BACKUP_JOB_TOKEN: process.env.BACKUP_JOB_TOKEN,
+   TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
+   TELEGRAM_ADMIN_CHAT_ID: process.env.TELEGRAM_ADMIN_CHAT_ID,
+   SUPPORT_AI_ENABLED: process.env.SUPPORT_AI_ENABLED,
+diff --git a/package.json b/package.json
+index 4d52ce36938233ab0638cb4126476ce2f7e6be73..33a3dd3f2ca88748dee3220c23ae0a55d0ce7d91 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.135-acceptance-operations node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.135-acceptance-operations node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.136-backup-automation node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.136-backup-automation node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.135-acceptance-operations node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.136-backup-automation node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 3da23a7cb3d28434a226aa502ec81f2d38502981..26ae32d48770ab5646128dfc8dc5e1b45539f245 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.135-acceptance-operations';
++const CACHE='master7-shell-17.0.0-selfbuilt.136-backup-automation';
+ const SHELL=['/offline.html','/manifest.webmanifest','/favicon.svg','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/tests/backup-job-api.test.mjs b/tests/backup-job-api.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..1e70f19958ddf71568bab3c1220ac51b5a82dbd9
+--- /dev/null
++++ b/tests/backup-job-api.test.mjs
+@@ -0,0 +1,55 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {BACKUP_FORMAT,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES} from '../lib/encrypted-backup.ts';
++import {BACKUP_PUBLIC_KEY_SHA256} from '../lib/backup-public-key.ts';
++import {handle,RELEASE} from '../lib/backend.ts';
++
++const token='backup-job-test-token-'.padEnd(48,'x');
++
++function fixture(){
++ const audits=[],settings=new Map([['payment_flag','closed'],['game_flag','closed'],['payout_flag','closed']]),leases=new Map(),owner={id:'owner',username:'owner',role:'owner',approved:1,csrf:'owner-csrf',created_at:1};let gate=null;
++ class Statement{
++  constructor(sql,args=[]){this.sql=sql;this.args=args;}
++  bind(...args){return new Statement(this.sql,args);}
++  async first(){
++   if(this.sql.startsWith('INSERT INTO rate_limits(id,count,expires_at) VALUES(?,?,?)')){const [id,count,expiresAt,stamp]=this.args,current=leases.get(id);if(current&&current.expiresAt>stamp)return null;leases.set(id,{count,expiresAt});return {count};}
++   if(this.sql.startsWith('INSERT INTO rate_limits(id,count,expires_at) VALUES(?,1,?)')){const [id,expiresAt]=this.args,current=leases.get(id),count=(current?.count??0)+1;leases.set(id,{count,expiresAt});return {count};}
++   if(this.sql==="SELECT value FROM settings WHERE id='backup_restore_rehearsal'")return settings.has('backup_restore_rehearsal')?{value:settings.get('backup_restore_rehearsal')}:null;
++   if(this.sql==='SELECT * FROM users WHERE id=?')return this.args[0]===owner.id?owner:null;
++   throw Error('Unexpected first SQL: '+this.sql);
++  }
++  async all(){
++   if(/^SELECT \* FROM [a-z0-9_]+ ORDER BY [a-z0-9_,]+ LIMIT \? OFFSET \?$/.test(this.sql))return {results:[]};
++   if(this.sql.startsWith("SELECT target,created_at FROM audit WHERE event='encrypted_backup_created'")){const rows=audits.filter(x=>x.event==='encrypted_backup_created'),max=Math.max(-1,...rows.map(x=>x.created_at));return {results:rows.filter(x=>x.created_at===max).map(x=>({target:x.target,created_at:x.created_at}))};}
++   throw Error('Unexpected all SQL: '+this.sql);
++  }
++  async run(){
++   if(this.sql==='INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,?,?,?)'){const [id,user_id,event,target,created_at]=this.args;audits.push({id,user_id,event,target,created_at});return {};}
++   if(this.sql.startsWith('DELETE FROM rate_limits WHERE id=? AND count=?')){const [id,count,expiresAt]=this.args,current=leases.get(id);if(current?.count===count&&current?.expiresAt===expiresAt)leases.delete(id);return {};}
++   if(this.sql.startsWith('DELETE FROM rate_limits WHERE expires_at < ?')){for(const [id,x] of leases)if(x.expiresAt<this.args[0])leases.delete(id);return {};}
++   if(this.sql.startsWith("INSERT INTO settings(id,value) VALUES('backup_restore_rehearsal',?)")){settings.set('backup_restore_rehearsal',this.args[0]);return {};}
++   throw Error('Unexpected run SQL: '+this.sql);
++  }
++ }
++ const db={prepare:sql=>new Statement(sql),async batch(items){for(const item of items)await item.run();return [];},async withReadSnapshot(read){if(gate)await gate.promise;return read(db);}};
++ return {db,audits,settings,leases,block(){let release;gate={promise:new Promise(resolve=>{release=resolve;})};return ()=>{gate=null;release();};}};
++}
++
++async function job(f,data,auth=`Bearer ${token}`,method='POST'){
++ const response=await handle(new Request('https://portal.example.test/api/jobs/backup?ignored=1',{method,headers:{authorization:auth,'content-type':'application/json'},body:method==='POST'?JSON.stringify(data):undefined}),{db:f.db,identity:null,ownerEmail:'',backupJobToken:token});const text=await response.text();return {response,data:JSON.parse(text)};
++}
++
++function receipt(f,backup){const evidence=JSON.parse(f.audits.findLast(x=>x.event==='encrypted_backup_created').target);return {action:'record_rehearsal',status:'verified',format:BACKUP_FORMAT,release:RELEASE,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,backupSha256:evidence.backupSha256,plaintextSha256:evidence.plaintextSha256,publicKeySha256:BACKUP_PUBLIC_KEY_SHA256,tableCount:BACKUP_TABLES.length,totalRecords:backup.manifest.totalRecords,foreignKeyViolations:0,coverageComplete:true,missingTables:[],readConsistency:'transaction_snapshot',persistentWrites:false,restoreTarget:'isolated PostgreSQL transaction on localhost/master7_restore_test',createdAt:backup.createdAt,verifiedAt:new Date(Date.now()+1000).toISOString()};}
++
++test('backup job fails closed without an exact JSON bearer request',async()=>{const f=fixture();for(const auth of ['',`Bearer wrong`,'Basic '+token])assert.equal((await job(f,{action:'create'},auth)).response.status,401);assert.equal((await job(f,{action:'create'},`Bearer ${token}`,'GET')).response.status,405);const nonJson=await handle(new Request('https://portal.example.test/api/jobs/backup',{method:'POST',headers:{authorization:`Bearer ${token}`},body:'{}'}),{db:f.db,identity:null,ownerEmail:'',backupJobToken:token});assert.equal(nonJson.status,415);assert.equal(f.audits.length,0);});
++
++test('machine backup and idempotent rehearsal preserve closed money and game flags',async()=>{
++ const f=fixture(),flags=['payment_flag','game_flag','payout_flag'].map(key=>f.settings.get(key)),created=await job(f,{action:'create'});assert.equal(created.response.status,200);assert.equal(created.response.headers.get('cache-control'),'no-store');assert.equal(created.data.release,RELEASE);assert.equal(created.data.readConsistency,'transaction_snapshot');assert.equal(created.data.manifest.tableCount,BACKUP_TABLES.length);assert.equal(f.audits[0].user_id,'system:backup-job');assert.equal(JSON.stringify({created:created.data,audits:f.audits}).includes(token),false);
++ const evidence=receipt(f,created.data),invalid=await job(f,{...evidence,foreignKeyViolations:1});assert.equal(invalid.response.status,400);assert.equal(f.audits.length,1);
++ const first=await job(f,evidence);assert.deepEqual(first.data,{status:'ok',verified:true});assert.equal(f.audits.length,2);assert.equal(f.audits[1].user_id,'system:backup-job');const replay=await job(f,evidence);assert.deepEqual(replay.data,{status:'ok',verified:true,idempotent:true});assert.equal(f.audits.length,2);assert.deepEqual(['payment_flag','game_flag','payout_flag'].map(key=>f.settings.get(key)),flags);assert.equal(f.leases.size,0);
++});
++
++test('shared lease rejects concurrency and owner backup route still works',async()=>{
++ const f=fixture(),release=f.block(),running=job(f,{action:'create'});await new Promise(resolve=>setTimeout(resolve,20));assert.equal((await job(f,{action:'create'})).response.status,409);release();assert.equal((await running).response.status,200);
++ const response=await handle(new Request('https://portal.example.test/api/admin/backup',{method:'POST',headers:{origin:'https://portal.example.test','content-type':'application/json','x-csrf-token':'owner-csrf'},body:'{"action":"create"}'}),{db:f.db,identity:{userId:'owner',email:'owner@example.test'},ownerEmail:'owner@example.test',allowedOrigins:['https://portal.example.test']});assert.equal(response.status,200);assert.equal((await response.json()).format,BACKUP_FORMAT);assert.equal(f.audits.findLast(x=>x.event==='encrypted_backup_created').user_id,'owner');
++});
+diff --git a/tests/ios-pwa.test.mjs b/tests/ios-pwa.test.mjs
+index 8140944d7730b64160317c8b1896804727a685ce..44b572e00c0a5a206fb54f78499f7b1bd9468120 100644
+--- a/tests/ios-pwa.test.mjs
++++ b/tests/ios-pwa.test.mjs
+@@ -26,7 +26,7 @@ test('iPhone Safari Web App publishes a scoped standalone MASTER7 manifest',()=>
+ });
+ 
+ test('service worker keeps authentication and financial routes network-only',()=>{
+- assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.135-acceptance-operations/);
++ assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.136-backup-automation/);
+  assert.match(app,/navigator\.serviceWorker\.register\("\/service-worker\.js",\{scope:"\/"\}\)/);
+  assert.match(worker,/request\.mode==='navigate'/);
+  assert.match(worker,/fetch\(request\)\.catch\(\(\)=>caches\.match\('\/offline\.html'\)\)/);
+diff --git a/tests/luxury-backoffice-ui.test.mjs b/tests/luxury-backoffice-ui.test.mjs
+index e18aad704f7a979a86fda0dbc9fdbf5f1b5ee81e..65ee65c4cfd34e2e70564ac83a0fdf2e08fcc0a4 100644
+--- a/tests/luxury-backoffice-ui.test.mjs
++++ b/tests/luxury-backoffice-ui.test.mjs
+@@ -27,7 +27,7 @@ test('bank, VIP, support and contact settings each use an independent compact co
+  assert.match(style,/\.admin-feature-cover\{display:block!important/);
+  assert.match(style,/\.admin-internal-sidebar a\.active::after/);
+  assert.match(style,/background:#5de9df/);
+- assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.135-acceptance-operations/);
++ assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.136-backup-automation/);
+  assert.ok(html.lastIndexOf('/assets/suite-theme.css')>html.lastIndexOf('/assets/owner-manual.css'),'suite theme must load after all feature styles');
+  assert.match(suiteStyle,/--m7-gold:/);
+  assert.match(suiteStyle,/body\.admin-mode \.admin-internal-sidebar a\{/);
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index 3d7690a6945e7cf248a9776a01cc05d857fc6364..f06622412cabd03154f27d4e97ee6b0cad80c622 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.135-acceptance-operations';
++const release='17.0.0-selfbuilt.136-backup-automation';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{

@@ -1,0 +1,71 @@
+{
+  "release": "17.0.0-selfbuilt.136-backup-automation",
+  "baselineRelease": "17.0.0-selfbuilt.135-acceptance-operations",
+  "files": 640,
+  "changed": [
+    ".env.example",
+    "app/api/[...path]/route.ts",
+    "app/portal.html",
+    "docs/MASTER7_V17_136_BACKUP_AUTOMATION.md",
+    "docs/backup-restore-rehearsal.md",
+    "lib/backend.ts",
+    "lib/backup-operations.ts",
+    "lib/render-env.ts",
+    "package.json",
+    "public/service-worker.js",
+    "tests/backup-job-api.test.mjs",
+    "tests/ios-pwa.test.mjs",
+    "tests/luxury-backoffice-ui.test.mjs",
+    "tests/official-entries-probe.test.mjs"
+  ],
+  "archiveSha256": "008d806a2b7bb393010e2d14d368829f50fdd9cbd80523352ffdf56a2453d7c2",
+  "patchSha256": "a17df34fb1ea72733045765dd54ddc8df7061aaa2e0e9e01ae32198b9ccd32b1",
+  "manifestSha256": "149c2c53a09db4c16312d18156f1b1ae4a42b805ec783fd473404521f7c44230",
+  "reproducible": true,
+  "patchReplayMatched": true,
+  "archiveReplayMatched": true,
+  "productionCredentialsAbsent": true,
+  "securityScan": {
+    "privateKeyHeaders": 0,
+    "sensitiveFiles": 0,
+    "credentialLiteralCandidates": 33,
+    "productionSourceFindings": 0
+  },
+  "validation": {
+    "maintenanceTests": 12,
+    "releaseProbes": 27,
+    "regressionTests": 1222,
+    "backupJobTests": 3,
+    "renderDatabaseTests": 3,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "realMoneyAcceptance": false,
+    "realProviderAcceptance": false
+  },
+  "runtime": {
+    "renderInstances": 1,
+    "autoscalingEnabled": false,
+    "plan": "2c-4g",
+    "postgresPoolMaxPerInstance": 5,
+    "schedulerLeaderConnectionMax": 1
+  },
+  "backupAutomation": {
+    "endpoint": "POST /api/jobs/backup",
+    "authentication": "dedicated bearer secret",
+    "durableTables": 71,
+    "transientTablesExcluded": 5,
+    "leaseSeconds": 1800,
+    "restoreReceiptIdempotent": true,
+    "productionBackupCreated": false,
+    "productionRestoreRehearsed": false
+  },
+  "activation": {
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPayments": false,
+    "liveGames": false,
+    "productionReady": false
+  }
+}
