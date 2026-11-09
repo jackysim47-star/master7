@@ -1,0 +1,67 @@
+{
+  "release": "17.0.0-selfbuilt.137-backup-lock-fix",
+  "baselineRelease": "17.0.0-selfbuilt.136-backup-automation",
+  "files": 641,
+  "changed": [
+    "app/portal.html",
+    "docs/MASTER7_V17_137_BACKUP_LOCK_FIX.md",
+    "lib/backend.ts",
+    "lib/backup-operations.ts",
+    "package.json",
+    "public/service-worker.js",
+    "tests/backup-job-api.test.mjs",
+    "tests/ios-pwa.test.mjs",
+    "tests/luxury-backoffice-ui.test.mjs",
+    "tests/official-entries-probe.test.mjs"
+  ],
+  "archiveSha256": "02d1f14fd091b6df3a57d4cc74ad29033f6baa5cf37234c0a05f2ea7d9e6368f",
+  "patchSha256": "1b48e9b9bce75d0e6eb1d1bdad498ee8e9680f36e54340a4d2432c2c9ed2ac4b",
+  "manifestSha256": "d985096e527e516300151062afb0a7112ec4337a41b33a8d5d9b5757ac5393e6",
+  "reproducible": true,
+  "patchReplayMatched": true,
+  "archiveReplayMatched": true,
+  "productionCredentialsAbsent": true,
+  "securityScan": {
+    "privateKeyHeaders": 0,
+    "sensitiveFiles": 0,
+    "credentialLiteralCandidates": 33,
+    "productionSourceFindings": 0
+  },
+  "validation": {
+    "maintenanceTests": 12,
+    "releaseProbes": 27,
+    "regressionTests": 1223,
+    "backupJobTests": 4,
+    "renderDatabaseTests": 3,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "realMoneyAcceptance": false,
+    "realProviderAcceptance": false
+  },
+  "runtime": {
+    "renderInstances": 1,
+    "autoscalingEnabled": false,
+    "plan": "2c-4g",
+    "postgresPoolMaxPerInstance": 5,
+    "schedulerLeaderConnectionMax": 1
+  },
+  "backupAutomation": {
+    "endpoint": "POST /api/jobs/backup",
+    "durableTables": 71,
+    "transientTablesExcluded": 5,
+    "leaseSeconds": 1800,
+    "leaseIntegerRange": "1..2147483647",
+    "restoreReceiptIdempotent": true,
+    "productionBackupCreated": false,
+    "productionRestoreRehearsed": false
+  },
+  "activation": {
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPayments": false,
+    "liveGames": false,
+    "productionReady": false
+  }
+}

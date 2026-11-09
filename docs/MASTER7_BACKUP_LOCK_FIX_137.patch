@@ -1,0 +1,227 @@
+diff --git a/app/portal.html b/app/portal.html
+index 809f0e8e1cba8da1a85063d9861801535f9b2401..a2aad71b02acdec90f206787b5a9f65226b8d097 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,31 +15,31 @@
+   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.136-backup-automation">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.136-backup-automation">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.136-backup-automation">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.136-backup-automation">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.136-backup-automation">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.136-backup-automation">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.136-backup-automation">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.136-backup-automation">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.136-backup-automation">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.136-backup-automation">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.136-backup-automation">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.136-backup-automation">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.136-backup-automation" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
+diff --git a/docs/MASTER7_V17_137_BACKUP_LOCK_FIX.md b/docs/MASTER7_V17_137_BACKUP_LOCK_FIX.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..092f962d4df54fad869dc3d97f53561fc80baf05
+--- /dev/null
++++ b/docs/MASTER7_V17_137_BACKUP_LOCK_FIX.md
+@@ -0,0 +1,25 @@
++# MASTER7 V17.137 backup lock fix
++
++Release `17.0.0-selfbuilt.137-backup-lock-fix` corrects the backup-operation
++lease identifier used by PostgreSQL.
++
++## Incident and fix
++
++The first V17.136 online backup request failed before reading backup records or
++writing an audit event because a random eight-hex-digit lease claim could exceed
++PostgreSQL's signed `INTEGER` maximum. V17.137 maps the complete 32-bit hash
++prefix into the inclusive range `1..2,147,483,647` before inserting it into
++`rate_limits.count`.
++
++The backup endpoint fixture now enforces the same signed-integer boundary as
++PostgreSQL and includes a deterministic seed that would overflow under the
++former calculation.
++
++## Operational boundary
++
++- The failed V17.136 attempt produced no backup artifact or acceptance record.
++- The fix changes only the internal backup lease claim and release identifiers.
++- It does not enable deposits, payouts, game launches, real payments or live
++  games, and it does not change provider credentials.
++- Production backup and restore readiness require a new V17.137 encrypted
++  backup, a PostgreSQL isolation rehearsal, and a matching recorded receipt.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index da3a0473b90662f74c09e4b0225eedea3fe77033..2e6d585f50dd5e11794ca5c1522eb38b3e54a3f0 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -37,7 +37,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.136-backup-automation';
++export const RELEASE = '17.0.0-selfbuilt.137-backup-lock-fix';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff --git a/lib/backup-operations.ts b/lib/backup-operations.ts
+index ec41abc026d3f8b935431108ab94a1ceccae0d30..dd8eaf64420e118f18b6b9ef8130d0b793702962 100644
+--- a/lib/backup-operations.ts
++++ b/lib/backup-operations.ts
+@@ -10,13 +10,16 @@ export class BackupOperationsError extends Error{
+ const now=()=>Math.floor(Date.now()/1000);
+ const uuid=()=>crypto.randomUUID();
+ const sha256Hex=(value:string|Uint8Array)=>createHash('sha256').update(value).digest('hex');
++// rate_limits.count is a signed PostgreSQL INTEGER. Map the full 32-bit
++// prefix into 1..2^31-1 so random SHA-256 prefixes can never overflow it.
++export const backupLockClaim=(entropy:string)=>(Number.parseInt(sha256Hex(entropy).slice(0,8),16)%0x7fffffff)+1;
+ const validSha256=(value:unknown)=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
+ const freshIso=(value:unknown,maxAgeSeconds:number,timestamp=now())=>{if(typeof value!=='string')return false;const epoch=Math.floor(Date.parse(value)/1000);return Number.isFinite(epoch)&&epoch<=timestamp+300&&epoch>=timestamp-maxAgeSeconds;};
+ const restoreTarget=(value:unknown)=>{if(typeof value!=='string'||value.length>500)return null;const match=value.match(/^isolated PostgreSQL transaction on ([A-Za-z0-9.-]{1,253})\/([A-Za-z0-9_-]{1,128})$/);return match&&/(?:^|[_-])(restore|rehearsal|sandbox|test)(?:$|[_-])/i.test(match[2])?value:null;};
+ const audit=(db:D1Database,actorId:string,event:string,target:string)=>db.prepare('INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,?,?,?)').bind(uuid(),actorId,event,target,now());
+ 
+ async function locked<T>(db:D1Database,operation:()=>Promise<T>){
+- const lockId='internal:backup_job',claim=Number.parseInt(sha256Hex(uuid()).slice(0,8),16),expiresAt=now()+1800;
++ const lockId='internal:backup_job',claim=backupLockClaim(uuid()),expiresAt=now()+1800;
+  const acquired=await db.prepare('INSERT INTO rate_limits(id,count,expires_at) VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET count=excluded.count,expires_at=excluded.expires_at WHERE rate_limits.expires_at<=? RETURNING count').bind(lockId,claim,expiresAt,now()).first<{count:number}>();
+  if(Number(acquired?.count)!==claim)throw new BackupOperationsError(409,'A backup operation is already running');
+  try{return await operation();}
+diff --git a/package.json b/package.json
+index 33a3dd3f2ca88748dee3220c23ae0a55d0ce7d91..e2ee2805d334dbfc39300166e4b042140ca21c5e 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.136-backup-automation node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.136-backup-automation node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.137-backup-lock-fix node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.137-backup-lock-fix node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.136-backup-automation node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.137-backup-lock-fix node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 26ae32d48770ab5646128dfc8dc5e1b45539f245..e17ede44188b1809dc8a54d27b9e943ecc303978 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.136-backup-automation';
++const CACHE='master7-shell-17.0.0-selfbuilt.137-backup-lock-fix';
+ const SHELL=['/offline.html','/manifest.webmanifest','/favicon.svg','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/tests/backup-job-api.test.mjs b/tests/backup-job-api.test.mjs
+index 1e70f19958ddf71568bab3c1220ac51b5a82dbd9..72faededc5d7fbcac38f127d191951322436f10c 100644
+--- a/tests/backup-job-api.test.mjs
++++ b/tests/backup-job-api.test.mjs
+@@ -3,16 +3,23 @@ import assert from 'node:assert/strict';
+ import {BACKUP_FORMAT,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES} from '../lib/encrypted-backup.ts';
+ import {BACKUP_PUBLIC_KEY_SHA256} from '../lib/backup-public-key.ts';
+ import {handle,RELEASE} from '../lib/backend.ts';
++import {backupLockClaim} from '../lib/backup-operations.ts';
+ 
+ const token='backup-job-test-token-'.padEnd(48,'x');
+ 
++test('backup lease claim always fits a signed PostgreSQL INTEGER',()=>{
++ const claim=backupLockClaim('backup-lock-0');
++ assert.equal(claim,1649370090);
++ assert.ok(Number.isSafeInteger(claim)&&claim>=1&&claim<=2147483647);
++});
++
+ function fixture(){
+  const audits=[],settings=new Map([['payment_flag','closed'],['game_flag','closed'],['payout_flag','closed']]),leases=new Map(),owner={id:'owner',username:'owner',role:'owner',approved:1,csrf:'owner-csrf',created_at:1};let gate=null;
+  class Statement{
+   constructor(sql,args=[]){this.sql=sql;this.args=args;}
+   bind(...args){return new Statement(this.sql,args);}
+   async first(){
+-   if(this.sql.startsWith('INSERT INTO rate_limits(id,count,expires_at) VALUES(?,?,?)')){const [id,count,expiresAt,stamp]=this.args,current=leases.get(id);if(current&&current.expiresAt>stamp)return null;leases.set(id,{count,expiresAt});return {count};}
++   if(this.sql.startsWith('INSERT INTO rate_limits(id,count,expires_at) VALUES(?,?,?)')){const [id,count,expiresAt,stamp]=this.args,current=leases.get(id);if(!Number.isInteger(count)||count<1||count>2147483647)throw Object.assign(Error('PostgreSQL INTEGER out of range'),{code:'22003'});if(current&&current.expiresAt>stamp)return null;leases.set(id,{count,expiresAt});return {count};}
+    if(this.sql.startsWith('INSERT INTO rate_limits(id,count,expires_at) VALUES(?,1,?)')){const [id,expiresAt]=this.args,current=leases.get(id),count=(current?.count??0)+1;leases.set(id,{count,expiresAt});return {count};}
+    if(this.sql==="SELECT value FROM settings WHERE id='backup_restore_rehearsal'")return settings.has('backup_restore_rehearsal')?{value:settings.get('backup_restore_rehearsal')}:null;
+    if(this.sql==='SELECT * FROM users WHERE id=?')return this.args[0]===owner.id?owner:null;
+diff --git a/tests/ios-pwa.test.mjs b/tests/ios-pwa.test.mjs
+index 44b572e00c0a5a206fb54f78499f7b1bd9468120..18ea3af0d2e6040ad9fd78601ce0ce6fcdcf9b4c 100644
+--- a/tests/ios-pwa.test.mjs
++++ b/tests/ios-pwa.test.mjs
+@@ -26,7 +26,7 @@ test('iPhone Safari Web App publishes a scoped standalone MASTER7 manifest',()=>
+ });
+ 
+ test('service worker keeps authentication and financial routes network-only',()=>{
+- assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.136-backup-automation/);
++ assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.137-backup-lock-fix/);
+  assert.match(app,/navigator\.serviceWorker\.register\("\/service-worker\.js",\{scope:"\/"\}\)/);
+  assert.match(worker,/request\.mode==='navigate'/);
+  assert.match(worker,/fetch\(request\)\.catch\(\(\)=>caches\.match\('\/offline\.html'\)\)/);
+diff --git a/tests/luxury-backoffice-ui.test.mjs b/tests/luxury-backoffice-ui.test.mjs
+index 65ee65c4cfd34e2e70564ac83a0fdf2e08fcc0a4..8a60fb39a00084ab8712cfec12ed973897c3422a 100644
+--- a/tests/luxury-backoffice-ui.test.mjs
++++ b/tests/luxury-backoffice-ui.test.mjs
+@@ -27,7 +27,7 @@ test('bank, VIP, support and contact settings each use an independent compact co
+  assert.match(style,/\.admin-feature-cover\{display:block!important/);
+  assert.match(style,/\.admin-internal-sidebar a\.active::after/);
+  assert.match(style,/background:#5de9df/);
+- assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.136-backup-automation/);
++ assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.137-backup-lock-fix/);
+  assert.ok(html.lastIndexOf('/assets/suite-theme.css')>html.lastIndexOf('/assets/owner-manual.css'),'suite theme must load after all feature styles');
+  assert.match(suiteStyle,/--m7-gold:/);
+  assert.match(suiteStyle,/body\.admin-mode \.admin-internal-sidebar a\{/);
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index f06622412cabd03154f27d4e97ee6b0cad80c622..a85d432b2673368ed892e6074968463acfa1daa9 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.136-backup-automation';
++const release='17.0.0-selfbuilt.137-backup-lock-fix';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
