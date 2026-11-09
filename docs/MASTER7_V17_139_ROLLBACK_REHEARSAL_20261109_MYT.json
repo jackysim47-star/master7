@@ -1,0 +1,98 @@
+{
+  "checkedAt": "2026-11-09T14:41:49Z",
+  "scope": "isolated_v139_v138_v139_application_rollback",
+  "productionServiceMutated": false,
+  "productionDatabaseMutated": false,
+  "result": "passed",
+  "releases": {
+    "rollbackFrom": {
+      "release": "17.0.0-selfbuilt.139-profile-status-consistency",
+      "archiveSha256": "7f5bda11f277d00a3e46ff5a11b9d7fe559059e3e727b2d8c769b35eb5341965",
+      "releaseBoundRollbackSubject": "rollback_rehearsal_17.0.0-selfbuilt.139-profile-status-consistency"
+    },
+    "rollbackTo": {
+      "release": "17.0.0-selfbuilt.138-signoff-gates",
+      "gitCommit": "b75ef1eb0dba26b17724ca23278382404cd56ea3",
+      "archiveSha256": "6e55339a4be4ca8200a4c928169886fdda1c24f63249b5adef27aa775f2796cf"
+    }
+  },
+  "compatibility": {
+    "renderSchemaSha256": "56c35a4f8c3460e91c57b1918fa5718009d2e3874a73c58b25f8004f65315085",
+    "schemaIdentical": true,
+    "pnpmLockSha256": "6a276f81aab504274390bfd485a4b514abfb6b508cb5a4d64d38c864d1f8fc2d",
+    "dependencyLockIdentical": true,
+    "v139ProductionBuildPassed": true,
+    "v138ProductionBuildPassed": true,
+    "releaseBoundRollbackGatePresent": true
+  },
+  "environment": {
+    "database": "PostgreSQL 18 Alpine on Docker tmpfs",
+    "persistentStorage": false,
+    "loopbackOnlyDatabasePort": true,
+    "sanitizedProcessEnvironment": true,
+    "providerCredentialsPresent": false,
+    "providerNetworkTransactions": false,
+    "realMoneyTransactions": false
+  },
+  "phases": [
+    {
+      "phase": "v139_initial",
+      "release": "17.0.0-selfbuilt.139-profile-status-consistency",
+      "database": "ready",
+      "providerPositions": 37,
+      "requiredProfiles": 41,
+      "acceptedProfiles": 0,
+      "liveProfiles": 0,
+      "playableProviders": 0,
+      "productionReady": false,
+      "liveGames": false,
+      "allTransactionFlagsClosed": true,
+      "rawPgDumpSha256": "4c028cff82c6fe08c9a92f7ce7b4a5d745af22833e2a04d4fe05f0bbda458810"
+    },
+    {
+      "phase": "v138_rollback",
+      "release": "17.0.0-selfbuilt.138-signoff-gates",
+      "database": "ready",
+      "providerPositions": 37,
+      "requiredProfiles": 41,
+      "acceptedProfiles": 0,
+      "liveProfiles": 0,
+      "playableProviders": 0,
+      "productionReady": false,
+      "liveGames": false,
+      "allTransactionFlagsClosed": true,
+      "rawPgDumpSha256": "a3eda50ba6b09b2fee0bcbc2d002bc029820ba1ed3e80b3642b1b4810741ae10"
+    },
+    {
+      "phase": "v139_restored",
+      "release": "17.0.0-selfbuilt.139-profile-status-consistency",
+      "database": "ready",
+      "providerPositions": 37,
+      "requiredProfiles": 41,
+      "acceptedProfiles": 0,
+      "liveProfiles": 0,
+      "playableProviders": 0,
+      "productionReady": false,
+      "liveGames": false,
+      "allTransactionFlagsClosed": true,
+      "rawPgDumpSha256": "e238ce9924883d17dfd713cfcfeaa02d04c9251c3ebe01737c20127931d1c204"
+    }
+  ],
+  "dataIntegrity": {
+    "tableCount": 76,
+    "totalRows": 135,
+    "stableBusinessDataFingerprintSha256": "9befba0b27366971dc2c8bdb71cdfd4a4eeafe30b2f9fb0d723eda02b8e69981",
+    "stableFingerprintDefinition": "SHA-256 of PostgreSQL data-only column-insert dump after removing comments, SET and set_config boilerplate, blank lines, and PostgreSQL 18 random \\restrict/\\unrestrict session guards; no table row, INSERT statement, sequence state, release row, health row, or business field is excluded",
+    "rawDumpDigestsExpectedToDiffer": true,
+    "rawDumpDifferenceReason": "PostgreSQL 18 emits a newly randomized \\restrict/\\unrestrict session guard in each pg_dump output",
+    "unchangedAfterRollback": true,
+    "unchangedAfterRestore": true
+  },
+  "cleanup": {
+    "isolatedContainerRemoved": true,
+    "temporaryDatabaseCredentialRemoved": true,
+    "temporarySourceTreesRemoved": true,
+    "productionCredentialsUsed": false
+  },
+  "limitation": "This proves candidate-release application and schema rollback compatibility without changing Render or production data. It does not constitute owner sign-off, operations sign-off, provider acceptance, real-money acceptance, official DNS acceptance, or a Render control-plane rollback."
+}

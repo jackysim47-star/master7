@@ -1,0 +1,337 @@
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/app/portal.html b/app/portal.html
+--- a/app/portal.html	2026-11-09 13:33:47.021649494 +0000
++++ b/app/portal.html	2026-11-09 14:19:46.691859358 +0000
+@@ -18,25 +18,25 @@
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.138-signoff-gates">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.138-signoff-gates">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.138-signoff-gates">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.138-signoff-gates">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.138-signoff-gates">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.138-signoff-gates">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.138-signoff-gates">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.138-signoff-gates">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.138-signoff-gates">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.138-signoff-gates">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.138-signoff-gates">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.138-signoff-gates">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.139-profile-status-consistency">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.139-profile-status-consistency" defer></script>
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/docs/MASTER7_V17_139_PROFILE_STATUS_CONSISTENCY.md b/docs/MASTER7_V17_139_PROFILE_STATUS_CONSISTENCY.md
+--- a/docs/MASTER7_V17_139_PROFILE_STATUS_CONSISTENCY.md	1970-01-01 00:00:00.000000000 +0000
++++ b/docs/MASTER7_V17_139_PROFILE_STATUS_CONSISTENCY.md	2026-11-09 14:30:04.013059386 +0000
+@@ -0,0 +1,23 @@
++# MASTER7 V17.139 profile status consistency
++
++Release `17.0.0-selfbuilt.139-profile-status-consistency` makes every payment
++profile status response publish explicit boolean readiness for recovery, payout,
++and provider balance capabilities.
++
++The VPay MYR, GSPAY MYR, GSPAY USDT, and 1MPay MYR profiles now report a
++definite `false` when a capability is closed instead of leaving the top-level
++field absent. The values come from the existing fail-closed capability objects
++and provider recovery controls; this release does not infer acceptance from
++configuration.
++
++The three 918KISS H5 profiles now use separate fixed catalogue accounts and
++cache keys: normal MYR, MY1 1:100, and free MYR. Gateway responses must match
++the expected provider, account, and currency before they can update a profile
++snapshot. Selecting one profile can no longer borrow the normal catalogue or
++overwrite another profile's snapshot. Catalogue entries remain unplayable
++until the separate launch and wallet contracts pass acceptance.
++
++This release does not change payment-provider requests, callback handling, wallet or
++ledger writes, credentials, DNS, bank targets, payment records, game sessions,
++Render capacity, or databases. It does not enable deposits, game launches,
++payouts, real payments, live games, or `productionReady`.
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/lib/backend.ts b/lib/backend.ts
+--- a/lib/backend.ts	2026-11-09 13:33:40.341489946 +0000
++++ b/lib/backend.ts	2026-11-09 14:25:22.641522554 +0000
+@@ -40 +40 @@
+-export const RELEASE = '17.0.0-selfbuilt.138-signoff-gates';
++export const RELEASE = '17.0.0-selfbuilt.139-profile-status-consistency';
+@@ -685 +685 @@
+-   const trustedSource=configuredGameCatalogueSourceIds(c).includes(selectedProvider),capability=await megaProviderCapability(c),catalogue=trustedSource?await automaticCatalogue(c,await getGameCatalogue(c,{providerId:selectedProvider}),capability):{providers:[],games:[]},games=catalogue.games.filter((game:any)=>game.provider===selectedProvider),fresh=await publicSupplierPlatforms(c,capability),selected=(catalogue.providers??[]).find((provider:any)=>provider.id===selectedProvider),providers=fresh.providers.map((provider:any)=>provider.id===selectedProvider&&selected?{...provider,...selected}:provider),selectedPlatform=providers.find((provider:any)=>provider.id===selectedProvider)??null,liveReady=selectedPlatform?.platformLaunchReady===true;
++   const trustedSource=configuredGameCatalogueSourceIds(c).includes(selectedProvider),capability=await megaProviderCapability(c),catalogue=trustedSource?await automaticCatalogue(c,await getGameCatalogue(c,{providerId:selectedProvider,profileId:requestedProfileId??undefined}),capability):{providers:[],games:[]},games=catalogue.games.filter((game:any)=>game.provider===selectedProvider),fresh=await publicSupplierPlatforms(c,capability),selected=(catalogue.providers??[]).find((provider:any)=>provider.id===selectedProvider),providers=fresh.providers.map((provider:any)=>provider.id===selectedProvider&&selected?{...provider,...selected}:provider),selectedPlatform=providers.find((provider:any)=>provider.id===selectedProvider)??null,liveReady=selectedPlatform?.platformLaunchReady===true;
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/lib/game-catalogue.ts b/lib/game-catalogue.ts
+--- a/lib/game-catalogue.ts	1970-01-01 00:00:00.000000000 +0000
++++ b/lib/game-catalogue.ts	2026-11-09 14:25:22.640865744 +0000
+@@ -4,2 +4,2 @@
+-type Source={direct?:boolean;id:string;name:string;path:string;shape:'mega'|'normalized'|'evo';imageHost?:string};
+-type Game={provider:string;providerName:string;gameCode:string;originalProviderId?:string;originalGameCode?:string;name:string;nameZh:string;category:string;imageUrl:string|null;maintenance:boolean;playable:false;artworkSource?:string};
++type Source={direct?:boolean;id:string;name:string;path:string;shape:'mega'|'normalized'|'evo';imageHost?:string;cacheKey?:string;profileId?:string;expectedAccount?:string;expectedCurrency?:string};
++type Game={provider:string;providerName:string;gameCode:string;originalProviderId?:string;originalGameCode?:string;profileId?:string;catalogueAccount?:string;providerCurrency?:string;name:string;nameZh:string;category:string;imageUrl:string|null;maintenance:boolean;playable:false;artworkSource?:string};
+@@ -21 +21 @@
+- {id:'918kissh5',name:'918KISS H5',path:'/providers/918kissh5/games?account=normal',shape:'normalized',imageHost:'gth.kissh5.com'},
++ {id:'918kissh5',name:'918KISS H5',path:'/providers/918kissh5/games?account=normal',shape:'normalized',imageHost:'gth.kissh5.com',expectedAccount:'normal',expectedCurrency:'MYR'},
+@@ -26,0 +27,6 @@
++const kissSource=gameSources.find(source=>source.id==='918kissh5')!;
++const kissProfileSources:Readonly<Record<string,Source>>=Object.freeze({
++ '918kiss_normal_myr':Object.freeze({...kissSource,cacheKey:'918kiss_normal_myr',profileId:'918kiss_normal_myr'}),
++ '918kiss_normal_my1_1to100':Object.freeze({...kissSource,path:'/providers/918kissh5/games?account=my1',cacheKey:'918kiss_normal_my1_1to100',profileId:'918kiss_normal_my1_1to100',expectedAccount:'my1',expectedCurrency:'MY1'}),
++ '918kiss_free_myr':Object.freeze({...kissSource,path:'/providers/918kissh5/games?account=free',cacheKey:'918kiss_free_myr',profileId:'918kiss_free_myr',expectedAccount:'free',expectedCurrency:'MYR'}),
++});
+@@ -35,0 +42,5 @@
++const sourceCacheKey=(source:Source)=>source.cacheKey??source.id;
++function selectProfileSource(providerId:string|undefined,profileId:string|undefined){
++ if(providerId!=='918kissh5'||!profileId)return null;
++ return kissProfileSources[profileId]??null;
++}
+@@ -52,2 +63,3 @@
+-  const imageUrl=artwork?`/api/game-art?provider=${source.id}&gameCode=${encodeURIComponent(gameCode)}`:source.id==='jili'?'/assets/providers/jili.webp':source.id==='jdb'?'/assets/providers/jdb.webp':source.id==='pragmaticplay'?'/assets/providers/pragmaticplay.webp':source.id==='evo888h5'?'/assets/providers/evo888h5.webp':source.id==='rectangle'?'/assets/providers/rectangle.webp':source.id==='atg'?'/assets/providers/atg.webp':null;
+-  return {provider:source.id,providerName:source.id==='godeezone'?text(g.providerName)||source.name:source.name,gameCode,...(source.id==='godeezone'?{originalProviderId:text(g.originalProviderId,40),originalGameCode:text(g.originalGameCode,100)}:{}),name:text(mega?g.GameName??g.OtherName:evo?g.title??g.name:g.name)||gameCode,nameZh:text(g.nameZh??(mega?g.OtherName:'')),category:evo?'SLOT':text(mega?g.GameType:g.category,40),imageUrl,maintenance:mega?g.Maintenance===true||g.Maintenance===1||g.Maintenance==='true'||g.Maintenance==='1':g.maintenance===true,playable:false,...(source.id==='evo888h5'&&artwork?{artworkSource:artwork}:{})};
++  const profileQuery=source.profileId?`&profileId=${encodeURIComponent(source.profileId)}`:'';
++  const imageUrl=artwork?`/api/game-art?provider=${source.id}${profileQuery}&gameCode=${encodeURIComponent(gameCode)}`:source.id==='jili'?'/assets/providers/jili.webp':source.id==='jdb'?'/assets/providers/jdb.webp':source.id==='pragmaticplay'?'/assets/providers/pragmaticplay.webp':source.id==='evo888h5'?'/assets/providers/evo888h5.webp':source.id==='rectangle'?'/assets/providers/rectangle.webp':source.id==='atg'?'/assets/providers/atg.webp':null;
++  return {provider:source.id,providerName:source.id==='godeezone'?text(g.providerName)||source.name:source.name,gameCode,...(source.id==='godeezone'?{originalProviderId:text(g.originalProviderId,40),originalGameCode:text(g.originalGameCode,100)}:{}),...(source.profileId?{profileId:source.profileId}:{}),...(source.expectedAccount?{catalogueAccount:source.expectedAccount}:{}),...(source.expectedCurrency?{providerCurrency:source.expectedCurrency}:{}),name:text(mega?g.GameName??g.OtherName:evo?g.title??g.name:g.name)||gameCode,nameZh:text(g.nameZh??(mega?g.OtherName:'')),category:evo?'SLOT':text(mega?g.GameType:g.category,40),imageUrl,maintenance:mega?g.Maintenance===true||g.Maintenance===1||g.Maintenance==='true'||g.Maintenance==='1':g.maintenance===true,playable:false,...(source.id==='evo888h5'&&artwork?{artworkSource:artwork}:{})};
+@@ -63,0 +76 @@
++ const cacheKey=sourceCacheKey(source);
+@@ -68 +81 @@
+-   RETURNING provider_id`).bind(source.id,time+leaseSeconds,time,time-(force?5:ttl)).first();
++   RETURNING provider_id`).bind(cacheKey,time+leaseSeconds,time,time-(force?5:ttl)).first();
+@@ -78,0 +92 @@
++  if(source.expectedAccount&&(data.provider!==source.id||data.account!==source.expectedAccount||data.currency!==source.expectedCurrency)){status='blocked';return;}
+@@ -83 +97 @@
+-   .bind(JSON.stringify(games),games.length?'available':'empty',time,time,upstream,complete?1:0,source.id,time+leaseSeconds).run();
++   .bind(JSON.stringify(games),games.length?'available':'empty',time,time,upstream,complete?1:0,cacheKey,time+leaseSeconds).run();
+@@ -88 +102 @@
+-  if(status!=='saved')await c.db.prepare('UPDATE game_catalogue_cache SET status=?,checked_at=?,upstream_status=?,lease_until=0 WHERE provider_id=? AND lease_until=?').bind(status,time,upstream,source.id,time+leaseSeconds).run();
++  if(status!=='saved')await c.db.prepare('UPDATE game_catalogue_cache SET status=?,checked_at=?,upstream_status=?,lease_until=0 WHERE provider_id=? AND lease_until=?').bind(status,time,upstream,cacheKey,time+leaseSeconds).run();
+@@ -91 +105 @@
+-export async function getGameCatalogue(c:SyncContext,options:{force?:boolean;providerId?:string}={}){
++export async function getGameCatalogue(c:SyncContext,options:{force?:boolean;providerId?:string;profileId?:string}={}){
+@@ -94 +108,2 @@
+- const available=[...(configured(c.gameGatewayUrl)?gameSources:[]),...direct],sources=options.providerId?available.filter(source=>source.id===options.providerId):available;
++ const available=[...(configured(c.gameGatewayUrl)?gameSources:[]),...direct];
++ const selectedProfileSource=configured(c.gameGatewayUrl)?selectProfileSource(options.providerId,options.profileId):null,sources=selectedProfileSource?[selectedProfileSource]:options.profileId&&options.providerId==='918kissh5'?[]:options.providerId?available.filter(source=>source.id===options.providerId):available;
+@@ -99,3 +114,3 @@
+-  const cache=rows.find(row=>row.provider_id===source.id);const saved=cacheGames(cache?.games_json),stale=!gameCatalogueCacheFresh(c,Number(cache?.checked_at))||cache?.status!=='available'&&cache?.status!=='empty';
+-  const games=saved.map(entry=>{const game={...entry};delete game.artworkSource;return {...game,providerMaintenance:!!game.maintenance,...(stale?{maintenance:true}:{}),playable:false as const};});
+-  return {provider:{id:source.id,name:source.name,status:cache?.status??'unavailable',count:games.length,catalogueSynced:games.length>0&&cache?.complete===1&&!stale,connectionVerified:cache?.status==='available'&&!stale,launchVerified:false,walletVerified:false,complete:cache?.complete===1,stale,checkedAt:Number(cache?.checked_at??0),lastSuccessAt:Number(cache?.last_success_at??0),upstreamStatus:cache?.upstream_status??null},games};
++  const cache=rows.find(row=>row.provider_id===sourceCacheKey(source));const saved=cacheGames(cache?.games_json),stale=!gameCatalogueCacheFresh(c,Number(cache?.checked_at))||cache?.status!=='available'&&cache?.status!=='empty';
++  const games=saved.map(entry=>{const game={...entry};delete game.artworkSource;return {...game,...(source.profileId?{profileId:source.profileId}:{}),...(source.expectedAccount?{catalogueAccount:source.expectedAccount}:{}),...(source.expectedCurrency?{providerCurrency:source.expectedCurrency}:{}),providerMaintenance:!!game.maintenance,...(stale?{maintenance:true}:{}),playable:false as const};});
++  return {provider:{id:source.id,name:source.name,status:cache?.status??'unavailable',count:games.length,...(source.profileId?{catalogueProfileId:source.profileId}:{}),...(source.expectedAccount?{catalogueAccount:source.expectedAccount}:{}),...(source.expectedCurrency?{providerCurrency:source.expectedCurrency}:{}),catalogueSynced:games.length>0&&cache?.complete===1&&!stale,connectionVerified:cache?.status==='available'&&!stale,launchVerified:false,walletVerified:false,complete:cache?.complete===1,stale,checkedAt:Number(cache?.checked_at??0),lastSuccessAt:Number(cache?.last_success_at??0),upstreamStatus:cache?.upstream_status??null},games};
+@@ -105,3 +120,3 @@
+-export async function cachedGameArtwork(c:Pick<SyncContext,'db'>,provider:string,gameCode:string){
+- const source=gameSources.find(s=>s.id===provider);if(!source)return null;
+- const cache=await c.db.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').bind(provider).first<{games_json:string}>();
++export async function cachedGameArtwork(c:Pick<SyncContext,'db'>,provider:string,gameCode:string,profileId?:string){
++ const source=selectProfileSource(provider,profileId)??(!profileId?gameSources.find(s=>s.id===provider):null);if(!source)return null;
++ const cache=await c.db.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').bind(sourceCacheKey(source)).first<{games_json:string}>();
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/lib/gspay-usdt.ts b/lib/gspay-usdt.ts
+--- a/lib/gspay-usdt.ts	1970-01-01 00:00:00.000000000 +0000
++++ b/lib/gspay-usdt.ts	2026-11-09 14:19:46.711577002 +0000
+@@ -62 +62 @@
+-  payoutReady:false,realPayments:false,settlementVerified:false,liveReady:false,capabilities,
++  payoutReady:false,balanceReady:false,realPayments:false,settlementVerified:false,liveReady:false,capabilities,
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/lib/gspay.ts b/lib/gspay.ts
+--- a/lib/gspay.ts	1970-01-01 00:00:00.000000000 +0000
++++ b/lib/gspay.ts	2026-11-09 14:19:46.707617276 +0000
+@@ -433 +433 @@
+- return json({provider,profileId:'gspay_myr',currency:'MYR',enabled,mode:enabled?'production':'disabled',...automaticPaymentStatus(capabilities.deposit),programConfigured,createProgramReady:programConfigured,orderReady:enabled,queryReady:programConfigured,callbacksReady:programConfigured,payoutReady:payout.enabled,realPayments:enabled,realPaymentVerified,settlementVerified,liveReady:enabled&&realPaymentVerified&&settlementVerified,capabilities});
++ return json({provider,profileId:'gspay_myr',currency:'MYR',enabled,mode:enabled?'production':'disabled',...automaticPaymentStatus(capabilities.deposit),programConfigured,createProgramReady:programConfigured,orderReady:enabled,queryReady:programConfigured,callbacksReady:programConfigured,recoveryReady:c.recoveryEnabled==='true'&&programConfigured,payoutReady:payout.enabled,balanceReady:capabilities.balance.enabled,realPayments:enabled,realPaymentVerified,settlementVerified,liveReady:enabled&&realPaymentVerified&&settlementVerified,capabilities});
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/lib/onempay.ts b/lib/onempay.ts
+--- a/lib/onempay.ts	1970-01-01 00:00:00.000000000 +0000
++++ b/lib/onempay.ts	2026-11-09 14:19:46.715599709 +0000
+@@ -166 +166 @@
+-  return json({provider,profileId:'onempay_myr',currency:'MYR',enabled,mode:enabled?'production':'disabled',...automaticPaymentStatus(capabilities.deposit),programReady,orderReady:enabled,queryReady:programReady,callbacksReady:programReady,recoveryReady:c.recoveryEnabled==='true'&&programReady,realPayments:enabled,realPaymentVerified,liveReady:enabled&&realPaymentVerified&&settlementVerified,settlementVerified,capabilities});
++  return json({provider,profileId:'onempay_myr',currency:'MYR',enabled,mode:enabled?'production':'disabled',...automaticPaymentStatus(capabilities.deposit),programReady,orderReady:enabled,queryReady:programReady,callbacksReady:programReady,recoveryReady:c.recoveryEnabled==='true'&&programReady,payoutReady:capabilities.payout.enabled,balanceReady:capabilities.balance.enabled,realPayments:enabled,realPaymentVerified,liveReady:enabled&&realPaymentVerified&&settlementVerified,settlementVerified,capabilities});
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+--- a/lib/production-acceptance.ts	2026-11-09 13:43:10.007397392 +0000
++++ b/lib/production-acceptance.ts	2026-11-09 14:19:46.699758400 +0000
+@@ -13 +13 @@
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.138-signoff-gates' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.139-profile-status-consistency' as const;
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/lib/vpay.ts b/lib/vpay.ts
+--- a/lib/vpay.ts	1970-01-01 00:00:00.000000000 +0000
++++ b/lib/vpay.ts	2026-11-09 14:19:46.703778232 +0000
+@@ -131 +131 @@
+-    return json({provider:'vpay',profileId:'vpay_myr',currency:'MYR',enabled:availability.orderReady,mode:availability.orderReady?c.mode:'disabled',...automaticPaymentStatus(capabilities.deposit),...availability,realPayments:availability.orderReady&&c.mode==='production',realPaymentVerified,settlementVerified,liveReady:availability.orderReady&&realPaymentVerified&&settlementVerified,capabilities});
++    return json({provider:'vpay',profileId:'vpay_myr',currency:'MYR',enabled:availability.orderReady,mode:availability.orderReady?c.mode:'disabled',...automaticPaymentStatus(capabilities.deposit),...availability,recoveryReady:c.recoveryEnabled==='true'&&availability.queryReady,payoutReady:capabilities.payout.enabled,balanceReady:capabilities.balance.enabled,realPayments:availability.orderReady&&c.mode==='production',realPaymentVerified,settlementVerified,liveReady:availability.orderReady&&realPaymentVerified&&settlementVerified,capabilities});
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/package.json b/package.json
+--- a/package.json	2026-11-09 13:33:44.761594737 +0000
++++ b/package.json	2026-11-09 14:19:46.719532410 +0000
+@@ -23,2 +23,2 @@
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.138-signoff-gates node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.138-signoff-gates node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.139-profile-status-consistency node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.139-profile-status-consistency node scripts/postgres-readiness-gate.mjs",
+@@ -30 +30 @@
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.138-signoff-gates node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.139-profile-status-consistency node scripts/probe-official-entries.mjs",
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/public/service-worker.js b/public/service-worker.js
+--- a/public/service-worker.js	2026-11-09 13:33:43.285559612 +0000
++++ b/public/service-worker.js	2026-11-09 14:19:46.723259109 +0000
+@@ -1 +1 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.138-signoff-gates';
++const CACHE='master7-shell-17.0.0-selfbuilt.139-profile-status-consistency';
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/api.test.mjs b/tests/api.test.mjs
+--- a/tests/api.test.mjs	1970-01-01 00:00:00.000000000 +0000
++++ b/tests/api.test.mjs	2026-11-09 14:25:22.642139394 +0000
+@@ -36 +36 @@
+-  const calls=[];const gameGatewayFetch=async(url,options)=>{calls.push({url:String(url),method:options.method,redirect:options.redirect});const path=new URL(url).pathname;if(path.endsWith('/megah5/games'))return new Response(JSON.stringify({provider:'megah5',result:{Status:200,Game:[{GameCode:'55021',GameName:'Ocean Quest',GameType:'2',ImageUrl:'https://gth.megah5.com/thumbs/web/55021.png',apiKey:'must-not-leak'}]}}),{headers:{'content-type':'application/json'}});if(path.endsWith('/jili/games'))return new Response(JSON.stringify({games:[{gameCode:'1',name:'Royal Fishing',nameZh:'钱龙捕鱼',category:'5',jackpot:true,secret:'must-not-leak'}]}),{headers:{'content-type':'application/json'}});if(path.endsWith('/evo888h5/games'))return Response.json({result:{code:0,data:[{gameid:'2340',title:'Lord Guan Yu',thumbnail:'https://backendapi.evo888h5.com/slots/cover-img/cover_fixture.png'}]}});if(path.endsWith('/918kissh5/games'))return new Response(JSON.stringify({games:[{gameCode:'265022',name:'Supreme Zeus',category:'1',imageUrl:'https://gth.kissh5.com/thumbs/web/265022.png'}]}),{headers:{'content-type':'application/json'}});if(path.endsWith('/epicwin/games'))return Response.json({games:[{gameCode:'EXTRA-1',name:'Excluded extra source',category:'1'}]});return Response.json({games:[]});};
++  const calls=[];const gameGatewayFetch=async(url,options)=>{calls.push({url:String(url),method:options.method,redirect:options.redirect});const parsed=new URL(url),path=parsed.pathname;if(path.endsWith('/megah5/games'))return new Response(JSON.stringify({provider:'megah5',result:{Status:200,Game:[{GameCode:'55021',GameName:'Ocean Quest',GameType:'2',ImageUrl:'https://gth.megah5.com/thumbs/web/55021.png',apiKey:'must-not-leak'}]}}),{headers:{'content-type':'application/json'}});if(path.endsWith('/jili/games'))return new Response(JSON.stringify({games:[{gameCode:'1',name:'Royal Fishing',nameZh:'钱龙捕鱼',category:'5',jackpot:true,secret:'must-not-leak'}]}),{headers:{'content-type':'application/json'}});if(path.endsWith('/evo888h5/games'))return Response.json({result:{code:0,data:[{gameid:'2340',title:'Lord Guan Yu',thumbnail:'https://backendapi.evo888h5.com/slots/cover-img/cover_fixture.png'}]}});if(path.endsWith('/918kissh5/games'))return new Response(JSON.stringify({provider:'918kissh5',account:parsed.searchParams.get('account'),currency:'MYR',games:[{gameCode:'265022',name:'Supreme Zeus',category:'1',imageUrl:'https://gth.kissh5.com/thumbs/web/265022.png'}]}),{headers:{'content-type':'application/json'}});if(path.endsWith('/epicwin/games'))return Response.json({games:[{gameCode:'EXTRA-1',name:'Excluded extra source',category:'1'}]});return Response.json({games:[]});};
+@@ -259 +259 @@
+-  const status=await call(null,'/api/payments/vpay/status');assert.equal(status.status,200);assert.equal(status.data.enabled,false);assert.equal(status.data.tradeCodes.length,0);assert.equal(status.data.realPayments,false);assert.equal(status.data.capabilities.deposit.enabled,false);assert.equal(status.data.capabilities.payout.submissionEnabled,false);assert.equal(status.data.capabilities.balance.implemented,false);
++  const status=await call(null,'/api/payments/vpay/status');assert.equal(status.status,200);assert.equal(status.data.enabled,false);assert.equal(status.data.tradeCodes.length,0);assert.equal(status.data.realPayments,false);assert.equal(status.data.recoveryReady,false);assert.equal(status.data.payoutReady,false);assert.equal(status.data.balanceReady,false);assert.equal(status.data.capabilities.deposit.enabled,false);assert.equal(status.data.capabilities.payout.submissionEnabled,false);assert.equal(status.data.capabilities.balance.implemented,false);
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/game-catalogue.test.mjs b/tests/game-catalogue.test.mjs
+--- a/tests/game-catalogue.test.mjs	1970-01-01 00:00:00.000000000 +0000
++++ b/tests/game-catalogue.test.mjs	2026-11-09 14:25:22.642254197 +0000
+@@ -23,0 +24 @@
++  if(provider==='918kissh5')return Response.json({provider,account:u.searchParams.get('account'),currency:u.searchParams.get('account')==='my1'?'MY1':'MYR',games:rows});
+@@ -81,0 +83,39 @@
++});
++
++test('918KISS normal, MY1 and free profiles use fixed accounts and independent catalogue snapshots',async t=>{
++ const {sql,c}=fixture(t),requests=[];
++ const definitions=[
++  ['918kiss_normal_myr','normal','MYR',92],
++  ['918kiss_normal_my1_1to100','my1','MY1',92],
++  ['918kiss_free_myr','free','MYR',88],
++ ];
++ const isolated={...c,gameGatewayFetch:async(url,init)=>{
++  const parsed=new URL(url),account=parsed.searchParams.get('account'),entry=definitions.find(([,name])=>name===account);
++  assert.equal(parsed.origin,c.gameGatewayUrl);assert.equal(parsed.pathname,'/providers/918kissh5/games');assert.equal(init.method,'GET');assert.ok(entry);
++  requests.push(parsed.pathname+parsed.search);
++  const [,name,currency,count]=entry;
++  return Response.json({provider:'918kissh5',account:name,currency,games:Array.from({length:count},(_,index)=>({gameCode:`${name}-${index+1}`,name:`${name} title ${index+1}`,category:'SLOT',imageUrl:index===0?'https://gth.kissh5.com/thumbs/profile-cover.png':null}))});
++ }};
++ for(const [profileId,account,currency,count] of definitions){
++  const data=await getGameCatalogue(isolated,{providerId:'918kissh5',profileId});
++  assert.equal(data.providers.length,1);assert.equal(data.providers[0].catalogueProfileId,profileId);assert.equal(data.providers[0].catalogueAccount,account);assert.equal(data.providers[0].providerCurrency,currency);assert.equal(data.providers[0].count,count);
++  assert.equal(data.games.length,count);assert.ok(data.games.every(game=>game.profileId===profileId&&game.catalogueAccount===account&&game.providerCurrency===currency&&game.playable===false));
++  assert.ok(data.games.every(game=>game.gameCode.startsWith(account+'-')));assert.equal(data.games[0].imageUrl,`/api/game-art?provider=918kissh5&profileId=${encodeURIComponent(profileId)}&gameCode=${account}-1`);
++ }
++ assert.deepEqual(requests,definitions.map(([,account])=>`/providers/918kissh5/games?account=${account}`));
++ assert.deepEqual(sql.prepare("SELECT provider_id FROM game_catalogue_cache WHERE provider_id LIKE '918kiss_%' ORDER BY provider_id").all().map(row=>row.provider_id),definitions.map(([profileId])=>profileId).sort());
++ const noNetwork={...isolated,gameGatewayFetch:async()=>{throw Error('fresh profile snapshots must not contact the gateway');}};
++ for(const [profileId,account,,count] of definitions){const data=await getGameCatalogue(noNetwork,{providerId:'918kissh5',profileId});assert.equal(data.games.length,count);assert.ok(data.games.every(game=>game.profileId===profileId&&game.gameCode.startsWith(account+'-')));}
++});
++
++test('918KISS profile metadata mismatch cannot overwrite or borrow another profile catalogue',async t=>{
++ const {sql,c,state}=fixture(t),freeProfile='918kiss_free_myr';
++ const freeGames=Array.from({length:88},(_,index)=>({gameCode:`free-${index+1}`,name:`Free ${index+1}`}));
++ const good={...c,gameGatewayFetch:async()=>Response.json({provider:'918kissh5',account:'free',currency:'MYR',games:freeGames})};
++ let data=await getGameCatalogue(good,{providerId:'918kissh5',profileId:freeProfile});assert.equal(data.games.length,88);
++ const stored=sql.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').get(freeProfile).games_json;
++ state.time+=301;
++ const mismatched={...c,gameGatewayFetch:async()=>Response.json({provider:'918kissh5',account:'normal',currency:'MYR',games:[{gameCode:'normal-only',name:'Normal only'}]})};
++ data=await getGameCatalogue(mismatched,{providerId:'918kissh5',profileId:freeProfile});
++ assert.equal(data.providers[0].status,'blocked');assert.equal(data.providers[0].stale,true);assert.equal(data.games.length,88);assert.ok(data.games.every(game=>game.profileId===freeProfile&&game.catalogueAccount==='free'&&game.gameCode.startsWith('free-')&&game.maintenance===true));
++ assert.equal(sql.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').get(freeProfile).games_json,stored);assert.ok(!JSON.stringify(data).includes('normal-only'));
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/game-launch.test.mjs b/tests/game-launch.test.mjs
+--- a/tests/game-launch.test.mjs	1970-01-01 00:00:00.000000000 +0000
++++ b/tests/game-launch.test.mjs	2026-11-09 14:25:22.642400578 +0000
+@@ -36 +36 @@
+- const calls=[],capabilityCalls=[];
++ const calls=[],capabilityCalls=[],catalogueCalls=[];
+@@ -39 +39 @@
+-  const path=new URL(url).pathname;
++  const parsed=new URL(url),path=parsed.pathname;
+@@ -40,0 +41,6 @@
++  if(path==='/providers/918kissh5/games'){
++   const account=parsed.searchParams.get('account'),currency=account==='my1'?'MY1':'MYR',count=account==='free'?88:92;
++   if(!['normal','my1','free'].includes(account))throw Error('Unexpected 918KISS account: '+account);
++   catalogueCalls.push({path,account,currency});
++   return Response.json({provider:'918kissh5',account,currency,games:Array.from({length:count},(_,index)=>({gameCode:`${account}-${index+1}`,name:`${account} title ${index+1}`,category:'SLOT'}))});
++  }
+@@ -55 +61 @@
+- return {sqlite,db,calls,capabilityCalls,fixture,context,request,launch,prepareWallet,close:()=>sqlite.close()};
++ return {sqlite,db,calls,capabilityCalls,catalogueCalls,fixture,context,request,launch,prepareWallet,close:()=>sqlite.close()};
+@@ -80,0 +87,20 @@
++ }finally{h.close();}
++});
++
++test('918KISS profile selection returns only its independent normal, MY1 or free catalogue',async()=>{
++ const h=harness();try{
++  const cases=[
++   ['918kiss_normal_myr','normal','MYR',92],
++   ['918kiss_normal_my1_1to100','my1','MY1',92],
++   ['918kiss_free_myr','free','MYR',88],
++  ];
++  for(const [profileId,account,currency,count] of cases){
++   const response=await h.request(`/api/games?profileId=${encodeURIComponent(profileId)}`);assert.equal(response.status,200);
++   assert.equal(response.data.selectedProvider,'918kissh5');assert.equal(response.data.selectedProfileId,profileId);assert.equal(response.data.selectedProfile.profileId,profileId);
++   assert.equal(response.data.selectedPlatform.catalogueProfileId,profileId);assert.equal(response.data.selectedPlatform.catalogueAccount,account);assert.equal(response.data.selectedPlatform.providerCurrency,currency);
++   assert.equal(response.data.totalGameCount,count);assert.equal(response.data.games.length,count);assert.ok(response.data.games.every(game=>game.profileId===profileId&&game.catalogueAccount===account&&game.providerCurrency===currency&&game.gameCode.startsWith(account+'-')));
++   assert.ok(response.data.games.every(game=>game.playable===false));assert.equal(response.data.liveReady,false);assert.equal(response.data.launchProvider,null);
++  }
++  assert.deepEqual(h.catalogueCalls.map(call=>[call.account,call.currency]),[['normal','MYR'],['my1','MY1'],['free','MYR']]);
++  assert.equal(h.calls.length,0);assert.deepEqual(h.sqlite.prepare("SELECT provider_id FROM game_catalogue_cache WHERE provider_id LIKE '918kiss_%' ORDER BY provider_id").all().map(row=>row.provider_id),cases.map(([profileId])=>profileId).sort());
++  assert.equal(h.sqlite.prepare("SELECT COUNT(*) count FROM game_catalogue_cache WHERE provider_id='918kissh5'").get().count,0,'profile reads must not borrow the provider-level normal cache');
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/gspay-portal.test.mjs b/tests/gspay-portal.test.mjs
+--- a/tests/gspay-portal.test.mjs	1970-01-01 00:00:00.000000000 +0000
++++ b/tests/gspay-portal.test.mjs	2026-11-09 14:19:46.734326874 +0000
+@@ -181 +181 @@
+- const f=fixture(t);let status=await f.call('/api/payments/gspay/status',{who:null});assert.equal(status.status,200);assert.equal(status.data.enabled,true);assert.equal(status.data.orderReady,true);assert.equal(status.data.settlementVerified,false);assert.equal(f.state.fetchCalls,0);assert.ok(!JSON.stringify(status.data).includes(authKey));assert.ok(!JSON.stringify(status.data).includes(secretKey));
++ const f=fixture(t);let status=await f.call('/api/payments/gspay/status',{who:null});assert.equal(status.status,200);assert.equal(status.data.enabled,true);assert.equal(status.data.orderReady,true);assert.equal(status.data.recoveryReady,false);assert.equal(status.data.payoutReady,false);assert.equal(status.data.balanceReady,false);assert.equal(status.data.settlementVerified,false);assert.equal(f.state.fetchCalls,0);assert.ok(!JSON.stringify(status.data).includes(authKey));assert.ok(!JSON.stringify(status.data).includes(secretKey));
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/gspay-usdt-profile.test.mjs b/tests/gspay-usdt-profile.test.mjs
+--- a/tests/gspay-usdt-profile.test.mjs	1970-01-01 00:00:00.000000000 +0000
++++ b/tests/gspay-usdt-profile.test.mjs	2026-11-09 14:19:46.738107481 +0000
+@@ -21 +21 @@
+- assert.equal(body.contractVerified,true);assert.equal(body.credentialsConfigured,true);assert.equal(body.capabilities.payout.enabled,false);
++ assert.equal(body.contractVerified,true);assert.equal(body.credentialsConfigured,true);assert.equal(body.payoutReady,false);assert.equal(body.balanceReady,false);assert.equal(body.recoveryReady,false);assert.equal(body.capabilities.payout.enabled,false);
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/ios-pwa.test.mjs b/tests/ios-pwa.test.mjs
+--- a/tests/ios-pwa.test.mjs	2026-11-09 13:35:47.800603383 +0000
++++ b/tests/ios-pwa.test.mjs	2026-11-09 14:19:46.749151740 +0000
+@@ -29 +29 @@
+- assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.138-signoff-gates/);
++ assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.139-profile-status-consistency/);
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/luxury-backoffice-ui.test.mjs b/tests/luxury-backoffice-ui.test.mjs
+--- a/tests/luxury-backoffice-ui.test.mjs	2026-11-09 13:35:46.328567572 +0000
++++ b/tests/luxury-backoffice-ui.test.mjs	2026-11-09 14:19:46.752903147 +0000
+@@ -30 +30 @@
+- assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.138-signoff-gates/);
++ assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.139-profile-status-consistency/);
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+--- a/tests/official-entries-probe.test.mjs	2026-11-09 13:33:41.821524979 +0000
++++ b/tests/official-entries-probe.test.mjs	2026-11-09 14:19:46.745287909 +0000
+@@ -5 +5 @@
+-const release='17.0.0-selfbuilt.138-signoff-gates';
++const release='17.0.0-selfbuilt.139-profile-status-consistency';
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/onempay.test.mjs b/tests/onempay.test.mjs
+--- a/tests/onempay.test.mjs	1970-01-01 00:00:00.000000000 +0000
++++ b/tests/onempay.test.mjs	2026-11-09 14:19:46.741659397 +0000
+@@ -70 +70 @@
+- const status=await f.call('/api/payments/1mpay/status',{who:null});assert.equal(status.data.mode,'production');assert.equal(status.data.enabled,true);assert.equal(status.data.queryReady,true);assert.equal(status.data.settlementVerified,false);assert.equal(status.data.capabilities.deposit.enabled,true);assert.equal(status.data.capabilities.payout.submissionEnabled,false);assert.equal(status.data.capabilities.balance.implemented,false);assert.ok(!JSON.stringify(status).includes(secret));
++ const status=await f.call('/api/payments/1mpay/status',{who:null});assert.equal(status.data.mode,'production');assert.equal(status.data.enabled,true);assert.equal(status.data.queryReady,true);assert.equal(status.data.payoutReady,false);assert.equal(status.data.balanceReady,false);assert.equal(status.data.settlementVerified,false);assert.equal(status.data.capabilities.deposit.enabled,true);assert.equal(status.data.capabilities.payout.submissionEnabled,false);assert.equal(status.data.capabilities.balance.implemented,false);assert.ok(!JSON.stringify(status).includes(secret));
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/vpay-portal.test.mjs b/tests/vpay-portal.test.mjs
+--- a/tests/vpay-portal.test.mjs	1970-01-01 00:00:00.000000000 +0000
++++ b/tests/vpay-portal.test.mjs	2026-11-09 14:19:46.730457499 +0000
+@@ -219 +219 @@
+- assert.equal(status.orderReady,false);assert.equal(status.queryReady,true);assert.equal(status.callbacksReady,true);assert.equal(status.reason,'profile_orders_disabled');assert.equal(status.capabilities.deposit.configured,true);assert.equal(status.capabilities.deposit.enabled,false);assert.equal(status.capabilities.payout.submissionEnabled,false);assert.equal(status.capabilities.balance.implemented,false);assert.equal(status.availabilityMode,'automatic');assert.equal(status.readOnly,true);assert.equal(f.state.queries,0);assert.equal(f.state.configReads,1);
++ assert.equal(status.orderReady,false);assert.equal(status.queryReady,true);assert.equal(status.callbacksReady,true);assert.equal(status.recoveryReady,false);assert.equal(status.payoutReady,false);assert.equal(status.balanceReady,false);assert.equal(status.reason,'profile_orders_disabled');assert.equal(status.capabilities.deposit.configured,true);assert.equal(status.capabilities.deposit.enabled,false);assert.equal(status.capabilities.payout.submissionEnabled,false);assert.equal(status.capabilities.balance.implemented,false);assert.equal(status.availabilityMode,'automatic');assert.equal(status.readOnly,true);assert.equal(f.state.queries,0);assert.equal(f.state.configReads,1);

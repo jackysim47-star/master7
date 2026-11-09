@@ -1,0 +1,75 @@
+{
+  "release": "17.0.0-selfbuilt.139-profile-status-consistency",
+  "baselineRelease": "17.0.0-selfbuilt.138-signoff-gates",
+  "files": 643,
+  "changed": [
+    "app/portal.html",
+    "docs/MASTER7_V17_139_PROFILE_STATUS_CONSISTENCY.md",
+    "lib/backend.ts",
+    "lib/game-catalogue.ts",
+    "lib/gspay-usdt.ts",
+    "lib/gspay.ts",
+    "lib/onempay.ts",
+    "lib/production-acceptance.ts",
+    "lib/vpay.ts",
+    "package.json",
+    "public/service-worker.js",
+    "tests/api.test.mjs",
+    "tests/game-catalogue.test.mjs",
+    "tests/game-launch.test.mjs",
+    "tests/gspay-portal.test.mjs",
+    "tests/gspay-usdt-profile.test.mjs",
+    "tests/ios-pwa.test.mjs",
+    "tests/luxury-backoffice-ui.test.mjs",
+    "tests/official-entries-probe.test.mjs",
+    "tests/onempay.test.mjs",
+    "tests/vpay-portal.test.mjs"
+  ],
+  "archiveSha256": "7f5bda11f277d00a3e46ff5a11b9d7fe559059e3e727b2d8c769b35eb5341965",
+  "patchSha256": "a6ff47c50d2144493585c463afe3ef6bd3e9201aa7cdffc4b7fcc58b91196ebf",
+  "manifestSha256": "ee8e6e3e7b52ea6c63c1446e8a22c34d36f09eb82501d26e2a361a3aa503cfe4",
+  "reproducible": true,
+  "patchReplayMatched": true,
+  "archiveReplayMatched": true,
+  "securityScan": {
+    "privateKeyHeaders": 0,
+    "sensitiveFiles": 0,
+    "knownCloudTokenPrefixes": 0,
+    "credentialBearingUrlsProduction": 0,
+    "credentialBearingTestFixtures": 5,
+    "archiveExcludedPathViolations": 0
+  },
+  "validation": {
+    "combinedFocusedTests": 266,
+    "gameProfileTests": 93,
+    "maintenanceTests": 12,
+    "releaseProbes": 27,
+    "regressionTests": 1227,
+    "renderDatabaseTests": 3,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "isolatedRollbackRehearsal": true,
+    "realMoneyAcceptance": false,
+    "realProviderAcceptance": false
+  },
+  "profileStatusConsistency": {
+    "paymentProfilesWithExplicitCapabilityBooleans": 4,
+    "kissCatalogueProfilesIsolated": 3,
+    "kissCatalogueCounts": {
+      "normalMyr": 92,
+      "normalMy1": 92,
+      "freeMyr": 88
+    },
+    "gameLaunchActivated": false,
+    "gameWalletActivated": false
+  },
+  "activation": {
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPayments": false,
+    "liveGames": false,
+    "productionReady": false
+  }
+}
