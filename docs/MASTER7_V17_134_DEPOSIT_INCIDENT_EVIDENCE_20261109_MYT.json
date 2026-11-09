@@ -1,0 +1,217 @@
+{
+  "scope": "read_only_production_database_snapshot",
+  "release": "17.0.0-selfbuilt.134-scheduler-leader",
+  "snapshotCapturedAt": "2026-11-09T19:15:25.204+08:00",
+  "snapshotReadConsistency": "transaction_snapshot",
+  "snapshotSha256": "53729ce52b714be6dd682d02ae32f37c7ff88d527d10b104f3f2693901343cef",
+  "currency": "MYR",
+  "totals": {
+    "orders": 12,
+    "amountMinor": 23000,
+    "walletLedgerRows": 0,
+    "walletPostingIntentRows": 0,
+    "manualDepositRows": 0,
+    "manualBankTransactionRows": 0
+  },
+  "statusSummary": {
+    "unknown": {
+      "orders": 8,
+      "amountMinor": 15000
+    },
+    "review": {
+      "orders": 3,
+      "amountMinor": 6000
+    },
+    "failed": {
+      "orders": 1,
+      "amountMinor": 2000
+    },
+    "credited": {
+      "orders": 0,
+      "amountMinor": 0
+    }
+  },
+  "providerSummary": {
+    "vpay": {
+      "orders": 8,
+      "amountMinor": 16000,
+      "unknown": 7,
+      "failed": 1,
+      "review": 0,
+      "credited": 0
+    },
+    "1mpay": {
+      "orders": 4,
+      "amountMinor": 7000,
+      "unknown": 1,
+      "failed": 0,
+      "review": 3,
+      "credited": 0
+    },
+    "gspay": {
+      "orders": 0,
+      "amountMinor": 0
+    },
+    "manual_bank": {
+      "orders": 0,
+      "amountMinor": 0
+    }
+  },
+  "orders": [
+    {
+      "orderId": "d7a2f854-5e27-475f-978a-d87780ad7af9",
+      "provider": "1mpay",
+      "amountMinor": 2000,
+      "status": "review",
+      "providerReferencePresent": false,
+      "walletLedgerRows": 0,
+      "createdAt": "2026-11-05T20:49:42+08:00",
+      "lastEvidence": "provider_reference_missing"
+    },
+    {
+      "orderId": "d9878494-6ccd-41c3-8eec-0562cbe931e3",
+      "provider": "vpay",
+      "amountMinor": 2000,
+      "status": "unknown",
+      "providerReferencePresent": false,
+      "walletLedgerRows": 0,
+      "createdAt": "2026-11-05T20:53:36+08:00",
+      "lastEvidence": "recovery_recorded_no_terminal_result"
+    },
+    {
+      "orderId": "ec93b54e-ddbf-4720-877a-7f27101a6d3b",
+      "provider": "vpay",
+      "amountMinor": 2000,
+      "status": "unknown",
+      "providerReferencePresent": false,
+      "walletLedgerRows": 0,
+      "createdAt": "2026-11-05T20:53:41+08:00",
+      "lastEvidence": "recovery_recorded_no_terminal_result"
+    },
+    {
+      "orderId": "088a0837-bcb0-4beb-a17b-26af03d7b07f",
+      "provider": "vpay",
+      "amountMinor": 2000,
+      "status": "unknown",
+      "providerReferencePresent": false,
+      "walletLedgerRows": 0,
+      "createdAt": "2026-11-05T20:53:53+08:00",
+      "lastEvidence": "recovery_recorded_no_terminal_result"
+    },
+    {
+      "orderId": "09dba113-abe4-4484-9786-c2adf052f2c2",
+      "provider": "1mpay",
+      "amountMinor": 2000,
+      "status": "review",
+      "providerReferencePresent": false,
+      "walletLedgerRows": 0,
+      "createdAt": "2026-11-05T21:02:05+08:00",
+      "lastEvidence": "provider_reference_missing"
+    },
+    {
+      "orderId": "c1db3a41-0043-47f6-834d-afb0bf270049",
+      "provider": "vpay",
+      "amountMinor": 2000,
+      "status": "unknown",
+      "providerReferencePresent": false,
+      "walletLedgerRows": 0,
+      "createdAt": "2026-11-05T21:12:32+08:00",
+      "lastEvidence": "recovery_recorded_no_terminal_result"
+    },
+    {
+      "orderId": "fb8492c3-b4d7-4bb2-afb1-e44556f37134",
+      "provider": "vpay",
+      "amountMinor": 2000,
+      "status": "unknown",
+      "providerReferencePresent": false,
+      "walletLedgerRows": 0,
+      "createdAt": "2026-11-05T21:42:43+08:00",
+      "lastEvidence": "provider_order_rejected_code_minus_1"
+    },
+    {
+      "orderId": "e9503bed-2e7c-402d-9419-e573fe4c25ca",
+      "provider": "1mpay",
+      "amountMinor": 2000,
+      "status": "review",
+      "providerReferencePresent": false,
+      "walletLedgerRows": 0,
+      "createdAt": "2026-11-05T21:42:44+08:00",
+      "lastEvidence": "provider_order_rejected_code_minus_1_and_reference_missing"
+    },
+    {
+      "orderId": "abfc9030-7d21-4450-bc0e-2dd6895b8c1e",
+      "provider": "vpay",
+      "amountMinor": 2000,
+      "status": "unknown",
+      "providerReferencePresent": false,
+      "walletLedgerRows": 0,
+      "createdAt": "2026-11-06T22:35:29+08:00",
+      "lastEvidence": "provider_order_rejected_code_minus_1"
+    },
+    {
+      "orderId": "56e46070-86b0-4ada-9f74-91d8de8912f9",
+      "provider": "vpay",
+      "amountMinor": 2000,
+      "status": "unknown",
+      "providerReferencePresent": false,
+      "walletLedgerRows": 0,
+      "createdAt": "2026-11-06T22:35:39+08:00",
+      "lastEvidence": "provider_order_rejected_code_minus_1"
+    },
+    {
+      "orderId": "2ede966a-80e0-4ea2-a591-fc3385dfdc0d",
+      "provider": "vpay",
+      "amountMinor": 2000,
+      "status": "failed",
+      "providerReferencePresent": false,
+      "walletLedgerRows": 0,
+      "createdAt": "2026-11-07T00:39:16+08:00",
+      "lastEvidence": "provider_order_rejected_code_minus_1"
+    },
+    {
+      "orderId": "M7b72277825cb44e19be",
+      "provider": "1mpay",
+      "amountMinor": 1000,
+      "status": "unknown",
+      "providerReferencePresent": true,
+      "walletLedgerRows": 0,
+      "createdAt": "2026-11-07T12:50:15+08:00",
+      "lastEvidence": "bound_provider_query_returned_fail_at_2026-11-09T13:28:25+08:00"
+    }
+  ],
+  "recoveryEvidence": {
+    "vpay": {
+      "ordersWithLeases": 7,
+      "attemptRange": [432, 435],
+      "lastCheckedAt": "2026-11-09T19:12:52+08:00",
+      "interpretation": "lease attempts prove scheduled recovery claims only; they do not prove payment, callback, or provider settlement"
+    },
+    "1mpay": {
+      "ordersMovedToReview": 3,
+      "reviewedAt": "2026-11-09T13:59:47+08:00",
+      "reason": "provider_reference_missing"
+    }
+  },
+  "failureNodeSummary": {
+    "providerOrderOrPaymentNotSuccessful": {
+      "orders": 6,
+      "amountMinor": 11000,
+      "basis": "five recorded provider order rejections plus one bound 1MPay query reporting Fail"
+    },
+    "notDeterminableFromPreservedEvidence": {
+      "orders": 6,
+      "amountMinor": 12000,
+      "possibleNodes": ["provider_order_or_payment", "callback", "wallet_credit"]
+    },
+    "walletCreditedFrontendStale": {
+      "orders": 0,
+      "amountMinor": 0
+    }
+  },
+  "limitations": [
+    "No bank debit receipt or provider merchant settlement statement was present in the database snapshot.",
+    "No wallet ledger entry exists for any of the twelve orders.",
+    "Absence of a preserved callback event does not prove that a provider never attempted delivery.",
+    "No real payment, callback replay, wallet posting, or provider mutation was performed during this investigation."
+  ]
+}

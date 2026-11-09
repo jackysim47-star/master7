@@ -4,7 +4,9 @@
 
 **Commit:** `5f98ee8aa10b3115ac5c8d4af5ddca58eb185f24`
 
-**Render deploy:** `dep-dboql095efls73enad90` — Live
+**Deployed repository commit:** `0f2e3372433e05bb87b0f43b132f5ccfbdffb3bd`
+
+**Render deploy:** `dep-dboqpk7f3r2c73c1pj1g` — Live
 
 ## Completed
 
@@ -16,7 +18,8 @@
 - The release passed maintenance 12/12, release checks 27/27, regression 1,206/1,206, database adapter 3/3, and scheduler leadership 5/5. TypeScript, lint, Render build, deterministic archive, and patch replay passed.
 - Render is live on one 2c/4g Singapore instance with autoscaling disabled. The leader is active and steady database connections are six.
 - The `.134` encrypted production backup contains 69 tables and 407 records. SQLite and isolated PostgreSQL 18 restores passed with complete coverage, zero foreign-key violations, and no persistent restore writes.
-- `/health` reports `database=ready`, `backupReady=true`, and `restoreReady=true`. Twelve liveness checks and 48 online maintenance-safety checks passed.
+- The isolated V17.134 → V17.133 → V17.134 rollback rehearsal passed. Both production builds succeeded and all 74-table/134-row fingerprints remained identical.
+- `/health` reports `database=ready`, `backupReady=true`, and `restoreReady=true`. Twelve liveness checks and the final 49-check online maintenance-safety probe passed.
 
 ## Correctly closed
 
@@ -38,7 +41,7 @@ These controls preserve existing query, callback, settlement-recovery, and walle
 3. Manual Bank requires a real company bank configuration and statement reconciliation.
 4. GSPAY USDT has no complete versioned transaction contract. 1MPay payout lacks payout query, callback, recovery, finality, idempotency, reconciliation, and fixed encryption vectors. Both remain unavailable.
 5. No game profile has completed provider-side launch, wallet, session closure, settlement, recovery, and reconciliation acceptance. Rectangle is closest but has unresolved host/path, staging, MYR precision, and session-closure evidence. RSGHub lacks a verified lobby-brand mapping.
-6. A controlled application rollback rehearsal and final owner/operations sign-off remain outstanding.
+6. Release/schema rollback compatibility passed in isolated PostgreSQL. A Render control-plane rollback remains unavailable through the current connector because it cannot select an older deploy; final owner/operations sign-off also remains outstanding.
 
 ## Decision
 

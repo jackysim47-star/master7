@@ -1,0 +1,79 @@
+{
+  "checkedAt": "2026-11-09T11:33:12Z",
+  "scope": "isolated_application_release_rollback",
+  "productionServiceMutated": false,
+  "productionDatabaseMutated": false,
+  "result": "passed",
+  "releases": {
+    "rollbackFrom": {
+      "release": "17.0.0-selfbuilt.134-scheduler-leader",
+      "gitCommit": "5f98ee8aa10b3115ac5c8d4af5ddca58eb185f24",
+      "archiveSha256": "702b4f495373b906341f39bb17caffcdbd60b2a7e906a58e31fd27245676777f"
+    },
+    "rollbackTo": {
+      "release": "17.0.0-selfbuilt.133-operations-hardening",
+      "gitCommit": "59b853593af94a8e8ef57ecacd6d0a7da919cd56",
+      "archiveSha256": "f6572ba792f73230ac6a08876e1975bc2b8cced6224c1b329362ee6a5e80d625"
+    }
+  },
+  "compatibility": {
+    "renderSchemaSha256": "56c35a4efcd4f9bed867841e3b459716e3eccf19afcdf87af9e695411b4c831f",
+    "schemaIdentical": true,
+    "pnpmLockSha256": "6a276f81aab504274390bfd485a4b514abfb6b508cb5a4d64d38c864d1f8fc2d",
+    "dependencyLockIdentical": true,
+    "bothProductionBuildsPassed": true
+  },
+  "environment": {
+    "database": "PostgreSQL 18 on Docker tmpfs",
+    "persistentStorage": false,
+    "providerCredentialsPresent": false,
+    "providerNetworkTransactions": false,
+    "realMoneyTransactions": false
+  },
+  "phases": [
+    {
+      "phase": "v134_initial",
+      "release": "17.0.0-selfbuilt.134-scheduler-leader",
+      "liveness": "ok",
+      "database": "ready",
+      "providerPositions": 37,
+      "playableProviders": 0,
+      "allTransactionFlagsClosed": true
+    },
+    {
+      "phase": "v133_rollback",
+      "release": "17.0.0-selfbuilt.133-operations-hardening",
+      "liveness": "ok",
+      "database": "ready",
+      "providerPositions": 37,
+      "playableProviders": 0,
+      "allTransactionFlagsClosed": true
+    },
+    {
+      "phase": "v134_restored",
+      "release": "17.0.0-selfbuilt.134-scheduler-leader",
+      "liveness": "ok",
+      "database": "ready",
+      "providerPositions": 37,
+      "playableProviders": 0,
+      "allTransactionFlagsClosed": true,
+      "schedulerLeaderLocks": 1
+    }
+  ],
+  "dataIntegrity": {
+    "tableCount": 74,
+    "totalRows": 134,
+    "normalizedFingerprintSha256": "f27f54e2129a66bb2d0eabbccf721e53b4d9b6bf0896c2e3334d32fc334306a6",
+    "unchangedAfterRollback": true,
+    "unchangedAfterRestore": true
+  },
+  "cleanup": {
+    "isolatedContainerRemoved": true,
+    "productionRenderRelease": "17.0.0-selfbuilt.134-scheduler-leader",
+    "productionRenderDeploy": "dep-dboqpk7f3r2c73c1pj1g",
+    "productionRenderStatus": "live",
+    "productionInstances": 1,
+    "productionAutoscalingEnabled": false
+  },
+  "limitation": "This proves release and schema rollback compatibility without risking the production database. A Render control-plane rollback was intentionally not performed because the available connector cannot select an earlier deploy and branch rewriting would create unnecessary production risk."
+}

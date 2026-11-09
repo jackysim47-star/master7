@@ -1,10 +1,11 @@
 {
-  "checkedAt": "2026-11-09T11:17:30Z",
+  "checkedAt": "2026-11-09T11:34:00Z",
   "release": "17.0.0-selfbuilt.134-scheduler-leader",
   "gitCommit": "5f98ee8aa10b3115ac5c8d4af5ddca58eb185f24",
-  "renderDeploy": "dep-dboql095efls73enad90",
+  "deployedRepositoryCommit": "0f2e3372433e05bb87b0f43b132f5ccfbdffb3bd",
+  "renderDeploy": "dep-dboqpk7f3r2c73c1pj1g",
   "deployStatus": "live",
-  "finishedAt": "2026-11-09T11:13:41.747543Z",
+  "finishedAt": "2026-11-09T11:23:33.150374Z",
   "runtime": {
     "plan": "2c-4g",
     "instances": 1,
@@ -20,7 +21,7 @@
     "regressionTests": 1206,
     "databaseAdapterTests": 3,
     "schedulerLeaderTests": 5,
-    "onlineMaintenanceSafetyChecks": 48,
+    "onlineMaintenanceSafetyChecks": 49,
     "consecutiveLivenessChecks": 12,
     "http5xxObserved": 0,
     "typecheck": true,
