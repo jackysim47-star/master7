@@ -1,0 +1,57 @@
+{
+  "release": "17.0.0-selfbuilt.138-signoff-gates",
+  "baselineRelease": "17.0.0-selfbuilt.137-backup-lock-fix",
+  "files": 642,
+  "changed": [
+    "app/portal.html",
+    "docs/MASTER7_V17_138_SIGNOFF_GATES.md",
+    "lib/backend.ts",
+    "lib/production-acceptance.ts",
+    "package.json",
+    "public/service-worker.js",
+    "tests/ios-pwa.test.mjs",
+    "tests/luxury-backoffice-ui.test.mjs",
+    "tests/official-entries-probe.test.mjs",
+    "tests/production-acceptance.test.mjs"
+  ],
+  "archiveSha256": "6e55339a4be4ca8200a4c928169886fdda1c24f63249b5adef27aa775f2796cf",
+  "patchSha256": "7e29747c93452886c3c0778e952f361cf983026b5daffdbeb4c415f22725dd52",
+  "manifestSha256": "12469d3950c9171873dcec7b48f7c5d7597287b6c31c8c0a217eeb7203168791",
+  "reproducible": true,
+  "patchReplayMatched": true,
+  "archiveReplayMatched": true,
+  "securityScan": {
+    "privateKeyHeaders": 0,
+    "sensitiveFiles": 0,
+    "knownCloudTokenPrefixes": 0,
+    "credentialBearingUrlsProduction": 0,
+    "credentialBearingTestFixtures": 5
+  },
+  "validation": {
+    "focusedSignoffTests": 4,
+    "maintenanceTests": 12,
+    "releaseProbes": 27,
+    "regressionTests": 1224,
+    "renderDatabaseTests": 3,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "isolatedRollbackRehearsal": true,
+    "realMoneyAcceptance": false,
+    "realProviderAcceptance": false
+  },
+  "signoffGates": {
+    "monitoringEvidenceRequired": true,
+    "versionBoundRollbackEvidenceRequired": true,
+    "ownerApprovalRequired": true,
+    "operationsApprovalRequired": true
+  },
+  "activation": {
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPayments": false,
+    "liveGames": false,
+    "productionReady": false
+  }
+}

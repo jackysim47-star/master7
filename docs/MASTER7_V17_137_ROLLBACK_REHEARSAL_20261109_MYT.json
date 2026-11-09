@@ -1,0 +1,70 @@
+{
+  "checkedAt": "2026-11-09T13:28:30Z",
+  "scope": "isolated_v137_v136_v137_application_rollback",
+  "productionServiceMutated": false,
+  "productionDatabaseMutated": false,
+  "result": "passed",
+  "releases": {
+    "rollbackFrom": {
+      "release": "17.0.0-selfbuilt.137-backup-lock-fix",
+      "gitCommit": "564f0dd71836784d9654276b6b881c21de88bdfd",
+      "archiveSha256": "02d1f14fd091b6df3a57d4cc74ad29033f6baa5cf37234c0a05f2ea7d9e6368f"
+    },
+    "rollbackTo": {
+      "release": "17.0.0-selfbuilt.136-backup-automation",
+      "gitCommit": "053aa3c",
+      "archiveSha256": "008d806a2b7bb393010e2d14d368829f50fdd9cbd80523352ffdf56a2453d7c2"
+    }
+  },
+  "compatibility": {
+    "renderSchemaSha256": "56c35a4f8c3460e91c57b1918fa5718009d2e3874a73c58b25f8004f65315085",
+    "schemaIdentical": true,
+    "pnpmLockSha256": "6a276f81aab504274390bfd485a4b514abfb6b508cb5a4d64d38c864d1f8fc2d",
+    "dependencyLockIdentical": true,
+    "v136ProductionBuildPassed": true,
+    "v137ProductionBuildPreviouslyPassed": true
+  },
+  "environment": {
+    "database": "PostgreSQL 18 Alpine on Docker tmpfs",
+    "persistentStorage": false,
+    "providerCredentialsPresent": false,
+    "providerNetworkTransactions": false,
+    "realMoneyTransactions": false
+  },
+  "phases": [
+    {
+      "phase": "v137_initial",
+      "database": "ready",
+      "providerPositions": 37,
+      "requiredProfiles": 41,
+      "playableProviders": 0,
+      "allTransactionFlagsClosed": true
+    },
+    {
+      "phase": "v136_rollback",
+      "database": "ready",
+      "providerPositions": 37,
+      "playableProviders": 0,
+      "allTransactionFlagsClosed": true
+    },
+    {
+      "phase": "v137_restored",
+      "database": "ready",
+      "providerPositions": 37,
+      "playableProviders": 0,
+      "allTransactionFlagsClosed": true
+    }
+  ],
+  "dataIntegrity": {
+    "tableCount": 76,
+    "totalRows": 135,
+    "normalizedFingerprintSha256": "1d95615258eecb30efc9769a91a59b65260f20fee974ed5cf72e7295b464c100",
+    "unchangedAfterRollback": true,
+    "unchangedAfterRestore": true
+  },
+  "cleanup": {
+    "isolatedContainerRemoved": true,
+    "temporaryDatabaseCredentialRemoved": true
+  },
+  "limitation": "This proves current-release application and schema rollback compatibility without changing Render or production data. It does not constitute owner sign-off or a Render control-plane rollback."
+}

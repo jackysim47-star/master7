@@ -1,0 +1,80 @@
+{
+  "checkedAt": "2026-11-09T13:49:41Z",
+  "scope": "isolated_v138_v137_v138_application_rollback",
+  "productionServiceMutated": false,
+  "productionDatabaseMutated": false,
+  "result": "passed",
+  "releases": {
+    "rollbackFrom": {
+      "release": "17.0.0-selfbuilt.138-signoff-gates",
+      "archiveSha256": "6e55339a4be4ca8200a4c928169886fdda1c24f63249b5adef27aa775f2796cf",
+      "releaseBoundRollbackSubject": "rollback_rehearsal_17.0.0-selfbuilt.138-signoff-gates"
+    },
+    "rollbackTo": {
+      "release": "17.0.0-selfbuilt.137-backup-lock-fix",
+      "gitCommit": "564f0dd71836784d9654276b6b881c21de88bdfd",
+      "archiveSha256": "02d1f14fd091b6df3a57d4cc74ad29033f6baa5cf37234c0a05f2ea7d9e6368f"
+    }
+  },
+  "compatibility": {
+    "renderSchemaSha256": "56c35a4f8c3460e91c57b1918fa5718009d2e3874a73c58b25f8004f65315085",
+    "schemaIdentical": true,
+    "pnpmLockSha256": "6a276f81aab504274390bfd485a4b514abfb6b508cb5a4d64d38c864d1f8fc2d",
+    "dependencyLockIdentical": true,
+    "v138ProductionBuildPassed": true,
+    "v137ProductionBuildPreviouslyPassed": true,
+    "releaseBoundRollbackGatePresent": true
+  },
+  "environment": {
+    "database": "PostgreSQL 18 Alpine on Docker tmpfs",
+    "persistentStorage": false,
+    "providerCredentialsPresent": false,
+    "providerNetworkTransactions": false,
+    "realMoneyTransactions": false
+  },
+  "phases": [
+    {
+      "phase": "v138_initial",
+      "release": "17.0.0-selfbuilt.138-signoff-gates",
+      "database": "ready",
+      "providerPositions": 37,
+      "requiredProfiles": 41,
+      "playableProviders": 0,
+      "productionReady": false,
+      "allTransactionFlagsClosed": true
+    },
+    {
+      "phase": "v137_rollback",
+      "release": "17.0.0-selfbuilt.137-backup-lock-fix",
+      "database": "ready",
+      "providerPositions": 37,
+      "requiredProfiles": 41,
+      "playableProviders": 0,
+      "productionReady": false,
+      "allTransactionFlagsClosed": true
+    },
+    {
+      "phase": "v138_restored",
+      "release": "17.0.0-selfbuilt.138-signoff-gates",
+      "database": "ready",
+      "providerPositions": 37,
+      "requiredProfiles": 41,
+      "playableProviders": 0,
+      "productionReady": false,
+      "allTransactionFlagsClosed": true
+    }
+  ],
+  "dataIntegrity": {
+    "tableCount": 76,
+    "totalRows": 135,
+    "normalizedFingerprintSha256": "f32caa58aee317bda078995a21d54ea9ae0a917fea57baf295b3f59bd7dd1e1f",
+    "unchangedAfterRollback": true,
+    "unchangedAfterRestore": true
+  },
+  "cleanup": {
+    "isolatedContainerRemoved": true,
+    "temporaryDatabaseCredentialRemoved": true,
+    "productionCredentialsUsed": false
+  },
+  "limitation": "This proves candidate-release application and schema rollback compatibility without changing Render or production data. It does not constitute owner sign-off or a Render control-plane rollback."
+}

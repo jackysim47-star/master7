@@ -1,0 +1,142 @@
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/app/portal.html b/app/portal.html
+--- a/app/portal.html	1970-01-01 00:00:00.000000000 +0000
++++ b/app/portal.html	2026-11-09 13:33:47.021649494 +0000
+@@ -18,25 +18,25 @@
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.137-backup-lock-fix">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.137-backup-lock-fix" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.138-signoff-gates">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.138-signoff-gates">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.138-signoff-gates">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.138-signoff-gates">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.138-signoff-gates">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.138-signoff-gates">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.138-signoff-gates">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.138-signoff-gates">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.138-signoff-gates">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.138-signoff-gates">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.138-signoff-gates">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.138-signoff-gates">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.138-signoff-gates" defer></script>
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/docs/MASTER7_V17_138_SIGNOFF_GATES.md b/docs/MASTER7_V17_138_SIGNOFF_GATES.md
+--- a/docs/MASTER7_V17_138_SIGNOFF_GATES.md	1970-01-01 00:00:00.000000000 +0000
++++ b/docs/MASTER7_V17_138_SIGNOFF_GATES.md	2026-11-09 13:43:12.967470044 +0000
+@@ -0,0 +1,23 @@
++# MASTER7 V17.138 sign-off gates
++
++Release `17.0.0-selfbuilt.138-signoff-gates` closes a production-readiness
++gap in the immutable acceptance workflow.
++
++Final production acceptance now requires independent, passed evidence for:
++
++- production monitoring acceptance;
++- a rollback rehearsal whose acceptance subject is bound to the exact release
++  being signed off;
++- owner approval; and
++- operations approval.
++
++The new monitoring and rollback requirements appear as canonical sign-off
++blockers until an owner records evidence through the existing acceptance
++console. A rollback record from any earlier release, catalogue presence,
++configuration, a deployment, or a general owner approval cannot satisfy the
++new requirements.
++
++This release does not modify DNS, provider credentials, payment records,
++wallet balances, game sessions, databases, or Render capacity. It does not
++enable deposits, game launches, payouts, real payments, live games, or
++`productionReady`.
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/lib/backend.ts b/lib/backend.ts
+--- a/lib/backend.ts	1970-01-01 00:00:00.000000000 +0000
++++ b/lib/backend.ts	2026-11-09 13:33:40.341489946 +0000
+@@ -40 +40 @@
+-export const RELEASE = '17.0.0-selfbuilt.137-backup-lock-fix';
++export const RELEASE = '17.0.0-selfbuilt.138-signoff-gates';
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+--- a/lib/production-acceptance.ts	1970-01-01 00:00:00.000000000 +0000
++++ b/lib/production-acceptance.ts	2026-11-09 13:43:10.007397392 +0000
+@@ -12,0 +13,2 @@
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.138-signoff-gates' as const;
++
+@@ -24,0 +27,2 @@
++ {category:'signoff',subjectId:'monitoring',capabilities:['approved']},
++ {category:'signoff',subjectId:PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT,capabilities:['approved']},
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/package.json b/package.json
+--- a/package.json	1970-01-01 00:00:00.000000000 +0000
++++ b/package.json	2026-11-09 13:33:44.761594737 +0000
+@@ -23,2 +23,2 @@
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.137-backup-lock-fix node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.137-backup-lock-fix node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.138-signoff-gates node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.138-signoff-gates node scripts/postgres-readiness-gate.mjs",
+@@ -30 +30 @@
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.137-backup-lock-fix node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.138-signoff-gates node scripts/probe-official-entries.mjs",
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/public/service-worker.js b/public/service-worker.js
+--- a/public/service-worker.js	1970-01-01 00:00:00.000000000 +0000
++++ b/public/service-worker.js	2026-11-09 13:33:43.285559612 +0000
+@@ -1 +1 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.137-backup-lock-fix';
++const CACHE='master7-shell-17.0.0-selfbuilt.138-signoff-gates';
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/ios-pwa.test.mjs b/tests/ios-pwa.test.mjs
+--- a/tests/ios-pwa.test.mjs	1970-01-01 00:00:00.000000000 +0000
++++ b/tests/ios-pwa.test.mjs	2026-11-09 13:35:47.800603383 +0000
+@@ -29 +29 @@
+- assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.137-backup-lock-fix/);
++ assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.138-signoff-gates/);
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/luxury-backoffice-ui.test.mjs b/tests/luxury-backoffice-ui.test.mjs
+--- a/tests/luxury-backoffice-ui.test.mjs	1970-01-01 00:00:00.000000000 +0000
++++ b/tests/luxury-backoffice-ui.test.mjs	2026-11-09 13:35:46.328567572 +0000
+@@ -30 +30 @@
+- assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.137-backup-lock-fix/);
++ assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.138-signoff-gates/);
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+--- a/tests/official-entries-probe.test.mjs	1970-01-01 00:00:00.000000000 +0000
++++ b/tests/official-entries-probe.test.mjs	2026-11-09 13:33:41.821524979 +0000
+@@ -5 +5 @@
+-const release='17.0.0-selfbuilt.137-backup-lock-fix';
++const release='17.0.0-selfbuilt.138-signoff-gates';
+diff -rN -U 0 '--exclude=node_modules' '--exclude=.output' '--exclude=.next' '--exclude=dist' a/tests/production-acceptance.test.mjs b/tests/production-acceptance.test.mjs
+--- a/tests/production-acceptance.test.mjs	1970-01-01 00:00:00.000000000 +0000
++++ b/tests/production-acceptance.test.mjs	2026-11-09 13:43:54.284494070 +0000
+@@ -5 +5 @@
+-import {PRODUCTION_ACCEPTANCE_REQUIREMENTS,ProductionAcceptanceError,getProductionAcceptance,getProductionAcceptanceReadiness,recordProductionAcceptance} from '../lib/production-acceptance.ts';
++import {PRODUCTION_ACCEPTANCE_REQUIREMENTS,PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT,ProductionAcceptanceError,getProductionAcceptance,getProductionAcceptanceReadiness,recordProductionAcceptance} from '../lib/production-acceptance.ts';
+@@ -12 +12,3 @@
+-test('production acceptance is fail-closed and readable by staff',async t=>{const f=fixture(t),readiness=await getProductionAcceptanceReadiness(f.db),report=await getProductionAcceptance(f.db,staff);assert.equal(readiness.externalAcceptanceReady,false);assert.equal(readiness.domainReady,false);assert.equal(readiness.paymentReady,false);assert.equal(readiness.paymentProfiles.gspay_usdt,false);assert.equal(report.requirements.length,PRODUCTION_ACCEPTANCE_REQUIREMENTS.length);assert.ok(readiness.blockers.includes('domain:www.master7.best:dns_tls_routing'));assert.ok(readiness.blockers.includes('payment:gspay_usdt:order'));});
++test('production acceptance is fail-closed and readable by staff',async t=>{const f=fixture(t),readiness=await getProductionAcceptanceReadiness(f.db),report=await getProductionAcceptance(f.db,staff);assert.equal(readiness.externalAcceptanceReady,false);assert.equal(readiness.domainReady,false);assert.equal(readiness.paymentReady,false);assert.equal(readiness.paymentProfiles.gspay_usdt,false);assert.equal(report.requirements.length,PRODUCTION_ACCEPTANCE_REQUIREMENTS.length);assert.ok(readiness.blockers.includes('domain:www.master7.best:dns_tls_routing'));assert.ok(readiness.blockers.includes('payment:gspay_usdt:order'));assert.ok(readiness.blockers.includes('signoff:monitoring:approved'));assert.ok(readiness.blockers.includes(`signoff:${PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT}:approved`));});
++
++test('rollback evidence is bound to this release and legacy evidence stays blocked',async t=>{const f=fixture(t);await recordProductionAcceptance(f.db,owner,evidence({category:'signoff',subjectId:'rollback_rehearsal',capability:'approved',evidenceSha256:'d'.repeat(64),evidenceReference:'rollback:legacy',observedAt:150}),150);const readiness=await getProductionAcceptanceReadiness(f.db),report=await getProductionAcceptance(f.db,staff);assert.ok(readiness.blockers.includes(`signoff:${PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT}:approved`));assert.equal(report.requirements.find(item=>item.category==='signoff'&&item.subjectId===PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT)?.capabilities.approved.passed,false);assert.equal(report.events.some(item=>item.subject_id==='rollback_rehearsal'&&item.result==='passed'),true);});
