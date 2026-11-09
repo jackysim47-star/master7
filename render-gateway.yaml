@@ -3,8 +3,10 @@ services:
     name: master7-integration-gateway
     runtime: node
     region: singapore
+    plan: 1c-2g
     repo: https://github.com/jackysim47-star/master7
     branch: codex/master7-integration-gateway-20261106
     buildCommand: cd master7-gateway && npm test
     startCommand: node master7-gateway/server.js
+    healthCheckPath: /health
     autoDeployTrigger: commit

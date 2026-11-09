@@ -184,9 +184,9 @@ not change the live state of any transaction channel.
   stable and do not echo upstream URLs or error text.
 
 This release does not enable production payment switches, create players, grant
-bonuses, change the Render plan, or complete supplier QA. Existing Render settings
-still need `/health` configured as the HTTP health check and a non-sleeping plan
-for continuous operation; changing this README does not apply those settings.
+bonuses, or complete supplier QA. `render-gateway.yaml` pins the paid `1c-2g`
+plan and configures `/health` as the HTTP health check. Confirm that Render has
+applied those settings before allowing production traffic.
 
 `npm test` verifies transport failures, signed callback forwarding and retry,
 payment validation, credentials, origin boundaries, and all prior provider tests
@@ -260,8 +260,8 @@ configure Cloudflare crawler access, activate games, or make payments live.
 Server callbacks continue to require their existing signature validation.
 
 `/health` reports the release version and effective browser origins without
-secrets. Render currently has no HTTP health-check path configured; `/health`
-is the recommended path when that setting can be updated through the dashboard.
+secrets. `render-gateway.yaml` configures it as the HTTP health-check path;
+confirm that Render has applied the Blueprint setting before production traffic.
 
 # Wallet query scope
 
