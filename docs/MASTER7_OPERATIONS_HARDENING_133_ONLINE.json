@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-11-09T10:49:00Z",
+  "release": "17.0.0-selfbuilt.133-operations-hardening",
+  "gitCommit": "59b853593af94a8e8ef57ecacd6d0a7da919cd56",
+  "renderDeploy": "dep-dboq7hpsrm7s73cpakig",
+  "deployStatus": "live",
+  "finishedAt": "2026-11-09T10:45:02.5841Z",
+  "runtime": {
+    "plan": "2c-4g",
+    "instances": 1,
+    "autoscalingEnabled": false,
+    "healthCheckPath": "/health/live",
+    "database": "ready",
+    "postgresConnectionsAfterHandover": 5
+  },
+  "validation": {
+    "consecutiveLivenessRequests": 12,
+    "livenessPassed": 12,
+    "onlineMaintenanceSafetyChecksPassed": 49,
+    "onlineMaintenanceSafetyChecksFailed": 0,
+    "errorLogsObserved": 0,
+    "http5xxObserved": 0,
+    "sqlstate53300Observed": 0,
+    "securityHeadersVerified": true
+  },
+  "readiness": {
+    "productionReady": false,
+    "backupReady": false,
+    "restoreReady": false,
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPayments": false,
+    "liveGames": false,
+    "blockers": [
+      "deposit_provider_not_ready",
+      "payout_provider_not_ready",
+      "payment_settlement_not_verified",
+      "game_launch_or_settlement_not_ready",
+      "encrypted_backup_not_ready",
+      "restore_rehearsal_not_verified"
+    ]
+  },
+  "domains": {
+    "www.master7.best": "dns_unresolved",
+    "www.master7.site": "url_forwarding_not_direct_render_cname"
+  },
+  "realMoneyAcceptance": false,
+  "realProviderAcceptance": false,
+  "commercialGoLiveApproved": false
+}
