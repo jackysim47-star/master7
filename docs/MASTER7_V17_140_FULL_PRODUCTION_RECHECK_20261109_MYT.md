@@ -55,6 +55,18 @@ Global state:
 Credentials previously shared in chat must be rotated in the merchant portals
 and stored only as Render secrets before production acceptance.
 
+### Connector verification
+
+- VPay, GSPAY MYR and 1MPay order, signature, query, callback, once-only
+  wallet credit, balanced ledger, recovery, concurrent replay and maintenance
+  protection tests passed: **289 / 289**.
+- The gateway reports VPay payment/withdrawal configuration ready, but
+  `productionQa=not_verified` and `liveReady=false`.
+- The gateway reports GSPAY MYR order/query/callback routes ready, with the
+  remaining blocker `supplier_uat_not_verified`.
+- Code readiness does not replace an authorized minimum-value real order. No
+  production order was submitted during this recheck.
+
 ## Games
 
 | Metric | Value |
@@ -75,6 +87,34 @@ settlement or recovery.
 - 918KISS H5 Normal 1:1: 92; 1:100: 92; Free MYR: 88; adapters not implemented.
 - MegaH5 and JDB are the two code-implemented profiles, but both remain disabled
   and unverified.
+
+### Adapter verification
+
+- **JILI and 918KISS H5** expose catalogues only. Their player, launch,
+  wallet, close-session, recovery and wager contracts are absent, so an
+  adapter cannot be implemented without inventing supplier behavior.
+- **MegaH5** already exposes launch, balance, deposit, withdrawal and transfer
+  query routes. The supplier contract does not expose a provider-backed
+  close/offline/finality operation. V17 correctly refuses to settle an issued
+  session without that evidence.
+- **JDB** has the complete V17 transfer-wallet adapter and durable state
+  machine. Targeted adapter, wallet and API tests passed **57 / 57**. Restricted
+  QA remains blocked on provider confirmation of the exact host, IP allowlist,
+  AES padding, reporting timezone and Action 17/52 closure behavior. The last
+  online supplier response was a rejection, so the profile remains closed.
+- Online catalogue probes also prove that a configured credential is not the
+  same as acceptance: MegaH5, JILI and all three 918KISS profile catalogues
+  returned HTTP 200, while EPICWIN and CLOTPLAY returned upstream 403,
+  EVO888H5 reported an IP-whitelist rejection, VENUS omitted the required
+  response signature, JDB returned provider rejection 9001, and PRAGMATIC
+  returned upstream HTTP 435.
+
+### Truthful customer and staff UI
+
+The member and staff interfaces were rechecked. Unverified payment channels do
+not expose order submission, unconfigured manual-bank and payout forms remain
+disabled, and game catalogue cards do not expose launch or wallet actions.
+There is no false green/live state in the current UI.
 
 ## Completion order
 
