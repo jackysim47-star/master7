@@ -1,0 +1,71 @@
+{
+  "release": "17.0.0-selfbuilt.133-operations-hardening",
+  "files": 628,
+  "changed": [
+    "app/portal.html",
+    "app/route.ts",
+    "docs/MASTER7_OPERATIONS_HARDENING_133.md",
+    "drizzle/0117_flexible_public_contacts.sql",
+    "lib/backend.ts",
+    "lib/encrypted-backup.ts",
+    "lib/http-security.ts",
+    "lib/operations-intelligence.ts",
+    "lib/postgres-pool-config.mjs",
+    "lib/render-d1.ts",
+    "lib/render-migrations.mjs",
+    "package.json",
+    "public/assets/app.js",
+    "public/assets/style.css",
+    "public/service-worker.js",
+    "scripts/postgres-readiness-gate.mjs",
+    "scripts/production-readiness-probe.mjs",
+    "scripts/start-render.mjs",
+    "tests/api.test.mjs",
+    "tests/backup-restore-rehearsal.test.mjs",
+    "tests/ios-pwa.test.mjs",
+    "tests/luxury-backoffice-ui.test.mjs",
+    "tests/official-entries-probe.test.mjs",
+    "tests/operations-intelligence.test.mjs",
+    "tests/postgres-readiness-gate.test.mjs",
+    "tests/production-readiness-probe.test.mjs",
+    "tests/runtime-hardening.test.mjs",
+    "vite.render.config.ts"
+  ],
+  "archiveSha256": "f6572ba792f73230ac6a08876e1975bc2b8cced6224c1b329362ee6a5e80d625",
+  "patchSha256": "36ad945530bbb5f4a72d67fdb307511e099b8df575635c9e9b904a4bc73c273c",
+  "manifestSha256": "f50eaec0b522e7fcd64c98aa5525a288594d9bcbac323e8457591243f3008223",
+  "reproducible": true,
+  "patchReplayMatched": true,
+  "archiveReplayMatched": true,
+  "generatedFilesExcluded": [
+    "node_modules",
+    ".output",
+    "dist",
+    ".next",
+    "next-env.d.ts"
+  ],
+  "productionCredentialsAbsent": true,
+  "validation": {
+    "maintenanceTests": 12,
+    "releaseProbes": 25,
+    "regressionTests": 1199,
+    "renderDatabaseTests": 3,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "realMoneyAcceptance": false,
+    "realProviderAcceptance": false,
+    "productionGoLiveApproved": false
+  },
+  "runtime": {
+    "renderInstances": 1,
+    "autoscalingEnabled": false,
+    "plan": "2c-4g",
+    "postgresPoolMaxPerInstance": 5
+  },
+  "activation": {
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false
+  }
+}

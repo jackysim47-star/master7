@@ -1,0 +1,1036 @@
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,30 +15,30 @@
+   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.132-game-transfer">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.132-game-transfer">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.132-game-transfer">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.132-game-transfer">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.132-game-transfer">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.132-game-transfer">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.132-game-transfer">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.132-game-transfer">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.132-game-transfer">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.132-game-transfer">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.132-game-transfer">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.132-game-transfer">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.132-game-transfer" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.132-game-transfer" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.132-game-transfer" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.132-game-transfer" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.132-game-transfer" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.132-game-transfer" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.132-game-transfer" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.132-game-transfer" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.132-game-transfer" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.132-game-transfer" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.132-game-transfer" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.132-game-transfer" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.133-operations-hardening">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.133-operations-hardening">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.133-operations-hardening">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.133-operations-hardening">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.133-operations-hardening">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.133-operations-hardening">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.133-operations-hardening">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.133-operations-hardening">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.133-operations-hardening">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.133-operations-hardening">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.133-operations-hardening">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.133-operations-hardening">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.133-operations-hardening" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
+@@ -755,23 +755,18 @@
+           <div class="wallet-records-heading admin-feature-cover-head"><div><p class="eyebrow">CONTACT &amp; ADVERTISING · ADMIN</p><h2 id="socialPanelTitle" data-social-key="adminTitle">联系方式与广告 Pixel</h2><p class="muted" data-social-key="adminHint">集中设置顾客可见的 Hotline、聊天入口、社交主页和 Meta Pixel。</p></div><span id="contactPublishStatus" class="status pending admin-cover-state">OFF</span></div>
+           <form id="socialForm" class="stack contact-admin-form" hidden>
+             <section class="contact-settings-block" aria-labelledby="contactSettingsTitle"><div class="bank-view-heading"><div><h3 id="contactSettingsTitle">前台联系方式</h3><p class="muted">只有已填写并开启的项目才会出现在顾客前台。</p></div><span class="admin-cover-kicker">PUBLIC CONTACT</span></div>
+-              <div class="contact-form-grid">
+-                <label for="hotlineContact">Hotline<input id="hotlineContact" type="tel" autocomplete="off" maxlength="32" placeholder="+60 11 6633 6686"></label>
+-                <label for="whatsappContact">WhatsApp<input id="whatsappContact" type="tel" autocomplete="off" maxlength="24" placeholder="601166336686"></label>
+-                <label for="wechatContact">WeChat ID<input id="wechatContact" autocomplete="off" maxlength="64" placeholder="MASTER7"></label>
+-                <label for="lineContact">LINE 官方链接<input id="lineContact" type="url" autocomplete="off" maxlength="300" placeholder="https://line.me/ti/p/..."></label>
+-                <label for="telegramContact">Telegram 链接／用户名<input id="telegramContact" autocomplete="off" maxlength="300" placeholder="@master7support"></label>
+-                <label for="facebookLink">Facebook 公司主页<input id="facebookLink" type="url" autocomplete="off" maxlength="300" placeholder="https://www.facebook.com/your-company-page"></label>
+-                <label for="instagramLink">Instagram 公司账号<input id="instagramLink" type="url" autocomplete="off" maxlength="300" placeholder="https://www.instagram.com/your-company"></label>
+-              </div>
++              <div id="contactRows" class="contact-config-list" aria-live="polite"></div>
++              <button id="addContact" class="button button-outline contact-add-button" type="button" data-social-key="addContact">新增联系方式</button>
+               <label class="social-toggle contact-master-toggle"><input id="socialEnabled" type="checkbox"><span data-social-key="publishToggle">在前台展示已确认的联系方式</span></label>
+             </section>
+-            <section class="contact-settings-block pixel-settings-block" aria-labelledby="pixelSettingsTitle"><div class="bank-view-heading"><div><h3 id="pixelSettingsTitle">广告 Pixel</h3><p class="muted">填写 Meta Pixel ID 后仍须单独开启；默认关闭，不会自动建立或发布广告。</p></div><span id="pixelStatus" class="admin-cover-kicker">DISABLED</span></div>
+-              <div class="pixel-setting-row"><label for="metaPixelId">Meta Pixel ID<input id="metaPixelId" inputmode="numeric" autocomplete="off" maxlength="32" placeholder="123456789012345"></label><label class="social-toggle"><input id="metaPixelEnabled" type="checkbox"><span>允许前台载入此 Pixel</span></label></div>
++            <section class="contact-settings-block pixel-settings-block" aria-labelledby="pixelSettingsTitle"><div class="bank-view-heading"><div><h3 id="pixelSettingsTitle">广告 Pixel</h3><p class="muted" data-social-key="pixelHint">仅支持 Meta Pixel ID 与 Google G-/AW- ID；不接受脚本或自定义事件。</p></div><span id="pixelStatus" class="admin-cover-kicker">DISABLED</span></div>
++              <div id="pixelRows" class="contact-config-list" aria-live="polite"></div>
++              <button id="addPixel" class="button button-outline contact-add-button" type="button" data-social-key="addPixel">新增广告 Pixel</button>
+             </section>
+-            <div class="contact-save-row"><button type="submit" class="button button-primary" data-social-key="saveLinks">保存联系方式与 Pixel</button><span id="socialFormStatus" class="muted" role="status"></span></div>
++            <div class="contact-save-row"><button type="submit" class="button button-primary" data-social-key="saveLinks">保存联系方式与 Pixel</button><span id="socialRevision" class="admin-cover-kicker">REV 0</span><span id="socialFormStatus" class="muted" role="status"></span></div>
+           </form>
+-          <p class="muted" id="socialReadOnly" hidden></p>
++          <div class="muted contact-readonly" id="socialReadOnly" hidden></div>
++          <div id="socialHistory" class="contact-history" aria-label="Contact configuration history"></div>
+           <div class="social-admin-actions"><a href="https://business.facebook.com/latest/home" target="_blank" rel="noopener noreferrer" data-social-key="metaSuite">Meta Business Suite</a><a href="https://business.facebook.com/adsmanager/" target="_blank" rel="noopener noreferrer" data-social-key="metaAds">Meta Ads Manager</a></div>
+           <details class="commission-guide contact-guide"><summary>功能说明 · Setup guide</summary><p data-social-key="noAutoAds">这里保存联系方式和 Pixel 设置；广告素材、受众、预算及发布仍在官方广告平台完成。系统不会自行花费广告费。</p></details>
+         </section>
+--- a/app/route.ts
++++ b/app/route.ts
+@@ -2,6 +2,7 @@
+ import { env } from 'cloudflare:workers';
+ import { readLocalSession } from '../lib/password-auth';
+ import { portalHostRedirect } from '../lib/portal-host-routing';
++import { RENDER_SECURITY_HEADERS } from '../lib/http-security';
+ 
+ export const dynamic='force-dynamic';
+ 
+@@ -17,7 +18,7 @@
+  const page=admin?html.replace('<title>MASTER7 · Premium Game Lobby</title>','<title>MASTER7 · Management Console</title>').replace('id="lobby" class="section active"','id="lobby" class="section"').replace('id="admin" class="section"','id="admin" class="section active"'):html;
+  const bodyClasses=[admin?'admin-mode':'',authEntry||admin&&!local?'auth-entry':''].filter(Boolean).join(' ');
+  const body=bodyClasses?page.replace('<body>',`<body class="${bodyClasses}">`):page;
+- return new Response(head?null:body,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','Content-Security-Policy':"default-src 'self'; script-src 'self' https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.facebook.com; media-src 'self'; connect-src 'self' https://www.facebook.com https://connect.facebook.net; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"}});
++ return new Response(head?null:body,{headers:{...RENDER_SECURITY_HEADERS,'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','Content-Security-Policy':"default-src 'self'; script-src 'self' https://connect.facebook.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.facebook.com https://www.google-analytics.com https://www.google.com https://googleads.g.doubleclick.net; media-src 'self'; connect-src 'self' https://www.facebook.com https://connect.facebook.net https://www.google-analytics.com https://region1.google-analytics.com https://www.googleadservices.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"}});
+ }
+ 
+ export function GET(req:Request){return page(req);}
+--- /dev/null
++++ b/docs/MASTER7_OPERATIONS_HARDENING_133.md
+@@ -0,0 +1,37 @@
++# MASTER7 V17 `.133` operations hardening
++
++Release: `17.0.0-selfbuilt.133-operations-hardening`
++
++This release hardens runtime operations and adds flexible public contacts and approved advertising IDs. It does not enable real-money deposits, payouts, or unaccepted game providers.
++
++## Runtime and readiness
++
++- PostgreSQL pools are capped at five connections per web instance. Startup migrations and runtime requests use the same validated pool settings, idle expiry, connection lifetime, and TCP keepalive.
++- Idle PostgreSQL errors are handled without logging database URLs or credentials.
++- HTTP responses include HSTS, MIME-sniffing protection, `SAMEORIGIN`, no-referrer, restricted permissions, and cross-domain policy headers.
++- Production readiness requires a current encrypted backup for this release and a matching successful isolated PostgreSQL restore rehearsal. `/health` exposes the corresponding readiness flags, timestamps, and blockers.
++- Render remains fixed at one 2c/4g instance after the 2026-11-09 PostgreSQL connection exhaustion incident. Autoscaling must remain disabled until the database budget and multi-instance scheduler behavior are load tested.
++
++## Flexible public contacts and tracking
++
++- Owners can add, remove, reorder, enable, and disable typed public contact entries without code changes. Staff can inspect the configuration but cannot change it.
++- Owners can configure validated Meta numeric IDs and Google `G-` or `AW-` IDs. Arbitrary scripts and custom financial or identity events are rejected.
++- Public tracking is limited to approved SDK origins and PageView behavior, with advanced matching and personalization disabled.
++- Changes use revision comparison, immutable history, and audit events. Public responses contain enabled entries only.
++- Admin actions and checkboxes have consistent touch targets and larger readable text in Chinese, English, and Bahasa Melayu.
++
++## Verification
++
++- Maintenance controls: 12/12
++- Release probes: 25/25
++- Regression: 1,199/1,199
++- Render database adapter: 3/3
++- TypeScript, lint, and Render build: passed
++
++These checks validate the program and build. They do not prove a live provider launch, a provider settlement, a real payment callback, a real wallet credit, or merchant settlement.
++
++## Activation state
++
++The release preserves fail-closed controls for new deposits, new game launches, and new payouts. Thirty-seven provider brands remain registered for management, while production acceptance is tracked per profile. A profile must not be shown as live until its provider-issued launch, wallet, settlement, recovery, and reconciliation evidence has passed.
++
++GSPAY USDT and 1MPay payout remain unimplemented pending complete provider contracts. Manual Bank remains closed until a real company account and reconciliation evidence are configured.
+--- /dev/null
++++ b/drizzle/0117_flexible_public_contacts.sql
+@@ -0,0 +1,22 @@
++CREATE TABLE IF NOT EXISTS public_contact_revisions (
++  id TEXT PRIMARY KEY NOT NULL,
++  revision INTEGER NOT NULL UNIQUE CHECK (revision > 0),
++  configuration TEXT NOT NULL,
++  created_by TEXT NOT NULL REFERENCES users(id),
++  created_at INTEGER NOT NULL CHECK (created_at >= 0)
++);
++
++CREATE INDEX IF NOT EXISTS public_contact_revisions_created
++  ON public_contact_revisions(revision DESC, created_at DESC);
++
++CREATE TRIGGER IF NOT EXISTS public_contact_revisions_no_update
++BEFORE UPDATE ON public_contact_revisions
++BEGIN
++  SELECT RAISE(ABORT, 'contact revision history is immutable');
++END;
++
++CREATE TRIGGER IF NOT EXISTS public_contact_revisions_no_delete
++BEFORE DELETE ON public_contact_revisions
++BEGIN
++  SELECT RAISE(ABORT, 'contact revision history is immutable');
++END;
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -35,7 +35,7 @@
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.132-game-transfer';
++export const RELEASE = '17.0.0-selfbuilt.133-operations-hardening';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+@@ -178,6 +178,7 @@
+ function wechatField(v:unknown){if(v==='')return '';const s=textField(v,1,64);if(!/^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$/.test(s))throw new ApiError(400,'WeChat ID 无效');return s;}
+ function telegramField(v:unknown){if(v==='')return '';if(typeof v==='string'&&/^@?[A-Za-z0-9_]{5,32}$/.test(v.trim()))return `https://t.me/${v.trim().replace(/^@/,'')}`;return contactUrlField(v,['t.me','telegram.me','www.telegram.me'],'Telegram');}
+ function metaPixelField(v:unknown){if(v==='')return '';const s=textField(v,6,32);if(!/^\d{6,32}$/.test(s))throw new ApiError(400,'Meta Pixel ID 必须是数字');return s;}
++function googleTagField(v:unknown){if(v==='')return '';const s=textField(v,6,32).toUpperCase();if(!/^(?:G|AW)-[A-Z0-9]{4,20}$/.test(s))throw new ApiError(400,'Google tag ID must start with G- or AW-');return s;}
+ function role(u:User|null,roles=['owner','staff','member']):asserts u is User{if(!u)throw new ApiError(401,'请先登录 / Sign in required');if(!roles.includes(u.role))throw new ApiError(403,'没有访问权限 / Access denied');}
+ const financialEventTypes:FinancialEventType[]=['deposit','manual_bank','withdrawal'];
+ function encodeFinancialEventCursor(value:FinancialEventCursor){return Buffer.from(JSON.stringify([value.createdAt,value.type,value.id])).toString('base64url');}
+@@ -193,13 +194,25 @@
+  for(const row of result.results??[]){let metadata:any=null;try{metadata=JSON.parse(row.target);}catch{}if(!metadata||!freshIso(metadata.createdAt,30*86400))continue;if(!latest||Date.parse(metadata.createdAt)>Date.parse(latest.metadata.createdAt))latest={metadata,created_at:Number(row.created_at)};}
+  return latest;
+ }
++async function productionRecoveryReadiness(db:D1Database){
++ const [backupAudit,rehearsalRow]=await Promise.all([
++  latestEncryptedBackupAudit(db),
++  db.prepare("SELECT value FROM settings WHERE id='backup_restore_rehearsal'").first<{value:string}>()
++ ]);
++ let rehearsal:any=null;try{rehearsal=rehearsalRow?.value?JSON.parse(rehearsalRow.value):null;}catch{}
++ const backupMetadata=backupAudit?.metadata??null;
++ const backupReady=!!backupMetadata&&backupMetadata.format===BACKUP_FORMAT&&backupMetadata.release===RELEASE&&backupMetadata.schemaVersion===BACKUP_SCHEMA_VERSION&&backupMetadata.schemaSha256===BACKUP_SCHEMA_SHA256&&backupMetadata.publicKeySha256===BACKUP_PUBLIC_KEY_SHA256&&backupMetadata.readConsistency==='transaction_snapshot'&&backupMetadata.tableCount===BACKUP_TABLES.length&&Number.isSafeInteger(backupMetadata.totalRecords)&&backupMetadata.totalRecords>=0&&validSha256(backupMetadata.backupSha256)&&validSha256(backupMetadata.plaintextSha256)&&validSha256(backupMetadata.ciphertextSha256)&&freshIso(backupMetadata.createdAt,7*86400)&&Number(backupAudit?.created_at??0)>=now()-7*86400;
++ const restoreCreatedAt=Date.parse(rehearsal?.createdAt??''),restoreVerifiedAt=Date.parse(rehearsal?.verifiedAt??'');
++ const restoreReady=backupReady&&!!rehearsal&&rehearsal.status==='verified'&&rehearsal.format===BACKUP_FORMAT&&rehearsal.release===RELEASE&&rehearsal.schemaVersion===BACKUP_SCHEMA_VERSION&&rehearsal.schemaSha256===BACKUP_SCHEMA_SHA256&&rehearsal.publicKeySha256===BACKUP_PUBLIC_KEY_SHA256&&rehearsal.coverageComplete===true&&Array.isArray(rehearsal.missingTables)&&rehearsal.missingTables.length===0&&rehearsal.readConsistency==='transaction_snapshot'&&rehearsal.persistentWrites===false&&rehearsal.restoreTargetKind==='isolated_postgresql_transaction'&&validSha256(rehearsal.restoreTargetSha256)&&rehearsal.foreignKeyViolations===0&&rehearsal.tableCount===BACKUP_TABLES.length&&rehearsal.totalRecords===backupMetadata.totalRecords&&rehearsal.createdAt===backupMetadata.createdAt&&rehearsal.backupSha256===backupMetadata.backupSha256&&rehearsal.plaintextSha256===backupMetadata.plaintextSha256&&freshIso(rehearsal.createdAt,30*86400)&&freshIso(rehearsal.verifiedAt,30*86400)&&Number.isFinite(restoreCreatedAt)&&Number.isFinite(restoreVerifiedAt)&&restoreVerifiedAt>=restoreCreatedAt;
++ return {backupReady,restoreReady,backupCreatedAt:backupReady?backupMetadata.createdAt:null,restoreVerifiedAt:restoreReady?rehearsal.verifiedAt:null};
++}
+ async function canonicalOperationsReadiness(c:Context){
+- const [payments,runtimeReadyProfileIds]=await Promise.all([paymentFlags(c,await rows(c.db,'SELECT provider_id,status FROM payment_channel_controls')),gameRuntimeReadyProfileIds(c)]),gameAcceptance=await getGameProviderAcceptanceReadiness(c.db,runtimeReadyProfileIds),megaAvailable=runtimeReadyProfileIds.includes('megah5_myr'),settlementVerified=payments.settlementVerified===true;
++ const [payments,runtimeReadyProfileIds,recovery]=await Promise.all([paymentFlags(c,await rows(c.db,'SELECT provider_id,status FROM payment_channel_controls')),gameRuntimeReadyProfileIds(c),productionRecoveryReadiness(c.db)]),gameAcceptance=await getGameProviderAcceptanceReadiness(c.db,runtimeReadyProfileIds),megaAvailable=runtimeReadyProfileIds.includes('megah5_myr'),settlementVerified=payments.settlementVerified===true;
+  // Acceptance evidence is necessary but never sufficient: the aggregate also
+  // requires a registered implemented adapter and current runtime/catalogue
+  // capability for every listed profile.
+  const allGamesVerified=gameAcceptance.allGamesVerified,gamesReady=gameAcceptance.liveGames;
+- return {payments,readiness:{productionReady:payments.realPayments===true&&payments.payoutsEnabled===true&&settlementVerified&&gamesReady,paymentsReady:payments.realPayments===true,payoutsReady:payments.payoutsEnabled===true,settlementVerified,gamesReady,megaAvailable,allGamesVerified,gameAcceptance,whatsappReady:whatsappCampaignStatus(whatsappCampaignSettings(c)).ready===true,supportAiProviderReady:supportAiProviderStatus(supportAiSettings(c)).externalProviderReady===true,expectedCatalogueIds:configuredGameCatalogueSourceIds(c)}};
++ return {payments,readiness:{productionReady:payments.realPayments===true&&payments.payoutsEnabled===true&&settlementVerified&&gamesReady&&recovery.backupReady&&recovery.restoreReady,paymentsReady:payments.realPayments===true,payoutsReady:payments.payoutsEnabled===true,settlementVerified,gamesReady,backupReady:recovery.backupReady,restoreReady:recovery.restoreReady,backupCreatedAt:recovery.backupCreatedAt,restoreVerifiedAt:recovery.restoreVerifiedAt,megaAvailable,allGamesVerified,gameAcceptance,whatsappReady:whatsappCampaignStatus(whatsappCampaignSettings(c)).ready===true,supportAiProviderReady:supportAiProviderStatus(supportAiSettings(c)).externalProviderReady===true,expectedCatalogueIds:configuredGameCatalogueSourceIds(c)}};
+ }
+ 
+ async function gameRuntimeReadyProfileIds(c:Context){
+@@ -218,14 +231,46 @@
+ async function body(req:Request,maxBytes=24000){if(!req.headers.get('content-type')?.startsWith('application/json'))throw new ApiError(415,'JSON required');const reader=req.body?.getReader();if(!reader)throw new ApiError(400,'Body required');const parts:Uint8Array[]=[];let size=0;for(;;){const x=await reader.read();if(x.done)break;size+=x.value.length;if(size>maxBytes){await reader.cancel();throw new ApiError(413,'Request too large');}parts.push(x.value);}const out=new Uint8Array(size);let offset=0;for(const p of parts){out.set(p,offset);offset+=p.length;}let d;try{d=JSON.parse(new TextDecoder().decode(out));}catch{throw new ApiError(400,'Invalid JSON');}if(!d||Array.isArray(d)||typeof d!=='object')throw new ApiError(400,'Object required');return d;}
+ async function rawBody(req:Request,maxBytes=1048576){const reader=req.body?.getReader();if(!reader)throw new ApiError(400,'Body required');const parts:Uint8Array[]=[];let size=0;for(;;){const x=await reader.read();if(x.done)break;size+=x.value.length;if(size>maxBytes){await reader.cancel();throw new ApiError(413,'Request too large');}parts.push(x.value);}const out=new Uint8Array(size);let offset=0;for(const part of parts){out.set(part,offset);offset+=part.length;}return out;}
+ async function limited(db:D1Database,u:User,maxPerMinute=30){const bucket=Math.floor(now()/60),key=u.id+':'+bucket;const r=await db.prepare('INSERT INTO rate_limits(id,count,expires_at) VALUES(?,1,?) ON CONFLICT(id) DO UPDATE SET count=rate_limits.count+1 RETURNING count').bind(key,now()+120).first<{count:number}>();if((r?.count??maxPerMinute+1)>maxPerMinute){await auditStmt(db,u,'write_rate_limited','request').run();throw new ApiError(429,'操作过快，请稍后重试 / Too many requests');}await db.prepare('DELETE FROM rate_limits WHERE expires_at < ?').bind(now()).run();}
+-const socialDefaults={enabled:false,hotline:'',whatsapp:'',wechat:'',lineUrl:'',telegramUrl:'',facebookUrl:'',instagramUrl:'',pixelEnabled:false,metaPixelId:''};
++const socialContactTypes=['hotline','whatsapp','wechat','line','telegram','facebook','instagram'] as const;
++type SocialContactType=(typeof socialContactTypes)[number];
++type SocialContact={id:string;type:SocialContactType;label:string;value:string;enabled:boolean;position:number};
++type SocialPixel={id:string;provider:'meta'|'google';trackingId:string;enabled:boolean;position:number};
++const socialDefaults={enabled:false,revision:0,contacts:[] as SocialContact[],pixels:[] as SocialPixel[],hotline:'',whatsapp:'',wechat:'',lineUrl:'',telegramUrl:'',facebookUrl:'',instagramUrl:'',pixelEnabled:false,metaPixelId:'',googleTagId:''};
++function socialItemId(value:unknown,prefix:string){const id=typeof value==='string'?value.trim():'';if(!new RegExp(`^${prefix}_[A-Za-z0-9_-]{6,48}$`).test(id))throw new ApiError(400,'Invalid configuration item ID');return id;}
++function socialLabel(value:unknown){const label=textField(value,1,40);if(/[\u0000-\u001f\u007f<>]/.test(label))throw new ApiError(400,'Invalid contact label');return label;}
++function socialContactValue(type:SocialContactType,value:unknown){
++ if(type==='hotline')return hotlineField(value);if(type==='whatsapp')return whatsappField(value);if(type==='wechat')return wechatField(value);
++ if(type==='line')return contactUrlField(value,['line.me','www.line.me','lin.ee'],'LINE');if(type==='telegram')return telegramField(value);
++ if(type==='facebook')return urlField(value,'facebook');return urlField(value,'instagram');
++}
++function socialContact(item:any,position:number):SocialContact{if(!item||typeof item!=='object'||!socialContactTypes.includes(item.type))throw new ApiError(400,'Invalid contact type');const type=item.type as SocialContactType;return {id:socialItemId(item.id,'contact'),type,label:socialLabel(item.label),value:socialContactValue(type,item.value),enabled:item.enabled===true,position};}
++function socialPixel(item:any,position:number):SocialPixel{if(!item||typeof item!=='object'||!['meta','google'].includes(item.provider))throw new ApiError(400,'Invalid advertising provider');const provider=item.provider as 'meta'|'google',trackingId=provider==='meta'?metaPixelField(item.trackingId):googleTagField(item.trackingId);return {id:socialItemId(item.id,'pixel'),provider,trackingId,enabled:item.enabled===true,position};}
++function socialCompatibility(value:{contacts:SocialContact[];pixels:SocialPixel[]}){
++ const first=(type:SocialContactType)=>value.contacts.find(item=>item.type===type)?.value??'',meta=value.pixels.find(item=>item.provider==='meta'),google=value.pixels.find(item=>item.provider==='google');
++ return {hotline:first('hotline'),whatsapp:first('whatsapp'),wechat:first('wechat'),lineUrl:first('line'),telegramUrl:first('telegram'),facebookUrl:first('facebook'),instagramUrl:first('instagram'),pixelEnabled:meta?.enabled===true,metaPixelId:meta?.trackingId??'',googleTagId:google?.trackingId??''};
++}
++function legacySocialItems(value:any){
++ const contacts:any[]=[];for(const [type,key,label] of [['hotline','hotline','Hotline'],['whatsapp','whatsapp','WhatsApp'],['wechat','wechat','WeChat'],['line','lineUrl','LINE'],['telegram','telegramUrl','Telegram'],['facebook','facebookUrl','Facebook'],['instagram','instagramUrl','Instagram']] as const)if(value[key])contacts.push({id:`contact_${type}_legacy`,type,label,value:value[key],enabled:true});
++ const pixels:any[]=[];if(value.metaPixelId)pixels.push({id:'pixel_meta_legacy',provider:'meta',trackingId:value.metaPixelId,enabled:value.pixelEnabled===true});return {contacts,pixels};
++}
+ function storedSocial(raw:any){
+- const value=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{};
+- const safe=(reader:()=>string)=>{try{return reader();}catch{return '';}};
+- const metaPixelId=safe(()=>metaPixelField(value.metaPixelId??''));
+- return {...socialDefaults,enabled:value.enabled===true,hotline:safe(()=>hotlineField(value.hotline??'')),whatsapp:safe(()=>whatsappField(value.whatsapp??'')),wechat:safe(()=>wechatField(value.wechat??'')),lineUrl:safe(()=>contactUrlField(value.lineUrl??'',['line.me','www.line.me','lin.ee'],'LINE')),telegramUrl:safe(()=>telegramField(value.telegramUrl??'')),facebookUrl:safe(()=>urlField(value.facebookUrl??'','facebook')),instagramUrl:safe(()=>urlField(value.instagramUrl??'','instagram')),pixelEnabled:value.pixelEnabled===true&&Boolean(metaPixelId),metaPixelId};
++ const value=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{},safe=<T>(reader:()=>T,fallback:T)=>{try{return reader();}catch{return fallback;}},legacy=legacySocialItems(value);
++ const sourceContacts=Array.isArray(value.contacts)?value.contacts:legacy.contacts,sourcePixels=Array.isArray(value.pixels)?value.pixels:legacy.pixels;
++ const contacts=sourceContacts.slice(0,20).map((item:any,index:number)=>safe(()=>socialContact(item,index),null)).filter(Boolean) as SocialContact[];
++ const pixels=sourcePixels.slice(0,10).map((item:any,index:number)=>safe(()=>socialPixel(item,index),null)).filter(Boolean) as SocialPixel[];
++ const revision=Number.isSafeInteger(value.revision)&&value.revision>=0?value.revision:0,normalized={enabled:value.enabled===true,revision,contacts,pixels};return {...socialDefaults,...normalized,...socialCompatibility(normalized)};
++}
++function socialPayload(d:any,current:ReturnType<typeof storedSocial>){
++ if(typeof d.enabled!=='boolean')throw new ApiError(400,'Invalid state');let contacts:any[],pixels:any[];
++ if(Array.isArray(d.contacts)||Array.isArray(d.pixels)){if(!Array.isArray(d.contacts)||!Array.isArray(d.pixels)||d.contacts.length>20||d.pixels.length>10)throw new ApiError(400,'Invalid configuration list');contacts=d.contacts;pixels=d.pixels;}
++ else{const field=(key:string)=>d[key]===undefined?(current as any)[key]:d[key],legacy=legacySocialItems({...current,...d,hotline:field('hotline'),whatsapp:field('whatsapp'),wechat:field('wechat'),lineUrl:field('lineUrl'),telegramUrl:field('telegramUrl'),facebookUrl:field('facebookUrl'),instagramUrl:field('instagramUrl'),metaPixelId:field('metaPixelId'),pixelEnabled:d.pixelEnabled===undefined?current.pixelEnabled:d.pixelEnabled});contacts=legacy.contacts;pixels=legacy.pixels;}
++ const ids=new Set<string>(),normalizedContacts=contacts.map((item,index)=>socialContact(item,index)),normalizedPixels=pixels.map((item,index)=>socialPixel(item,index));
++ for(const item of [...normalizedContacts,...normalizedPixels]){if(ids.has(item.id))throw new ApiError(400,'Duplicate configuration item ID');ids.add(item.id);}
++ if(d.enabled&&!normalizedContacts.some(item=>item.enabled&&item.value))throw new ApiError(400,'至少开启一个前台联系方式');
++ return {enabled:d.enabled,contacts:normalizedContacts,pixels:normalizedPixels};
+ }
+ async function social(db:D1Database){const x=await db.prepare('SELECT value FROM settings WHERE id=?').bind('social').first<{value:string}>();if(!x)return {...socialDefaults};try{return storedSocial(JSON.parse(x.value));}catch{return {...socialDefaults};}}
++async function socialHistory(db:D1Database){const result=await db.prepare('SELECT r.revision,r.configuration,r.created_at,u.username created_by FROM public_contact_revisions r LEFT JOIN users u ON u.id=r.created_by ORDER BY r.revision DESC LIMIT 25').all<any>();return (result.results??[]).map(row=>{let configuration={...socialDefaults};try{configuration=storedSocial(JSON.parse(row.configuration));}catch{}return {revision:Number(row.revision),createdAt:Number(row.created_at),createdBy:row.created_by??'',enabled:configuration.enabled,contactCount:configuration.contacts.length,pixelCount:configuration.pixels.length};});}
+ const commissionDefaults={enabled:false,basis:'deposit',maxLevels:3,claimMode:'manual',tierRatesPercent:[5,2,1],frequency:'weekly_mon',minQualifyingMYR:0,minActiveDownlines:0,dailyCapMYR:500,monthlyCapMYR:10000,lifetimeCapMYR:0,holdDays:1,expireUnclaimedDays:30,minClaimMYR:50,minAccrualMYR:.01,turnoverValue:1,turnoverType:'multiplier',winoverValue:0,winoverType:'multiplier',maxWithdrawFixedMYR:0,maxWithdrawMultiplier:0,gameCategory:'all',eligibleGames:'',startsAt:'',endsAt:''};
+ function finiteSetting(value:unknown,fallback:number,min:number,max:number,integer=false){const parsed=Number(value);return Number.isFinite(parsed)&&parsed>=min&&parsed<=max?(integer?Math.round(parsed):Math.round((parsed+Number.EPSILON)*100)/100):fallback;}
+ function normalizedCommissionSettings(value:any){
+@@ -496,7 +541,7 @@
+ async function route(req:Request,c:Context){
+  const p=new URL(req.url).pathname,db=c.db;
+  if(req.method==='GET'&&p==='/health/live'){await db.prepare('SELECT id FROM users LIMIT 1').all();return json({status:'ok',release:RELEASE,database:'ready',scope:'portal-liveness'});}
+- if(req.method==='GET'&&(p==='/health'||p==='/api/version')){await db.prepare('SELECT id FROM users LIMIT 1').all();const megaWalletCredentialsConfigured=c.gameGatewayUrl==='https://master7-integration-gateway.onrender.com'&&!!c.gameGatewayToken&&!!c.gameGatewayWalletToken&&c.gameGatewayToken!==c.gameGatewayWalletToken&&Buffer.byteLength(c.gameGatewayToken)>=32&&Buffer.byteLength(c.gameGatewayWalletToken)>=32,{payments,readiness}=await canonicalOperationsReadiness(c),megaAcceptance=readiness.gameAcceptance.profiles.find(profile=>profile.profileId==='megah5_myr'),megaLiveReady=megaAcceptance?.effectiveReady===true,smsOtpReady=!!(c.anchorApiBaseUrl&&c.anchorUsername&&c.anchorPassword&&c.anchorSenderId&&c.otpHashSecret&&c.otpHashSecret.length>=32),productionReady=readiness.productionReady,readinessBlockers=[...(!payments.realPayments?['deposit_provider_not_ready']:[]),...(!payments.payoutsEnabled?['payout_provider_not_ready']:[]),...(!payments.settlementVerified?['payment_settlement_not_verified']:[]),...(!readiness.gamesReady?['game_launch_or_settlement_not_ready']:[])];return json({status:'ok',release:RELEASE,sourceRelease:SOURCE_RELEASE,database:'ready',smsOtpReady,mode:'selfbuilt-service-portal',...payments,providerAcceptance:{requiredProfileCount:readiness.gameAcceptance.requiredProfileCount,acceptedProfileCount:readiness.gameAcceptance.acceptedProfileCount,liveProfileCount:readiness.gameAcceptance.liveProfileCount,allAcceptanceEvidencePassed:readiness.gameAcceptance.allAcceptanceEvidencePassed,allGamesVerified:readiness.allGamesVerified},megaWallet:{configured:megaWalletCredentialsConfigured,...automaticAvailability,enabled:megaLiveReady,liveGamesEnabled:megaLiveReady,launchReady:readiness.megaAvailable,launchVerified:megaAcceptance?.capabilities.launch===true,walletVerified:megaAcceptance?.capabilities.wallet===true,settlementVerified:megaAcceptance?.capabilities.settlement===true,recoveryVerified:megaAcceptance?.capabilities.recovery===true,liveReady:megaLiveReady},liveGames:readiness.gamesReady,productionReady,readinessBlockers,scope:'portal-database-health'});}
++ if(req.method==='GET'&&(p==='/health'||p==='/api/version')){await db.prepare('SELECT id FROM users LIMIT 1').all();const megaWalletCredentialsConfigured=c.gameGatewayUrl==='https://master7-integration-gateway.onrender.com'&&!!c.gameGatewayToken&&!!c.gameGatewayWalletToken&&c.gameGatewayToken!==c.gameGatewayWalletToken&&Buffer.byteLength(c.gameGatewayToken)>=32&&Buffer.byteLength(c.gameGatewayWalletToken)>=32,{payments,readiness}=await canonicalOperationsReadiness(c),megaAcceptance=readiness.gameAcceptance.profiles.find(profile=>profile.profileId==='megah5_myr'),megaLiveReady=megaAcceptance?.effectiveReady===true,smsOtpReady=!!(c.anchorApiBaseUrl&&c.anchorUsername&&c.anchorPassword&&c.anchorSenderId&&c.otpHashSecret&&c.otpHashSecret.length>=32),productionReady=readiness.productionReady,readinessBlockers=[...(!payments.realPayments?['deposit_provider_not_ready']:[]),...(!payments.payoutsEnabled?['payout_provider_not_ready']:[]),...(!payments.settlementVerified?['payment_settlement_not_verified']:[]),...(!readiness.gamesReady?['game_launch_or_settlement_not_ready']:[]),...(!readiness.backupReady?['encrypted_backup_not_ready']:[]),...(!readiness.restoreReady?['restore_rehearsal_not_verified']:[])];return json({status:'ok',release:RELEASE,sourceRelease:SOURCE_RELEASE,database:'ready',smsOtpReady,mode:'selfbuilt-service-portal',...payments,providerAcceptance:{requiredProfileCount:readiness.gameAcceptance.requiredProfileCount,acceptedProfileCount:readiness.gameAcceptance.acceptedProfileCount,liveProfileCount:readiness.gameAcceptance.liveProfileCount,allAcceptanceEvidencePassed:readiness.gameAcceptance.allAcceptanceEvidencePassed,allGamesVerified:readiness.allGamesVerified},backupReady:readiness.backupReady,restoreReady:readiness.restoreReady,backupCreatedAt:readiness.backupCreatedAt,restoreVerifiedAt:readiness.restoreVerifiedAt,megaWallet:{configured:megaWalletCredentialsConfigured,...automaticAvailability,enabled:megaLiveReady,liveGamesEnabled:megaLiveReady,launchReady:readiness.megaAvailable,launchVerified:megaAcceptance?.capabilities.launch===true,walletVerified:megaAcceptance?.capabilities.wallet===true,settlementVerified:megaAcceptance?.capabilities.settlement===true,recoveryVerified:megaAcceptance?.capabilities.recovery===true,liveReady:megaLiveReady},liveGames:readiness.gamesReady,productionReady,readinessBlockers,scope:'portal-database-health'});}
+  if(req.method==='GET'&&p==='/api/internal/catalogue-sync'){const token=c.gameSyncToken??'',auth=req.headers.get('authorization')??'',given=auth.startsWith('Bearer ')?auth.slice(7):'';if(token.length<32||Buffer.byteLength(given)!==Buffer.byteLength(token)||!timingSafeEqual(Buffer.from(given),Buffer.from(token)))return json({error:'Access denied'},401);const catalogue=customerSupplierCatalogue(await getGameCatalogue(c));return json({providers:catalogue.providers,gameCount:catalogue.games.length,playable:false});}
+  if(req.method==='POST'&&p==='/api/internal/accounting-close'){
+   const token=c.accountingJobToken??'',auth=req.headers.get('authorization')??'',given=auth.startsWith('Bearer ')?auth.slice(7):'';
+@@ -634,7 +679,10 @@
+    return json(qaGameResponse(c,u,{...automaticAvailability,profiles:fresh.profiles,profileCount:fresh.profileCount,profileBrandCount:fresh.profileBrandCount,implementedProfileCount:fresh.implementedProfileCount,launchReadyProfileCount:fresh.launchReadyProfileCount,verifiedProfileCount:fresh.verifiedProfileCount,mode:'provider-games',providers,games,providersOnly:false,platformsOnly:false,selectedProvider,selectedProfile,selectedProfileId:selectedProfile?.profileId??null,selectedPlatform,platformCount:providers.length,totalGameCount:games.length,selectedGameCount:games.length,playable:games.some((game:any)=>game.playable),liveReady,launchProvider:liveReady?'megah5':null,launchProfile:liveReady?'megah5_myr':null,ranking:{...fresh.rankingState.ranking,configured:fresh.rankingState.configured,source:'owner_curated',automaticRanking:false,internalGamesRanked:false}}));
+   }
+   if(p==='/api/providers'){const [items,platforms]=await Promise.all([rows(db,'SELECT * FROM providers ORDER BY name'),publicSupplierPlatforms(c)]),byId=new Map(platforms.providers.map(provider=>[provider.id,provider]));return json({...automaticAvailability,items:(items as any[]).filter(item=>apiSupplierIdSet.has(String(item.id))).map(item=>({...item,...byId.get(item.id)})),playable:platforms.providers.some(provider=>provider.platformLaunchReady)});}
+-  if(p==='/api/social-links'){const s=await social(db);return json(s.enabled?s:{...socialDefaults,pixelEnabled:s.pixelEnabled,metaPixelId:s.metaPixelId});}
++  if(p==='/api/social-links'){
++   const s=await social(db),contacts=s.enabled?s.contacts.filter(item=>item.enabled):[],pixels=s.pixels.filter(item=>item.enabled),compat=socialCompatibility({contacts,pixels});
++   return json({enabled:s.enabled&&contacts.length>0,contacts,pixels,...compat});
++  }
+   if(p==='/api/tickets'){
+    role(u);const staff=u.role!=='member',url=new URL(req.url),page=Math.max(1,Math.min(10000,Number(url.searchParams.get('page'))||1)),limit=Math.max(5,Math.min(50,Number(url.searchParams.get('limit'))||20)),offset=(page-1)*limit,where=staff?'':'WHERE t.user_id=?',scopeValues=staff?[]:[u.id];
+    const [count,items]=await Promise.all([db.prepare(`SELECT COUNT(*) total FROM tickets t ${where}`).bind(...scopeValues).first<any>(),rows(db,`SELECT t.*,owner.username,tr.last_event_at read_event_at,tr.last_event_id read_event_id,COALESCE((SELECT r.created_at FROM replies r WHERE r.ticket_id=t.id ORDER BY r.created_at DESC,r.id DESC LIMIT 1),t.created_at) last_activity_at,COALESCE((SELECT r.id FROM replies r WHERE r.ticket_id=t.id ORDER BY r.created_at DESC,r.id DESC LIMIT 1),t.id) last_event_id,(SELECT r.created_at FROM replies r WHERE r.ticket_id=t.id AND r.user_id<>? ORDER BY r.created_at DESC,r.id DESC LIMIT 1) other_reply_at,(SELECT r.id FROM replies r WHERE r.ticket_id=t.id AND r.user_id<>? ORDER BY r.created_at DESC,r.id DESC LIMIT 1) other_reply_id,(SELECT COUNT(*) FROM replies r WHERE r.ticket_id=t.id) reply_count FROM tickets t JOIN users owner ON owner.id=t.user_id LEFT JOIN ticket_reads tr ON tr.ticket_id=t.id AND tr.user_id=? ${where} ORDER BY CASE WHEN t.status='open' THEN 0 ELSE 1 END,last_activity_at DESC,t.id DESC LIMIT ? OFFSET ?`,u.id,u.id,u.id,...scopeValues,limit,offset)]);
+@@ -678,7 +726,9 @@
+    if(p==='/api/admin/announcements')return json({items:await rows(db,'SELECT id,title,body,status,starts_at,ends_at,created_at,updated_at FROM announcements ORDER BY created_at DESC,id DESC LIMIT 100'),timezone:'Asia/Kuching'});
+    if(p==='/api/admin/custom-games')return json({...automaticAvailability,items:(await rows(db,'SELECT id,title,provider_name,game_code,category,image_data,is_platform_mini,position,created_at,updated_at FROM custom_game_cards ORDER BY is_platform_mini DESC,provider_name ASC,position ASC,created_at ASC LIMIT 100')).map((item:any)=>({...item,...automaticAvailability,playable:false,launchReady:false,walletReady:false,launchVerified:false,walletVerified:false,capabilityReason:'custom_game_engine_not_implemented'})),maxCards:100,maxPlatformMiniGames:5,imageMaxBytes:350000,imageSize:'800x600'});
+    if(p==='/api/admin/benefits'){const [items,claimRows]=await Promise.all([rows(db,"SELECT id,title,description,rules_json,status,created_at,updated_at FROM benefit_rules WHERE id<>'new-member-rm88-sponsored' ORDER BY updated_at DESC,id ASC LIMIT 100"),rows(db,"SELECT c.id,c.benefit_rule_id,c.rules_snapshot_json,c.reward_minor,c.turnover_required_minor,c.status,c.review_status,c.reviewed_by,c.reviewed_at,c.review_note,c.wallet_credit_status,c.turnover_source_status,c.created_at,u.username,reviewer.username reviewer_username,COALESCE(b.title,'Deleted benefit') benefit_title FROM benefit_claims c JOIN users u ON u.id=c.user_id LEFT JOIN users reviewer ON reviewer.id=c.reviewed_by LEFT JOIN benefit_rules b ON b.id=c.benefit_rule_id WHERE c.benefit_rule_id<>'new-member-rm88-sponsored' ORDER BY CASE c.review_status WHEN 'pending' THEN 0 ELSE 1 END,c.created_at DESC,c.id DESC LIMIT 100")]),claims=claimRows.map((claim:any)=>{let snapshot:any={};try{snapshot=JSON.parse(claim.rules_snapshot_json);}catch{}return {id:claim.id,benefitRuleId:claim.benefit_rule_id,benefitTitle:claim.benefit_title,username:claim.username,selectedProviderId:snapshot.selectedProviderId??snapshot.providerId??null,rewardMinor:String(claim.reward_minor),turnoverRequiredMinor:String(claim.turnover_required_minor),status:claim.status,reviewStatus:claim.review_status,reviewedBy:claim.reviewer_username??claim.reviewed_by??null,reviewedAt:claim.reviewed_at===null?null:Number(claim.reviewed_at),reviewNote:claim.review_note??'',walletCreditStatus:claim.wallet_credit_status,turnoverSourceStatus:claim.turnover_source_status,createdAt:Number(claim.created_at)};});return json({items:items.map((x:any)=>({...x,rules:JSON.parse(x.rules_json)})),claims,claimReviewReady:true,claimReviewMode:'eligibility_only',calculationAutomation:true,calculationMode:'preview_only',automaticClaimProcessing:false,manualVoucherProcessing:false,walletCreditAutomation:false,turnoverEnforcement:false,companyPayoutMode:'owner_configured',vipTierReady:false});}
+-   if(p==='/api/admin/social-links')return json({...await social(db),canEdit:u.role==='owner'});
++   if(p==='/api/admin/social-links'){
++    const current=await social(db);return json({...current,canEdit:u.role==='owner',supportedContactTypes:[...socialContactTypes],supportedPixelProviders:['meta','google'],revisions:await socialHistory(db)});
++   }
+    if(p==='/api/admin/referrals'){
+     role(u,['owner']);const config=await referralSettings(db),items=await rows(db,"SELECT r.referrer_id,ref.username referrer_username,r.member_id,member.username member_username,member.approved,r.code,r.created_at,CAST(COALESCE(SUM(CASE WHEN d.status='credited' THEN d.amount_minor ELSE 0 END),0) AS TEXT) deposit_minor,COUNT(DISTINCT CASE WHEN d.status='credited' THEN d.id END) deposit_orders FROM referral_relationships r JOIN users ref ON ref.id=r.referrer_id JOIN users member ON member.id=r.member_id LEFT JOIN deposit_orders d ON d.user_id=r.member_id GROUP BY r.referrer_id,ref.username,r.member_id,member.username,member.approved,r.code,r.created_at ORDER BY r.created_at DESC LIMIT 1000"),preview=await commissionPreview(db,config);
+     const canCalculate=config.configured&&config.enabled&&config.basis==='deposit',totalDepositMinor=items.reduce((sum:any,item:any)=>sum+BigInt(String(item.deposit_minor??0)),0n).toString();return json({settings:config,...config,ratePercent:config.rateBasisPoints/100,relationshipCount:items.length,totalDepositMinor,totalCommissionMinor:canCalculate?referralCommission(totalDepositMinor,config.rateBasisPoints):'0',walletCreditAutomation:false,commissionWithdrawable:false,settlementMode:'preview_only',preview,persistedPeriods:await listCommissionPeriods(db),items:items.map((item:any)=>({...item,commission_minor:canCalculate?referralCommission(item.deposit_minor,config.rateBasisPoints):'0'}))});
+@@ -687,23 +737,18 @@
+    if(p==='/api/admin/support-settings'){role(u,['owner']);return json(await supportAutomationSettings(db,c));}
+ 	   if(p==='/api/admin/telegram-bot'){role(u,['owner']);return json(telegramAdminStatus(telegramSettings(c)));}
+    if(p==='/api/admin/system-readiness'){
+-     const expectedAccountingPeriod=previousMytDayStart(now()),[counts,support,backupAudit,rehearsalRow,accountingClose,freeZoneRow,vipState,gameAcceptance]=await Promise.all([
++     const expectedAccountingPeriod=previousMytDayStart(now()),[counts,support,recovery,accountingClose,freeZoneRow,vipState,gameAcceptance]=await Promise.all([
+       db.prepare("SELECT (SELECT COUNT(*) FROM users) users,(SELECT COUNT(*) FROM audit) audit_events,(SELECT COUNT(*) FROM tickets) tickets,(SELECT COUNT(*) FROM settings) settings").first<any>(),
+       supportAutomationSettings(db,c),
+-      latestEncryptedBackupAudit(db),
+-      db.prepare("SELECT value FROM settings WHERE id='backup_restore_rehearsal'").first<{value:string}>(),
++      productionRecoveryReadiness(db),
+       db.prepare('SELECT period_start,period_end,closed_at,checksum FROM accounting_daily_snapshots WHERE period_start=?').bind(expectedAccountingPeriod).first<any>(),
+ 	      db.prepare("SELECT COUNT(*) n FROM game_visibility WHERE access_zone='free'").first<{n:number}>(),
+ 	      vipProgramStatus(db),
+       getGameProviderAcceptanceReadiness(db,observedGameAvailability(c)?['megah5_myr']:[])
+      ]);
+-     let rehearsal:any=null;try{rehearsal=rehearsalRow?.value?JSON.parse(rehearsalRow.value):null;}catch{}const backupMetadata=backupAudit?.metadata??null;
+-     const backupReady=!!backupMetadata&&backupMetadata.format===BACKUP_FORMAT&&backupMetadata.release===RELEASE&&backupMetadata.schemaVersion===BACKUP_SCHEMA_VERSION&&backupMetadata.schemaSha256===BACKUP_SCHEMA_SHA256&&backupMetadata.publicKeySha256===BACKUP_PUBLIC_KEY_SHA256&&backupMetadata.readConsistency==='transaction_snapshot'&&backupMetadata.tableCount===BACKUP_TABLES.length&&Number.isSafeInteger(backupMetadata.totalRecords)&&backupMetadata.totalRecords>=0&&validSha256(backupMetadata.backupSha256)&&validSha256(backupMetadata.plaintextSha256)&&validSha256(backupMetadata.ciphertextSha256)&&freshIso(backupMetadata.createdAt,7*86400)&&Number(backupAudit?.created_at??0)>=now()-7*86400;
+-     const restoreCreatedAt=Date.parse(rehearsal?.createdAt??''),restoreVerifiedAt=Date.parse(rehearsal?.verifiedAt??'');
+-     const restoreReady=backupReady&&!!rehearsal&&rehearsal.status==='verified'&&rehearsal.format===BACKUP_FORMAT&&rehearsal.release===RELEASE&&rehearsal.schemaVersion===BACKUP_SCHEMA_VERSION&&rehearsal.schemaSha256===BACKUP_SCHEMA_SHA256&&rehearsal.publicKeySha256===BACKUP_PUBLIC_KEY_SHA256&&rehearsal.coverageComplete===true&&Array.isArray(rehearsal.missingTables)&&rehearsal.missingTables.length===0&&rehearsal.readConsistency==='transaction_snapshot'&&rehearsal.persistentWrites===false&&rehearsal.restoreTargetKind==='isolated_postgresql_transaction'&&validSha256(rehearsal.restoreTargetSha256)&&rehearsal.foreignKeyViolations===0&&rehearsal.tableCount===BACKUP_TABLES.length&&rehearsal.totalRecords===backupMetadata.totalRecords&&rehearsal.createdAt===backupMetadata.createdAt&&rehearsal.backupSha256===backupMetadata.backupSha256&&rehearsal.plaintextSha256===backupMetadata.plaintextSha256&&freshIso(rehearsal.createdAt,30*86400)&&freshIso(rehearsal.verifiedAt,30*86400)&&Number.isFinite(restoreCreatedAt)&&Number.isFinite(restoreVerifiedAt)&&restoreVerifiedAt>=restoreCreatedAt;
+      const accountingReady=Number(accountingClose?.period_start)===expectedAccountingPeriod&&Number(accountingClose?.period_end)===expectedAccountingPeriod+86400&&Number(accountingClose?.closed_at)>=expectedAccountingPeriod+86400&&typeof accountingClose?.checksum==='string'&&accountingClose.checksum.length===64;
+      const gameLiveReady=gameAcceptance.liveGames,gameSettlementVerified=gameAcceptance.allGamesVerified,freeGameCount=Number(freeZoneRow?.n??0),whatsapp=whatsappCampaignStatus(whatsappCampaignSettings(c));
+-     return json({release:RELEASE,databaseReady:true,exportReady:true,rolesReady:true,otpConfigured:!!(c.anchorApiBaseUrl&&c.anchorUsername&&c.anchorPassword&&c.anchorSenderId&&c.otpHashSecret&&c.otpHashSecret.length>=32),counts:{...counts,free_game_overrides:freeGameCount},accounting:{expectedPeriodStart:expectedAccountingPeriod,lastClose:accountingClose??null},productionEntryVerification:{status:'not_verified',scope:'external_dns_tls_and_routing',officialOrigins:['https://www.master7.best','https://www.master7.site'],probeCommand:'pnpm run probe:entries',callbackDeliveryVerified:false,realPaymentVerified:false},items:[{id:'portal_www',label:'Customer primary domain · www.master7.best · external DNS/TLS verification required',status:'pending_verification'},{id:'backoffice_domain',label:'Owner and staff domain · www.master7.site · external DNS/TLS verification required',status:'pending_verification'},{id:'backoffice',label:'Staff application route · /admin · domain acceptance separate',status:'ready'},{id:'android_app',label:'MASTER7 Android APK · v17.0.52',status:'ready'},{id:'ios_app',label:'MASTER7 iPhone Safari Web App entry',status:'ready'},{id:'roles',label:'Admin / staff / member roles',status:'ready'},{id:'otp',label:'Malaysia registration SMS OTP',status:!!(c.anchorApiBaseUrl&&c.anchorUsername&&c.anchorPassword&&c.anchorSenderId&&c.otpHashSecret&&c.otpHashSecret.length>=32)?'ready':'pending_verification'},{id:'languages',label:'Chinese / English / Bahasa Melayu',status:'ready'},{id:'supplier_controls',label:'Supplier API capability, logos and records',status:'ready'},{id:'free_paid_zones',label:`Free / paid game zone controls and display ready · ${freeGameCount} free game(s) selected`,status:'ready'},{id:'orders',label:'Wallet ledger, company-bank deposit and withdrawal review workflows',status:'ready'},{id:'reports',label:'MYT settled-cashflow close snapshot (daily / month / half-year / year)',status:accountingReady?'ready':'pending_verification'},{id:'benefit_claims',label:'Admin-configured benefits and manual eligibility review ready · automatic wallet credit disabled',status:'ready'},{id:'turnover',label:'Benefit turnover preview available · automated wager source and withdrawal enforcement not connected',status:'pending_verification'},{id:'vip_engine',label:'Eight-tier VIP engine, editor and member display',status:'ready'},{id:'vip',label:vipState.configured?`Dedicated VIP business rules · ${vipState.activeTiers} tier(s) configured`:'Dedicated VIP business rules not configured · admin rates required',status:vipState.enabled?'ready':'pending_verification'},{id:'referral',label:'Admin referral ownership and deposit-basis commission preview',status:'ready'},{id:'commission_wallet',label:'Commission settlement, claiming and wallet credit',status:'pending_verification'},{id:'support',label:'Customer tickets and staff replies',status:'ready'},{id:'export',label:'Portal CSV export',status:'ready'},{id:'security',label:'Role protection and audit trail',status:'ready'},{id:'backup_engine',label:'RSA + AES-256-GCM independent backup generator',status:'ready'},{id:'encrypted_backup',label:'Latest encrypted independent backup evidence',status:backupReady?'ready':'pending_verification'},{id:'restore_engine',label:'Isolated recovery-rehearsal validator',status:'ready'},{id:'restore_rehearsal',label:'Latest isolated recovery rehearsal evidence',status:restoreReady?'ready':'pending_verification'},{id:'payment_connectors',label:'VPay / GSPAY+ / 1MPAY deposit connector controls',status:'ready'},{id:'payments',label:'VPay / GSPAY+ / 1MPAY real-payment settlement acceptance',status:'maintenance'},{id:'game_controls',label:'37-provider lobby and automatic API capability',status:'ready'},{id:'game_capability',label:'Provider game launch and wallet API capability',status:gameLiveReady?'ready':'maintenance'},{id:'games',label:'Provider game launch and wallet settlement acceptance',status:gameLiveReady&&gameSettlementVerified?'ready':'pending_verification'},{id:'whatsapp_module',label:'WhatsApp Business consent, queue, callback and opt-out controls',status:'ready'},{id:'whatsapp_marketing',label:'Meta-approved marketing template and sender · +601166336686',status:whatsapp.ready?'ready':'pending_verification'},{id:'ai_support',label:'Built-in customer reply assistant',status:support.providerReady?'ready':'pending_verification'}]});
++     return json({release:RELEASE,databaseReady:true,exportReady:true,rolesReady:true,backupReady:recovery.backupReady,restoreReady:recovery.restoreReady,otpConfigured:!!(c.anchorApiBaseUrl&&c.anchorUsername&&c.anchorPassword&&c.anchorSenderId&&c.otpHashSecret&&c.otpHashSecret.length>=32),counts:{...counts,free_game_overrides:freeGameCount},accounting:{expectedPeriodStart:expectedAccountingPeriod,lastClose:accountingClose??null},productionEntryVerification:{status:'not_verified',scope:'external_dns_tls_and_routing',officialOrigins:['https://www.master7.best','https://www.master7.site'],probeCommand:'pnpm run probe:entries',callbackDeliveryVerified:false,realPaymentVerified:false},items:[{id:'portal_www',label:'Customer primary domain · www.master7.best · external DNS/TLS verification required',status:'pending_verification'},{id:'backoffice_domain',label:'Owner and staff domain · www.master7.site · external DNS/TLS verification required',status:'pending_verification'},{id:'backoffice',label:'Staff application route · /admin · domain acceptance separate',status:'ready'},{id:'android_app',label:'MASTER7 Android APK · v17.0.52',status:'ready'},{id:'ios_app',label:'MASTER7 iPhone Safari Web App entry',status:'ready'},{id:'roles',label:'Admin / staff / member roles',status:'ready'},{id:'otp',label:'Malaysia registration SMS OTP',status:!!(c.anchorApiBaseUrl&&c.anchorUsername&&c.anchorPassword&&c.anchorSenderId&&c.otpHashSecret&&c.otpHashSecret.length>=32)?'ready':'pending_verification'},{id:'languages',label:'Chinese / English / Bahasa Melayu',status:'ready'},{id:'supplier_controls',label:'Supplier API capability, logos and records',status:'ready'},{id:'free_paid_zones',label:`Free / paid game zone controls and display ready · ${freeGameCount} free game(s) selected`,status:'ready'},{id:'orders',label:'Wallet ledger, company-bank deposit and withdrawal review workflows',status:'ready'},{id:'reports',label:'MYT settled-cashflow close snapshot (daily / month / half-year / year)',status:accountingReady?'ready':'pending_verification'},{id:'benefit_claims',label:'Admin-configured benefits and manual eligibility review ready · automatic wallet credit disabled',status:'ready'},{id:'turnover',label:'Benefit turnover preview available · automated wager source and withdrawal enforcement not connected',status:'pending_verification'},{id:'vip_engine',label:'Eight-tier VIP engine, editor and member display',status:'ready'},{id:'vip',label:vipState.configured?`Dedicated VIP business rules · ${vipState.activeTiers} tier(s) configured`:'Dedicated VIP business rules not configured · admin rates required',status:vipState.enabled?'ready':'pending_verification'},{id:'referral',label:'Admin referral ownership and deposit-basis commission preview',status:'ready'},{id:'commission_wallet',label:'Commission settlement, claiming and wallet credit',status:'pending_verification'},{id:'support',label:'Customer tickets and staff replies',status:'ready'},{id:'export',label:'Portal CSV export',status:'ready'},{id:'security',label:'Role protection and audit trail',status:'ready'},{id:'backup_engine',label:'RSA + AES-256-GCM independent backup generator',status:'ready'},{id:'encrypted_backup',label:'Latest encrypted independent backup evidence',status:recovery.backupReady?'ready':'pending_verification'},{id:'restore_engine',label:'Isolated recovery-rehearsal validator',status:'ready'},{id:'restore_rehearsal',label:'Latest isolated recovery rehearsal evidence',status:recovery.restoreReady?'ready':'pending_verification'},{id:'payment_connectors',label:'VPay / GSPAY+ / 1MPAY deposit connector controls',status:'ready'},{id:'payments',label:'VPay / GSPAY+ / 1MPAY real-payment settlement acceptance',status:'maintenance'},{id:'game_controls',label:'37-provider lobby and automatic API capability',status:'ready'},{id:'game_capability',label:'Provider game launch and wallet API capability',status:gameLiveReady?'ready':'maintenance'},{id:'games',label:'Provider game launch and wallet settlement acceptance',status:gameLiveReady&&gameSettlementVerified?'ready':'pending_verification'},{id:'whatsapp_module',label:'WhatsApp Business consent, queue, callback and opt-out controls',status:'ready'},{id:'whatsapp_marketing',label:'Meta-approved marketing template and sender · +601166336686',status:whatsapp.ready?'ready':'pending_verification'},{id:'ai_support',label:'Built-in customer reply assistant',status:support.providerReady?'ready':'pending_verification'}]});
+    }
+ 	   if(p==='/api/admin/marketing'){
+ 	    role(u,['owner']);const url=new URL(req.url),format=url.searchParams.get('format'),campaignId=url.searchParams.get('campaign')??'';
+@@ -1027,12 +1072,16 @@
+   role(u,['owner']);
+   if(p==='/api/admin/approve'||p==='/api/admin/role'){const id=idField(d.userId),target=await db.prepare('SELECT role FROM users WHERE id=?').bind(id).first<{role:string}>();if(!target)throw new ApiError(404,'User not found');if(target.role==='owner')throw new ApiError(403,'Administrator account protected');if(p.endsWith('/role')){if(!['member','staff'].includes(d.role))throw new ApiError(400,'Invalid role');await db.batch([db.prepare('UPDATE users SET role=?,approved=1 WHERE id=?').bind(d.role,id),auditStmt(db,u,'role_'+d.role,id)]);}else await db.batch([db.prepare('UPDATE users SET approved=1 WHERE id=?').bind(id),auditStmt(db,u,'user_approved',id)]);return json({status:'ok'});}
+   if(p==='/api/admin/social-links'){
+-   if(typeof d.enabled!=='boolean'||d.pixelEnabled!==undefined&&typeof d.pixelEnabled!=='boolean')throw new ApiError(400,'Invalid state');
+-   const current=await social(db),field=(key:string)=>d[key]===undefined?(current as any)[key]:d[key];
+-   const value={enabled:d.enabled,hotline:hotlineField(field('hotline')),whatsapp:whatsappField(field('whatsapp')),wechat:wechatField(field('wechat')),lineUrl:contactUrlField(field('lineUrl'),['line.me','www.line.me','lin.ee'],'LINE'),telegramUrl:telegramField(field('telegramUrl')),facebookUrl:urlField(field('facebookUrl'),'facebook'),instagramUrl:urlField(field('instagramUrl'),'instagram'),pixelEnabled:d.pixelEnabled===undefined?current.pixelEnabled:d.pixelEnabled,metaPixelId:metaPixelField(field('metaPixelId'))};
+-   if(value.enabled&&!value.hotline&&!value.whatsapp&&!value.wechat&&!value.lineUrl&&!value.telegramUrl&&!value.facebookUrl&&!value.instagramUrl)throw new ApiError(400,'至少填写一个前台联系方式');
+-   if(value.pixelEnabled&&!value.metaPixelId)throw new ApiError(400,'开启 Pixel 前请填写 Meta Pixel ID');
+-   await db.batch([db.prepare("INSERT INTO settings(id,value) VALUES('social',?) ON CONFLICT(id) DO UPDATE SET value=excluded.value").bind(JSON.stringify(value)),auditStmt(db,u,'contact_and_pixel_settings_updated','social')]);return json({status:'ok'});
++   const row=await db.prepare("SELECT value FROM settings WHERE id='social'").first<{value:string}>(),current=row?storedSocial((()=>{try{return JSON.parse(row.value);}catch{return {};}})()):{...socialDefaults};
++   const expected=d.expectedRevision===undefined?current.revision:Number(d.expectedRevision);if(!Number.isSafeInteger(expected)||expected!==current.revision)throw new ApiError(409,'Settings changed; reload and try again');
++   const input=socialPayload(d,current),revision=current.revision+1,changeId=uuid(),value=storedSocial({...input,revision}),serialized=JSON.stringify({...value,changeId}),initial=row?.value??JSON.stringify({...socialDefaults}),revisionId=uuid(),auditId=uuid(),createdAt=now();
++   const result=await db.batch([
++    db.prepare("INSERT INTO settings(id,value) VALUES('social',?) ON CONFLICT(id) DO NOTHING").bind(initial),
++    db.prepare("UPDATE settings SET value=? WHERE id='social' AND value=?").bind(serialized,initial),
++    db.prepare("INSERT INTO public_contact_revisions(id,revision,configuration,created_by,created_at) SELECT ?,?,?,?,? WHERE EXISTS (SELECT 1 FROM settings WHERE id='social' AND value=?)").bind(revisionId,revision,serialized,u.id,createdAt,serialized),
++    db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,?,?,?,? WHERE EXISTS (SELECT 1 FROM public_contact_revisions WHERE id=?)").bind(auditId,u.id,'contact_and_pixel_settings_updated',`social:revision:${revision}`,createdAt,revisionId)
++   ]),changed=Number((result[1] as any)?.meta?.changes??(result[1] as any)?.changes??0);if(changed!==1)throw new ApiError(409,'Settings changed; reload and try again');
++   return json({status:'ok',revision});
+   }
+  }
+  throw new ApiError(404,'Not found');
+--- a/lib/encrypted-backup.ts
++++ b/lib/encrypted-backup.ts
+@@ -3,7 +3,7 @@
+ import {BACKUP_PUBLIC_KEY,BACKUP_PUBLIC_KEY_SHA256} from './backup-public-key.ts';
+ 
+ export const BACKUP_FORMAT='MASTER7-ENCRYPTED-BACKUP-1';
+-export const BACKUP_SCHEMA_VERSION='0116-provider-wallet-operations';
++export const BACKUP_SCHEMA_VERSION='0117-flexible-public-contacts';
+ export const BACKUP_PAGE_SIZE=1000;
+ 
+ export type BackupReader={
+@@ -42,12 +42,13 @@
+ const GAME_ACCEPTANCE_BACKUP_TABLES=['game_provider_acceptance_events','game_provider_acceptance_current'] as const;
+ const LEGACY_0113_BACKUP_TABLES=[...LEGACY_0112_BACKUP_TABLES,...GAME_ACCEPTANCE_BACKUP_TABLES] as const;
+ const LEGACY_0115_BACKUP_TABLES=[...LEGACY_0113_BACKUP_TABLES,'manual_bank_transactions'] as const;
+-export const BACKUP_TABLES=[...LEGACY_0115_BACKUP_TABLES,'provider_wallet_operations'] as const;
++const LEGACY_0116_BACKUP_TABLES=[...LEGACY_0115_BACKUP_TABLES,'provider_wallet_operations'] as const;
++export const BACKUP_TABLES=[...LEGACY_0116_BACKUP_TABLES,'public_contact_revisions'] as const;
+ type BackupTable=(typeof BACKUP_TABLES)[number];
+ // These keys are checked against the release migrations by the pagination
+ // regression. A prefix of a composite key does not define stable page bounds.
+ const BACKUP_PRIMARY_KEYS:Record<BackupTable,readonly string[]>={
+- provider_wallet_operations:['session_id'],manual_bank_transactions:['id'],users:['id'],password_credentials:['username'],referral_codes:['code'],referral_relationships:['member_id'],
++ public_contact_revisions:['id'],provider_wallet_operations:['session_id'],manual_bank_transactions:['id'],users:['id'],password_credentials:['username'],referral_codes:['code'],referral_relationships:['member_id'],
+  marketing_contacts:['id'],marketing_campaigns:['id'],marketing_deliveries:['campaign_id','contact_id'],
+  deposit_orders:['id'],wallet_ledger:['id'],wallet_reservations:['user_id'],game_wallet_sessions:['id'],game_wallet_ledger:['id'],
+  company_bank_accounts:['id'],manual_deposit_requests:['deposit_order_id'],announcements:['id'],audit:['id'],
+@@ -75,17 +76,18 @@
+ 
+ export function backupRestoreContract(schemaVersion:unknown,schemaSha256:unknown){
+  if(schemaVersion===BACKUP_SCHEMA_VERSION&&schemaSha256===BACKUP_SCHEMA_SHA256)return {tables:BACKUP_TABLES,missingTables:[] as string[]};
+- if(schemaVersion==='0115-manual-bank-funds'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0115-manual-bank-funds',tables:LEGACY_0115_BACKUP_TABLES})))return {tables:LEGACY_0115_BACKUP_TABLES,missingTables:['provider_wallet_operations']};
+- if(schemaVersion==='0113-game-provider-acceptance'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0113-game-provider-acceptance',tables:LEGACY_0113_BACKUP_TABLES})))return {tables:LEGACY_0113_BACKUP_TABLES,missingTables:['manual_bank_transactions','provider_wallet_operations']};
+- if(schemaVersion==='0112-megah5-launch-operations'&&schemaSha256==='2ce57d7e348bdee3a0b6e145d19479a113136ccadc61e9fdfda2e1511a6a3e3b')return {tables:LEGACY_0112_BACKUP_TABLES,missingTables:['manual_bank_transactions',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations']};
++ if(schemaVersion==='0116-provider-wallet-operations'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0116-provider-wallet-operations',tables:LEGACY_0116_BACKUP_TABLES})))return {tables:LEGACY_0116_BACKUP_TABLES,missingTables:['public_contact_revisions']};
++ if(schemaVersion==='0115-manual-bank-funds'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0115-manual-bank-funds',tables:LEGACY_0115_BACKUP_TABLES})))return {tables:LEGACY_0115_BACKUP_TABLES,missingTables:['provider_wallet_operations','public_contact_revisions']};
++ if(schemaVersion==='0113-game-provider-acceptance'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0113-game-provider-acceptance',tables:LEGACY_0113_BACKUP_TABLES})))return {tables:LEGACY_0113_BACKUP_TABLES,missingTables:['manual_bank_transactions','provider_wallet_operations','public_contact_revisions']};
++ if(schemaVersion==='0112-megah5-launch-operations'&&schemaSha256==='2ce57d7e348bdee3a0b6e145d19479a113136ccadc61e9fdfda2e1511a6a3e3b')return {tables:LEGACY_0112_BACKUP_TABLES,missingTables:['manual_bank_transactions',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations','public_contact_revisions']};
+  // Legacy archives cannot prove that no launch was in flight at backup time.
+  // Preserve their data but never report complete launch-operation coverage.
+- if(schemaVersion==='0110-game-provider-adapter-core'&&schemaSha256==='4a1e7437fb14dc212ec39a801e173f7e898fcfa44707e7b523f5c8ba299b1555')return {tables:LEGACY_0110_BACKUP_TABLES,missingTables:['manual_bank_transactions','megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations']};
+- if(schemaVersion==='0108-manual-compliance-review'&&schemaSha256==='6453a7551fd5cbc19e6b7ca6728405f4ead79db7864b5b8d52186905bcb8798a')return {tables:LEGACY_0108_BACKUP_TABLES,missingTables:['manual_bank_transactions',...GAME_ADAPTER_BACKUP_TABLES,'megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations']};
++ if(schemaVersion==='0110-game-provider-adapter-core'&&schemaSha256==='4a1e7437fb14dc212ec39a801e173f7e898fcfa44707e7b523f5c8ba299b1555')return {tables:LEGACY_0110_BACKUP_TABLES,missingTables:['manual_bank_transactions','megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations','public_contact_revisions']};
++ if(schemaVersion==='0108-manual-compliance-review'&&schemaSha256==='6453a7551fd5cbc19e6b7ca6728405f4ead79db7864b5b8d52186905bcb8798a')return {tables:LEGACY_0108_BACKUP_TABLES,missingTables:['manual_bank_transactions',...GAME_ADAPTER_BACKUP_TABLES,'megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations','public_contact_revisions']};
+  // This exact prior release manifest omitted persistent webhook deduplication.
+  // Recover its existing records, but never label that receipt complete/current.
+- if(schemaVersion==='0107-benefit-claim-reviews'&&schemaSha256==='5ce4d8778d03097b16ef0fff08c1cc6fa05e7ce9a639bce232564a728982cae9')return {tables:FULL_0107_BACKUP_TABLES,missingTables:['manual_bank_transactions','manual_compliance_reviews','manual_compliance_events',...GAME_ADAPTER_BACKUP_TABLES,'megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations']};
+- if(schemaVersion==='0107-benefit-claim-reviews'&&schemaSha256==='2648becd21723884358bcaf90f5928dc19c7cc58dcf090c87ca1db3c00c34d69')return {tables:LEGACY_0107_BACKUP_TABLES,missingTables:['manual_bank_transactions','marketing_webhook_events','manual_compliance_reviews','manual_compliance_events',...GAME_ADAPTER_BACKUP_TABLES,'megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations']};
++ if(schemaVersion==='0107-benefit-claim-reviews'&&schemaSha256==='5ce4d8778d03097b16ef0fff08c1cc6fa05e7ce9a639bce232564a728982cae9')return {tables:FULL_0107_BACKUP_TABLES,missingTables:['manual_bank_transactions','manual_compliance_reviews','manual_compliance_events',...GAME_ADAPTER_BACKUP_TABLES,'megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations','public_contact_revisions']};
++ if(schemaVersion==='0107-benefit-claim-reviews'&&schemaSha256==='2648becd21723884358bcaf90f5928dc19c7cc58dcf090c87ca1db3c00c34d69')return {tables:LEGACY_0107_BACKUP_TABLES,missingTables:['manual_bank_transactions','marketing_webhook_events','manual_compliance_reviews','manual_compliance_events',...GAME_ADAPTER_BACKUP_TABLES,'megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations','public_contact_revisions']};
+  throw new Error('Backup schema version does not match this release');
+ }
+ 
+--- /dev/null
++++ b/lib/http-security.ts
+@@ -0,0 +1,8 @@
++export const RENDER_SECURITY_HEADERS = {
++  'Strict-Transport-Security': 'max-age=31536000',
++  'X-Content-Type-Options': 'nosniff',
++  'X-Frame-Options': 'SAMEORIGIN',
++  'Referrer-Policy': 'no-referrer',
++  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), usb=(), browsing-topics=()',
++  'X-Permitted-Cross-Domain-Policies': 'none',
++} as const;
+--- a/lib/operations-intelligence.ts
++++ b/lib/operations-intelligence.ts
+@@ -5,6 +5,8 @@
+  payoutsReady?:boolean;
+  settlementVerified?:boolean;
+  gamesReady?:boolean;
++ backupReady?:boolean;
++ restoreReady?:boolean;
+  whatsappReady?:boolean;
+  supportAiProviderReady?:boolean;
+  expectedCatalogueIds?:readonly string[];
+@@ -76,7 +78,7 @@
+  const memberMinor=amount(ledgerRow?.member_minor),clearingMinor=amount(ledgerRow?.clearing_minor),creditedMinor=amount(ledgerRow?.credited_minor),memberOrders=integer(ledgerRow?.member_orders),clearingOrders=integer(ledgerRow?.clearing_orders),creditedOrders=integer(ledgerRow?.credited_orders),mismatchOrders=integer(ledgerRow?.mismatch_orders);
+  const walletMatched=creditedOrders>0&&mismatchOrders===0,walletStatus=creditedOrders===0?'no_activity':walletMatched?'matched':'mismatch';
+  const providerCards=integer(providerRow?.total),expectedCatalogueIds=catalogueInventory(readiness.expectedCatalogueIds),expectedCatalogueSet=new Set(expectedCatalogueIds),expectedCatalogueRows=catalogueRows.filter(item=>expectedCatalogueSet.has(String(item.provider_id))),cachedCatalogueIds=new Set(expectedCatalogueRows.map(item=>String(item.provider_id))),cachedCatalogues=cachedCatalogueIds.size,freshAvailableCatalogues=expectedCatalogueRows.filter(item=>String(item.status)==='available'&&integer(item.complete)===1&&integer(item.checked_at)>=generatedAt-900&&integer(item.last_success_at)>0).length,incompleteCatalogues=expectedCatalogueRows.filter(item=>String(item.status)==='available'&&integer(item.complete)!==1).length,missingCatalogues=expectedCatalogueIds.filter(id=>!cachedCatalogueIds.has(id)).length,unavailableCatalogues=expectedCatalogueRows.filter(item=>['blocked','unavailable'].includes(String(item.status))).length,staleOrEmptyCatalogues=Math.max(0,cachedCatalogues-freshAvailableCatalogues),catalogueStatus=expectedCatalogueIds.length===0?'not_configured':cachedCatalogues===0?'no_data':missingCatalogues||staleOrEmptyCatalogues?'degraded':'connected',catalogueConnectionsPending=catalogueStatus!=='connected',catalogueStatusCounts=[...expectedCatalogueRows.reduce((map,item)=>map.set(String(item.status),(map.get(String(item.status))??0)+1),new Map<string,number>())].map(([status,count])=>({status,count}));
+- const productionReady=readiness.productionReady===true,paymentsReady=readiness.paymentsReady===true,payoutsReady=readiness.payoutsReady===true,settlementVerified=readiness.settlementVerified===true,gamesReady=readiness.gamesReady===true,whatsappReady=readiness.whatsappReady===true;
++ const productionReady=readiness.productionReady===true,paymentsReady=readiness.paymentsReady===true,payoutsReady=readiness.payoutsReady===true,settlementVerified=readiness.settlementVerified===true,gamesReady=readiness.gamesReady===true,backupReady=readiness.backupReady===true,restoreReady=readiness.restoreReady===true,whatsappReady=readiness.whatsappReady===true;
+  const recommendations=[] as ReturnType<typeof recommendation>[];
+  if(bankEnabled===0)recommendations.push(recommendation('configure_company_bank','critical','公司收款银行尚未启用','前台手工银行存款没有可展示的公司户口。',{enabledBankAccounts:0},'由管理员在公司银行页面录入并核对收款户口，再开启显示。'));
+  if(creditedOrders>0&&mismatchOrders>0)recommendations.push(recommendation('review_wallet_reconciliation','critical','钱包双重记账需要复核','至少一笔已入账存款与 member/provider_clearing 分录不一致。',{creditedOrders,mismatchOrders,memberOrders,clearingOrders,creditedMinor,memberMinor,clearingMinor},'暂停相关人工入账，逐单核对 wallet_ledger；只在证据完整后修复。'));
+@@ -84,7 +86,9 @@
+  if(depositPending>0)recommendations.push(recommendation('review_pending_deposits','medium','有充值订单尚未完成','仍有 pending、creating、created 或 review 状态的充值订单。',{pendingDeposits:depositPending},'检查厂家查单、回调和人工银行单；没有可信成功证据时不得入账。'));
+  if(depositUnknown>0)recommendations.push(recommendation('reconcile_unknown_deposits','high','支付订单状态未知','订单没有可靠的最终支付结果。',{unknownDeposits:depositUnknown},'先查询厂家订单与回调记录；没有可信成功证据时不得入账。'));
+  if(withdrawalPending>0)recommendations.push(recommendation('review_withdrawals','high','有提款等待审核','提款仍在 pending、approved 或 processing。',{pendingWithdrawals:withdrawalPending},'核对会员余额、银行资料与厂家状态后由管理员批准；系统不自动付款。'));
+- if(!productionReady)recommendations.push(recommendation('complete_production_readiness','high','平台仍未达到正式营业条件','Canonical productionReady 状态尚未通过。',{productionReady},'完成支付、出款、结算和游戏闭环验收后，再由管理员决定正式营业。'));
++ if(!productionReady)recommendations.push(recommendation('complete_production_readiness','high','平台仍未达到正式营业条件','Canonical productionReady 状态尚未通过。',{productionReady,paymentsReady,payoutsReady,settlementVerified,gamesReady,backupReady,restoreReady},'完成支付、出款、结算、游戏、加密备份和隔离恢复验收后，再由管理员决定正式营业。'));
++ if(!backupReady)recommendations.push(recommendation('create_current_encrypted_backup','high','当前版本没有有效的加密备份证据','最近七天内没有与当前版本和完整表清单匹配的加密备份。',{backupReady},'由老板从系统就绪页面生成并安全保存当前版本的加密备份。'));
++ if(!restoreReady)recommendations.push(recommendation('complete_isolated_restore_rehearsal','high','隔离恢复演练尚未通过','当前加密备份没有匹配且通过外键、记录总数和回滚保护验证的隔离恢复收据。',{restoreReady,backupReady},'在独立 PostgreSQL 恢复库执行恢复演练，确认无持久写入后记录同一份备份的验证收据。'));
+  if(!paymentsReady)recommendations.push(recommendation('complete_payment_acceptance','high','线上充值尚未完成生产验收','真实支付渠道未全部通过创建、回调、查询及重复回调测试。',{paymentsReady},'按厂家逐家完成小额生产验收并保存证据，成功前保持未就绪状态。'));
+  if(!payoutsReady)recommendations.push(recommendation('complete_payout_acceptance','high','自动出款尚未完成生产验收','出款权限、白名单、查询与回调闭环没有可信的生产验收证据。',{payoutsReady},'保持自动出款关闭；由管理员完成厂家受控验收及银行资料核对后再单独启用。'));
+  if(!settlementVerified)recommendations.push(recommendation('verify_settlement','high','资金结算尚未验证','平台没有可信的厂家结算对账结果。',{settlementVerified},'取得厂家结算单并与订单、银行和钱包分录核对。'));
+--- /dev/null
++++ b/lib/postgres-pool-config.mjs
+@@ -0,0 +1,31 @@
++const DEFAULT_POOL_MAX = 5;
++const MAX_POOL_PER_INSTANCE = 5;
++
++export function postgresPoolMax(value) {
++  if (value === undefined || value === null || value === "") return DEFAULT_POOL_MAX;
++  const parsed = Number(value);
++  return Number.isSafeInteger(parsed) && parsed >= 1 && parsed <= MAX_POOL_PER_INSTANCE
++    ? parsed
++    : DEFAULT_POOL_MAX;
++}
++
++export function postgresPoolRuntimeOptions(environment = process.env) {
++  return {
++    max: postgresPoolMax(environment.PG_POOL_MAX),
++    idleTimeoutMillis: 30_000,
++    connectionTimeoutMillis: 10_000,
++    maxLifetimeSeconds: 300,
++    keepAlive: true,
++    keepAliveInitialDelayMillis: 10_000,
++  };
++}
++
++export function registerPostgresPoolErrorHandler(pool, logger = console.error) {
++  pool.on("error", error => {
++    const code = typeof error?.code === "string" && /^[A-Z0-9_]{1,32}$/.test(error.code)
++      ? error.code
++      : "UNKNOWN";
++    logger(`MASTER7 PostgreSQL idle connection error; pool will replace the connection (${code}).`);
++  });
++  return pool;
++}
+--- a/lib/render-d1.ts
++++ b/lib/render-d1.ts
+@@ -3,6 +3,7 @@
+ import { postgresSql } from "./render-sql.mjs";
+ import { withPostgresReadSnapshot } from "./render-read-snapshot.ts";
+ import type { BackupReader } from "./encrypted-backup.ts";
++import { postgresPoolRuntimeOptions, registerPostgresPoolErrorHandler } from "./postgres-pool-config.mjs";
+ 
+ type Result<T = Record<string, unknown>> = {
+   results: T[];
+@@ -27,14 +28,14 @@
+         rejectUnauthorized: process.env.PGSSL_REJECT_UNAUTHORIZED !== "false",
+         ...(process.env.PGSSL_CA ? { ca: process.env.PGSSL_CA.replaceAll("\\n", "\n") } : {}),
+       };
+-  pool = new Pool({
++  const created = new Pool({
+     connectionString,
+     ssl,
+-    max: Number(process.env.PG_POOL_MAX ?? 5),
+-    idleTimeoutMillis: 30_000,
+-    connectionTimeoutMillis: 10_000,
++    ...postgresPoolRuntimeOptions(process.env),
+   });
+-  return pool;
++  registerPostgresPoolErrorHandler(created);
++  pool = created;
++  return created;
+ }
+ 
+ async function query(client: Pool | PoolClient, statement: BoundStatement): Promise<QueryResult> {
+--- a/lib/render-migrations.mjs
++++ b/lib/render-migrations.mjs
+@@ -710,6 +710,25 @@
+  await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[PROVIDER_WALLET_OPERATIONS_MIGRATION]);return true;
+ }
+ 
++export const FLEXIBLE_PUBLIC_CONTACTS_MIGRATION='0117-flexible-public-contacts';
++async function applyFlexiblePublicContactsMigration(client){
++ const applied=await client.query('SELECT version FROM portal_schema_migrations WHERE version=$1',[FLEXIBLE_PUBLIC_CONTACTS_MIGRATION]);if(applied.rows.length)return false;
++ await client.query(`CREATE TABLE IF NOT EXISTS public_contact_revisions (
++  id TEXT PRIMARY KEY NOT NULL,
++  revision BIGINT NOT NULL UNIQUE CHECK (revision > 0),
++  configuration TEXT NOT NULL,
++  created_by TEXT NOT NULL REFERENCES users(id),
++  created_at BIGINT NOT NULL CHECK (created_at >= 0)
++ );
++ CREATE INDEX IF NOT EXISTS public_contact_revisions_created ON public_contact_revisions(revision DESC,created_at DESC);`);
++ await client.query(`CREATE OR REPLACE FUNCTION reject_public_contact_revision_mutation() RETURNS trigger LANGUAGE plpgsql AS $$
++ BEGIN RAISE EXCEPTION 'contact revision history is immutable'; END $$;
++ DROP TRIGGER IF EXISTS public_contact_revisions_no_mutation ON public_contact_revisions;
++ CREATE TRIGGER public_contact_revisions_no_mutation BEFORE UPDATE OR DELETE ON public_contact_revisions
++ FOR EACH ROW EXECUTE FUNCTION reject_public_contact_revision_mutation();`);
++ await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[FLEXIBLE_PUBLIC_CONTACTS_MIGRATION]);return true;
++}
++
+ export async function initializePortalDatabase(pool, schema, directoryEntries, options = {}) {
+   const client = await pool.connect();
+   try {
+@@ -746,6 +765,7 @@
+     await applyGSPayPayoutActivation(client, options);
+     await applyManualBankFundsMigration(client);
+     await applyProviderWalletOperationsMigration(client);
++    await applyFlexiblePublicContactsMigration(client);
+     const rows = seedRows(directoryEntries);
+     await client.query(
+       `INSERT INTO brand_directory_entries(id,category,display_name,position,marked,status,image_data,updated_at)
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.132-game-transfer node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.132-game-transfer node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.133-operations-hardening node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.133-operations-hardening node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.132-game-transfer node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.133-operations-hardening node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -1,6 +1,6 @@
+ "use strict";
+ const $ = id => document.getElementById(id);
+-const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", register:false, providers:[], gameProfiles:[], games:[], gameCatalogue:null, gameRanking:null, gameCatalogueRequestId:0, gameWallet:null, gameWalletMemberId:null, gameWalletRequestId:0, gameWindow:null, gameWindowContext:null, gameWindowPoll:null, gameLaunchBusy:false, gameSettlementBusy:false, lastLaunchedGame:null, supplierArtwork:{}, gameCategory:"HOT", gameAccessZone:"ALL", gameLimit:12, adminGames:null, adminGameSearch:"", adminGameProvider:"ALL", adminGameCategory:"ALL", adminGamePage:1, adminGamePageSize:24, favoriteGames:[], favoriteProviders:[], selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], ticketPage:1, ticketHasMore:false, ticketUnread:0, ticketLatestEvent:null, ticketPollBusy:false, social:null, ads:[], benefits:[], manualBanks:[], manualBankMemberId:null, memberWalletRequestId:0, manualBankAttempt:null, adIndex:0, adTimer:null, editAdId:null, editAnnouncementId:null, editBenefitId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, oneMpayStatus:null, gspayStatus:null, gspayUsdtStatus:null, depositProvider:"vpay", paymentChannels:{}, withdrawalPendingSeen:null, financialSoundEnabled:true, financialAudioArmed:false, accountingPeriod:"yesterday", accountingMonth:"", adminPanel:"operationsPanel", section:"lobby", referral:null, commission:null, commissionTab:"settings", marketingContactPage:1, marketingContactPages:1, marketingEditingImage:false, marketingMaximumContacts:1000000, marketingAudienceCount:0, adminLoadedPanels:new Set(), adminPendingPanels:new Map(), adminBaseLoaded:false, adminBasePending:null, adminSummary:null, adminOperations:null, adminSecurity:null, financialEventCursor:null};
++const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", register:false, providers:[], gameProfiles:[], games:[], gameCatalogue:null, gameRanking:null, gameCatalogueRequestId:0, gameWallet:null, gameWalletMemberId:null, gameWalletRequestId:0, gameWindow:null, gameWindowContext:null, gameWindowPoll:null, gameLaunchBusy:false, gameSettlementBusy:false, lastLaunchedGame:null, supplierArtwork:{}, gameCategory:"HOT", gameAccessZone:"ALL", gameLimit:12, adminGames:null, adminGameSearch:"", adminGameProvider:"ALL", adminGameCategory:"ALL", adminGamePage:1, adminGamePageSize:24, favoriteGames:[], favoriteProviders:[], selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], ticketPage:1, ticketHasMore:false, ticketUnread:0, ticketLatestEvent:null, ticketPollBusy:false, social:null, socialAdminRevision:0, ads:[], benefits:[], manualBanks:[], manualBankMemberId:null, memberWalletRequestId:0, manualBankAttempt:null, adIndex:0, adTimer:null, editAdId:null, editAnnouncementId:null, editBenefitId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, oneMpayStatus:null, gspayStatus:null, gspayUsdtStatus:null, depositProvider:"vpay", paymentChannels:{}, withdrawalPendingSeen:null, financialSoundEnabled:true, financialAudioArmed:false, accountingPeriod:"yesterday", accountingMonth:"", adminPanel:"operationsPanel", section:"lobby", referral:null, commission:null, commissionTab:"settings", marketingContactPage:1, marketingContactPages:1, marketingEditingImage:false, marketingMaximumContacts:1000000, marketingAudienceCount:0, adminLoadedPanels:new Set(), adminPendingPanels:new Map(), adminBaseLoaded:false, adminBasePending:null, adminSummary:null, adminOperations:null, adminSecurity:null, financialEventCursor:null};
+ const translations = {
+  zh: {
+   requestTimeout:"连接超时，操作结果未确认。请检查连接和记录后再试。",networkError:"无法连接服务。请检查网络后重试。",serviceUnavailable:"服务暂时不可用。请稍后重试。",otpNotConfigured:"短信 OTP 尚未在服务器配置。请联系平台负责人。",
+@@ -51,25 +51,39 @@
+ function t(key){return translations[state.lang][key] || translations.en[key] || key;}
+ 
+ const socialCopy = {
+- zh:{adminTitle:"联系方式与广告 Pixel",adminHint:"集中设置顾客可见的 Hotline、聊天入口、社交主页和 Meta Pixel。",publishToggle:"在前台展示已确认的联系方式",saveLinks:"保存联系方式与 Pixel",metaSuite:"Meta Business Suite",metaAds:"Meta 广告管理",noAutoAds:"这里保存联系方式和 Pixel 设置；广告素材、受众、预算及发布仍在官方广告平台完成。系统不会自行花费广告费。",publicTitle:"联系 MASTER7",publicHint:"官方 Hotline 与聊天入口",readOnly:"只有管理员可以修改联系方式和 Pixel。",noLinks:"尚未设置已审核的联系方式"},
+- en:{adminTitle:"Contact & advertising pixel",adminHint:"Manage customer-facing hotline, chat channels, social profiles and Meta Pixel.",publishToggle:"Show verified contacts on the customer frontend",saveLinks:"Save contacts & pixel",metaSuite:"Meta Business Suite",metaAds:"Meta Ads Manager",noAutoAds:"This page stores contacts and Pixel settings. Creative, audience, budget and publishing remain in the official ad platform; MASTER7 does not spend automatically.",publicTitle:"Contact MASTER7",publicHint:"Official hotline and chat channels",readOnly:"Only owners can edit contacts and Pixel settings.",noLinks:"No verified contacts configured"},
+- ms:{adminTitle:"Hubungan & piksel pengiklanan",adminHint:"Urus hotline, saluran sembang, profil sosial dan Meta Pixel untuk pelanggan.",publishToggle:"Paparkan hubungan disahkan di laman pelanggan",saveLinks:"Simpan hubungan & piksel",metaSuite:"Meta Business Suite",metaAds:"Meta Ads Manager",noAutoAds:"Halaman ini menyimpan hubungan dan tetapan Pixel. Bahan, audiens, bajet dan penerbitan kekal di platform iklan rasmi; MASTER7 tidak berbelanja secara automatik.",publicTitle:"Hubungi MASTER7",publicHint:"Hotline dan saluran sembang rasmi",readOnly:"Hanya pentadbir boleh menyunting hubungan dan Pixel.",noLinks:"Tiada hubungan disahkan"}
++ zh:{adminTitle:"联系方式与广告 Pixel",adminHint:"集中设置顾客可见的联系方式及受控的 Meta／Google Pixel。",publishToggle:"在前台展示已确认的联系方式",saveLinks:"保存联系方式与 Pixel",addContact:"新增联系方式",addPixel:"新增广告 Pixel",pixelHint:"仅支持 Meta Pixel ID 与 Google G-/AW- ID；不接受脚本或自定义事件。",metaSuite:"Meta Business Suite",metaAds:"Meta 广告管理",noAutoAds:"这里只保存联系方式及受控 ID；不会接收任意脚本、不会发送财务或个人资料事件，也不会自行花费广告费。",publicTitle:"联系 MASTER7",publicHint:"官方 Hotline 与聊天入口",readOnly:"员工可查看当前配置及版本记录，只有管理员可以修改。",noLinks:"尚未设置已审核的联系方式",history:"版本记录",remove:"移除",moveUp:"上移",moveDown:"下移",enabled:"开启",label:"名称",value:"内容／链接"},
++ en:{adminTitle:"Contact & advertising pixel",adminHint:"Manage customer-facing contacts and controlled Meta or Google pixel IDs.",publishToggle:"Show verified contacts on the customer frontend",saveLinks:"Save contacts & pixel",addContact:"Add contact",addPixel:"Add advertising pixel",pixelHint:"Only Meta Pixel IDs and Google G-/AW- IDs are accepted; scripts and custom events are not.",metaSuite:"Meta Business Suite",metaAds:"Meta Ads Manager",noAutoAds:"This page stores contacts and controlled IDs only. It accepts no arbitrary script, sends no financial or personal-data events, and never spends automatically.",publicTitle:"Contact MASTER7",publicHint:"Official hotline and chat channels",readOnly:"Staff can view the current configuration and revision history; only owners can edit.",noLinks:"No verified contacts configured",history:"Revision history",remove:"Remove",moveUp:"Move up",moveDown:"Move down",enabled:"Enabled",label:"Label",value:"Value or link"},
++ ms:{adminTitle:"Hubungan & piksel pengiklanan",adminHint:"Urus hubungan pelanggan serta ID piksel Meta atau Google yang terkawal.",publishToggle:"Paparkan hubungan disahkan di laman pelanggan",saveLinks:"Simpan hubungan & piksel",addContact:"Tambah hubungan",addPixel:"Tambah piksel iklan",pixelHint:"Hanya ID Meta Pixel dan Google G-/AW- diterima; skrip dan acara tersuai tidak diterima.",metaSuite:"Meta Business Suite",metaAds:"Meta Ads Manager",noAutoAds:"Halaman ini hanya menyimpan hubungan dan ID terkawal. Tiada skrip bebas, acara kewangan atau data peribadi dihantar, dan tiada belanja automatik.",publicTitle:"Hubungi MASTER7",publicHint:"Hotline dan saluran sembang rasmi",readOnly:"Staf boleh melihat konfigurasi dan sejarah versi; hanya pemilik boleh menyunting.",noLinks:"Tiada hubungan disahkan",history:"Sejarah versi",remove:"Buang",moveUp:"Naik",moveDown:"Turun",enabled:"Aktif",label:"Label",value:"Nilai atau pautan"}
+ };
+ function st(key){return (socialCopy[state.lang]||socialCopy.zh)[key]||key;}
+ function applySocialLanguage(){document.querySelectorAll("[data-social-key]").forEach(e=>e.textContent=st(e.dataset.socialKey));if(state.user?.role==="staff")$("socialReadOnly").textContent=st("readOnly");}
+-const configuredMetaPixels=new Set();
++const configuredMetaPixels=new Set(),configuredGoogleTags=new Set(),contactTypes=["hotline","whatsapp","wechat","line","telegram","facebook","instagram"],contactTypeLabels={hotline:"Hotline",whatsapp:"WhatsApp",wechat:"WeChat",line:"LINE",telegram:"Telegram",facebook:"Facebook",instagram:"Instagram"};
+ function safeContactUrl(value,hosts){if(typeof value!=="string"||!value)return "";try{const url=new URL(value);return url.protocol==="https:"&&!url.username&&!url.password&&!url.port&&hosts.includes(url.hostname)?url.href:"";}catch{return "";}}
+ function addContactLink(host,label,href){if(!href)return;const link=node("a","social-link",label);link.href=href;if(!href.startsWith("tel:")){link.target="_blank";link.rel="noopener noreferrer";}host.append(link);}
+-function configureAdvertisingPixel(data){const id=data?.pixelEnabled&&typeof data.metaPixelId==="string"&&/^\d{6,32}$/.test(data.metaPixelId)?data.metaPixelId:"";if(!id||configuredMetaPixels.has(id)||typeof window==="undefined")return;let fbq=window.fbq;if(typeof fbq!=="function"){fbq=function(){if(fbq.callMethod)fbq.callMethod.apply(fbq,arguments);else fbq.queue.push(arguments);};fbq.push=fbq;fbq.loaded=true;fbq.version="2.0";fbq.queue=[];window.fbq=fbq;window._fbq=fbq;const script=document.createElement("script");script.id="master7-meta-pixel";script.async=true;script.src="https://connect.facebook.net/en_US/fbevents.js";document.head.append(script);}fbq("init",id);fbq("track","PageView");configuredMetaPixels.add(id);}
+-function renderSocial(){const host=$("publicSocialLinks");clear(host);const data=state.social;configureAdvertisingPixel(data);const parent=$("publicSocial");parent.hidden=!data?.enabled;if(parent.hidden)return;
+- const hotline=typeof data.hotline==="string"&&/^\+?[0-9 ()-]{7,32}$/.test(data.hotline)?data.hotline:"",whatsapp=typeof data.whatsapp==="string"&&/^\d{8,15}$/.test(data.whatsapp)?data.whatsapp:"",wechat=typeof data.wechat==="string"&&/^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$/.test(data.wechat)?data.wechat:"";
+- addContactLink(host,"Hotline",hotline?`tel:${hotline.replace(/[^+\d]/g,"")}`:"");addContactLink(host,"WhatsApp",whatsapp?`https://wa.me/${whatsapp}`:"");
+- if(wechat)host.append(node("span","social-link social-contact-text",`WeChat · ${wechat}`));
+- for(const [name,url,hosts] of [["LINE",data.lineUrl,["line.me","www.line.me","lin.ee"]],["Telegram",data.telegramUrl,["t.me","telegram.me","www.telegram.me"]],["Facebook",data.facebookUrl,["facebook.com","www.facebook.com"]],["Instagram",data.instagramUrl,["instagram.com","www.instagram.com"]]])addContactLink(host,name,safeContactUrl(url,hosts));
++function configureAdvertisingPixels(data){if(typeof window==="undefined")return;const pixels=Array.isArray(data?.pixels)?data.pixels.filter(item=>item?.enabled):[];
++ for(const pixel of pixels){const id=String(pixel.trackingId||"");if(pixel.provider==="meta"&&/^\d{6,32}$/.test(id)&&!configuredMetaPixels.has(id)){let fbq=window.fbq;if(typeof fbq!=="function"){fbq=function(){if(fbq.callMethod)fbq.callMethod.apply(fbq,arguments);else fbq.queue.push(arguments);};fbq.push=fbq;fbq.loaded=true;fbq.version="2.0";fbq.queue=[];window.fbq=fbq;window._fbq=fbq;const script=document.createElement("script");script.id="master7-meta-pixel";script.async=true;script.src="https://connect.facebook.net/en_US/fbevents.js";document.head.append(script);}fbq("init",id);fbq("trackSingle",id,"PageView");configuredMetaPixels.add(id);}
++  if(pixel.provider==="google"&&/^(?:G|AW)-[A-Z0-9]{4,20}$/.test(id)&&!configuredGoogleTags.has(id)){window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){window.dataLayer.push(arguments);};if(!document.getElementById("master7-google-tag")){const script=document.createElement("script");script.id="master7-google-tag";script.async=true;script.src=`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;document.head.append(script);window.gtag("js",new Date());}window.gtag("config",id,{anonymize_ip:true,allow_google_signals:false,allow_ad_personalization_signals:false,send_page_view:true});configuredGoogleTags.add(id);}}
++}
++function renderSocial(){const host=$("publicSocialLinks");clear(host);const data=state.social;configureAdvertisingPixels(data);const parent=$("publicSocial"),contacts=Array.isArray(data?.contacts)?data.contacts.filter(item=>item?.enabled):[];parent.hidden=!data?.enabled;if(parent.hidden)return;
++ for(const item of contacts){const label=String(item.label||contactTypeLabels[item.type]||"").slice(0,40),value=String(item.value||"");if(!label)continue;
++  if(item.type==="hotline"&&/^\+?[0-9 ()-]{7,32}$/.test(value))addContactLink(host,label,`tel:${value.replace(/[^+\d]/g,"")}`);
++  else if(item.type==="whatsapp"&&/^\d{8,15}$/.test(value))addContactLink(host,label,`https://wa.me/${value}`);
++  else if(item.type==="wechat"&&/^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$/.test(value))host.append(node("span","social-link social-contact-text",`${label} · ${value}`));
++  else{const hosts=item.type==="line"?["line.me","www.line.me","lin.ee"]:item.type==="telegram"?["t.me","telegram.me","www.telegram.me"]:item.type==="facebook"?["facebook.com","www.facebook.com"]:item.type==="instagram"?["instagram.com","www.instagram.com"]:[];addContactLink(host,label,safeContactUrl(value,hosts));}}
+  parent.hidden=!host.childElementCount;
+ }
+-function paintContactAdminState(data={}){const enabled=Boolean(data.enabled??$("socialEnabled")?.checked),pixel=Boolean(data.pixelEnabled??$("metaPixelEnabled")?.checked);if($("contactPublishStatus")){$("contactPublishStatus").className=`status ${enabled?"ready":"pending"} admin-cover-state`;$("contactPublishStatus").textContent=enabled?"PUBLIC":"OFF";}if($("pixelStatus"))$("pixelStatus").textContent=pixel?"ENABLED":"DISABLED";}
+-async function renderSocialAdmin(owner){$("socialForm").hidden=!owner;$("socialReadOnly").hidden=owner;const d=await api("/api/admin/social-links");paintContactAdminState(d);if(owner){for(const [id,key] of [["hotlineContact","hotline"],["whatsappContact","whatsapp"],["wechatContact","wechat"],["lineContact","lineUrl"],["telegramContact","telegramUrl"],["facebookLink","facebookUrl"],["instagramLink","instagramUrl"],["metaPixelId","metaPixelId"]])$(id).value=d[key]||"";$("socialEnabled").checked=!!d.enabled;$("metaPixelEnabled").checked=!!d.pixelEnabled;}else $("socialReadOnly").textContent=st("readOnly");}
++function socialItemId(prefix){const random=crypto.randomUUID().replaceAll("-","");return `${prefix}_${random.slice(0,24)}`;}
++function rowAction(label,action){const button=node("button","button button-outline contact-row-action",label);button.type="button";button.dataset.rowAction=action;button.title=label;return button;}
++function moveSocialRow(row,direction){const sibling=direction<0?row.previousElementSibling:row.nextElementSibling;if(sibling)row.parentElement.insertBefore(direction<0?row:sibling,direction<0?sibling:row);}
++function bindSocialRowActions(row){row.querySelector('[data-row-action="remove"]').onclick=()=>{row.remove();paintContactAdminState();};row.querySelector('[data-row-action="up"]').onclick=()=>moveSocialRow(row,-1);row.querySelector('[data-row-action="down"]').onclick=()=>moveSocialRow(row,1);row.querySelector('[data-item-enabled]').onchange=()=>paintContactAdminState();}
++function contactRow(item={}){const row=node("div","contact-config-row contact-item-row");row.dataset.itemId=item.id||socialItemId("contact");const typeLabel=node("label","",st("label")),type=document.createElement("select");type.dataset.contactType="";for(const value of contactTypes){const option=document.createElement("option");option.value=value;option.textContent=contactTypeLabels[value];type.append(option);}type.value=contactTypes.includes(item.type)?item.type:"hotline";typeLabel.append(type);const label=node("label","",st("label")),labelInput=document.createElement("input");labelInput.dataset.contactLabel="";labelInput.maxLength=40;labelInput.required=true;labelInput.value=item.label||contactTypeLabels[type.value];label.append(labelInput);const valueLabel=node("label","",st("value")),value=document.createElement("input");value.dataset.contactValue="";value.maxLength=300;value.required=true;value.autocomplete="off";value.value=item.value||"";valueLabel.append(value);const enabled=node("label","social-toggle contact-item-toggle"),check=document.createElement("input");check.type="checkbox";check.dataset.itemEnabled="";check.checked=item.enabled!==false;enabled.append(check,node("span","",st("enabled")));const actions=node("div","contact-row-actions");actions.append(rowAction("↑","up"),rowAction("↓","down"),rowAction("×","remove"));row.append(typeLabel,label,valueLabel,enabled,actions);type.onchange=()=>{if(!labelInput.value||Object.values(contactTypeLabels).includes(labelInput.value))labelInput.value=contactTypeLabels[type.value];};bindSocialRowActions(row);return row;}
++function pixelRow(item={}){const row=node("div","contact-config-row pixel-item-row");row.dataset.itemId=item.id||socialItemId("pixel");const providerLabel=node("label","","Provider"),provider=document.createElement("select");provider.dataset.pixelProvider="";for(const [value,label] of [["meta","Meta Pixel"],["google","Google gtag"]]){const option=document.createElement("option");option.value=value;option.textContent=label;provider.append(option);}provider.value=item.provider==="google"?"google":"meta";providerLabel.append(provider);const idLabel=node("label","","Tracking ID"),id=document.createElement("input");id.dataset.pixelId="";id.maxLength=32;id.required=true;id.autocomplete="off";id.value=item.trackingId||"";idLabel.append(id);const enabled=node("label","social-toggle contact-item-toggle"),check=document.createElement("input");check.type="checkbox";check.dataset.itemEnabled="";check.checked=item.enabled!==false;enabled.append(check,node("span","",st("enabled")));const actions=node("div","contact-row-actions");actions.append(rowAction("↑","up"),rowAction("↓","down"),rowAction("×","remove"));row.append(providerLabel,idLabel,enabled,actions);bindSocialRowActions(row);return row;}
++function renderSocialRows(d){clear($("contactRows"));clear($("pixelRows"));for(const item of d.contacts||[])$("contactRows").append(contactRow(item));for(const item of d.pixels||[])$("pixelRows").append(pixelRow(item));}
++function socialFormPayload(){return {expectedRevision:state.socialAdminRevision,enabled:$("socialEnabled").checked,contacts:[...$("contactRows").children].map((row,position)=>({id:row.dataset.itemId,type:row.querySelector('[data-contact-type]').value,label:row.querySelector('[data-contact-label]').value,value:row.querySelector('[data-contact-value]').value,enabled:row.querySelector('[data-item-enabled]').checked,position})),pixels:[...$("pixelRows").children].map((row,position)=>({id:row.dataset.itemId,provider:row.querySelector('[data-pixel-provider]').value,trackingId:row.querySelector('[data-pixel-id]').value,enabled:row.querySelector('[data-item-enabled]').checked,position}))};}
++function paintContactAdminState(data={}){const enabled=Boolean(data.enabled??$("socialEnabled")?.checked),pixels=Array.isArray(data.pixels)?data.pixels:[...($("pixelRows")?.children||[])].map(row=>({enabled:row.querySelector('[data-item-enabled]')?.checked})),pixel=pixels.some(item=>item.enabled);if($("contactPublishStatus")){$("contactPublishStatus").className=`status ${enabled?"ready":"pending"} admin-cover-state`;$("contactPublishStatus").textContent=enabled?"PUBLIC":"OFF";}if($("pixelStatus"))$("pixelStatus").textContent=pixel?"ENABLED":"DISABLED";}
++function renderSocialHistory(revisions=[]){const host=$("socialHistory");clear(host);if(!revisions.length)return;host.append(node("h3","",st("history")));for(const item of revisions){const row=node("div","contact-history-row"),who=item.createdBy?` · ${item.createdBy}`:"";row.append(node("strong","",`REV ${item.revision}`),node("span","",`${new Date(Number(item.createdAt)*1000).toLocaleString()}${who}`),node("small","",`${item.contactCount} contacts · ${item.pixelCount} pixels · ${item.enabled?"PUBLIC":"OFF"}`));host.append(row);}}
++function renderSocialReadOnly(d){const host=$("socialReadOnly");clear(host);host.append(node("p","muted",`${st("readOnly")} · REV ${state.socialAdminRevision}`));for(const item of d.contacts||[]){const row=node("article","contact-readonly-row");row.append(node("strong","",item.label||contactTypeLabels[item.type]||item.type),node("span","",String(item.value||"")),node("small","",`${contactTypeLabels[item.type]||item.type} · ${item.enabled?"ENABLED":"DISABLED"}`));host.append(row);}for(const item of d.pixels||[]){const row=node("article","contact-readonly-row");row.append(node("strong","",item.provider==="google"?"Google gtag":"Meta Pixel"),node("span","",String(item.trackingId||"")),node("small","",item.enabled?"ENABLED":"DISABLED"));host.append(row);}}
++async function renderSocialAdmin(owner){const d=await api("/api/admin/social-links"),canEdit=owner&&d.canEdit===true;state.socialAdminRevision=Number(d.revision)||0;$("socialForm").hidden=!canEdit;$("socialReadOnly").hidden=canEdit;paintContactAdminState(d);renderSocialHistory(d.revisions);if(canEdit){$("socialEnabled").checked=!!d.enabled;$("socialRevision").textContent=`REV ${state.socialAdminRevision}`;renderSocialRows(d);}else renderSocialReadOnly(d);}
+ // Branded bonus buttons are an isolated presentation only. No claim/payment requests.
+ const bonusBrandOptions = Object.freeze([
+  {code:"jili",label:"JILI"},
+@@ -1225,7 +1239,7 @@
+ });
+ function featureGuide(title,lines){const details=node("details","feature-inline-guide"),summary=node("summary","",`功能说明书 · ${title}`);details.append(summary);for(const line of lines)details.append(node("p","",line));return details;}
+ function installFeatureGuides(){for(const [id,lines] of Object.entries(customerFeatureGuides)){const host=$(id);if(host&&!host.querySelector(":scope > .feature-inline-guide"))host.append(featureGuide("顾客前台",lines));}}
+-function bind(){installFeatureGuides();updateOrganicPromotion();$("organicPromoLanguage").onchange=updateOrganicPromotion;document.querySelectorAll("[data-organic-share]").forEach(button=>button.onclick=()=>shareOrganicPromotion(button.dataset.organicShare));$("socialEnabled").onchange=()=>paintContactAdminState();$("metaPixelEnabled").onchange=()=>paintContactAdminState();$("iosInstallGuide").onclick=()=>$("iosInstallDialog").showModal();$("iosInstallClose").onclick=$("iosInstallDone").onclick=()=>$("iosInstallDialog").close();$("marketingImportForm").addEventListener("submit",importMarketingContacts);$("marketingCampaignForm").addEventListener("submit",saveMarketingCampaign);$("marketingCampaignImage").addEventListener("change",previewMarketingImageSelection);$("marketingContactsRefresh").onclick=()=>loadMarketingContacts(state.marketingContactPage);$("marketingContactSearchButton").onclick=()=>loadMarketingContacts(1);$("marketingContactSearch").onkeydown=event=>{if(event.key==="Enter"){event.preventDefault();loadMarketingContacts(1);}};$("marketingContactConsent").onchange=()=>loadMarketingContacts(1);$("marketingContactsPrev").onclick=()=>loadMarketingContacts(Math.max(1,state.marketingContactPage-1));$("marketingContactsNext").onclick=()=>loadMarketingContacts(Math.min(state.marketingContactPages,state.marketingContactPage+1));$("marketingSendRate").addEventListener("input",updateMarketingDuration);updateMarketingDuration();$("createEncryptedBackup").onclick=createEncryptedBackup;try{state.financialSoundEnabled=localStorage.getItem("m7-financial-sound")!=="off";}catch{}renderFinancialAudioControl();$("financialAudioToggle").onclick=toggleFinancialAudio;document.addEventListener?.("pointerdown",event=>{if(!event.target?.closest?.("#financialAudioToggle"))armFinancialAudio();},{once:true});$("referralSettingsForm").addEventListener("submit",async event=>{event.preventDefault();$("commissionSaveStatus").textContent="Saving…";try{await api("/api/admin/referrals","POST",{action:"save",settings:commissionFormPayload()});await loadReferralAdmin();$("commissionSaveStatus").textContent="✅ Saved";notification("Commission settings saved");}catch(error){$("commissionSaveStatus").textContent=error.message;notification(error.message);}});$("refreshReferrals").onclick=()=>loadAdminPanel("referralAdminPanel",{force:true});$("copyAdminReferral").onclick=async()=>{const value=$("adminReferralLink").value;if(!value)return;try{await navigator.clipboard.writeText(value);notification("注册链接已复制");}catch{notification(value);}};$("commissionBasis").onchange=updateCommissionBasisNotice;$("commissionRunNow").onclick=async()=>{try{const result=await api("/api/admin/referrals","POST",{action:"run"});await loadReferralAdmin();selectCommissionTab("ledger");notification(result.message);}catch(error){notification(error.message);}};document.querySelectorAll("[data-commission-tab]").forEach(button=>button.onclick=()=>selectCommissionTab(button.dataset.commissionTab));$("supportAutomationForm").addEventListener("submit",async event=>{event.preventDefault();try{await api("/api/admin/support-settings","POST",{aiEnabled:$("supportAiEnabled").checked,humanHandoff:$("supportHumanHandoff").checked});await loadSupportAutomation();notification("Support settings saved");}catch(error){notification(error.message);}});$("telegramBotTest").onclick=async()=>{const button=$("telegramBotTest");button.disabled=true;try{await api("/api/admin/telegram-bot","POST",{action:"test"});notification("Telegram 测试通知已发送");await loadTelegramBot();}catch(error){notification(error.message);}finally{button.disabled=false;}};$("refreshSystemReadiness").onclick=()=>loadAdminPanel("systemReadinessPanel",{force:true});$("adminMenuToggle").onclick=()=>toggleAdminMenu(true);$("adminMenuClose").onclick=()=>toggleAdminMenu(false);$("adminMenuBackdrop").onclick=()=>toggleAdminMenu(false);$("adminNotificationButton").onclick=openAdminNotifications;$("adminSupportButton").onclick=event=>{event.preventDefault();openAdminNotifications();};document.querySelectorAll("[data-admin-shortcut]").forEach(link=>link.onclick=event=>{event.preventDefault();selectAdminPanel(link.dataset.adminShortcut);});document.addEventListener("keydown",event=>{if(event.key==="Escape")toggleAdminMenu(false);});document.querySelectorAll("[data-accounting-period]").forEach(button=>button.onclick=()=>loadAccounting(button.dataset.accountingPeriod,""));$("refreshAccounting").onclick=()=>loadAdminPanel("accountingPanel",{force:true});$("loadAccountingMonth").onclick=()=>{const month=$("accountingMonth").value;if(month)loadAccounting("month",month);};for(const link of document.querySelectorAll(".admin-internal-sidebar a")){link.onclick=event=>{event.preventDefault();selectAdminPanel(link.getAttribute("href").slice(1));toggleAdminMenu(false);};}for(const id of ["benefitExampleDeposit","benefitAmount","benefitPercent","benefitMinDeposit","benefitMaxReward","benefitMultiplier","benefitTurnoverBase","benefitTurnover"]){$(id)?.addEventListener("input",renderBenefitCalculationPreview);$(id)?.addEventListener("change",renderBenefitCalculationPreview);}renderBenefitCalculationPreview();document.querySelectorAll("[data-game-zone]").forEach(button=>button.onclick=()=>{state.gameAccessZone=button.dataset.gameZone;state.gameLimit=12;document.querySelectorAll("[data-game-zone]").forEach(x=>x.classList.toggle("active",x===button));renderCatalog();});document.querySelectorAll("[data-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.gameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.sidebarGameCategory===state.gameCategory));renderApiSupplierButtons();renderCatalog();});document.querySelectorAll("[data-sidebar-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.sidebarGameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x===button));selected("lobby");renderApiSupplierButtons();renderCatalog();document.querySelector(".game-category-filters")?.scrollIntoView({behavior:"smooth",block:"start"});});$("clearProviderFilter").onclick=()=>{state.gameCatalogueRequestId++;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;state.gameLimit=12;state.games=[];state.gameCatalogue={...(state.gameCatalogue||{}),games:[],providersOnly:true,platformsOnly:true,selectedProvider:null,selectedPlatform:null};renderCatalog();$("apiSupplierButtons").scrollIntoView({behavior:"smooth",block:"start"});};document.querySelectorAll("[data-section]").forEach(b=>b.onclick=()=>selected(b.dataset.section));$("exploreButton").onclick=()=>selected("lobby");$("aboutButton").onclick=async()=>{try{const data=await api("/health");notification(`${t("statusTitle")}: ${data.status} · ${data.release} · ${t("statusMessage")}`);}catch(e){notification(e.message)}};$("loginButton").onclick=()=>showAuth();$("closeAuth").onclick=()=>$("authDialog").close();$("refreshTickets").onclick=()=>refreshTickets();$("refreshWallet").onclick=loadMemberWallet;$("refreshPaymentRecords").onclick=loadMemberWallet;$("refreshGameWallet").onclick=()=>loadGameWallet();$("gameWalletSettle").onclick=()=>settleGameWallet(false);$("gameWalletRecover").onclick=recoverGameWallet;$("refreshAdminGameWallet").onclick=()=>loadAdminPanel("gameWalletAdminPanel",{force:true});$("refreshAdminDeposits").onclick=()=>loadAdminPanel("adminDepositPanel",{force:true});$("syncGamesNow").onclick=async()=>{await renderGameSync(true);state.adminLoadedPanels.add("gameSyncPanel");};$("refreshWithdrawals").onclick=loadWithdrawals;$("refreshAdminWithdrawals").onclick=()=>loadAdminPanel("adminWithdrawalPanel",{force:true});$("withdrawalForm").addEventListener("submit",submitWithdrawalForm);$("vpayOrderForm").addEventListener("submit",submitVPayOrder);$("oneMpayOrderForm").addEventListener("submit",submitOneMpayOrder);$("search").oninput=()=>{renderApiSupplierButtons();renderCatalog();};$("locale").onchange=e=>{state.lang=e.target.value;try{localStorage.setItem("m7-language",state.lang);}catch{}applyLang();renderApiSupplierButtons();};$("lobbyAdPrevious").onclick=()=>{state.adIndex--;renderCarousel();};$("lobbyAdNext").onclick=()=>{state.adIndex++;renderCarousel();};$("lobbyAdCancel").onclick=resetAdForm;$("lobbyAdForm").addEventListener("submit",async e=>{e.preventDefault();const button=$("lobbyAdSave");button.disabled=true;try{const file=$("lobbyAdFile").files[0],imageData=file?await imageDataForUpload(file):"";await api("/api/admin/ads","POST",{action:"save",id:state.editAdId||undefined,title:$("lobbyAdTitle").value,targetUrl:$("lobbyAdTarget").value,imageData,status:$("lobbyAdStatus").value,startsAt:$("lobbyAdStartsAt").value,endsAt:$("lobbyAdEndsAt").value,position:state.adminAds?.length||0});resetAdForm();await loadLobbyContent();await renderAdManager();notification(t("success"));}catch(err){$("lobbyAdFormStatus").textContent=err.message;}finally{button.disabled=false;}});$("benefitCancel").onclick=resetBenefitForm;$("benefitForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/benefits","POST",benefitFormPayload("draft"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}});$("benefitPublish").onclick=async()=>{if(!$("benefitForm").reportValidity())return;try{await api("/api/admin/benefits","POST",benefitFormPayload("active"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}};$("ticketForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user){showAuth();return;}try{await api("/api/tickets","POST",{subject:$("ticketSubject").value,message:$("ticketMessage").value});$("ticketForm").reset();await refreshTickets();notification(t("success"));}catch(err){notification(err.message)}});$("socialForm").addEventListener("submit",async e=>{e.preventDefault();$("socialFormStatus").textContent="Saving…";try{await api("/api/admin/social-links","POST",{enabled:$("socialEnabled").checked,hotline:$("hotlineContact").value,whatsapp:$("whatsappContact").value,wechat:$("wechatContact").value,lineUrl:$("lineContact").value,telegramUrl:$("telegramContact").value,facebookUrl:$("facebookLink").value,instagramUrl:$("instagramLink").value,pixelEnabled:$("metaPixelEnabled").checked,metaPixelId:$("metaPixelId").value});await loadPublic();await renderSocialAdmin(true);$("socialFormStatus").textContent="✅ Saved";notification(t("success"));}catch(err){$("socialFormStatus").textContent=err.message;notification(err.message)}});$("announcementCancel").onclick=resetAnnouncementForm;$("announcementForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/announcement","POST",{action:"save",id:state.editAnnouncementId||undefined,title:$("announcementTitle").value,body:$("announcementBody").value,status:$("announcementStatus").value,startsAt:$("announcementStartsAt").value,endsAt:$("announcementEndsAt").value});resetAnnouncementForm();await loadPublic();await renderAnnouncementManager();notification(t("success"));}catch(err){$("announcementFormStatus").textContent=err.message;}});}
++function bind(){installFeatureGuides();updateOrganicPromotion();$("organicPromoLanguage").onchange=updateOrganicPromotion;document.querySelectorAll("[data-organic-share]").forEach(button=>button.onclick=()=>shareOrganicPromotion(button.dataset.organicShare));$("socialEnabled").onchange=()=>paintContactAdminState();$("addContact").onclick=()=>$("contactRows").append(contactRow());$("addPixel").onclick=()=>$("pixelRows").append(pixelRow());$("iosInstallGuide").onclick=()=>$("iosInstallDialog").showModal();$("iosInstallClose").onclick=$("iosInstallDone").onclick=()=>$("iosInstallDialog").close();$("marketingImportForm").addEventListener("submit",importMarketingContacts);$("marketingCampaignForm").addEventListener("submit",saveMarketingCampaign);$("marketingCampaignImage").addEventListener("change",previewMarketingImageSelection);$("marketingContactsRefresh").onclick=()=>loadMarketingContacts(state.marketingContactPage);$("marketingContactSearchButton").onclick=()=>loadMarketingContacts(1);$("marketingContactSearch").onkeydown=event=>{if(event.key==="Enter"){event.preventDefault();loadMarketingContacts(1);}};$("marketingContactConsent").onchange=()=>loadMarketingContacts(1);$("marketingContactsPrev").onclick=()=>loadMarketingContacts(Math.max(1,state.marketingContactPage-1));$("marketingContactsNext").onclick=()=>loadMarketingContacts(Math.min(state.marketingContactPages,state.marketingContactPage+1));$("marketingSendRate").addEventListener("input",updateMarketingDuration);updateMarketingDuration();$("createEncryptedBackup").onclick=createEncryptedBackup;try{state.financialSoundEnabled=localStorage.getItem("m7-financial-sound")!=="off";}catch{}renderFinancialAudioControl();$("financialAudioToggle").onclick=toggleFinancialAudio;document.addEventListener?.("pointerdown",event=>{if(!event.target?.closest?.("#financialAudioToggle"))armFinancialAudio();},{once:true});$("referralSettingsForm").addEventListener("submit",async event=>{event.preventDefault();$("commissionSaveStatus").textContent="Saving…";try{await api("/api/admin/referrals","POST",{action:"save",settings:commissionFormPayload()});await loadReferralAdmin();$("commissionSaveStatus").textContent="✅ Saved";notification("Commission settings saved");}catch(error){$("commissionSaveStatus").textContent=error.message;notification(error.message);}});$("refreshReferrals").onclick=()=>loadAdminPanel("referralAdminPanel",{force:true});$("copyAdminReferral").onclick=async()=>{const value=$("adminReferralLink").value;if(!value)return;try{await navigator.clipboard.writeText(value);notification("注册链接已复制");}catch{notification(value);}};$("commissionBasis").onchange=updateCommissionBasisNotice;$("commissionRunNow").onclick=async()=>{try{const result=await api("/api/admin/referrals","POST",{action:"run"});await loadReferralAdmin();selectCommissionTab("ledger");notification(result.message);}catch(error){notification(error.message);}};document.querySelectorAll("[data-commission-tab]").forEach(button=>button.onclick=()=>selectCommissionTab(button.dataset.commissionTab));$("supportAutomationForm").addEventListener("submit",async event=>{event.preventDefault();try{await api("/api/admin/support-settings","POST",{aiEnabled:$("supportAiEnabled").checked,humanHandoff:$("supportHumanHandoff").checked});await loadSupportAutomation();notification("Support settings saved");}catch(error){notification(error.message);}});$("telegramBotTest").onclick=async()=>{const button=$("telegramBotTest");button.disabled=true;try{await api("/api/admin/telegram-bot","POST",{action:"test"});notification("Telegram 测试通知已发送");await loadTelegramBot();}catch(error){notification(error.message);}finally{button.disabled=false;}};$("refreshSystemReadiness").onclick=()=>loadAdminPanel("systemReadinessPanel",{force:true});$("adminMenuToggle").onclick=()=>toggleAdminMenu(true);$("adminMenuClose").onclick=()=>toggleAdminMenu(false);$("adminMenuBackdrop").onclick=()=>toggleAdminMenu(false);$("adminNotificationButton").onclick=openAdminNotifications;$("adminSupportButton").onclick=event=>{event.preventDefault();openAdminNotifications();};document.querySelectorAll("[data-admin-shortcut]").forEach(link=>link.onclick=event=>{event.preventDefault();selectAdminPanel(link.dataset.adminShortcut);});document.addEventListener("keydown",event=>{if(event.key==="Escape")toggleAdminMenu(false);});document.querySelectorAll("[data-accounting-period]").forEach(button=>button.onclick=()=>loadAccounting(button.dataset.accountingPeriod,""));$("refreshAccounting").onclick=()=>loadAdminPanel("accountingPanel",{force:true});$("loadAccountingMonth").onclick=()=>{const month=$("accountingMonth").value;if(month)loadAccounting("month",month);};for(const link of document.querySelectorAll(".admin-internal-sidebar a")){link.onclick=event=>{event.preventDefault();selectAdminPanel(link.getAttribute("href").slice(1));toggleAdminMenu(false);};}for(const id of ["benefitExampleDeposit","benefitAmount","benefitPercent","benefitMinDeposit","benefitMaxReward","benefitMultiplier","benefitTurnoverBase","benefitTurnover"]){$(id)?.addEventListener("input",renderBenefitCalculationPreview);$(id)?.addEventListener("change",renderBenefitCalculationPreview);}renderBenefitCalculationPreview();document.querySelectorAll("[data-game-zone]").forEach(button=>button.onclick=()=>{state.gameAccessZone=button.dataset.gameZone;state.gameLimit=12;document.querySelectorAll("[data-game-zone]").forEach(x=>x.classList.toggle("active",x===button));renderCatalog();});document.querySelectorAll("[data-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.gameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.sidebarGameCategory===state.gameCategory));renderApiSupplierButtons();renderCatalog();});document.querySelectorAll("[data-sidebar-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.sidebarGameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x===button));selected("lobby");renderApiSupplierButtons();renderCatalog();document.querySelector(".game-category-filters")?.scrollIntoView({behavior:"smooth",block:"start"});});$("clearProviderFilter").onclick=()=>{state.gameCatalogueRequestId++;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;state.gameLimit=12;state.games=[];state.gameCatalogue={...(state.gameCatalogue||{}),games:[],providersOnly:true,platformsOnly:true,selectedProvider:null,selectedPlatform:null};renderCatalog();$("apiSupplierButtons").scrollIntoView({behavior:"smooth",block:"start"});};document.querySelectorAll("[data-section]").forEach(b=>b.onclick=()=>selected(b.dataset.section));$("exploreButton").onclick=()=>selected("lobby");$("aboutButton").onclick=async()=>{try{const data=await api("/health");notification(`${t("statusTitle")}: ${data.status} · ${data.release} · ${t("statusMessage")}`);}catch(e){notification(e.message)}};$("loginButton").onclick=()=>showAuth();$("closeAuth").onclick=()=>$("authDialog").close();$("refreshTickets").onclick=()=>refreshTickets();$("refreshWallet").onclick=loadMemberWallet;$("refreshPaymentRecords").onclick=loadMemberWallet;$("refreshGameWallet").onclick=()=>loadGameWallet();$("gameWalletSettle").onclick=()=>settleGameWallet(false);$("gameWalletRecover").onclick=recoverGameWallet;$("refreshAdminGameWallet").onclick=()=>loadAdminPanel("gameWalletAdminPanel",{force:true});$("refreshAdminDeposits").onclick=()=>loadAdminPanel("adminDepositPanel",{force:true});$("syncGamesNow").onclick=async()=>{await renderGameSync(true);state.adminLoadedPanels.add("gameSyncPanel");};$("refreshWithdrawals").onclick=loadWithdrawals;$("refreshAdminWithdrawals").onclick=()=>loadAdminPanel("adminWithdrawalPanel",{force:true});$("withdrawalForm").addEventListener("submit",submitWithdrawalForm);$("vpayOrderForm").addEventListener("submit",submitVPayOrder);$("oneMpayOrderForm").addEventListener("submit",submitOneMpayOrder);$("search").oninput=()=>{renderApiSupplierButtons();renderCatalog();};$("locale").onchange=e=>{state.lang=e.target.value;try{localStorage.setItem("m7-language",state.lang);}catch{}applyLang();renderApiSupplierButtons();};$("lobbyAdPrevious").onclick=()=>{state.adIndex--;renderCarousel();};$("lobbyAdNext").onclick=()=>{state.adIndex++;renderCarousel();};$("lobbyAdCancel").onclick=resetAdForm;$("lobbyAdForm").addEventListener("submit",async e=>{e.preventDefault();const button=$("lobbyAdSave");button.disabled=true;try{const file=$("lobbyAdFile").files[0],imageData=file?await imageDataForUpload(file):"";await api("/api/admin/ads","POST",{action:"save",id:state.editAdId||undefined,title:$("lobbyAdTitle").value,targetUrl:$("lobbyAdTarget").value,imageData,status:$("lobbyAdStatus").value,startsAt:$("lobbyAdStartsAt").value,endsAt:$("lobbyAdEndsAt").value,position:state.adminAds?.length||0});resetAdForm();await loadLobbyContent();await renderAdManager();notification(t("success"));}catch(err){$("lobbyAdFormStatus").textContent=err.message;}finally{button.disabled=false;}});$("benefitCancel").onclick=resetBenefitForm;$("benefitForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/benefits","POST",benefitFormPayload("draft"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}});$("benefitPublish").onclick=async()=>{if(!$("benefitForm").reportValidity())return;try{await api("/api/admin/benefits","POST",benefitFormPayload("active"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}};$("ticketForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user){showAuth();return;}try{await api("/api/tickets","POST",{subject:$("ticketSubject").value,message:$("ticketMessage").value});$("ticketForm").reset();await refreshTickets();notification(t("success"));}catch(err){notification(err.message)}});$("socialForm").addEventListener("submit",async e=>{e.preventDefault();$("socialFormStatus").textContent="Saving…";try{await api("/api/admin/social-links","POST",socialFormPayload());await loadPublic();await renderSocialAdmin(true);$("socialFormStatus").textContent="✅ Saved";notification(t("success"));}catch(err){$("socialFormStatus").textContent=err.message;notification(err.message)}});$("announcementCancel").onclick=resetAnnouncementForm;$("announcementForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/announcement","POST",{action:"save",id:state.editAnnouncementId||undefined,title:$("announcementTitle").value,body:$("announcementBody").value,status:$("announcementStatus").value,startsAt:$("announcementStartsAt").value,endsAt:$("announcementEndsAt").value});resetAnnouncementForm();await loadPublic();await renderAnnouncementManager();notification(t("success"));}catch(err){$("announcementFormStatus").textContent=err.message;}});}
+ (function restoreLanguage(){try{const saved=localStorage.getItem("m7-language");if(["en","zh","ms"].includes(saved))state.lang=saved;}catch{}})();
+ Object.assign(translations.zh,{registrationDone:"注册成功，手机号已验证。请使用会员 ID、密码和手机 OTP 登录。",registerSaved:"注册成功，请登录。",loginNotice:"输入会员 ID 和密码，再把发送到登记手机的 6 位 OTP 填入小格。",managementSignIn:"后台管理登录",managementLoginNotice:"请输入管理员或员工 ID 与密码。",featureOtpDesc:"注册时验证马来西亚手机号；会员登录使用 ID、密码和短信 OTP"});
+ Object.assign(translations.en,{registrationDone:"Registration complete and phone verified. Sign in with your member ID, password and mobile OTP.",registerSaved:"Registered. Please sign in.",loginNotice:"Enter your member ID and password, then type the 6-digit OTP sent to your registered mobile.",managementSignIn:"Management sign-in",managementLoginNotice:"Enter your administrator or staff ID and password.",featureOtpDesc:"Verify your Malaysian phone at registration; member sign-in uses ID, password and SMS OTP"});
+--- a/public/assets/style.css
++++ b/public/assets/style.css
+@@ -1659,10 +1659,12 @@
+ /* White-label V17 luxury navigation, contact/pixel controls and inline manuals. */
+ .ops-ai-capability-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.ops-ai-capability-grid a{display:grid;gap:3px;min-height:62px;padding:10px 12px;border:1px solid #2b3e4e;border-radius:9px;background:linear-gradient(145deg,#0b1722,#0b101c);color:#dcebf2;text-decoration:none}.ops-ai-capability-grid a:hover{border-color:#55cfc5;background:#10212d}.ops-ai-capability-grid strong{font-size:11px}.ops-ai-capability-grid span{color:#8299a9;font-size:9px}.ops-ai-capability-grid a::before{content:"";width:6px;height:6px;border-radius:50%;background:#5de9df;box-shadow:0 0 8px rgba(93,233,223,.72)}
+ .contact-admin-cover .contact-admin-form{gap:10px;padding:13px 16px 0}.contact-settings-block{display:grid;gap:10px;padding:11px;border:1px solid #2c3246;border-radius:9px;background:#0c111d}.contact-form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.contact-form-grid label,.pixel-setting-row>label:first-child{display:grid;gap:4px;color:#949daf;font-size:9px}.contact-master-toggle{padding-top:2px}.pixel-setting-row{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(220px,1fr);align-items:end;gap:10px}.pixel-setting-row .social-toggle{min-height:38px;margin:0;padding:8px 10px;border:1px solid #2a3348;border-radius:7px;background:#090e18}.contact-save-row{display:flex;align-items:center;gap:12px}.contact-save-row .button{min-width:190px}.contact-admin-cover>.social-admin-actions,.contact-admin-cover>.contact-guide,.contact-admin-cover>#socialReadOnly{margin-left:16px;margin-right:16px}.contact-admin-cover>.social-admin-actions{display:flex;gap:7px;margin-top:12px}.contact-admin-cover>.contact-guide{margin-top:10px;margin-bottom:16px}.public-social-links .social-contact-text{display:inline-flex;align-items:center;justify-content:center;padding:9px 13px;border:1px solid #547698;border-radius:11px;background:#172d48;color:#dcebff;font-size:13px;font-weight:650}
++.contact-config-list{display:grid;gap:8px}.contact-config-row{display:grid;grid-template-columns:minmax(120px,.55fr) minmax(130px,.7fr) minmax(210px,1.4fr) auto auto;align-items:end;gap:8px;padding:10px;border:1px solid #30384d;border-radius:9px;background:#090e18}.pixel-item-row{grid-template-columns:minmax(150px,.65fr) minmax(220px,1.35fr) auto auto}.contact-config-row>label:not(.social-toggle){display:grid;gap:5px;color:#aeb7c8;font-size:12px;font-weight:650}.contact-item-toggle{min-height:40px;margin:0;padding:8px 10px;border:1px solid #30384d;border-radius:7px;background:#0c1320;font-size:12px!important}.contact-item-toggle input,.contact-master-toggle input{width:20px!important;height:20px!important;min-height:20px!important;margin:0;accent-color:#55dcd2}.contact-row-actions{display:flex;align-items:center;gap:5px}.contact-row-action{min-width:38px!important;min-height:38px!important;padding:5px 8px!important;font-size:16px!important}.contact-add-button{justify-self:start;min-width:150px}.contact-history,.contact-readonly{display:grid;gap:7px;margin:12px 16px 0}.contact-history h3,.contact-readonly p{margin:0}.contact-history-row,.contact-readonly-row{display:grid;grid-template-columns:75px minmax(0,1fr) auto;align-items:center;gap:10px;padding:9px 11px;border:1px solid #2d3549;border-radius:8px;background:#090e18}.contact-history-row strong,.contact-readonly-row strong{font-size:12px;color:#d9c581}.contact-history-row span,.contact-readonly-row span{overflow-wrap:anywhere;font-size:11px;color:#c6cedc}.contact-history-row small,.contact-readonly-row small{font-size:11px;color:#8fa1b3}.contact-admin-cover .social-toggle{font-size:12px}.contact-admin-cover .muted{font-size:11px!important}.contact-admin-cover .button{font-size:12px!important}.contact-admin-cover>.social-admin-actions a{min-height:38px;padding:9px 12px;font-size:12px}
+ .feature-inline-guide{order:99;margin:14px 0 0;border:1px solid #252c3c;border-radius:9px;background:#080d16;color:#7f899a}.admin-feature-cover>.feature-inline-guide{margin:14px 16px 16px}.feature-inline-guide summary{padding:9px 11px;color:#aeb6c5;font-size:10px;font-weight:750;cursor:pointer;list-style-position:inside}.feature-inline-guide[open] summary{border-bottom:1px solid #252c3c;color:#d5c58f}.feature-inline-guide p{margin:0;padding:7px 11px 0;color:#818b9d;font-size:9px;line-height:1.55}.feature-inline-guide p:last-child{padding-bottom:10px}.section>.feature-inline-guide{margin-top:18px}
+ body.admin-mode .admin-internal-sidebar a{position:relative}body.admin-mode .admin-internal-sidebar a::before{content:"";position:absolute;left:7px;top:50%;width:4px;height:4px;border-radius:50%;background:#384252;transform:translateY(-50%)}body.admin-mode .admin-internal-sidebar a.active::before{background:#5de9df;box-shadow:0 0 7px rgba(93,233,223,.8)}
++@media(max-width:1100px){.contact-config-row{grid-template-columns:repeat(2,minmax(0,1fr))}.contact-config-row .contact-row-actions{justify-self:end}.contact-config-row .contact-item-toggle{align-self:end}}
+ @media(max-width:900px){.ops-ai-capability-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.contact-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+-@media(max-width:620px){.ops-ai-capability-grid,.contact-form-grid,.pixel-setting-row{grid-template-columns:1fr}.contact-admin-cover .contact-admin-form{padding:10px 10px 0}.contact-save-row{align-items:stretch;flex-direction:column}.contact-save-row .button{width:100%}.contact-admin-cover>.social-admin-actions,.contact-admin-cover>.contact-guide,.contact-admin-cover>#socialReadOnly{margin-left:10px;margin-right:10px}.contact-admin-cover>.social-admin-actions{display:grid;grid-template-columns:1fr 1fr}.admin-feature-cover>.feature-inline-guide{margin:10px}}
++@media(max-width:620px){.ops-ai-capability-grid,.contact-form-grid,.pixel-setting-row,.contact-config-row,.pixel-item-row,.contact-history-row,.contact-readonly-row{grid-template-columns:1fr}.contact-admin-cover .contact-admin-form{padding:10px 10px 0}.contact-save-row{align-items:stretch;flex-direction:column}.contact-save-row .button{width:100%}.contact-row-actions{display:grid;grid-template-columns:repeat(3,1fr)}.contact-row-action{width:100%}.contact-add-button{width:100%}.contact-history,.contact-readonly{margin-left:10px;margin-right:10px}.contact-admin-cover>.social-admin-actions,.contact-admin-cover>.contact-guide,.contact-admin-cover>#socialReadOnly{margin-left:10px;margin-right:10px}.contact-admin-cover>.social-admin-actions{display:grid;grid-template-columns:1fr 1fr}.admin-feature-cover>.feature-inline-guide{margin:10px}}
+ 
+ /* Original MASTER7 luxury artwork generated for the V17 customer and owner shells. */
+ body.auth-entry{background:linear-gradient(110deg,rgba(2,8,14,.66),rgba(2,8,15,.34)),url("/assets/master7-casino-lobby-premium.webp") center/cover fixed no-repeat}
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.132-game-transfer';
++const CACHE='master7-shell-17.0.0-selfbuilt.133-operations-hardening';
+ const SHELL=['/offline.html','/manifest.webmanifest','/favicon.svg','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+--- a/scripts/postgres-readiness-gate.mjs
++++ b/scripts/postgres-readiness-gate.mjs
+@@ -4,7 +4,7 @@
+ import {BACKUP_EXCLUDED_TABLES,BACKUP_FORMAT,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES} from '../lib/encrypted-backup.ts';
+ import {BACKUP_PUBLIC_KEY_SHA256} from '../lib/backup-public-key.ts';
+ import {
+- PROVIDER_WALLET_OPERATIONS_MIGRATION,MANUAL_BANK_FUNDS_MIGRATION,API_SUPPLIER_STATUS_MIGRATION,BENEFIT_CLAIM_REVIEW_MIGRATION,COMPANY_BANK_ARTWORK_MIGRATION,
++ FLEXIBLE_PUBLIC_CONTACTS_MIGRATION,PROVIDER_WALLET_OPERATIONS_MIGRATION,MANUAL_BANK_FUNDS_MIGRATION,API_SUPPLIER_STATUS_MIGRATION,BENEFIT_CLAIM_REVIEW_MIGRATION,COMPANY_BANK_ARTWORK_MIGRATION,
+  CONNECTED_SERVICES_MIGRATION,FIXED_VOUCHER_RETIREMENT_MIGRATION,GAME_ACCESS_ZONE_MIGRATION,
+  GAME_PROVIDER_ADAPTER_CORE_MIGRATION,MEGAH5_LAUNCH_OPERATIONS_MIGRATION,GAME_PROVIDER_ACCEPTANCE_MIGRATION,GENERIC_GAME_WALLET_RISK_MIGRATION,
+  GSPAY_PAYOUT_ACTIVATION_MIGRATION,GSPAY_USDT_PROFILE_MIGRATION,MANUAL_BANK_MIGRATION,MANUAL_COMPLIANCE_MIGRATION,
+@@ -17,7 +17,7 @@
+ 
+ export const REQUIRED_TABLES=Object.freeze([...BACKUP_TABLES,...BACKUP_EXCLUDED_TABLES].sort());
+ export const REQUIRED_MIGRATIONS=Object.freeze([
+- PROVIDER_WALLET_OPERATIONS_MIGRATION,MANUAL_BANK_FUNDS_MIGRATION,PORTAL_STATUS_MIGRATION,CONNECTED_SERVICES_MIGRATION,PAYMENT_PROVIDERS_MIGRATION,MANUAL_BANK_MIGRATION,
++ FLEXIBLE_PUBLIC_CONTACTS_MIGRATION,PROVIDER_WALLET_OPERATIONS_MIGRATION,MANUAL_BANK_FUNDS_MIGRATION,PORTAL_STATUS_MIGRATION,CONNECTED_SERVICES_MIGRATION,PAYMENT_PROVIDERS_MIGRATION,MANUAL_BANK_MIGRATION,
+  API_SUPPLIER_STATUS_MIGRATION,GAME_ACCESS_ZONE_MIGRATION,PAYMENT_ACCEPTANCE_GUARD_MIGRATION,
+  MARKETING_CONTACT_SCALE_MIGRATION,OPERATIONS_AUTOMATION_MIGRATION,SUPPORT_MARKETING_MIGRATION,
+  PAYOUT_CONTROL_MIGRATION,WHATSAPP_CAMPAIGN_DELIVERY_MIGRATION,REWARDS_HUB_MIGRATION,
+--- a/scripts/production-readiness-probe.mjs
++++ b/scripts/production-readiness-probe.mjs
+@@ -9,7 +9,7 @@
+ const CLOSED_HEALTH_FLAGS=['productionReady','settlementVerified','transactionsEnabled','realPayments','payoutsEnabled','liveGames','newDepositsEnabled','newGameLaunchesEnabled','newPayoutsEnabled'];
+ const PAYMENT_PROVIDERS=['vpay','gspay','1mpay'];
+ const PAYMENT_PROFILES=['vpay','gspay','gspay_usdt','1mpay'];
+-const READINESS_BLOCKERS=['deposit_provider_not_ready','payout_provider_not_ready','payment_settlement_not_verified','game_launch_or_settlement_not_ready'];
++const READINESS_BLOCKERS=['deposit_provider_not_ready','payout_provider_not_ready','payment_settlement_not_verified','game_launch_or_settlement_not_ready','encrypted_backup_not_ready','restore_rehearsal_not_verified'];
+ const GAME_PROVIDER_IDS=['megah5','jili','918kissh5','gameplay','lionking','suncity','pgsoft','gfg','sagaming','ps9','dragoonsoft','jdb','bg','allbet','quickspin','astar','metagaming','fuma','yl','funky','gamitech','spadegaming','turbo','ct855','pragmaticplay','joker','cg','atg','rectangle','m8bet','awc','evo888h5','cosmoplay','geminiupdown','epicwin','venus','clotplay'];
+ 
+ export function validateBaseUrl(value){
+@@ -39,6 +39,8 @@
+  for(const flag of CLOSED_HEALTH_FLAGS)check(checks,`health.${flag}`,health?.[flag]===false);
+  check(checks,'health.providerOrdersEnabled',paymentMapClosed(health?.providerOrdersEnabled));
+  check(checks,'health.providerPayoutsEnabled',paymentMapClosed(health?.providerPayoutsEnabled));
++ check(checks,'health.backupReady',health?.backupReady===false);
++ check(checks,'health.restoreReady',health?.restoreReady===false);
+  check(checks,'health.readinessBlockers',Array.isArray(health?.readinessBlockers)&&health.readinessBlockers.length===READINESS_BLOCKERS.length&&READINESS_BLOCKERS.every(item=>health.readinessBlockers.includes(item)));
+  check(checks,'health.providerCapabilities',PAYMENT_PROVIDERS.every(provider=>health?.providerCapabilities?.[provider]?.deposit?.enabled===false&&Array.isArray(health?.providerCapabilities?.[provider]?.deposit?.blockers)&&health.providerCapabilities[provider].deposit.blockers.includes('new_deposits_paused'))&&health?.providerCapabilities?.gspay_usdt?.deposit?.enabled===false&&health.providerCapabilities.gspay_usdt.deposit.implemented===false&&health.providerCapabilities.gspay_usdt.deposit.blockers?.includes('deposit_adapter_not_implemented'));
+  if(expectedReleasePrefix)check(checks,'health.releasePrefix',typeof health?.release==='string'&&health.release.startsWith(expectedReleasePrefix));
+--- a/scripts/start-render.mjs
++++ b/scripts/start-render.mjs
+@@ -3,6 +3,7 @@
+ import pg from "pg";
+ import { initializePortalDatabase } from "../lib/render-migrations.mjs";
+ import { renderPaymentActivationOptions } from "../lib/render-payment-activation.mjs";
++import { postgresPoolRuntimeOptions, registerPostgresPoolErrorHandler } from "../lib/postgres-pool-config.mjs";
+ 
+ const connectionString = process.env.PORTAL_POSTGRES_URL ?? process.env.DATABASE_URL;
+ if (!connectionString) {
+@@ -10,7 +11,7 @@
+   process.exit(1);
+ }
+ 
+-const pool = new pg.Pool({
++const pool = registerPostgresPoolErrorHandler(new pg.Pool({
+   connectionString,
+   ssl: process.env.PGSSLMODE === "disable"
+     ? false
+@@ -18,9 +19,8 @@
+         rejectUnauthorized: process.env.PGSSL_REJECT_UNAUTHORIZED !== "false",
+         ...(process.env.PGSSL_CA ? { ca: process.env.PGSSL_CA.replaceAll("\\n", "\n") } : {}),
+       },
+-  max: Number(process.env.PG_POOL_MAX ?? 5),
+-  connectionTimeoutMillis: 10_000,
+-});
++  ...postgresPoolRuntimeOptions(process.env),
++}));
+ 
+ try {
+   const schema = await readFile(resolve("db/render-schema.sql"), "utf8");
+--- a/tests/api.test.mjs
++++ b/tests/api.test.mjs
+@@ -13,7 +13,7 @@
+ // Execute the real migration and backend queries against SQLite, not query mocks.
+ const dir=mkdtempSync(join(tmpdir(),'master7-api-'));
+ const file=join(dir,'test.sqlite');
+-let sqlite=new DatabaseSync(file);for(const migration of ['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql','0014_withdrawal_requests.sql','0019_game_catalogue_sync.sql','0020_manual_bank_deposits.sql','0021_api_supplier_status.sql','0022_referrals.sql','0023_marketing_campaigns.sql','0024_megah5_transfer_wallet.sql','0025_game_access_zones.sql','0027_marketing_contact_scale.sql','0090_security_wallet_reservations.sql','0091_operations_automation.sql','0092_support_marketing_notifications.sql','0093_reward_state_machines.sql','0094_payment_recovery_and_payout_state.sql','0100_whatsapp_campaign_delivery.sql','0101_rewards_hub.sql','0102_responsible_play.sql','0103_company_bank_artwork.sql','0105_voucher_manual_workflow.sql','0107_benefit_claim_reviews.sql','0108_manual_compliance_review.sql','0110_game_provider_adapter_core.sql','0111_member_wallet_guards.sql','0112_megah5_launch_operations.sql','0113_game_provider_acceptance_evidence.sql','0115_manual_bank_funds.sql','0116_provider_wallet_operations.sql'])sqlite.exec(readFileSync(new URL(`../drizzle/${migration}`,import.meta.url),'utf8'));
++let sqlite=new DatabaseSync(file);for(const migration of ['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql','0014_withdrawal_requests.sql','0019_game_catalogue_sync.sql','0020_manual_bank_deposits.sql','0021_api_supplier_status.sql','0022_referrals.sql','0023_marketing_campaigns.sql','0024_megah5_transfer_wallet.sql','0025_game_access_zones.sql','0027_marketing_contact_scale.sql','0090_security_wallet_reservations.sql','0091_operations_automation.sql','0092_support_marketing_notifications.sql','0093_reward_state_machines.sql','0094_payment_recovery_and_payout_state.sql','0100_whatsapp_campaign_delivery.sql','0101_rewards_hub.sql','0102_responsible_play.sql','0103_company_bank_artwork.sql','0105_voucher_manual_workflow.sql','0107_benefit_claim_reviews.sql','0108_manual_compliance_review.sql','0110_game_provider_adapter_core.sql','0111_member_wallet_guards.sql','0112_megah5_launch_operations.sql','0113_game_provider_acceptance_evidence.sql','0115_manual_bank_funds.sql','0116_provider_wallet_operations.sql','0117_flexible_public_contacts.sql'])sqlite.exec(readFileSync(new URL(`../drizzle/${migration}`,import.meta.url),'utf8'));
+ class Statement{
+  constructor(sql,args=[]){this.sql=sql;this.args=args;}
+  bind(...args){return new Statement(this.sql,args);}
+@@ -203,10 +203,11 @@
+  });
+  await t.test('owner creates a public-key encrypted recovery backup without exposing records',async()=>{
+   assert.equal((await call('employee','/api/admin/backup','POST',{action:'create'})).status,403);const backup=await call('owner','/api/admin/backup','POST',{action:'create'});assert.equal(backup.status,200);assert.equal(backup.data.format,'MASTER7-ENCRYPTED-BACKUP-1');assert.equal(backup.data.encryption.content,'AES-256-GCM');assert.equal(backup.data.manifest.tableCount,BACKUP_TABLES.length);assert.ok(backup.data.manifest.totalRecords>0);assert.ok(backup.data.ciphertext.length>100);const exposed=JSON.stringify(backup.data);assert.ok(!exposed.includes('owner@example.test'));assert.ok(!exposed.includes('test-csrf'));
+-  let readiness=await call('owner','/api/admin/system-readiness');assert.equal(readiness.data.items.find(item=>item.id==='encrypted_backup').status,'ready');assert.equal(readiness.data.items.find(item=>item.id==='restore_rehearsal').status,'pending_verification');
++  let readiness=await call('owner','/api/admin/system-readiness');assert.equal(readiness.data.backupReady,true);assert.equal(readiness.data.restoreReady,false);assert.equal(readiness.data.items.find(item=>item.id==='encrypted_backup').status,'ready');assert.equal(readiness.data.items.find(item=>item.id==='restore_rehearsal').status,'pending_verification');
++  let health=await call(null,'/health');assert.equal(health.data.backupReady,true);assert.equal(health.data.restoreReady,false);assert.ok(health.data.readinessBlockers.includes('restore_rehearsal_not_verified'));assert.equal(health.data.readinessBlockers.includes('encrypted_backup_not_ready'),false);assert.equal(health.data.productionReady,false);
+   const receiptFor=value=>({action:'record_rehearsal',status:'verified',format:'MASTER7-ENCRYPTED-BACKUP-1',release:RELEASE,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,createdAt:value.createdAt,backupSha256:createHash('sha256').update(JSON.stringify(value)).digest('hex'),plaintextSha256:value.plaintextSha256,publicKeySha256:'922c18278bcd0521b73eb40166e3a111765157e4f0179fa18b07bb53cb151359',tableCount:BACKUP_TABLES.length,totalRecords:value.manifest.totalRecords,foreignKeyViolations:0,coverageComplete:true,missingTables:[],readConsistency:'transaction_snapshot',persistentWrites:false,restoreTarget:'isolated PostgreSQL transaction on restore-db.internal/master7_restore_2026',verifiedAt:new Date().toISOString()}),receipt=receiptFor(backup.data);
+   for(const invalid of [{...receipt,backupSha256:'a'.repeat(64),plaintextSha256:'b'.repeat(64)},{...receipt,schemaVersion:'0107-benefit-claim-reviews'},{...receipt,coverageComplete:false,missingTables:['manual_compliance_reviews']},{...receipt,readConsistency:'unverified',persistentWrites:true,restoreTarget:'isolated PostgreSQL transaction on db.internal/master7'}])assert.equal((await call('owner','/api/admin/backup','POST',invalid)).status,400);
+-  assert.equal((await call('owner','/api/admin/backup','POST',receipt)).status,200);readiness=await call('owner','/api/admin/system-readiness');assert.equal(readiness.data.items.find(item=>item.id==='restore_rehearsal').status,'ready');
++  assert.equal((await call('owner','/api/admin/backup','POST',receipt)).status,200);readiness=await call('owner','/api/admin/system-readiness');assert.equal(readiness.data.backupReady,true);assert.equal(readiness.data.restoreReady,true);assert.equal(readiness.data.items.find(item=>item.id==='restore_rehearsal').status,'ready');health=await call(null,'/health');assert.equal(health.data.backupReady,true);assert.equal(health.data.restoreReady,true);assert.equal(health.data.readinessBlockers.includes('encrypted_backup_not_ready'),false);assert.equal(health.data.readinessBlockers.includes('restore_rehearsal_not_verified'),false);assert.equal(health.data.productionReady,false);
+   const newer=await call('owner','/api/admin/backup','POST',{action:'create'});assert.equal(newer.status,200);assert.equal((await call('owner','/api/admin/backup','POST',receipt)).status,400,'a receipt cannot be replayed after a newer backup');readiness=await call('owner','/api/admin/system-readiness');assert.equal(readiness.data.items.find(item=>item.id==='restore_rehearsal').status,'pending_verification');assert.equal((await call('owner','/api/admin/backup','POST',receiptFor(newer.data))).status,200);
+   assert.equal((await call('owner','/api/admin/backup','POST',{action:'other'})).status,400);
+  });
+@@ -403,6 +404,13 @@
+   assert.equal((await call('owner','/api/admin/social-links','POST',{enabled:true,facebookUrl:'https://www.facebook.com/example',instagramUrl:'',pixelEnabled:true,metaPixelId:'pixel-not-numeric'})).status,400);
+   const saved=await call('owner','/api/admin/social-links','POST',{enabled:true,hotline:'+60 11 6633 6686',whatsapp:'601166336686',wechat:'MASTER7',lineUrl:'https://line.me/ti/p/example',telegramUrl:'@master7support',facebookUrl:'https://www.facebook.com/example',instagramUrl:'https://www.instagram.com/example',pixelEnabled:true,metaPixelId:'123456789012345'});assert.equal(saved.status,200);
+   const publicSettings=(await call(null,'/api/social-links')).data;assert.equal(publicSettings.enabled,true);assert.equal(publicSettings.whatsapp,'601166336686');assert.equal(publicSettings.telegramUrl,'https://t.me/master7support');assert.equal(publicSettings.pixelEnabled,true);assert.equal(publicSettings.metaPixelId,'123456789012345');
++  const adminSettings=(await call('owner','/api/admin/social-links')).data;assert.equal(adminSettings.canEdit,true);assert.equal(adminSettings.revision,1);assert.equal(adminSettings.revisions.length,1);
++  const flexible=await call('owner','/api/admin/social-links','POST',{expectedRevision:adminSettings.revision,enabled:true,contacts:[{id:'contact_whatsapp_primary',type:'whatsapp',label:'Support',value:'601122334455',enabled:true},{id:'contact_hotline_hidden',type:'hotline',label:'Private hotline',value:'+60 11 2233 4455',enabled:false}],pixels:[{id:'pixel_google_primary',provider:'google',trackingId:'G-ABCD1234',enabled:true},{id:'pixel_meta_disabled',provider:'meta',trackingId:'123456789012345',enabled:false}]});assert.equal(flexible.status,200);assert.equal(flexible.data.revision,2);
++  const filtered=(await call(null,'/api/social-links')).data;assert.deepEqual(filtered.contacts.map(item=>item.id),['contact_whatsapp_primary']);assert.deepEqual(filtered.pixels.map(item=>item.id),['pixel_google_primary']);assert.equal(filtered.hotline,'');assert.equal(filtered.metaPixelId,'');assert.equal(filtered.googleTagId,'G-ABCD1234');
++  assert.equal((await call('owner','/api/admin/social-links','POST',{expectedRevision:1,enabled:false,contacts:[],pixels:[]})).status,409);
++  assert.equal((await call('owner','/api/admin/social-links','POST',{expectedRevision:2,enabled:true,contacts:[{id:'contact_script_attempt',type:'facebook',label:'Unsafe',value:'javascript:alert(1)',enabled:true}],pixels:[]})).status,400);
++  const staffSettings=(await call('employee','/api/admin/social-links')).data;assert.equal(staffSettings.canEdit,false);assert.equal(staffSettings.revisions.length,2);
++  assert.throws(()=>sqlite.prepare('UPDATE public_contact_revisions SET revision=99 WHERE revision=1').run(),/immutable/);assert.throws(()=>sqlite.prepare('DELETE FROM public_contact_revisions WHERE revision=1').run(),/immutable/);
+   assert.equal((await call('employee','/api/admin/social-links','POST',{enabled:false})).status,403);
+  });
+  await t.test('draft and scheduled company content is publicly filtered and remains editable',async()=>{
+--- a/tests/backup-restore-rehearsal.test.mjs
++++ b/tests/backup-restore-rehearsal.test.mjs
+@@ -118,7 +118,7 @@
+ 
+ test('current release backup restores acceptance evidence and reviewed benefit columns in isolation',async t=>{
+  const f=await fixture(t);
+- assert.equal(BACKUP_SCHEMA_VERSION,'0116-provider-wallet-operations');
++ assert.equal(BACKUP_SCHEMA_VERSION,'0117-flexible-public-contacts');
+  assert.equal(f.envelope.manifest.tableCount,BACKUP_TABLES.length);
+  assert.equal(f.envelope.manifest.tables.find(item=>item.name==='manual_bank_transactions').rows,2);
+  for(const table of ['benefit_claims','voucher_manual_reviews','voucher_manual_play_events','marketing_webhook_events','responsible_play_profiles','responsible_play_deposit_reservations'])assert.equal(f.envelope.manifest.tables.find(item=>item.name===table).rows,1);
+@@ -160,6 +160,7 @@
+ test('previous 0112 backup is recoverable but cannot certify acceptance evidence coverage',async t=>{
+  const f=await fixture(t),oldHash='2ce57d7e348bdee3a0b6e145d19479a113136ccadc61e9fdfda2e1511a6a3e3b';
+  repack(f,payload=>{
++  delete payload.tables.public_contact_revisions;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='public_contact_revisions');
+   payload.schemaVersion='0112-megah5-launch-operations';
+   delete payload.tables.provider_wallet_operations;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='provider_wallet_operations');
+   delete payload.tables.manual_bank_transactions;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='manual_bank_transactions');
+@@ -171,12 +172,13 @@
+  const result=verify(f);assert.equal(result.status,0,result.stderr);
+  const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));
+  assert.equal(receipt.status,'verified_legacy_coverage');assert.equal(receipt.coverageComplete,false);
+- assert.deepEqual(receipt.missingTables,['manual_bank_transactions',...acceptanceTables,'provider_wallet_operations']);
++ assert.deepEqual(receipt.missingTables,['manual_bank_transactions',...acceptanceTables,'provider_wallet_operations','public_contact_revisions']);
+ });
+ 
+ test('previous 0110 backup is recoverable but cannot certify launch-operation coverage',async t=>{
+  const f=await fixture(t),oldHash='4a1e7437fb14dc212ec39a801e173f7e898fcfa44707e7b523f5c8ba299b1555';
+  repack(f,payload=>{
++  delete payload.tables.public_contact_revisions;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='public_contact_revisions');
+   payload.schemaVersion='0110-game-provider-adapter-core';
+   delete payload.tables.provider_wallet_operations;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='provider_wallet_operations');
+   delete payload.tables.manual_bank_transactions;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='manual_bank_transactions');
+@@ -188,12 +190,13 @@
+  const result=verify(f);assert.equal(result.status,0,result.stderr);
+  const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));
+  assert.equal(receipt.status,'verified_legacy_coverage');assert.equal(receipt.coverageComplete,false);
+- assert.deepEqual(receipt.missingTables,['manual_bank_transactions','megah5_launch_operations',...acceptanceTables,'provider_wallet_operations']);
++ assert.deepEqual(receipt.missingTables,['manual_bank_transactions','megah5_launch_operations',...acceptanceTables,'provider_wallet_operations','public_contact_revisions']);
+ });
+ 
+ test('known 0108 backup remains recoverable and reports every missing adapter table',async t=>{
+  const f=await fixture(t),oldHash='6453a7551fd5cbc19e6b7ca6728405f4ead79db7864b5b8d52186905bcb8798a';
+  repack(f,payload=>{
++  delete payload.tables.public_contact_revisions;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='public_contact_revisions');
+   payload.schemaVersion='0108-manual-compliance-review';
+   delete payload.tables.provider_wallet_operations;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='provider_wallet_operations');
+   delete payload.tables.manual_bank_transactions;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='manual_bank_transactions');
+@@ -204,12 +207,13 @@
+  });
+  const result=verify(f);assert.equal(result.status,0,result.stderr);
+  const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));assert.equal(receipt.status,'verified_legacy_coverage');
+- assert.deepEqual(receipt.missingTables,['manual_bank_transactions',...gameAdapterTables,'megah5_launch_operations',...acceptanceTables,'provider_wallet_operations']);
++ assert.deepEqual(receipt.missingTables,['manual_bank_transactions',...gameAdapterTables,'megah5_launch_operations',...acceptanceTables,'provider_wallet_operations','public_contact_revisions']);
+ });
+ 
+ test('known 0107 legacy backup remains recoverable with explicit incomplete-coverage receipt',async t=>{
+  const f=await fixture(t),legacyHash='2648becd21723884358bcaf90f5928dc19c7cc58dcf090c87ca1db3c00c34d69';
+  repack(f,payload=>{
++  delete payload.tables.public_contact_revisions;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='public_contact_revisions');
+   payload.schemaVersion='0107-benefit-claim-reviews';
+   delete payload.tables.provider_wallet_operations;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='provider_wallet_operations');
+   delete payload.tables.manual_bank_transactions;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='manual_bank_transactions');
+@@ -228,7 +232,7 @@
+  const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));
+  assert.equal(receipt.status,'verified_legacy_coverage');
+  assert.equal(receipt.coverageComplete,false);
+- assert.deepEqual(receipt.missingTables,['manual_bank_transactions','marketing_webhook_events','manual_compliance_reviews','manual_compliance_events',...gameAdapterTables,'megah5_launch_operations',...acceptanceTables,'provider_wallet_operations']);
++ assert.deepEqual(receipt.missingTables,['manual_bank_transactions','marketing_webhook_events','manual_compliance_reviews','manual_compliance_events',...gameAdapterTables,'megah5_launch_operations',...acceptanceTables,'provider_wallet_operations','public_contact_revisions']);
+  assert.equal(receipt.schemaSha256,legacyHash);
+  assert.equal(receipt.tableCount,50);
+  assert.equal(receipt.foreignKeyViolations,0);
+@@ -238,6 +242,7 @@
+ test('previous 0107 full backup stays recoverable and declares missing compliance records',async t=>{
+  const f=await fixture(t),oldHash='5ce4d8778d03097b16ef0fff08c1cc6fa05e7ce9a639bce232564a728982cae9';
+  repack(f,payload=>{
++  delete payload.tables.public_contact_revisions;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='public_contact_revisions');
+   payload.schemaVersion='0107-benefit-claim-reviews';
+   delete payload.tables.provider_wallet_operations;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='provider_wallet_operations');
+   delete payload.tables.manual_bank_transactions;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='manual_bank_transactions');
+@@ -248,7 +253,7 @@
+  });
+  const result=verify(f);assert.equal(result.status,0,result.stderr);
+  const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));assert.equal(receipt.status,'verified_legacy_coverage');
+- assert.deepEqual(receipt.missingTables,['manual_bank_transactions','manual_compliance_reviews','manual_compliance_events',...gameAdapterTables,'megah5_launch_operations',...acceptanceTables,'provider_wallet_operations']);
++ assert.deepEqual(receipt.missingTables,['manual_bank_transactions','manual_compliance_reviews','manual_compliance_events',...gameAdapterTables,'megah5_launch_operations',...acceptanceTables,'provider_wallet_operations','public_contact_revisions']);
+ });
+ 
+ test('restore rejects an unauthenticated envelope snapshot claim',async t=>{
+@@ -267,7 +272,7 @@
+  assert.match(result.stderr,/Foreign key validation failed/);
+ });
+ 
+-for(const [version,missing] of [['0115-manual-bank-funds',['provider_wallet_operations']],['0113-game-provider-acceptance',['manual_bank_transactions','provider_wallet_operations']]]){
++for(const [version,missing] of [['0115-manual-bank-funds',['provider_wallet_operations','public_contact_revisions']],['0113-game-provider-acceptance',['manual_bank_transactions','provider_wallet_operations','public_contact_revisions']]]){
+  test(`previous ${version} backup remains recoverable without falsely certifying the new provider operations`,async t=>{
+   const f=await fixture(t);repack(f,payload=>{payload.schemaVersion=version;for(const name of missing)delete payload.tables[name];payload.manifest.tables=payload.manifest.tables.filter(table=>!missing.includes(table.name));payload.schemaSha256=createHash('sha256').update(JSON.stringify({format:payload.format,schemaVersion:version,tables:payload.manifest.tables.map(table=>table.name)})).digest('hex');});
+   const result=verify(f);assert.equal(result.status,0,result.stderr);const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));assert.equal(receipt.status,'verified_legacy_coverage');assert.equal(receipt.coverageComplete,false);assert.deepEqual(receipt.missingTables,missing);assert.equal(receipt.foreignKeyViolations,0);
+--- a/tests/ios-pwa.test.mjs
++++ b/tests/ios-pwa.test.mjs
+@@ -26,7 +26,7 @@
+ });
+ 
+ test('service worker keeps authentication and financial routes network-only',()=>{
+- assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.132-game-transfer/);
++ assert.match(worker,/master7-shell-17\.0\.0-selfbuilt\.133-operations-hardening/);
+  assert.match(app,/navigator\.serviceWorker\.register\("\/service-worker\.js",\{scope:"\/"\}\)/);
+  assert.match(worker,/request\.mode==='navigate'/);
+  assert.match(worker,/fetch\(request\)\.catch\(\(\)=>caches\.match\('\/offline\.html'\)\)/);
+--- a/tests/luxury-backoffice-ui.test.mjs
++++ b/tests/luxury-backoffice-ui.test.mjs
+@@ -27,7 +27,7 @@
+  assert.match(style,/\.admin-feature-cover\{display:block!important/);
+  assert.match(style,/\.admin-internal-sidebar a\.active::after/);
+  assert.match(style,/background:#5de9df/);
+- assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.132-game-transfer/);
++ assert.match(html,/\/assets\/suite-theme\.css\?v=17\.0\.0-selfbuilt\.133-operations-hardening/);
+  assert.ok(html.lastIndexOf('/assets/suite-theme.css')>html.lastIndexOf('/assets/owner-manual.css'),'suite theme must load after all feature styles');
+  assert.match(suiteStyle,/--m7-gold:/);
+  assert.match(suiteStyle,/body\.admin-mode \.admin-internal-sidebar a\{/);
+@@ -35,15 +35,20 @@
+  assert.match(suiteStyle,/color:#e7e1d7/);
+ });
+ 
+-test('contact hub supports hotline, chat channels and an opt-in Meta Pixel',()=>{
+- for(const id of ['hotlineContact','whatsappContact','wechatContact','lineContact','telegramContact','facebookLink','instagramLink','metaPixelId','metaPixelEnabled'])assert.match(html,new RegExp(`id="${id}"`));
+- assert.match(app,/configureAdvertisingPixel\(data\)/);
++test('contact hub supports ordered contacts and typed opt-in Meta or Google pixels',()=>{
++ for(const id of ['contactRows','pixelRows','addContact','addPixel','socialRevision','socialHistory'])assert.match(html,new RegExp(`id="${id}"`));
++ assert.match(app,/configureAdvertisingPixels\(data\)/);
+  assert.match(app,/https:\/\/connect\.facebook\.net\/en_US\/fbevents\.js/);
+- assert.match(app,/pixelEnabled:\$\("metaPixelEnabled"\)\.checked/);
++ assert.match(app,/https:\/\/www\.googletagmanager\.com\/gtag\/js/);
++ assert.match(app,/fbq\("trackSingle",id,"PageView"\)/);
++ assert.match(app,/allow_ad_personalization_signals:false/);
++ assert.match(app,/expectedRevision:state\.socialAdminRevision/);
+  assert.match(backend,/contact_and_pixel_settings_updated/);
+  assert.match(backend,/Meta Pixel ID 必须是数字/);
+- assert.match(route,/script-src 'self' https:\/\/connect\.facebook\.net/);
++ assert.match(backend,/Google tag ID must start with G- or AW-/);
++ assert.match(route,/script-src 'self' https:\/\/connect\.facebook\.net https:\/\/www\.googletagmanager\.com/);
+  assert.match(route,/img-src 'self' data: https:\/\/www\.facebook\.com/);
++ assert.doesNotMatch(html,/custom pixel script|arbitrary script/i);
+ });
+ 
+ test('AI platform manager links core white-label modules without duplicating the side menu',()=>{
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.132-game-transfer';
++const release='17.0.0-selfbuilt.133-operations-hardening';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+--- a/tests/operations-intelligence.test.mjs
++++ b/tests/operations-intelligence.test.mjs
+@@ -58,7 +58,7 @@
+  assert.equal(report.metrics.reconciliation.status,'matched');
+  assert.equal(report.metrics.rewards.walletPostingEnabled,false);
+  const ids=new Set(report.recommendations.map(item=>item.id));
+- for(const id of ['configure_company_bank','review_manual_deposits','review_pending_deposits','reconcile_unknown_deposits','review_withdrawals','complete_production_readiness','complete_payment_acceptance','complete_payout_acceptance','verify_settlement','complete_game_acceptance','review_game_wallet_sessions','answer_support_tickets','repair_catalogue_connections','inspect_failed_deposits','complete_whatsapp_setup'])assert.ok(ids.has(id),id);
++ for(const id of ['configure_company_bank','review_manual_deposits','review_pending_deposits','reconcile_unknown_deposits','review_withdrawals','complete_production_readiness','create_current_encrypted_backup','complete_isolated_restore_rehearsal','complete_payment_acceptance','complete_payout_acceptance','verify_settlement','complete_game_acceptance','review_game_wallet_sessions','answer_support_tickets','repair_catalogue_connections','inspect_failed_deposits','complete_whatsapp_setup'])assert.ok(ids.has(id),id);
+  assert.ok(report.recommendations.every(item=>item.approvalRequired&&item.automaticAction===false));
+  const serialized=JSON.stringify(report);
+  assert.doesNotMatch(serialized,/private-receipt|private-ticket-message|private-player-id|private-campaign-message|private-phone/);
+--- a/tests/postgres-readiness-gate.test.mjs
++++ b/tests/postgres-readiness-gate.test.mjs
+@@ -18,7 +18,7 @@
+ 
+ test('evidence gate accepts only the current schema, migration, backup and bound restore contract',()=>{
+  const result=evaluatePostgresReadinessEvidence(fixture(),{expectedRelease:release,nowMs});
+- assert.equal(result.ok,true);assert.equal(result.schema.requiredTables,68+5);assert.equal(result.schema.requiredTables,BACKUP_TABLES.length+BACKUP_EXCLUDED_TABLES.length);assert.ok(BACKUP_EXCLUDED_TABLES.includes('member_wallet_guards'));assert.ok(!BACKUP_TABLES.includes('member_wallet_guards'));assert.ok(BACKUP_TABLES.includes('megah5_launch_operations'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_events'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_current'));assert.ok(REQUIRED_TABLES.includes('member_wallet_guards'));assert.equal(result.schema.requiredMigrations,27);assert.ok(result.checks.every(item=>item.pass));
++ assert.equal(result.ok,true);assert.equal(result.schema.requiredTables,69+5);assert.equal(result.schema.requiredTables,BACKUP_TABLES.length+BACKUP_EXCLUDED_TABLES.length);assert.ok(BACKUP_EXCLUDED_TABLES.includes('member_wallet_guards'));assert.ok(!BACKUP_TABLES.includes('member_wallet_guards'));assert.ok(BACKUP_TABLES.includes('megah5_launch_operations'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_events'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_current'));assert.ok(BACKUP_TABLES.includes('public_contact_revisions'));assert.ok(REQUIRED_TABLES.includes('member_wallet_guards'));assert.equal(result.schema.requiredMigrations,28);assert.ok(result.checks.every(item=>item.pass));
+ });
+ 
+ test('evidence gate fails closed for drift, a write-capable role or an unbound receipt',()=>{
+--- a/tests/production-readiness-probe.test.mjs
++++ b/tests/production-readiness-probe.test.mjs
+@@ -11,7 +11,7 @@
+ const closedUsdtStatus={provider:'gspay',profileId:'gspay_usdt',currency:'USDT',readOnly:true,enabled:false,orderReady:false,realPayments:false,queryReady:false,callbacksReady:false,capabilities:{deposit:{implemented:false,enabled:false,blockers:['provider_contract_unverified','deposit_adapter_not_implemented']}}};
+ const payloads={
+  '/health/live':{status:'ok',database:'ready',release:sourceRelease,sourceRelease,scope:'portal-liveness'},
+- '/health':{status:'ok',database:'ready',release:sourceRelease,sourceRelease,maintenanceControlsConfigured:{deposits:true,gameLaunches:true,payouts:true},productionReady:false,settlementVerified:false,transactionsEnabled:false,realPayments:false,payoutsEnabled:false,liveGames:false,newDepositsEnabled:false,newGameLaunchesEnabled:false,newPayoutsEnabled:false,providerOrdersEnabled:{vpay:false,gspay:false,gspay_usdt:false,'1mpay':false},providerPayoutsEnabled:{vpay:false,gspay:false,gspay_usdt:false,'1mpay':false},providerCapabilities:closedCapabilities,readinessBlockers:['deposit_provider_not_ready','payout_provider_not_ready','payment_settlement_not_verified','game_launch_or_settlement_not_ready']},
++ '/health':{status:'ok',database:'ready',release:sourceRelease,sourceRelease,maintenanceControlsConfigured:{deposits:true,gameLaunches:true,payouts:true},productionReady:false,settlementVerified:false,transactionsEnabled:false,realPayments:false,payoutsEnabled:false,liveGames:false,backupReady:false,restoreReady:false,newDepositsEnabled:false,newGameLaunchesEnabled:false,newPayoutsEnabled:false,providerOrdersEnabled:{vpay:false,gspay:false,gspay_usdt:false,'1mpay':false},providerPayoutsEnabled:{vpay:false,gspay:false,gspay_usdt:false,'1mpay':false},providerCapabilities:closedCapabilities,readinessBlockers:['deposit_provider_not_ready','payout_provider_not_ready','payment_settlement_not_verified','game_launch_or_settlement_not_ready','encrypted_backup_not_ready','restore_rehearsal_not_verified']},
+  '/api/version':{status:'ok',database:'ready',release:sourceRelease,sourceRelease},
+  '/api/payment-channels':{readOnly:true,maintenanceControlsConfigured:{deposits:true,gameLaunches:true,payouts:true},transactionsEnabled:false,realPayments:false,payoutsEnabled:false,providerOrdersEnabled:{vpay:false,gspay:false,gspay_usdt:false,'1mpay':false,gspay_plus:false},providerPayoutsEnabled:{vpay:false,gspay:false,gspay_usdt:false,'1mpay':false},items:[...['vpay','gspay','1mpay'].map(provider_id=>({provider_id,enabled:false,status:'unavailable',channelStatus:'unavailable',settlementVerified:false,capabilities:{deposit:{enabled:false,blockers:['new_deposits_paused']}}})),{provider_id:'gspay_usdt',enabled:false,status:'unavailable',channelStatus:'unavailable',settlementVerified:false,capabilities:{deposit:{implemented:false,enabled:false,blockers:['provider_contract_unverified','deposit_adapter_not_implemented']}}}]},
+  '/api/payments/vpay/status':closedStatus('vpay'),
+--- /dev/null
++++ b/tests/runtime-hardening.test.mjs
+@@ -0,0 +1,48 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { EventEmitter } from 'node:events';
++import { readFileSync } from 'node:fs';
++import {
++  postgresPoolMax,
++  postgresPoolRuntimeOptions,
++  registerPostgresPoolErrorHandler,
++} from '../lib/postgres-pool-config.mjs';
++
++test('PostgreSQL pool size is bounded per autoscaled instance', () => {
++  for (const value of [undefined, null, '', '0', '-1', '6', '11', '1.5', 'abc', 'Infinity']) {
++    assert.equal(postgresPoolMax(value), 5, String(value));
++  }
++  assert.equal(postgresPoolMax('1'), 1);
++  assert.equal(postgresPoolMax('5'), 5);
++  assert.deepEqual(postgresPoolRuntimeOptions({ PG_POOL_MAX: '4' }), {
++    max: 4,
++    idleTimeoutMillis: 30_000,
++    connectionTimeoutMillis: 10_000,
++    maxLifetimeSeconds: 300,
++    keepAlive: true,
++    keepAliveInitialDelayMillis: 10_000,
++  });
++});
++
++test('idle PostgreSQL errors are handled without logging connection details', () => {
++  const pool = new EventEmitter();
++  const logs = [];
++  assert.equal(registerPostgresPoolErrorHandler(pool, message => logs.push(message)), pool);
++  const error = Object.assign(new Error('postgres://user:secret@private-db/internal'), { code: 'ECONNRESET' });
++  pool.emit('error', error);
++  assert.deepEqual(logs, ['MASTER7 PostgreSQL idle connection error; pool will replace the connection (ECONNRESET).']);
++  assert.doesNotMatch(logs[0], /secret|private-db|postgres:\/\//);
++});
++
++test('Render responses receive the baseline transport security headers', () => {
++  const config = readFileSync(new URL('../vite.render.config.ts', import.meta.url), 'utf8');
++  const route = readFileSync(new URL('../app/route.ts', import.meta.url), 'utf8');
++  const headers = readFileSync(new URL('../lib/http-security.ts', import.meta.url), 'utf8');
++  assert.match(config, /"\/\*\*"\s*:\s*\{[\s\S]*headers:\s*RENDER_SECURITY_HEADERS/);
++  assert.match(route, /\.\.\.RENDER_SECURITY_HEADERS/);
++  for (const name of ['Strict-Transport-Security', 'X-Frame-Options', 'Permissions-Policy', 'X-Permitted-Cross-Domain-Policies']) {
++    assert.ok(headers.includes(name), name);
++  }
++  assert.match(headers, /Strict-Transport-Security': 'max-age=31536000'/);
++  assert.doesNotMatch(headers, /includeSubDomains|preload/);
++});
+--- a/vite.render.config.ts
++++ b/vite.render.config.ts
+@@ -2,6 +2,7 @@
+ import vinext from "vinext";
+ import { nitro } from "nitro/vite";
+ import { defineConfig } from "vite";
++import { RENDER_SECURITY_HEADERS } from "./lib/http-security";
+ 
+ export default defineConfig({
+   resolve: {
+@@ -13,6 +14,9 @@
+     vinext(),
+     nitro({
+       routeRules: {
++        "/**": {
++          headers: RENDER_SECURITY_HEADERS,
++        },
+         "/assets/**": {
+           headers: {
+             "cache-control": "public, max-age=86400, stale-while-revalidate=604800",
