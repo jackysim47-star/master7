@@ -12,11 +12,11 @@ services:
   repo: https://github.com/jackysim47-star/master7
   branch: codex/v17-render-staging-20261104
   autoDeployTrigger: 'off'
-  scaling:
-    minInstances: 1
-    maxInstances: 5
-    targetCPUPercent: 70
-    targetMemoryPercent: 75
+  # Keep one application instance until the PostgreSQL connection budget has
+  # been raised and a five-instance load rehearsal has passed.  The previous
+  # autoscaling transition retained 28 workers long enough to exhaust the
+  # current database connection limit (SQLSTATE 53300).
+  numInstances: 1
   renderSubdomainPolicy: enabled
   buildCommand: set -e; mkdir -p .render-v17; tar -xzf master7-v17-render-staging.tar.gz -C .render-v17; cd .render-v17/master7-v17-render-staging; corepack pnpm
     install --frozen-lockfile; corepack pnpm run test:render-db; corepack pnpm run build:render
