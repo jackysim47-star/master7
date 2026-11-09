@@ -1,0 +1,87 @@
+{
+  "release": "17.0.0-selfbuilt.140-profile-catalogue-count",
+  "gitCommit": "6f358cee0a83e3960240fd55f52c89888ea900b7",
+  "renderDeploy": "dep-dbou0ijm8hqs73f1j8d0",
+  "capturedAt": "2026-11-09T15:06:20.713Z",
+  "verifiedAt": "2026-11-09T15:08:18.928Z",
+  "backup": {
+    "format": "MASTER7-ENCRYPTED-BACKUP-1",
+    "schemaVersion": "0118-production-acceptance-evidence",
+    "schemaSha256": "e67f7c6ebf850a6f35227c27bffab627baae479fa2e15990d6169e8616f3a37b",
+    "readConsistency": "transaction_snapshot",
+    "tableCount": 71,
+    "totalRecords": 427,
+    "sha256": "1a8017e544fcdb4c3532326d0c287ff9cc0d69971383fafa68b545764f857bc8",
+    "plaintextSha256": "6abfc20ba3bab65901e97166832c631f7dca056ec03a67aa7070101ada68c640",
+    "ciphertextSha256": "de42f7c587cc3fa6b479e3e8c83d84756d2b5499b40bc296639e23c775c6b92f",
+    "privateArtifactStored": true
+  },
+  "keyVerification": {
+    "matchingPrivateKeyAvailable": true,
+    "publicKeyFingerprint": "922c18278bcd0521b73eb40166e3a111765157e4f0179fa18b07bb53cb151359",
+    "privateKeyDisclosed": false,
+    "jobTokenDisclosed": false
+  },
+  "sqliteRestore": {
+    "status": "verified",
+    "coverageComplete": true,
+    "missingTables": [],
+    "readConsistency": "transaction_snapshot",
+    "tableCount": 71,
+    "totalRecords": 427,
+    "foreignKeyViolations": 0,
+    "receiptSha256": "712ec45d38509b0ffdad275c43a1e145dd036f58079eaab11b018554c3288d1b"
+  },
+  "postgresRestore": {
+    "engine": "PostgreSQL 18 isolated ephemeral container",
+    "status": "verified",
+    "coverageComplete": true,
+    "missingTables": [],
+    "readConsistency": "transaction_snapshot",
+    "tableCount": 71,
+    "totalRecords": 427,
+    "foreignKeyViolations": 0,
+    "persistentWrites": false,
+    "restoreTargetKind": "isolated_postgresql_transaction",
+    "receiptSha256": "0d16d70db15d0cf8da1eaf10999d2aa05d4fd1540a8a6f0654fc4acda53092dc",
+    "privateReceiptStored": true
+  },
+  "productionAudit": {
+    "actor": "system:backup-job",
+    "createHttpStatus": 200,
+    "recordRehearsalHttpStatus": 200,
+    "idempotentReplayHttpStatus": 200,
+    "idempotentReplayVerified": true,
+    "productionDataMutatedByRestore": false
+  },
+  "healthAfterRecording": {
+    "database": "ready",
+    "backupReady": true,
+    "restoreReady": true,
+    "backupCreatedAt": "2026-11-09T15:06:20.713Z",
+    "restoreVerifiedAt": "2026-11-09T15:08:18.928Z",
+    "productionReady": false,
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "transactionsEnabled": false,
+    "realPayments": false,
+    "payoutsEnabled": false,
+    "liveGames": false,
+    "remainingBlockers": [
+      "deposit_provider_not_ready",
+      "payout_provider_not_ready",
+      "payment_settlement_not_verified",
+      "game_launch_or_settlement_not_ready",
+      "official_domain_tls_not_verified",
+      "credential_rotation_not_verified",
+      "production_signoff_not_verified"
+    ]
+  },
+  "cleanup": {
+    "isolatedContainerRemoved": true,
+    "temporaryDatabaseCredentialRemoved": true,
+    "temporaryDependencyLinkRemoved": true,
+    "productionCredentialsUsed": false
+  }
+}

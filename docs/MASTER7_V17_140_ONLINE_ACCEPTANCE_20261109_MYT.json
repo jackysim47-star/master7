@@ -1,0 +1,146 @@
+{
+  "checkedAt": "2026-11-09T15:10:20Z",
+  "release": "17.0.0-selfbuilt.140-profile-catalogue-count",
+  "gitCommit": "6f358cee0a83e3960240fd55f52c89888ea900b7",
+  "renderDeploy": "dep-dbou0ijm8hqs73f1j8d0",
+  "renderService": "srv-dbl0iv7f3r2c73848ei0",
+  "renderOrigin": "https://master7-v17-staging.onrender.com",
+  "deployment": {
+    "status": "live",
+    "plan": "2c-4g",
+    "instanceCountObserved": 1,
+    "healthLiveHttp": 200,
+    "healthHttp": 200,
+    "database": "ready",
+    "applicationErrorsSinceDeploy": 0,
+    "http5xxSinceDeploy": 0,
+    "observedP95Seconds": 0.1214
+  },
+  "entryRoutes": {
+    "root": 303,
+    "rootLocation": "/signin",
+    "signin": 200,
+    "admin": 200,
+    "cacheControl": "no-store"
+  },
+  "maintenance": {
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "transactionsEnabled": false,
+    "realPayments": false,
+    "payoutsEnabled": false,
+    "settlementVerified": false,
+    "liveGames": false,
+    "productionReady": false
+  },
+  "payments": {
+    "vpay_myr": {
+      "http": 200,
+      "orderReady": false,
+      "queryReady": true,
+      "callbacksReady": true,
+      "recoveryReady": true,
+      "payoutReady": false,
+      "balanceReady": false,
+      "liveReady": false
+    },
+    "gspay_myr": {
+      "http": 200,
+      "orderReady": false,
+      "queryReady": true,
+      "callbacksReady": true,
+      "recoveryReady": true,
+      "payoutReady": false,
+      "balanceReady": false,
+      "liveReady": false
+    },
+    "gspay_usdt": {
+      "http": 200,
+      "orderReady": false,
+      "queryReady": false,
+      "callbacksReady": false,
+      "recoveryReady": false,
+      "payoutReady": false,
+      "balanceReady": false,
+      "liveReady": false
+    },
+    "onempay_myr": {
+      "http": 200,
+      "orderReady": false,
+      "queryReady": true,
+      "callbacksReady": true,
+      "recoveryReady": true,
+      "payoutReady": false,
+      "balanceReady": false,
+      "liveReady": false
+    }
+  },
+  "games": {
+    "http": 200,
+    "invalidProviderHttp": 400,
+    "providerBrands": 37,
+    "profiles": 41,
+    "implementedProfiles": 2,
+    "launchReadyProfiles": 0,
+    "verifiedProfiles": 0,
+    "playable": false,
+    "liveReady": false,
+    "kissProfiles": {
+      "918kiss_normal_myr": {
+        "account": "normal",
+        "providerCurrency": "MYR",
+        "games": 92,
+        "selectedPlatformCachedGameCount": 92
+      },
+      "918kiss_normal_my1_1to100": {
+        "account": "my1",
+        "providerCurrency": "MY1",
+        "games": 92,
+        "selectedPlatformCachedGameCount": 92
+      },
+      "918kiss_free_myr": {
+        "account": "free",
+        "providerCurrency": "MYR",
+        "games": 88,
+        "selectedPlatformCachedGameCount": 88
+      }
+    }
+  },
+  "backupRestore": {
+    "backupReady": true,
+    "restoreReady": true,
+    "durableTables": 71,
+    "records": 427,
+    "missingTables": 0,
+    "foreignKeyViolations": 0,
+    "persistentWritesDuringRestore": false
+  },
+  "officialDomains": {
+    "www.master7.best": {
+      "dnsAccepted": false,
+      "a": [],
+      "aaaa": [],
+      "cname": []
+    },
+    "www.master7.site": {
+      "dnsAccepted": false,
+      "a": [
+        "15.197.162.184"
+      ],
+      "aaaa": [],
+      "cname": [],
+      "httpsResult": 302,
+      "location": "https://master7-v17-staging.onrender.com/admin/health"
+    }
+  },
+  "result": {
+    "renderOriginAcceptance": "passed",
+    "profileCatalogueConsistency": "passed",
+    "backupRestoreAcceptance": "passed",
+    "officialDomainAcceptance": "blocked",
+    "realMoneyAcceptance": "not_verified",
+    "realProviderAcceptance": "not_verified",
+    "productionReady": false
+  }
+}
