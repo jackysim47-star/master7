@@ -19,7 +19,7 @@ The intended Blueprint configuration was:
 Render planned those exact values, but the service detail returned autoscaling
 enabled with `min=5`, `max=100`, and CPU/memory targets of 80%. That result did
 not match the reviewed plan and could create unexpected cost. The Blueprint was
-therefore rolled back to exactly one `2c-4g` instance. Autoscaling remains
+therefore rolled back to exactly one fixed instance. Autoscaling remains
 disabled until Render can apply and report the requested limits correctly.
 
 This guardrail also prevents the earlier unsafe transition that retained 28

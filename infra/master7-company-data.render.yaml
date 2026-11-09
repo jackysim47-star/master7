@@ -1,0 +1,25 @@
+# MASTER7 company data resources in the ahbi workspace.
+# This Blueprint adopts the existing resources by name; it must not create
+# duplicates. Review every Render plan before approval.
+databases:
+  - name: master7-cloud-staging-db
+    region: singapore
+    plan: 1c-2g
+    postgresMajorVersion: '18'
+    databaseName: master7_cloud_staging_db
+    user: master7_cloud_staging_db_user
+    diskSizeGB: 1
+    storageAutoscalingEnabled: true
+    connectionPool: none
+    highAvailability:
+      enabled: true
+    ipAllowList: []
+
+services:
+  - type: keyvalue
+    name: master7-growth-data
+    region: singapore
+    plan: 1g
+    maxmemoryPolicy: noeviction
+    persistenceMode: journal-snapshot
+    ipAllowList: []
