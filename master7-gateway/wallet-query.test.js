@@ -30,6 +30,11 @@ test('missing-reference lookup retains query scope and preserves provider failur
  for(const token of [undefined,env.GATEWAY_ADMIN_TOKEN,'bad'])assert.equal((await request(app,'/platform/vpay/order-query',token,{outTradeNo:'order_1'})).status,401);
  assert.equal(calls,0);const result=await request(app,'/platform/vpay/order-query',peer,{outTradeNo:'order_1'});assert.equal(result.status,502);assert.equal(result.body.result.code,-1);assert.equal(calls,1);
 });
+test('query failures expose a fixed diagnostic class without trusting arbitrary supplier messages',async()=>{
+ for(const [msg,expected] of [['Invalid signature.','vpay_invalid_signature'],['The order does not exist','vpay_order_not_found'],['Invalid API Key','vpay_invalid_credentials'],['unrecognized synthetic message','vpay_query_rejected']]){
+  const app=makeApp({env,fetchImpl:async()=>Response.json({code:-1,msg})});const r=await request(app,'/platform/vpay/order-query',peer,{outTradeNo:'order_1'});assert.equal(r.status,502);assert.equal(r.body.error,expected);assert.equal(r.body.result.code,-1);
+ }
+});
 test('query-only credentials cannot create, withdraw, inspect merchant balance or use admin APIs',async()=>{
  let calls=0;const app=makeApp({env,fetchImpl:async()=>{calls++;throw Error('Must not call supplier');}});
  for(const path of ['/platform/vpay/order','/admin/vpay/order','/admin/vpay/withdrawal','/admin/vpay/balance','/admin/vpay/order-query','/admin/vpay/withdrawal-query','/admin/mega/balance']){

@@ -1043,7 +1043,12 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         // read-only lookup for the query peer. Never create or infer a payment.
         const result = await vpay('ORDER_GET', { out_trade_no: outTradeNo, ...(walletQuery && hasTradeNo ? { trade_no: tradeNo } : {}) });
         const providerOK = result.data?.code === 0 || result.data?.code === '0';
+        const message = typeof result.data?.msg === 'string' ? result.data.msg.trim().toLowerCase().replace(/[.!?]+$/, '') : '';
+        const failureClass = ['invalid signature','invalid sign','signature error','sign error','wrong signature','签名错误','签名失败'].includes(message) ? 'vpay_invalid_signature'
+          : ['order not found','order does not exist','the order does not exist',"order doesn't exist",'订单不存在','订单号不存在'].includes(message) ? 'vpay_order_not_found'
+          : ['invalid token','invalid api key','invalid api token','api key not found'].includes(message) ? 'vpay_invalid_credentials' : 'vpay_query_rejected';
         return send(res, result.ok && providerOK ? 200 : 502, {
+          ...(!providerOK ? { error: failureClass } : {}),
           provider: 'vpay',
           upstreamStatus: result.status,
           result: result.data,
