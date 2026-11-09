@@ -1,0 +1,100 @@
+{
+  "syntheticOnly": true,
+  "realMoneyAcceptance": false,
+  "release": "17.0.0-selfbuilt.132-game-transfer",
+  "flow": "frontend QA launch → encrypted provider adapter → wallet hold → provider closure → return → one MYR result ledger → owner/staff records",
+  "amountOutMinor": "2000",
+  "amountReturnedMinor": "1575",
+  "netResultMinor": "-425",
+  "finalAvailableMinor": "1575",
+  "supplierWithdrawals": 1,
+  "ledgerRows": 1,
+  "holds": 0,
+  "nonQaPlayable": false,
+  "adminChecks": [
+    {
+      "role": "owner",
+      "recordMatches": true
+    },
+    {
+      "role": "staff",
+      "recordMatches": true
+    }
+  ],
+  "ratioDisplayChecks": [
+    {
+      "profile": "918kiss_normal_my1_1to100",
+      "width": 390,
+      "language": "en",
+      "pass": true
+    },
+    {
+      "profile": "jili_my1_1to100",
+      "width": 390,
+      "language": "en",
+      "pass": true
+    },
+    {
+      "profile": "918kiss_normal_my1_1to100",
+      "width": 390,
+      "language": "zh",
+      "pass": true
+    },
+    {
+      "profile": "jili_my1_1to100",
+      "width": 390,
+      "language": "zh",
+      "pass": true
+    },
+    {
+      "profile": "918kiss_normal_my1_1to100",
+      "width": 390,
+      "language": "ms",
+      "pass": true
+    },
+    {
+      "profile": "jili_my1_1to100",
+      "width": 390,
+      "language": "ms",
+      "pass": true
+    },
+    {
+      "profile": "918kiss_normal_my1_1to100",
+      "width": 1280,
+      "language": "en",
+      "pass": true
+    },
+    {
+      "profile": "jili_my1_1to100",
+      "width": 1280,
+      "language": "en",
+      "pass": true
+    },
+    {
+      "profile": "918kiss_normal_my1_1to100",
+      "width": 1280,
+      "language": "zh",
+      "pass": true
+    },
+    {
+      "profile": "jili_my1_1to100",
+      "width": 1280,
+      "language": "zh",
+      "pass": true
+    },
+    {
+      "profile": "918kiss_normal_my1_1to100",
+      "width": 1280,
+      "language": "ms",
+      "pass": true
+    },
+    {
+      "profile": "jili_my1_1to100",
+      "width": 1280,
+      "language": "ms",
+      "pass": true
+    }
+  ],
+  "consoleErrors": [],
+  "apiErrors": []
+}
