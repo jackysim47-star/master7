@@ -8,11 +8,11 @@ services:
   name: master7-v17-staging
   runtime: node
   region: singapore
-  plan: 2c-4g
+  plan: 1c-2g
   repo: https://github.com/jackysim47-star/master7
   branch: codex/v17-render-staging-20261104
   autoDeployTrigger: 'off'
-  # Cost guardrail: keep exactly one 2c-4g application instance. Render's
+  # Cost guardrail: keep exactly one 1c-2g application instance. Render's
   # Blueprint autoscaling adoption returned min=5/max=100 instead of the
   # reviewed min=1/max=5 settings, so autoscaling remains disabled until the
   # platform reports the requested limits correctly.

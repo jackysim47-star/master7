@@ -1,6 +1,6 @@
 # MASTER7 V17.140 cloud capacity guardrail
 
-The Render web service uses the `2c-4g` compute plan in Singapore. Its bound
+The Render web service uses the `1c-2g` compute plan in Singapore. Its bound
 PostgreSQL 18 database uses the `0.5c-1g` plan in the same region and workspace.
 
 Render's current official compute-plan reference states that `0.5c-1g`
@@ -33,7 +33,7 @@ Reference: <https://render.com/docs/compute-plans.md>
 
 - Autoscaling preview: `exe-dbp1c0rm8hqs73drc45g`
 - Cost-guardrail rollback: `exe-dbp1cle1egvs739ql1q0`
-- Final service plan: `2c-4g`
+- Final service plan: `1c-2g`
 - Final running instances: 1
 - Final autoscaling state: disabled
 - Health check: `/health/live` returned HTTP 200
