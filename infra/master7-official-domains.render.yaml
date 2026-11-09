@@ -12,7 +12,11 @@ services:
   repo: https://github.com/jackysim47-star/master7
   branch: codex/v17-render-staging-20261104
   autoDeployTrigger: 'off'
-  numInstances: 1
+  scaling:
+    minInstances: 1
+    maxInstances: 5
+    targetCPUPercent: 70
+    targetMemoryPercent: 75
   renderSubdomainPolicy: enabled
   buildCommand: set -e; mkdir -p .render-v17; tar -xzf master7-v17-render-staging.tar.gz -C .render-v17; cd .render-v17/master7-v17-render-staging; corepack pnpm
     install --frozen-lockfile; corepack pnpm run test:render-db; corepack pnpm run build:render
