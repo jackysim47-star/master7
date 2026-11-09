@@ -4,13 +4,15 @@ Release: `17.0.0-selfbuilt.127-deposit-evidence`.
 
 ## Purpose
 
-Investigate stored deposit orders, payment diagnostics and wallet ledger rows through the application's current PostgreSQL connection. This avoids changing the database external IP allowlist or moving credentials outside Render. It does not call payment providers, resubmit orders, post money or modify existing data.
+Investigate stored deposit orders, payment diagnostics and wallet ledger rows through the application's current PostgreSQL connection. This avoids changing the database external IP allowlist or moving credentials outside Render. The snapshot does not call payment providers, resubmit orders, post money or modify existing data.
 
 `GET /api/internal/deposit-incidents` is disabled unless both `PORTAL_DEPOSIT_FORENSICS_TOKEN_HASH` and `PORTAL_DEPOSIT_FORENSICS_EXPIRES_AT` are valid. The bearer is a dedicated random 32-byte value, compared by SHA-256 digest in constant time. Expiry must be in the next hour; expired/missing/malformed credentials fail before database access. No other payment, admin or recovery token is accepted. POST and query parameters are rejected.
 
 The endpoint uses fixed SELECT statements in a PostgreSQL REPEATABLE READ READ ONLY transaction, with a five-second per-statement timeout and guaranteed rollback/client cleanup. Orders are limited to 1000, audit candidates to 10000; any truncation is explicit. There is no caller-supplied SQL, member selector or write operation.
 
 The response contains original order/provider IDs, amounts, timestamps, statuses, redacted diagnostics, ledger legs and hashed member references. It excludes usernames, phone numbers, bank details, receipt images, raw callback bodies, checkout query strings and credentials. Manual review records are reported without reviewer identity. Evidence may still be financially sensitive and is for authorized incident review only.
+
+A separately authorized path, `GET /api/internal/deposit-incidents/1mpay-query`, uses the same expiring incident credential to query at most three already-stored 1MPay transaction references. It sends only the documented HTTPS GET query, verifies merchant, original order, player, reference, amount, token and currency, and exports only normalized status. It never settles, recovers, credits, resubmits or writes an audit/order/ledger row. Missing references remain unqueryable; no create request is sent. The snapshot and manufacturer observation have separate observation times.
 
 ## Interpretation
 
@@ -24,7 +26,9 @@ The response contains original order/provider IDs, amounts, timestamps, statuses
 
 23 focused tests plus 3 actual Render-environment-to-HTTP wiring tests cover access control, expiry, no unauthorized database/provider requests, bounded scope, redaction, evidence classification, incomplete data and cleanup errors. Fresh loopback PostgreSQL 18 tests verify a consistent snapshot across a concurrent credit, actual database write rejection, and redacted provider rejection evidence (4 tests including parent).
 
-Full regression: 1111/1111. Maintenance: 12/12. Release probes: 25/25. SQL compatibility: 3/3. TypeScript, lint and Render build passed. No schema migration or real-money activation is included.
+12 additional tests verify the manufacturer-query signature, binding, redaction and absence of writes.
+
+Full regression: 1123/1123. Maintenance: 12/12. Release probes: 25/25. SQL compatibility: 3/3. TypeScript, lint and Render build passed. No schema migration or real-money activation is included.
 
 ## Operation and retirement
 
