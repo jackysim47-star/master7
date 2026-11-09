@@ -22,9 +22,9 @@ The response contains original order/provider IDs, amounts, timestamps, statuses
 
 ## Validation
 
-23 focused tests cover access control, expiry, no unauthorized database/provider requests, bounded scope, redaction, evidence classification, incomplete data and cleanup errors. Fresh loopback PostgreSQL 18 tests verify a consistent snapshot across a concurrent credit, actual database write rejection, and redacted provider rejection evidence (4 tests including parent).
+23 focused tests plus 3 actual Render-environment-to-HTTP wiring tests cover access control, expiry, no unauthorized database/provider requests, bounded scope, redaction, evidence classification, incomplete data and cleanup errors. Fresh loopback PostgreSQL 18 tests verify a consistent snapshot across a concurrent credit, actual database write rejection, and redacted provider rejection evidence (4 tests including parent).
 
-Full regression: 1108/1108. Maintenance: 12/12. Release probes: 25/25. SQL compatibility: 3/3. TypeScript, lint and Render build passed. No schema migration or real-money activation is included.
+Full regression: 1111/1111. Maintenance: 12/12. Release probes: 25/25. SQL compatibility: 3/3. TypeScript, lint and Render build passed. No schema migration or real-money activation is included.
 
 ## Operation and retirement
 
