@@ -1,0 +1,75 @@
+{
+  "observedAt": "2026-11-09T14:02:41Z",
+  "release": "17.0.0-selfbuilt.138-signoff-gates",
+  "commit": "b75ef1eb0dba26b17724ca23278382404cd56ea3",
+  "deployId": "dep-dbot1epsrm7s73d19f20",
+  "deployStatus": "live",
+  "origin": "https://master7-v17-staging.onrender.com",
+  "http": {
+    "health": 200,
+    "liveness": 200,
+    "games": 200,
+    "paymentChannels": 200
+  },
+  "database": "ready",
+  "catalogue": {
+    "providerBrands": 37,
+    "profiles": 41,
+    "implementedProfiles": 2,
+    "launchReadyProfiles": 0,
+    "verifiedProfiles": 0,
+    "playable": false
+  },
+  "payments": [
+    {"profile": "vpay_myr", "enabled": false, "realPaymentVerified": false, "settlementVerified": false, "liveReady": false},
+    {"profile": "gspay_myr", "enabled": false, "realPaymentVerified": false, "settlementVerified": false, "liveReady": false},
+    {"profile": "gspay_usdt", "enabled": false, "realPaymentVerified": false, "settlementVerified": false, "liveReady": false},
+    {"profile": "onempay_myr", "enabled": false, "realPaymentVerified": false, "settlementVerified": false, "liveReady": false}
+  ],
+  "controls": {
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "transactionsEnabled": false,
+    "realPayments": false,
+    "payoutsEnabled": false,
+    "liveGames": false,
+    "productionReady": false
+  },
+  "recovery": {
+    "backupReady": true,
+    "restoreReady": true,
+    "backupCreatedAt": "2026-11-09T13:59:10.462Z",
+    "restoreVerifiedAt": "2026-11-09T14:00:11.803Z",
+    "backupTableCount": 71,
+    "backupRecordCount": 422,
+    "postgresForeignKeyViolations": 0,
+    "persistentRestoreWrites": false
+  },
+  "signoff": {
+    "monitoringRequired": true,
+    "releaseBoundRollbackSubject": "rollback_rehearsal_17.0.0-selfbuilt.138-signoff-gates",
+    "ready": false
+  },
+  "officialEntries": {
+    "networkReady": false,
+    "www.master7.best": "ENOTFOUND",
+    "www.master7.site": "ECONNREFUSED"
+  },
+  "renderObservation": {
+    "instanceCount": 1,
+    "postDeployErrorLogs": 0,
+    "postDeployHttp5xx": 0,
+    "observedHttp200P95Seconds": 0.0087
+  },
+  "remainingReadinessBlockers": [
+    "deposit_provider_not_ready",
+    "payout_provider_not_ready",
+    "payment_settlement_not_verified",
+    "game_launch_or_settlement_not_ready",
+    "official_domain_tls_not_verified",
+    "credential_rotation_not_verified",
+    "production_signoff_not_verified"
+  ],
+  "externalTransactionsSubmitted": false
+}

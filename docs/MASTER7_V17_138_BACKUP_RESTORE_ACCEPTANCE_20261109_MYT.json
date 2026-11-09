@@ -1,0 +1,76 @@
+{
+  "release": "17.0.0-selfbuilt.138-signoff-gates",
+  "capturedAt": "2026-11-09T13:59:10.462Z",
+  "verifiedAt": "2026-11-09T14:00:11.803Z",
+  "backup": {
+    "format": "MASTER7-ENCRYPTED-BACKUP-1",
+    "schemaVersion": "0118-production-acceptance-evidence",
+    "schemaSha256": "e67f7c6ebf850a6f35227c27bffab627baae479fa2e15990d6169e8616f3a37b",
+    "readConsistency": "transaction_snapshot",
+    "tableCount": 71,
+    "totalRecords": 422,
+    "sha256": "2f5431ad31001eb815a51d8e115aebf8eae553985d4f9694c27e6848a1a97e48",
+    "plaintextSha256": "f7da20f7a3197291b0cdc3777b3af4a449cd769118616dc275dc033ac9371498",
+    "ciphertextSha256": "0a24b20c9e4e4c6be1bf682ea0196cfbf37a50d39a1261539190de871080f756",
+    "privateArtifactStored": true
+  },
+  "keyVerification": {
+    "matchingPrivateKeyAvailable": true,
+    "publicKeyFingerprint": "922c18278bcd0521b73eb40166e3a111765157e4f0179fa18b07bb53cb151359",
+    "privateKeyDisclosed": false,
+    "jobTokenDisclosed": false
+  },
+  "sqliteRestore": {
+    "status": "verified",
+    "coverageComplete": true,
+    "missingTables": [],
+    "tableCount": 71,
+    "totalRecords": 422,
+    "foreignKeyViolations": 0,
+    "receiptSha256": "da95fc2429405c67e302d1e6d8bdcc1accc155ddb02cac5ac803a3f8d2194228"
+  },
+  "postgresRestore": {
+    "engine": "PostgreSQL 18 isolated ephemeral container",
+    "status": "verified",
+    "coverageComplete": true,
+    "missingTables": [],
+    "tableCount": 71,
+    "totalRecords": 422,
+    "foreignKeyViolations": 0,
+    "persistentWrites": false,
+    "restoreTargetKind": "isolated_postgresql_transaction",
+    "receiptSha256": "2c0f5e6ce6db01189cf4cc689109f5729d3538a18c59737f043d666269325fda",
+    "privateReceiptStored": true
+  },
+  "productionAudit": {
+    "actor": "system:backup-job",
+    "createHttpStatus": 200,
+    "recordRehearsalHttpStatus": 200,
+    "idempotentReplayHttpStatus": 200,
+    "idempotentReplayVerified": true,
+    "productionDataMutatedByRestore": false
+  },
+  "healthAfterRecording": {
+    "database": "ready",
+    "backupReady": true,
+    "restoreReady": true,
+    "backupCreatedAt": "2026-11-09T13:59:10.462Z",
+    "restoreVerifiedAt": "2026-11-09T14:00:11.803Z",
+    "productionReady": false,
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPayments": false,
+    "payoutsEnabled": false,
+    "liveGames": false,
+    "remainingBlockers": [
+      "deposit_provider_not_ready",
+      "payout_provider_not_ready",
+      "payment_settlement_not_verified",
+      "game_launch_or_settlement_not_ready",
+      "official_domain_tls_not_verified",
+      "credential_rotation_not_verified",
+      "production_signoff_not_verified"
+    ]
+  }
+}
