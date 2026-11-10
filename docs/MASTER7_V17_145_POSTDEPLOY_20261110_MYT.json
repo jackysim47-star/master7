@@ -1,0 +1,150 @@
+{
+  "release": "17.0.0-selfbuilt.145-payment-callback-evidence",
+  "sourceCommit": "29e78a1ecf3e89a778798915732b04c7bcb1154e",
+  "archiveSha256": "4cfca8d0aefb1f93bb0c56f06943681c60365feeb0252d81195e0222f7b638c4",
+  "renderDeployId": "dep-dbp762o8v5cc73dd893g",
+  "renderDeployStatus": "live",
+  "verifiedAt": "2026-11-10T01:35:22.549391Z",
+  "verifiedAtMYT": "2026-11-10T09:35:22.549391+08:00",
+  "portal": {
+    "serviceId": "srv-dbl0iv7f3r2c73848ei0",
+    "url": "https://master7-v17-staging.onrender.com",
+    "health": {
+      "status": "ok",
+      "database": "ready",
+      "release": "17.0.0-selfbuilt.145-payment-callback-evidence"
+    },
+    "routes": {
+      "root": 303,
+      "signin": 200,
+      "register": 200,
+      "admin": 200
+    },
+    "postDeployAppErrors": 0,
+    "postDeployRequest5xx": 0
+  },
+  "gateway": {
+    "serviceId": "srv-db6b7inlk1mc73ck6cmg",
+    "deployId": "dep-dbp76cg8v5cc73dd96m0",
+    "deployStatus": "live",
+    "health": 200,
+    "readiness": 200,
+    "productionQa": "not_verified",
+    "liveReady": false,
+    "vpayTokenUpdated": true,
+    "vpayReadOnlyOrderGet": {
+      "httpStatus": 200,
+      "providerCode": -1,
+      "classification": "invalid_signature",
+      "providerRecordPresent": false,
+      "orderCreated": false,
+      "moneyMoved": false
+    },
+    "vpayCallbackSourceIps": {
+      "source": "user_provided_not_provider_verified",
+      "values": [
+        "20.6.12.104",
+        "4.194.234.217",
+        "40.90.160.132"
+      ],
+      "signatureStillRequired": true
+    },
+    "gameProviderProbe502": {
+      "count": 6,
+      "providers": [
+        "evo888h5",
+        "pragmaticplay",
+        "epicwin",
+        "clotplay",
+        "jdb",
+        "venus"
+      ]
+    }
+  },
+  "validation": {
+    "regression": "1258/1258",
+    "maintenance": "12/12",
+    "releaseProbes": "27/27",
+    "renderDatabase": "3/3",
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "cleanArchiveReplay": true
+  },
+  "postDeployBackup": {
+    "format": "MASTER7-ENCRYPTED-BACKUP-1",
+    "schemaVersion": "0119-withdrawal-destination-methods",
+    "createdAt": "2026-11-10T01:32:13.469Z",
+    "tableCount": 71,
+    "totalRecords": 453,
+    "backupSha256": "1ecefd84ae67911c87d3eda938f2e0ea47cf7be612fcf399327fa9a3e8efd4cc",
+    "sqliteRestore": {
+      "status": "verified",
+      "foreignKeyViolations": 0
+    },
+    "postgresRestore": {
+      "status": "verified",
+      "foreignKeyViolations": 0,
+      "persistentWrites": false
+    },
+    "onlineReceiptRecorded": true,
+    "backupReady": true,
+    "restoreReady": true
+  },
+  "runtimeFlags": {
+    "newDepositsEnabled": true,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPayments": false,
+    "liveGames": false,
+    "productionReady": false
+  },
+  "paymentProfiles": {
+    "vpay_myr": {
+      "programReady": true,
+      "orderReady": false,
+      "reason": "profile_orders_disabled",
+      "productionAccepted": false
+    },
+    "gspay_myr": {
+      "programReady": true,
+      "orderReady": false,
+      "reason": "profile_orders_disabled",
+      "productionAccepted": false
+    },
+    "gspay_usdt": {
+      "programReady": false,
+      "orderReady": false,
+      "reason": "profile_credentials_incomplete",
+      "productionAccepted": false
+    },
+    "onempay_myr": {
+      "programReady": true,
+      "orderReady": false,
+      "reason": "profile_orders_disabled",
+      "productionAccepted": false
+    }
+  },
+  "paymentEvidence": {
+    "depositOrders": 12,
+    "creditedOrders": 0,
+    "walletLedgerRows": 0
+  },
+  "gameProfiles": {
+    "registered": 41,
+    "productionAccepted": 0,
+    "live": 0,
+    "allGamesVerified": false
+  },
+  "officialDomains": {
+    "www.master7.best": "NO_A",
+    "master7.best": "15.197.162.184_not_Render",
+    "www.master7.site": "15.197.162.184_not_Render",
+    "master7.site": "15.197.162.184_not_Render"
+  },
+  "classification": "UAT_LIVE_RELEASE_NOT_PRODUCTION_GOLIVE"
+}
