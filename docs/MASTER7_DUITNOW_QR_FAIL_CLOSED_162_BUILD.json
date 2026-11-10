@@ -1,0 +1,100 @@
+{
+  "release": "17.0.0-selfbuilt.162-duitnow-qr-fail-closed",
+  "preparedAt": "2026-11-10T10:46:27.673170+00:00",
+  "sourceCommit": "95cc2695bba4fb52f788a2794005fcea42abc0c5",
+  "sourceTree": "586a251ea867af3c05bb2fbe13097845c5b68148",
+  "baselineSourceCommit": "d3ef26496326adc942842c3e0d7233d0a6abc795",
+  "baselineRelease": "17.0.0-selfbuilt.161-readiness-hardening",
+  "archive": {
+    "sha256": "35f2e814d13e2fa8296b9c9edaafba9fc1875a0afa839d9bff96c0d42bbd4aa2",
+    "bytes": 7164134,
+    "files": 699,
+    "entries": 760,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/MASTER7_FAIL_CLOSED_HARDENING_162.md"
+    ],
+    "changed": [
+      "app/portal.html",
+      "docs/MASTER7_918KISS_RUNTIME_CONTRACT_GAP_20261110.md",
+      "lib/backend.ts",
+      "lib/jili-provider-adapter.ts",
+      "lib/kissh5-contract-readiness.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/assets/app.js",
+      "public/service-worker.js",
+      "tests/automatic-availability-ui.test.mjs",
+      "tests/deposit-cashier.test.mjs",
+      "tests/jili-transfer-protocol.test.mjs",
+      "tests/kissh5-contract-readiness.test.mjs",
+      "tests/official-entries-probe.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1353,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "renderDatabase": 3,
+    "gatewaySourceChanged": false,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "command": "pnpm verify:render",
+    "scope": "local synthetic and isolated validation; no live provider, player, wallet, game launch or payment calls"
+  },
+  "failClosedHardening": {
+    "duitNowQr": {
+      "genericCompanyBankImageCountsAsQr": false,
+      "untrustedClientReadinessClaimAccepted": false,
+      "explicitValidatedQrFieldRequired": true,
+      "bankTransferAccountsRemainVisible": true,
+      "manualBankEnabled": false,
+      "receiptAutoApprovalEnabled": false,
+      "walletAutoCreditEnabled": false
+    },
+    "kissH5My1": {
+      "providerCurrency": "MY1",
+      "settlementCurrency": "MYR",
+      "providerToSettlementRatio": "100:1",
+      "transferDirectionRequired": true,
+      "adapterEnabled": false,
+      "walletEnabled": false,
+      "playEnabled": false
+    },
+    "jili": {
+      "merchantContractRequiredWithCatalogueFlag": true,
+      "merchantContractRequiredWithClosureFlag": true,
+      "merchantContractRequiredWithReportFlag": true,
+      "loneFeatureFlagCanReachTransport": false,
+      "liveSupplierCallsDuringValidation": 0
+    }
+  },
+  "operationalChanges": {
+    "newDepositsUiFlagChanged": false,
+    "providerOrderSubmissionEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPaymentsEnabled": false,
+    "metaGamingRuntimeEnabled": false,
+    "supplierAcceptanceBypassed": false
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "renderYaml": false,
+    "environmentTemplates": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false
+}

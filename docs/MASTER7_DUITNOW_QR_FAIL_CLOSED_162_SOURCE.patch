@@ -1,0 +1,414 @@
+diff --git a/app/portal.html b/app/portal.html
+index 83eed86..1f2c806 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.161-readiness-hardening">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.161-readiness-hardening">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.161-readiness-hardening">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.161-readiness-hardening">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.161-readiness-hardening">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.161-readiness-hardening">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.161-readiness-hardening">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.161-readiness-hardening">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.161-readiness-hardening">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.161-readiness-hardening">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.161-readiness-hardening">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.161-readiness-hardening">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.161-readiness-hardening">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.161-readiness-hardening">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+@@ -571,7 +571,7 @@
+             <form id="companyBankForm" class="wallet-order-form bank-account-form">
+               <input id="companyBankId" type="hidden">
+               <div class="bank-form-grid"><label for="companyBankName">银行名称<input id="companyBankName" maxlength="80" required></label><label for="companyBankAccountName">户口名字<input id="companyBankAccountName" maxlength="100" required></label><label for="companyBankAccountNumber">银行号码<input id="companyBankAccountNumber" inputmode="numeric" maxlength="32" required></label></div>
+-              <label class="bank-photo-upload" for="companyBankImage"><span>DuitNow QR / 银行图片 · 前台顾客会看到</span><input id="companyBankImage" type="file" accept="image/jpeg,image/png,image/webp"><small>可上传方形 DuitNow QR；JPG、PNG 或 WebP，系统保持比例并自动压缩。</small></label>
++              <label class="bank-photo-upload" for="companyBankImage"><span>Company bank image / 公司银行图片 · 前台顾客会看到</span><input id="companyBankImage" type="file" accept="image/jpeg,image/png,image/webp"><small>JPG、PNG 或 WebP，系统保持比例并自动压缩；此图片不会启用 DuitNow QR。</small></label>
+               <div id="companyBankImagePreview" class="bank-image-preview" hidden><img alt="Bank artwork preview"><span>当前银行照片</span></div>
+               <div class="bank-form-actions"><label class="bank-visibility-toggle"><input id="companyBankEnabled" type="checkbox" checked><span>给前台顾客显示</span></label><button type="submit" class="button button-primary">保存公司银行</button></div>
+             </form>
+diff --git a/docs/MASTER7_918KISS_RUNTIME_CONTRACT_GAP_20261110.md b/docs/MASTER7_918KISS_RUNTIME_CONTRACT_GAP_20261110.md
+index 012db31..9568972 100644
+--- a/docs/MASTER7_918KISS_RUNTIME_CONTRACT_GAP_20261110.md
++++ b/docs/MASTER7_918KISS_RUNTIME_CONTRACT_GAP_20261110.md
+@@ -170,6 +170,15 @@ The MY1 profile additionally requires:
+ `profile.my1_definition`, `profile.my1_to_myr_ratio`,
+ `profile.conversion_direction`, `profile.conversion_rounding_rule`
+ 
++For `918kiss_normal_my1_1to100`, ratio orientation is always provider points to
++settlement major units: `100:1` means **100 MY1 points = MYR 1.00**. A transfer
++from the MYR wallet to MY1 therefore multiplies by 100; returning MY1 to the
++MYR wallet divides by 100. The manifest must bind provider currency `MY1`,
++settlement currency `MYR`, amount unit `points`, both ratio fields to `100:1`,
++and direction
++`MYR_TO_MY1_MULTIPLY_100;MY1_TO_MYR_DIVIDE_100`. USD, USDT, reversed ratios or
++`1:1` evidence cannot complete this profile.
++
+ The free-credit profile additionally requires:
+ 
+ `profile.free_credit_source`, `profile.free_credit_spend_rule`,
+diff --git a/docs/MASTER7_FAIL_CLOSED_HARDENING_162.md b/docs/MASTER7_FAIL_CLOSED_HARDENING_162.md
+new file mode 100644
+index 0000000..4ee7cb6
+--- /dev/null
++++ b/docs/MASTER7_FAIL_CLOSED_HARDENING_162.md
+@@ -0,0 +1,30 @@
++# MASTER7 v162 fail-closed hardening release
++
++Release: `17.0.0-selfbuilt.162-duitnow-qr-fail-closed`
++
++## Change
++
++- A generic company-bank image no longer counts as DuitNow QR configuration.
++- The DuitNow QR customer entry remains unavailable until the data model and member API expose an explicit, validated QR-specific field.
++- Bank Transfer continues to show every enabled company bank account and its optional bank image.
++- The owner form now identifies the upload as a company-bank image and states that it does not enable DuitNow QR.
++
++## Safety boundary
++
++This release does not create a QR schema, enable manual-bank deposits, approve receipts, credit wallets, call a payment provider, or change any real-money switch. It removes an unsupported readiness inference and keeps the QR path closed.
++
++## Regression
++
++The cashier regression supplies both a generic image and an untrusted client-side `duitnowQrReady` claim. Neither may enable the QR form, while the same accounts remain available through Bank Transfer.
++
++The release also tightens the documentation-only 918KISS MY1 profile diagnostic:
++it requires provider currency `MY1`, settlement currency `MYR`, point units,
++`100:1` provider-to-settlement ratios and the explicit multiply/divide transfer
++direction. USD, USDT, reversed or `1:1` manifests stay incomplete. The adapter,
++wallet and Play capabilities remain disabled regardless of manifest completeness.
++
++The JILI adapter now checks the merchant-contract flag together with each
++independent catalogue, closure and report flag before making a supplier request.
++A lone feature flag cannot reach the transport. Existing runtime evidence still
++has to satisfy the stricter combined gates, and no live supplier call is part of
++this release.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index ce18f16..06fe886 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -38,7 +38,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.161-readiness-hardening';
++export const RELEASE = '17.0.0-selfbuilt.162-duitnow-qr-fail-closed';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff --git a/lib/jili-provider-adapter.ts b/lib/jili-provider-adapter.ts
+index e60b6a9..fa2e0eb 100644
+--- a/lib/jili-provider-adapter.ts
++++ b/lib/jili-provider-adapter.ts
+@@ -26,7 +26,7 @@ export function createJiliGameProviderAdapter(config:JiliConfig,options:JiliAdap
+  const adapter:GameProviderAdapter&{readonly profileId:JiliProfile}={
+   key:'jili',profileId,executable:true,withdrawalMode:'all',
+   transferContractFingerprint:createHash('sha256').update(JSON.stringify([profileId,new URL(snapshot.baseUrl).href.replace(/\/$/,''),snapshot.agentId,snapshot.transferAmountUnit,snapshot.queryAmountUnit,snapshot.balanceAmountUnit,snapshot.reportAmountUnit])).digest('hex'),
+-  async listGames(c){context(c);const games=await client.listGames();return games.map(game=>({...game,maintenance:!flags.catalogue}));},
++  async listGames(c){context(c);if(!flags.contract||!flags.catalogue)return fail('JILI_CATALOGUE_UNVERIFIED');const games=await client.listGames();return games.map(game=>({...game,maintenance:false}));},
+   async createOrVerifyPlayer(c,m){
+    context(c);const id=jiliPlayerId(profileId,m.userId);let created=false;
+    if(flags.player){cashEnabled(true);try{created=(await client.createPlayer(id)).created;}catch{/* Verify once; never retry a timed-out create. */}}
+@@ -55,11 +55,11 @@ export function createJiliGameProviderAdapter(config:JiliConfig,options:JiliAdap
+    // Offline is useful only after the merchant's closure/finality contract has
+    // been independently accepted. A point-in-time member status is not that
+    // evidence and must never be promoted to a platform closure on its own.
+-   if(!flags.closure)return fail('JILI_SESSION_CLOSURE_UNVERIFIED');
++   if(!flags.contract||!flags.closure)return fail('JILI_SESSION_CLOSURE_UNVERIFIED');
+    if(input.requestClosure){cashEnabled(flags.recovery);try{await client.kick(id);}catch{return {state:'unknown'};}}
+    try{const found=await client.player(id);if(!found.exists)return {state:'unknown'};return found.online?{state:'playing'}:{state:'closed',evidenceCode:input.requestClosure?'JILI_VERIFIED_KICK_OFFLINE':'JILI_MEMBER_OFFLINE'};}catch{return {state:'unknown'};}
+   },
+-  async fetchWagers(c,cursor){context(c);if(!flags.report)return fail('JILI_REPORT_DISABLED');if(!cursor)return fail('JILI_REPORT_WINDOW_INVALID');return client.wagers(cursor.from,cursor.to,cursor.cursor);},
++  async fetchWagers(c,cursor){context(c);if(!flags.contract||!flags.report)return fail('JILI_REPORT_DISABLED');if(!cursor)return fail('JILI_REPORT_WINDOW_INVALID');return client.wagers(cursor.from,cursor.to,cursor.cursor);},
+   async handleCallback(c){context(c);return {accepted:false,duplicate:false,responseBody:'UNSUPPORTED_TRANSFER_CALLBACK',responseStatus:403};},
+  };
+  return Object.freeze(adapter);
+diff --git a/lib/kissh5-contract-readiness.ts b/lib/kissh5-contract-readiness.ts
+index 020e36b..613c74f 100644
+--- a/lib/kissh5-contract-readiness.ts
++++ b/lib/kissh5-contract-readiness.ts
+@@ -188,6 +188,14 @@ const PROFILE_EXPECTATIONS: Readonly<Record<KissH5ProfileId, Readonly<Record<str
+   '918kiss_normal_my1_1to100': Object.freeze({
+     'profile.profile_id': ['918kiss_normal_my1_1to100'],
+     'profile.account_variant': ['my1'],
++    'profile.provider_currency': ['MY1'],
++    'profile.settlement_currency': ['MYR'],
++    'profile.amount_unit': ['points'],
++    // Ratios are provider units : settlement major units.  This profile means
++    // 100 MY1 points = MYR 1.00, so the reverse transfer divides by 100.
++    'profile.conversion_ratio': ['100:1'],
++    'profile.my1_to_myr_ratio': ['100:1'],
++    'profile.conversion_direction': ['MYR_TO_MY1_MULTIPLY_100;MY1_TO_MYR_DIVIDE_100'],
+     'profile.balance_class': ['cash'],
+   }),
+   '918kiss_free_myr': Object.freeze({
+@@ -225,7 +233,11 @@ function validateValue(value: unknown, requirement: KissH5ContractRequirement, e
+   }
+   if (requirement.kind === 'positive_integer') return Number.isSafeInteger(value) && Number(value) >= 0 ? null : 'invalid_nonnegative_integer';
+   if (requirement.kind === 'sha256') return typeof value === 'string' && /^[a-f0-9]{64}$/.test(value) ? null : 'invalid_sha256';
+-  if (requirement.kind === 'ratio') return typeof value === 'string' && /^[1-9]\d{0,8}:[1-9]\d{0,8}$/.test(value) ? null : 'invalid_ratio';
++  if (requirement.kind === 'ratio') {
++    if (typeof value !== 'string' || !/^[1-9]\d{0,8}:[1-9]\d{0,8}$/.test(value)) return 'invalid_ratio';
++    if (expected && !expected.includes(value)) return 'unexpected_value';
++    return null;
++  }
+   return 'invalid_value';
+ }
+ 
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index 8e0f8ed..b356360 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.161-readiness-hardening' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.162-duitnow-qr-fail-closed' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/package.json b/package.json
+index 53d5e5c..94aa441 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.161-readiness-hardening node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.161-readiness-hardening node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.162-duitnow-qr-fail-closed node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.162-duitnow-qr-fail-closed node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.161-readiness-hardening node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.162-duitnow-qr-fail-closed node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/assets/app.js b/public/assets/app.js
+index 46b0f51..e6a3138 100644
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -253,7 +253,11 @@ function paymentText(key){return paymentPreviewCopy[state.lang]?.[key] || paymen
+ function paymentPreviewStatus(code){return paymentPreview.find(p=>p.code===code) || null;}
+ function manualBankAccountsForChannel(channel=state.depositProvider){
+  const accounts=Array.isArray(state.manualBanks)?state.manualBanks:[];
+- return channel==="duitnow-qr"?accounts.filter(account=>account?.duitnowQrReady===true||typeof account?.image_data==="string"&&account.image_data.startsWith("data:image/")):accounts;
++ // `image_data` is a generic company-bank image.  It may be a bank logo or an
++ // account reference and is not persisted as QR-specific evidence.  Keep the
++ // QR entry closed until the backend exposes an explicit, validated DuitNow
++ // QR field instead of guessing from an arbitrary image.
++ return channel==="duitnow-qr"?[]:accounts;
+ }
+ function manualBankPreviewReady(channel=state.depositProvider){return state.user?.role==="member"&&!!state.user.approved&&state.manualBankMemberId===state.user.id&&manualBankAccountsForChannel(channel).length>0;}
+ function paymentPreviewOrderReady(code){
+diff --git a/public/service-worker.js b/public/service-worker.js
+index ac40e49..4ba2eb8 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.161-readiness-hardening';
++const CACHE='master7-shell-17.0.0-selfbuilt.162-duitnow-qr-fail-closed';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/tests/automatic-availability-ui.test.mjs b/tests/automatic-availability-ui.test.mjs
+index 38441f3..328814a 100644
+--- a/tests/automatic-availability-ui.test.mjs
++++ b/tests/automatic-availability-ui.test.mjs
+@@ -47,7 +47,7 @@ test('customer payment cards follow readiness and preserve their selected provid
+  assert.deepEqual(calls,['vpay','gspay','1mpay','manual-bank']);
+ });
+ 
+-test('company-bank and DuitNow QR readiness follow the current approved member configuration and clear on identity change',async()=>{
++test('company-bank readiness follows the member while generic images never claim DuitNow QR readiness',async()=>{
+  const nodes=new Map(),bankButton=new Element('button'),qrButton=new Element('button');bankButton.dataset.paymentChannel='manual-bank';qrButton.dataset.paymentChannel='duitnow-qr';for(const button of [bankButton,qrButton]){button.label=new Element('small');button.querySelector=()=>button.label;}
+  const get=id=>{if(!nodes.has(id)){const el=new Element();el.value='';Object.defineProperty(el,'options',{get:()=>el.children});nodes.set(id,el);}return nodes.get(id);};
+  const state={lang:'en',user:{id:'member-a',role:'member',approved:1},authMethod:'password',section:'lobby',manualBanks:[],manualBankMemberId:null,memberWalletRequestId:0,paymentChannels:{'manual-bank':'active'},depositProvider:'manual-bank'};
+@@ -61,7 +61,7 @@ test('company-bank and DuitNow QR readiness follow the current approved member c
+  vm.runInNewContext(extract('const paymentPreview =','const walletCopy=')+extract('async function loadMemberWallet(','function renderManualBankCopyDetails(')+extract('function renderSession(','function renderAnnouncements('),context);
+  context.renderPaymentPreview();assert.equal(bankButton.label.textContent,'Unavailable','a legacy channel flag cannot establish bank availability');
+  await context.loadMemberWallet();assert.equal(bankButton.label.textContent,'Available');assert.equal(qrButton.label.textContent,'Unavailable','a bank account without a QR image cannot open the QR flow');
+- bankRead=()=>({items:[{id:'synthetic-bank',bank_name:'Fixture bank',image_data:'data:image/png;base64,fixture'}]});await context.loadMemberWallet();assert.equal(bankButton.label.textContent,'Available');assert.equal(qrButton.label.textContent,'Available');
++ bankRead=()=>({items:[{id:'synthetic-bank',bank_name:'Fixture bank',image_data:'data:image/png;base64,fixture',duitnowQrReady:true}]});await context.loadMemberWallet();assert.equal(bankButton.label.textContent,'Available');assert.equal(qrButton.label.textContent,'Unavailable','generic image data and an untrusted readiness claim cannot enable QR');
+  bankRead=()=>({items:[]});await context.loadMemberWallet();assert.equal(bankButton.label.textContent,'Unavailable');
+  bankRead=()=>({items:[{id:'synthetic-bank',bank_name:'Fixture bank'}]});await context.loadMemberWallet();assert.equal(bankButton.label.textContent,'Available');
+  bankRead=()=>Promise.reject(new Error('synthetic unavailable'));await context.loadMemberWallet();assert.equal(bankButton.label.textContent,'Unavailable');assert.equal(state.manualBanks.length,0);assert.equal(state.manualBankMemberId,null);
+diff --git a/tests/deposit-cashier.test.mjs b/tests/deposit-cashier.test.mjs
+index 7008fd6..2bebd6a 100644
+--- a/tests/deposit-cashier.test.mjs
++++ b/tests/deposit-cashier.test.mjs
+@@ -55,17 +55,18 @@ test('GSPAY USDT stays visibly isolated and cannot expose an order form before c
+  assert.deepEqual(f.calls.map(call=>[call.path,call.method]),[['/api/payments/gspay/usdt/status','GET']]);
+ });
+ 
+-test('DuitNow QR opens only configured QR accounts while Bank Transfer keeps every enabled company account',async()=>{
++test('generic company-bank images never enable DuitNow QR while Bank Transfer keeps every enabled account',async()=>{
+  const accounts=[
+   {id:'bank-only',bank_name:'Bank only',account_name:'MASTER7',account_number:'11111111',image_data:''},
+-  {id:'bank-with-qr',bank_name:'Bank with QR',account_name:'MASTER7',account_number:'22222222',image_data:'data:image/png;base64,fixture'}
++  {id:'bank-with-image',bank_name:'Bank with image',account_name:'MASTER7',account_number:'22222222',image_data:'data:image/png;base64,fixture'},
++  {id:'untrusted-qr-claim',bank_name:'Untrusted QR claim',account_name:'MASTER7',account_number:'33333333',image_data:'data:image/png;base64,fixture',duitnowQrReady:true}
+  ],f=fixture({read:path=>path==='/api/manual-bank/accounts'?{items:accounts}:{enabled:false,orderReady:false}});
+  await f.context.openDepositCashier('duitnow-qr');
+- assert.equal(f.nodes.get('manualBankDepositForm').hidden,false);
+- assert.deepEqual(f.nodes.get('manualBankAccount').options.map(option=>option.value),['bank-with-qr']);
+- assert.match(f.nodes.get('depositCashierStatus').textContent,/never automatic from a receipt alone/);
++ assert.equal(f.nodes.get('manualBankDepositForm').hidden,true);
++ assert.deepEqual(f.nodes.get('manualBankAccount').options.map(option=>option.value),[]);
++ assert.match(f.nodes.get('depositCashierStatus').textContent,/DuitNow QR has not been configured/);
+  await f.context.openDepositCashier('manual-bank');
+- assert.deepEqual(f.nodes.get('manualBankAccount').options.map(option=>option.value),['bank-only','bank-with-qr']);
++ assert.deepEqual(f.nodes.get('manualBankAccount').options.map(option=>option.value),['bank-only','bank-with-image','untrusted-qr-claim']);
+ });
+ 
+ test('DuitNow QR stays closed when only bank-transfer details are configured',async()=>{
+diff --git a/tests/jili-transfer-protocol.test.mjs b/tests/jili-transfer-protocol.test.mjs
+index 0bce6f1..77065e6 100644
+--- a/tests/jili-transfer-protocol.test.mjs
++++ b/tests/jili-transfer-protocol.test.mjs
+@@ -35,8 +35,11 @@ test('JILI game catalogue preserves escaped names and rejects duplicate game IDs
+ });
+ test('JILI catalogue availability is an explicit account-bound adapter gate',async()=>{
+  const config=cfg(),row={GameId:1,name:{'en-US':'Synthetic JILI'},GameCategoryId:1,JP:true},f=fake({GetGameList:success([row])},config),context={profile:getGameProviderProfile(config.profile)};
+- const closed=createJiliGameProviderAdapter(config,{fetchImpl:f.transport,allowedReturnOrigins:[]}),verified=createJiliGameProviderAdapter(config,{fetchImpl:f.transport,allowedReturnOrigins:[],catalogueAvailabilityVerified:true});
+- assert.equal((await closed.listGames(context))[0].maintenance,true);assert.equal((await verified.listGames(context))[0].maintenance,false);
++ const closed=createJiliGameProviderAdapter(config,{fetchImpl:f.transport,allowedReturnOrigins:[]}),catalogueOnly=createJiliGameProviderAdapter(config,{fetchImpl:f.transport,allowedReturnOrigins:[],catalogueAvailabilityVerified:true}),verified=createJiliGameProviderAdapter(config,{fetchImpl:f.transport,allowedReturnOrigins:[],catalogueAvailabilityVerified:true,merchantContractVerified:true});
++ await assert.rejects(()=>closed.listGames(context),e=>e.code==='JILI_CATALOGUE_UNVERIFIED');
++ await assert.rejects(()=>catalogueOnly.listGames(context),e=>e.code==='JILI_CATALOGUE_UNVERIFIED');
++ assert.equal(f.calls.length,0);
++ assert.equal((await verified.listGames(context))[0].maintenance,false);assert.deepEqual(f.calls.map(x=>x.method),['GetGameList']);
+ });
+ test('deposit confirmation requires the original account, direction, amount and transaction query',async()=>{
+  const f=fake({ExchangeTransferByAgentId:success({TransactionId:input.transactionId,Status:1}),CheckTransferByTransactionId:receipt()});
+@@ -101,9 +104,19 @@ test('JILI closure and wager reports stay disabled before their independent acce
+  const closed=createJiliGameProviderAdapter(config,{fetchImpl:f.transport,allowedReturnOrigins:['https://www.master7.best'],merchantContractVerified:true});
+  await assert.rejects(()=>closed.closeGame(c,{userId:'alice',providerPlayerId:playerId,requestClosure:false}),e=>e.code==='JILI_SESSION_CLOSURE_UNVERIFIED');
+  await assert.rejects(()=>closed.fetchWagers(c,window),e=>e.code==='JILI_REPORT_DISABLED');assert.equal(f.calls.length,0);
+- const when=new Date(window.from+60_000-4*60*60_000).toISOString().slice(0,19),raw=`{"ErrorCode":0,"Data":{"Result":[{"Account":"${playerId}","AgentId":"${config.agentId}","WagersId":1710419268000161101,"GameId":1,"BetAmount":1.25,"PayoffAmount":2.5,"Status":1,"SettlementTime":"${when}"}],"Pagination":{"CurrentPage":1,"TotalPages":1,"PageLimit":10000,"TotalNumber":1}}}`,enabled=fake({GetBetRecordByTime:()=>new Response(raw,{headers:{'Content-Type':'application/json'}})},config),accepted=createJiliGameProviderAdapter(config,{fetchImpl:enabled.transport,now:()=>time,allowedReturnOrigins:[],reportEnabled:true});
++ const when=new Date(window.from+60_000-4*60*60_000).toISOString().slice(0,19),raw=`{"ErrorCode":0,"Data":{"Result":[{"Account":"${playerId}","AgentId":"${config.agentId}","WagersId":1710419268000161101,"GameId":1,"BetAmount":1.25,"PayoffAmount":2.5,"Status":1,"SettlementTime":"${when}"}],"Pagination":{"CurrentPage":1,"TotalPages":1,"PageLimit":10000,"TotalNumber":1}}}`,enabled=fake({GetBetRecordByTime:()=>new Response(raw,{headers:{'Content-Type':'application/json'}})},config),accepted=createJiliGameProviderAdapter(config,{fetchImpl:enabled.transport,now:()=>time,allowedReturnOrigins:[],reportEnabled:true,merchantContractVerified:true});
+  assert.equal((await accepted.fetchWagers(c,window)).items[0].providerPlayerId,playerId);assert.deepEqual(enabled.calls.map(x=>x.method),['GetBetRecordByTime']);
+ });
++test('lone JILI catalogue, closure and report flags cannot contact the supplier without the merchant contract',async()=>{
++ const config=cfg(),f=fake({}),c={profile:getGameProviderProfile(config.profile)},playerId=jiliPlayerId(config.profile,'alice'),window={from:time-30*60_000,to:time-11*60_000};
++ const catalogueOnly=createJiliGameProviderAdapter(config,{fetchImpl:f.transport,allowedReturnOrigins:[],catalogueAvailabilityVerified:true});
++ const closureOnly=createJiliGameProviderAdapter(config,{fetchImpl:f.transport,allowedReturnOrigins:[],sessionClosureVerified:true});
++ const reportOnly=createJiliGameProviderAdapter(config,{fetchImpl:f.transport,allowedReturnOrigins:[],reportEnabled:true});
++ await assert.rejects(()=>catalogueOnly.listGames(c),e=>e.code==='JILI_CATALOGUE_UNVERIFIED');
++ await assert.rejects(()=>closureOnly.closeGame(c,{userId:'alice',providerPlayerId:playerId,requestClosure:false}),e=>e.code==='JILI_SESSION_CLOSURE_UNVERIFIED');
++ await assert.rejects(()=>reportOnly.fetchWagers(c,window),e=>e.code==='JILI_REPORT_DISABLED');
++ assert.equal(f.calls.length,0);
++});
+ test('JILI runtime needs account evidence, closure finality and production acceptance independently',()=>{
+  const connection=cfg(),slot={mode:'production',environment:'production',recoveryEnabled:true,qaMemberIds:['alice'],approvedApiEndpoints:[connection.baseUrl],connection,merchantContractVerified:true,merchantContractEvidenceSha256:'a'.repeat(64),catalogueAvailabilityVerified:true,catalogueAvailabilityEvidenceSha256:'d'.repeat(64),sessionClosureVerified:true,sessionClosureEvidenceSha256:'b'.repeat(64),allIssuedLaunchesInvalidated:true,lateResultsFinal:true},document=()=>JSON.stringify({profiles:{[connection.profile]:slot}});
+  assert.equal(jiliProfileRuntime(document(),connection.profile,'alice').launchAuthorized,false);assert.equal(jiliProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true}).launchAuthorized,true);
+diff --git a/tests/kissh5-contract-readiness.test.mjs b/tests/kissh5-contract-readiness.test.mjs
+index e4468a5..10cfada 100644
+--- a/tests/kissh5-contract-readiness.test.mjs
++++ b/tests/kissh5-contract-readiness.test.mjs
+@@ -31,6 +31,11 @@ function completeManifest(profileId){
+   if(requirement.field==='profile.provider_currency')value=profile.currency;
+   if(requirement.field==='profile.settlement_currency')value=profile.settlement;
+   if(requirement.field==='profile.balance_class')value=profile.balanceClass;
++  if(profileId==='918kiss_normal_my1_1to100'){
++   if(requirement.field==='profile.amount_unit')value='points';
++   if(requirement.field==='profile.conversion_ratio'||requirement.field==='profile.my1_to_myr_ratio')value='100:1';
++   if(requirement.field==='profile.conversion_direction')value='MYR_TO_MY1_MULTIPLY_100;MY1_TO_MYR_DIVIDE_100';
++  }
+   setPath(manifest,requirement.field,value);
+  }
+  return manifest;
+@@ -94,6 +99,30 @@ test('profile manifests cannot be reused across normal, MY1 and free accounts',(
+  assert.ok(free.missingVendorFields.includes('profile.free_credit_source'));
+ });
+ 
++test('MY1 profile requires MY1 to MYR 100:1 orientation and rejects USD, USDT or 1:1 claims',()=>{
++ const manifest=completeManifest('918kiss_normal_my1_1to100');
++ setPath(manifest,'profile.provider_currency','USD');
++ setPath(manifest,'profile.settlement_currency','USDT');
++ setPath(manifest,'profile.amount_unit','major_units');
++ setPath(manifest,'profile.conversion_ratio','1:1');
++ setPath(manifest,'profile.my1_to_myr_ratio','1:1');
++ setPath(manifest,'profile.conversion_direction','MY1_TO_MYR_MULTIPLY_100;MYR_TO_MY1_DIVIDE_100');
++ const diagnostic=inspectKissH5ContractManifest('918kiss_normal_my1_1to100',manifest);
++ assert.equal(diagnostic.manifestComplete,false);
++ assert.deepEqual(diagnostic.missingVendorFields,[]);
++ assert.deepEqual(diagnostic.invalidVendorFields.map(item=>item.field),[
++  'profile.provider_currency',
++  'profile.settlement_currency',
++  'profile.amount_unit',
++  'profile.conversion_ratio',
++  'profile.my1_to_myr_ratio',
++  'profile.conversion_direction',
++ ]);
++ assert.ok(diagnostic.invalidVendorFields.every(item=>item.reason==='unexpected_value'));
++ assert.equal(diagnostic.adapterImplemented,false);
++ assert.equal(diagnostic.playAllowed,false);
++});
++
+ test('unknown profile IDs do not inherit any 918KISS contract or capability',()=>{
+  const diagnostic=inspectKissH5ContractManifest('918kiss_unknown',completeManifest('918kiss_normal_myr'));
+  assert.equal(diagnostic.knownProfile,false);
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index 26f8b16..7907b49 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.161-readiness-hardening';
++const release='17.0.0-selfbuilt.162-duitnow-qr-fail-closed';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
