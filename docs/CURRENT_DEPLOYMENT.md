@@ -18,11 +18,14 @@ Release evidence:
 External verification found `/staff-setup` available for GET and HEAD with
 HTTP 200, with an empty HEAD response body and v173 browser assets in the GET
 response. `/health/live` reported the exact v173 release and a ready database.
-The deployment keeps new deposits, game launches and payouts disabled. Backup
-and restore evidence are not ready for this release, and the production domain,
-provider, real-payment and live-game acceptance items remain outstanding. The
-platform therefore remains in integration/UAT and is not approved for
-production go-live. See `MASTER7_STAFF_SETUP_ROUTE_173_POSTDEPLOY.md`.
+The deployment keeps new deposits, game launches and payouts disabled. A
+release-bound encrypted backup and rollback-only isolated PostgreSQL 18 restore
+rehearsal subsequently passed for v173, so current runtime health reports both
+`backupReady=true` and `restoreReady=true`. The production domain, provider,
+real-payment and live-game acceptance items remain outstanding. The platform
+therefore remains in integration/UAT and is not approved for production
+go-live. See `MASTER7_STAFF_SETUP_ROUTE_173_POSTDEPLOY.md` and
+`MASTER7_V173_BACKUP_RESTORE_ACCEPTANCE.md`.
 
 ## Staff setup route
 

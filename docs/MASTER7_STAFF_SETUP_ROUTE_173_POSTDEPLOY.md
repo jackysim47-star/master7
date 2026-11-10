@@ -48,10 +48,12 @@ newGameLaunchesEnabled = false
 newPayoutsEnabled      = false
 ```
 
-Backup and restore evidence are not ready for this exact release. The custom
-production domains, game-provider acceptance, live game launches, real-money
-deposit acceptance, real-money payout acceptance and final owner sign-off also
-remain outstanding.
+After this deployment check, the release-bound v173 encrypted backup and
+rollback-only isolated PostgreSQL 18 restore rehearsal passed. Current health
+reports `backupReady=true` and `restoreReady=true`; see
+`MASTER7_V173_BACKUP_RESTORE_ACCEPTANCE.md`. The custom production domains,
+game-provider acceptance, live game launches, real-money deposit acceptance,
+real-money payout acceptance and final owner sign-off remain outstanding.
 
 ## Conclusion
 
