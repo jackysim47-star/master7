@@ -37,8 +37,11 @@ function parseClotplayCatalogueResponse(value, requestedPage) {
     total: integer(value.pagination.total, 0),
   };
   const expectedLastPage = Math.max(1, Math.ceil(pagination.total / pagination.per_page));
+  const expectedRows = page < pagination.last_page
+    ? pagination.per_page
+    : pagination.total - ((page - 1) * pagination.per_page);
   if (pagination.current_page !== page || pagination.last_page !== expectedLastPage || pagination.last_page < page
-      || pagination.total < ((page - 1) * pagination.per_page) + value.data.length) {
+      || expectedRows < 0 || value.data.length !== expectedRows) {
     throw new TypeError('invalid_clotplay_response');
   }
 

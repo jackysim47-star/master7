@@ -10,7 +10,7 @@ function response(overrides = {}) {
       slug: 'slot-1', name: 'Sample Slot', name_cn: '样板', category: 'SLOT',
       is_maintenance: 0, thumbnails: { en: { square: 'https://unapproved.test/1.png' } },
     }],
-    pagination: { current_page: 1, last_page: 2, per_page: 100, total: 101 },
+    pagination: { current_page: 1, last_page: 1, per_page: 100, total: 1 },
     privateToken: 'must-not-leak',
     ...overrides,
   };
@@ -28,7 +28,7 @@ test('CLOTPLAY catalogue is strictly projected and remote artwork is withheld', 
         th: { square: null, portrait: null },
       },
     }],
-    pagination: { current_page: 1, last_page: 2, per_page: 100, total: 101 },
+    pagination: { current_page: 1, last_page: 1, per_page: 100, total: 1 },
   });
   assert.equal(JSON.stringify(parsed).includes('must-not-leak'), false);
   assert.equal(JSON.stringify(parsed).includes('unapproved.test'), false);
@@ -54,6 +54,7 @@ test('CLOTPLAY rejects malformed, duplicate, oversized and inconsistent pages', 
     response({ data: [{ slug: 'x', name: 'Bad', is_maintenance: '0' }] }),
     response({ data: [{ slug: 'x', name: 'One' }, { slug: 'x', name: 'Two' }] }),
     response({ data: Array.from({ length: MAX_GAMES_PER_PAGE + 1 }, (_, index) => ({ slug: `g-${index}`, name: `Game ${index}` })) }),
+    response({ data: [{ slug: 'partial', name: 'Partial' }], pagination: { current_page: 1, last_page: 2, per_page: 100, total: 101 } }),
     response({ pagination: { current_page: 2, last_page: 2, per_page: 100, total: 101 } }),
     response({ pagination: { current_page: 1, last_page: 0, per_page: 100, total: 1 } }),
     response({ pagination: { current_page: 1, last_page: 9, per_page: 100, total: 1 } }),

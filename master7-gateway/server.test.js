@@ -364,7 +364,7 @@ test('CLOTPLAY catalogue uses documented auth, pagination and excludes private f
   let request;
   const fetchImpl = async (url, options) => {
     request = { url, options };
-    return new Response(JSON.stringify({ data: [{slug:'sample', name:'Sample', name_cn:'样板', is_maintenance:1, secret:'hidden', thumbnails:{en:{square:'https://example.test/a.png',portrait:'http://example.test/b.png'}}}], pagination:{current_page:2,last_page:3,per_page:100,total:201}, token:'hidden' }));
+    return new Response(JSON.stringify({ data: Array.from({length:100},(_,index)=>({slug:`sample-${index}`, name:`Sample ${index}`, name_cn:'样板', is_maintenance:1, secret:'hidden', thumbnails:{en:{square:'https://example.test/a.png',portrait:'http://example.test/b.png'}}})), pagination:{current_page:2,last_page:3,per_page:100,total:201}, token:'hidden' }));
   };
   const res = await run(makeApp({env:{CLOTPLAY_OPERATOR_TOKEN:'private-token'},fetchImpl}), '/providers/clotplay/games?page=2');
   const data = await res.json();
