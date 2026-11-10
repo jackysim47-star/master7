@@ -84,6 +84,18 @@ maintenance. The current schedule-shaped maintenance value remains unavailable
 until the supplier confirms its meaning. No Play or money switch is enabled by
 this release.
 
+## Version 1.20.0: META GAMING gated runtime candidate
+
+Player creation, launch, balance, deposit, withdrawal, transfer status,
+KickPlayer, unfinished-round, PullLog and FlagLog routes are compiled behind
+independent peer tokens and per-capability switches. Every switch defaults to
+false; readiness remains `productionQa: not_verified` and `liveReady: false`.
+Every runtime body must bind the exact registered profile to its normal or free
+account, and that binding selects the server-side credential set. `KickPlayer`
+is temporary under the official contract and must never be treated as proof of
+round, wallet or settlement closure. `PullLog` never invokes `FlagLog`
+automatically. See `METAGAMING.md`.
+
 ## Version 1.14.0: META GAMING catalogue boundary and legacy mapping gate
 
 `GET /providers/metagaming/games?account=normal|free` implements only the
@@ -92,13 +104,9 @@ Normal and free-credit accounts use separate base URL, operator ID, secret and
 currency settings. Responses are strictly validated and reduced to public game
 metadata; credentials and unrecognized provider fields are never returned.
 
-Player creation, launch, balance, deposit, withdrawal, transfer status,
-KickPlayer, unfinished-round, report and FlagLog routes are not implemented in
-this candidate. Their reserved switches default to false, their peer tokens are
-isolated by capability, and readiness continues to report `route_not_implemented`
-even if a switch is changed. `KickPlayer` is temporary under the official
-contract and must never be treated as proof of round, wallet or settlement
-closure. See `METAGAMING.md`.
+The original catalogue candidate did not expose privileged runtime routes. The
+separately reviewed v1.20.0 candidate above adds those routes without changing
+their default-closed or unverified production state.
 
 The older `/platform/megah5/session`, `/balance`, `/deposit`, `/withdraw` and
 `/transfer-status` routes now also require

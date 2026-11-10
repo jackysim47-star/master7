@@ -172,16 +172,13 @@ function metaGamingReadiness(env = {}) {
     if (!anyAccountConfigured) blockers.push('provider_account_missing_or_invalid');
     if (!peerConfigured) blockers.push('isolated_peer_token_missing_or_aliased');
     if (!enabled) blockers.push('capability_switch_off');
-    // This candidate deliberately exposes the catalogue only. A capability
-    // cannot become callable merely by changing environment variables.
-    blockers.push('route_not_implemented');
     return [name, {
-      enabled, peerConfigured, routeImplemented: false, configurationReady: false,
+      enabled, peerConfigured, routeImplemented: true, configurationReady: blockers.length === 0,
       blockers, productionQa: 'not_verified', liveReady: false,
     }];
   }));
   return {
-    scope: 'catalogue_only',
+    scope: 'catalogue_and_gated_runtime',
     apiVersion: '3.4.8',
     accounts,
     catalogue: Object.fromEntries(Object.entries(accounts).map(([name, account]) => [name, {

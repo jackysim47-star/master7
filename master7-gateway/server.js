@@ -33,7 +33,14 @@ const {
 const {
   buildMetaRequest,
   metaAccount,
+  parseMetaBalanceResponse,
   parseMetaCatalogueResponse,
+  parseMetaKickResponse,
+  parseMetaLaunchResponse,
+  parseMetaLogsResponse,
+  parseMetaOperationResponse,
+  parseMetaTransferStatusResponse,
+  parseMetaUnfinishedRoundsResponse,
   publicMetaAccountStatus,
 } = require('./metagaming');
 const {
@@ -47,6 +54,8 @@ const {
   peerCredential,
   vpayReadiness,
   integrationReadiness,
+  metaGamingPeerCredential,
+  metaGamingReadiness,
   megah5ProviderMappingVerified,
   officialVpayPaymentForwardUrl,
   officialVpayReturnUrl,
@@ -56,6 +65,10 @@ const { version: VERSION } = require('./package.json');
 const PROVIDERS = ['cosmoplay', 'creative-gaming', 'pgsoft', 'spade-gaming'];
 const PROVIDER_USER_AGENT = `MASTER7-Integration-Gateway/${VERSION}`;
 const DEFAULT_PORTAL_ORIGIN = 'https://master7-v17-staging.onrender.com';
+const META_PROFILE_ACCOUNTS = Object.freeze({
+  metagaming_normal_myr: 'normal',
+  metagaming_free_myr: 'free',
+});
 
 function browserOrigins(env) {
   const configured = env.ALLOWED_ORIGINS !== undefined
@@ -244,6 +257,44 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     const expected = gameWalletCredential(env);
     const supplied = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
     return Boolean(expected) && safeEqual(expected, supplied);
+  }
+
+  function isMetaGamingPeer(req, name) {
+    const expected = metaGamingPeerCredential(env, name);
+    const supplied = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
+    return Boolean(expected) && safeEqual(expected, supplied);
+  }
+
+  function strictMetaPayload(payload, allowed) {
+    return payload && typeof payload === 'object' && !Array.isArray(payload)
+      && Object.keys(payload).every(key => allowed.includes(key));
+  }
+
+  function metaProfileAccount(payload) {
+    const profileId = typeof payload?.profileId === 'string' ? payload.profileId : '';
+    const accountName = META_PROFILE_ACCOUNTS[profileId];
+    if (!accountName || payload.account !== accountName) return null;
+    try { return { profileId, accountName, account: metaAccount(env, accountName) }; }
+    catch { return { profileId, accountName, account: null }; }
+  }
+
+  async function metaGaming(method, account, fields = {}) {
+    const requestPayload = buildMetaRequest(method, {
+      operatorId: account.operatorId,
+      secretKey: account.secretKey,
+      now: now(),
+      fields,
+    });
+    return upstream(`${account.baseUrl}/${method}`, {
+      method: 'POST',
+      redirect: 'error',
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json', 'User-Agent': PROVIDER_USER_AGENT },
+      body: JSON.stringify(requestPayload),
+    });
+  }
+
+  function metaCapabilityReady(capability) {
+    return metaGamingReadiness(env).capabilities[capability]?.configurationReady === true;
   }
 
   function walletPaymentConfiguration() {
@@ -1240,6 +1291,107 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         const result = await evo('/user/balance', 'POST', { userid: String(payload.userid) });
         const providerOK = result.data?.code === 0 || result.data?.code === '0';
         return send(res, result.ok && providerOK ? 200 : 502, { provider: 'evo888h5', upstreamStatus: result.status, result: result.data });
+      }
+
+      const metaRuntimeMatch = url.pathname.match(/^\/platform\/metagaming\/(player|launch|balance|deposit|withdraw|transfer-status|kick|unfinished-rounds|reports|flag-log)$/);
+      if (req.method === 'POST' && metaRuntimeMatch) {
+        const operation = metaRuntimeMatch[1];
+        const definitions = {
+          player: { capability: 'player', token: 'PLATFORM_METAGAMING_PLAYER_TOKEN',
+            allowed: ['profileId', 'account', 'playerId'], method: 'CreatePlayer', parser: parseMetaOperationResponse },
+          launch: { capability: 'launch', token: 'PLATFORM_METAGAMING_PLAYER_TOKEN',
+            allowed: ['profileId', 'account', 'playerId', 'ip', 'gameCode', 'language', 'returnUrl', 'authToken', 'demo'], method: 'GameLogin', parser: parseMetaLaunchResponse },
+          balance: { capability: 'balance', token: 'PLATFORM_METAGAMING_PLAYER_TOKEN',
+            allowed: ['profileId', 'account', 'playerId'], method: 'CheckBalance', parser: parseMetaBalanceResponse },
+          deposit: { capability: 'transfer', token: 'PLATFORM_METAGAMING_WALLET_TOKEN',
+            allowed: ['profileId', 'account', 'playerId', 'amount', 'referenceId'], method: 'Deposit', parser: parseMetaBalanceResponse },
+          withdraw: { capability: 'transfer', token: 'PLATFORM_METAGAMING_WALLET_TOKEN',
+            allowed: ['profileId', 'account', 'playerId', 'amount', 'referenceId'], method: 'Withdraw', parser: parseMetaBalanceResponse },
+          'transfer-status': { capability: 'transferStatus', token: 'PLATFORM_METAGAMING_WALLET_TOKEN',
+            allowed: ['profileId', 'account', 'playerId', 'referenceId', 'transferType'], method: 'CheckTransferStatus', parser: parseMetaTransferStatusResponse },
+          kick: { capability: 'kick', token: 'PLATFORM_METAGAMING_RECOVERY_TOKEN',
+            allowed: ['profileId', 'account', 'playerId'], method: 'KickPlayer', parser: parseMetaKickResponse },
+          'unfinished-rounds': { capability: 'unfinishedRound', token: 'PLATFORM_METAGAMING_RECOVERY_TOKEN',
+            allowed: ['profileId', 'account', 'playerId'], method: 'GetUnfinishRound', parser: parseMetaUnfinishedRoundsResponse },
+          reports: { capability: 'report', token: 'PLATFORM_METAGAMING_REPORT_TOKEN',
+            allowed: ['profileId', 'account'], method: 'PullLog', parser: parseMetaLogsResponse },
+          'flag-log': { capability: 'flagLog', token: 'PLATFORM_METAGAMING_REPORT_TOKEN',
+            allowed: ['profileId', 'account', 'transactionIds'], method: 'FlagLog', parser: parseMetaOperationResponse },
+        };
+        const definition = definitions[operation];
+        if (!isMetaGamingPeer(req, definition.token)) return send(res, 401, { error: 'unauthorized' });
+        if (!metaCapabilityReady(definition.capability)) {
+          return send(res, 503, { error: `metagaming_${definition.capability}_disabled` });
+        }
+        const payload = await body(req);
+        if (!strictMetaPayload(payload, definition.allowed)) {
+          return send(res, 400, { error: 'invalid_metagaming_request' });
+        }
+        const selected = metaProfileAccount(payload);
+        if (!selected) return send(res, 400, { error: 'metagaming_profile_account_mismatch' });
+        if (!selected.account) {
+          return send(res, 503, { error: 'metagaming_account_not_configured', profileId: selected.profileId, account: selected.accountName });
+        }
+        let fields;
+        if (operation === 'launch') {
+          if (payload.language !== 'en') return send(res, 400, { error: 'metagaming_language_not_confirmed' });
+          fields = {
+            PlayerId: String(payload.playerId || ''), Ip: String(payload.ip || ''),
+            GameCode: typeof payload.gameCode === 'string' ? payload.gameCode : '',
+            Currency: selected.account.currency, Lang: 'en-us',
+            RedirectUrl: typeof payload.returnUrl === 'string' ? payload.returnUrl : '',
+            LaunchDemo: payload.demo === undefined ? false : payload.demo,
+            ...(payload.authToken === undefined ? {} : { AuthToken: payload.authToken }),
+          };
+        } else if (['player', 'balance', 'kick', 'unfinished-rounds'].includes(operation)) {
+          fields = { PlayerId: String(payload.playerId || '') };
+        } else if (operation === 'deposit' || operation === 'withdraw') {
+          fields = { PlayerId: String(payload.playerId || ''),
+            Amount: typeof payload.amount === 'string' ? payload.amount : '',
+            ReferenceId: String(payload.referenceId || '') };
+        } else if (operation === 'transfer-status') {
+          const transferType = payload.transferType === 'deposit' ? 1 : payload.transferType === 'withdrawal' ? 2 : 0;
+          fields = { PlayerId: String(payload.playerId || ''), ReferenceId: String(payload.referenceId || ''), TransferType: transferType };
+        } else if (operation === 'flag-log') {
+          fields = { TransactionIds: payload.transactionIds };
+        } else fields = {};
+
+        let result;
+        try { result = await metaGaming(definition.method, selected.account, fields); }
+        catch (error) {
+          if (error instanceof TypeError && /^invalid_meta_/.test(error.message)) {
+            return send(res, 400, { error: 'invalid_metagaming_request' });
+          }
+          throw error;
+        }
+        if (!result.ok) {
+          let providerStatus = null;
+          try { providerStatus = parseMetaOperationResponse(result.data).status; }
+          catch { /* HTTP rejection bodies are not trusted provider envelopes. */ }
+          return send(res, 502, { error: 'metagaming_operation_failed', provider: 'metagaming',
+            profileId: selected.profileId, account: selected.accountName, operation,
+            upstreamStatus: result.status, providerStatus });
+        }
+        let parsed;
+        try { parsed = definition.parser(result.data); }
+        catch {
+          return send(res, 502, { error: 'metagaming_response_invalid', provider: 'metagaming',
+            profileId: selected.profileId, account: selected.accountName, operation,
+            upstreamStatus: result.status });
+        }
+        if (!parsed.ok) {
+          return send(res, 502, { error: 'metagaming_operation_rejected', provider: 'metagaming',
+            profileId: selected.profileId, account: selected.accountName, operation,
+            upstreamStatus: result.status, providerStatus: parsed.status });
+        }
+        if (['balance', 'deposit', 'withdraw'].includes(operation)
+            && parsed.currency !== selected.account.currency) {
+          return send(res, 502, { error: 'metagaming_currency_mismatch', provider: 'metagaming',
+            profileId: selected.profileId, account: selected.accountName, operation,
+            upstreamStatus: result.status });
+        }
+        return send(res, 200, { provider: 'metagaming', profileId: selected.profileId,
+          account: selected.accountName, operation, upstreamStatus: result.status, result: parsed });
       }
 
       if (req.method === 'POST' && ['/admin/megah5/session', '/platform/megah5/session'].includes(url.pathname)) {

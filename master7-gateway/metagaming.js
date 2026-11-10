@@ -173,6 +173,10 @@ function responseEnvelope(value) {
   };
 }
 
+function parseMetaOperationResponse(value) {
+  return responseEnvelope(value);
+}
+
 function parseMetaCatalogueResponse(value) {
   const envelope = responseEnvelope(value);
   if (!envelope.ok) return { ...envelope, games: [] };
@@ -297,6 +301,7 @@ module.exports = {
   parseMetaKickResponse,
   parseMetaLaunchResponse,
   parseMetaLogsResponse,
+  parseMetaOperationResponse,
   parseMetaTransferStatusResponse,
   parseMetaUnfinishedRoundsResponse,
   publicMetaAccountStatus,

@@ -208,43 +208,156 @@ test('META catalogue rejects unknown or unconfigured accounts before provider tr
   assert.equal(calls, 0);
 });
 
-test('META privileged capabilities stay unimplemented despite flags and isolated tokens', async () => {
-  const tokenValues = {
-    PLATFORM_METAGAMING_PLAYER_TOKEN: 'p'.repeat(48),
-    PLATFORM_METAGAMING_WALLET_TOKEN: 'w'.repeat(48),
-    PLATFORM_METAGAMING_RECOVERY_TOKEN: 'r'.repeat(48),
-    PLATFORM_METAGAMING_REPORT_TOKEN: 'l'.repeat(48),
-  };
-  const flags = Object.fromEntries([
-    'PLAYER', 'LAUNCH', 'BALANCE', 'TRANSFER', 'TRANSFER_STATUS', 'KICK', 'UNFINISHED_ROUND', 'REPORT', 'FLAG_LOG',
-  ].map(name => [`META_GAMING_${name}_ENABLED`, 'true']));
-  const env = { ...baseEnv, ...tokenValues, ...flags };
+const tokenValues = Object.freeze({
+  PLATFORM_METAGAMING_PLAYER_TOKEN: 'p'.repeat(48),
+  PLATFORM_METAGAMING_WALLET_TOKEN: 'w'.repeat(48),
+  PLATFORM_METAGAMING_RECOVERY_TOKEN: 'r'.repeat(48),
+  PLATFORM_METAGAMING_REPORT_TOKEN: 'l'.repeat(48),
+});
+const runtimeFlags = Object.freeze(Object.fromEntries([
+  'PLAYER', 'LAUNCH', 'BALANCE', 'TRANSFER', 'TRANSFER_STATUS', 'KICK', 'UNFINISHED_ROUND', 'REPORT', 'FLAG_LOG',
+].map(name => [`META_GAMING_${name}_ENABLED`, 'true'])));
+const runtimeRoutes = Object.freeze([
+  ['/platform/metagaming/player', tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN],
+  ['/platform/metagaming/launch', tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN],
+  ['/platform/metagaming/balance', tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN],
+  ['/platform/metagaming/deposit', tokenValues.PLATFORM_METAGAMING_WALLET_TOKEN],
+  ['/platform/metagaming/withdraw', tokenValues.PLATFORM_METAGAMING_WALLET_TOKEN],
+  ['/platform/metagaming/transfer-status', tokenValues.PLATFORM_METAGAMING_WALLET_TOKEN],
+  ['/platform/metagaming/kick', tokenValues.PLATFORM_METAGAMING_RECOVERY_TOKEN],
+  ['/platform/metagaming/unfinished-rounds', tokenValues.PLATFORM_METAGAMING_RECOVERY_TOKEN],
+  ['/platform/metagaming/reports', tokenValues.PLATFORM_METAGAMING_REPORT_TOKEN],
+  ['/platform/metagaming/flag-log', tokenValues.PLATFORM_METAGAMING_REPORT_TOKEN],
+]);
+
+test('META runtime routes are compiled but make zero provider calls while switches are off', async () => {
+  const env = { ...baseEnv, ...tokenValues };
+  const readiness = metaGamingReadiness(env);
+  assert.equal(readiness.scope, 'catalogue_and_gated_runtime');
+  for (const capability of Object.values(readiness.capabilities)) {
+    assert.equal(capability.routeImplemented, true);
+    assert.equal(capability.configurationReady, false);
+    assert.ok(capability.blockers.includes('capability_switch_off'));
+    assert.equal(capability.liveReady, false);
+  }
+  let calls = 0;
+  const app = makeApp({ env, fetchImpl: async () => { calls++; throw new Error('must not call provider'); } });
+  for (const [path, token] of runtimeRoutes) {
+    assert.equal((await request(app, path, { method: 'POST', token, body: {} })).status, 503, path);
+  }
+  assert.equal(calls, 0);
+});
+
+test('META runtime enforces peer-token and profile/account isolation before provider traffic', async () => {
+  const env = { ...baseEnv, ...tokenValues, ...runtimeFlags };
   const readiness = metaGamingReadiness(env);
   for (const capability of Object.values(readiness.capabilities)) {
-    assert.equal(capability.routeImplemented, false);
-    assert.equal(capability.configurationReady, false);
-    assert.ok(capability.blockers.includes('route_not_implemented'));
+    assert.equal(capability.routeImplemented, true);
+    assert.equal(capability.configurationReady, true);
+    assert.equal(capability.productionQa, 'not_verified');
+    assert.equal(capability.liveReady, false);
   }
   assert.equal(metaGamingPeerCredential(env, 'PLATFORM_METAGAMING_PLAYER_TOKEN'), tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN);
   assert.equal(metaGamingPeerCredential({ ...env,
     PLATFORM_METAGAMING_PLAYER_TOKEN: tokenValues.PLATFORM_METAGAMING_WALLET_TOKEN,
   }, 'PLATFORM_METAGAMING_PLAYER_TOKEN'), '');
-
   let calls = 0;
   const app = makeApp({ env, fetchImpl: async () => { calls++; throw new Error('must not call provider'); } });
-  for (const [path, token] of [
-    ['/platform/metagaming/player', tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN],
-    ['/platform/metagaming/launch', tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN],
-    ['/platform/metagaming/balance', tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN],
-    ['/platform/metagaming/deposit', tokenValues.PLATFORM_METAGAMING_WALLET_TOKEN],
-    ['/platform/metagaming/withdraw', tokenValues.PLATFORM_METAGAMING_WALLET_TOKEN],
-    ['/platform/metagaming/transfer-status', tokenValues.PLATFORM_METAGAMING_WALLET_TOKEN],
-    ['/platform/metagaming/kick', tokenValues.PLATFORM_METAGAMING_RECOVERY_TOKEN],
-    ['/platform/metagaming/unfinished-rounds', tokenValues.PLATFORM_METAGAMING_RECOVERY_TOKEN],
-    ['/platform/metagaming/reports', tokenValues.PLATFORM_METAGAMING_REPORT_TOKEN],
-    ['/platform/metagaming/flag-log', tokenValues.PLATFORM_METAGAMING_REPORT_TOKEN],
-  ]) {
-    assert.equal((await request(app, path, { method: 'POST', token, body: {} })).status, 404, path);
-  }
+  assert.equal((await request(app, '/platform/metagaming/player', { method: 'POST',
+    token: tokenValues.PLATFORM_METAGAMING_WALLET_TOKEN,
+    body: { profileId: 'metagaming_normal_myr', account: 'normal', playerId: 'member_1' } })).status, 401);
+  assert.equal((await request(app, '/platform/metagaming/player', { method: 'POST',
+    token: tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN,
+    body: { profileId: 'metagaming_normal_myr', account: 'free', playerId: 'member_1' } })).status, 400);
+  assert.equal((await request(app, '/platform/metagaming/player', { method: 'POST',
+    token: tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN,
+    body: { profileId: 'metagaming_normal_myr', account: 'normal', playerId: 'member_1', apiUrl: 'https://attacker.test' } })).status, 400);
+  const missing = makeApp({ env: { ...env, META_GAMING_FREE_SECRET_KEY: '' },
+    fetchImpl: async () => { calls++; throw new Error('must not call provider'); } });
+  assert.equal((await request(missing, '/platform/metagaming/player', { method: 'POST',
+    token: tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN,
+    body: { profileId: 'metagaming_free_myr', account: 'free', playerId: 'member_1' } })).status, 503);
   assert.equal(calls, 0);
+});
+
+test('META runtime routes sign exact documented methods and return only safe projections', async () => {
+  const sent = [];
+  const common = { Status: 200, Description: 'Success', ResponseDateTime: '2026-11-10 03:04:06' };
+  const env = { ...baseEnv, ...tokenValues, ...runtimeFlags };
+  const app = makeApp({ env, now: () => fixed, fetchImpl: async (url, options) => {
+    const method = new URL(url).pathname.split('/').at(-1), payload = JSON.parse(options.body);
+    sent.push({ url, method, payload });
+    if (method === 'GameLogin') return Response.json({ ...common, Url: 'https://games.example.test/play?session=fixture' });
+    if (['CheckBalance', 'Deposit', 'Withdraw'].includes(method)) return Response.json({ ...common, CurrentBalance: '12.3400', Currency: 'MYR' });
+    if (method === 'CheckTransferStatus') return Response.json({ ...common,
+      Trans: { TranId: '778899', Amount: '1.25', PrevBalance: '11.09', NewBalance: '12.34', Private: 'hidden' } });
+    if (method === 'GetUnfinishRound') return Response.json({ ...common,
+      Rounds: [{ RoundId: 'round-1', GameId: '10001', GameName: 'Fixture Slot', Turnover: '1.25', Private: 'hidden' }] });
+    if (method === 'PullLog') return Response.json({ ...common, Logs: [{ TranId: 5511, PlayerId: 'member_1',
+      Turnover: '1.25', ValidTurnover: '1.25', Payout: '2.00', WinLose: '0.75',
+      TranDt: '2026-11-10T03:00:00Z', TranType: 0, GameCode: '10001', GameType: 1,
+      GameName: 'Fixture Slot', Private: 'hidden' }] });
+    return Response.json({ ...common, Private: 'hidden' });
+  } });
+  const normal = { profileId: 'metagaming_normal_myr', account: 'normal' };
+  const free = { profileId: 'metagaming_free_myr', account: 'free' };
+  const cases = [
+    ['/platform/metagaming/player', tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN, { ...normal, playerId: 'member_1' }, 'player'],
+    ['/platform/metagaming/launch', tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN, { ...normal, playerId: 'member_1', ip: '203.0.113.8', gameCode: '10001', language: 'en', returnUrl: 'https://www.master7.best/games', demo: false }, 'launch'],
+    ['/platform/metagaming/balance', tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN, { ...free, playerId: 'member_1' }, 'balance'],
+    ['/platform/metagaming/deposit', tokenValues.PLATFORM_METAGAMING_WALLET_TOKEN, { ...normal, playerId: 'member_1', amount: '1.25', referenceId: 'deposit-1' }, 'deposit'],
+    ['/platform/metagaming/withdraw', tokenValues.PLATFORM_METAGAMING_WALLET_TOKEN, { ...normal, playerId: 'member_1', amount: '1.25', referenceId: 'withdraw-1' }, 'withdraw'],
+    ['/platform/metagaming/transfer-status', tokenValues.PLATFORM_METAGAMING_WALLET_TOKEN, { ...normal, playerId: 'member_1', referenceId: 'deposit-1', transferType: 'deposit' }, 'transfer-status'],
+    ['/platform/metagaming/kick', tokenValues.PLATFORM_METAGAMING_RECOVERY_TOKEN, { ...normal, playerId: 'member_1' }, 'kick'],
+    ['/platform/metagaming/unfinished-rounds', tokenValues.PLATFORM_METAGAMING_RECOVERY_TOKEN, { ...normal, playerId: 'member_1' }, 'unfinished-rounds'],
+    ['/platform/metagaming/reports', tokenValues.PLATFORM_METAGAMING_REPORT_TOKEN, { ...normal }, 'reports'],
+    ['/platform/metagaming/flag-log', tokenValues.PLATFORM_METAGAMING_REPORT_TOKEN, { ...normal, transactionIds: [5511] }, 'flag-log'],
+  ];
+  for (const [path, token, body, operation] of cases) {
+    const response = await request(app, path, { method: 'POST', token, body });
+    assert.equal(response.status, 200, path);
+    assert.equal(response.data.provider, 'metagaming');
+    assert.equal(response.data.profileId, body.profileId);
+    assert.equal(response.data.account, body.account);
+    assert.equal(response.data.operation, operation);
+    assert.equal(JSON.stringify(response.data).includes('hidden'), false);
+  }
+  assert.equal(sent.length, cases.length);
+  const launch = sent.find(item => item.method === 'GameLogin');
+  assert.equal(launch.payload.OperatorId, 'MASTER7NORMAL');
+  assert.equal(launch.payload.Currency, 'MYR');
+  assert.equal(launch.payload.Lang, 'en-us');
+  assert.equal(launch.payload.Signature, md5(`GameLogin2026-11-10 03:04:05MASTER7NORMAL${normalSecret}member_1`));
+  const balance = sent.find(item => item.method === 'CheckBalance');
+  assert.equal(balance.payload.OperatorId, 'MASTER7FREE');
+  assert.equal(balance.payload.Signature, md5(`CheckBalance2026-11-10 03:04:05MASTER7FREE${freeSecret}member_1`));
+  const status = sent.find(item => item.method === 'CheckTransferStatus');
+  assert.equal(status.payload.Signature, md5(`CheckTransferStatus2026-11-10 03:04:05MASTER7NORMAL${normalSecret}member_1deposit-11`));
+  assert.deepEqual(sent.find(item => item.method === 'FlagLog').payload.TransactionIds, [5511]);
+});
+
+test('META runtime fails closed on currency mismatch, malformed success and HTTP rejection', async () => {
+  const env = { ...baseEnv, ...tokenValues, ...runtimeFlags };
+  let mode = 'currency';
+  const app = makeApp({ env, fetchImpl: async () => {
+    if (mode === 'http') return new Response('<html>provider secret</html>', { status: 403 });
+    if (mode === 'launch') return Response.json({ Status: 200, Description: 'Success',
+      ResponseDateTime: '2026-11-10 03:04:06', Url: 'http://insecure.example.test' });
+    return Response.json({ Status: 200, Description: 'Success', ResponseDateTime: '2026-11-10 03:04:06',
+      CurrentBalance: '1.00', Currency: 'USD' });
+  } });
+  const base = { profileId: 'metagaming_normal_myr', account: 'normal', playerId: 'member_1' };
+  let response = await request(app, '/platform/metagaming/balance', { method: 'POST',
+    token: tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN, body: base });
+  assert.equal(response.status, 502);assert.equal(response.data.error, 'metagaming_currency_mismatch');
+  mode = 'launch';
+  response = await request(app, '/platform/metagaming/launch', { method: 'POST',
+    token: tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN,
+    body: { ...base, ip: '203.0.113.8', gameCode: '10001', language: 'en', returnUrl: 'https://www.master7.best/games' } });
+  assert.equal(response.status, 502);assert.equal(response.data.error, 'metagaming_response_invalid');
+  mode = 'http';
+  response = await request(app, '/platform/metagaming/player', { method: 'POST',
+    token: tokenValues.PLATFORM_METAGAMING_PLAYER_TOKEN, body: base });
+  assert.equal(response.status, 502);assert.equal(response.data.error, 'metagaming_operation_failed');
+  assert.equal(JSON.stringify(response.data).includes('secret'), false);
 });
