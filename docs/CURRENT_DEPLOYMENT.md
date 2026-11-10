@@ -31,7 +31,35 @@ outstanding. The platform therefore remains in integration/UAT and is not
 approved for production go-live. See
 `MASTER7_STAFF_SETUP_ROUTE_173_POSTDEPLOY.md`,
 `MASTER7_V173_BACKUP_RESTORE_ACCEPTANCE.md` and
-`MASTER7_V173_MONITORING_TECHNICAL_ACCEPTANCE.md`.
+`MASTER7_V173_MONITORING_TECHNICAL_ACCEPTANCE.md`. The official-domain recheck
+and exact DNS/TLS follow-up are recorded in
+`MASTER7_V173_OFFICIAL_DOMAIN_RECHECK.md`.
+
+## Official domains
+
+Render Blueprint `exs-dboff93rjlhs73b9hihg` manages Portal service
+`srv-dbl0iv7f3r2c73848ei0`. Its remote YAML declares `www.master7.best` and
+`www.master7.site`; a fresh Blueprint plan returned `no_changes`. That result
+only confirms that the declared Render plan has no pending infrastructure
+change. It does not verify public DNS, direct custom-domain routing or TLS.
+
+Public DNS still uses Spaceship forwarding. `master7.best` resolves to
+`15.197.162.184` and redirects through Render to `/signin`;
+`www.master7.best` returns DNS NODATA. `master7.site` and
+`www.master7.site` resolve to `15.197.162.184` and redirect to `/admin`.
+None of the four names has passed direct Render custom-domain and TLS
+acceptance.
+
+The remaining change is at Spaceship and Render's Custom Domains screen:
+disable URL forwarding, point both `www` names by CNAME to
+`master7-v17-staging.onrender.com`, remove conflicting A/AAAA records, set each
+apex to the current A/ALIAS target shown by Render, and then verify TLS. The
+historical Render apex IP is not treated as a current value. Acceptance also
+requires GET and HEAD routing, Host behavior, and callback POST requests with
+no redirect. This DNS correction does not require a compute-plan upgrade, but
+the current session has no Spaceship DNS write access or Render Custom Domains
+write/verify surface. Domain acceptance therefore remains blocked and the
+platform remains in UAT.
 
 ## Staff setup route
 
