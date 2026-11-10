@@ -1,0 +1,953 @@
+diff --git a/.env.example b/.env.example
+index 938808f41fd8253f8aadd39f40debd89dc5b39f7..228a7b0bd8e59e00ab4c5ade15afdb9f7b4346f2 100644
+--- a/.env.example
++++ b/.env.example
+@@ -5,6 +5,10 @@ OWNER_LOGIN_ID=master7_owner
+ # verification. Payment callbacks must never rely on a forwarding redirect.
+ PUBLIC_ORIGIN=https://master7-v17-staging.onrender.com
+ PORTAL_ALLOWED_ORIGINS=https://master7-v17-staging.onrender.com
++# Mandatory per-instance PostgreSQL guard attestation. Invalid or out-of-range
++# overrides fall back to the safe 60s/10s defaults; there is no disable switch.
++PORTAL_DATABASE_GUARD_MONITOR_INTERVAL_MS=60000
++PORTAL_DATABASE_GUARD_MONITOR_QUERY_TIMEOUT_MS=10000
+ # SHA-256 of a cryptographically random, single-use activation code; never the code itself.
+ OWNER_SETUP_TOKEN_HASH=
+ OWNER_SETUP_EXPIRES_AT=
+diff --git a/app/portal.html b/app/portal.html
+index a82bf0d9c6dbc5c17ad69363cdb6f77d12d7491f..07d9af6fbc23faf225c3978e8b1c6162f67c1393 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+@@ -70,11 +70,11 @@
+   </header>
+ 
+   <nav class="mobile-dock" aria-label="Mobile member navigation">
+-    <button type="button" class="mobile-dock-button nav-button active" data-section="lobby"><span aria-hidden="true">⌂</span><small>Home</small></button>
+-    <button type="button" class="mobile-dock-button" id="mobileGamesButton"><span aria-hidden="true">▦</span><small>Games</small></button>
+-    <button type="button" class="mobile-dock-button nav-button" data-section="deposit" hidden><span aria-hidden="true">◇</span><small>Wallet</small></button>
+-    <button type="button" class="mobile-dock-button nav-button" data-section="rewards"><span aria-hidden="true">✦</span><small>Promotions</small></button>
+-    <button type="button" class="mobile-dock-button nav-button" data-section="support"><span aria-hidden="true">🎧</span><small>Support</small></button>
++    <button type="button" class="mobile-dock-button nav-button active" data-section="lobby" data-mobile-dock-target="home" aria-current="page"><span aria-hidden="true">⌂</span><small>Home</small></button>
++    <button type="button" class="mobile-dock-button" id="mobileGamesButton" data-mobile-dock-target="games"><span aria-hidden="true">▦</span><small>Games</small></button>
++    <button type="button" class="mobile-dock-button nav-button" data-section="deposit" data-mobile-dock-target="deposit" hidden><span aria-hidden="true">◇</span><small>Wallet</small></button>
++    <button type="button" class="mobile-dock-button nav-button" data-section="rewards" data-mobile-dock-target="rewards"><span aria-hidden="true">✦</span><small>Promotions</small></button>
++    <button type="button" class="mobile-dock-button nav-button" data-section="support" data-mobile-dock-target="support"><span aria-hidden="true">🎧</span><small>Support</small></button>
+   </nav>
+ 
+   <aside class="portal-sidebar" aria-label="Portal navigation">
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index 5f2a0d5b2510871b525b52cb0b9770aab5958f7f..714e9b38576ee9d89d8b0b951471afe4559b082d 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,6 +1,6 @@
+ # MASTER7 deployment handover
+ 
+-Candidate source: `17.0.0-selfbuilt.168-guard-function-attestation`.
++Candidate source: `17.0.0-selfbuilt.169-runtime-guard-monitor`.
+ 
+ This candidate has not been deployed by the source commit. Confirm the actual
+ Render release and deployment ID from the Portal service before cutover or
+@@ -9,7 +9,33 @@ rollback. Portal service: `srv-dbl0iv7f3r2c73848ei0`.
+ The last recorded integration-gateway baseline remains release `1.17.0`,
+ deployment `dep-dbpchge417fc739h9b50`, commit
+ `c4aab70060439469f3c2e6081a57c0b40e630ff4`. Gateway service:
+-`srv-db6b7inlk1mc73ck6cmg`. The v168 candidate does not change the gateway.
++`srv-db6b7inlk1mc73ck6cmg`. The v169 candidate does not change the gateway.
++
++## Runtime database guard monitor
++
++v169 adds a mandatory per-instance PostgreSQL monitor after Nitro startup and
++outside scheduler leadership. It opens a new bounded client for each check and
++re-attests the nine critical triggers and five guard functions every 60 seconds
++by default. Checks never overlap: the next unreferenced timer is created only
++after the current connection, attestation and cleanup have completed.
++
++Connection and server statement timeouts default to 10 seconds, the client
++query timeout is one second longer, lock waits are bounded to two seconds, and
++client cleanup is bounded to two seconds. A connection, metadata query,
++attestation or cleanup failure emits one fixed, sanitized fail-closed message
++and exits the instance once. Render then restarts it, where the existing startup
++attestation prevents drifted definitions from becoming ready. The monitor never
++repairs drift. Default Node SIGTERM/SIGINT behavior is preserved, and its idle
++timer is unreferenced. See `V169_RUNTIME_DATABASE_GUARD_MONITOR.md`.
++
++## Mobile dock navigation
++
++The v169 member shell also gives Home and Games independent mobile-dock state.
++Opening Games, a provider or a game category keeps Games as the single active
++`aria-current` destination while the lobby section remains mounted. Home
++returns the dock to Home, and Wallet, Promotions and Support retain their own
++current-state indicators. This is a presentation and navigation correction; it
++does not enable a provider, game launch or money flow.
+ 
+ ## Guard function attestation
+ 
+@@ -86,10 +112,10 @@ gates.
+ ## Other operational boundaries
+ 
+ Payment work remains paused. VPay, GSPAY and 1MPay code, credentials, callbacks,
+-activation flags, service plans and DNS are unchanged by v168. This candidate
++activation flags, service plans and DNS are unchanged by v169. This candidate
+ does not enable any real-money payment, payout or live-game switch.
+ 
+-The verification totals for v168 must be recorded only after the complete
++The verification totals for v169 must be recorded only after the complete
+ source verification finishes. No deployment or production acceptance is
+ claimed by this handover.
+ 
+diff --git a/docs/V169_RUNTIME_DATABASE_GUARD_MONITOR.md b/docs/V169_RUNTIME_DATABASE_GUARD_MONITOR.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..f4837cfe1718bad2409fb398825c612616db95ee
+--- /dev/null
++++ b/docs/V169_RUNTIME_DATABASE_GUARD_MONITOR.md
+@@ -0,0 +1,65 @@
++# V169 Runtime Database Guard Monitor
++
++Release: `17.0.0-selfbuilt.169-runtime-guard-monitor`
++
++## Change
++
++Every Render portal instance now starts a mandatory runtime PostgreSQL guard
++monitor after Nitro starts and outside the advisory-lock scheduler leader. The
++startup transaction remains the first gate. The runtime monitor then reuses the
++same frozen `assertCriticalDatabaseGuards` contract to verify all nine protected
++triggers and the five unique guard functions every 60 seconds by default.
++
++Each cycle creates a new PostgreSQL client with a fixed application name. The
++connection and server statement timeouts default to 10 seconds, the client query
++timeout is 11 seconds, lock waits are limited to two seconds, and client cleanup
++is limited to two seconds. The next unreferenced timer is scheduled only after
++the preceding connection, attestation and cleanup complete, so checks cannot
++overlap or accumulate.
++
++The interval can be set between 15 and 300 seconds with
++`PORTAL_DATABASE_GUARD_MONITOR_INTERVAL_MS`. The server timeout can be set
++between one and 30 seconds with
++`PORTAL_DATABASE_GUARD_MONITOR_QUERY_TIMEOUT_MS`. Invalid values fall back to
++the safe defaults. There is no monitor disable switch.
++
++## Failure behavior
++
++A client-construction, connection, metadata-query, attestation or cleanup
++failure stops the monitor and exits the instance exactly once. The log contains
++only a fixed phase and a constrained database error code; it never includes the
++connection string, query, guard source or provider data. Render can restart the
++instance, but the existing startup attestation continues to reject drift before
++the service becomes ready. Runtime drift is detected, never repaired.
++
++Successful verification is logged once when the monitor becomes ready. Later
++successful cycles remain silent. The monitor uses an unreferenced idle timer and
++does not replace Node's default SIGTERM or SIGINT behavior.
++
++## Mobile navigation correction
++
++The same release corrects the mobile member dock so Home and Games are separate
++current destinations inside the lobby. Games, provider and category actions
++retain Games as the only active `aria-current` item; Home restores Home, and the
++other dock destinations keep their own state. The correction changes navigation
++state only and does not mark any game or provider playable.
++
++## Verification and scope
++
++Synthetic tests cover immediate verification, post-completion scheduling,
++non-overlap, idempotent stop, stop during an in-flight query, bounded cleanup,
++sanitized connection/query/cleanup failures, exact-once exit, and per-instance
++wiring outside scheduler leadership. The isolated PostgreSQL 18 suite replaces
++an expected function body under the same name after a successful runtime check,
++proves the next monitor cycle exits fail closed, proves the drift is not
++repaired, and then restores the function explicitly.
++
++Mobile navigation tests also verify a single active destination, distinct Home
++and Games state, correct Wallet/Promotions/Support state, and Games retention
++through provider and category entry points.
++
++- no migration, table, column, backup format or backup data-contract change;
++- backup schema remains `0122-acceptance-ledger-integrity` with 76 tables;
++- no payment, payout, wallet, game-provider, DNS, credential, plan or
++  production-control change;
++- no live provider or customer transaction calls during validation.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index c91067775242b902ec62ab823379c2656ab52103..e133d9c6496f78ef2eddc404acb884f0d6b634ee 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -39,7 +39,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.168-guard-function-attestation';
++export const RELEASE = '17.0.0-selfbuilt.169-runtime-guard-monitor';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index 7cfa815784804bb3bc015ba648d021d60beb67b6..4fe221f13a2fa33c222c7dcaf2ce016b0502361f 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.168-guard-function-attestation' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.169-runtime-guard-monitor' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/package.json b/package.json
+index f6041d993bd3d40569ae5eeaee16158b7d48d0af..e7c53c5291748ffe482404c37af62da28fc51ba2 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.168-guard-function-attestation node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.168-guard-function-attestation node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.169-runtime-guard-monitor node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.169-runtime-guard-monitor node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.168-guard-function-attestation node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.169-runtime-guard-monitor node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs",
+     "test:acceptance-integrity-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-acceptance-integrity.mjs"
+diff --git a/public/assets/app.js b/public/assets/app.js
+index 1cfa48b1027eb1ec925aa2cf671a35e89608a677..72f77b07a4d2f018e40963a54751007b6cfba247 100644
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -121,7 +121,7 @@ function renderBonusBrandPreview(){
+  }
+ }
+ function openCatalogProvider(profileId,profileName,providerIdHint){
+- const entry=gameProfileEntry(profileId),providerId=entry?gameProfileProviderId(entry):providerIdHint;if(!entry&&featuredProviderDefaultProfiles[providerId]!==profileId)return;state.providerAccountSelections={...(state.providerAccountSelections||{}),[providerId]:profileId};window.Master7Engagement?.recordRecentProvider(profileId,profileName);state.selectedCatalogProvider=profileId;state.selectedCatalogProviderName=profileName;state.gameLimit=12;state.games=[];state.gameWallet=null;selected('lobby');renderCatalog();loadGameCatalogue(profileId);loadGameWallet(profileId);$("providers").scrollIntoView({behavior:'smooth',block:'start'});
++ const entry=gameProfileEntry(profileId),providerId=entry?gameProfileProviderId(entry):providerIdHint;if(!entry&&featuredProviderDefaultProfiles[providerId]!==profileId)return;state.providerAccountSelections={...(state.providerAccountSelections||{}),[providerId]:profileId};window.Master7Engagement?.recordRecentProvider(profileId,profileName);state.selectedCatalogProvider=profileId;state.selectedCatalogProviderName=profileName;state.gameLimit=12;state.games=[];state.gameWallet=null;selected('lobby','games');renderCatalog();loadGameCatalogue(profileId);loadGameWallet(profileId);$("providers").scrollIntoView({behavior:'smooth',block:'start'});
+ }
+ function openProviderBonus(code){
+  const provider=bonusBrandLookup(code);if(!provider)return;
+@@ -409,7 +409,7 @@ function manualBankAttemptFor(bankId,amount,file){
+ }
+ function clearManualBankAttempt(){const storageKey=state.manualBankAttempt?.storageKey||manualBankAttemptStorageKey();state.manualBankAttempt=null;if(storageKey){try{sessionStorage.removeItem(storageKey);}catch{}}}
+ async function submitManualBankDeposit(e){e.preventDefault();const button=$("manualBankSubmit"),message=$("manualBankMessage"),restriction=activeDepositRestriction();if(restriction){message.textContent=restriction.message;renderDepositCashier();return;}const file=$("manualBankReceipt").files[0];if(!file){message.textContent="Upload a bank receipt.";return;}const bankId=$("manualBankAccount").value,amount=$("manualBankAmount").value,attempt=manualBankAttemptFor(bankId,amount,file);button.disabled=true;message.textContent="Uploading…";try{const receiptData=await receiptDataForUpload(file,1200,1600),result=await api("/api/manual-bank/deposits","POST",{bankId,amount,receiptData,requestKey:attempt.requestKey});clearManualBankAttempt();$("manualBankDepositForm").reset();message.textContent=`Submitted for review · Reference ${result.id}. Wallet credit follows bank verification.`;await loadMemberWallet();}catch(error){message.textContent=error.message;}finally{button.disabled=false;}}
+-function bindWalletActions(){document.querySelectorAll("[data-home-service]").forEach(button=>button.onclick=()=>{const section=button.dataset.homeService;if((section==="deposit"||section==="withdraw")&&!state.user){showAuth();return;}if(section==="games"){$("mobileGamesButton").click();return;}selected(section);});$("walletDepositAction").onclick=()=>{selected("deposit");setTimeout(()=>$("paymentLobby")?.scrollIntoView({behavior:"smooth",block:"start"}),0);};$("walletWithdrawAction").onclick=()=>selected("withdraw");$("walletRecordsAction").onclick=openDepositRecords;$("mobileGamesButton").onclick=()=>{selected("lobby");setTimeout(()=>$("apiSupplierLobby")?.scrollIntoView({behavior:"smooth",block:"start"}),0);};const mobileAccountButton=$("mobileAccountButton");if(mobileAccountButton)mobileAccountButton.onclick=()=>state.user&&state.authMethod==="password"?showAuth("security"):state.user?.role==="member"?selected("responsible-play"):showAuth();$("manualBankAccount").onchange=renderManualBankCopyDetails;$("copyBankBank").onclick=()=>copyBankValue("manualBankCopyBank");$("copyBankName").onclick=()=>copyBankValue("manualBankCopyName");$("copyBankNumber").onclick=()=>copyBankValue("manualBankCopyNumber");$("manualBankDepositForm").addEventListener("submit",submitManualBankDeposit);$("manualBankDepositForm").addEventListener("reset",clearManualBankAttempt);$("gspayOrderForm").addEventListener("submit",submitGSPayOrder);$("companyBankForm").addEventListener("submit",saveCompanyBank);$("companyBankImage").onchange=async()=>{const file=$("companyBankImage").files?.[0];if(!file){showCompanyBankImagePreview();return;}try{showCompanyBankImagePreview(await receiptDataForUpload(file,800,800));}catch(error){$("companyBankImage").value="";showCompanyBankImagePreview();notification(error.message);}};$("refreshManualBank").onclick=()=>loadAdminPanel("manualBankAdminPanel",{force:true});document.querySelectorAll("[data-bank-admin-tab]").forEach(button=>button.onclick=()=>selectManualBankAdminTab(button.dataset.bankAdminTab));}
++function bindWalletActions(){document.querySelectorAll("[data-home-service]").forEach(button=>button.onclick=()=>{const section=button.dataset.homeService;if((section==="deposit"||section==="withdraw")&&!state.user){showAuth();return;}if(section==="games"){$("mobileGamesButton").click();return;}selected(section);});$("walletDepositAction").onclick=()=>{selected("deposit");setTimeout(()=>$("paymentLobby")?.scrollIntoView({behavior:"smooth",block:"start"}),0);};$("walletWithdrawAction").onclick=()=>selected("withdraw");$("walletRecordsAction").onclick=openDepositRecords;$("mobileGamesButton").onclick=()=>{selected("lobby","games");setTimeout(()=>$("apiSupplierLobby")?.scrollIntoView({behavior:"smooth",block:"start"}),0);};const mobileAccountButton=$("mobileAccountButton");if(mobileAccountButton)mobileAccountButton.onclick=()=>state.user&&state.authMethod==="password"?showAuth("security"):state.user?.role==="member"?selected("responsible-play"):showAuth();$("manualBankAccount").onchange=renderManualBankCopyDetails;$("copyBankBank").onclick=()=>copyBankValue("manualBankCopyBank");$("copyBankName").onclick=()=>copyBankValue("manualBankCopyName");$("copyBankNumber").onclick=()=>copyBankValue("manualBankCopyNumber");$("manualBankDepositForm").addEventListener("submit",submitManualBankDeposit);$("manualBankDepositForm").addEventListener("reset",clearManualBankAttempt);$("gspayOrderForm").addEventListener("submit",submitGSPayOrder);$("companyBankForm").addEventListener("submit",saveCompanyBank);$("companyBankImage").onchange=async()=>{const file=$("companyBankImage").files?.[0];if(!file){showCompanyBankImagePreview();return;}try{showCompanyBankImagePreview(await receiptDataForUpload(file,800,800));}catch(error){$("companyBankImage").value="";showCompanyBankImagePreview();notification(error.message);}};$("refreshManualBank").onclick=()=>loadAdminPanel("manualBankAdminPanel",{force:true});document.querySelectorAll("[data-bank-admin-tab]").forEach(button=>button.onclick=()=>selectManualBankAdminTab(button.dataset.bankAdminTab));}
+ function trustedGSPayCheckout(value){
+  let url;try{url=new URL(value);}catch{return null;}
+  if(url.origin!=="https://secured.gspay.online"||url.pathname!=="/channel"||url.username||url.password||url.port||url.hash)return null;
+@@ -834,7 +834,8 @@ async function api(url,method="GET",payload=undefined,timeoutMs=12000){
+   throw error;
+  }finally{clearTimeout(timer);}
+ }
+-function selected(section){const canManage=!!(state.user&&(state.user.role==="owner"||state.user.role==="staff"));if((section==="deposit"||section==="withdraw")&&state.user?.role!=="member")section=canManage?"admin":"lobby";else if((section==="responsible-play"||section==="member-verification")&&state.user?.role!=="member")section=canManage?"admin":"lobby";state.section=section;document.body?.classList?.toggle("admin-mode",section==="admin");document.querySelectorAll(".section").forEach(el=>el.classList.toggle("active",el.id===section));document.querySelectorAll(".nav-button").forEach(el=>{const active=el.dataset.section===section;el.classList.toggle("active",active);if(active)el.setAttribute("aria-current","page");else el.removeAttribute("aria-current");});window.scrollTo({top:0,behavior:"smooth"});if(section==="vip")window.Master7Vip?.loadPublic();if(section==="rewards")window.Master7Rewards?.loadPublic();if(section==="events")window.Master7Engagement?.loadPublic();if(section==="responsible-play")window.Master7ResponsiblePlay?.load();if(section==="member-verification")window.Master7ManualCompliance?.load();if(section==="withdraw")loadWithdrawals();if(section==="support")refreshTickets();if(section==="admin")renderAdmin();}
++function setMobileDockTarget(target){document.querySelectorAll("[data-mobile-dock-target]").forEach(el=>{const active=el.dataset.mobileDockTarget===target;el.classList.toggle("active",active);if(active)el.setAttribute("aria-current","page");else el.removeAttribute("aria-current");});}
++function selected(section){const dockTarget=arguments[1],canManage=!!(state.user&&(state.user.role==="owner"||state.user.role==="staff"));if((section==="deposit"||section==="withdraw")&&state.user?.role!=="member")section=canManage?"admin":"lobby";else if((section==="responsible-play"||section==="member-verification")&&state.user?.role!=="member")section=canManage?"admin":"lobby";state.section=section;document.body?.classList?.toggle("admin-mode",section==="admin");document.querySelectorAll(".section").forEach(el=>el.classList.toggle("active",el.id===section));document.querySelectorAll(".nav-button").forEach(el=>{const active=el.dataset.section===section;el.classList.toggle("active",active);if(active)el.setAttribute("aria-current","page");else el.removeAttribute("aria-current");});const mobileDockTarget=dockTarget||(section==="lobby"?"home":section);document.querySelectorAll("[data-mobile-dock-target]").forEach(el=>{const active=el.dataset.mobileDockTarget===mobileDockTarget;el.classList.toggle("active",active);if(active)el.setAttribute("aria-current","page");else el.removeAttribute("aria-current");});window.scrollTo({top:0,behavior:"smooth"});if(section==="vip")window.Master7Vip?.loadPublic();if(section==="rewards")window.Master7Rewards?.loadPublic();if(section==="events")window.Master7Engagement?.loadPublic();if(section==="responsible-play")window.Master7ResponsiblePlay?.load();if(section==="member-verification")window.Master7ManualCompliance?.load();if(section==="withdraw")loadWithdrawals();if(section==="support")refreshTickets();if(section==="admin")renderAdmin();}
+ function openAdminNotifications(){if(!["owner","staff"].includes(state.user?.role))return;selected("support");}
+ function renderSession(){const u=state.user;if(typeof syncDepositTraceOwner==="function")syncDepositTraceOwner(u);if(u?.role!=="member"||!u.approved||state.gameWalletMemberId!==u.id){state.gameWallet=null;state.gameWalletMemberId=null;state.gameWalletRequestId=(Number(state.gameWalletRequestId)||0)+1;}if(u?.role!=="member"||!u.approved||state.manualBankMemberId!==u.id){state.manualBanks=[];state.manualBankMemberId=null;}renderPaymentPreview();renderDepositCashier();$("accountSecurity").hidden=!(u&&state.authMethod==="password");$("accountNotice").hidden=!u||u.approved;$("accountNotice").textContent=t("accountPending");$("loginButton").hidden=!!u;$("logoutButton").hidden=!u;$("userChip").hidden=!u;$("referralNav").hidden=false;$("referralSidebarNav").hidden=false;$("ticketForm").hidden=!!u&&u.role!=="member";document.querySelectorAll('[data-section="deposit"],[data-section="withdraw"]').forEach(el=>el.hidden=u?.role!=="member");document.querySelectorAll('[data-section="responsible-play"]').forEach(el=>el.hidden=u?.role!=="member");document.querySelectorAll('[data-section="member-verification"]').forEach(el=>el.hidden=u?.role!=="member");const canManage=!!(u&&(u.role==="owner"||u.role==="staff"));$("adminNav").hidden=!canManage;$("adminSidebarNav").hidden=!canManage;document.querySelectorAll("[data-owner-only]").forEach(el=>el.hidden=u?.role!=="owner");if((state.section==="deposit"||state.section==="withdraw")&&u?.role!=="member")selected(canManage?"admin":"lobby");else if((state.section==="responsible-play"||state.section==="member-verification")&&u?.role!=="member")selected(canManage?"admin":"lobby");if(u)$("userChip").textContent=`${u.username} · ${t("role_"+u.role)}`;else{state.ticketUnread=0;state.ticketLatestEvent=null;}renderTicketUnreadBadges();if(state.section==="admin"&&!u)renderAdmin();renderGameWallet();window.Master7Vip?.sessionChanged(u);window.Master7Rewards?.sessionChanged(u);window.Master7Engagement?.sessionChanged(u);window.Master7ResponsiblePlay?.sessionChanged(u);window.Master7ManualCompliance?.sessionChanged(u);}
+ function renderAnnouncements(){const host=$("announcements");clear(host);if(!state.announcements.length){host.append(node("p","muted",t("noAnnouncements")));return;}for(const a of state.announcements){const card=node("article","announcement"),title=node("h3","",a.title),body=node("p","",a.body),time=node("time","",new Date(a.created_at*1000).toLocaleDateString(state.lang==="zh"?"zh-CN":state.lang));card.append(title,body,time);host.append(card);}}
+@@ -1308,7 +1309,7 @@ const customerFeatureGuides=Object.freeze({
+ });
+ function featureGuide(title,lines){const details=node("details","feature-inline-guide"),summary=node("summary","",`Member guide · ${title}`);details.append(summary);for(const line of lines)details.append(node("p","",line));return details;}
+ function installFeatureGuides(){for(const [id,lines] of Object.entries(customerFeatureGuides)){const host=$(id);if(host&&!host.querySelector(":scope > .feature-inline-guide"))host.append(featureGuide("How it works",lines));}}
+-function bind(){installFeatureGuides();updateOrganicPromotion();$("organicPromoLanguage").onchange=updateOrganicPromotion;document.querySelectorAll("[data-organic-share]").forEach(button=>button.onclick=()=>shareOrganicPromotion(button.dataset.organicShare));$("socialEnabled").onchange=()=>paintContactAdminState();$("addContact").onclick=()=>$("contactRows").append(contactRow());$("addPixel").onclick=()=>$("pixelRows").append(pixelRow());$("marketingImportForm").addEventListener("submit",importMarketingContacts);$("marketingCampaignForm").addEventListener("submit",saveMarketingCampaign);$("marketingCampaignImage").addEventListener("change",previewMarketingImageSelection);$("marketingContactsRefresh").onclick=()=>loadMarketingContacts(state.marketingContactPage);$("marketingContactSearchButton").onclick=()=>loadMarketingContacts(1);$("marketingContactSearch").onkeydown=event=>{if(event.key==="Enter"){event.preventDefault();loadMarketingContacts(1);}};$("marketingContactConsent").onchange=()=>loadMarketingContacts(1);$("marketingContactsPrev").onclick=()=>loadMarketingContacts(Math.max(1,state.marketingContactPage-1));$("marketingContactsNext").onclick=()=>loadMarketingContacts(Math.min(state.marketingContactPages,state.marketingContactPage+1));$("marketingSendRate").addEventListener("input",updateMarketingDuration);updateMarketingDuration();$("createEncryptedBackup").onclick=createEncryptedBackup;try{state.financialSoundEnabled=localStorage.getItem("m7-financial-sound")!=="off";}catch{}renderFinancialAudioControl();$("financialAudioToggle").onclick=toggleFinancialAudio;document.addEventListener?.("pointerdown",event=>{if(!event.target?.closest?.("#financialAudioToggle"))armFinancialAudio();},{once:true});$("referralSettingsForm").addEventListener("submit",async event=>{event.preventDefault();$("commissionSaveStatus").textContent="Saving…";try{await api("/api/admin/referrals","POST",{action:"save",settings:commissionFormPayload()});await loadReferralAdmin();$("commissionSaveStatus").textContent="✅ Saved";notification("Commission settings saved");}catch(error){$("commissionSaveStatus").textContent=error.message;notification(error.message);}});$("refreshReferrals").onclick=()=>loadAdminPanel("referralAdminPanel",{force:true});$("copyAdminReferral").onclick=async()=>{const value=$("adminReferralLink").value;if(!value)return;try{await navigator.clipboard.writeText(value);notification("注册链接已复制");}catch{notification(value);}};$("commissionBasis").onchange=updateCommissionBasisNotice;$("commissionRunNow").onclick=async()=>{try{const result=await api("/api/admin/referrals","POST",{action:"run"});await loadReferralAdmin();selectCommissionTab("ledger");notification(result.message);}catch(error){notification(error.message);}};document.querySelectorAll("[data-commission-tab]").forEach(button=>button.onclick=()=>selectCommissionTab(button.dataset.commissionTab));$("supportAutomationForm").addEventListener("submit",async event=>{event.preventDefault();try{await api("/api/admin/support-settings","POST",{aiEnabled:$("supportAiEnabled").checked,humanHandoff:$("supportHumanHandoff").checked});await loadSupportAutomation();notification("Support settings saved");}catch(error){notification(error.message);}});$("telegramBotTest").onclick=async()=>{const button=$("telegramBotTest");button.disabled=true;try{await api("/api/admin/telegram-bot","POST",{action:"test"});notification("Telegram 测试通知已发送");await loadTelegramBot();}catch(error){notification(error.message);}finally{button.disabled=false;}};$("refreshSystemReadiness").onclick=()=>loadAdminPanel("systemReadinessPanel",{force:true});$("adminMenuToggle").onclick=()=>toggleAdminMenu(true);$("adminMenuClose").onclick=()=>toggleAdminMenu(false);$("adminMenuBackdrop").onclick=()=>toggleAdminMenu(false);$("adminNotificationButton").onclick=openAdminNotifications;$("adminSupportButton").onclick=event=>{event.preventDefault();openAdminNotifications();};document.querySelectorAll("[data-admin-shortcut]").forEach(link=>link.onclick=event=>{event.preventDefault();selectAdminPanel(link.dataset.adminShortcut);});document.addEventListener("keydown",event=>{if(event.key==="Escape")toggleAdminMenu(false);});document.querySelectorAll("[data-accounting-period]").forEach(button=>button.onclick=()=>loadAccounting(button.dataset.accountingPeriod,""));$("refreshAccounting").onclick=()=>loadAdminPanel("accountingPanel",{force:true});$("loadAccountingMonth").onclick=()=>{const month=$("accountingMonth").value;if(month)loadAccounting("month",month);};for(const link of document.querySelectorAll(".admin-internal-sidebar a")){link.onclick=event=>{event.preventDefault();selectAdminPanel(link.getAttribute("href").slice(1));toggleAdminMenu(false);};}for(const id of ["benefitExampleDeposit","benefitAmount","benefitPercent","benefitMinDeposit","benefitMaxReward","benefitMultiplier","benefitTurnoverBase","benefitTurnover"]){$(id)?.addEventListener("input",renderBenefitCalculationPreview);$(id)?.addEventListener("change",renderBenefitCalculationPreview);}renderBenefitCalculationPreview();document.querySelectorAll("[data-game-zone]").forEach(button=>button.onclick=()=>{state.gameAccessZone=button.dataset.gameZone;state.gameLimit=12;document.querySelectorAll("[data-game-zone]").forEach(x=>x.classList.toggle("active",x===button));renderCatalog();});document.querySelectorAll("[data-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.gameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.sidebarGameCategory===state.gameCategory));renderApiSupplierButtons();renderCatalog();});document.querySelectorAll("[data-sidebar-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.sidebarGameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x===button));selected("lobby");renderApiSupplierButtons();renderCatalog();document.querySelector(".game-category-filters")?.scrollIntoView({behavior:"smooth",block:"start"});});$("clearProviderFilter").onclick=()=>{state.gameCatalogueRequestId++;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;state.gameLimit=12;state.games=[];state.gameCatalogue={...(state.gameCatalogue||{}),games:[],providersOnly:true,platformsOnly:true,selectedProvider:null,selectedPlatform:null};renderCatalog();$("apiSupplierButtons").scrollIntoView({behavior:"smooth",block:"start"});};document.querySelectorAll("[data-section]").forEach(b=>b.onclick=()=>selected(b.dataset.section));$("exploreButton").onclick=()=>selected("lobby");$("aboutButton").onclick=async()=>{try{const data=await api("/health");notification(`${t("statusTitle")}: ${data.status} · ${data.release} · ${t("statusMessage")}`);}catch(e){notification(e.message)}};$("loginButton").onclick=()=>showAuth();$("closeAuth").onclick=()=>$("authDialog").close();$("refreshTickets").onclick=()=>refreshTickets();$("refreshWallet").onclick=loadMemberWallet;$("refreshPaymentRecords").onclick=loadMemberWallet;$("refreshGameWallet").onclick=()=>loadGameWallet();$("gameWalletSettle").onclick=()=>settleGameWallet(false);$("gameWalletRecover").onclick=recoverGameWallet;$("refreshAdminGameWallet").onclick=()=>loadAdminPanel("gameWalletAdminPanel",{force:true});$("refreshAdminDeposits").onclick=()=>loadAdminPanel("adminDepositPanel",{force:true});$("syncGamesNow").onclick=async()=>{await renderGameSync(true);state.adminLoadedPanels.add("gameSyncPanel");};$("refreshWithdrawals").onclick=loadWithdrawals;$("refreshAdminWithdrawals").onclick=()=>loadAdminPanel("adminWithdrawalPanel",{force:true});document.querySelectorAll('input[name="withdrawDestinationType"]').forEach(input=>input.onchange=syncWithdrawalDestinationFields);$("withdrawProvider").onchange=updateWithdrawalSubmitState;syncWithdrawalDestinationFields();$("withdrawalForm").addEventListener("submit",submitWithdrawalForm);$("vpayOrderForm").addEventListener("submit",submitVPayOrder);$("oneMpayOrderForm").addEventListener("submit",submitOneMpayOrder);$("search").oninput=()=>{renderApiSupplierButtons();renderCatalog();};$("locale").onchange=e=>{state.lang=e.target.value;try{localStorage.setItem("m7-language",state.lang);}catch{}applyLang();renderApiSupplierButtons();};$("lobbyAdPrevious").onclick=()=>{state.adIndex--;renderCarousel();};$("lobbyAdNext").onclick=()=>{state.adIndex++;renderCarousel();};$("lobbyAdCancel").onclick=resetAdForm;$("lobbyAdForm").addEventListener("submit",async e=>{e.preventDefault();const button=$("lobbyAdSave");button.disabled=true;try{const file=$("lobbyAdFile").files[0],imageData=file?await imageDataForUpload(file):"";await api("/api/admin/ads","POST",{action:"save",id:state.editAdId||undefined,title:$("lobbyAdTitle").value,targetUrl:$("lobbyAdTarget").value,imageData,status:$("lobbyAdStatus").value,startsAt:$("lobbyAdStartsAt").value,endsAt:$("lobbyAdEndsAt").value,position:state.adminAds?.length||0});resetAdForm();await loadLobbyContent();await renderAdManager();notification(t("success"));}catch(err){$("lobbyAdFormStatus").textContent=err.message;}finally{button.disabled=false;}});$("benefitCancel").onclick=resetBenefitForm;$("benefitForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/benefits","POST",benefitFormPayload("draft"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}});$("benefitPublish").onclick=async()=>{if(!$("benefitForm").reportValidity())return;try{await api("/api/admin/benefits","POST",benefitFormPayload("active"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}};$("ticketForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user){showAuth();return;}try{await api("/api/tickets","POST",{subject:$("ticketSubject").value,message:$("ticketMessage").value});$("ticketForm").reset();await refreshTickets();notification(t("success"));}catch(err){notification(err.message)}});$("socialForm").addEventListener("submit",async e=>{e.preventDefault();$("socialFormStatus").textContent="Saving…";try{await api("/api/admin/social-links","POST",socialFormPayload());await loadPublic();await renderSocialAdmin(true);$("socialFormStatus").textContent="✅ Saved";notification(t("success"));}catch(err){$("socialFormStatus").textContent=err.message;notification(err.message)}});$("announcementCancel").onclick=resetAnnouncementForm;$("announcementForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/announcement","POST",{action:"save",id:state.editAnnouncementId||undefined,title:$("announcementTitle").value,body:$("announcementBody").value,status:$("announcementStatus").value,startsAt:$("announcementStartsAt").value,endsAt:$("announcementEndsAt").value});resetAnnouncementForm();await loadPublic();await renderAnnouncementManager();notification(t("success"));}catch(err){$("announcementFormStatus").textContent=err.message;}});}
++function bind(){installFeatureGuides();updateOrganicPromotion();$("organicPromoLanguage").onchange=updateOrganicPromotion;document.querySelectorAll("[data-organic-share]").forEach(button=>button.onclick=()=>shareOrganicPromotion(button.dataset.organicShare));$("socialEnabled").onchange=()=>paintContactAdminState();$("addContact").onclick=()=>$("contactRows").append(contactRow());$("addPixel").onclick=()=>$("pixelRows").append(pixelRow());$("marketingImportForm").addEventListener("submit",importMarketingContacts);$("marketingCampaignForm").addEventListener("submit",saveMarketingCampaign);$("marketingCampaignImage").addEventListener("change",previewMarketingImageSelection);$("marketingContactsRefresh").onclick=()=>loadMarketingContacts(state.marketingContactPage);$("marketingContactSearchButton").onclick=()=>loadMarketingContacts(1);$("marketingContactSearch").onkeydown=event=>{if(event.key==="Enter"){event.preventDefault();loadMarketingContacts(1);}};$("marketingContactConsent").onchange=()=>loadMarketingContacts(1);$("marketingContactsPrev").onclick=()=>loadMarketingContacts(Math.max(1,state.marketingContactPage-1));$("marketingContactsNext").onclick=()=>loadMarketingContacts(Math.min(state.marketingContactPages,state.marketingContactPage+1));$("marketingSendRate").addEventListener("input",updateMarketingDuration);updateMarketingDuration();$("createEncryptedBackup").onclick=createEncryptedBackup;try{state.financialSoundEnabled=localStorage.getItem("m7-financial-sound")!=="off";}catch{}renderFinancialAudioControl();$("financialAudioToggle").onclick=toggleFinancialAudio;document.addEventListener?.("pointerdown",event=>{if(!event.target?.closest?.("#financialAudioToggle"))armFinancialAudio();},{once:true});$("referralSettingsForm").addEventListener("submit",async event=>{event.preventDefault();$("commissionSaveStatus").textContent="Saving…";try{await api("/api/admin/referrals","POST",{action:"save",settings:commissionFormPayload()});await loadReferralAdmin();$("commissionSaveStatus").textContent="✅ Saved";notification("Commission settings saved");}catch(error){$("commissionSaveStatus").textContent=error.message;notification(error.message);}});$("refreshReferrals").onclick=()=>loadAdminPanel("referralAdminPanel",{force:true});$("copyAdminReferral").onclick=async()=>{const value=$("adminReferralLink").value;if(!value)return;try{await navigator.clipboard.writeText(value);notification("注册链接已复制");}catch{notification(value);}};$("commissionBasis").onchange=updateCommissionBasisNotice;$("commissionRunNow").onclick=async()=>{try{const result=await api("/api/admin/referrals","POST",{action:"run"});await loadReferralAdmin();selectCommissionTab("ledger");notification(result.message);}catch(error){notification(error.message);}};document.querySelectorAll("[data-commission-tab]").forEach(button=>button.onclick=()=>selectCommissionTab(button.dataset.commissionTab));$("supportAutomationForm").addEventListener("submit",async event=>{event.preventDefault();try{await api("/api/admin/support-settings","POST",{aiEnabled:$("supportAiEnabled").checked,humanHandoff:$("supportHumanHandoff").checked});await loadSupportAutomation();notification("Support settings saved");}catch(error){notification(error.message);}});$("telegramBotTest").onclick=async()=>{const button=$("telegramBotTest");button.disabled=true;try{await api("/api/admin/telegram-bot","POST",{action:"test"});notification("Telegram 测试通知已发送");await loadTelegramBot();}catch(error){notification(error.message);}finally{button.disabled=false;}};$("refreshSystemReadiness").onclick=()=>loadAdminPanel("systemReadinessPanel",{force:true});$("adminMenuToggle").onclick=()=>toggleAdminMenu(true);$("adminMenuClose").onclick=()=>toggleAdminMenu(false);$("adminMenuBackdrop").onclick=()=>toggleAdminMenu(false);$("adminNotificationButton").onclick=openAdminNotifications;$("adminSupportButton").onclick=event=>{event.preventDefault();openAdminNotifications();};document.querySelectorAll("[data-admin-shortcut]").forEach(link=>link.onclick=event=>{event.preventDefault();selectAdminPanel(link.dataset.adminShortcut);});document.addEventListener("keydown",event=>{if(event.key==="Escape")toggleAdminMenu(false);});document.querySelectorAll("[data-accounting-period]").forEach(button=>button.onclick=()=>loadAccounting(button.dataset.accountingPeriod,""));$("refreshAccounting").onclick=()=>loadAdminPanel("accountingPanel",{force:true});$("loadAccountingMonth").onclick=()=>{const month=$("accountingMonth").value;if(month)loadAccounting("month",month);};for(const link of document.querySelectorAll(".admin-internal-sidebar a")){link.onclick=event=>{event.preventDefault();selectAdminPanel(link.getAttribute("href").slice(1));toggleAdminMenu(false);};}for(const id of ["benefitExampleDeposit","benefitAmount","benefitPercent","benefitMinDeposit","benefitMaxReward","benefitMultiplier","benefitTurnoverBase","benefitTurnover"]){$(id)?.addEventListener("input",renderBenefitCalculationPreview);$(id)?.addEventListener("change",renderBenefitCalculationPreview);}renderBenefitCalculationPreview();document.querySelectorAll("[data-game-zone]").forEach(button=>button.onclick=()=>{setMobileDockTarget("games");state.gameAccessZone=button.dataset.gameZone;state.gameLimit=12;document.querySelectorAll("[data-game-zone]").forEach(x=>x.classList.toggle("active",x===button));renderCatalog();});document.querySelectorAll("[data-game-category]").forEach(button=>button.onclick=()=>{setMobileDockTarget("games");state.gameCategory=button.dataset.gameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.sidebarGameCategory===state.gameCategory));renderApiSupplierButtons();renderCatalog();});document.querySelectorAll("[data-sidebar-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.sidebarGameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x===button));selected("lobby","games");renderApiSupplierButtons();renderCatalog();document.querySelector(".game-category-filters")?.scrollIntoView({behavior:"smooth",block:"start"});});$("clearProviderFilter").onclick=()=>{state.gameCatalogueRequestId++;setMobileDockTarget("games");state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;state.gameLimit=12;state.games=[];state.gameCatalogue={...(state.gameCatalogue||{}),games:[],providersOnly:true,platformsOnly:true,selectedProvider:null,selectedPlatform:null};renderCatalog();$("apiSupplierButtons").scrollIntoView({behavior:"smooth",block:"start"});};document.querySelectorAll("[data-section]").forEach(b=>b.onclick=()=>selected(b.dataset.section));$("exploreButton").onclick=()=>selected("lobby");$("aboutButton").onclick=async()=>{try{const data=await api("/health");notification(`${t("statusTitle")}: ${data.status} · ${data.release} · ${t("statusMessage")}`);}catch(e){notification(e.message)}};$("loginButton").onclick=()=>showAuth();$("closeAuth").onclick=()=>$("authDialog").close();$("refreshTickets").onclick=()=>refreshTickets();$("refreshWallet").onclick=loadMemberWallet;$("refreshPaymentRecords").onclick=loadMemberWallet;$("refreshGameWallet").onclick=()=>loadGameWallet();$("gameWalletSettle").onclick=()=>settleGameWallet(false);$("gameWalletRecover").onclick=recoverGameWallet;$("refreshAdminGameWallet").onclick=()=>loadAdminPanel("gameWalletAdminPanel",{force:true});$("refreshAdminDeposits").onclick=()=>loadAdminPanel("adminDepositPanel",{force:true});$("syncGamesNow").onclick=async()=>{await renderGameSync(true);state.adminLoadedPanels.add("gameSyncPanel");};$("refreshWithdrawals").onclick=loadWithdrawals;$("refreshAdminWithdrawals").onclick=()=>loadAdminPanel("adminWithdrawalPanel",{force:true});document.querySelectorAll('input[name="withdrawDestinationType"]').forEach(input=>input.onchange=syncWithdrawalDestinationFields);$("withdrawProvider").onchange=updateWithdrawalSubmitState;syncWithdrawalDestinationFields();$("withdrawalForm").addEventListener("submit",submitWithdrawalForm);$("vpayOrderForm").addEventListener("submit",submitVPayOrder);$("oneMpayOrderForm").addEventListener("submit",submitOneMpayOrder);$("search").oninput=()=>{renderApiSupplierButtons();renderCatalog();};$("locale").onchange=e=>{state.lang=e.target.value;try{localStorage.setItem("m7-language",state.lang);}catch{}applyLang();renderApiSupplierButtons();};$("lobbyAdPrevious").onclick=()=>{state.adIndex--;renderCarousel();};$("lobbyAdNext").onclick=()=>{state.adIndex++;renderCarousel();};$("lobbyAdCancel").onclick=resetAdForm;$("lobbyAdForm").addEventListener("submit",async e=>{e.preventDefault();const button=$("lobbyAdSave");button.disabled=true;try{const file=$("lobbyAdFile").files[0],imageData=file?await imageDataForUpload(file):"";await api("/api/admin/ads","POST",{action:"save",id:state.editAdId||undefined,title:$("lobbyAdTitle").value,targetUrl:$("lobbyAdTarget").value,imageData,status:$("lobbyAdStatus").value,startsAt:$("lobbyAdStartsAt").value,endsAt:$("lobbyAdEndsAt").value,position:state.adminAds?.length||0});resetAdForm();await loadLobbyContent();await renderAdManager();notification(t("success"));}catch(err){$("lobbyAdFormStatus").textContent=err.message;}finally{button.disabled=false;}});$("benefitCancel").onclick=resetBenefitForm;$("benefitForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/benefits","POST",benefitFormPayload("draft"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}});$("benefitPublish").onclick=async()=>{if(!$("benefitForm").reportValidity())return;try{await api("/api/admin/benefits","POST",benefitFormPayload("active"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}};$("ticketForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user){showAuth();return;}try{await api("/api/tickets","POST",{subject:$("ticketSubject").value,message:$("ticketMessage").value});$("ticketForm").reset();await refreshTickets();notification(t("success"));}catch(err){notification(err.message)}});$("socialForm").addEventListener("submit",async e=>{e.preventDefault();$("socialFormStatus").textContent="Saving…";try{await api("/api/admin/social-links","POST",socialFormPayload());await loadPublic();await renderSocialAdmin(true);$("socialFormStatus").textContent="✅ Saved";notification(t("success"));}catch(err){$("socialFormStatus").textContent=err.message;notification(err.message)}});$("announcementCancel").onclick=resetAnnouncementForm;$("announcementForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/announcement","POST",{action:"save",id:state.editAnnouncementId||undefined,title:$("announcementTitle").value,body:$("announcementBody").value,status:$("announcementStatus").value,startsAt:$("announcementStartsAt").value,endsAt:$("announcementEndsAt").value});resetAnnouncementForm();await loadPublic();await renderAnnouncementManager();notification(t("success"));}catch(err){$("announcementFormStatus").textContent=err.message;}});}
+ (function restoreLanguage(){try{const saved=localStorage.getItem("m7-language");if(["en","zh","ms"].includes(saved))state.lang=saved;}catch{}})();
+ Object.assign(translations.zh,{registrationDone:"注册成功，手机号已验证。请使用会员 ID、密码和手机 OTP 登录。",registerSaved:"注册成功，请登录。",loginNotice:"输入会员 ID 和密码，再把发送到登记手机的 6 位 OTP 填入小格。",managementSignIn:"后台管理登录",managementLoginNotice:"请输入管理员或员工 ID 与密码。",featureOtpDesc:"注册时验证马来西亚手机号；会员登录使用 ID、密码和短信 OTP"});
+ Object.assign(translations.en,{registrationDone:"Registration complete and phone verified. Sign in with your member ID, password and mobile OTP.",registerSaved:"Registered. Please sign in.",loginNotice:"Enter your member ID and password, then type the 6-digit OTP sent to your registered mobile.",managementSignIn:"Management sign-in",managementLoginNotice:"Enter your administrator or staff ID and password.",featureOtpDesc:"Verify your Malaysian phone at registration; member sign-in uses ID, password and SMS OTP"});
+diff --git a/public/service-worker.js b/public/service-worker.js
+index e5b2002e3b617b23b4cb1f6170ba0601c38cc585..e02e0a13afb1f4ca79f22b953d8b89b622b65225 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.168-guard-function-attestation';
++const CACHE='master7-shell-17.0.0-selfbuilt.169-runtime-guard-monitor';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/scripts/runtime-database-guard-monitor.mjs b/scripts/runtime-database-guard-monitor.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..e4fbe77817621b00aa901afbeeb6f747bb6075b5
+--- /dev/null
++++ b/scripts/runtime-database-guard-monitor.mjs
+@@ -0,0 +1,168 @@
++import pg from "pg";
++import { assertCriticalDatabaseGuards } from "../lib/render-migrations.mjs";
++
++export const DEFAULT_RUNTIME_DATABASE_GUARD_INTERVAL_MS = 60_000;
++export const DEFAULT_RUNTIME_DATABASE_GUARD_QUERY_TIMEOUT_MS = 10_000;
++export const DEFAULT_RUNTIME_DATABASE_GUARD_CLEANUP_TIMEOUT_MS = 2_000;
++
++function boundedMilliseconds(value, fallback, minimum, maximum) {
++  const parsed = Number(value);
++  return Number.isSafeInteger(parsed) && parsed >= minimum && parsed <= maximum ? parsed : fallback;
++}
++
++function safeCode(error) {
++  return typeof error?.code === "string" && /^[A-Z0-9_]{1,32}$/.test(error.code)
++    ? error.code
++    : "UNKNOWN";
++}
++
++function defaultSchedule(callback, delay) {
++  const timer = setTimeout(callback, delay);
++  timer.unref?.();
++  return timer;
++}
++
++async function closeClientWithin(client, timeoutMs) {
++  if (!client?.end) return;
++  let timeout;
++  const timedOut = new Promise((_, reject) => {
++    timeout = setTimeout(() => {
++      try { client.connection?.stream?.destroy?.(); } catch {}
++      const error = new Error("Runtime database guard client cleanup timed out");
++      error.code = "CLEANUP_TIMEOUT";
++      reject(error);
++    }, timeoutMs);
++  });
++  try {
++    await Promise.race([Promise.resolve().then(() => client.end()), timedOut]);
++  } finally {
++    clearTimeout(timeout);
++  }
++}
++
++export function startRuntimeDatabaseGuardMonitor(options = {}) {
++  const connectionString = String(options.connectionString ?? "");
++  if (!connectionString) throw new Error("Runtime database guard monitor requires a PostgreSQL connection");
++
++  const intervalMs = boundedMilliseconds(options.intervalMs, DEFAULT_RUNTIME_DATABASE_GUARD_INTERVAL_MS, 15_000, 300_000);
++  const queryTimeoutMs = boundedMilliseconds(options.queryTimeoutMs, DEFAULT_RUNTIME_DATABASE_GUARD_QUERY_TIMEOUT_MS, 1_000, 30_000);
++  const cleanupTimeoutMs = boundedMilliseconds(options.cleanupTimeoutMs, DEFAULT_RUNTIME_DATABASE_GUARD_CLEANUP_TIMEOUT_MS, 100, 5_000);
++  const clientFactory = options.clientFactory ?? (() => new pg.Client({
++    connectionString,
++    ssl: options.ssl,
++    application_name: "master7-runtime-database-guard-monitor",
++    connectionTimeoutMillis: queryTimeoutMs,
++    statement_timeout: queryTimeoutMs,
++    lock_timeout: Math.min(2_000, queryTimeoutMs),
++    query_timeout: queryTimeoutMs + 1_000,
++  }));
++  const logger = options.logger ?? console;
++  const schedule = options.schedule ?? defaultSchedule;
++  const cancel = options.cancel ?? clearTimeout;
++  const exit = options.exit ?? (code => process.exit(code));
++  let stopped = false;
++  let failed = false;
++  let running = false;
++  let successLogged = false;
++  let timer;
++  let currentRun;
++
++  const failClosed = (category, error) => {
++    if (failed || stopped) return;
++    failed = true;
++    stopped = true;
++    if (timer !== undefined) {
++      try { cancel(timer); } catch {}
++    }
++    timer = undefined;
++    try { logger.error?.(`MASTER7 runtime database guard monitor fail-closed (${category}:${safeCode(error)}); exiting.`); } catch {}
++    exit(1);
++  };
++
++  const scheduleNext = () => {
++    if (stopped || failed || running || timer !== undefined) return;
++    try {
++      timer = schedule(() => {
++        timer = undefined;
++        currentRun = runCheck();
++        return currentRun;
++      }, intervalMs);
++    } catch (error) {
++      timer = undefined;
++      failClosed("SCHEDULE", error);
++    }
++  };
++
++  const runCheck = async () => {
++    if (stopped || failed || running) return false;
++    running = true;
++    let client;
++    let clientEventError;
++    let failure;
++    const onClientError = error => { clientEventError ??= error; };
++    try {
++      try {
++        client = clientFactory();
++        client?.on?.("error", onClientError);
++        await client.connect();
++        if (clientEventError) throw clientEventError;
++      } catch (error) {
++        failure = { category: "CONNECT", error };
++      }
++      if (!failure) {
++        try {
++          const result = await assertCriticalDatabaseGuards(client, { schemaName: "public" });
++          if (result.criticalDatabaseGuardCount !== 9 || result.criticalDatabaseGuardFunctionCount !== 5) {
++            throw new Error("Runtime database guard contract count mismatch");
++          }
++          if (clientEventError) throw clientEventError;
++        } catch (error) {
++          failure = { category: "ATTESTATION", error };
++        }
++      }
++    } finally {
++      try {
++        await closeClientWithin(client, cleanupTimeoutMs);
++      } catch (error) {
++        failure ??= { category: "CLEANUP", error };
++      }
++      failure ??= clientEventError ? { category: "CLIENT", error: clientEventError } : undefined;
++      try { client?.off?.("error", onClientError); } catch {}
++      running = false;
++      currentRun = undefined;
++    }
++    if (failure) {
++      failClosed(failure.category, failure.error);
++      return false;
++    }
++    if (!stopped && !successLogged) {
++      successLogged = true;
++      try { logger.log?.("MASTER7 runtime database guard monitor ready; database guards 9/9 ready; guard functions 5/5 attested."); } catch {}
++    }
++    scheduleNext();
++    return !failed;
++  };
++
++  currentRun = runCheck();
++  return {
++    enabled: true,
++    intervalMs,
++    queryTimeoutMs,
++    cleanupTimeoutMs,
++    ready: currentRun,
++    isRunning: () => running,
++    hasFailed: () => failed,
++    async stop() {
++      if (stopped) {
++        if (currentRun) await currentRun;
++        return;
++      }
++      stopped = true;
++      if (timer !== undefined) {
++        try { cancel(timer); } catch {}
++      }
++      timer = undefined;
++      if (currentRun) await currentRun;
++    },
++  };
++}
+diff --git a/scripts/start-render.mjs b/scripts/start-render.mjs
+index 3018d3a2ca74b809044fae3fca9580cf210a08d1..185016f7a6426926eb2a7cf0ed6cac0f1a828941 100644
+--- a/scripts/start-render.mjs
++++ b/scripts/start-render.mjs
+@@ -41,18 +41,27 @@ await import("../.output/server/index.mjs");
+ 
+ const [
+   { startSchedulerLeadership },
++  { startRuntimeDatabaseGuardMonitor },
+   { startCatalogueSync },
+   { startAccountingCloseScheduler },
+   { startPaymentRecovery },
+   { startWhatsAppDispatch },
+ ] = await Promise.all([
+   import("./scheduler-leader.mjs"),
++  import("./runtime-database-guard-monitor.mjs"),
+   import("./catalogue-sync-job.mjs"),
+   import("./accounting-close-job.mjs"),
+   import("./payment-recovery-job.mjs"),
+   import("./whatsapp-dispatch-job.mjs"),
+ ]);
+ 
++startRuntimeDatabaseGuardMonitor({
++  connectionString,
++  ssl,
++  intervalMs: process.env.PORTAL_DATABASE_GUARD_MONITOR_INTERVAL_MS,
++  queryTimeoutMs: process.env.PORTAL_DATABASE_GUARD_MONITOR_QUERY_TIMEOUT_MS,
++});
++
+ startSchedulerLeadership({
+   connectionString,
+   ssl,
+diff --git a/scripts/verify-isolated-postgres-acceptance-integrity.mjs b/scripts/verify-isolated-postgres-acceptance-integrity.mjs
+index 3d1d21d73ef8fbf9abea43e9c8c508ef7592e882..a8bd85d251f3ae1965f389c27a861d7a7489060f 100644
+--- a/scripts/verify-isolated-postgres-acceptance-integrity.mjs
++++ b/scripts/verify-isolated-postgres-acceptance-integrity.mjs
+@@ -13,16 +13,17 @@ import {RenderD1Compat,closeRenderPool} from '../lib/render-d1.ts';
+ import {GameProviderAcceptanceError,getGameProviderAcceptanceReadiness,recordGameProviderAcceptance} from '../lib/game-provider-acceptance.ts';
+ import {ProductionAcceptanceError,getProductionAcceptanceReadiness,recordProductionAcceptance} from '../lib/production-acceptance.ts';
+ import {BACKUP_TABLES,createEncryptedPortalBackup} from '../lib/encrypted-backup.ts';
++import {startRuntimeDatabaseGuardMonitor} from './runtime-database-guard-monitor.mjs';
+ 
+ const connection=process.env.MASTER7_ISOLATED_ACCEPTANCE_DATABASE_URL??'';let target;
+ try{target=new URL(connection);}catch{throw Error('A fresh loopback-only acceptance database is required');}
+-if(!['postgres:','postgresql:'].includes(target.protocol)||target.hostname!=='127.0.0.1'||target.username!=='postgres'||target.password||target.pathname!=='/master7_v168_acceptance_test'||target.search||target.hash||!target.port||process.env.MASTER7_ISOLATED_ACCEPTANCE_CONFIRM!=='master7_v168_acceptance_test')throw Error('A fresh loopback-only acceptance database is required');
++if(!['postgres:','postgresql:'].includes(target.protocol)||target.hostname!=='127.0.0.1'||target.username!=='postgres'||target.password||target.pathname!=='/master7_v169_acceptance_test'||target.search||target.hash||!target.port||process.env.MASTER7_ISOLATED_ACCEPTANCE_CONFIRM!=='master7_v169_acceptance_test')throw Error('A fresh loopback-only acceptance database is required');
+ 
+ test('acceptance ledgers are immutable, contiguous and fail closed on PostgreSQL 18',{timeout:90000},async t=>{
+  const pool=new pg.Pool({connectionString:connection,ssl:false,max:6}),oldUrl=process.env.PORTAL_POSTGRES_URL,oldSsl=process.env.PGSSLMODE,oldFetch=globalThis.fetch;
+  t.after(async()=>{await closeRenderPool();await pool.end();globalThis.fetch=oldFetch;if(oldUrl===undefined)delete process.env.PORTAL_POSTGRES_URL;else process.env.PORTAL_POSTGRES_URL=oldUrl;if(oldSsl===undefined)delete process.env.PGSSLMODE;else process.env.PGSSLMODE=oldSsl;});
+  const identity=(await pool.query("SELECT current_database() name,current_setting('server_version_num')::int version,(SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='public')::int tables")).rows[0];
+- assert.equal(identity.name,'master7_v168_acceptance_test');assert.ok(identity.version>=180000,`PostgreSQL 18 required, got ${identity.version}`);assert.equal(identity.tables,0,'Refuse nonempty database');
++ assert.equal(identity.name,'master7_v169_acceptance_test');assert.ok(identity.version>=180000,`PostgreSQL 18 required, got ${identity.version}`);assert.equal(identity.tables,0,'Refuse nonempty database');
+  const schema=await readFile(new URL('../db/render-schema.sql',import.meta.url),'utf8'),directory=JSON.parse(await readFile(new URL('../db/vendor-directory.json',import.meta.url),'utf8'));
+  await initializePortalDatabase(pool,schema,directory);await initializePortalDatabase(pool,schema,directory);
+  assert.equal((await pool.query('SELECT COUNT(*)::int n FROM portal_schema_migrations WHERE version=$1',[ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION])).rows[0].n,1);
+@@ -45,6 +46,15 @@ test('acceptance ledgers are immutable, contiguous and fail closed on PostgreSQL
+  await rejectDrift(()=>pool.query("ALTER FUNCTION reject_provider_wallet_contract_mutation() SET search_path TO pg_catalog"),()=>pool.query('ALTER FUNCTION reject_provider_wallet_contract_mutation() SET search_path TO pg_catalog, pg_temp'));
+  await rejectDrift(()=>pool.query('ALTER FUNCTION reject_provider_wallet_contract_mutation() STABLE'),()=>pool.query('ALTER FUNCTION reject_provider_wallet_contract_mutation() VOLATILE'));
+ 
++ const scheduledMonitorChecks=[],monitorExits=[],monitorErrors=[];
++ const runtimeMonitor=startRuntimeDatabaseGuardMonitor({connectionString:connection,ssl:false,clientFactory:()=>new pg.Client({connectionString:connection,ssl:false}),schedule:callback=>{scheduledMonitorChecks.push(callback);return callback;},cancel:()=>{},exit:code=>monitorExits.push(code),logger:{log:()=>{},error:message=>monitorErrors.push(message)}});
++ assert.equal(await runtimeMonitor.ready,true);assert.equal(scheduledMonitorChecks.length,1);
++ await pool.query("CREATE OR REPLACE FUNCTION reject_provider_wallet_contract_mutation() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RETURN NEW; END $$");
++ assert.equal(await scheduledMonitorChecks.shift()(),false);assert.deepEqual(monitorExits,[1]);assert.deepEqual(monitorErrors,['MASTER7 runtime database guard monitor fail-closed (ATTESTATION:UNKNOWN); exiting.']);
++ await assert.rejects(()=>assertCriticalDatabaseGuards(pool),/Critical database guard attestation failed/);
++ assert.match((await pool.query("SELECT prosrc source FROM pg_catalog.pg_proc p JOIN pg_catalog.pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='public' AND p.proname='reject_provider_wallet_contract_mutation' AND pg_get_function_identity_arguments(p.oid)='' ")).rows[0].source,/RETURN NEW/);
++ await pool.query(rejectFunctionDefinition);assert.equal((await assertCriticalDatabaseGuards(pool)).criticalDatabaseGuardFunctionCount,5);await runtimeMonitor.stop();
++
+  await pool.query('ALTER TABLE provider_wallet_operations DISABLE TRIGGER provider_wallet_contract_immutable');
+  await assert.rejects(()=>initializePortalDatabase(pool,schema,directory),/Critical database guard attestation failed/);
+  await pool.query('ALTER TABLE provider_wallet_operations ENABLE TRIGGER provider_wallet_contract_immutable');
+@@ -56,11 +66,11 @@ test('acceptance ledgers are immutable, contiguous and fail closed on PostgreSQL
+  await pool.query(missingDefinition);assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
+ 
+  const reboundDefinition=(await pool.query("SELECT pg_get_triggerdef(t.oid) definition FROM pg_catalog.pg_trigger t JOIN pg_catalog.pg_class c ON c.oid=t.tgrelid WHERE c.relname='provider_wallet_operations' AND t.tgname='provider_wallet_contract_immutable' AND NOT t.tgisinternal")).rows[0]?.definition;
+- assert.ok(reboundDefinition);await pool.query("CREATE OR REPLACE FUNCTION v168_noop_guard() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RETURN NEW; END $$");
++ assert.ok(reboundDefinition);await pool.query("CREATE OR REPLACE FUNCTION v169_noop_guard() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RETURN NEW; END $$");
+  await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');
+- await pool.query('CREATE TRIGGER provider_wallet_contract_immutable BEFORE UPDATE OF withdrawal_mode,adapter_contract_sha256 ON provider_wallet_operations FOR EACH ROW EXECUTE FUNCTION v168_noop_guard()');
++ await pool.query('CREATE TRIGGER provider_wallet_contract_immutable BEFORE UPDATE OF withdrawal_mode,adapter_contract_sha256 ON provider_wallet_operations FOR EACH ROW EXECUTE FUNCTION v169_noop_guard()');
+  await assert.rejects(()=>initializePortalDatabase(pool,schema,directory),/Critical database guard attestation failed/);
+- await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');await pool.query(reboundDefinition);await pool.query('DROP FUNCTION v168_noop_guard()');
++ await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');await pool.query(reboundDefinition);await pool.query('DROP FUNCTION v169_noop_guard()');
+  assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
+ 
+  await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');
+@@ -69,11 +79,11 @@ test('acceptance ledgers are immutable, contiguous and fail closed on PostgreSQL
+  await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');await pool.query(reboundDefinition);
+  assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
+ 
+- await pool.query("CREATE OR REPLACE FUNCTION v168_late_mutation_guard() RETURNS trigger LANGUAGE plpgsql SET search_path=pg_catalog,pg_temp AS $$ BEGIN NEW.withdrawal_mode='all'; RETURN NEW; END $$");
+- await pool.query('CREATE TRIGGER zzz_provider_wallet_late_mutation BEFORE UPDATE ON provider_wallet_operations FOR EACH ROW EXECUTE FUNCTION v168_late_mutation_guard()');
++ await pool.query("CREATE OR REPLACE FUNCTION v169_late_mutation_guard() RETURNS trigger LANGUAGE plpgsql SET search_path=pg_catalog,pg_temp AS $$ BEGIN NEW.withdrawal_mode='all'; RETURN NEW; END $$");
++ await pool.query('CREATE TRIGGER zzz_provider_wallet_late_mutation BEFORE UPDATE ON provider_wallet_operations FOR EACH ROW EXECUTE FUNCTION v169_late_mutation_guard()');
+  await assert.rejects(()=>initializePortalDatabase(pool,schema,directory),/Critical database guard attestation failed \(invalid 0 of 9; unexpected 1;/);
+  await assert.rejects(()=>assertCriticalDatabaseGuards(pool),/Critical database guard attestation failed \(invalid 0 of 9; unexpected 1;/);
+- await pool.query('DROP TRIGGER zzz_provider_wallet_late_mutation ON provider_wallet_operations');await pool.query('DROP FUNCTION v168_late_mutation_guard()');
++ await pool.query('DROP TRIGGER zzz_provider_wallet_late_mutation ON provider_wallet_operations');await pool.query('DROP FUNCTION v169_late_mutation_guard()');
+  assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
+ 
+  await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');
+@@ -128,13 +138,13 @@ test('acceptance ledgers are immutable, contiguous and fail closed on PostgreSQL
+  await assert.rejects(()=>pool.query(`INSERT INTO production_acceptance_events(id,category,subject_id,capability,environment,revision,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at) VALUES('gap-production','domain','www.master7.site','dns_tls_routing','production',3,'passed',$1,'pg18:gap','owner',103,103)`,['3'.repeat(64)]),/contiguous/);
+  await assert.rejects(()=>pool.query('TRUNCATE production_acceptance_current'),/truncated/);await assert.rejects(()=>pool.query('TRUNCATE production_acceptance_current,production_acceptance_events CASCADE'),/immutable|truncated/);assert.equal((await getProductionAcceptanceReadiness(db)).integrityReady,true);
+ 
+- const restoreDirectory=mkdtempSync(join(tmpdir(),'master7-v168-acceptance-restore-')),passphrase=randomBytes(24).toString('hex'),{publicKey,privateKey}=generateKeyPairSync('rsa',{modulusLength:2048,publicKeyEncoding:{type:'spki',format:'pem'},privateKeyEncoding:{type:'pkcs8',format:'pem',cipher:'aes-256-cbc',passphrase}}),fingerprint=createHash('sha256').update(createPublicKey(publicKey).export({type:'spki',format:'der'})).digest('hex');
++ const restoreDirectory=mkdtempSync(join(tmpdir(),'master7-v169-acceptance-restore-')),passphrase=randomBytes(24).toString('hex'),{publicKey,privateKey}=generateKeyPairSync('rsa',{modulusLength:2048,publicKeyEncoding:{type:'spki',format:'pem'},privateKeyEncoding:{type:'pkcs8',format:'pem',cipher:'aes-256-cbc',passphrase}}),fingerprint=createHash('sha256').update(createPublicKey(publicKey).export({type:'spki',format:'der'})).digest('hex');
+  try{
+-  const {envelope}=await createEncryptedPortalBackup(db,'synthetic-v168-acceptance',{publicKey,publicKeySha256:fingerprint});for(const [name,value] of [['backup.json',JSON.stringify(envelope)],['private.pem',privateKey],['passphrase',passphrase]])writeFileSync(join(restoreDirectory,name),value,{mode:0o600});
+-  await pool.query('DROP DATABASE IF EXISTS master7_v168_acceptance_restore WITH (FORCE)');await pool.query('CREATE DATABASE master7_v168_acceptance_restore');const restoreUrl=new URL(connection);restoreUrl.pathname='/master7_v168_acceptance_restore';let output='';
++  const {envelope}=await createEncryptedPortalBackup(db,'synthetic-v169-acceptance',{publicKey,publicKeySha256:fingerprint});for(const [name,value] of [['backup.json',JSON.stringify(envelope)],['private.pem',privateKey],['passphrase',passphrase]])writeFileSync(join(restoreDirectory,name),value,{mode:0o600});
++  await pool.query('DROP DATABASE IF EXISTS master7_v169_acceptance_restore WITH (FORCE)');await pool.query('CREATE DATABASE master7_v169_acceptance_restore');const restoreUrl=new URL(connection);restoreUrl.pathname='/master7_v169_acceptance_restore';let output='';
+   const status=await new Promise((resolve,reject)=>{const child=spawn(process.execPath,[fileURLToPath(new URL('./postgres-restore-dry-run.mjs',import.meta.url)),join(restoreDirectory,'backup.json'),join(restoreDirectory,'private.pem'),join(restoreDirectory,'passphrase'),join(restoreDirectory,'receipt.json'),'--confirm-isolated'],{env:{...process.env,MASTER7_RESTORE_DATABASE_URL:restoreUrl.href,PORTAL_POSTGRES_URL:connection,PGSSLMODE:'disable'}});child.stdout.on('data',value=>output+=value);child.stderr.on('data',value=>output+=value);child.on('error',reject);child.on('exit',resolve);});
+   assert.equal(status,0,output);const receipt=JSON.parse(readFileSync(join(restoreDirectory,'receipt.json'),'utf8'));assert.equal(receipt.coverageComplete,true);assert.equal(receipt.tableCount,BACKUP_TABLES.length);assert.equal(receipt.persistentWrites,false);assert.equal(receipt.tables.find(item=>item.name==='game_provider_acceptance_events').rows,3);assert.equal(receipt.tables.find(item=>item.name==='production_acceptance_events').rows,1);
+   const restored=new pg.Client({connectionString:restoreUrl.href,ssl:false});await restored.connect();try{assert.equal((await restored.query("SELECT COUNT(*)::int n FROM information_schema.tables WHERE table_schema NOT IN ('pg_catalog','information_schema')")).rows[0].n,0);}finally{await restored.end();}
+-  await pool.query('DROP DATABASE master7_v168_acceptance_restore WITH (FORCE)');
++  await pool.query('DROP DATABASE master7_v169_acceptance_restore WITH (FORCE)');
+  }finally{rmSync(restoreDirectory,{recursive:true,force:true});}
+ });
+diff --git a/tests/mobile-dock-navigation.test.mjs b/tests/mobile-dock-navigation.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..8c74e455ab2c806c244c6083f1ac6a5909d8e7f7
+--- /dev/null
++++ b/tests/mobile-dock-navigation.test.mjs
+@@ -0,0 +1,108 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import vm from 'node:vm';
++import {readFileSync} from 'node:fs';
++
++const html=readFileSync(new URL('../app/portal.html',import.meta.url),'utf8');
++const source=readFileSync(new URL('../public/assets/app.js',import.meta.url),'utf8');
++
++class ClassList{
++ constructor(values=[]){this.values=new Set(values);}
++ toggle(name,enabled){if(enabled)this.values.add(name);else this.values.delete(name);}
++ contains(name){return this.values.has(name);}
++}
++
++function element({id='',section='',target='',active=false}={}){
++ const attributes=new Map();
++ return {
++  id,
++  dataset:{...(section?{section}:{}),...(target?{mobileDockTarget:target}:{})},
++  classList:new ClassList(active?['active']:[]),
++  setAttribute(name,value){attributes.set(name,String(value));},
++  removeAttribute(name){attributes.delete(name);},
++  getAttribute(name){return attributes.get(name)??null;},
++ };
++}
++
++function harness(){
++ const dock=[
++  element({section:'lobby',target:'home',active:true}),
++  element({target:'games'}),
++  element({section:'deposit',target:'deposit'}),
++  element({section:'rewards',target:'rewards'}),
++  element({section:'support',target:'support'}),
++ ];
++ const sections=['lobby','deposit','rewards','support'].map(id=>element({id}));
++ const body=element(),scrolls=[],loads=[];
++ const document={
++  body,
++  querySelectorAll(selector){
++   if(selector==='.section')return sections;
++   if(selector==='.nav-button')return dock.filter(item=>item.dataset.section);
++   if(selector==='[data-mobile-dock-target]')return dock;
++   return [];
++  },
++ };
++ const context={
++  state:{user:{role:'member'},section:'lobby'},
++  document,
++  window:{
++   scrollTo(value){scrolls.push(value);},
++   Master7Rewards:{loadPublic(){loads.push('rewards');}},
++  },
++  loadWithdrawals(){loads.push('withdraw');},
++  refreshTickets(){loads.push('support');},
++  renderAdmin(){loads.push('admin');},
++ };
++ const start=source.indexOf('function setMobileDockTarget(');
++ const end=source.indexOf('function openAdminNotifications(',start);
++ assert.ok(start>=0&&end>start,'mobile dock navigation functions must be extractable');
++ vm.runInNewContext(`${source.slice(start,end)}\nthis.selected=selected;`,context);
++ return {...context,dock,sections,scrolls,loads};
++}
++
++function currentTargets(dock){
++ return dock.filter(item=>item.classList.contains('active')&&item.getAttribute('aria-current')==='page').map(item=>item.dataset.mobileDockTarget);
++}
++
++test('mobile dock exposes one explicit current destination',()=>{
++ const dockMarkup=html.match(/<nav class="mobile-dock"[\s\S]*?<\/nav>/)?.[0]??'';
++ assert.equal((dockMarkup.match(/data-mobile-dock-target=/g)??[]).length,5);
++ assert.match(dockMarkup,/data-mobile-dock-target="home" aria-current="page"/);
++ assert.match(dockMarkup,/id="mobileGamesButton" data-mobile-dock-target="games"/);
++});
++
++test('Games and Home remain distinct current targets inside the lobby',()=>{
++ const h=harness();
++ h.selected('lobby','games');
++ assert.deepEqual(currentTargets(h.dock),['games']);
++ assert.equal(h.sections.find(item=>item.id==='lobby').classList.contains('active'),true);
++ assert.equal(h.scrolls.at(-1)?.top,0);
++ assert.equal(h.scrolls.at(-1)?.behavior,'smooth');
++
++ h.selected('lobby');
++ assert.deepEqual(currentTargets(h.dock),['home']);
++ assert.equal(h.sections.find(item=>item.id==='lobby').classList.contains('active'),true);
++});
++
++test('Wallet, Promotions and Support each own the current dock state',()=>{
++ const h=harness();
++ h.selected('deposit');
++ assert.deepEqual(currentTargets(h.dock),['deposit']);
++ h.selected('rewards');
++ assert.deepEqual(currentTargets(h.dock),['rewards']);
++ assert.ok(h.loads.includes('rewards'));
++ h.selected('support');
++ assert.deepEqual(currentTargets(h.dock),['support']);
++ assert.ok(h.loads.includes('support'));
++});
++
++test('game entry handlers explicitly retain the Games dock target',()=>{
++ const provider=source.slice(source.indexOf('function openCatalogProvider('),source.indexOf('function openProviderBonus('));
++ const wallet=source.slice(source.indexOf('function bindWalletActions('),source.indexOf('function trustedGSPayCheckout('));
++ const bind=source.slice(source.indexOf('function bind(){'),source.indexOf('(function restoreLanguage'));
++ assert.match(provider,/selected\('lobby','games'\)/);
++ assert.match(wallet,/mobileGamesButton[\s\S]*selected\("lobby","games"\)/);
++ assert.match(bind,/data-game-category[\s\S]*setMobileDockTarget\("games"\)/);
++ assert.match(bind,/data-sidebar-game-category[\s\S]*selected\("lobby","games"\)/);
++});
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index df2e96c31f04822952458c396882a9eaae785dfd..258e75137db8c66fc4ad16c966e62f600d6f9743 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.168-guard-function-attestation';
++const release='17.0.0-selfbuilt.169-runtime-guard-monitor';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+diff --git a/tests/runtime-database-guard-monitor.test.mjs b/tests/runtime-database-guard-monitor.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..53b3cf7e9b8012041d283e3cd4eda692b5c33a55
+--- /dev/null
++++ b/tests/runtime-database-guard-monitor.test.mjs
+@@ -0,0 +1,199 @@
++import test from "node:test";
++import assert from "node:assert/strict";
++import { readFileSync } from "node:fs";
++import { startRuntimeDatabaseGuardMonitor } from "../scripts/runtime-database-guard-monitor.mjs";
++import { criticalDatabaseGuardRows } from "./critical-database-guard-fixture.mjs";
++
++class FakeClient {
++  constructor({ rows = criticalDatabaseGuardRows(), connectError, queryError, endError, eventError, queryGate } = {}) {
++    this.rows = rows;
++    this.connectError = connectError;
++    this.queryError = queryError;
++    this.endError = endError;
++    this.eventError = eventError;
++    this.queryGate = queryGate;
++    this.connects = 0;
++    this.queries = 0;
++    this.ends = 0;
++  }
++  on(event, listener) { if (event === "error") this.errorListener = listener; }
++  off(event, listener) { if (event === "error" && this.errorListener === listener) this.errorListener = undefined; }
++  async connect() { this.connects++; if (this.connectError) throw this.connectError; }
++  async query() {
++    this.queries++;
++    if (this.queryGate) await this.queryGate;
++    if (this.queryError) throw this.queryError;
++    if (this.eventError) this.errorListener?.(this.eventError);
++    return { rows: this.rows };
++  }
++  async end() { this.ends++; if (this.endError) throw this.endError; }
++}
++
++function harness(overrides = {}) {
++  const clients = [];
++  const scheduled = [];
++  const cancelled = [];
++  const exits = [];
++  const logs = [];
++  const errors = [];
++  const monitor = startRuntimeDatabaseGuardMonitor({
++    connectionString: "postgresql://fixture.invalid/master7",
++    clientFactory: () => {
++      const client = overrides.clientFactory?.() ?? new FakeClient();
++      clients.push(client);
++      return client;
++    },
++    schedule: (callback, delay) => {
++      const timer = { callback, delay };
++      scheduled.push(timer);
++      return timer;
++    },
++    cancel: timer => cancelled.push(timer),
++    exit: code => exits.push(code),
++    logger: { log: message => logs.push(message), error: message => errors.push(message) },
++    intervalMs: overrides.intervalMs,
++    queryTimeoutMs: overrides.queryTimeoutMs,
++    cleanupTimeoutMs: overrides.cleanupTimeoutMs,
++  });
++  return { monitor, clients, scheduled, cancelled, exits, logs, errors };
++}
++
++test("runtime database guard monitor verifies immediately and schedules only after completion", async () => {
++  let releaseQuery;
++  const queryGate = new Promise(resolve => { releaseQuery = resolve; });
++  const h = harness({ clientFactory: () => new FakeClient({ queryGate }), intervalMs: 15_000, queryTimeoutMs: 1_000 });
++  await new Promise(resolve => setImmediate(resolve));
++  assert.equal(h.monitor.isRunning(), true);
++  assert.equal(h.scheduled.length, 0);
++  releaseQuery();
++  assert.equal(await h.monitor.ready, true);
++  assert.equal(h.clients.length, 1);
++  assert.equal(h.clients[0].ends, 1);
++  assert.equal(h.scheduled.length, 1);
++  assert.equal(h.scheduled[0].delay, 15_000);
++  assert.equal(h.logs.length, 1);
++  assert.match(h.logs[0], /database guards 9\/9 ready; guard functions 5\/5 attested/);
++  assert.deepEqual(h.exits, []);
++  await h.monitor.stop();
++  assert.deepEqual(h.cancelled, [h.scheduled[0]]);
++});
++
++test("runtime database guard monitor uses one short connection per cycle without overlap", async () => {
++  let releaseSecond;
++  const clients = [new FakeClient(), new FakeClient({ queryGate: new Promise(resolve => { releaseSecond = resolve; }) })];
++  const h = harness({ clientFactory: () => clients.shift() });
++  assert.equal(await h.monitor.ready, true);
++  const secondRun = h.scheduled[0].callback();
++  await new Promise(resolve => setImmediate(resolve));
++  assert.equal(h.monitor.isRunning(), true);
++  assert.equal(h.scheduled.length, 1, "the next timer is not scheduled while a check is in flight");
++  releaseSecond();
++  assert.equal(await secondRun, true);
++  assert.equal(h.scheduled.length, 2);
++  assert.equal(h.logs.length, 1, "success is logged once instead of every interval");
++  assert.ok(h.clients.every(client => client.connects === 1 && client.queries === 1 && client.ends === 1));
++  await h.monitor.stop();
++});
++
++test("stop is idempotent before a timer and during an in-flight check", async () => {
++  let releaseQuery;
++  const queryGate = new Promise(resolve => { releaseQuery = resolve; });
++  const h = harness({ clientFactory: () => new FakeClient({ queryGate }) });
++  await new Promise(resolve => setImmediate(resolve));
++  const stopping = h.monitor.stop();
++  releaseQuery();
++  await stopping;
++  await h.monitor.stop();
++  assert.equal(await h.monitor.ready, true);
++  assert.equal(h.scheduled.length, 0);
++  assert.deepEqual(h.exits, []);
++});
++
++test("runtime database guard drift fails closed once without logging guard source", async () => {
++  const rows = criticalDatabaseGuardRows();
++  rows[0] = { ...rows[0], function_source: "BEGIN RETURN NEW; END" };
++  const h = harness({ clientFactory: () => new FakeClient({ rows }) });
++  assert.equal(await h.monitor.ready, false);
++  assert.equal(h.monitor.hasFailed(), true);
++  assert.deepEqual(h.exits, [1]);
++  assert.equal(h.scheduled.length, 0);
++  assert.deepEqual(h.errors, ["MASTER7 runtime database guard monitor fail-closed (ATTESTATION:UNKNOWN); exiting."]);
++  assert.doesNotMatch(h.errors[0], /BEGIN RETURN NEW/);
++  await h.monitor.stop();
++});
++
++for (const [name, options, category] of [
++  ["connect", { connectError: Object.assign(new Error("sensitive-private-password-material"), { code: "ECONNREFUSED" }) }, "CONNECT"],
++  ["query", { queryError: Object.assign(new Error("sensitive-private-password-material"), { code: "57014" }) }, "ATTESTATION"],
++  ["cleanup", { endError: Object.assign(new Error("sensitive-private-password-material"), { code: "ECONNRESET" }) }, "CLEANUP"],
++  ["client event", { eventError: Object.assign(new Error("sensitive-private-password-material"), { code: "EPIPE" }) }, "ATTESTATION"],
++]) test(`runtime ${name} errors are sanitized and fail closed exactly once`, async () => {
++  const h = harness({ clientFactory: () => new FakeClient(options) });
++  assert.equal(await h.monitor.ready, false);
++  assert.deepEqual(h.exits, [1]);
++  assert.equal(h.errors.length, 1);
++  assert.match(h.errors[0], new RegExp(`\\(${category}:[A-Z0-9_]+\\)`));
++  assert.doesNotMatch(h.errors[0], /private|password|postgresql/);
++  assert.equal(h.scheduled.length, 0);
++  await h.monitor.stop();
++  assert.deepEqual(h.exits, [1]);
++});
++
++test("a synchronous client factory failure is handled as one sanitized connect failure", async () => {
++  const h = harness({ clientFactory: () => { throw new Error("sensitive-private-password-material"); } });
++  assert.equal(await h.monitor.ready, false);
++  assert.deepEqual(h.exits, [1]);
++  assert.deepEqual(h.errors, ["MASTER7 runtime database guard monitor fail-closed (CONNECT:UNKNOWN); exiting."]);
++  assert.equal(h.scheduled.length, 0);
++});
++
++test("client cleanup is bounded and destroys a stuck connection before failing closed", async () => {
++  let destroyed = 0;
++  const client = new FakeClient();
++  client.connection = { stream: { destroy: () => { destroyed++; } } };
++  client.end = () => new Promise(() => {});
++  const h = harness({ clientFactory: () => client, cleanupTimeoutMs: 100 });
++  assert.equal(await h.monitor.ready, false);
++  assert.equal(destroyed, 1);
++  assert.deepEqual(h.exits, [1]);
++  assert.deepEqual(h.errors, ["MASTER7 runtime database guard monitor fail-closed (CLEANUP:CLEANUP_TIMEOUT); exiting."]);
++  assert.equal(h.scheduled.length, 0);
++});
++
++test("a timer scheduling failure cannot silently disable monitoring", async () => {
++  const exits = [], errors = [];
++  const monitor = startRuntimeDatabaseGuardMonitor({
++    connectionString: "postgresql://fixture.invalid/master7",
++    clientFactory: () => new FakeClient(),
++    schedule: () => { throw Object.assign(new Error("timer internals"), { code: "SCHEDULE_ERROR" }); },
++    exit: code => exits.push(code),
++    logger: { log: () => {}, error: message => errors.push(message) },
++  });
++  assert.equal(await monitor.ready, false);
++  assert.deepEqual(exits, [1]);
++  assert.deepEqual(errors, ["MASTER7 runtime database guard monitor fail-closed (SCHEDULE:SCHEDULE_ERROR); exiting."]);
++});
++
++test("runtime database guard monitor is mandatory and bounds operational timing", async () => {
++  assert.throws(() => startRuntimeDatabaseGuardMonitor(), /requires a PostgreSQL connection/);
++  const h = harness({ intervalMs: 1, queryTimeoutMs: 999_999 });
++  assert.equal(h.monitor.intervalMs, 60_000);
++  assert.equal(h.monitor.queryTimeoutMs, 10_000);
++  assert.equal(h.monitor.cleanupTimeoutMs, 2_000);
++  assert.equal(await h.monitor.ready, true);
++  await h.monitor.stop();
++});
++
++test("Render starts the per-instance monitor outside scheduler leadership", () => {
++  const source = readFileSync(new URL("../scripts/start-render.mjs", import.meta.url), "utf8");
++  assert.match(source, /startRuntimeDatabaseGuardMonitor\(\{/);
++  assert.match(source, /PORTAL_DATABASE_GUARD_MONITOR_INTERVAL_MS/);
++  assert.match(source, /PORTAL_DATABASE_GUARD_MONITOR_QUERY_TIMEOUT_MS/);
++  assert.ok(source.indexOf("initializePortalDatabase") < source.indexOf("startRuntimeDatabaseGuardMonitor"));
++  assert.ok(source.indexOf('await import("../.output/server/index.mjs")') < source.indexOf("startRuntimeDatabaseGuardMonitor"));
++  const monitorCall = source.indexOf("startRuntimeDatabaseGuardMonitor({");
++  const leaderCall = source.indexOf("startSchedulerLeadership({");
++  const workerFactory = source.indexOf("startWorkers:");
++  assert.ok(monitorCall < leaderCall && leaderCall < workerFactory, "monitor must run once per instance, not inside leader workers");
++  assert.doesNotMatch(source, /process\.(?:on|once)\(["']SIG(?:TERM|INT)/, "default Node signal exit must remain intact");
++});

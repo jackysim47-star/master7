@@ -1,0 +1,147 @@
+{
+  "release": "17.0.0-selfbuilt.169-runtime-guard-monitor",
+  "preparedAt": "2026-11-10T17:01:44.925685+00:00",
+  "sourceCommit": "9c39a1faea238edf411c67ab4431c42f54f4f46f",
+  "sourceTree": "98b2c637f1d9aa5f2df99402f35eea7dc28cd092",
+  "baselineSourceCommit": "0a1e172c70e373a6355a7dc01ff3ac9e0f65db73",
+  "baselineRelease": "17.0.0-selfbuilt.168-guard-function-attestation",
+  "archive": {
+    "sha256": "7e5683556d0919aa1e1ef62b41903091f352d1b0f8f24d818a6cf4d26462afce",
+    "bytes": 7239848,
+    "files": 719,
+    "entries": 780,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/V169_RUNTIME_DATABASE_GUARD_MONITOR.md",
+      "scripts/runtime-database-guard-monitor.mjs",
+      "tests/mobile-dock-navigation.test.mjs",
+      "tests/runtime-database-guard-monitor.test.mjs"
+    ],
+    "changed": [
+      ".env.example",
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "lib/backend.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/assets/app.js",
+      "public/service-worker.js",
+      "scripts/start-render.mjs",
+      "scripts/verify-isolated-postgres-acceptance-integrity.mjs",
+      "tests/official-entries-probe.test.mjs"
+    ],
+    "deleted": [],
+    "insertions": 649,
+    "deletions": 59
+  },
+  "validation": {
+    "fullRegression": 1407,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "renderDatabase": 3,
+    "isolatedPostgres18": 1,
+    "targeted": 17,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "diffCheck": true,
+    "independentReview": true,
+    "command": "npm run verify:render",
+    "scope": "local synthetic, fixture-only and isolated validation; no live provider, player, wallet, game launch or payment calls"
+  },
+  "runtimeDatabaseGuardMonitor": {
+    "mandatoryPerInstance": true,
+    "schedulerIndependent": true,
+    "startsAfterNitro": true,
+    "immediateInitialCheck": true,
+    "requiredGuards": 9,
+    "protectedTables": 5,
+    "requiredFunctions": 5,
+    "schema": "public",
+    "defaultIntervalMs": 60000,
+    "minimumIntervalMs": 15000,
+    "maximumIntervalMs": 300000,
+    "connectionTimeoutMs": 10000,
+    "statementTimeoutMs": 10000,
+    "queryTimeoutMs": 11000,
+    "lockTimeoutMs": 2000,
+    "cleanupTimeoutMs": 2000,
+    "newClientPerCycle": true,
+    "singleFlight": true,
+    "setTimeoutAfterCompletion": true,
+    "idleTimerUnreferenced": true,
+    "successLogOnce": true,
+    "sanitizedFailureLog": true,
+    "failClosedExitOnce": true,
+    "automaticRepair": false,
+    "defaultSignalBehaviorPreserved": true,
+    "failurePhases": [
+      "connect",
+      "client event",
+      "attestation",
+      "cleanup",
+      "schedule"
+    ],
+    "postgres18RuntimeDriftDetected": true,
+    "postgres18DriftRemainsUnrepaired": true,
+    "providerCallsDuringValidation": 0,
+    "moneyOrWalletWritesDuringValidation": 0
+  },
+  "mobileDockNavigation": {
+    "explicitTargets": 5,
+    "homeAndGamesDistinctInsideLobby": true,
+    "singleActiveTarget": true,
+    "ariaCurrentBoundToActiveTarget": true,
+    "providerAndCategoryEntriesRetainGamesTarget": true,
+    "backendOrProviderCapabilityChanged": false,
+    "targetedTests": 4
+  },
+  "databaseChanges": {
+    "newMigration": false,
+    "latestMigration": "0123-guard-function-schema-binding",
+    "backupSchemaVersion": "0122-acceptance-ledger-integrity",
+    "backupSchemaSha256": "534b830dc4330ee48c77543500116451880b13540d5e0691ee8a09910041328b",
+    "backupTableCount": 76,
+    "sqliteSupported": true,
+    "postgres18Supported": true
+  },
+  "operationalChanges": {
+    "newDepositsUiFlagChanged": false,
+    "providerOrderSubmissionEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPaymentsEnabled": false,
+    "liveGamesEnabled": false,
+    "supplierAcceptanceBypassed": false,
+    "mobileDockStateCorrected": true
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "renderYaml": false,
+    "environmentTemplates": true,
+    "nonSecretRuntimeSettings": [
+      "PORTAL_DATABASE_GUARD_MONITOR_INTERVAL_MS",
+      "PORTAL_DATABASE_GUARD_MONITOR_QUERY_TIMEOUT_MS"
+    ],
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false,
+  "securityScan": {
+    "privateKeyMarkers": 0,
+    "credentialBearingUrlsTotal": 13,
+    "credentialBearingUrlsAllUnderTests": true,
+    "newCredentialBearingUrlsVersusV168": 0,
+    "newSuspectCredentialAssignmentsVersusV168": 0,
+    "newPrivateKeyMarkersVersusV168": 0
+  }
+}
