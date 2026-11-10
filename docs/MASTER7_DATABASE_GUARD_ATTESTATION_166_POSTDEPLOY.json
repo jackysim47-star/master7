@@ -1,0 +1,115 @@
+{
+  "release": "17.0.0-selfbuilt.166-database-guard-attestation",
+  "environment": "Render staging",
+  "observedAt": "2026-11-10T15:25:09Z",
+  "deployment": {
+    "status": "live",
+    "deployId": "dep-dbpjcqei0phs73ac4240",
+    "serviceId": "srv-dbl0iv7f3r2c73848ei0",
+    "publicationCommit": "765672e11e9abe637899acca7fa6b682aae0afd5",
+    "sourceCommit": "6e50815a60cdc23d3791085a967310d2e9e5343d",
+    "renderDatabaseTests": {
+      "passed": 3,
+      "failed": 0
+    },
+    "runtimeErrors": 0,
+    "runtimeWarnings": 0,
+    "request5xx": 0,
+    "logClassificationNote": "Render classified the successful startup receipt as critical because its message contains the phrase critical database guards. The receipt reports 9/9 ready and is not an application error."
+  },
+  "runtime": {
+    "status": "ok",
+    "database": "ready",
+    "releaseMatchesSourceRelease": true,
+    "acceptanceIntegrityReady": true,
+    "providerAcceptanceIntegrityReady": true,
+    "externalAcceptanceIntegrityReady": true,
+    "backupReady": true,
+    "restoreReady": true,
+    "productionReady": false
+  },
+  "databaseGuardAttestation": {
+    "status": "PASS",
+    "passed": 9,
+    "required": 9,
+    "startupReceiptObserved": true,
+    "failClosedOnDrift": true,
+    "schemaVersion": "0122-acceptance-ledger-integrity"
+  },
+  "maintenanceSafety": {
+    "status": "PASS",
+    "checksPassed": 49,
+    "checksTotal": 49,
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "transactionsEnabled": false,
+    "realPayments": false,
+    "payoutsEnabled": false,
+    "liveGames": false,
+    "anyGamePlayable": false,
+    "providerOrderSubmissionsEnabled": false,
+    "providerPayoutSubmissionsEnabled": false
+  },
+  "gameCatalogue": {
+    "providerBrands": 38,
+    "profiles": 43,
+    "implementedProfiles": 6,
+    "launchReadyProfiles": 0,
+    "verifiedProfiles": 0,
+    "liveProfiles": 0,
+    "playButtons": 0,
+    "allGamesVerified": false
+  },
+  "mobileAudit": {
+    "status": "PASS",
+    "viewportWidth": 393,
+    "horizontalOverflow": false,
+    "providerTiles": 38,
+    "jdbTiles": 1,
+    "jdbStatus": "Coming soon",
+    "consoleErrors": 0,
+    "pageErrors": 0,
+    "httpErrors": 0,
+    "brokenImages": 0,
+    "writeRequests": 0
+  },
+  "recovery": {
+    "status": "PASS",
+    "format": "MASTER7-ENCRYPTED-BACKUP-1",
+    "schemaVersion": "0122-acceptance-ledger-integrity",
+    "schemaSha256": "534b830dc4330ee48c77543500116451880b13540d5e0691ee8a09910041328b",
+    "backupSha256": "8a6fce79b9b3d3876ca9d85873efbede80681ff15a191216fb06d634ce60b835",
+    "readConsistency": "transaction_snapshot",
+    "tables": 76,
+    "records": 507,
+    "sqliteRestoreVerified": true,
+    "postgres18RollbackRestoreVerified": true,
+    "coverageComplete": true,
+    "missingTables": 0,
+    "foreignKeyViolations": 0,
+    "persistentWrites": false
+  },
+  "officialDomains": {
+    "status": "BLOCKED",
+    "networkReady": false,
+    "customerEntry": {
+      "host": "www.master7.best",
+      "verified": false,
+      "blocker": "DNS does not resolve."
+    },
+    "staffEntry": {
+      "host": "www.master7.site",
+      "verified": false,
+      "blocker": "Registrar URL forwarding redirects to the Render staging admin path and rewrites the health path instead of serving the Render origin directly."
+    }
+  },
+  "externalAcceptance": {
+    "providerCalls": 0,
+    "paymentCalls": 0,
+    "realMoneyAcceptanceCompleted": false,
+    "gameProviderAcceptanceCompleted": false,
+    "productionSignoffCompleted": false
+  },
+  "classification": "staging deployment verified; production go-live blocked"
+}
