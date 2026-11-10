@@ -1,0 +1,106 @@
+{
+  "release": "17.0.0-selfbuilt.144-sponsor-withdrawal-lobby",
+  "sourceCommit": "3bc2e6c5bd2915eb973b7c0b8f79d81c9d633430",
+  "archiveCommit": "bf1bd7fe2c30d10353b1ad2480e6330c564f7fc3",
+  "archiveSha256": "d3083513f658debdf6be1c01fa2b1e2f791a5d523ec9ceffd47e868884dc989a",
+  "renderDeployId": "dep-dbp5toetlv9c73ekape0",
+  "renderDeployStatus": "live",
+  "verifiedAt": "2026-11-10T00:08:41.179417Z",
+  "service": {
+    "url": "https://master7-v17-staging.onrender.com",
+    "healthPath": "/health/live",
+    "status": "ok",
+    "database": "ready",
+    "routes": {
+      "signin": 200,
+      "register": 200,
+      "admin": 200
+    }
+  },
+  "ui": {
+    "sponsorAssets": {
+      "jili": 200,
+      "megah5": 200,
+      "918kiss": 200
+    },
+    "providerArtwork": {
+      "total": 37,
+      "covered": 37,
+      "fallbackChainVerified": true
+    },
+    "favicon": 200,
+    "pwaIcon": 200
+  },
+  "validation": {
+    "regression": "1246/1246",
+    "maintenance": "12/12",
+    "releaseProbes": "27/27",
+    "renderDatabase": "3/3",
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "postDeployAppErrors": 0,
+    "postDeployRequest5xx": 0
+  },
+  "postDeployBackup": {
+    "format": "MASTER7-ENCRYPTED-BACKUP-1",
+    "schemaVersion": "0119-withdrawal-destination-methods",
+    "createdAt": "2026-11-10T00:04:44.862Z",
+    "tableCount": 71,
+    "totalRecords": 449,
+    "backupSha256": "ee530585a497c26ca05e620cdea9a38c9314015bb8f16dea6ce9deea52ac1cc4",
+    "sqliteRestore": {
+      "status": "verified",
+      "tableCount": 71,
+      "totalRecords": 449,
+      "foreignKeyViolations": 0
+    },
+    "postgresRestore": {
+      "status": "verified",
+      "tableCount": 71,
+      "totalRecords": 449,
+      "foreignKeyViolations": 0,
+      "persistentWrites": false
+    },
+    "onlineReceiptRecorded": true,
+    "backupReady": true,
+    "restoreReady": true
+  },
+  "runtimeFlags": {
+    "newDepositsEnabled": true,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPayments": false,
+    "liveGames": false,
+    "productionReady": false
+  },
+  "paymentProfiles": {
+    "vpay_myr": {
+      "programReady": true,
+      "orderReady": false,
+      "reason": "profile_orders_disabled"
+    },
+    "gspay_myr": {
+      "programReady": true,
+      "orderReady": false,
+      "reason": "profile_orders_disabled"
+    },
+    "onempay_myr": {
+      "programReady": true,
+      "orderReady": false,
+      "reason": "profile_orders_disabled"
+    }
+  },
+  "gameProfiles": {
+    "registered": 41,
+    "launchReady": 0,
+    "productionVerified": 0
+  },
+  "officialDomains": {
+    "www.master7.best": "NO_A",
+    "master7.best": "15.197.162.184_not_Render",
+    "www.master7.site": "15.197.162.184_not_Render",
+    "master7.site": "15.197.162.184_not_Render"
+  },
+  "classification": "DEMO_UAT_LIVE_RELEASE_NOT_PRODUCTION_GOLIVE"
+}
