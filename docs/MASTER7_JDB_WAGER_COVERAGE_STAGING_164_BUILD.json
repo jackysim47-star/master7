@@ -1,0 +1,125 @@
+{
+  "release": "17.0.0-selfbuilt.164-jdb-wager-coverage-staging",
+  "preparedAt": "2026-11-10T12:34:43.285716+00:00",
+  "sourceCommit": "14fc4fe22d4f96a210274fe2beffdf706ceb5e1a",
+  "sourceTree": "ddcb86fc8d6abab62d2566a77dfe09c5c092b102",
+  "baselineSourceCommit": "b6f204df8c772cdb270dba069ddb0045d061a3f4",
+  "baselineRelease": "17.0.0-selfbuilt.163-coba8-front-end-registered",
+  "archive": {
+    "sha256": "5ee86dad4344c829dbd7a175eb41ee0840e420a9bd28be4300b7b4b50308bdd3",
+    "bytes": 7208193,
+    "files": 708,
+    "entries": 769,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/V164_JDB_WAGER_COVERAGE_STAGING.md",
+      "drizzle/0121_jdb_wager_coverage_staging.sql",
+      "lib/jdb-wager-coverage.ts",
+      "tests/jdb-wager-coverage-migration.test.mjs",
+      "tests/jdb-wager-coverage.test.mjs"
+    ],
+    "changed": [
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "lib/backend.ts",
+      "lib/encrypted-backup.ts",
+      "lib/jdb-profile-runtime.ts",
+      "lib/jdb-provider-adapter.ts",
+      "lib/production-acceptance.ts",
+      "lib/render-migrations.mjs",
+      "package.json",
+      "public/assets/app.js",
+      "public/service-worker.js",
+      "scripts/postgres-readiness-gate.mjs",
+      "tests/api.test.mjs",
+      "tests/automatic-availability-ui.test.mjs",
+      "tests/backup-restore-rehearsal.test.mjs",
+      "tests/encrypted-backup.test.mjs",
+      "tests/jdb-provider-adapter.test.mjs",
+      "tests/jdb-wallet-api.test.mjs",
+      "tests/official-entries-probe.test.mjs",
+      "tests/postgres-readiness-gate.test.mjs",
+      "tests/render-migrations.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1376,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "renderDatabase": 3,
+    "gatewaySourceChanged": false,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "command": "pnpm verify:render",
+    "scope": "local synthetic, fixture-only and isolated validation; no live provider, player, wallet, game launch or payment calls"
+  },
+  "jdbWagerCoverageStaging": {
+    "profileId": "jdb_myr",
+    "fixtureOnly": true,
+    "maxRowsPerPage": 500,
+    "durableEvidence": true,
+    "privacyPreservingSha256Fingerprints": true,
+    "readOnlyAggregateEndpoint": "GET /api/admin/jdb-wager-coverage",
+    "leaseType": "wager_sync",
+    "monotonicFenceGeneration": true,
+    "atomicReceiptAndEvidenceCommit": true,
+    "coverageDiagnostics": [
+      "gaps",
+      "overlaps",
+      "duplicates",
+      "late_arrivals",
+      "revisions",
+      "reversal_candidates"
+    ],
+    "providerPageComplete": false,
+    "providerCoverageComplete": false,
+    "sourceFinalityVerified": false,
+    "sessionClosureVerified": false,
+    "merchantAuthorizationVerified": false,
+    "turnoverConnected": false,
+    "rewardConnected": false,
+    "accountingConnected": false,
+    "productionReady": false,
+    "liveSupplierCallsDuringValidation": 0,
+    "walletWritesDuringValidation": 0
+  },
+  "databaseChanges": {
+    "migration": "0121_jdb_wager_coverage_staging.sql",
+    "additive": true,
+    "sqliteSupported": true,
+    "postgresSupported": true,
+    "backupManifestExtended": true,
+    "profileActivationChanged": false
+  },
+  "operationalChanges": {
+    "newDepositsUiFlagChanged": false,
+    "providerOrderSubmissionEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPaymentsEnabled": false,
+    "liveGamesEnabled": false,
+    "jdbProfileEnabled": false,
+    "supplierAcceptanceBypassed": false
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "renderYaml": false,
+    "environmentTemplates": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": [
+      "0121_jdb_wager_coverage_staging.sql"
+    ]
+  },
+  "candidateLive": false
+}

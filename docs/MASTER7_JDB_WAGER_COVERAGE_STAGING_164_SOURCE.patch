@@ -1,0 +1,1552 @@
+diff --git a/app/portal.html b/app/portal.html
+index 391fa6b291e1a3661561017d0a0ad651962736f4..5618ac69c8ed3d3641e5c7c6fe52bd6ecee22349 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index 587a8fb6727c9312c6f365a81746a3c2ab62c504..28cdfd01fb4396fa21d058eb105da1ec0eede5ee 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,6 +1,6 @@
+ # MASTER7 deployment handover
+ 
+-Candidate source: `17.0.0-selfbuilt.163-coba8-front-end-registered`.
++Candidate source: `17.0.0-selfbuilt.164-jdb-wager-coverage-staging`.
+ 
+ This candidate has not been deployed by the source commit. Confirm the actual
+ Render release and deployment ID from the Portal service before cutover or
+@@ -9,7 +9,7 @@ rollback. Portal service: `srv-dbl0iv7f3r2c73848ei0`.
+ The last recorded integration-gateway baseline remains release `1.17.0`,
+ deployment `dep-dbpchge417fc739h9b50`, commit
+ `c4aab70060439469f3c2e6081a57c0b40e630ff4`. Gateway service:
+-`srv-db6b7inlk1mc73ck6cmg`. The v163 candidate does not change the gateway.
++`srv-db6b7inlk1mc73ck6cmg`. The v164 candidate does not change the gateway.
+ 
+ ## Current game registry
+ 
+@@ -20,31 +20,37 @@ deployment `dep-dbpchge417fc739h9b50`, commit
+ - Production-verified profiles: 0.
+ - Playable profiles: 0.
+ 
+-COBA8 is registered as the 38th member-facing provider and as the independent
+-`coba8_myr` profile. It uses neutral MASTER7-owned artwork. Its official API
+-contract is unavailable, so it remains `contract_missing` with no catalogue,
+-player, Play, launch, wallet, settlement or recovery capability. A merchant
+-login or API token cannot enable those capabilities and is not stored in this
+-release.
++COBA8 remains registered as the 38th member-facing provider and independent
++`coba8_myr` profile. Its official API contract is unavailable, so it remains
++`contract_missing` with no catalogue, player, Play, launch, wallet, settlement
++or recovery capability.
+ 
+-Existing owner-curated 37-provider rankings are migration input only: their
+-order is preserved and COBA8 is appended once. They do not describe the current
+-38-provider lobby.
++JDB remains unavailable for member Play. v164 adds durable fixture-only wager
++coverage staging: exact page deduplication, lease fencing, transactional crash
++retry, and aggregate gap/duplicate/late/revision/reversal-candidate diagnostics.
++The storage keeps hashed identifiers plus review-only amounts and timestamps;
++it cannot feed wallet, turnover, reward or accounting operations. Supplier finality, official session closure, merchant
++authorization, production acceptance, launch, wallet, settlement and recovery
++remain unverified and false. See `V164_JDB_WAGER_COVERAGE_STAGING.md`.
+ 
+-Catalogue presence, credentials, HTTP success and an implemented adapter do
+-not establish launch availability. Production acceptance, runtime readiness,
+-exact launch-origin review, wallet handling, settlement and recovery remain
+-independent fail-closed gates.
++Unavailable provider cards now identify their accessible state as `Coming
++soon`; only actually available cards retain game-entry semantics. This text
++change does not alter readiness.
++
++Catalogue presence, credentials, HTTP success, an implemented adapter, staged
++report continuity, or a merchant login do not establish launch availability.
++Production acceptance and runtime readiness remain independent fail-closed
++gates.
+ 
+ ## Other operational boundaries
+ 
+ Payment work remains paused. VPay, GSPAY and 1MPay code, credentials, callbacks,
+-activation flags, service plans and DNS are unchanged by v163. This candidate
++activation flags, service plans and DNS are unchanged by v164. This candidate
+ does not enable any real-money payment, payout or live-game switch.
+ 
+-The source verification for v163 passed maintenance tests 12/12, release probes
+-27/27, full regression 1357/1357 and database compatibility 3/3. TypeScript,
+-lint and the Render build also passed.
++The verification totals for v164 must be recorded only after the complete
++source verification finishes. No deployment or production acceptance is
++claimed by this handover.
+ 
+ Workspace: `tea-dakfo2h594qs73du231g`.
+ Publication branch: `codex/v17-render-staging-20261104`.
+diff --git a/docs/V164_JDB_WAGER_COVERAGE_STAGING.md b/docs/V164_JDB_WAGER_COVERAGE_STAGING.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..c7298717ed602ff4414716797ce9d218b1e53545
+--- /dev/null
++++ b/docs/V164_JDB_WAGER_COVERAGE_STAGING.md
+@@ -0,0 +1,40 @@
++# MASTER7 v164 JDB wager coverage staging
++
++Release: `17.0.0-selfbuilt.164-jdb-wager-coverage-staging`
++
++## Scope
++
++v164 adds a durable, fixture-only evidence boundary for JDB wager reports. It does not call JDB, poll a live supplier, launch a game, move wallet funds, calculate turnover, grant rewards, post accounting entries, or enable production play.
++
++The staging path records only privacy-preserving SHA-256 fingerprints, nonnegative MYR amount fields, settled timestamps, classifications, and aggregate receipt counters. Provider player, bet, round, game, claim-token, and source-payload values are not returned by diagnostics. These records are review evidence and cannot feed accounting.
++
++## Durable behavior
++
++- Exact report pages use a canonical page digest and a unique window/page receipt. A retry after a lost response or a new lease generation returns the same receipt.
++- Fixture pages are bounded to 500 rows; no live poller or unbounded provider page is enabled in this release.
++- JDB report windows use the existing `wager_sync` recovery lease. Claim tokens plus monotonically increasing fence generations prevent stale or concurrent pollers from committing evidence.
++- The receipt, identity, immutable version, observation, cursor review state, and lease release commit in one transaction. A fault rolls the entire batch back for safe retry.
++- Coverage diagnostics merge observed intervals and expose gaps, overlaps, duplicate observations, late arrivals, changed results, and zero-value reversal candidates by window.
++- `late` means a new identity first appears in a later receipt for the same exact report window. Historical `gameDate` rows are not called late merely because they are old.
++- A changed zero-value result is a `reversal_candidate` only. It is never treated as a confirmed reversal or wallet correction.
++
++## Fail-closed boundary
++
++Every receipt fixes these claims to false:
++
++- provider page completion and provider coverage completion;
++- supplier report finality;
++- official session closure verification;
++- merchant authorization verification.
++
++The read-only owner/staff endpoint `GET /api/admin/jdb-wager-coverage` also reports `turnoverConnected`, `rewardConnected`, `accountingConnected`, and `productionReady` as false. It returns aggregate windows and counters without supplier or member identifiers, payloads, amounts, digests, or lease tokens.
++
++The `jdb_myr` profile remains unavailable. Catalogue availability, Play, launch, wallet transfer, settlement, recovery, turnover, rewards, and production acceptance remain false unless their separate official contracts and evidence are completed in a later release.
++
++## Database and recovery
++
++Migration `0121_jdb_wager_coverage_staging.sql` is additive for SQLite and PostgreSQL. It does not create, open, close, or otherwise mutate a provider profile. A staging claim requires a separately provisioned, exact `jdb_myr` production profile that is already closed; a missing or altered parent fails closed. The encrypted-backup manifest includes all JDB coverage tables. A v164 restore can identify a v163/`0120-provider-wallet-sweeps` archive as legacy with explicit missing JDB coverage tables instead of claiming complete coverage.
++
++## Release state
++
++This document describes source code and fixture validation only. v164 has not been deployed by this source change. No live supplier call, real-money acceptance event, DNS change, service-plan change, activation flag, or owner production sign-off is included.
+diff --git a/drizzle/0121_jdb_wager_coverage_staging.sql b/drizzle/0121_jdb_wager_coverage_staging.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..03fe35b7aa8f92f4a1ee5d937c0c2318e2451ace
+--- /dev/null
++++ b/drizzle/0121_jdb_wager_coverage_staging.sql
+@@ -0,0 +1,93 @@
++CREATE TABLE IF NOT EXISTS jdb_wager_sync_windows (
++  window_id TEXT PRIMARY KEY NOT NULL,
++  profile_id TEXT NOT NULL REFERENCES game_provider_profiles(id),
++  time_basis TEXT NOT NULL CHECK (time_basis IN ('lastModifyTime','gameDate')),
++  window_start_ms BIGINT NOT NULL CHECK (window_start_ms >= 0),
++  window_end_ms BIGINT NOT NULL CHECK (window_end_ms > window_start_ms),
++  state TEXT NOT NULL DEFAULT 'idle' CHECK (state IN ('idle','syncing','review')),
++  current_fence BIGINT NOT NULL DEFAULT 0 CHECK (current_fence >= 0),
++  last_receipt_id TEXT,
++  last_error_code TEXT,
++  created_at BIGINT NOT NULL CHECK (created_at >= 0),
++  updated_at BIGINT NOT NULL CHECK (updated_at >= created_at),
++  CHECK ((time_basis='lastModifyTime' AND window_end_ms-window_start_ms <= 900000) OR (time_basis='gameDate' AND window_end_ms-window_start_ms <= 300000)),
++  UNIQUE (profile_id,time_basis,window_start_ms,window_end_ms),
++  UNIQUE (window_id,profile_id)
++);
++
++CREATE INDEX IF NOT EXISTS jdb_wager_sync_windows_range
++  ON jdb_wager_sync_windows(profile_id,time_basis,window_start_ms,window_end_ms);
++
++CREATE TABLE IF NOT EXISTS jdb_wager_receipts (
++  id TEXT PRIMARY KEY NOT NULL,
++  window_id TEXT NOT NULL REFERENCES jdb_wager_sync_windows(window_id),
++  profile_id TEXT NOT NULL REFERENCES game_provider_profiles(id),
++  fence BIGINT NOT NULL CHECK (fence > 0),
++  claim_token_sha256 TEXT NOT NULL CHECK (length(claim_token_sha256) = 64),
++  page_sha256 TEXT NOT NULL CHECK (length(page_sha256) = 64),
++  input_count INTEGER NOT NULL DEFAULT 0 CHECK (input_count >= 0),
++  unique_input_count INTEGER NOT NULL DEFAULT 0 CHECK (unique_input_count >= 0 AND unique_input_count <= input_count),
++  original_count INTEGER NOT NULL DEFAULT 0 CHECK (original_count >= 0),
++  duplicate_count INTEGER NOT NULL DEFAULT 0 CHECK (duplicate_count >= 0),
++  late_count INTEGER NOT NULL DEFAULT 0 CHECK (late_count >= 0),
++  revision_count INTEGER NOT NULL DEFAULT 0 CHECK (revision_count >= 0),
++  reversal_candidate_count INTEGER NOT NULL DEFAULT 0 CHECK (reversal_candidate_count >= 0),
++  page_complete INTEGER NOT NULL DEFAULT 0 CHECK (page_complete = 0),
++  source_finality_verified INTEGER NOT NULL DEFAULT 0 CHECK (source_finality_verified = 0),
++  session_closure_verified INTEGER NOT NULL DEFAULT 0 CHECK (session_closure_verified = 0),
++  merchant_authorization_verified INTEGER NOT NULL DEFAULT 0 CHECK (merchant_authorization_verified = 0),
++  coverage_complete INTEGER NOT NULL DEFAULT 0 CHECK (coverage_complete = 0),
++  status TEXT NOT NULL DEFAULT 'review' CHECK (status = 'review'),
++  observed_at BIGINT NOT NULL CHECK (observed_at >= 0),
++  FOREIGN KEY (window_id,profile_id) REFERENCES jdb_wager_sync_windows(window_id,profile_id),
++  UNIQUE (window_id,fence),
++  UNIQUE (window_id,page_sha256)
++);
++
++CREATE INDEX IF NOT EXISTS jdb_wager_receipts_window
++  ON jdb_wager_receipts(window_id,observed_at,id);
++
++CREATE TABLE IF NOT EXISTS jdb_wager_identities (
++  identity_sha256 TEXT PRIMARY KEY NOT NULL CHECK (length(identity_sha256) = 64),
++  profile_id TEXT NOT NULL REFERENCES game_provider_profiles(id),
++  first_payload_sha256 TEXT NOT NULL CHECK (length(first_payload_sha256) = 64),
++  first_receipt_id TEXT NOT NULL REFERENCES jdb_wager_receipts(id),
++  first_observed_at BIGINT NOT NULL CHECK (first_observed_at >= 0),
++  UNIQUE (identity_sha256,profile_id)
++);
++
++CREATE TABLE IF NOT EXISTS jdb_wager_event_versions (
++  identity_sha256 TEXT NOT NULL,
++  payload_sha256 TEXT NOT NULL CHECK (length(payload_sha256) = 64),
++  profile_id TEXT NOT NULL REFERENCES game_provider_profiles(id),
++  provider_round_sha256 TEXT CHECK (provider_round_sha256 IS NULL OR length(provider_round_sha256) = 64),
++  provider_player_sha256 TEXT NOT NULL CHECK (length(provider_player_sha256) = 64),
++  provider_game_sha256 TEXT NOT NULL CHECK (length(provider_game_sha256) = 64),
++  bet_minor BIGINT NOT NULL CHECK (bet_minor >= 0),
++  win_minor BIGINT NOT NULL CHECK (win_minor >= 0),
++  currency TEXT NOT NULL CHECK (currency = 'MYR'),
++  settled_at_ms BIGINT NOT NULL CHECK (settled_at_ms >= 0),
++  source_details_sha256 TEXT NOT NULL CHECK (length(source_details_sha256) = 64),
++  classification TEXT NOT NULL CHECK (classification IN ('original','late','revision','reversal_candidate')),
++  first_receipt_id TEXT NOT NULL REFERENCES jdb_wager_receipts(id),
++  first_observed_at BIGINT NOT NULL CHECK (first_observed_at >= 0),
++  PRIMARY KEY (identity_sha256,payload_sha256),
++  FOREIGN KEY (identity_sha256,profile_id) REFERENCES jdb_wager_identities(identity_sha256,profile_id)
++);
++
++CREATE INDEX IF NOT EXISTS jdb_wager_event_versions_observed
++  ON jdb_wager_event_versions(profile_id,classification,first_observed_at,identity_sha256,payload_sha256);
++
++CREATE TABLE IF NOT EXISTS jdb_wager_observations (
++  receipt_id TEXT NOT NULL REFERENCES jdb_wager_receipts(id),
++  identity_sha256 TEXT NOT NULL,
++  payload_sha256 TEXT NOT NULL,
++  classification TEXT NOT NULL CHECK (classification IN ('original','duplicate','late','revision','reversal_candidate')),
++  occurrence_count INTEGER NOT NULL DEFAULT 1 CHECK (occurrence_count > 0),
++  PRIMARY KEY (receipt_id,identity_sha256,payload_sha256),
++  FOREIGN KEY (identity_sha256,payload_sha256)
++    REFERENCES jdb_wager_event_versions(identity_sha256,payload_sha256)
++);
++
++CREATE INDEX IF NOT EXISTS jdb_wager_observations_receipt
++  ON jdb_wager_observations(receipt_id,classification,identity_sha256,payload_sha256);
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 0b4607e2c36b15be0458ace02fd317879082637c..36b21a69a47290225054ef20668d30ab22994872 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -30,6 +30,7 @@ import {ManualComplianceError,getManualCompliance,requestManualCompliance,review
+ import {GAME_PROVIDER_IDS,GAME_PROVIDER_NAMES,GameRankingError,getGameRanking,getPublicGameRanking,loadGameRanking,rankPlatforms,saveGameRanking} from './game-ranking.ts';
+ import {GAME_PROVIDER_PROFILES,getGameProviderProfile,getGameProviderProfiles,type RegisteredGameProviderProfile} from './game-provider-registry.ts';
+ import {GameProviderAcceptanceError,getGameProviderAcceptance,getGameProviderAcceptanceReadiness,recordGameProviderAcceptance} from './game-provider-acceptance.ts';
++import {getJdbWagerCoverage,JdbWagerCoverageError} from './jdb-wager-coverage.ts';
+ import {ProductionAcceptanceError,getProductionAcceptance,getProductionAcceptanceReadiness,recordProductionAcceptance} from './production-acceptance.ts';
+ import {RewardStateError,createBlockedBenefitClaim,getBenefitClaimByRequest,listBenefitClaims,listCommissionEntries,listCommissionPeriods,persistCommissionPreview} from './reward-state.ts';
+ import {VipError,getAdminVip,getPublicVip,saveVipProgram,vipProgramStatus} from './vip.ts';
+@@ -38,7 +39,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.163-coba8-front-end-registered';
++export const RELEASE = '17.0.0-selfbuilt.164-jdb-wager-coverage-staging';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+@@ -563,6 +564,7 @@ export async function handle(req:Request,c:Context):Promise<Response>{
+   if(e instanceof ManualComplianceError)return json({error:e.message,code:e.code},e.status);
+   if(e instanceof ProviderTransferError)return json({error:e.message,code:e.code},e.status);
+   if(e instanceof GameProviderAcceptanceError)return json({error:e.message,code:e.code},e.status);
++  if(e instanceof JdbWagerCoverageError)return json({error:e.message,code:e.code},e.status);
+   if(e instanceof ProductionAcceptanceError)return json({error:e.message,code:e.code},e.status);
+   if(e instanceof ResponsiblePlayError){logDepositOrderConflict(req,e.status,e.code);return json({error:e.message,code:e.code},e.status);}
+   if(e instanceof ApiError||e instanceof AuthError||e instanceof BackupOperationsError||e instanceof MegaWalletError||e instanceof RewardStateError||e instanceof VipError||e instanceof RewardsHubError||e instanceof GameRankingError||e instanceof BonusRiskError||e instanceof EngagementError||e instanceof WhatsAppCampaignError)return json({error:e.message},e.status);
+@@ -635,6 +637,7 @@ async function route(req:Request,c:Context){
+  const local=await readLocalSession(req,db);
+  if(p.startsWith('/api/auth/'))return handlePasswordAuth(req,c,local);
+  const u=local?.user??await currentUser(c,p==='/api/session'&&req.method==='GET');
++ if(p==='/api/admin/jdb-wager-coverage'&&req.method!=='GET')throw new ApiError(405,'Method not allowed');
+  if(p==='/api/admin/operations-intelligence'&&req.method!=='GET')throw new ApiError(405,'Method not allowed');
+  const gspayUsdtResponse=handleGSPayUsdtStatus(req,gspayUsdtSettings(c));
+  if(gspayUsdtResponse)return gspayUsdtResponse;
+@@ -709,6 +712,7 @@ async function route(req:Request,c:Context){
+   if(p==='/api/admin/game-sync'){role(u,['owner','staff']);const catalogue=await automaticCatalogue(c,await gatewayGames(c));return json({...automaticAvailability,providers:catalogue.providers,gameCount:catalogue.games.length,syncIntervalSeconds:300,playable:catalogue.playable});}
+   if(p==='/api/admin/games'){role(u,['owner','staff']);return json(await automaticCatalogue(c,await gatewayGames(c)));}
+   if(p==='/api/admin/game-acceptance'){role(u,['owner','staff']);const search=new URL(req.url).searchParams;return json(await getGameProviderAcceptance(db,u,{environment:search.get('environment')??'production',eventLimit:search.get('limit')??undefined}));}
++  if(p==='/api/admin/jdb-wager-coverage'){role(u,['owner','staff']);const search=new URL(req.url).searchParams;return json(await getJdbWagerCoverage(db,u,{timeBasis:search.get('timeBasis')??undefined,from:search.get('from')??undefined,to:search.get('to')??undefined}));}
+   if(p==='/api/games'){
+    const search=new URL(req.url).searchParams,requestedProfileId=queryProfileId(search),requestedProfile=requestedProfileId?getGameProviderProfile(requestedProfileId):null;
+    if(requestedProfileId&&(!requestedProfile||!requestedProfile.listedInLobby))throw new ApiError(400,'Invalid game profile');
+diff --git a/lib/encrypted-backup.ts b/lib/encrypted-backup.ts
+index 1df77e27eae12972c7fc186f2108a13e4a352d41..42eced63111f9ffc3751b653280d1479eb1ceb1d 100644
+--- a/lib/encrypted-backup.ts
++++ b/lib/encrypted-backup.ts
+@@ -3,7 +3,7 @@ import {gzipSync} from 'node:zlib';
+ import {BACKUP_PUBLIC_KEY,BACKUP_PUBLIC_KEY_SHA256} from './backup-public-key.ts';
+ 
+ export const BACKUP_FORMAT='MASTER7-ENCRYPTED-BACKUP-1';
+-export const BACKUP_SCHEMA_VERSION='0120-provider-wallet-sweeps';
++export const BACKUP_SCHEMA_VERSION='0121-jdb-wager-coverage-staging';
+ export const BACKUP_PAGE_SIZE=1000;
+ 
+ export type BackupReader={
+@@ -45,7 +45,11 @@ const LEGACY_0115_BACKUP_TABLES=[...LEGACY_0113_BACKUP_TABLES,'manual_bank_trans
+ const LEGACY_0116_BACKUP_TABLES=[...LEGACY_0115_BACKUP_TABLES,'provider_wallet_operations'] as const;
+ const LEGACY_0117_BACKUP_TABLES=[...LEGACY_0116_BACKUP_TABLES,'public_contact_revisions'] as const;
+ const PRODUCTION_ACCEPTANCE_BACKUP_TABLES=['production_acceptance_events','production_acceptance_current'] as const;
+-export const BACKUP_TABLES=[...LEGACY_0117_BACKUP_TABLES,...PRODUCTION_ACCEPTANCE_BACKUP_TABLES] as const;
++const LEGACY_0120_BACKUP_TABLES=[...LEGACY_0117_BACKUP_TABLES,...PRODUCTION_ACCEPTANCE_BACKUP_TABLES] as const;
++const JDB_WAGER_COVERAGE_BACKUP_TABLES=[
++ 'jdb_wager_sync_windows','jdb_wager_receipts','jdb_wager_identities','jdb_wager_event_versions','jdb_wager_observations'
++] as const;
++export const BACKUP_TABLES=[...LEGACY_0120_BACKUP_TABLES,...JDB_WAGER_COVERAGE_BACKUP_TABLES] as const;
+ type BackupTable=(typeof BACKUP_TABLES)[number];
+ // These keys are checked against the release migrations by the pagination
+ // regression. A prefix of a composite key does not define stable page bounds.
+@@ -68,6 +72,8 @@ const BACKUP_PRIMARY_KEYS:Record<BackupTable,readonly string[]>={
+  game_wager_sync_cursors:['profile_id'],game_recovery_leases:['profile_id','resource_type','resource_id'],
+  megah5_launch_operations:['id'],
+  game_provider_acceptance_events:['id'],game_provider_acceptance_current:['profile_id','capability','environment'],
++ jdb_wager_sync_windows:['window_id'],jdb_wager_receipts:['id'],jdb_wager_identities:['identity_sha256'],
++ jdb_wager_event_versions:['identity_sha256','payload_sha256'],jdb_wager_observations:['receipt_id','identity_sha256','payload_sha256'],
+ };
+ // A restored portal requires fresh sign-ins. The lock row is re-created by the
+ // next transaction; restrictions and reservations remain in the durable tables.
+@@ -78,21 +84,22 @@ export const BACKUP_SCHEMA_SHA256=sha256(JSON.stringify({format:BACKUP_FORMAT,sc
+ 
+ export function backupRestoreContract(schemaVersion:unknown,schemaSha256:unknown){
+  if(schemaVersion===BACKUP_SCHEMA_VERSION&&schemaSha256===BACKUP_SCHEMA_SHA256)return {tables:BACKUP_TABLES,missingTables:[] as string[]};
+- if(schemaVersion==='0119-withdrawal-destination-methods'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0119-withdrawal-destination-methods',tables:BACKUP_TABLES})))return {tables:BACKUP_TABLES,missingTables:[] as string[]};
+- if(schemaVersion==='0118-production-acceptance-evidence'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0118-production-acceptance-evidence',tables:BACKUP_TABLES})))return {tables:BACKUP_TABLES,missingTables:[] as string[]};
+- if(schemaVersion==='0117-flexible-public-contacts'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0117-flexible-public-contacts',tables:LEGACY_0117_BACKUP_TABLES})))return {tables:LEGACY_0117_BACKUP_TABLES,missingTables:[...PRODUCTION_ACCEPTANCE_BACKUP_TABLES]};
+- if(schemaVersion==='0116-provider-wallet-operations'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0116-provider-wallet-operations',tables:LEGACY_0116_BACKUP_TABLES})))return {tables:LEGACY_0116_BACKUP_TABLES,missingTables:['public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES]};
+- if(schemaVersion==='0115-manual-bank-funds'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0115-manual-bank-funds',tables:LEGACY_0115_BACKUP_TABLES})))return {tables:LEGACY_0115_BACKUP_TABLES,missingTables:['provider_wallet_operations','public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES]};
+- if(schemaVersion==='0113-game-provider-acceptance'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0113-game-provider-acceptance',tables:LEGACY_0113_BACKUP_TABLES})))return {tables:LEGACY_0113_BACKUP_TABLES,missingTables:['manual_bank_transactions','provider_wallet_operations','public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES]};
+- if(schemaVersion==='0112-megah5-launch-operations'&&schemaSha256==='2ce57d7e348bdee3a0b6e145d19479a113136ccadc61e9fdfda2e1511a6a3e3b')return {tables:LEGACY_0112_BACKUP_TABLES,missingTables:['manual_bank_transactions',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations','public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES]};
++ if(schemaVersion==='0120-provider-wallet-sweeps'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0120-provider-wallet-sweeps',tables:LEGACY_0120_BACKUP_TABLES})))return {tables:LEGACY_0120_BACKUP_TABLES,missingTables:[...JDB_WAGER_COVERAGE_BACKUP_TABLES]};
++ if(schemaVersion==='0119-withdrawal-destination-methods'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0119-withdrawal-destination-methods',tables:LEGACY_0120_BACKUP_TABLES})))return {tables:LEGACY_0120_BACKUP_TABLES,missingTables:[...JDB_WAGER_COVERAGE_BACKUP_TABLES]};
++ if(schemaVersion==='0118-production-acceptance-evidence'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0118-production-acceptance-evidence',tables:LEGACY_0120_BACKUP_TABLES})))return {tables:LEGACY_0120_BACKUP_TABLES,missingTables:[...JDB_WAGER_COVERAGE_BACKUP_TABLES]};
++ if(schemaVersion==='0117-flexible-public-contacts'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0117-flexible-public-contacts',tables:LEGACY_0117_BACKUP_TABLES})))return {tables:LEGACY_0117_BACKUP_TABLES,missingTables:[...PRODUCTION_ACCEPTANCE_BACKUP_TABLES,...JDB_WAGER_COVERAGE_BACKUP_TABLES]};
++ if(schemaVersion==='0116-provider-wallet-operations'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0116-provider-wallet-operations',tables:LEGACY_0116_BACKUP_TABLES})))return {tables:LEGACY_0116_BACKUP_TABLES,missingTables:['public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES,...JDB_WAGER_COVERAGE_BACKUP_TABLES]};
++ if(schemaVersion==='0115-manual-bank-funds'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0115-manual-bank-funds',tables:LEGACY_0115_BACKUP_TABLES})))return {tables:LEGACY_0115_BACKUP_TABLES,missingTables:['provider_wallet_operations','public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES,...JDB_WAGER_COVERAGE_BACKUP_TABLES]};
++ if(schemaVersion==='0113-game-provider-acceptance'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0113-game-provider-acceptance',tables:LEGACY_0113_BACKUP_TABLES})))return {tables:LEGACY_0113_BACKUP_TABLES,missingTables:['manual_bank_transactions','provider_wallet_operations','public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES,...JDB_WAGER_COVERAGE_BACKUP_TABLES]};
++ if(schemaVersion==='0112-megah5-launch-operations'&&schemaSha256==='2ce57d7e348bdee3a0b6e145d19479a113136ccadc61e9fdfda2e1511a6a3e3b')return {tables:LEGACY_0112_BACKUP_TABLES,missingTables:['manual_bank_transactions',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations','public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES,...JDB_WAGER_COVERAGE_BACKUP_TABLES]};
+  // Legacy archives cannot prove that no launch was in flight at backup time.
+  // Preserve their data but never report complete launch-operation coverage.
+- if(schemaVersion==='0110-game-provider-adapter-core'&&schemaSha256==='4a1e7437fb14dc212ec39a801e173f7e898fcfa44707e7b523f5c8ba299b1555')return {tables:LEGACY_0110_BACKUP_TABLES,missingTables:['manual_bank_transactions','megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations','public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES]};
+- if(schemaVersion==='0108-manual-compliance-review'&&schemaSha256==='6453a7551fd5cbc19e6b7ca6728405f4ead79db7864b5b8d52186905bcb8798a')return {tables:LEGACY_0108_BACKUP_TABLES,missingTables:['manual_bank_transactions',...GAME_ADAPTER_BACKUP_TABLES,'megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations','public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES]};
++ if(schemaVersion==='0110-game-provider-adapter-core'&&schemaSha256==='4a1e7437fb14dc212ec39a801e173f7e898fcfa44707e7b523f5c8ba299b1555')return {tables:LEGACY_0110_BACKUP_TABLES,missingTables:['manual_bank_transactions','megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations','public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES,...JDB_WAGER_COVERAGE_BACKUP_TABLES]};
++ if(schemaVersion==='0108-manual-compliance-review'&&schemaSha256==='6453a7551fd5cbc19e6b7ca6728405f4ead79db7864b5b8d52186905bcb8798a')return {tables:LEGACY_0108_BACKUP_TABLES,missingTables:['manual_bank_transactions',...GAME_ADAPTER_BACKUP_TABLES,'megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations','public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES,...JDB_WAGER_COVERAGE_BACKUP_TABLES]};
+  // This exact prior release manifest omitted persistent webhook deduplication.
+  // Recover its existing records, but never label that receipt complete/current.
+- if(schemaVersion==='0107-benefit-claim-reviews'&&schemaSha256==='5ce4d8778d03097b16ef0fff08c1cc6fa05e7ce9a639bce232564a728982cae9')return {tables:FULL_0107_BACKUP_TABLES,missingTables:['manual_bank_transactions','manual_compliance_reviews','manual_compliance_events',...GAME_ADAPTER_BACKUP_TABLES,'megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations','public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES]};
+- if(schemaVersion==='0107-benefit-claim-reviews'&&schemaSha256==='2648becd21723884358bcaf90f5928dc19c7cc58dcf090c87ca1db3c00c34d69')return {tables:LEGACY_0107_BACKUP_TABLES,missingTables:['manual_bank_transactions','marketing_webhook_events','manual_compliance_reviews','manual_compliance_events',...GAME_ADAPTER_BACKUP_TABLES,'megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations','public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES]};
++ if(schemaVersion==='0107-benefit-claim-reviews'&&schemaSha256==='5ce4d8778d03097b16ef0fff08c1cc6fa05e7ce9a639bce232564a728982cae9')return {tables:FULL_0107_BACKUP_TABLES,missingTables:['manual_bank_transactions','manual_compliance_reviews','manual_compliance_events',...GAME_ADAPTER_BACKUP_TABLES,'megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations','public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES,...JDB_WAGER_COVERAGE_BACKUP_TABLES]};
++ if(schemaVersion==='0107-benefit-claim-reviews'&&schemaSha256==='2648becd21723884358bcaf90f5928dc19c7cc58dcf090c87ca1db3c00c34d69')return {tables:LEGACY_0107_BACKUP_TABLES,missingTables:['manual_bank_transactions','marketing_webhook_events','manual_compliance_reviews','manual_compliance_events',...GAME_ADAPTER_BACKUP_TABLES,'megah5_launch_operations',...GAME_ACCEPTANCE_BACKUP_TABLES,'provider_wallet_operations','public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES,...JDB_WAGER_COVERAGE_BACKUP_TABLES]};
+  throw new Error('Backup schema version does not match this release');
+ }
+ 
+diff --git a/lib/jdb-profile-runtime.ts b/lib/jdb-profile-runtime.ts
+index 5424e2ceaf76e58a65294689eb182915f6a6307c..155970637f0c9529f058f2209bf19c10f5d65f2f 100644
+--- a/lib/jdb-profile-runtime.ts
++++ b/lib/jdb-profile-runtime.ts
+@@ -16,15 +16,20 @@ export function jdbProfileRuntime(raw:string|undefined,profileId:string,userId:s
+   const root=JSON.parse(raw),value=root?.profiles?.[profileId],profile=getGameProviderProfile(profileId);
+   if(!profile||!value||!['closed','qa','production'].includes(value.mode)||value.environment!=='production'||typeof value.recoveryEnabled!=='boolean')return null;
+   const cfg=value.connection as JdbConfig,apiOrigin=approvedHttpsOrigin(cfg?.baseUrl),approvedOrigins=Array.isArray(value.approvedApiOrigins)?value.approvedApiOrigins.map(approvedHttpsOrigin):[];if(!cfg||cfg.profile!==profileId||!apiOrigin||approvedOrigins.length===0||approvedOrigins.length>20||approvedOrigins.some((origin:unknown)=>origin===null)||!approvedOrigins.includes(apiOrigin)||!Array.isArray(value.qaMemberIds)||value.qaMemberIds.length>50||value.qaMemberIds.some((id:unknown)=>typeof id!=='string'||!/^[A-Za-z0-9_.:-]{1,200}$/.test(id)))return null;
+-  const launchAuthorized=Array.isArray(cfg.launchOrigins)&&cfg.launchOrigins.length>0&&value.recoveryEnabled===true&&value.sessionClosureVerified===true&&(value.mode==='qa'?value.qaMemberIds.includes(userId):value.mode==='production'&&options.productionAccepted===true);
+-  const adapter=createJdbGameProviderAdapter({...cfg,profile:profileId as JdbProfile},{fetchImpl:options.fetchImpl??fetch,allowedReturnOrigins:value.allowedReturnOrigins??['https://www.master7.best','https://master7-v17-staging.onrender.com'],playerCreationEnabled:launchAuthorized,depositEnabled:launchAuthorized,launchEnabled:launchAuthorized,withdrawalEnabled:value.recoveryEnabled,sessionClosureEnabled:value.recoveryEnabled,sessionClosureVerified:value.sessionClosureVerified===true});
+-  return {profile,adapter,launchAuthorized,recoveryEnabled:value.recoveryEnabled,mode:value.mode as 'closed'|'qa'|'production',environment:'production' as const};
++  // v164 stores review-only report receipts. Those receipts deliberately
++  // cannot prove report finality, merchant authorization or official session
++  // closure, so neither a secret document nor generic capability evidence may
++  // activate JDB money or Play. The adapter remains usable by fixture tests;
++  // every operation flag and runtime readiness value stays closed.
++  const launchAuthorized=false,recoveryEnabled=false;
++  const adapter=createJdbGameProviderAdapter({...cfg,profile:profileId as JdbProfile},{fetchImpl:options.fetchImpl??fetch,allowedReturnOrigins:value.allowedReturnOrigins??['https://www.master7.best','https://master7-v17-staging.onrender.com'],playerCreationEnabled:false,depositEnabled:false,launchEnabled:false,withdrawalEnabled:false,sessionClosureEnabled:false,sessionClosureVerified:false});
++  return {profile,adapter,launchAuthorized,recoveryEnabled,mode:'closed' as const,environment:'production' as const};
+  }catch{return null;}
+ }
+ 
+ export async function seedJdbTransferProfile(db:D1Database,runtime:NonNullable<ReturnType<typeof jdbProfileRuntime>>){
+  const p=runtime.profile,at=Math.floor(Date.now()/1000);
+- await db.prepare("INSERT INTO game_provider_profiles(id,provider_id,display_name,adapter_key,wallet_mode,balance_class,currency,unit_numerator,unit_denominator,environment,status,created_at,updated_at) VALUES(?,?,?,?,'transfer','cash','MYR',1,1,'production',?,?,?) ON CONFLICT(id) DO NOTHING").bind(p.profileId,p.providerId,p.displayName,p.adapterKey,runtime.mode==='qa'?'uat':runtime.mode==='production'&&runtime.launchAuthorized?'active':'closed',at,at).run();
++ await db.prepare("INSERT INTO game_provider_profiles(id,provider_id,display_name,adapter_key,wallet_mode,balance_class,currency,unit_numerator,unit_denominator,environment,status,created_at,updated_at) VALUES(?,?,?,?,'transfer','cash','MYR',1,1,'production','closed',?,?) ON CONFLICT(id) DO NOTHING").bind(p.profileId,p.providerId,p.displayName,p.adapterKey,at,at).run();
+  const existing=await db.prepare('SELECT environment FROM game_provider_profiles WHERE id=?').bind(p.profileId).first<{environment:string}>();
+  if(existing?.environment!=='production')return false;return true;
+ }
+diff --git a/lib/jdb-provider-adapter.ts b/lib/jdb-provider-adapter.ts
+index 6ed44b26c53a189a7684b357693e0760e2993c82..98d2c52545468a3956a53aa7b3c30065b66912e1 100644
+--- a/lib/jdb-provider-adapter.ts
++++ b/lib/jdb-provider-adapter.ts
+@@ -145,7 +145,7 @@ export function createJdbGameProviderAdapter(config: JdbConfig, options: JdbAdap
+         if(bet>0n||gamble>0n||win<0n)return fail('JDB_REPORT_AMOUNT_DIRECTION_INVALID');
+         const gameAt=providerDate(raw.gameDate,offset),modifiedAt=providerDate(raw.lastModifyTime,offset),sourceAt=mode==='recent'?modifiedAt:gameAt;
+         if(sourceAt<from||sourceAt>to)return fail('JDB_REPORT_WINDOW_MISMATCH');
+-        const key=`${raw.providerGameId}\0${raw.historyId}`;if(seen.has(key))return fail('JDB_REPORT_DUPLICATE_BET');seen.add(key);
++        const key=`${raw.playerId}\0${raw.providerGameId}\0${raw.historyId}`;if(seen.has(key))return fail('JDB_REPORT_DUPLICATE_BET');seen.add(key);
+         const sourceDetails:Record<string,string>={bet:raw.bet,win:raw.win,total:raw.total,gameDate:raw.gameDate,lastModifyTime:raw.lastModifyTime,timeBasis:page.timeBasis};
+         for(const field of ['gambleBet','hasGamble','tax','validBet','jackpot','jackpotContribute'])if(row[field]!==undefined)sourceDetails[field]=String(row[field]);
+         return {providerRoundId:raw.roundSeqNo,providerBetId:raw.historyId,providerPlayerId:raw.playerId,providerGameId:raw.providerGameId,betMinor:(-(bet+gamble)).toString(),winMinor:win.toString(),currency:'MYR',settledAt:modifiedAt,sourceDetails:Object.freeze(sourceDetails)};
+diff --git a/lib/jdb-wager-coverage.ts b/lib/jdb-wager-coverage.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..4035ceb7a889f6cae061e7e9e711df7dbbf23d4b
+--- /dev/null
++++ b/lib/jdb-wager-coverage.ts
+@@ -0,0 +1,176 @@
++import {createHash,randomUUID} from 'node:crypto';
++import type {GameProviderWager,GameProviderWagerPage} from './game-provider-adapter.ts';
++
++export type JdbWagerTimeBasis='lastModifyTime'|'gameDate';
++export type JdbWagerWindow={profileId:'jdb_myr';timeBasis:JdbWagerTimeBasis;from:number;to:number};
++export type JdbWagerClaim=JdbWagerWindow&{windowId:string;claimToken:string;fence:number;lockedUntil:number};
++export const JDB_WAGER_FIXTURE_PAGE_LIMIT=500;
++
++type Actor={id:string;role:string};
++type Normalized={identity:string;payload:string;roundHash:string|null;playerHash:string;gameHash:string;bet:string;win:string;settledAt:number;detailsHash:string;count:number};
++
++export class JdbWagerCoverageError extends Error{
++ readonly status:number;readonly code:string;
++ constructor(status:number,code:string){super(code);this.name='JdbWagerCoverageError';this.status=status;this.code=code;}
++}
++const fail=(status:number,code:string):never=>{throw new JdbWagerCoverageError(status,code);};
++const sha=(value:string)=>createHash('sha256').update(value).digest('hex');
++const positiveInt=(value:unknown)=>Number.isSafeInteger(value)&&Number(value)>0;
++const nonnegativeMinor=(value:unknown)=>typeof value==='string'&&/^(0|[1-9]\d{0,15})$/.test(value);
++const safeIdentifier=(value:unknown,max=256)=>typeof value==='string'&&value.length>0&&value.length<=max&&!/[\u0000-\u001f\u007f]/u.test(value);
++
++function stable(value:unknown):string{
++ if(value===null||typeof value!=='object')return JSON.stringify(value);
++ if(Array.isArray(value))return `[${value.map(stable).join(',')}]`;
++ return `{${Object.entries(value as Record<string,unknown>).sort(([a],[b])=>a.localeCompare(b)).map(([key,item])=>`${JSON.stringify(key)}:${stable(item)}`).join(',')}}`;
++}
++
++function validateWindow(input:JdbWagerWindow):JdbWagerWindow{
++ if(input?.profileId!=='jdb_myr')fail(400,'JDB_WAGER_PROFILE_INVALID');
++ if(input.timeBasis!=='lastModifyTime'&&input.timeBasis!=='gameDate')fail(400,'JDB_WAGER_TIME_BASIS_INVALID');
++ const duration=Number(input.to)-Number(input.from),max=input.timeBasis==='lastModifyTime'?15*60_000:5*60_000;
++ if(!positiveInt(input.from)||!positiveInt(input.to)||input.from>=input.to||input.from%60_000!==0||input.to%60_000!==0||duration>max)fail(400,'JDB_WAGER_WINDOW_INVALID');
++ return input;
++}
++
++function windowId(window:JdbWagerWindow){return sha(stable({profileId:window.profileId,timeBasis:window.timeBasis,from:window.from,to:window.to}));}
++function leaseValidSql(){return `EXISTS(SELECT 1 FROM game_recovery_leases l JOIN jdb_wager_sync_windows w ON w.window_id=l.resource_id AND w.profile_id=l.profile_id WHERE l.profile_id=? AND l.resource_type='wager_sync' AND l.resource_id=? AND l.claim_token=? AND l.attempts=? AND l.locked_until>=? AND w.current_fence=l.attempts AND w.state='syncing')`;}
++
++/** Claims one immutable report window. The generic recovery lease attempt is
++ * the fencing generation; a timed-out worker can never stage after takeover. */
++export async function claimJdbWagerWindow(db:D1Database,input:JdbWagerWindow,options:{at?:number;leaseSeconds?:number;claimToken?:string}={}):Promise<JdbWagerClaim>{
++ const w=validateWindow(input),at=options.at??Math.floor(Date.now()/1000),leaseSeconds=options.leaseSeconds??90,claimToken=options.claimToken??randomUUID(),id=windowId(w);
++ if(!Number.isSafeInteger(at)||at<=0||!Number.isSafeInteger(leaseSeconds)||leaseSeconds<5||leaseSeconds>900||!safeIdentifier(claimToken,200))fail(400,'JDB_WAGER_LEASE_INVALID');
++ const profile=await db.prepare('SELECT provider_id,adapter_key,wallet_mode,balance_class,currency,unit_numerator,unit_denominator,environment,status FROM game_provider_profiles WHERE id=?').bind(w.profileId).first<Record<string,unknown>>();
++ if(!profile||profile.provider_id!=='jdb'||profile.adapter_key!=='jdb'||profile.wallet_mode!=='transfer'||profile.balance_class!=='cash'||profile.currency!=='MYR'||String(profile.unit_numerator)!=='1'||String(profile.unit_denominator)!=='1'||profile.environment!=='production'||profile.status!=='closed')fail(409,'JDB_WAGER_PROFILE_NOT_CLOSED');
++ await db.prepare(`INSERT INTO jdb_wager_sync_windows(window_id,profile_id,time_basis,window_start_ms,window_end_ms,state,current_fence,created_at,updated_at)
++  VALUES(?,?,?,?,?,'idle',0,?,?) ON CONFLICT(window_id) DO NOTHING`).bind(id,w.profileId,w.timeBasis,w.from,w.to,at,at).run();
++ const row=await db.prepare(`INSERT INTO game_recovery_leases(profile_id,resource_type,resource_id,claim_token,locked_until,last_checked_at,attempts)
++  VALUES(?,'wager_sync',?,?,?, ?,1)
++  ON CONFLICT(profile_id,resource_type,resource_id) DO UPDATE SET claim_token=excluded.claim_token,locked_until=excluded.locked_until,
++   last_checked_at=excluded.last_checked_at,attempts=game_recovery_leases.attempts+1
++  WHERE game_recovery_leases.locked_until<=? OR game_recovery_leases.claim_token=''
++  RETURNING attempts`).bind(w.profileId,id,claimToken,at+leaseSeconds,at,at).first<{attempts:number}>();
++ if(!row)throw new JdbWagerCoverageError(409,'JDB_WAGER_WINDOW_BUSY');
++ const fence=Number(row.attempts);
++ const updated=await db.prepare(`UPDATE jdb_wager_sync_windows SET state='syncing',current_fence=?,last_error_code=NULL,updated_at=?
++  WHERE window_id=? AND profile_id=? AND EXISTS(SELECT 1 FROM game_recovery_leases WHERE profile_id=? AND resource_type='wager_sync' AND resource_id=? AND claim_token=? AND attempts=? AND locked_until>=?)`).bind(fence,at,id,w.profileId,w.profileId,id,claimToken,fence,at).run();
++ if(Number(updated.meta?.changes??0)!==1)fail(409,'JDB_WAGER_CLAIM_LOST');
++ return {...w,windowId:id,claimToken,fence,lockedUntil:at+leaseSeconds};
++}
++
++function normalize(item:GameProviderWager):Omit<Normalized,'count'>{
++ if(!item||!safeIdentifier(item.providerBetId)||!safeIdentifier(item.providerPlayerId)||!safeIdentifier(item.providerGameId)||item.currency!=='MYR'||!nonnegativeMinor(item.betMinor)||!nonnegativeMinor(item.winMinor)||!positiveInt(item.settledAt))fail(400,'JDB_WAGER_ITEM_INVALID');
++ if(item.providerRoundId!==null&&!safeIdentifier(item.providerRoundId))fail(400,'JDB_WAGER_ITEM_INVALID');
++ if(item.sourceDetails!==undefined&&(!item.sourceDetails||typeof item.sourceDetails!=='object'||Array.isArray(item.sourceDetails)||Object.entries(item.sourceDetails).some(([key,value])=>!safeIdentifier(key,80)||typeof value!=='string'||value.length>1000)))fail(400,'JDB_WAGER_DETAILS_INVALID');
++ const semanticDetails=Object.fromEntries(Object.entries(item.sourceDetails??{}).filter(([key])=>key!=='timeBasis'));
++ const roundHash=item.providerRoundId===null?null:sha(item.providerRoundId),playerHash=sha(item.providerPlayerId),gameHash=sha(item.providerGameId),detailsHash=sha(stable(semanticDetails));
++ const identity=sha(stable({profile:'jdb_myr',playerHash,bet:item.providerBetId,gameHash}));
++ const payload=sha(stable({identity,roundHash,playerHash,gameHash,bet:item.betMinor,win:item.winMinor,currency:item.currency,settledAt:item.settledAt,detailsHash}));
++ return {identity,payload,roundHash,playerHash,gameHash,bet:item.betMinor,win:item.winMinor,settledAt:item.settledAt,detailsHash};
++}
++
++function receiptPublic(row:any){return {receiptId:String(row.id),profileId:String(row.profile_id),windowId:String(row.window_id),fence:Number(row.fence),inputCount:Number(row.input_count),uniqueInputCount:Number(row.unique_input_count),originalCount:Number(row.original_count),duplicateCount:Number(row.duplicate_count),lateCount:Number(row.late_count),revisionCount:Number(row.revision_count),reversalCandidateCount:Number(row.reversal_candidate_count),providerPageComplete:false,sourceFinalityVerified:false,sessionClosureVerified:false,merchantAuthorizationVerified:false,coverageComplete:false,status:'review' as const,observedAt:Number(row.observed_at)};}
++
++/** Persists a supplied page only. This module never calls a provider and never
++ * posts wallet, turnover, reward, round or accounting rows. */
++export async function stageJdbWagerPage(db:D1Database,claim:JdbWagerClaim,page:GameProviderWagerPage,options:{at?:number}={}){
++ const w=validateWindow(claim),at=options.at??Math.floor(Date.now()/1000);
++ if(claim.windowId!==windowId(w)||!safeIdentifier(claim.claimToken,200)||!Number.isSafeInteger(claim.fence)||claim.fence<1||!page||!Array.isArray(page.items)||page.items.length>JDB_WAGER_FIXTURE_PAGE_LIMIT||page.complete!==false||page.nextCursor!==undefined||!Number.isSafeInteger(at)||at<=0)fail(400,'JDB_WAGER_STAGE_INVALID');
++ const claimHash=sha(claim.claimToken);
++ const groups=new Map<string,Normalized>();
++ for(const item of page.items){if(item.sourceDetails?.timeBasis!==undefined&&item.sourceDetails.timeBasis!==w.timeBasis)fail(400,'JDB_WAGER_TIME_BASIS_MISMATCH');const normalized=normalize(item),key=`${normalized.identity}:${normalized.payload}`,prior=groups.get(key);groups.set(key,{...normalized,count:(prior?.count??0)+1});}
++ const orderedGroups=[...groups.values()].sort((a,b)=>a.identity.localeCompare(b.identity)||Number(a.bet==='0'&&a.win==='0')-Number(b.bet==='0'&&b.win==='0')||a.payload.localeCompare(b.payload));
++ const pageSha=sha(stable(orderedGroups.map(item=>({identity:item.identity,payload:item.payload,count:item.count})))),receiptId=sha(stable({windowId:claim.windowId,pageSha}));
++ const existing=await db.prepare('SELECT * FROM jdb_wager_receipts WHERE id=? AND page_sha256=?').bind(receiptId,pageSha).first();
++ if(existing){
++  const lease=await db.prepare("SELECT claim_token,attempts,locked_until FROM game_recovery_leases WHERE profile_id=? AND resource_type='wager_sync' AND resource_id=?").bind(w.profileId,claim.windowId).first<{claim_token:string;attempts:number;locked_until:number}>();
++  if(lease?.claim_token===claim.claimToken&&Number(lease.attempts)===claim.fence&&Number(lease.locked_until)>=at)await db.batch([
++   db.prepare(`UPDATE jdb_wager_sync_windows SET state='review',last_receipt_id=?,last_error_code='JDB_SOURCE_FINALITY_UNVERIFIED',updated_at=? WHERE window_id=? AND current_fence=?`).bind(receiptId,at,claim.windowId,claim.fence),
++   db.prepare("UPDATE game_recovery_leases SET claim_token='',locked_until=0,last_checked_at=? WHERE profile_id=? AND resource_type='wager_sync' AND resource_id=? AND claim_token=? AND attempts=?").bind(at,w.profileId,claim.windowId,claim.claimToken,claim.fence),
++  ]);
++  return receiptPublic(existing);
++ }
++ const statements:any[]=[];
++ const valid=leaseValidSql();
++ // The first write locks the generic lease row for this transaction. The
++ // second statement deliberately violates the window state CHECK on a stale
++ // fence, forcing the whole batch to roll back before any evidence can write.
++ statements.push(db.prepare("UPDATE game_recovery_leases SET last_checked_at=last_checked_at WHERE profile_id=? AND resource_type='wager_sync' AND resource_id=? AND claim_token=? AND attempts=? AND locked_until>=?").bind(w.profileId,claim.windowId,claim.claimToken,claim.fence,at));
++ statements.push(db.prepare(`UPDATE jdb_wager_sync_windows SET state=CASE WHEN ${valid} THEN 'syncing' ELSE 'stale_fence' END WHERE window_id=?`).bind(w.profileId,claim.windowId,claim.claimToken,claim.fence,at,claim.windowId));
++ statements.push(db.prepare(`INSERT INTO jdb_wager_receipts(id,window_id,profile_id,fence,claim_token_sha256,page_sha256,input_count,unique_input_count,original_count,duplicate_count,late_count,revision_count,reversal_candidate_count,page_complete,source_finality_verified,session_closure_verified,merchant_authorization_verified,coverage_complete,status,observed_at)
++  SELECT ?,?,?,?,?,?,?,?,0,0,0,0,0,0,0,0,0,0,'review',? WHERE ${valid} ON CONFLICT(id) DO NOTHING`).bind(receiptId,claim.windowId,w.profileId,claim.fence,claimHash,pageSha,page.items.length,groups.size,at,w.profileId,claim.windowId,claim.claimToken,claim.fence,at));
++ for(const item of orderedGroups){
++  statements.push(db.prepare(`INSERT INTO jdb_wager_identities(identity_sha256,profile_id,first_payload_sha256,first_receipt_id,first_observed_at)
++   SELECT ?,?,?,?,? WHERE EXISTS(SELECT 1 FROM jdb_wager_receipts WHERE id=?) ON CONFLICT(identity_sha256) DO NOTHING`).bind(item.identity,w.profileId,item.payload,receiptId,at,receiptId));
++  statements.push(db.prepare(`INSERT INTO jdb_wager_event_versions(identity_sha256,payload_sha256,profile_id,provider_round_sha256,provider_player_sha256,provider_game_sha256,bet_minor,win_minor,currency,settled_at_ms,source_details_sha256,classification,first_receipt_id,first_observed_at)
++   SELECT ?,?,?,?,?,?,?,?,?,?,?,CASE WHEN i.first_payload_sha256=? THEN CASE WHEN EXISTS(SELECT 1 FROM jdb_wager_receipts prior WHERE prior.window_id=? AND prior.id<>?) THEN 'late' ELSE 'original' END ELSE ? END,?,? FROM jdb_wager_identities i
++   WHERE i.identity_sha256=? AND EXISTS(SELECT 1 FROM jdb_wager_receipts WHERE id=?) ON CONFLICT(identity_sha256,payload_sha256) DO NOTHING`)
++   .bind(item.identity,item.payload,w.profileId,item.roundHash,item.playerHash,item.gameHash,item.bet,item.win,'MYR',item.settledAt,item.detailsHash,item.payload,
++    claim.windowId,receiptId,(item.bet==='0'&&item.win==='0')?'reversal_candidate':'revision',receiptId,at,item.identity,receiptId));
++  statements.push(db.prepare(`INSERT INTO jdb_wager_observations(receipt_id,identity_sha256,payload_sha256,classification,occurrence_count)
++   SELECT ?,e.identity_sha256,e.payload_sha256,CASE WHEN e.first_receipt_id=? THEN e.classification ELSE 'duplicate' END,?
++   FROM jdb_wager_event_versions e WHERE e.identity_sha256=? AND e.payload_sha256=? AND EXISTS(SELECT 1 FROM jdb_wager_receipts WHERE id=?)
++   ON CONFLICT(receipt_id,identity_sha256,payload_sha256) DO UPDATE SET occurrence_count=excluded.occurrence_count`).bind(receiptId,receiptId,item.count,item.identity,item.payload,receiptId));
++ }
++ statements.push(db.prepare(`UPDATE jdb_wager_receipts SET
++  original_count=COALESCE((SELECT SUM(CASE WHEN classification='original' THEN 1 ELSE 0 END) FROM jdb_wager_observations WHERE receipt_id=?),0),
++  duplicate_count=COALESCE((SELECT SUM(CASE WHEN classification='duplicate' THEN occurrence_count ELSE occurrence_count-1 END) FROM jdb_wager_observations WHERE receipt_id=?),0),
++  late_count=COALESCE((SELECT SUM(CASE WHEN classification='late' THEN 1 ELSE 0 END) FROM jdb_wager_observations WHERE receipt_id=?),0),
++  revision_count=COALESCE((SELECT SUM(CASE WHEN classification='revision' THEN 1 ELSE 0 END) FROM jdb_wager_observations WHERE receipt_id=?),0),
++  reversal_candidate_count=COALESCE((SELECT SUM(CASE WHEN classification='reversal_candidate' THEN 1 ELSE 0 END) FROM jdb_wager_observations WHERE receipt_id=?),0)
++  WHERE id=?`).bind(receiptId,receiptId,receiptId,receiptId,receiptId,receiptId));
++ statements.push(db.prepare(`UPDATE jdb_wager_sync_windows SET state='review',last_receipt_id=?,last_error_code='JDB_SOURCE_FINALITY_UNVERIFIED',updated_at=?
++  WHERE window_id=? AND ${valid}`).bind(receiptId,at,claim.windowId,w.profileId,claim.windowId,claim.claimToken,claim.fence,at));
++ statements.push(db.prepare(`INSERT INTO game_wager_sync_cursors(profile_id,cursor_value,watermark_at,status,last_error_code,last_success_at,updated_at)
++  SELECT ?,'',0,'review','JDB_SOURCE_FINALITY_UNVERIFIED',0,? WHERE EXISTS(SELECT 1 FROM jdb_wager_receipts WHERE id=?)
++  ON CONFLICT(profile_id) DO UPDATE SET status='review',last_error_code='JDB_SOURCE_FINALITY_UNVERIFIED',updated_at=excluded.updated_at`).bind(w.profileId,at,receiptId));
++ statements.push(db.prepare(`UPDATE game_recovery_leases SET
++  resource_type=CASE WHEN claim_token=? AND attempts=? AND locked_until>=? THEN resource_type ELSE 'stale_release' END,
++  claim_token=CASE WHEN claim_token=? AND attempts=? AND locked_until>=? THEN '' ELSE claim_token END,
++  locked_until=CASE WHEN claim_token=? AND attempts=? AND locked_until>=? THEN 0 ELSE locked_until END,last_checked_at=?
++  WHERE profile_id=? AND resource_type='wager_sync' AND resource_id=?`).bind(claim.claimToken,claim.fence,at,claim.claimToken,claim.fence,at,claim.claimToken,claim.fence,at,at,w.profileId,claim.windowId));
++ let batchResults:any[];
++ try{batchResults=await db.batch(statements) as any[];}catch(error){
++  const current=await db.prepare("SELECT claim_token,attempts,locked_until FROM game_recovery_leases WHERE profile_id=? AND resource_type='wager_sync' AND resource_id=?").bind(w.profileId,claim.windowId).first<{claim_token:string;attempts:number;locked_until:number}>();
++  if(!current||current.claim_token!==claim.claimToken||Number(current.attempts)!==claim.fence||Number(current.locked_until)<at)throw new JdbWagerCoverageError(409,'JDB_WAGER_CLAIM_STALE');
++  throw error;
++ }
++ if(Number((batchResults as any[])?.[0]?.meta?.changes??0)!==1||Number((batchResults as any[])?.at(-1)?.meta?.changes??0)!==1)fail(409,'JDB_WAGER_FENCE_INVARIANT_FAILED');
++ const stored=await db.prepare('SELECT * FROM jdb_wager_receipts WHERE id=? AND claim_token_sha256=?').bind(receiptId,claimHash).first();
++ if(!stored)fail(409,'JDB_WAGER_CLAIM_STALE');
++ const lease=await db.prepare("SELECT claim_token FROM game_recovery_leases WHERE profile_id=? AND resource_type='wager_sync' AND resource_id=?").bind(w.profileId,claim.windowId).first<{claim_token:string}>();
++ if(lease?.claim_token!=='')fail(409,'JDB_WAGER_FENCE_RELEASE_FAILED');
++ return receiptPublic(stored);
++}
++
++function requireRead(actor:Actor){if(!actor?.id)fail(401,'SIGN_IN_REQUIRED');if(actor.role!=='owner'&&actor.role!=='staff')fail(403,'ACCESS_DENIED');}
++
++/** Aggregate-only diagnostic: never returns supplier/member/bet identifiers,
++ * hashes, payloads, amounts or lease tokens. Observed continuity is not proof
++ * of supplier finality or production acceptance. */
++export async function getJdbWagerCoverage(db:D1Database,actor:Actor,input:{from?:unknown;to?:unknown;timeBasis?:unknown}={}){
++ requireRead(actor);
++ const from=input.from===undefined?undefined:Number(input.from),to=input.to===undefined?undefined:Number(input.to),basis=input.timeBasis;
++ if((from!==undefined&&!positiveInt(from))||(to!==undefined&&!positiveInt(to))||(from!==undefined&&to!==undefined&&from>=to)||(basis!==undefined&&basis!=='lastModifyTime'&&basis!=='gameDate'))fail(400,'JDB_WAGER_DIAGNOSTIC_FILTER_INVALID');
++ const where=["w.profile_id='jdb_myr'"],values:unknown[]=[];
++ if(basis!==undefined){where.push('w.time_basis=?');values.push(basis);}if(from!==undefined){where.push('w.window_end_ms>?');values.push(from);}if(to!==undefined){where.push('w.window_start_ms<?');values.push(to);}
++ const result=await db.prepare(`SELECT w.time_basis,w.window_start_ms,w.window_end_ms,w.state,w.current_fence,w.last_error_code,
++  r.input_count,r.unique_input_count,r.original_count,r.duplicate_count,r.late_count,r.revision_count,r.reversal_candidate_count,r.observed_at,
++  CASE WHEN l.claim_token<>'' AND l.locked_until>? THEN 1 ELSE 0 END active_lease
++  FROM jdb_wager_sync_windows w LEFT JOIN (SELECT window_id,SUM(input_count) input_count,SUM(unique_input_count) unique_input_count,
++   SUM(original_count) original_count,SUM(duplicate_count) duplicate_count,SUM(late_count) late_count,SUM(revision_count) revision_count,
++   SUM(reversal_candidate_count) reversal_candidate_count,MAX(observed_at) observed_at FROM jdb_wager_receipts GROUP BY window_id) r ON r.window_id=w.window_id
++  LEFT JOIN game_recovery_leases l ON l.profile_id=w.profile_id AND l.resource_type='wager_sync' AND l.resource_id=w.window_id
++  WHERE ${where.join(' AND ')} ORDER BY w.time_basis,w.window_start_ms,w.window_end_ms`).bind(Math.floor(Date.now()/1000),...values).all<any>();
++ const rows=result.results??[],ranges:any[]=[],gaps:any[]=[],overlaps:any[]=[],gapKeys=new Set<string>();
++ const addGap=(timeBasis:JdbWagerTimeBasis,gapFrom:number,gapTo:number)=>{if(gapFrom>=gapTo)return;const key=`${timeBasis}:${gapFrom}:${gapTo}`;if(!gapKeys.has(key)){gapKeys.add(key);gaps.push({timeBasis,from:gapFrom,to:gapTo});}};
++ for(const timeBasis of ['lastModifyTime','gameDate'] as const){const intervals=rows.filter(row=>row.time_basis===timeBasis&&row.input_count!==null).map(row=>({from:Number(row.window_start_ms),to:Number(row.window_end_ms)}));let current:null|{from:number;to:number}=null;for(const interval of intervals){if(!current){current={...interval};continue;}if(interval.from>current.to){ranges.push({timeBasis,...current});if(from===undefined||to===undefined)addGap(timeBasis,current.to,interval.from);current={...interval};}else{if(interval.from<current.to)overlaps.push({timeBasis,from:interval.from,to:Math.min(interval.to,current.to)});current.to=Math.max(current.to,interval.to);}}if(current)ranges.push({timeBasis,...current});}
++ if(from!==undefined&&to!==undefined){for(const timeBasis of basis?[basis as JdbWagerTimeBasis]:['lastModifyTime','gameDate'] as const){const covered=ranges.filter(range=>range.timeBasis===timeBasis&&range.to>from&&range.from<to);let cursor=from;for(const range of covered){if(range.from>cursor)addGap(timeBasis,cursor,Math.min(range.from,to));cursor=Math.max(cursor,range.to);if(cursor>=to)break;}if(cursor<to)addGap(timeBasis,cursor,to);}}
++ const totals=rows.reduce((sum,row)=>({windows:sum.windows+(row.input_count===null?0:1),items:sum.items+Number(row.input_count??0),uniqueItems:sum.uniqueItems+Number(row.unique_input_count??0),originals:sum.originals+Number(row.original_count??0),duplicates:sum.duplicates+Number(row.duplicate_count??0),late:sum.late+Number(row.late_count??0),revisions:sum.revisions+Number(row.revision_count??0),reversalCandidates:sum.reversalCandidates+Number(row.reversal_candidate_count??0),activeLeases:sum.activeLeases+Number(row.active_lease??0)}),{windows:0,items:0,uniqueItems:0,originals:0,duplicates:0,late:0,revisions:0,reversalCandidates:0,activeLeases:0});
++ const windowSummaries=rows.filter(row=>row.input_count!==null).map(row=>({timeBasis:row.time_basis,from:Number(row.window_start_ms),to:Number(row.window_end_ms),inputCount:Number(row.input_count),uniqueInputCount:Number(row.unique_input_count),duplicateCount:Number(row.duplicate_count),lateCount:Number(row.late_count),revisionCount:Number(row.revision_count),reversalCandidateCount:Number(row.reversal_candidate_count),status:'review'}));
++ const continuityByTimeBasis=Object.fromEntries((['lastModifyTime','gameDate'] as const).map(timeBasis=>{const basisRanges=ranges.filter(range=>range.timeBasis===timeBasis),basisGaps=gaps.filter(gap=>gap.timeBasis===timeBasis);return [timeBasis,{observed:basisRanges.length>0,contiguous:basisRanges.length>0&&basisGaps.length===0,rangeCount:basisRanges.length,gapCount:basisGaps.length}];}));
++ return {profileId:'jdb_myr',readOnly:true,fixtureStagingOnly:true,launchReady:false,walletReady:false,settlementReady:false,recoveryReady:false,playable:false,windowContinuityObserved:gaps.length===0&&ranges.length>0,continuityByTimeBasis,observedRanges:ranges,gaps,overlaps,windowSummaries,totals,
++  complete:false,providerCoverageComplete:false,sourceFinalityVerified:false,closureVerified:false,merchantAuthorizationVerified:false,turnoverConnected:false,rewardConnected:false,accountingConnected:false,productionReady:false,
++  blockers:['official_merchant_authorization_missing','provider_report_finality_unverified','session_closure_semantics_unverified','accounting_activation_disabled']};
++}
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index 364f57b8ed77d4729bf75b44ad4d59aac42603dd..a530342b0a45a2fc178136dba845180825ca1be2 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.163-coba8-front-end-registered' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.164-jdb-wager-coverage-staging' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/lib/render-migrations.mjs b/lib/render-migrations.mjs
+index 2d359dcbdecb309a34a6e5276c9810cd3498604d..b4fb6a8331992df0f17c8c9a4b5d1b5ac71e29a8 100644
+--- a/lib/render-migrations.mjs
++++ b/lib/render-migrations.mjs
+@@ -722,6 +722,105 @@ async function applyProviderWalletSweepsMigration(client){
+  await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[PROVIDER_WALLET_SWEEPS_MIGRATION]);return true;
+ }
+ 
++export const JDB_WAGER_COVERAGE_STAGING_MIGRATION='0121-jdb-wager-coverage-staging';
++async function applyJdbWagerCoverageStagingMigration(client){
++ const applied=await client.query('SELECT version FROM portal_schema_migrations WHERE version=$1',[JDB_WAGER_COVERAGE_STAGING_MIGRATION]);if(applied.rows.length)return false;
++ await client.query(`CREATE TABLE IF NOT EXISTS jdb_wager_sync_windows (
++  window_id TEXT PRIMARY KEY NOT NULL,
++  profile_id TEXT NOT NULL REFERENCES game_provider_profiles(id),
++  time_basis TEXT NOT NULL CHECK (time_basis IN ('lastModifyTime','gameDate')),
++  window_start_ms BIGINT NOT NULL CHECK (window_start_ms >= 0),
++  window_end_ms BIGINT NOT NULL CHECK (window_end_ms > window_start_ms),
++  state TEXT NOT NULL DEFAULT 'idle' CHECK (state IN ('idle','syncing','review')),
++  current_fence BIGINT NOT NULL DEFAULT 0 CHECK (current_fence >= 0),
++  last_receipt_id TEXT,
++  last_error_code TEXT,
++  created_at BIGINT NOT NULL CHECK (created_at >= 0),
++  updated_at BIGINT NOT NULL CHECK (updated_at >= created_at),
++  CHECK ((time_basis='lastModifyTime' AND window_end_ms-window_start_ms <= 900000) OR (time_basis='gameDate' AND window_end_ms-window_start_ms <= 300000)),
++  UNIQUE (profile_id,time_basis,window_start_ms,window_end_ms),
++  UNIQUE (window_id,profile_id)
++);
++
++CREATE INDEX IF NOT EXISTS jdb_wager_sync_windows_range
++  ON jdb_wager_sync_windows(profile_id,time_basis,window_start_ms,window_end_ms);
++
++CREATE TABLE IF NOT EXISTS jdb_wager_receipts (
++  id TEXT PRIMARY KEY NOT NULL,
++  window_id TEXT NOT NULL REFERENCES jdb_wager_sync_windows(window_id),
++  profile_id TEXT NOT NULL REFERENCES game_provider_profiles(id),
++  fence BIGINT NOT NULL CHECK (fence > 0),
++  claim_token_sha256 TEXT NOT NULL CHECK (length(claim_token_sha256) = 64),
++  page_sha256 TEXT NOT NULL CHECK (length(page_sha256) = 64),
++  input_count INTEGER NOT NULL DEFAULT 0 CHECK (input_count >= 0),
++  unique_input_count INTEGER NOT NULL DEFAULT 0 CHECK (unique_input_count >= 0 AND unique_input_count <= input_count),
++  original_count INTEGER NOT NULL DEFAULT 0 CHECK (original_count >= 0),
++  duplicate_count INTEGER NOT NULL DEFAULT 0 CHECK (duplicate_count >= 0),
++  late_count INTEGER NOT NULL DEFAULT 0 CHECK (late_count >= 0),
++  revision_count INTEGER NOT NULL DEFAULT 0 CHECK (revision_count >= 0),
++  reversal_candidate_count INTEGER NOT NULL DEFAULT 0 CHECK (reversal_candidate_count >= 0),
++  page_complete INTEGER NOT NULL DEFAULT 0 CHECK (page_complete = 0),
++  source_finality_verified INTEGER NOT NULL DEFAULT 0 CHECK (source_finality_verified = 0),
++  session_closure_verified INTEGER NOT NULL DEFAULT 0 CHECK (session_closure_verified = 0),
++  merchant_authorization_verified INTEGER NOT NULL DEFAULT 0 CHECK (merchant_authorization_verified = 0),
++  coverage_complete INTEGER NOT NULL DEFAULT 0 CHECK (coverage_complete = 0),
++  status TEXT NOT NULL DEFAULT 'review' CHECK (status = 'review'),
++  observed_at BIGINT NOT NULL CHECK (observed_at >= 0),
++  FOREIGN KEY (window_id,profile_id) REFERENCES jdb_wager_sync_windows(window_id,profile_id),
++  UNIQUE (window_id,fence),
++  UNIQUE (window_id,page_sha256)
++);
++
++CREATE INDEX IF NOT EXISTS jdb_wager_receipts_window
++  ON jdb_wager_receipts(window_id,observed_at,id);
++
++CREATE TABLE IF NOT EXISTS jdb_wager_identities (
++  identity_sha256 TEXT PRIMARY KEY NOT NULL CHECK (length(identity_sha256) = 64),
++  profile_id TEXT NOT NULL REFERENCES game_provider_profiles(id),
++  first_payload_sha256 TEXT NOT NULL CHECK (length(first_payload_sha256) = 64),
++  first_receipt_id TEXT NOT NULL REFERENCES jdb_wager_receipts(id),
++  first_observed_at BIGINT NOT NULL CHECK (first_observed_at >= 0),
++  UNIQUE (identity_sha256,profile_id)
++);
++
++CREATE TABLE IF NOT EXISTS jdb_wager_event_versions (
++  identity_sha256 TEXT NOT NULL,
++  payload_sha256 TEXT NOT NULL CHECK (length(payload_sha256) = 64),
++  profile_id TEXT NOT NULL REFERENCES game_provider_profiles(id),
++  provider_round_sha256 TEXT CHECK (provider_round_sha256 IS NULL OR length(provider_round_sha256) = 64),
++  provider_player_sha256 TEXT NOT NULL CHECK (length(provider_player_sha256) = 64),
++  provider_game_sha256 TEXT NOT NULL CHECK (length(provider_game_sha256) = 64),
++  bet_minor BIGINT NOT NULL CHECK (bet_minor >= 0),
++  win_minor BIGINT NOT NULL CHECK (win_minor >= 0),
++  currency TEXT NOT NULL CHECK (currency = 'MYR'),
++  settled_at_ms BIGINT NOT NULL CHECK (settled_at_ms >= 0),
++  source_details_sha256 TEXT NOT NULL CHECK (length(source_details_sha256) = 64),
++  classification TEXT NOT NULL CHECK (classification IN ('original','late','revision','reversal_candidate')),
++  first_receipt_id TEXT NOT NULL REFERENCES jdb_wager_receipts(id),
++  first_observed_at BIGINT NOT NULL CHECK (first_observed_at >= 0),
++  PRIMARY KEY (identity_sha256,payload_sha256),
++  FOREIGN KEY (identity_sha256,profile_id) REFERENCES jdb_wager_identities(identity_sha256,profile_id)
++);
++
++CREATE INDEX IF NOT EXISTS jdb_wager_event_versions_observed
++  ON jdb_wager_event_versions(profile_id,classification,first_observed_at,identity_sha256,payload_sha256);
++
++CREATE TABLE IF NOT EXISTS jdb_wager_observations (
++  receipt_id TEXT NOT NULL REFERENCES jdb_wager_receipts(id),
++  identity_sha256 TEXT NOT NULL,
++  payload_sha256 TEXT NOT NULL,
++  classification TEXT NOT NULL CHECK (classification IN ('original','duplicate','late','revision','reversal_candidate')),
++  occurrence_count INTEGER NOT NULL DEFAULT 1 CHECK (occurrence_count > 0),
++  PRIMARY KEY (receipt_id,identity_sha256,payload_sha256),
++  FOREIGN KEY (identity_sha256,payload_sha256)
++    REFERENCES jdb_wager_event_versions(identity_sha256,payload_sha256)
++);
++
++CREATE INDEX IF NOT EXISTS jdb_wager_observations_receipt
++  ON jdb_wager_observations(receipt_id,classification,identity_sha256,payload_sha256);`);
++ await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[JDB_WAGER_COVERAGE_STAGING_MIGRATION]);return true;
++}
++
+ export const FLEXIBLE_PUBLIC_CONTACTS_MIGRATION='0117-flexible-public-contacts';
+ async function applyFlexiblePublicContactsMigration(client){
+  const applied=await client.query('SELECT version FROM portal_schema_migrations WHERE version=$1',[FLEXIBLE_PUBLIC_CONTACTS_MIGRATION]);if(applied.rows.length)return false;
+@@ -825,6 +924,7 @@ export async function initializePortalDatabase(pool, schema, directoryEntries, o
+     await applyProductionAcceptanceEvidenceMigration(client);
+     await applyWithdrawalDestinationMethodsMigration(client);
+     await applyProviderWalletSweepsMigration(client);
++    await applyJdbWagerCoverageStagingMigration(client);
+     const rows = seedRows(directoryEntries);
+     await client.query(
+       `INSERT INTO brand_directory_entries(id,category,display_name,position,marked,status,image_data,updated_at)
+diff --git a/package.json b/package.json
+index 014a726338c6fde203aafdc5d4efa7969133bd16..2f38c170d0ca24935e5d01d30ec32d5df1e5cc81 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.163-coba8-front-end-registered node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.163-coba8-front-end-registered node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.164-jdb-wager-coverage-staging node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.164-jdb-wager-coverage-staging node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.163-coba8-front-end-registered node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.164-jdb-wager-coverage-staging node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/assets/app.js b/public/assets/app.js
+index 0f4eadabc433e940510e46b5c3666a25f85d6786..1cfa48b1027eb1ec925aa2cf671a35e89608a677 100644
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -218,7 +218,7 @@ function renderApiSupplierButtons(){
+  const host=$("apiSupplierButtons");if(!host)return;clear(host);const category=state.gameCategory||"HOT",search=($("search")?.value||"").trim().toLowerCase(),categoryEntries=typeof providerBrandEntries==="function"?providerBrandEntries(supplierEntriesForCategory(category)):supplierEntriesForCategory(category),entries=categoryEntries.filter(entry=>!search||entry.name.toLowerCase().includes(search)),favorites=supplierFavoriteKeys();
+  const counts=gameProfileCounts();if($("apiSupplierTitle"))$("apiSupplierTitle").textContent=state.lang==="zh"?`${counts.brands} 家独立游戏厂家`:state.lang==="ms"?`${counts.brands} penyedia permainan berasingan`:`${counts.brands} independent game providers`;if($("apiSupplierCountLabel"))$("apiSupplierCountLabel").textContent=`${entries.length} / ${counts.brands} PROVIDERS`;
+  if(!entries.length){host.append(node("p","muted",state.lang==="zh"?"这个分类目前没有游戏平台。":state.lang==="ms"?"Tiada platform dalam kategori ini.":"No platforms in this category yet."));return;}
+- for(const entry of entries){const index=categoryEntries.indexOf(entry),stateInfo=apiSupplierState(entry),connected=stateInfo.connected,tile=node("article","api-supplier-tile"),button=node("button",`api-supplier-button${connected?" connected":" pending"}`),art=supplierArtwork(entry,"api-supplier-art"),number=node("span","api-supplier-number",String(index+1).padStart(2,"0")),copy=node("span","api-supplier-copy"),name=node("strong","",entry.name),statusText=apiSupplierStatusText(stateInfo),status=node("small","",statusText),capability=node("small","api-supplier-capability",profileCapabilityText(entry,stateInfo)),favorite=node("button",`api-supplier-favorite${favorites.has(entry.id)?" active":""}`,favorites.has(entry.id)?"♥":"♡");button.type="button";button.dataset.profileId=entry.id;button.dataset.providerId=gameProfileProviderId(entry);button.setAttribute?.("aria-label",`${entry.name} game entry · ${statusText}`);copy.append(name,status);if(capability.textContent)copy.append(capability);button.append(art,number,copy);button.onclick=()=>openCatalogProvider(entry.id,entry.name);favorite.type="button";favorite.setAttribute("aria-label",`${favorites.has(entry.id)?"Remove":"Add"} ${entry.name} favourite`);favorite.onclick=()=>toggleFavoriteProvider(entry.id);tile.append(button,favorite);host.append(tile);}
++ for(const entry of entries){const index=categoryEntries.indexOf(entry),stateInfo=apiSupplierState(entry),connected=stateInfo.connected,available=stateInfo.platformLaunchReady===true&&stateInfo.maintenance!==true&&stateInfo.qaOnly!==true,tile=node("article","api-supplier-tile"),button=node("button",`api-supplier-button${connected?" connected":" pending"}`),art=supplierArtwork(entry,"api-supplier-art"),number=node("span","api-supplier-number",String(index+1).padStart(2,"0")),copy=node("span","api-supplier-copy"),name=node("strong","",entry.name),statusText=apiSupplierStatusText(stateInfo),status=node("small","",statusText),capability=node("small","api-supplier-capability",profileCapabilityText(entry,stateInfo)),favorite=node("button",`api-supplier-favorite${favorites.has(entry.id)?" active":""}`,favorites.has(entry.id)?"♥":"♡");button.type="button";button.dataset.profileId=entry.id;button.dataset.providerId=gameProfileProviderId(entry);button.setAttribute?.("aria-label",`${entry.name} ${available?"game entry":"provider status"} · ${statusText}`);copy.append(name,status);if(capability.textContent)copy.append(capability);button.append(art,number,copy);button.onclick=()=>openCatalogProvider(entry.id,entry.name);favorite.type="button";favorite.setAttribute("aria-label",`${favorites.has(entry.id)?"Remove":"Add"} ${entry.name} favourite`);favorite.onclick=()=>toggleFavoriteProvider(entry.id);tile.append(button,favorite);host.append(tile);}
+ }
+ function renderApiSupplierAdminButtons(owner=true){
+  const host=$("apiSupplierAdminButtons");if(!host)return;clear(host);
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 443235056bbdc1c14c775579fc0ab32b3b414669..02ba04fd9c60a98908b50fcbb448f9384c1b7c64 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.163-coba8-front-end-registered';
++const CACHE='master7-shell-17.0.0-selfbuilt.164-jdb-wager-coverage-staging';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/scripts/postgres-readiness-gate.mjs b/scripts/postgres-readiness-gate.mjs
+index e73e6a61d77f8457f162d58c9cf589c7c9af2850..10e1805531d1004e97655be43d529a28bb7787bf 100644
+--- a/scripts/postgres-readiness-gate.mjs
++++ b/scripts/postgres-readiness-gate.mjs
+@@ -7,6 +7,7 @@ import {
+  PRODUCTION_ACCEPTANCE_EVIDENCE_MIGRATION,FLEXIBLE_PUBLIC_CONTACTS_MIGRATION,PROVIDER_WALLET_OPERATIONS_MIGRATION,MANUAL_BANK_FUNDS_MIGRATION,API_SUPPLIER_STATUS_MIGRATION,BENEFIT_CLAIM_REVIEW_MIGRATION,COMPANY_BANK_ARTWORK_MIGRATION,
+  CONNECTED_SERVICES_MIGRATION,FIXED_VOUCHER_RETIREMENT_MIGRATION,GAME_ACCESS_ZONE_MIGRATION,
+  GAME_PROVIDER_ADAPTER_CORE_MIGRATION,MEGAH5_LAUNCH_OPERATIONS_MIGRATION,GAME_PROVIDER_ACCEPTANCE_MIGRATION,GENERIC_GAME_WALLET_RISK_MIGRATION,
++ WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,
+  GSPAY_PAYOUT_ACTIVATION_MIGRATION,GSPAY_USDT_PROFILE_MIGRATION,MANUAL_BANK_MIGRATION,MANUAL_COMPLIANCE_MIGRATION,
+  MARKETING_CONTACT_SCALE_MIGRATION,NEW_MEMBER_VOUCHER_MIGRATION,ONE_MPAY_CHANNEL_MIGRATION,
+  OPERATIONS_AUTOMATION_MIGRATION,PAYMENT_ACCEPTANCE_GUARD_MIGRATION,PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS,
+@@ -24,10 +25,16 @@ export const REQUIRED_MIGRATIONS=Object.freeze([
+  RESPONSIBLE_PLAY_MIGRATION,COMPANY_BANK_ARTWORK_MIGRATION,NEW_MEMBER_VOUCHER_MIGRATION,
+  VOUCHER_MANUAL_WORKFLOW_MIGRATION,FIXED_VOUCHER_RETIREMENT_MIGRATION,BENEFIT_CLAIM_REVIEW_MIGRATION,
+  MANUAL_COMPLIANCE_MIGRATION,GSPAY_USDT_PROFILE_MIGRATION,GAME_PROVIDER_ADAPTER_CORE_MIGRATION,MEGAH5_LAUNCH_OPERATIONS_MIGRATION,GAME_PROVIDER_ACCEPTANCE_MIGRATION,GENERIC_GAME_WALLET_RISK_MIGRATION,
++ WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,
+ ].sort());
+ export const OPTIONAL_MIGRATIONS=Object.freeze([
+  ONE_MPAY_CHANNEL_MIGRATION,...Object.values(PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS),GSPAY_PAYOUT_ACTIVATION_MIGRATION,
+ ].sort());
++export const REQUIRED_COLUMNS=Object.freeze({
++ withdrawal_requests:Object.freeze(['destination_type','ewallet_code','ewallet_name','ewallet_account_encrypted','ewallet_account_last4']),
++ provider_wallet_operations:Object.freeze(['withdrawal_mode','adapter_contract_sha256']),
++});
++export const REQUIRED_TRIGGERS=Object.freeze([{tableName:'provider_wallet_operations',triggerName:'provider_wallet_contract_immutable'}]);
+ 
+ const sha256=value=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
+ const parse=value=>{try{return typeof value==='string'?JSON.parse(value):null;}catch{return null;}};
+@@ -37,19 +44,24 @@ const check=(checks,id,pass)=>checks.push({id,pass:pass===true});
+ export function evaluatePostgresReadinessEvidence(input,{expectedRelease,nowMs=Date.now()}={}){
+  if(typeof expectedRelease!=='string'||!expectedRelease)throw new Error('Expected release is required');
+  const checks=[],role=input.role??{},tables=(input.tables??[]).map(row=>String(row.name)),migrations=input.migrations??[],versions=migrations.map(row=>String(row.version)),knownMigrations=new Set([...REQUIRED_MIGRATIONS,...OPTIONAL_MIGRATIONS]);
++ const columns=new Set((input.columns??[]).map(row=>`${String(row.table_name)}.${String(row.column_name)}`));
++ const triggers=input.triggers??[],migrationTimes=new Map(migrations.map(row=>[String(row.version),Number(row.applied_at)]));
+  check(checks,'database_role_read_only',role.transaction_read_only==='on'&&role.can_create_database===false&&role.can_create_schema===false&&role.can_write_tables===false);
+  check(checks,'required_tables',REQUIRED_TABLES.every(name=>tables.includes(name)));
+  check(checks,'no_unclassified_tables',tables.every(name=>REQUIRED_TABLES.includes(name)));
+  check(checks,'required_migrations',REQUIRED_MIGRATIONS.every(version=>versions.includes(version)));
+  check(checks,'no_unknown_migrations',versions.every(version=>knownMigrations.has(version)));
+  check(checks,'migration_timestamps',migrations.every(row=>Number.isSafeInteger(Number(row.applied_at))&&Number(row.applied_at)>0&&Number(row.applied_at)<=Math.floor(nowMs/1000)+300));
++ check(checks,'migration_dependency_order',[WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION].every(version=>migrationTimes.has(version))&&migrationTimes.get(WITHDRAWAL_DESTINATION_METHODS_MIGRATION)<=migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)&&migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)<=migrationTimes.get(JDB_WAGER_COVERAGE_STAGING_MIGRATION));
++ check(checks,'required_schema_columns',Object.entries(REQUIRED_COLUMNS).every(([table,names])=>names.every(name=>columns.has(`${table}.${name}`))));
++ check(checks,'provider_wallet_contract_immutable_trigger',REQUIRED_TRIGGERS.every(required=>triggers.some(row=>String(row.table_name)===required.tableName&&String(row.trigger_name)===required.triggerName&&String(row.enabled)==='O')));
+ 
+  const backup=parse(input.backupAudit?.target),backupAuditAt=Number(input.backupAudit?.created_at),backupReady=!!backup&&backup.format===BACKUP_FORMAT&&backup.release===expectedRelease&&backup.schemaVersion===BACKUP_SCHEMA_VERSION&&backup.schemaSha256===BACKUP_SCHEMA_SHA256&&backup.publicKeySha256===BACKUP_PUBLIC_KEY_SHA256&&backup.readConsistency==='transaction_snapshot'&&backup.tableCount===BACKUP_TABLES.length&&Number.isSafeInteger(backup.totalRecords)&&backup.totalRecords>=0&&sha256(backup.backupSha256)&&sha256(backup.plaintextSha256)&&sha256(backup.ciphertextSha256)&&fresh(backup.createdAt,7*86400,nowMs)&&Number.isSafeInteger(backupAuditAt)&&backupAuditAt>=Math.floor(nowMs/1000)-7*86400&&backupAuditAt<=Math.floor(nowMs/1000)+300;
+  check(checks,'current_encrypted_backup',backupReady);
+ 
+  const restore=parse(input.restoreSetting?.value),createdAt=Date.parse(restore?.createdAt??''),verifiedAt=Date.parse(restore?.verifiedAt??''),restoreReady=backupReady&&!!restore&&restore.status==='verified'&&restore.format===BACKUP_FORMAT&&restore.release===expectedRelease&&restore.schemaVersion===BACKUP_SCHEMA_VERSION&&restore.schemaSha256===BACKUP_SCHEMA_SHA256&&restore.publicKeySha256===BACKUP_PUBLIC_KEY_SHA256&&restore.coverageComplete===true&&Array.isArray(restore.missingTables)&&restore.missingTables.length===0&&restore.readConsistency==='transaction_snapshot'&&restore.persistentWrites===false&&restore.restoreTargetKind==='isolated_postgresql_transaction'&&sha256(restore.restoreTargetSha256)&&restore.foreignKeyViolations===0&&restore.tableCount===BACKUP_TABLES.length&&restore.totalRecords===backup.totalRecords&&restore.createdAt===backup.createdAt&&restore.backupSha256===backup.backupSha256&&restore.plaintextSha256===backup.plaintextSha256&&fresh(restore.createdAt,30*86400,nowMs)&&fresh(restore.verifiedAt,30*86400,nowMs)&&Number.isFinite(createdAt)&&Number.isFinite(verifiedAt)&&verifiedAt>=createdAt;
+  check(checks,'bound_restore_rehearsal',restoreReady);
+- return {ok:checks.every(item=>item.pass),release:expectedRelease,checks,schema:{requiredTables:REQUIRED_TABLES.length,requiredMigrations:REQUIRED_MIGRATIONS.length},evidence:{backupCreatedAt:backupReady?backup.createdAt:null,restoreVerifiedAt:restoreReady?restore.verifiedAt:null}};
++ return {ok:checks.every(item=>item.pass),release:expectedRelease,checks,schema:{requiredTables:REQUIRED_TABLES.length,requiredMigrations:REQUIRED_MIGRATIONS.length,requiredColumns:Object.values(REQUIRED_COLUMNS).reduce((sum,names)=>sum+names.length,0),requiredTriggers:REQUIRED_TRIGGERS.length},evidence:{backupCreatedAt:backupReady?backup.createdAt:null,restoreVerifiedAt:restoreReady?restore.verifiedAt:null}};
+ }
+ 
+ export async function runPostgresReadinessGate(client,options){
+@@ -69,11 +81,13 @@ export async function runPostgresReadinessGate(client,options){
+       has_table_privilege(current_user,format('%I.%I','public',table_name),'TRUNCATE') OR
+       has_table_privilege(current_user,format('%I.%I','public',table_name),'TRIGGER')) can_write_tables`,[REQUIRED_TABLES])).rows[0];
+   const tables=(await client.query("SELECT c.relname name FROM pg_catalog.pg_class c JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND c.relkind IN ('r','p') ORDER BY c.relname")).rows;
++  const columns=(await client.query("SELECT table_name,column_name FROM information_schema.columns WHERE table_schema='public' AND table_name=ANY($1::text[]) ORDER BY table_name,column_name",[Object.keys(REQUIRED_COLUMNS)])).rows;
++  const triggers=(await client.query("SELECT c.relname table_name,t.tgname trigger_name,t.tgenabled enabled FROM pg_catalog.pg_trigger t JOIN pg_catalog.pg_class c ON c.oid=t.tgrelid JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND NOT t.tgisinternal AND c.relname='provider_wallet_operations' AND t.tgname='provider_wallet_contract_immutable'")).rows;
+   const migrations=(await client.query('SELECT version,applied_at FROM portal_schema_migrations ORDER BY version')).rows;
+   const backupCandidates=(await client.query("SELECT target,created_at FROM audit WHERE event='encrypted_backup_created' AND created_at=(SELECT MAX(created_at) FROM audit WHERE event='encrypted_backup_created')")).rows;
+   const backupAudit=backupCandidates.map(row=>({row,metadata:parse(row.target)})).filter(item=>item.metadata&&fresh(item.metadata.createdAt,30*86400,options?.nowMs??Date.now())).sort((a,b)=>Date.parse(b.metadata.createdAt)-Date.parse(a.metadata.createdAt))[0]?.row??null;
+   const restoreSetting=(await client.query("SELECT value FROM settings WHERE id='backup_restore_rehearsal'")).rows[0]??null;
+-  result=evaluatePostgresReadinessEvidence({role,tables,migrations,backupAudit,restoreSetting},options);
++  result=evaluatePostgresReadinessEvidence({role,tables,columns,triggers,migrations,backupAudit,restoreSetting},options);
+  }catch(cause){error=cause;}
+  finally{if(began)try{await client.query('ROLLBACK');}catch(cause){rollbackError=cause;}}
+  if(error&&rollbackError)throw new AggregateError([error,rollbackError],'PostgreSQL readiness gate failed');
+diff --git a/tests/api.test.mjs b/tests/api.test.mjs
+index 4eb1dee154ee1a90a6b1dd650b6c9a9be17f120e..f1bdc2462b070d7ad48c2f1f39a922d1163e958d 100644
+--- a/tests/api.test.mjs
++++ b/tests/api.test.mjs
+@@ -13,7 +13,7 @@ import { gameSources } from '../lib/game-catalogue.ts';
+ // Execute the real migration and backend queries against SQLite, not query mocks.
+ const dir=mkdtempSync(join(tmpdir(),'master7-api-'));
+ const file=join(dir,'test.sqlite');
+-let sqlite=new DatabaseSync(file);for(const migration of ['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql','0014_withdrawal_requests.sql','0019_game_catalogue_sync.sql','0020_manual_bank_deposits.sql','0021_api_supplier_status.sql','0022_referrals.sql','0023_marketing_campaigns.sql','0024_megah5_transfer_wallet.sql','0025_game_access_zones.sql','0027_marketing_contact_scale.sql','0090_security_wallet_reservations.sql','0091_operations_automation.sql','0092_support_marketing_notifications.sql','0093_reward_state_machines.sql','0094_payment_recovery_and_payout_state.sql','0100_whatsapp_campaign_delivery.sql','0101_rewards_hub.sql','0102_responsible_play.sql','0103_company_bank_artwork.sql','0105_voucher_manual_workflow.sql','0107_benefit_claim_reviews.sql','0108_manual_compliance_review.sql','0110_game_provider_adapter_core.sql','0111_member_wallet_guards.sql','0112_megah5_launch_operations.sql','0113_game_provider_acceptance_evidence.sql','0115_manual_bank_funds.sql','0116_provider_wallet_operations.sql','0120_provider_wallet_sweeps.sql','0117_flexible_public_contacts.sql','0118_production_acceptance_evidence.sql','0119_withdrawal_destination_methods.sql'])sqlite.exec(readFileSync(new URL(`../drizzle/${migration}`,import.meta.url),'utf8'));
++let sqlite=new DatabaseSync(file);for(const migration of ['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql','0014_withdrawal_requests.sql','0019_game_catalogue_sync.sql','0020_manual_bank_deposits.sql','0021_api_supplier_status.sql','0022_referrals.sql','0023_marketing_campaigns.sql','0024_megah5_transfer_wallet.sql','0025_game_access_zones.sql','0027_marketing_contact_scale.sql','0090_security_wallet_reservations.sql','0091_operations_automation.sql','0092_support_marketing_notifications.sql','0093_reward_state_machines.sql','0094_payment_recovery_and_payout_state.sql','0100_whatsapp_campaign_delivery.sql','0101_rewards_hub.sql','0102_responsible_play.sql','0103_company_bank_artwork.sql','0105_voucher_manual_workflow.sql','0107_benefit_claim_reviews.sql','0108_manual_compliance_review.sql','0110_game_provider_adapter_core.sql','0111_member_wallet_guards.sql','0112_megah5_launch_operations.sql','0113_game_provider_acceptance_evidence.sql','0115_manual_bank_funds.sql','0116_provider_wallet_operations.sql','0120_provider_wallet_sweeps.sql','0117_flexible_public_contacts.sql','0118_production_acceptance_evidence.sql','0119_withdrawal_destination_methods.sql','0121_jdb_wager_coverage_staging.sql'])sqlite.exec(readFileSync(new URL(`../drizzle/${migration}`,import.meta.url),'utf8'));
+ class Statement{
+  constructor(sql,args=[]){this.sql=sql;this.args=args;}
+  bind(...args){return new Statement(this.sql,args);}
+@@ -83,6 +83,10 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+   const revoked=await call('owner','/api/admin/game-acceptance','POST',{...input,result:'revoked',evidenceSha256:'c'.repeat(64),evidenceReference:'case:api-acceptance-2',expectedEventId:saved.data.id});assert.equal(revoked.status,201);
+   const staffView=await call('employee','/api/admin/game-acceptance?environment=production&limit=10'),mega=staffView.data.profiles.find(profile=>profile.profileId==='megah5_myr');assert.equal(staffView.status,200);assert.equal(mega.capabilities.catalogue.result,'revoked');assert.equal(mega.capabilities.catalogue.passed,false);assert.equal(staffView.data.events.length,2);assert.equal(sqlite.prepare("SELECT COUNT(*) n FROM audit WHERE event='game_provider_acceptance_recorded'").get().n,2);
+  });
++ await t.test('JDB wager coverage diagnostics are aggregate, read-only and fail closed',async()=>{
++  const report=await call('employee','/api/admin/jdb-wager-coverage?timeBasis=lastModifyTime');assert.equal(report.status,200);assert.equal(report.data.readOnly,true);assert.equal(report.data.fixtureStagingOnly,true);for(const field of ['launchReady','walletReady','settlementReady','recoveryReady','playable','providerCoverageComplete','sourceFinalityVerified','closureVerified','merchantAuthorizationVerified','turnoverConnected','rewardConnected','accountingConnected','productionReady'])assert.equal(report.data[field],false,field);assert.deepEqual(report.data.windowSummaries,[]);assert.equal((await call('alice','/api/admin/jdb-wager-coverage')).status,403);assert.equal((await call('employee','/api/admin/jdb-wager-coverage','POST',{})).status,405);
++  const serialized=JSON.stringify(report.data);for(const forbidden of ['claim_token','provider_player','provider_bet','source_details'])assert.equal(serialized.includes(forbidden),false,forbidden);
++ });
+  await t.test('dedicated VIP suite is owner-controlled, deposit-based, audited, and never credits rewards automatically',async()=>{
+   const creditedId='vip-credited-alice',pendingId='vip-pending-alice',priorReferral=sqlite.prepare("SELECT value FROM settings WHERE id='referral_program'").get();
+   try{
+diff --git a/tests/automatic-availability-ui.test.mjs b/tests/automatic-availability-ui.test.mjs
+index 328814af497f62282209ee1ea662cb6c6316e3be..67e910179039bb9710325763c2b85ecf816c6768 100644
+--- a/tests/automatic-availability-ui.test.mjs
++++ b/tests/automatic-availability-ui.test.mjs
+@@ -34,6 +34,17 @@ test('profile readiness and brand catalogue connection remain separate for multi
+  state.gameCatalogue.profiles[0].connectionVerified=false;assert.equal(context.apiSupplierState({id:'jili_myr_1to1',providerId:'jili'}).connected,false);
+ });
+ 
++test('provider card accessibility labels reserve game-entry semantics for available profiles',()=>{
++ const host=new Element(),entries=[{id:'pending',name:'Pending Games'},{id:'available',name:'Available Games'}],states={pending:{connected:true,platformLaunchReady:false},available:{connected:true,platformLaunchReady:true}};
++ const context={state:{lang:'en',gameCategory:'HOT',supplierArtwork:{}},$:id=>id==='apiSupplierButtons'?host:null,node,clear:el=>el.replaceChildren(),document:{createElement:tag=>new Element(tag)},supplierEntriesForCategory:()=>entries,gameProfileCounts:()=>({brands:2}),apiSupplierState:entry=>states[entry.id],apiSupplierStatusText:info=>info.platformLaunchReady?'Available':'Coming soon',supplierArtwork:()=>new Element('img'),profileCapabilityText:()=>'',supplierFavoriteKeys:()=>new Set(),gameProfileProviderId:entry=>entry.id,openCatalogProvider(){},toggleFavoriteProvider(){}};
++ vm.runInNewContext(extract('function renderApiSupplierButtons(','function renderApiSupplierAdminButtons('),context);
++ context.renderApiSupplierButtons();
++ const buttons=descendants(host).filter(el=>el.tagName==='button'&&el.dataset.profileId);
++ assert.equal(buttons[0].attributes['aria-label'],'Pending Games provider status · Coming soon');
++ assert.doesNotMatch(buttons[0].attributes['aria-label'],/game entry/);
++ assert.equal(buttons[1].attributes['aria-label'],'Available Games game entry · Available');
++});
++
+ test('customer payment cards follow readiness and preserve their selected provider',()=>{
+  const buttons=['vpay','gspay','1mpay','manual-bank'].map(code=>{const el=new Element('button');el.dataset.paymentChannel=code;el.label=new Element('small');el.querySelector=()=>el.label;el.addEventListener=(name,handler)=>{assert.equal(name,'click');el.click=handler;};return el;});
+  const state={lang:'en',user:null,paymentChannels:{vpay:'closed',gspay:'suspended','1mpay':'closed','manual-bank':'active'},paymentStatus:{orderReady:true},gspayStatus:{orderReady:true},oneMpayStatus:{orderReady:false}},calls=[];
+diff --git a/tests/backup-restore-rehearsal.test.mjs b/tests/backup-restore-rehearsal.test.mjs
+index f6b5cfd00d2906e7cda9924ae1762ff040152d66..4d44f0bd73356678fa5ed5771f7e37f2406a9f3d 100644
+--- a/tests/backup-restore-rehearsal.test.mjs
++++ b/tests/backup-restore-rehearsal.test.mjs
+@@ -14,6 +14,7 @@ const root=fileURLToPath(new URL('..',import.meta.url));
+ const gameAdapterTables=['game_provider_profiles','game_provider_players','game_provider_sessions','game_wallet_transfers','game_rounds','game_transactions','game_wallet_postings','game_callback_receipts','game_wager_sync_cursors','game_recovery_leases'];
+ const acceptanceTables=['game_provider_acceptance_events','game_provider_acceptance_current'];
+ const productionAcceptanceTables=['production_acceptance_events','production_acceptance_current'];
++const jdbCoverageTables=['jdb_wager_sync_windows','jdb_wager_receipts','jdb_wager_identities','jdb_wager_event_versions','jdb_wager_observations'];
+ 
+ async function fixture(t){
+  const directory=mkdtempSync(join(tmpdir(),'master7-synthetic-restore-'));
+@@ -119,7 +120,7 @@ function verify(f){return spawnSync(process.execPath,[join(root,'scripts/verify-
+ 
+ test('current release backup restores acceptance evidence and reviewed benefit columns in isolation',async t=>{
+  const f=await fixture(t);
+- assert.equal(BACKUP_SCHEMA_VERSION,'0120-provider-wallet-sweeps');
++ assert.equal(BACKUP_SCHEMA_VERSION,'0121-jdb-wager-coverage-staging');
+  assert.equal(f.envelope.manifest.tableCount,BACKUP_TABLES.length);
+  assert.equal(f.envelope.manifest.tables.find(item=>item.name==='manual_bank_transactions').rows,2);
+  for(const table of ['benefit_claims','voucher_manual_reviews','voucher_manual_play_events','marketing_webhook_events','responsible_play_profiles','responsible_play_deposit_reservations'])assert.equal(f.envelope.manifest.tables.find(item=>item.name===table).rows,1);
+@@ -158,9 +159,24 @@ test('restore refuses a backup from a different schema instead of dropping its f
+  assert.match(result.stderr,/Backup schema version does not match this release/);
+ });
+ 
++test('previous 0120 backup restores but cannot claim JDB wager coverage',async t=>{
++ const f=await fixture(t);
++ repack(f,payload=>{
++  for(const name of jdbCoverageTables)delete payload.tables[name];
++  payload.manifest.tables=payload.manifest.tables.filter(table=>!jdbCoverageTables.includes(table.name));
++  payload.schemaVersion='0120-provider-wallet-sweeps';
++  payload.schemaSha256=createHash('sha256').update(JSON.stringify({format:payload.format,schemaVersion:payload.schemaVersion,tables:payload.manifest.tables.map(table=>table.name)})).digest('hex');
++ });
++ const result=verify(f);assert.equal(result.status,0,result.stderr);
++ const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));
++ assert.equal(receipt.status,'verified_legacy_coverage');assert.equal(receipt.coverageComplete,false);
++ assert.deepEqual(receipt.missingTables,jdbCoverageTables);
++});
++
+ test('previous 0112 backup is recoverable but cannot certify acceptance evidence coverage',async t=>{
+  const f=await fixture(t),oldHash='2ce57d7e348bdee3a0b6e145d19479a113136ccadc61e9fdfda2e1511a6a3e3b';
+  repack(f,payload=>{
++  for(const name of jdbCoverageTables)delete payload.tables[name];payload.manifest.tables=payload.manifest.tables.filter(table=>!jdbCoverageTables.includes(table.name));
+   for(const name of productionAcceptanceTables)delete payload.tables[name];payload.manifest.tables=payload.manifest.tables.filter(table=>!productionAcceptanceTables.includes(table.name));
+   delete payload.tables.public_contact_revisions;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='public_contact_revisions');
+   payload.schemaVersion='0112-megah5-launch-operations';
+@@ -174,12 +190,13 @@ test('previous 0112 backup is recoverable but cannot certify acceptance evidence
+  const result=verify(f);assert.equal(result.status,0,result.stderr);
+  const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));
+  assert.equal(receipt.status,'verified_legacy_coverage');assert.equal(receipt.coverageComplete,false);
+- assert.deepEqual(receipt.missingTables,['manual_bank_transactions',...acceptanceTables,'provider_wallet_operations','public_contact_revisions',...productionAcceptanceTables]);
++ assert.deepEqual(receipt.missingTables,['manual_bank_transactions',...acceptanceTables,'provider_wallet_operations','public_contact_revisions',...productionAcceptanceTables,...jdbCoverageTables]);
+ });
+ 
+ test('previous 0110 backup is recoverable but cannot certify launch-operation coverage',async t=>{
+  const f=await fixture(t),oldHash='4a1e7437fb14dc212ec39a801e173f7e898fcfa44707e7b523f5c8ba299b1555';
+  repack(f,payload=>{
++  for(const name of jdbCoverageTables)delete payload.tables[name];payload.manifest.tables=payload.manifest.tables.filter(table=>!jdbCoverageTables.includes(table.name));
+   for(const name of productionAcceptanceTables)delete payload.tables[name];payload.manifest.tables=payload.manifest.tables.filter(table=>!productionAcceptanceTables.includes(table.name));
+   delete payload.tables.public_contact_revisions;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='public_contact_revisions');
+   payload.schemaVersion='0110-game-provider-adapter-core';
+@@ -193,12 +210,13 @@ test('previous 0110 backup is recoverable but cannot certify launch-operation co
+  const result=verify(f);assert.equal(result.status,0,result.stderr);
+  const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));
+  assert.equal(receipt.status,'verified_legacy_coverage');assert.equal(receipt.coverageComplete,false);
+- assert.deepEqual(receipt.missingTables,['manual_bank_transactions','megah5_launch_operations',...acceptanceTables,'provider_wallet_operations','public_contact_revisions',...productionAcceptanceTables]);
++ assert.deepEqual(receipt.missingTables,['manual_bank_transactions','megah5_launch_operations',...acceptanceTables,'provider_wallet_operations','public_contact_revisions',...productionAcceptanceTables,...jdbCoverageTables]);
+ });
+ 
+ test('known 0108 backup remains recoverable and reports every missing adapter table',async t=>{
+  const f=await fixture(t),oldHash='6453a7551fd5cbc19e6b7ca6728405f4ead79db7864b5b8d52186905bcb8798a';
+  repack(f,payload=>{
++  for(const name of jdbCoverageTables)delete payload.tables[name];payload.manifest.tables=payload.manifest.tables.filter(table=>!jdbCoverageTables.includes(table.name));
+   for(const name of productionAcceptanceTables)delete payload.tables[name];payload.manifest.tables=payload.manifest.tables.filter(table=>!productionAcceptanceTables.includes(table.name));
+   delete payload.tables.public_contact_revisions;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='public_contact_revisions');
+   payload.schemaVersion='0108-manual-compliance-review';
+@@ -211,12 +229,13 @@ test('known 0108 backup remains recoverable and reports every missing adapter ta
+  });
+  const result=verify(f);assert.equal(result.status,0,result.stderr);
+  const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));assert.equal(receipt.status,'verified_legacy_coverage');
+- assert.deepEqual(receipt.missingTables,['manual_bank_transactions',...gameAdapterTables,'megah5_launch_operations',...acceptanceTables,'provider_wallet_operations','public_contact_revisions',...productionAcceptanceTables]);
++ assert.deepEqual(receipt.missingTables,['manual_bank_transactions',...gameAdapterTables,'megah5_launch_operations',...acceptanceTables,'provider_wallet_operations','public_contact_revisions',...productionAcceptanceTables,...jdbCoverageTables]);
+ });
+ 
+ test('known 0107 legacy backup remains recoverable with explicit incomplete-coverage receipt',async t=>{
+  const f=await fixture(t),legacyHash='2648becd21723884358bcaf90f5928dc19c7cc58dcf090c87ca1db3c00c34d69';
+  repack(f,payload=>{
++  for(const name of jdbCoverageTables)delete payload.tables[name];payload.manifest.tables=payload.manifest.tables.filter(table=>!jdbCoverageTables.includes(table.name));
+   for(const name of productionAcceptanceTables)delete payload.tables[name];payload.manifest.tables=payload.manifest.tables.filter(table=>!productionAcceptanceTables.includes(table.name));
+   delete payload.tables.public_contact_revisions;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='public_contact_revisions');
+   payload.schemaVersion='0107-benefit-claim-reviews';
+@@ -237,7 +256,7 @@ test('known 0107 legacy backup remains recoverable with explicit incomplete-cove
+  const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));
+  assert.equal(receipt.status,'verified_legacy_coverage');
+  assert.equal(receipt.coverageComplete,false);
+- assert.deepEqual(receipt.missingTables,['manual_bank_transactions','marketing_webhook_events','manual_compliance_reviews','manual_compliance_events',...gameAdapterTables,'megah5_launch_operations',...acceptanceTables,'provider_wallet_operations','public_contact_revisions',...productionAcceptanceTables]);
++ assert.deepEqual(receipt.missingTables,['manual_bank_transactions','marketing_webhook_events','manual_compliance_reviews','manual_compliance_events',...gameAdapterTables,'megah5_launch_operations',...acceptanceTables,'provider_wallet_operations','public_contact_revisions',...productionAcceptanceTables,...jdbCoverageTables]);
+  assert.equal(receipt.schemaSha256,legacyHash);
+  assert.equal(receipt.tableCount,50);
+  assert.equal(receipt.foreignKeyViolations,0);
+@@ -247,6 +266,7 @@ test('known 0107 legacy backup remains recoverable with explicit incomplete-cove
+ test('previous 0107 full backup stays recoverable and declares missing compliance records',async t=>{
+  const f=await fixture(t),oldHash='5ce4d8778d03097b16ef0fff08c1cc6fa05e7ce9a639bce232564a728982cae9';
+  repack(f,payload=>{
++  for(const name of jdbCoverageTables)delete payload.tables[name];payload.manifest.tables=payload.manifest.tables.filter(table=>!jdbCoverageTables.includes(table.name));
+   for(const name of productionAcceptanceTables)delete payload.tables[name];payload.manifest.tables=payload.manifest.tables.filter(table=>!productionAcceptanceTables.includes(table.name));
+   delete payload.tables.public_contact_revisions;payload.manifest.tables=payload.manifest.tables.filter(table=>table.name!=='public_contact_revisions');
+   payload.schemaVersion='0107-benefit-claim-reviews';
+@@ -259,7 +279,7 @@ test('previous 0107 full backup stays recoverable and declares missing complianc
+  });
+  const result=verify(f);assert.equal(result.status,0,result.stderr);
+  const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));assert.equal(receipt.status,'verified_legacy_coverage');
+- assert.deepEqual(receipt.missingTables,['manual_bank_transactions','manual_compliance_reviews','manual_compliance_events',...gameAdapterTables,'megah5_launch_operations',...acceptanceTables,'provider_wallet_operations','public_contact_revisions',...productionAcceptanceTables]);
++ assert.deepEqual(receipt.missingTables,['manual_bank_transactions','manual_compliance_reviews','manual_compliance_events',...gameAdapterTables,'megah5_launch_operations',...acceptanceTables,'provider_wallet_operations','public_contact_revisions',...productionAcceptanceTables,...jdbCoverageTables]);
+ });
+ 
+ test('restore rejects an unauthenticated envelope snapshot claim',async t=>{
+@@ -278,7 +298,7 @@ test('authenticated backup rows with broken foreign keys still fail isolated res
+  assert.match(result.stderr,/Foreign key validation failed/);
+ });
+ 
+-for(const [version,missing] of [['0115-manual-bank-funds',['provider_wallet_operations','public_contact_revisions',...productionAcceptanceTables]],['0113-game-provider-acceptance',['manual_bank_transactions','provider_wallet_operations','public_contact_revisions',...productionAcceptanceTables]]]){
++for(const [version,missing] of [['0115-manual-bank-funds',['provider_wallet_operations','public_contact_revisions',...productionAcceptanceTables,...jdbCoverageTables]],['0113-game-provider-acceptance',['manual_bank_transactions','provider_wallet_operations','public_contact_revisions',...productionAcceptanceTables,...jdbCoverageTables]]]){
+  test(`previous ${version} backup remains recoverable without falsely certifying the new provider operations`,async t=>{
+   const f=await fixture(t);repack(f,payload=>{payload.schemaVersion=version;for(const name of missing)delete payload.tables[name];payload.manifest.tables=payload.manifest.tables.filter(table=>!missing.includes(table.name));payload.schemaSha256=createHash('sha256').update(JSON.stringify({format:payload.format,schemaVersion:version,tables:payload.manifest.tables.map(table=>table.name)})).digest('hex');});
+   const result=verify(f);assert.equal(result.status,0,result.stderr);const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));assert.equal(receipt.status,'verified_legacy_coverage');assert.equal(receipt.coverageComplete,false);assert.deepEqual(receipt.missingTables,missing);assert.equal(receipt.foreignKeyViolations,0);
+diff --git a/tests/encrypted-backup.test.mjs b/tests/encrypted-backup.test.mjs
+index 020e10ba1fcdc85f5b5ef7a6f5a45d3c382877aa..2ca5d6c51317e2f06b901a70597ec3d2e3e9d6aa 100644
+--- a/tests/encrypted-backup.test.mjs
++++ b/tests/encrypted-backup.test.mjs
+@@ -7,7 +7,7 @@ import {BACKUP_EXCLUDED_TABLES,BACKUP_FORMAT,BACKUP_PAGE_SIZE,BACKUP_SCHEMA_SHA2
+ test('portal backup encrypts every recovery table and excludes authentication sessions',async()=>{
+  const username='backup-test-owner',passwordHash='sensitive-password-hash',users=Array.from({length:10005},(_,index)=>({id:`owner-${String(index).padStart(5,'0')}`,username:index?`member-${index}`:username,role:index?'member':'owner',approved:1,csrf:index?'': 'private-csrf',created_at:index+1})),fixtures={users,password_credentials:[{user_id:'owner-00000',password_hash:passwordHash,salt:'private-salt',credential_version:1,updated_at:1}]},queries=[];
+  const db={prepare(sql){
+-  const match=sql.match(/^SELECT \* FROM ([a-z0-9_]+) ORDER BY [a-z_,]+ LIMIT \? OFFSET \?$/);assert.ok(match);
++  const match=sql.match(/^SELECT \* FROM ([a-z0-9_]+) ORDER BY [a-z0-9_,]+ LIMIT \? OFFSET \?$/);assert.ok(match);
+   return {bind(limit,offset){
+    assert.equal(limit,BACKUP_PAGE_SIZE);queries.push({table:match[1],offset});
+    return {all:async()=>({results:(fixtures[match[1]]??[]).slice(offset,offset+limit)})};
+diff --git a/tests/jdb-provider-adapter.test.mjs b/tests/jdb-provider-adapter.test.mjs
+index a0e352028cfd124fce2787530107c139278315bd..5ef4f30dca668cac6e4ff6b073a9d20741bf4886 100644
+--- a/tests/jdb-provider-adapter.test.mjs
++++ b/tests/jdb-provider-adapter.test.mjs
+@@ -120,6 +120,10 @@ test('report projection preserves provider IDs, raw decimals, absent rounds and
+  assert.equal(page.complete,false);assert.equal(page.nextCursor,undefined);assert.equal(page.items.length,1);
+  const r=page.items[0];assert.equal(r.providerRoundId,null);assert.equal(r.providerBetId,'bet-one');assert.equal(r.providerPlayerId,user());assert.equal(r.providerGameId,'0:100');assert.equal(r.betMinor,'100');assert.equal(r.winMinor,'200');assert.equal(r.settledAt,now-9*60_000);assert.equal(r.sourceDetails.bet,'-1.00');assert.equal(r.sourceDetails.tax,'0.000001');assert.equal(r.sourceDetails.jackpotContribute,'-0.002');assert.equal(r.sourceDetails.timeBasis,'lastModifyTime');
+ });
++test('report identity does not collapse the same history ID across different players',async()=>{
++ const other=jdbPlayerId('jdb_myr','member-two'),f=fixture(()=>ok({data:[wager(),wager({playerId:other})]})),page=await f.adapter.fetchWagers(context(),window);
++ assert.deepEqual(page.items.map(item=>item.providerPlayerId),[user(),other]);
++});
+ test('arcade gambling stakes are preserved and included separately from the base stake',async()=>{
+  const f=fixture(()=>ok({data:[wager({gType:9,bet:'0',gambleBet:'-2.00',hasGamble:1,win:'3.00',roundSeqNo:'round-exact'})]}));const r=(await f.adapter.fetchWagers(context(),window)).items[0];assert.equal(r.betMinor,'200');assert.equal(r.providerRoundId,'round-exact');assert.equal(r.sourceDetails.gambleBet,'-2.00');
+  const missing=fixture(()=>ok({data:[wager({gType:9,bet:'0',hasGamble:1})]}));await assert.rejects(missing.adapter.fetchWagers(context(),window),/GAMBLE_DATA_MISSING/);
+diff --git a/tests/jdb-wager-coverage-migration.test.mjs b/tests/jdb-wager-coverage-migration.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..4ecac09ee10ce409a60ee54d9fc9d5b8d6b52476
+--- /dev/null
++++ b/tests/jdb-wager-coverage-migration.test.mjs
+@@ -0,0 +1,50 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {readFileSync} from 'node:fs';
++import {DatabaseSync} from 'node:sqlite';
++
++const sha='a'.repeat(64),otherSha='b'.repeat(64);
++function fixture(t){
++ const db=new DatabaseSync(':memory:');t.after(()=>db.close());db.exec('PRAGMA foreign_keys=ON');
++ db.exec(readFileSync(new URL('../drizzle/0110_game_provider_adapter_core.sql',import.meta.url),'utf8'));
++ db.exec("INSERT INTO game_provider_profiles(id,provider_id,display_name,adapter_key,wallet_mode,balance_class,currency,unit_numerator,unit_denominator,environment,status,created_at,updated_at) VALUES('jdb_myr','jdb','JDB · MYR','jdb','transfer','cash','MYR',1,1,'production','closed',0,0)");
++ db.exec(readFileSync(new URL('../drizzle/0121_jdb_wager_coverage_staging.sql',import.meta.url),'utf8'));
++ assert.deepEqual({...db.prepare("SELECT provider_id,adapter_key,wallet_mode,currency,environment,status FROM game_provider_profiles WHERE id='jdb_myr'").get()},{provider_id:'jdb',adapter_key:'jdb',wallet_mode:'transfer',currency:'MYR',environment:'production',status:'closed'});
++ return db;
++}
++
++test('JDB staging migration does not create or mutate a provider profile',t=>{
++ const db=new DatabaseSync(':memory:');t.after(()=>db.close());db.exec('PRAGMA foreign_keys=ON');
++ db.exec(readFileSync(new URL('../drizzle/0110_game_provider_adapter_core.sql',import.meta.url),'utf8'));
++ db.exec(readFileSync(new URL('../drizzle/0121_jdb_wager_coverage_staging.sql',import.meta.url),'utf8'));
++ assert.equal(db.prepare("SELECT COUNT(*) n FROM game_provider_profiles WHERE id='jdb_myr'").get().n,0);
++ assert.throws(()=>db.prepare(`INSERT INTO jdb_wager_sync_windows(window_id,profile_id,time_basis,window_start_ms,window_end_ms,created_at,updated_at)
++  VALUES('missing-parent','jdb_myr','lastModifyTime',1000,2000,1,1)`).run(),/FOREIGN KEY constraint failed/);
++});
++function window(db){db.prepare(`INSERT INTO jdb_wager_sync_windows(window_id,profile_id,time_basis,window_start_ms,window_end_ms,state,current_fence,created_at,updated_at)
++ VALUES('window-1','jdb_myr','lastModifyTime',1000,2000,'syncing',1,1,1)`).run();}
++function receipt(db,overrides={}){
++ const row={id:'receipt-1',window_id:'window-1',profile_id:'jdb_myr',fence:1,claim:sha,page:otherSha,page_complete:0,source:0,closure:0,authorization:0,coverage:0};Object.assign(row,overrides);
++ return db.prepare(`INSERT INTO jdb_wager_receipts(id,window_id,profile_id,fence,claim_token_sha256,page_sha256,page_complete,source_finality_verified,session_closure_verified,merchant_authorization_verified,coverage_complete,observed_at)
++ VALUES(?,?,?,?,?,?,?,?,?,?,?,1)`).run(row.id,row.window_id,row.profile_id,row.fence,row.claim,row.page,row.page_complete,row.source,row.closure,row.authorization,row.coverage);
++}
++
++test('JDB staging identifiers and source details are hash-only while every completion authority is false',t=>{
++ const db=fixture(t);window(db);receipt(db);
++ const columns=db.prepare("PRAGMA table_info('jdb_wager_event_versions')").all().map(row=>row.name);
++ assert.ok(columns.includes('provider_player_sha256'));assert.ok(columns.includes('source_details_sha256'));
++ assert.ok(!columns.includes('provider_player_id'));assert.ok(!columns.includes('source_details_json'));assert.ok(!columns.includes('payload_json'));
++ for(const [column,value] of [['page_complete',1],['source',1],['closure',1],['authorization',1],['coverage',1]]){
++  db.prepare('DELETE FROM jdb_wager_receipts').run();
++  assert.throws(()=>receipt(db,{id:`bad-${column}`,[column]:value}),/CHECK constraint failed/);
++ }
++});
++
++test('JDB staging schema rejects oversized windows and deduplicates a page across fences',t=>{
++ const db=fixture(t);
++ assert.throws(()=>db.prepare(`INSERT INTO jdb_wager_sync_windows(window_id,profile_id,time_basis,window_start_ms,window_end_ms,created_at,updated_at)
++  VALUES('too-wide','jdb_myr','gameDate',0,300001,1,1)`).run(),/CHECK constraint failed/);
++ window(db);receipt(db);
++ assert.throws(()=>receipt(db,{id:'receipt-2',fence:2}),/UNIQUE constraint failed/);
++ assert.deepEqual(db.prepare('PRAGMA foreign_key_check').all(),[]);
++});
+diff --git a/tests/jdb-wager-coverage.test.mjs b/tests/jdb-wager-coverage.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..7cb4cedc566424207d10a3d8843021efe8f7be8e
+--- /dev/null
++++ b/tests/jdb-wager-coverage.test.mjs
+@@ -0,0 +1,127 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {DatabaseSync} from 'node:sqlite';
++import {readFileSync} from 'node:fs';
++import {claimJdbWagerWindow,getJdbWagerCoverage,JdbWagerCoverageError,stageJdbWagerPage} from '../lib/jdb-wager-coverage.ts';
++
++const BASE=Date.parse('2026-11-10T06:00:00Z'),owner={id:'owner',role:'owner'},staff={id:'staff',role:'staff'};
++
++function d1(sqlite){
++ const statement=(sql,values=[])=>({
++  bind(...next){return statement(sql,next);},
++  async all(){const rows=sqlite.prepare(sql).all(...values).map(row=>({...row}));return {results:rows,success:true,meta:{changes:rows.length}};},
++  async first(){const row=sqlite.prepare(sql).get(...values);return row?{...row}:null;},
++  async run(){const result=sqlite.prepare(sql).run(...values);return {results:[],success:true,meta:{changes:Number(result.changes)}};},
++ });
++ return {prepare:sql=>statement(sql),async batch(items){sqlite.exec('BEGIN');try{const results=[];for(const item of items)results.push(await item.run());sqlite.exec('COMMIT');return results;}catch(error){sqlite.exec('ROLLBACK');throw error;}}};
++}
++
++function fixture(t){
++ const sqlite=new DatabaseSync(':memory:');t.after(()=>sqlite.close());sqlite.exec('PRAGMA foreign_keys=ON');
++ for(const file of ['0000_broken_bloodscream.sql','0110_game_provider_adapter_core.sql','0113_game_provider_acceptance_evidence.sql'])sqlite.exec(readFileSync(new URL(`../drizzle/${file}`,import.meta.url),'utf8'));
++ sqlite.exec("INSERT INTO game_provider_profiles(id,provider_id,display_name,adapter_key,wallet_mode,balance_class,currency,unit_numerator,unit_denominator,environment,status,created_at,updated_at) VALUES('jdb_myr','jdb','JDB · MYR','jdb','transfer','cash','MYR',1,1,'production','closed',0,0)");
++ sqlite.exec(readFileSync(new URL('../drizzle/0121_jdb_wager_coverage_staging.sql',import.meta.url),'utf8'));
++ return {sqlite,db:d1(sqlite)};
++}
++
++const window=(offset=0,timeBasis='lastModifyTime')=>({profileId:'jdb_myr',timeBasis,from:BASE+offset,to:BASE+offset+60_000});
++const wager=(id='bet-1',overrides={})=>({providerRoundId:`round-${id}`,providerBetId:id,providerPlayerId:'private-player',providerGameId:'0:100',betMinor:'100',winMinor:'40',currency:'MYR',settledAt:BASE+30_000,sourceDetails:{bet:'-1.00',win:'0.40',timeBasis:'lastModifyTime'},...overrides});
++const page=(items)=>({items,complete:false});
++const count=(sqlite,table)=>Number(sqlite.prepare(`SELECT COUNT(*) n FROM ${table}`).get().n);
++
++test('claiming fails closed when the exact closed JDB parent profile is missing or altered',async t=>{
++ const f=fixture(t);f.sqlite.prepare("DELETE FROM game_provider_profiles WHERE id='jdb_myr'").run();
++ await assert.rejects(claimJdbWagerWindow(f.db,window(),{at:999,claimToken:'missing'}),error=>error instanceof JdbWagerCoverageError&&error.code==='JDB_WAGER_PROFILE_NOT_CLOSED');
++ f.sqlite.exec("INSERT INTO game_provider_profiles(id,provider_id,display_name,adapter_key,wallet_mode,balance_class,currency,unit_numerator,unit_denominator,environment,status,created_at,updated_at) VALUES('jdb_myr','jdb','JDB · MYR','jdb','transfer','cash','MYR',1,1,'production','uat',0,0)");
++ await assert.rejects(claimJdbWagerWindow(f.db,window(),{at:999,claimToken:'open'}),error=>error instanceof JdbWagerCoverageError&&error.code==='JDB_WAGER_PROFILE_NOT_CLOSED');
++});
++
++test('claims use an expiring generation fence and reject concurrent or stale workers',async t=>{
++ const f=fixture(t),attempts=await Promise.allSettled(['first','parallel'].map(claimToken=>claimJdbWagerWindow(f.db,window(),{at:1000,leaseSeconds:5,claimToken}))),won=attempts.filter(result=>result.status==='fulfilled'),lost=attempts.filter(result=>result.status==='rejected');
++ assert.equal(won.length,1);assert.equal(lost.length,1);assert.ok(lost[0].reason instanceof JdbWagerCoverageError);assert.equal(lost[0].reason.code,'JDB_WAGER_WINDOW_BUSY');
++ const first=won[0].value;assert.equal(first.fence,1);
++ const second=await claimJdbWagerWindow(f.db,window(),{at:1006,leaseSeconds:5,claimToken:'second'});
++ assert.equal(second.fence,2);
++ await assert.rejects(stageJdbWagerPage(f.db,first,page([wager()]),{at:1006}),error=>error instanceof JdbWagerCoverageError&&error.code==='JDB_WAGER_CLAIM_STALE');
++ assert.equal(count(f.sqlite,'jdb_wager_receipts'),0);
++ const stored=await stageJdbWagerPage(f.db,second,page([wager()]),{at:1006});
++ assert.equal(stored.originalCount,1);assert.equal(stored.coverageComplete,false);
++});
++
++test('an exact page is idempotent across crash-style response loss and a new lease generation',async t=>{
++ const f=fixture(t),input=page([wager('a'),wager('b'),wager('a')]),first=await claimJdbWagerWindow(f.db,window(),{at:2000,claimToken:'first'}),receipt=await stageJdbWagerPage(f.db,first,input,{at:2000});
++ assert.equal(receipt.inputCount,3);assert.equal(receipt.uniqueInputCount,2);assert.equal(receipt.originalCount,2);assert.equal(receipt.duplicateCount,1);
++ assert.equal(count(f.sqlite,'jdb_wager_receipts'),1);assert.equal(count(f.sqlite,'jdb_wager_event_versions'),2);
++ const second=await claimJdbWagerWindow(f.db,window(),{at:2001,claimToken:'second'});
++ await stageJdbWagerPage(f.db,first,input,{at:2001});
++ assert.equal(f.sqlite.prepare("SELECT claim_token FROM game_recovery_leases WHERE resource_type='wager_sync'").get().claim_token,'second','a stale exact replay cannot release the newer fence');
++ const replayed=await stageJdbWagerPage(f.db,second,page([wager('a'),wager('a'),wager('b')]),{at:2001});
++ assert.equal(replayed.receiptId,receipt.receiptId);assert.equal(count(f.sqlite,'jdb_wager_receipts'),1);assert.equal(count(f.sqlite,'jdb_wager_event_versions'),2);assert.equal(count(f.sqlite,'jdb_wager_observations'),2);
++ assert.equal(f.sqlite.prepare("SELECT claim_token FROM game_recovery_leases WHERE resource_type='wager_sync'").get().claim_token,'');
++});
++
++test('overlapping windows expose duplicates without writing accounting records',async t=>{
++ const f=fixture(t),before=Object.fromEntries(['game_rounds','game_transactions','game_wallet_postings','game_provider_acceptance_events'].map(table=>[table,count(f.sqlite,table)]));
++ const one=await claimJdbWagerWindow(f.db,{...window(),to:BASE+120_000},{at:3000,claimToken:'one'});await stageJdbWagerPage(f.db,one,page([wager()]),{at:3000});
++ const two=await claimJdbWagerWindow(f.db,{...window(60_000),to:BASE+180_000},{at:3001,claimToken:'two'});const duplicate=await stageJdbWagerPage(f.db,two,page([wager()]),{at:3001});
++ assert.equal(duplicate.duplicateCount,1);assert.equal(duplicate.originalCount,0);
++ for(const [table,value] of Object.entries(before))assert.equal(count(f.sqlite,table),value,table);
++ assert.equal(f.sqlite.prepare("SELECT status FROM game_provider_profiles WHERE id='jdb_myr'").get().status,'closed');
++ const report=await getJdbWagerCoverage(f.db,staff);
++ assert.equal(report.totals.duplicates,1);assert.equal(report.overlaps.length,1);assert.equal(report.accountingConnected,false);assert.equal(report.turnoverConnected,false);assert.equal(report.rewardConnected,false);assert.equal(report.playable,false);assert.equal(report.launchReady,false);assert.equal(report.productionReady,false);
++});
++
++test('later same-window records, changed results and zero corrections stay review-only',async t=>{
++ const f=fixture(t),first=await claimJdbWagerWindow(f.db,window(),{at:4000,claimToken:'a'});await stageJdbWagerPage(f.db,first,page([wager('a')]),{at:4000});
++ const later=await claimJdbWagerWindow(f.db,window(),{at:4001,claimToken:'b'}),late=await stageJdbWagerPage(f.db,later,page([wager('a'),wager('b')]),{at:4001});
++ assert.equal(late.duplicateCount,1);assert.equal(late.lateCount,1);
++ const revisionClaim=await claimJdbWagerWindow(f.db,window(),{at:4002,claimToken:'c'}),revision=await stageJdbWagerPage(f.db,revisionClaim,page([wager('a',{winMinor:'60'})]),{at:4002});
++ assert.equal(revision.revisionCount,1);
++ const reversalClaim=await claimJdbWagerWindow(f.db,window(),{at:4003,claimToken:'d'}),reversal=await stageJdbWagerPage(f.db,reversalClaim,page([wager('a',{betMinor:'0',winMinor:'0'})]),{at:4003});
++ assert.equal(reversal.reversalCandidateCount,1);assert.equal(reversal.sourceFinalityVerified,false);assert.equal(reversal.sessionClosureVerified,false);assert.equal(reversal.merchantAuthorizationVerified,false);
++ assert.deepEqual(f.sqlite.prepare('SELECT DISTINCT classification FROM jdb_wager_event_versions ORDER BY classification').all().map(row=>row.classification),['late','original','reversal_candidate','revision']);
++});
++
++test('a zero correction beside its nonzero version is a reversal candidate regardless of page ordering',async t=>{
++ const f=fixture(t),claim=await claimJdbWagerWindow(f.db,window(),{at:4500,claimToken:'same-page'}),receipt=await stageJdbWagerPage(f.db,claim,page([wager('same',{betMinor:'0',winMinor:'0'}),wager('same')]),{at:4500});
++ assert.equal(receipt.originalCount,1);assert.equal(receipt.reversalCandidateCount,1);
++ assert.deepEqual(f.sqlite.prepare('SELECT bet_minor,win_minor,classification FROM jdb_wager_event_versions ORDER BY bet_minor').all().map(row=>({...row})),[{bet_minor:0,win_minor:0,classification:'reversal_candidate'},{bet_minor:100,win_minor:40,classification:'original'}]);
++});
++
++test('the same provider bet ID for different players remains two exact identities',async t=>{
++ const f=fixture(t),claim=await claimJdbWagerWindow(f.db,window(),{at:4600,claimToken:'cross-player'}),receipt=await stageJdbWagerPage(f.db,claim,page([wager('shared'),wager('shared',{providerPlayerId:'another-private-player'})]),{at:4600});
++ assert.equal(receipt.originalCount,2);assert.equal(receipt.revisionCount,0);assert.equal(receipt.duplicateCount,0);assert.equal(count(f.sqlite,'jdb_wager_identities'),2);
++});
++
++test('coverage diagnostics merge contiguous windows, expose gaps, and disclose every blocker',async t=>{
++ const f=fixture(t);
++ for(const [offset,token] of [[0,'a'],[60_000,'b'],[180_000,'c']]){const claim=await claimJdbWagerWindow(f.db,window(offset),{at:5000+offset/60_000,claimToken:token});await stageJdbWagerPage(f.db,claim,page([]),{at:5000+offset/60_000});}
++ const report=await getJdbWagerCoverage(f.db,owner,{timeBasis:'lastModifyTime',from:BASE,to:BASE+240_000});
++ assert.deepEqual(report.observedRanges,[{timeBasis:'lastModifyTime',from:BASE,to:BASE+120_000},{timeBasis:'lastModifyTime',from:BASE+180_000,to:BASE+240_000}]);
++ assert.deepEqual(report.gaps,[{timeBasis:'lastModifyTime',from:BASE+120_000,to:BASE+180_000}]);
++ assert.equal(report.complete,false);assert.equal(report.providerCoverageComplete,false);assert.equal(report.sourceFinalityVerified,false);assert.equal(report.closureVerified,false);assert.equal(report.merchantAuthorizationVerified,false);assert.ok(report.blockers.includes('provider_report_finality_unverified'));
++ assert.equal(Object.values(report).some(value=>JSON.stringify(value).includes('private-player')),false);
++});
++
++test('a batch fault rolls back receipt, identity, version, observation, cursor and release for safe retry',async t=>{
++ const f=fixture(t),claim=await claimJdbWagerWindow(f.db,window(),{at:6000,claimToken:'retry'});
++ f.sqlite.exec(`CREATE TRIGGER fail_jdb_observation BEFORE INSERT ON jdb_wager_observations BEGIN SELECT RAISE(ABORT,'fixture crash'); END`);
++ await assert.rejects(stageJdbWagerPage(f.db,claim,page([wager()]),{at:6000}),/fixture crash/);
++ for(const table of ['jdb_wager_receipts','jdb_wager_identities','jdb_wager_event_versions','jdb_wager_observations','game_wager_sync_cursors'])assert.equal(count(f.sqlite,table),0,table);
++ assert.equal(f.sqlite.prepare("SELECT claim_token FROM game_recovery_leases WHERE resource_type='wager_sync'").get().claim_token,'retry');
++ f.sqlite.exec('DROP TRIGGER fail_jdb_observation');
++ const retried=await stageJdbWagerPage(f.db,claim,page([wager()]),{at:6000});assert.equal(retried.originalCount,1);assert.equal(count(f.sqlite,'jdb_wager_receipts'),1);
++});
++
++test('direct staging cannot manufacture finality or broad/complete report coverage',async t=>{
++ const f=fixture(t);
++ await assert.rejects(claimJdbWagerWindow(f.db,{...window(),to:BASE+16*60_000},{at:7000}),error=>error instanceof JdbWagerCoverageError&&error.code==='JDB_WAGER_WINDOW_INVALID');
++ const claim=await claimJdbWagerWindow(f.db,window(),{at:7000,claimToken:'incomplete'});
++ await assert.rejects(stageJdbWagerPage(f.db,claim,{items:Array(501).fill(wager()),complete:false},{at:7000}),error=>error instanceof JdbWagerCoverageError&&error.code==='JDB_WAGER_STAGE_INVALID');
++ await assert.rejects(stageJdbWagerPage(f.db,claim,{items:[],complete:true},{at:7000}),error=>error instanceof JdbWagerCoverageError&&error.code==='JDB_WAGER_STAGE_INVALID');
++ assert.equal(count(f.sqlite,'jdb_wager_receipts'),0);
++});
++
++test('coverage diagnostics are owner/staff only',async t=>{
++ const f=fixture(t);await assert.rejects(getJdbWagerCoverage(f.db,{id:'member',role:'member'}),error=>error instanceof JdbWagerCoverageError&&error.status===403);
++});
+diff --git a/tests/jdb-wallet-api.test.mjs b/tests/jdb-wallet-api.test.mjs
+index 2897b58e7c9441cae6a236b31f07fc4b6b89e7ce..884a7975d9c89d282484133667c92a39d5b361fb 100644
+--- a/tests/jdb-wallet-api.test.mjs
++++ b/tests/jdb-wallet-api.test.mjs
+@@ -2,124 +2,76 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {DatabaseSync} from 'node:sqlite';
+ import {readFileSync,readdirSync} from 'node:fs';
+-import {createDecipheriv} from 'node:crypto';
+ import {handle} from '../lib/backend.ts';
+ import {jdbPlayerId} from '../lib/jdb-transfer-protocol.ts';
+ import {jdbProfileRuntime} from '../lib/jdb-profile-runtime.ts';
++import {seedTransferProfile} from '../lib/game-provider-runtime.ts';
+ import {GAME_PROVIDER_ACCEPTANCE_CAPABILITIES,getGameProviderAcceptanceReadiness} from '../lib/game-provider-acceptance.ts';
+ 
+ function fixture(){
+  const sqlite=new DatabaseSync(':memory:');for(const name of readdirSync(new URL('../drizzle',import.meta.url)).filter(x=>x.endsWith('.sql')).sort())sqlite.exec(readFileSync(new URL('../drizzle/'+name,import.meta.url),'utf8'));
+  for(const [id,role] of [['alice','member'],['bob','member'],['owner','owner'],['staff','staff']])sqlite.prepare('INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES(?,?,?,1,?,0)').run(id,id,role,'csrf-'+id);
+  sqlite.exec("INSERT INTO deposit_orders(id,user_id,request_key,fingerprint,provider,amount_minor,currency,trade_code,status,created_at,updated_at) VALUES('synthetic-credit','alice','synthetic-credit','fixture','manual_bank',2000,'MYR','fixture','credited',0,0);INSERT INTO wallet_ledger(id,order_id,user_id,account_code,amount_minor,currency,created_at) VALUES('synthetic-member','synthetic-credit','alice','member',2000,'MYR',0),('synthetic-clearing','synthetic-credit','alice','provider_clearing',-2000,'MYR',0)");
+- class Statement{constructor(sql,args=[]){this.sql=sql;this.args=args;}bind(...args){return new Statement(this.sql,args);}async first(){return sqlite.prepare(this.sql).get(...this.args)??null;}async all(){return{results:sqlite.prepare(this.sql).all(...this.args)};}async run(){return sqlite.prepare(this.sql).run(...this.args);}}
++ class Statement{constructor(sql,args=[]){this.sql=sql;this.args=args;}bind(...args){return new Statement(this.sql,args);}async first(){return sqlite.prepare(this.sql).get(...this.args)??null;}async all(){return{results:sqlite.prepare(this.sql).all(...this.args)};}async run(){const result=sqlite.prepare(this.sql).run(...this.args);return{success:true,meta:{changes:Number(result.changes)}};}}
+  let queue=Promise.resolve();const db={prepare:sql=>new Statement(sql),batch(statements){const result=queue.then(async()=>{sqlite.exec('BEGIN IMMEDIATE');try{const out=[];for(const s of statements)out.push(await s.run());sqlite.exec('COMMIT');return out;}catch(e){sqlite.exec('ROLLBACK');throw e;}});queue=result.catch(()=>{});return result;}};
+- const connection={profile:'jdb_myr',baseUrl:'https://provider.example.test',dc:'synthetic',parent:'agent01',aesKey:'key1234567Sample',aesIv:'iv12345678Sample',padding:'space',launchOrigins:['https://games.example.test'],reportUtcOffsetMinutes:480},slot={mode:'qa',environment:'production',recoveryEnabled:true,sessionClosureVerified:true,qaMemberIds:['alice'],approvedApiOrigins:[connection.baseUrl],connection},document={profiles:{jdb_myr:slot}},factory={balance:0,playing:false,pid:100,timeoutDeposit:false,query:new Map(),calls:[]};
+- const transport=async (url,init)=>{
+-  assert.equal(url,'https://provider.example.test/apiRequest.do');const envelope=JSON.parse(init.body),cipher=createDecipheriv('aes-128-cbc',Buffer.from(connection.aesKey),Buffer.from(connection.aesIv));cipher.setAutoPadding(false);const p=JSON.parse(Buffer.concat([cipher.update(Buffer.from(envelope.x,'base64url')),cipher.final()]).toString('utf8').trim());factory.calls.push(p);assert.equal(envelope.dc,'synthetic');
+-  const ok=body=>Response.json({status:'0000',...body});
+-  if(p.action===49)return ok({data:[{gType:0,list:[{mType:100,name:'Synthetic game',maintenance:false}]}]});
+-  if(p.action===12)return ok({});
+-  if(p.action===15)return ok({data:[{uid:p.uid,parent:'agent01',currency:'RM',lvl:0,locked:0,closed:0,balance:(factory.balance/100).toFixed(2)}]});
+-  if(p.action===52)return factory.playing?ok({data:{gType:0,mType:100}}):Response.json({status:'7505'});
+-  if(p.action===17){factory.playing=false;return ok({});}
+-  if(p.action===19){const pid=++factory.pid;factory.balance+=Math.round(p.amount*100);factory.query.set(p.serialNo,{uid:p.uid,action:p.amount>0?'deposit':'withdraw',amount:p.amount,pid});if(p.amount>0&&factory.timeoutDeposit)throw Error('Synthetic response lost');return ok({serialNo:p.serialNo,amount:p.amount,pid});}
+-  if(p.action===11){factory.playing=true;return ok({path:'https://games.example.test/synthetic-single-use-url'});}
+-  if(p.action===55){const q=factory.query.get(p.serialNo);return q?ok({data:[q]}):Response.json({status:'7500'});}
+-  throw Error('Unexpected synthetic action '+p.action);
+- };
+- const gameGatewayFetch=async url=>{
+-  assert.equal(url,'https://master7-integration-gateway.onrender.com/providers/jdb/games');
+-  return Response.json({provider:'jdb',games:[{gameCode:'0:100',name:'Synthetic game',category:'SLOT',maintenance:false}],complete:true,upstreamStatus:200});
+- };
++ const connection={profile:'jdb_myr',baseUrl:'https://provider.example.test',dc:'synthetic',parent:'agent01',aesKey:'key1234567Sample',aesIv:'iv12345678Sample',padding:'space',launchOrigins:['https://games.example.test'],reportUtcOffsetMinutes:480};
++ const slot={mode:'qa',environment:'production',recoveryEnabled:true,sessionClosureVerified:true,qaMemberIds:['alice'],approvedApiOrigins:[connection.baseUrl],connection},document={profiles:{jdb_myr:slot}},providerCalls=[];
++ const transport=async(...args)=>{providerCalls.push(args);throw new Error('JDB provider transport must remain unused in v164 staging');};
++ const gameGatewayFetch=async url=>{assert.equal(url,'https://master7-integration-gateway.onrender.com/providers/jdb/games');return Response.json({provider:'jdb',games:[{gameCode:'0:100',name:'Synthetic game',category:'SLOT',maintenance:false}],complete:true,upstreamStatus:200});};
+  const config={db,ownerEmail:'',newDepositsEnabled:'false',newPayoutsEnabled:'false',newGameLaunchesEnabled:'true',providerTransferFetch:transport,gameGatewayUrl:'https://master7-integration-gateway.onrender.com',gameGatewayFetch};
+- const request=async (who,path,method='GET',data,extra={})=>{
+-  const response=await handle(new Request('https://www.master7.best'+path,{method,headers:{Origin:'https://www.master7.best','Content-Type':'application/json','X-CSRF-Token':'csrf-'+who,'X-Forwarded-For':'192.0.2.8'},...(data?{body:JSON.stringify(data)}:{})}),{...config,identity:who?{userId:who,email:who+'@example.test'}:null,jdbTransferProfilesJson:JSON.stringify(document),...extra});
+-  return {status:response.status,body:await response.json()};
+- };
+- const launch=()=>request('alice','/api/game-launch','POST',{profileId:'jdb_myr',providerId:'jdb',gameCode:'0:100',idempotencyKey:crypto.randomUUID(),language:'zh'});
++ const request=async(who,path,method='GET',data,extra={})=>{const response=await handle(new Request('https://www.master7.best'+path,{method,headers:{Origin:'https://www.master7.best','Content-Type':'application/json','X-CSRF-Token':'csrf-'+who,'X-Forwarded-For':'192.0.2.8'},...(data?{body:JSON.stringify(data)}:{})}),{...config,identity:who?{userId:who,email:who+'@example.test'}:null,jdbTransferProfilesJson:JSON.stringify(document),...extra});return{status:response.status,body:await response.json()};};
++ const launch=()=>request('alice','/api/game-launch','POST',{profileId:'jdb_myr',providerId:'jdb',gameCode:'0:100',idempotencyKey:crypto.randomUUID(),language:'en'});
+  const acceptJdb=async()=>{for(const capability of GAME_PROVIDER_ACCEPTANCE_CAPABILITIES){const result=await request('owner','/api/admin/game-acceptance','POST',{profileId:'jdb_myr',capability,environment:'production',result:'passed',evidenceSha256:'a'.repeat(64),evidenceReference:`synthetic-${capability}`,observedAt:Math.floor(Date.now()/1000),expectedEventId:null});assert.equal(result.status,201,JSON.stringify(result));}};
+- return{sqlite,db,document,connection,slot,factory,config,request,launch,acceptJdb,close:()=>sqlite.close()};
++ return{sqlite,db,document,connection,slot,providerCalls,config,request,launch,acceptJdb,close:()=>sqlite.close()};
+ }
+ 
+-test('universal API connects the approved QA member through JDB crypto, held wallet, settlement and shared staff records',async()=>{
+- const h=fixture();try{
+-  const start=await h.launch();assert.equal(start.status,200,JSON.stringify(start));assert.equal(start.body.profileId,'jdb_myr');assert.ok(start.body.walletSessionId);assert.equal(start.body.launchUrl,'https://games.example.test/synthetic-single-use-url');assert.equal(h.factory.calls.filter(p=>p.action===19&&p.amount>0).length,1);assert.equal(h.factory.balance,2000);
+-  const wallet=await h.request('alice','/api/game-wallet?profileId=jdb_myr');assert.equal(wallet.status,200);assert.equal(wallet.body.wallet.availableMinor,'0');assert.equal(wallet.body.session.id,start.body.walletSessionId);assert.equal(wallet.body.session.profileId,'jdb_myr');assert.equal(wallet.body.supportsRecovery,true);
+-  h.factory.balance=1575;h.config.newGameLaunchesEnabled='false';
+-  const end=await h.request('alice','/api/game-wallet/settle','POST',{profileId:'jdb_myr',sessionId:start.body.walletSessionId});assert.equal(end.status,200,JSON.stringify(end));assert.equal(end.body.session.resultMinor,'-425');assert.equal(h.factory.balance,0);assert.ok(h.factory.calls.some(p=>p.action===17));assert.equal(h.factory.calls.filter(p=>p.action===19&&p.amount<0).length,1);
+-  const final=await h.request('alice','/api/game-wallet?profileId=jdb_myr');assert.equal(final.body.wallet.availableMinor,'1575');const replay=await h.request('alice','/api/game-wallet/recover','POST',{profileId:'jdb_myr',sessionId:start.body.walletSessionId});assert.equal(replay.status,200);assert.equal(h.factory.calls.filter(p=>p.action===19&&p.amount<0).length,1);
+-  for(const who of ['owner','staff']){const records=await h.request(who,'/api/admin/game-wallet');assert.equal(records.status,200,JSON.stringify(records));const record=records.body.profileItems.find(x=>x.id===start.body.walletSessionId);assert.equal(record.amountOutMinor,'2000');assert.equal(record.amountReturnedMinor,'1575');assert.equal(record.resultMinor,'-425');assert.equal(record.reservedMinor,null);assert.equal(record.lastTransfer.providerReference,'102');assert.equal(record.lastTransfer.currency,'MYR');assert.ok(!JSON.stringify(records.body).includes(h.connection.aesKey));}
+-  const exported=await h.request('owner','/api/admin/export');assert.equal(exported.status,200);assert.equal(exported.body.game_wallet_sessions[0].profile_id,'jdb_myr');assert.equal(exported.body.provider_wallet_operations[0].withdrawal_provider_reference,'102');assert.ok(!('request_fingerprint' in exported.body.provider_wallet_operations[0]));assert.ok(!JSON.stringify(exported.body).includes(h.connection.aesKey));
+-  assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM game_wallet_ledger').get().n,1);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);assert.deepEqual(h.sqlite.prepare('PRAGMA foreign_key_check').all(),[]);
+- }finally{h.close();}
+-});
+-test('production configuration never uses QA membership to bypass production acceptance',async()=>{
+- const h=fixture();try{h.slot.mode='production';const result=await h.launch();assert.equal(result.status,503);assert.equal(result.body.code,'GAME_ACCEPTANCE_REQUIRED');assert.equal(h.factory.calls.length,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM game_wallet_sessions').get().n,0);}finally{h.close();}
+-});
+-test('production JDB uses its own five acceptance capabilities without claiming all games are ready',async()=>{
+- const h=fixture();try{
+-  h.slot.mode='production';h.slot.qaMemberIds=[];await h.acceptJdb();
+-  const readiness=await getGameProviderAcceptanceReadiness(h.db),jdb=readiness.profiles.find(profile=>profile.profileId==='jdb_myr');
+-  assert.equal(jdb.evidenceAccepted,true);assert.equal(readiness.allAcceptanceEvidencePassed,false);assert.equal(readiness.acceptedProfileCount,1);
+-  const catalogue=await h.request('alice','/api/games?provider=jdb&profileId=jdb_myr');assert.equal(catalogue.status,200,JSON.stringify(catalogue));assert.equal(catalogue.body.selectedProfile.launchReady,true);assert.equal(catalogue.body.selectedProfile.launchVerified,true);assert.equal(catalogue.body.selectedProfile.walletVerified,true);assert.equal(catalogue.body.selectedProfile.settlementVerified,true);assert.equal(catalogue.body.games[0].playable,true);assert.equal(catalogue.body.launchProvider,'jdb');assert.equal(catalogue.body.liveReady,true);
+-  const launched=await h.launch();assert.equal(launched.status,200,JSON.stringify(launched));assert.equal(launched.body.profileId,'jdb_myr');assert.equal(h.factory.calls.filter(call=>call.action===19&&call.amount>0).length,1);
+- }finally{h.close();}
+-});
+-test('production acceptance cannot fund a game absent from the fresh JDB catalogue',async()=>{
++function assertClosedWallet(body){
++ for(const field of ['launchReady','walletReady','liveReady','launchVerified','walletVerified','settlementVerified','supportsSettlement','supportsRecovery'])assert.equal(body[field],false,field);
++ assert.equal(body.session,null);assert.equal(body.capabilityReason,'transfer_connection_unavailable');
++}
++
++test('QA credentials and membership cannot activate JDB Play, wallet or recovery in v164 staging',async()=>{
+  const h=fixture();try{
+-  h.slot.mode='production';h.slot.qaMemberIds=[];await h.acceptJdb();
+-  const result=await h.request('alice','/api/game-launch','POST',{profileId:'jdb_myr',providerId:'jdb',gameCode:'0:999',idempotencyKey:crypto.randomUUID(),language:'en'});
+-  assert.equal(result.status,409);assert.equal(result.body.code,'GAME_CATALOGUE_UNAVAILABLE');assert.equal(h.factory.calls.length,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM game_wallet_sessions').get().n,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);
++  const catalogue=await h.request('alice','/api/games?provider=jdb&profileId=jdb_myr');assert.equal(catalogue.status,200);assert.equal(catalogue.body.selectedProfile.launchReady,false);assert.equal(catalogue.body.selectedProfile.walletReady,false);assert.equal(catalogue.body.games[0].playable,false);assert.equal(catalogue.body.launchProvider,null);assert.equal(catalogue.body.liveReady,false);
++  const launch=await h.launch();assert.equal(launch.status,503);assert.equal(launch.body.code,'GAME_TRANSFER_PROFILE_UNAVAILABLE');
++  const wallet=await h.request('alice','/api/game-wallet?profileId=jdb_myr');assert.equal(wallet.status,200);assertClosedWallet(wallet.body);assert.equal(wallet.body.wallet.availableMinor,'2000');
++  assert.equal(h.providerCalls.length,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM game_provider_sessions').get().n,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM game_wallet_ledger').get().n,0);
+  }finally{h.close();}
+ });
+ 
+-test('one accepted provider becomes runtime-ready without requiring every other brand or probing from health',async()=>{
++test('generic five-capability acceptance cannot substitute for finality, closure and merchant authorization',async()=>{
+  const h=fixture();try{
+   h.slot.mode='production';h.slot.qaMemberIds=[];await h.acceptJdb();
+-  const before=await h.request(null,'/health');assert.equal(before.body.providerAcceptance.liveProfileCount,0);
+-  const catalogue=await h.request('alice','/api/games?provider=jdb&profileId=jdb_myr');assert.equal(catalogue.body.games[0].playable,true);
+-  const calls=h.factory.calls.length,health=await h.request(null,'/health');
+-  assert.equal(health.body.providerAcceptance.liveProfileCount,1);assert.equal(health.body.liveGames,false);assert.equal(h.factory.calls.length,calls);
+-  const wallet=await h.request('alice','/api/game-wallet?profileId=jdb_myr');assert.equal(wallet.body.liveReady,true);assert.equal(wallet.body.launchVerified,true);assert.equal(wallet.body.settlementVerified,true);
+-  h.config.newGameLaunchesEnabled='false';const paused=await h.request(null,'/health');assert.equal(paused.body.providerAcceptance.liveProfileCount,0);assert.equal(h.factory.calls.length,calls);
++  const acceptance=await getGameProviderAcceptanceReadiness(h.db),jdb=acceptance.profiles.find(profile=>profile.profileId==='jdb_myr');assert.equal(jdb.evidenceAccepted,true);assert.equal(acceptance.acceptedProfileCount,1);
++  const before=await h.request(null,'/health');assert.equal(before.body.providerAcceptance.liveProfileCount,0);assert.equal(before.body.productionReady,false);
++  const catalogue=await h.request('alice','/api/games?provider=jdb&profileId=jdb_myr');assert.equal(catalogue.body.selectedProfile.launchReady,false);assert.equal(catalogue.body.selectedProfile.launchVerified,false);assert.equal(catalogue.body.selectedProfile.walletVerified,false);assert.equal(catalogue.body.selectedProfile.settlementVerified,false);assert.equal(catalogue.body.games[0].playable,false);assert.equal(catalogue.body.liveReady,false);
++  const launch=await h.launch();assert.equal(launch.status,503);assert.equal(launch.body.code,'GAME_TRANSFER_PROFILE_UNAVAILABLE');
++  const after=await h.request(null,'/health');assert.equal(after.body.providerAcceptance.liveProfileCount,0);assert.equal(after.body.liveGames,false);assert.equal(after.body.productionReady,false);assert.equal(h.providerCalls.length,0);
+  }finally{h.close();}
+ });
+ 
+-test('changing runtime credentials invalidates the observed readiness without an external request',async()=>{
++test('valid secret documents parse to a closed adapter and can seed only a closed profile',async()=>{
+  const h=fixture();try{
+-  h.slot.mode='production';h.slot.qaMemberIds=[];await h.acceptJdb();await h.request('alice','/api/games?provider=jdb&profileId=jdb_myr');
+-  const calls=h.factory.calls.length;h.connection.aesKey='newKey12345678901';
+-  const health=await h.request(null,'/health');assert.equal(health.body.providerAcceptance.liveProfileCount,0);assert.equal(h.factory.calls.length,calls);
++  const runtime=jdbProfileRuntime(JSON.stringify(h.document),'jdb_myr','alice',{fetchImpl:h.config.providerTransferFetch,productionAccepted:true});assert.ok(runtime);assert.equal(runtime.launchAuthorized,false);assert.equal(runtime.recoveryEnabled,false);assert.equal(runtime.mode,'closed');
++  assert.equal(await seedTransferProfile(h.db,runtime),true);assert.equal(h.sqlite.prepare("SELECT status FROM game_provider_profiles WHERE id='jdb_myr'").get().status,'closed');assert.equal(h.providerCalls.length,0);
++  assert.notEqual(jdbPlayerId('jdb_myr','alice'),jdbPlayerId('spribe_myr','alice'));
+  }finally{h.close();}
+ });
+ 
+-test('the general runtime secret supports the existing account contract and invalid JSON cannot fall back silently',async()=>{
++test('invalid runtime documents fail closed and the general secret has no activation bypass',async()=>{
+  const h=fixture();try{
+-  const missing=await h.request('alice','/api/game-launch','POST',{profileId:'jdb_myr',providerId:'jdb',gameCode:'0:100',idempotencyKey:'bad-general-config'},{gameTransferProfilesJson:'{invalid'});
+-  assert.equal(missing.status,503);assert.equal(h.factory.calls.length,0);
+-  const valid=await h.request('alice','/api/game-launch','POST',{profileId:'jdb_myr',providerId:'jdb',gameCode:'0:100',idempotencyKey:'valid-general-config'},{jdbTransferProfilesJson:'',gameTransferProfilesJson:JSON.stringify(h.document)});
+-  assert.equal(valid.status,200,JSON.stringify(valid));assert.equal(valid.body.profileId,'jdb_myr');assert.equal(h.factory.calls.filter(p=>p.action===19&&p.amount>0).length,1);
++  assert.equal(jdbProfileRuntime('{invalid','jdb_myr','alice'),null);assert.equal(jdbProfileRuntime(JSON.stringify(h.document),'unregistered','alice'),null);assert.equal(jdbProfileRuntime(JSON.stringify(h.document),'spribe_myr','alice'),null);
++  h.connection.baseUrl='https://provider.example.test/api';assert.equal(jdbProfileRuntime(JSON.stringify(h.document),'jdb_myr','alice'),null);h.connection.baseUrl='https://provider.example.test';h.slot.approvedApiOrigins=['https://other.example.test'];assert.equal(jdbProfileRuntime(JSON.stringify(h.document),'jdb_myr','alice'),null);
++  h.slot.approvedApiOrigins=[h.connection.baseUrl];const result=await h.request('alice','/api/game-launch','POST',{profileId:'jdb_myr',providerId:'jdb',gameCode:'0:100',idempotencyKey:'general-secret',language:'en'},{jdbTransferProfilesJson:'',gameTransferProfilesJson:JSON.stringify(h.document)});assert.equal(result.status,503);assert.equal(result.body.code,'GAME_TRANSFER_PROFILE_UNAVAILABLE');assert.equal(h.providerCalls.length,0);
+  }finally{h.close();}
+ });
+ 
+-test('runtime seeding never overwrites a conflicting account ratio to make a launch pass',async()=>{
++test('closed JDB state is read-only for members and staff with no sensitive runtime values',async()=>{
+  const h=fixture();try{
+-  h.sqlite.exec("INSERT INTO game_provider_profiles(id,provider_id,display_name,adapter_key,wallet_mode,balance_class,currency,unit_numerator,unit_denominator,environment,status,created_at,updated_at) VALUES('jdb_myr','jdb','Conflicting account','jdb','transfer','cash','MYR',100,1,'production','uat',0,0)");
+-  const result=await h.launch();assert.equal(result.status,409);assert.equal(result.body.code,'GAME_PROFILE_RECONCILIATION_REQUIRED');
+-  assert.equal(h.sqlite.prepare('SELECT unit_numerator FROM game_provider_profiles WHERE id=?').get('jdb_myr').unit_numerator,100);
+-  assert.equal(h.factory.calls.length,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);
++  const wallet=await h.request('alice','/api/game-wallet?profileId=jdb_myr');assertClosedWallet(wallet.body);
++  const recover=await h.request('alice','/api/game-wallet/recover','POST',{profileId:'jdb_myr',sessionId:'missing'});assert.notEqual(recover.status,200);
++  const settle=await h.request('alice','/api/game-wallet/settle','POST',{profileId:'jdb_myr',sessionId:'missing'});assert.notEqual(settle.status,200);
++  for(const who of ['owner','staff']){const records=await h.request(who,'/api/admin/game-wallet');assert.equal(records.status,200);assert.deepEqual(records.body.profileItems,[]);assert.ok(!JSON.stringify(records.body).includes(h.connection.aesKey));}
++  assert.equal(h.providerCalls.length,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);
+  }finally{h.close();}
+ });
+-test('unapproved API hosts, missing closure evidence and other members cannot submit money',async()=>{
+- for(const change of [h=>h.slot.approvedApiOrigins=[],h=>h.slot.sessionClosureVerified=false,h=>h.slot.qaMemberIds=['bob']]){const h=fixture();try{change(h);const result=await h.launch();assert.equal(result.status,503);assert.equal(h.factory.calls.length,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);}finally{h.close();}}
+-});
+-test('new-game maintenance blocks money before calls while a timed-out deposit remains recoverable',async()=>{
+- const h=fixture();try{h.factory.timeoutDeposit=true;const start=await h.launch();assert.equal(start.status,503);const s=h.sqlite.prepare('SELECT * FROM game_wallet_sessions').get();assert.equal(s.status,'deposit_unknown');h.config.newGameLaunchesEnabled='false';const blocked=await h.launch();assert.equal(blocked.status,503);assert.equal(blocked.body.code,'GAMES_MAINTENANCE');const result=await h.request('alice','/api/game-wallet/recover','POST',{profileId:'jdb_myr',sessionId:s.id});assert.equal(result.status,200,JSON.stringify(result));assert.equal(result.body.status,'active');assert.equal(h.factory.calls.filter(p=>p.action===19&&p.amount>0).length,1);const returned=await h.request('alice','/api/game-wallet/settle','POST',{profileId:'jdb_myr',sessionId:s.id});assert.equal(returned.status,200,JSON.stringify(returned));assert.equal(returned.body.session.resultMinor,'0');}finally{h.close();}
+-});
+-test('member/profile isolation and missing credentials retain visible recovery records',async()=>{
+- const h=fixture();try{const start=await h.launch(),id=start.body.walletSessionId;const bob=await h.request('bob','/api/game-wallet/recover','POST',{profileId:'jdb_myr',sessionId:id});assert.equal(bob.status,404);const read=await h.request('alice','/api/game-wallet?profileId=jdb_myr','GET',null,{jdbTransferProfilesJson:''});assert.equal(read.status,200);assert.equal(read.body.session.id,id);assert.equal(read.body.wallet.availableMinor,'0');assert.equal(read.body.supportsRecovery,false);const settled=await h.request('alice','/api/game-wallet/settle','POST',{profileId:'jdb_myr',sessionId:id},{jdbTransferProfilesJson:''});assert.equal(settled.status,503);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,1);}finally{h.close();}
+-});
+-test('runtime snapshots require a registered profile and accepted account origin, with per-profile players',()=>{
+- const h=fixture();try{const raw=JSON.stringify(h.document);assert.ok(jdbProfileRuntime(raw,'jdb_myr','alice'));assert.equal(jdbProfileRuntime(raw,'jdb_myr','bob').launchAuthorized,false);assert.equal(jdbProfileRuntime(raw,'spribe_myr','alice'),null);assert.equal(jdbProfileRuntime(raw,'unregistered','alice'),null);h.connection.baseUrl+='/';assert.ok(jdbProfileRuntime(JSON.stringify(h.document),'jdb_myr','alice'));h.connection.baseUrl='https://provider.example.test/api';assert.equal(jdbProfileRuntime(JSON.stringify(h.document),'jdb_myr','alice'),null);h.connection.baseUrl='https://provider.example.test';h.slot.approvedApiOrigins=['https://other.example.test'];assert.equal(jdbProfileRuntime(JSON.stringify(h.document),'jdb_myr','alice'),null);assert.notEqual(jdbPlayerId('jdb_myr','alice'),jdbPlayerId('spribe_myr','alice'));}finally{h.close();}
+-});
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index cb62e8eb5fa3694eec0ca1b38c7bb6f8ac20034b..265db305d3c48d4870d08f143a9c8076a020fe5b 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.163-coba8-front-end-registered';
++const release='17.0.0-selfbuilt.164-jdb-wager-coverage-staging';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+diff --git a/tests/postgres-readiness-gate.test.mjs b/tests/postgres-readiness-gate.test.mjs
+index 4f5fdd2dc9480e9305b839e0f0586d90b1877146..1de2d9bbfc7c082428c66e69a77867de78ad34cf 100644
+--- a/tests/postgres-readiness-gate.test.mjs
++++ b/tests/postgres-readiness-gate.test.mjs
+@@ -2,7 +2,8 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {BACKUP_EXCLUDED_TABLES,BACKUP_FORMAT,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES} from '../lib/encrypted-backup.ts';
+ import {BACKUP_PUBLIC_KEY_SHA256} from '../lib/backup-public-key.ts';
+-import {OPTIONAL_MIGRATIONS,REQUIRED_MIGRATIONS,REQUIRED_TABLES,evaluatePostgresReadinessEvidence,runPostgresReadinessGate} from '../scripts/postgres-readiness-gate.mjs';
++import {JDB_WAGER_COVERAGE_STAGING_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,WITHDRAWAL_DESTINATION_METHODS_MIGRATION} from '../lib/render-migrations.mjs';
++import {OPTIONAL_MIGRATIONS,REQUIRED_COLUMNS,REQUIRED_MIGRATIONS,REQUIRED_TABLES,REQUIRED_TRIGGERS,evaluatePostgresReadinessEvidence,runPostgresReadinessGate} from '../scripts/postgres-readiness-gate.mjs';
+ 
+ const release='17.0.0-readiness-fixture',nowMs=Date.parse('2026-11-08T12:00:00.000Z'),createdAt='2026-11-08T10:00:00.000Z',verifiedAt='2026-11-08T11:00:00.000Z';
+ const backup={format:BACKUP_FORMAT,release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,publicKeySha256:BACKUP_PUBLIC_KEY_SHA256,readConsistency:'transaction_snapshot',tableCount:BACKUP_TABLES.length,totalRecords:123,backupSha256:'a'.repeat(64),plaintextSha256:'b'.repeat(64),ciphertextSha256:'c'.repeat(64),createdAt};
+@@ -11,6 +12,8 @@ const restore={status:'verified',format:BACKUP_FORMAT,release,schemaVersion:BACK
+ const fixture=()=>({
+  role:{transaction_read_only:'on',can_create_database:false,can_create_schema:false,can_write_tables:false},
+  tables:REQUIRED_TABLES.map(name=>({name})),
++ columns:Object.entries(REQUIRED_COLUMNS).flatMap(([table_name,names])=>names.map(column_name=>({table_name,column_name}))),
++ triggers:REQUIRED_TRIGGERS.map(({tableName:table_name,triggerName:trigger_name})=>({table_name,trigger_name,enabled:'O'})),
+  migrations:[...REQUIRED_MIGRATIONS,...OPTIONAL_MIGRATIONS.slice(0,2)].sort().map(version=>({version,applied_at:Math.floor(nowMs/1000)-100})),
+  backupAudit:{target:JSON.stringify(backup),created_at:Math.floor(Date.parse(createdAt)/1000)},
+  restoreSetting:{value:JSON.stringify(restore)},
+@@ -18,7 +21,32 @@ const fixture=()=>({
+ 
+ test('evidence gate accepts only the current schema, migration, backup and bound restore contract',()=>{
+  const result=evaluatePostgresReadinessEvidence(fixture(),{expectedRelease:release,nowMs});
+- assert.equal(result.ok,true);assert.equal(result.schema.requiredTables,71+5);assert.equal(result.schema.requiredTables,BACKUP_TABLES.length+BACKUP_EXCLUDED_TABLES.length);assert.ok(BACKUP_EXCLUDED_TABLES.includes('member_wallet_guards'));assert.ok(!BACKUP_TABLES.includes('member_wallet_guards'));assert.ok(BACKUP_TABLES.includes('megah5_launch_operations'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_events'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_current'));assert.ok(BACKUP_TABLES.includes('production_acceptance_events'));assert.ok(BACKUP_TABLES.includes('production_acceptance_current'));assert.ok(BACKUP_TABLES.includes('public_contact_revisions'));assert.ok(REQUIRED_TABLES.includes('member_wallet_guards'));assert.equal(result.schema.requiredMigrations,29);assert.ok(result.checks.every(item=>item.pass));
++ assert.equal(result.ok,true);assert.equal(result.schema.requiredTables,76+5);assert.equal(result.schema.requiredTables,BACKUP_TABLES.length+BACKUP_EXCLUDED_TABLES.length);assert.ok(BACKUP_EXCLUDED_TABLES.includes('member_wallet_guards'));assert.ok(!BACKUP_TABLES.includes('member_wallet_guards'));assert.ok(BACKUP_TABLES.includes('megah5_launch_operations'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_events'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_current'));assert.ok(BACKUP_TABLES.includes('production_acceptance_events'));assert.ok(BACKUP_TABLES.includes('production_acceptance_current'));assert.ok(BACKUP_TABLES.includes('public_contact_revisions'));assert.ok(BACKUP_TABLES.includes('jdb_wager_receipts'));assert.ok(BACKUP_TABLES.includes('jdb_wager_observations'));assert.ok(REQUIRED_TABLES.includes('member_wallet_guards'));assert.equal(result.schema.requiredMigrations,32);assert.equal(result.schema.requiredColumns,7);assert.equal(result.schema.requiredTriggers,1);assert.equal(new Set(REQUIRED_MIGRATIONS).size,32);assert.ok(REQUIRED_MIGRATIONS.indexOf(WITHDRAWAL_DESTINATION_METHODS_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(PROVIDER_WALLET_SWEEPS_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(PROVIDER_WALLET_SWEEPS_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(JDB_WAGER_COVERAGE_STAGING_MIGRATION));assert.ok(result.checks.every(item=>item.pass));
++});
++
++for(const migration of [WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION])test(`evidence gate fails when required schema marker ${migration} is missing`,()=>{
++ const missing=fixture();missing.migrations=missing.migrations.filter(item=>item.version!==migration);
++ const result=evaluatePostgresReadinessEvidence(missing,{expectedRelease:release,nowMs});
++ assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='required_migrations').pass,false);
++});
++
++for(const [migration,table,column] of [[WITHDRAWAL_DESTINATION_METHODS_MIGRATION,'withdrawal_requests','destination_type'],[PROVIDER_WALLET_SWEEPS_MIGRATION,'provider_wallet_operations','withdrawal_mode']])test(`evidence gate rejects ${migration} when required physical schema is missing`,()=>{
++ const missing=fixture();missing.columns=missing.columns.filter(row=>row.table_name!==table||row.column_name!==column);
++ const result=evaluatePostgresReadinessEvidence(missing,{expectedRelease:release,nowMs});
++ assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='required_migrations').pass,true);assert.equal(result.checks.find(item=>item.id==='required_schema_columns').pass,false);
++});
++
++test('evidence gate rejects a missing or disabled provider wallet immutability trigger',()=>{
++ for(const triggers of [[],[{table_name:'provider_wallet_operations',trigger_name:'provider_wallet_contract_immutable',enabled:'D'}]]){
++  const missing=fixture();missing.triggers=triggers;const result=evaluatePostgresReadinessEvidence(missing,{expectedRelease:release,nowMs});
++  assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='provider_wallet_contract_immutable_trigger').pass,false);
++ }
++});
++
++test('evidence gate rejects dependency markers applied after their consumers',()=>{
++ const outOfOrder=fixture(),epoch=Math.floor(nowMs/1000)-100;
++ for(const row of outOfOrder.migrations){if(row.version===WITHDRAWAL_DESTINATION_METHODS_MIGRATION)row.applied_at=epoch+2;if(row.version===PROVIDER_WALLET_SWEEPS_MIGRATION)row.applied_at=epoch+1;if(row.version===JDB_WAGER_COVERAGE_STAGING_MIGRATION)row.applied_at=epoch;}
++ const result=evaluatePostgresReadinessEvidence(outOfOrder,{expectedRelease:release,nowMs});assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='migration_dependency_order').pass,false);
+ });
+ 
+ test('evidence gate fails closed for drift, a write-capable role or an unbound receipt',()=>{
+@@ -36,6 +64,8 @@ class FakeClient{
+   if(sql.startsWith('BEGIN')||sql.startsWith('SET LOCAL')||sql==='ROLLBACK')return{rows:[]};
+   if(sql.includes("current_setting('transaction_read_only')"))return{rows:[this.data.role]};
+   if(sql.includes('FROM pg_catalog.pg_class'))return{rows:this.data.tables};
++  if(sql.includes('FROM information_schema.columns'))return{rows:this.data.columns};
++  if(sql.includes('FROM pg_catalog.pg_trigger'))return{rows:this.data.triggers};
+   if(sql.startsWith('SELECT version,applied_at'))return{rows:this.data.migrations};
+   if(sql.includes("event='encrypted_backup_created'"))return{rows:[this.data.backupAudit]};
+   if(sql.includes("id='backup_restore_rehearsal'"))return{rows:[this.data.restoreSetting]};
+@@ -47,7 +77,7 @@ test('PostgreSQL gate performs metadata-only reads in one rollback-only transact
+  const client=new FakeClient(),result=await runPostgresReadinessGate(client,{expectedRelease:release,nowMs});assert.equal(result.ok,true);
+  assert.equal(client.sql[0],'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');assert.equal(client.sql.at(-1),'ROLLBACK');
+  const sql=client.sql.join('\n');assert.doesNotMatch(sql,/SELECT\s+\*\s+FROM\s+(?:users|wallet_ledger|deposit_orders)/i);assert.doesNotMatch(sql,/\b(?:INSERT|UPDATE|DELETE|TRUNCATE)\s+(?:INTO|FROM)?\s*(?:users|wallet_ledger|deposit_orders)/i);
+- assert.ok(sql.includes('pg_catalog.pg_class'));assert.ok(sql.includes('portal_schema_migrations'));assert.ok(sql.includes("event='encrypted_backup_created'"));assert.ok(sql.includes("id='backup_restore_rehearsal'"));
++ assert.ok(sql.includes('pg_catalog.pg_class'));assert.ok(sql.includes('information_schema.columns'));assert.ok(sql.includes('pg_catalog.pg_trigger'));assert.ok(sql.includes('portal_schema_migrations'));assert.ok(sql.includes("event='encrypted_backup_created'"));assert.ok(sql.includes("id='backup_restore_rehearsal'"));
+ });
+ 
+ test('PostgreSQL gate rolls back after a metadata-query failure',async()=>{
+diff --git a/tests/render-migrations.test.mjs b/tests/render-migrations.test.mjs
+index ae235b9d18ba22c80838c4628b789811030fd504..efef8df154c4e461495624f51fc6e7a998640eaf 100644
+--- a/tests/render-migrations.test.mjs
++++ b/tests/render-migrations.test.mjs
+@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
+ import { DatabaseSync } from 'node:sqlite';
+ import { readFileSync } from 'node:fs';
+ import { join } from 'node:path';
+-import { initializePortalDatabase, PORTAL_STATUS_MIGRATION, PAYMENT_PROVIDERS_MIGRATION, ONE_MPAY_CHANNEL_MIGRATION, GAME_ACCESS_ZONE_MIGRATION, PAYMENT_ACCEPTANCE_GUARD_MIGRATION, MARKETING_CONTACT_SCALE_MIGRATION, OPERATIONS_AUTOMATION_MIGRATION, SUPPORT_MARKETING_MIGRATION, WHATSAPP_CAMPAIGN_DELIVERY_MIGRATION, REWARDS_HUB_MIGRATION, RESPONSIBLE_PLAY_MIGRATION, COMPANY_BANK_ARTWORK_MIGRATION, NEW_MEMBER_VOUCHER_MIGRATION, VOUCHER_MANUAL_WORKFLOW_MIGRATION, FIXED_VOUCHER_RETIREMENT_MIGRATION, BENEFIT_CLAIM_REVIEW_MIGRATION, MANUAL_COMPLIANCE_MIGRATION, GSPAY_USDT_PROFILE_MIGRATION, GAME_PROVIDER_ADAPTER_CORE_MIGRATION, MEGAH5_LAUNCH_OPERATIONS_MIGRATION, GAME_PROVIDER_ACCEPTANCE_MIGRATION, GENERIC_GAME_WALLET_RISK_MIGRATION, PAYOUT_CONTROL_MIGRATION, GSPAY_PAYOUT_ACTIVATION_MIGRATION, PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS, PORTAL_MIGRATION_ADVISORY_LOCK } from '../lib/render-migrations.mjs';
++import { initializePortalDatabase, PORTAL_STATUS_MIGRATION, PAYMENT_PROVIDERS_MIGRATION, ONE_MPAY_CHANNEL_MIGRATION, GAME_ACCESS_ZONE_MIGRATION, PAYMENT_ACCEPTANCE_GUARD_MIGRATION, MARKETING_CONTACT_SCALE_MIGRATION, OPERATIONS_AUTOMATION_MIGRATION, SUPPORT_MARKETING_MIGRATION, WHATSAPP_CAMPAIGN_DELIVERY_MIGRATION, REWARDS_HUB_MIGRATION, RESPONSIBLE_PLAY_MIGRATION, COMPANY_BANK_ARTWORK_MIGRATION, NEW_MEMBER_VOUCHER_MIGRATION, VOUCHER_MANUAL_WORKFLOW_MIGRATION, FIXED_VOUCHER_RETIREMENT_MIGRATION, BENEFIT_CLAIM_REVIEW_MIGRATION, MANUAL_COMPLIANCE_MIGRATION, GSPAY_USDT_PROFILE_MIGRATION, GAME_PROVIDER_ADAPTER_CORE_MIGRATION, MEGAH5_LAUNCH_OPERATIONS_MIGRATION, GAME_PROVIDER_ACCEPTANCE_MIGRATION, GENERIC_GAME_WALLET_RISK_MIGRATION, JDB_WAGER_COVERAGE_STAGING_MIGRATION, PAYOUT_CONTROL_MIGRATION, GSPAY_PAYOUT_ACTIVATION_MIGRATION, PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS, PORTAL_MIGRATION_ADVISORY_LOCK } from '../lib/render-migrations.mjs';
+ 
+ const beforeFinalMigration = [
+   '0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql',
+@@ -12,6 +12,11 @@ const beforeFinalMigration = [
+   '0010_game_visibility_artwork.sql','0011_provider_artwork.sql',
+ ];
+ 
++test('base Render schema leaves JDB coverage to the ordered post-adapter migration',()=>{
++ const schema=readFileSync(join('db','render-schema.sql'),'utf8');
++ assert.doesNotMatch(schema,/CREATE TABLE IF NOT EXISTS jdb_wager_/,'the base schema runs before 0110 creates game_provider_profiles');
++});
++
+ test('one-time SQL migration snapshots old controls before closing them and seeds the exact catalog', () => {
+   const db = new DatabaseSync(':memory:');
+   for (const migration of beforeFinalMigration) db.exec(readFileSync(join('drizzle', migration), 'utf8'));
+@@ -83,6 +88,11 @@ test('Render startup status migration is transactional, idempotent and rolls bac
+   assert.ok(client.applied.has(MEGAH5_LAUNCH_OPERATIONS_MIGRATION));
+   assert.ok(client.applied.has(GAME_PROVIDER_ACCEPTANCE_MIGRATION));
+   assert.ok(client.applied.has(GENERIC_GAME_WALLET_RISK_MIGRATION));
++  assert.ok(client.applied.has(JDB_WAGER_COVERAGE_STAGING_MIGRATION));
++  assert.ok(!client.events.some(event=>event.sql.startsWith('INSERT INTO game_provider_profiles')&&event.sql.includes("'jdb_myr'")),'0121 never creates or mutates a provider profile');
++  const jdbCoverageSql=client.events.find(event=>event.sql.startsWith('CREATE TABLE IF NOT EXISTS jdb_wager_sync_windows'))?.sql??'';
++  for(const table of ['jdb_wager_sync_windows','jdb_wager_receipts','jdb_wager_identities','jdb_wager_event_versions','jdb_wager_observations'])assert.match(jdbCoverageSql,new RegExp(`CREATE TABLE IF NOT EXISTS ${table}\\b`));
++  assert.match(jdbCoverageSql,/source_finality_verified = 0/);assert.match(jdbCoverageSql,/session_closure_verified = 0/);assert.match(jdbCoverageSql,/merchant_authorization_verified = 0/);assert.match(jdbCoverageSql,/coverage_complete = 0/);
+   for(const name of ['game_provider_sessions_user_status','game_wallet_transfers_user_status','game_transactions_user_status'])assert.ok(client.events.some(event=>event.sql.startsWith('CREATE INDEX IF NOT EXISTS '+name)));
+   assert.ok(client.applied.has(COMPANY_BANK_ARTWORK_MIGRATION));
+   assert.ok(client.applied.has(NEW_MEMBER_VOUCHER_MIGRATION));
