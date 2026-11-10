@@ -1,0 +1,139 @@
+{
+  "evidenceVersion": 1,
+  "observedAt": "2026-11-10T12:54:22.572Z",
+  "serviceId": "srv-dbl0iv7f3r2c73848ei0",
+  "deployId": "dep-dbph4fuc6qcc73al7npg",
+  "publicationCommit": "46fe231e896cf657efc5087be482235a7a71a476",
+  "sourceCommit": "14fc4fe22d4f96a210274fe2beffdf706ceb5e1a",
+  "release": "17.0.0-selfbuilt.164-jdb-wager-coverage-staging",
+  "deployStatus": "live",
+  "deployFinishedAt": "2026-11-10T12:48:39.149550Z",
+  "routes": [
+    {
+      "path": "/health/live",
+      "status": 200
+    },
+    {
+      "path": "/health",
+      "status": 200
+    },
+    {
+      "path": "/",
+      "status": 303,
+      "location": "/signin"
+    },
+    {
+      "path": "/signin",
+      "status": 200
+    },
+    {
+      "path": "/register",
+      "status": 200
+    },
+    {
+      "path": "/admin",
+      "status": 200
+    },
+    {
+      "path": "/api/games",
+      "status": 200
+    },
+    {
+      "path": "/api/games?provider=jdb&profileId=jdb_myr",
+      "status": 200
+    },
+    {
+      "path": "/api/admin/jdb-wager-coverage?timeBasis=lastModifyTime",
+      "status": 401,
+      "scope": "anonymous authorization check"
+    }
+  ],
+  "health": {
+    "status": "ok",
+    "database": "ready",
+    "release": "17.0.0-selfbuilt.164-jdb-wager-coverage-staging",
+    "sourceRelease": "17.0.0-selfbuilt.164-jdb-wager-coverage-staging",
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "transactionsEnabled": false,
+    "realPayments": false,
+    "payoutsEnabled": false,
+    "liveGames": false,
+    "anyGamePlayable": false,
+    "productionReady": false,
+    "backupReady": true,
+    "restoreReady": true,
+    "providerOrdersEnabled": {
+      "vpay": false,
+      "1mpay": false,
+      "gspay": false,
+      "gspay_usdt": false,
+      "gspay_plus": false
+    },
+    "providerPayoutsEnabled": {
+      "vpay": false,
+      "gspay": false,
+      "gspay_usdt": false,
+      "1mpay": false
+    }
+  },
+  "games": {
+    "profileBrandCount": 38,
+    "profileCount": 43,
+    "implementedProfileCount": 6,
+    "launchReadyProfileCount": 0,
+    "verifiedProfileCount": 0,
+    "unavailableProfileCount": 43,
+    "platformCount": 38,
+    "totalGameCount": 0,
+    "playable": false,
+    "liveReady": false
+  },
+  "jdbPublic": {
+    "providerId": "jdb",
+    "profileId": "jdb_myr",
+    "implemented": true,
+    "enabled": false,
+    "status": "unavailable",
+    "launchReady": false,
+    "walletReady": false,
+    "recoveryReady": false,
+    "totalGameCount": 0,
+    "playable": false,
+    "liveReady": false,
+    "launchProvider": null,
+    "adminDiagnosticAnonymousStatus": 401
+  },
+  "mobile": {
+    "viewportWidth": 393,
+    "documentWidth": 393,
+    "hasHorizontalOverflow": false,
+    "providerTileCount": 38,
+    "jdbTileCount": 1,
+    "jdbAriaLabel": "JDB provider status \u00b7 Coming soon",
+    "jdbPlayLabelCount": 0,
+    "brokenImageCount": 0,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "badResponseCount": 0,
+    "materialRequestFailureCount": 0,
+    "writeRequestCount": 0
+  },
+  "maintenanceSafetyProbe": {
+    "ok": true,
+    "scope": "maintenance_safety_only",
+    "passedChecks": 49,
+    "failedChecks": 0,
+    "productionReady": false
+  },
+  "renderLogs": {
+    "startTime": "2026-11-10T12:46:55Z",
+    "queriedAt": "2026-11-10T12:52:21.587Z",
+    "appErrorCriticalCount": 0,
+    "appWarningCount": 0,
+    "request5xxCount": 0,
+    "hasMore": false
+  },
+  "safety": "Read-only public verification only; no account, financial, provider, game-launch, wallet, configuration or acceptance operation was invoked."
+}

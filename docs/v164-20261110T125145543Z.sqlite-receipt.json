@@ -1,0 +1,22 @@
+{
+  "evidenceVersion": 1,
+  "status": "verified",
+  "coverageComplete": true,
+  "missingTables": [],
+  "readConsistency": "transaction_snapshot",
+  "format": "MASTER7-ENCRYPTED-BACKUP-1",
+  "release": "17.0.0-selfbuilt.164-jdb-wager-coverage-staging",
+  "schemaVersion": "0121-jdb-wager-coverage-staging",
+  "schemaSha256": "56d103a98b0e1d4b664a6a0eee440518769795268675ef5133987d86edafb2e1",
+  "backupFile": "master7-encrypted-backup-v164-20261110T125145543Z.json",
+  "backupSha256": "035e38fbe699bb55120fde94caa1ed841b5810396064cd90aa5587d018dddb7b",
+  "createdAt": "2026-11-10T12:51:49.473Z",
+  "verifiedAt": "2026-11-10T12:51:50.316Z",
+  "publicKeySha256": "922c18278bcd0521b73eb40166e3a111765157e4f0179fa18b07bb53cb151359",
+  "plaintextSha256": "eda0350499dc20d3460cea17f719db789d0e4267a9d83d7ff818957c0c3375e7",
+  "tableCount": 76,
+  "totalRecords": 502,
+  "excludedTableCount": 5,
+  "foreignKeyViolations": 0,
+  "restoreTargetKind": "isolated_in_memory_sqlite"
+}

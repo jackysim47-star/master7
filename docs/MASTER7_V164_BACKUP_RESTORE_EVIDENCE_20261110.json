@@ -1,0 +1,95 @@
+{
+  "evidenceVersion": 1,
+  "release": "17.0.0-selfbuilt.164-jdb-wager-coverage-staging",
+  "deploy": {
+    "id": "dep-dbph4fuc6qcc73al7npg",
+    "publicationCommit": "46fe231e896cf657efc5087be482235a7a71a476",
+    "sourceCommit": "14fc4fe22d4f96a210274fe2beffdf706ceb5e1a",
+    "status": "live"
+  },
+  "capturedAt": "2026-11-10T12:51:49.473Z",
+  "verifiedAt": "2026-11-10T12:51:52.891Z",
+  "backup": {
+    "filename": "master7-encrypted-backup-v164-20261110T125145543Z.json",
+    "sha256": "035e38fbe699bb55120fde94caa1ed841b5810396064cd90aa5587d018dddb7b",
+    "format": "MASTER7-ENCRYPTED-BACKUP-1",
+    "readConsistency": "transaction_snapshot",
+    "schemaVersion": "0121-jdb-wager-coverage-staging",
+    "schemaSha256": "56d103a98b0e1d4b664a6a0eee440518769795268675ef5133987d86edafb2e1",
+    "publicKeySha256": "922c18278bcd0521b73eb40166e3a111765157e4f0179fa18b07bb53cb151359",
+    "tableCount": 76,
+    "totalRecords": 502,
+    "payloadPublished": false
+  },
+  "sqlite": {
+    "filename": "v164-20261110T125145543Z.sqlite-receipt.json",
+    "publishedReceiptSha256": "4c93bf2b4d91e38d327ae0e4dfc78175664905c0f42e6d364f2c734e3b1fb472",
+    "status": "verified",
+    "coverageComplete": true,
+    "foreignKeyViolations": 0,
+    "tableCount": 76,
+    "totalRecords": 502,
+    "restoreTargetKind": "isolated_in_memory_sqlite"
+  },
+  "postgres": {
+    "filename": "v164-20261110T125145543Z.postgres-receipt.json",
+    "publishedReceiptSha256": "3db9c53560ff2ccf674d0cd0bbd0fa6e270b75486c1d469b13d3fba2ffef8d07",
+    "status": "verified",
+    "coverageComplete": true,
+    "readConsistency": "transaction_snapshot",
+    "persistentWrites": false,
+    "foreignKeyViolations": 0,
+    "tableCount": 76,
+    "totalRecords": 502,
+    "restoreTargetKind": "isolated_postgresql_18_rollback_transaction",
+    "postRollbackUserTables": 0,
+    "containerRemoved": true
+  },
+  "recording": {
+    "status": "ok",
+    "verified": true,
+    "requestPublished": false,
+    "responsePublished": false
+  },
+  "liveReadinessAfterRecording": {
+    "backupReady": true,
+    "restoreReady": true,
+    "backupCreatedAt": "2026-11-10T12:51:49.473Z",
+    "restoreVerifiedAt": "2026-11-10T12:51:52.891Z",
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "transactionsEnabled": false,
+    "realPayments": false,
+    "payoutsEnabled": false,
+    "liveGames": false,
+    "anyGamePlayable": false,
+    "productionReady": false,
+    "providerOrdersEnabled": {
+      "vpay": false,
+      "1mpay": false,
+      "gspay": false,
+      "gspay_usdt": false,
+      "gspay_plus": false
+    },
+    "providerPayoutsEnabled": {
+      "vpay": false,
+      "gspay": false,
+      "gspay_usdt": false,
+      "1mpay": false
+    }
+  },
+  "regression": {
+    "command": "node --test tests/backup-restore-rehearsal.test.mjs tests/postgres-restore-safety.test.mjs tests/backup-job-api.test.mjs",
+    "passed": 24,
+    "failed": 0
+  },
+  "safety": {
+    "productionDataWrites": "backup audit and recovery evidence only",
+    "restorePersistentWrites": false,
+    "paymentCalls": 0,
+    "gameLaunchCalls": 0,
+    "providerCalls": 0,
+    "payoutCalls": 0
+  }
+}
