@@ -11,6 +11,22 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. A callback POST remains closed until that provider's signed callback contract is implemented; a reachability endpoint never claims transaction readiness.
 
+## Version 1.18.0: supplier catalogue boundary safety
+
+EVO888H5, CLOTPLAY, Pragmatic Play and Venus Gaming catalogue responses now
+pass through strict, bounded public projections. Malformed, duplicate,
+oversized or partial catalogue responses fail as one unit instead of publishing
+an incomplete list. Unapproved remote artwork URLs and private provider fields
+are withheld.
+
+Catalogue presence no longer proves that a title can launch. EVO, Pragmatic
+Play and Venus titles remain out of service because their supplied contracts
+do not establish a reviewed per-title availability signal. CLOTPLAY requires
+an explicit maintenance value and rejects internally inconsistent pagination.
+
+This version adds no player, Play, wallet, transfer, settlement or recovery
+route and does not enable any real-money switch.
+
 ## Version 1.17.0: provider catalogue safety
 
 EPICWIN Normal MYR and Free MYR catalogue accounts now have independent,
