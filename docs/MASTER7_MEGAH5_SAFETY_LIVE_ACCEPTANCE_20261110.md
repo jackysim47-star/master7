@@ -45,3 +45,28 @@ No supplier launch or money action was executed during this acceptance check, so
 The live catalogue and fail-closed controls are accepted for read-only operation. Legacy MegaH5 production play and wallet operation are **not accepted**. Play and all money actions must remain closed until the exact merchant-account entitlement and full supplier contract are confirmed, both Render Singapore CIDRs are allowlisted, and a controlled end-to-end acceptance produces durable evidence.
 
 No payment-provider configuration was changed by this work.
+
+## Post-deployment acceptance
+
+Deployment window: 2026-11-10 06:44–06:50 UTC.
+
+- Gateway deployment `dep-dbpbqmh5efls73b24rng` is live at source commit
+  `1292f75397e6e505efaa2631b84c1a10b30794a0` and reports version `1.15.0`.
+- Portal deployment `dep-dbpbqv3rjlhs73fg1l20` is live at publication commit
+  `76b24566dff7105d6742412e58d51cbc3adc6710` and reports release
+  `17.0.0-selfbuilt.151-megah5-safety` with database `ready`.
+- Customer sign-in and registration returned HTTP 200 in a 390×844 browser.
+  The customer root redirects to sign-in as designed.
+- The management entry returned HTTP 200 and displayed the management sign-in.
+  Games remain a customer-front-end action; management is record and control
+  access only.
+- The refreshed portal catalogue contains 166 MegaH5 games. All 166 carry
+  `maintenance=true`, all carry `playable=false`, and the selected profile
+  reports `launchReady=false` and `launch_origin_allowlist_unavailable`.
+- Gateway mapping remains false; transfer and status switches remain off.
+- Render recorded no portal HTTP 5xx request and no application error log after
+  this deployment during the acceptance window.
+
+The deployment is accepted as a safe read-only MegaH5 catalogue release. It is
+not an acceptance of production Play, wager ingestion, settlement or money
+movement.
