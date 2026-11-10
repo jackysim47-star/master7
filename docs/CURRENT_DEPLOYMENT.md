@@ -35,6 +35,15 @@ approved for production go-live. See
 and exact DNS/TLS follow-up are recorded in
 `MASTER7_V173_OFFICIAL_DOMAIN_RECHECK.md`.
 
+The v173 rollback technical preflight rebuilt the immutable v172 and v173
+archives and ran a complete switch cycle against isolated PostgreSQL 18. V172
+could start but returned HTTP 404 for GET and HEAD `/staff-setup`, so it is a
+NO-GO rollback target. The v173 recovery checkpoint rebuilt and recovered with
+database guards 9/9, functions 5/5, GET and HEAD `/staff-setup` HTTP 200 and all
+business switches closed. No production rollback occurred and no Owner
+rollback approval was recorded. See
+`MASTER7_V173_ROLLBACK_TECHNICAL_PREFLIGHT.md`.
+
 ## Official domains
 
 Render Blueprint `exs-dboff93rjlhs73b9hihg` manages Portal service
