@@ -83,5 +83,161 @@
     "newPlayers": 0,
     "paymentProviderCalls": 0
   },
-  "remaining": "No claim that all 37 brands can be played. Production merchant contracts/adapters and supplier authorization remain outstanding."
+  "remaining": "No claim that all 37 brands can be played. Production merchant contracts/adapters and supplier authorization remain outstanding.",
+  "deployStatus": "live",
+  "deploymentLiveAt": "2026-11-10T03:39:10.253474Z",
+  "finalCheckedAt": "2026-11-10T03:48:03.403359+00:00",
+  "validation": {
+    "maintenance": "12/12",
+    "releaseProbes": "27/27",
+    "regression": "1277/1277",
+    "renderDatabase": "3/3",
+    "isolatedPostgresProvider": "7/7",
+    "isolatedPostgresMega": "9/9",
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "localBrowser": {
+      "testType": "isolated layout fixture; no real login, payment, game launch or wallet mutation",
+      "results": [
+        {
+          "viewport": 360,
+          "heroHeight": 397,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "providerCards": 37,
+          "jiliVariants": 2,
+          "independentAccountSelection": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        },
+        {
+          "viewport": 390,
+          "heroHeight": 377,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "providerCards": 37,
+          "jiliVariants": 2,
+          "independentAccountSelection": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        },
+        {
+          "viewport": 430,
+          "heroHeight": 371,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "providerCards": 37,
+          "jiliVariants": 2,
+          "independentAccountSelection": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        },
+        {
+          "viewport": 1280,
+          "heroHeight": 314,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "providerCards": 37,
+          "jiliVariants": 2,
+          "independentAccountSelection": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        }
+      ],
+      "mutatingRequests": []
+    },
+    "liveBrowser": {
+      "testType": "anonymous deployed sign-in; member layout separately checked using an isolated fixture",
+      "http": 200,
+      "finalPath": "/signin",
+      "memberAuthenticationRequired": true,
+      "releaseBoundAssets": true,
+      "signInFormVisible": true,
+      "otpControlVisible": true,
+      "jsErrors": [],
+      "nonReadRequests": [],
+      "appScriptResponses": [
+        {
+          "path": "https://master7-v17-staging.onrender.com/assets/app.js",
+          "http": 200
+        }
+      ],
+      "authenticatedMemberJourneyVerified": false,
+      "realGamePlayVerified": false
+    }
+  },
+  "postdeployBackup": {
+    "sha256": "24437b84c28289897c5818131a272c197f90726c1d1ab97b95d22a9d1e55f9c6",
+    "tableCount": 71,
+    "records": 468,
+    "sqliteVerified": true,
+    "postgresVerified": true,
+    "foreignKeyViolations": 0,
+    "persistentRestoreWrites": false,
+    "onlineReceiptRecorded": true,
+    "backupReady": true,
+    "restoreReady": true
+  },
+  "financialTableCounts": {
+    "deposit_orders": {
+      "before": 12,
+      "after": 12
+    },
+    "wallet_ledger": {
+      "before": 0,
+      "after": 0
+    },
+    "wallet_reservations": {
+      "before": 0,
+      "after": 0
+    },
+    "game_wallet_sessions": {
+      "before": 0,
+      "after": 0
+    },
+    "game_wallet_ledger": {
+      "before": 0,
+      "after": 0
+    },
+    "provider_wallet_operations": {
+      "before": 0,
+      "after": 0
+    },
+    "withdrawal_requests": {
+      "before": 0,
+      "after": 0
+    }
+  },
+  "logVerification": {
+    "windowStart": "2026-11-10T03:39:10Z",
+    "scope": "bounded post-deploy query; no claim of continuous monitoring",
+    "appErrorCount": 0,
+    "request5xxCount": 0
+  },
+  "completedInternalRepairs": [
+    "registered 1:100 cash-profile accounting",
+    "compiled per-profile transfer runtime resolution",
+    "per-profile readiness and credential-change invalidation",
+    "evidence-based MegaH5 capability and closure-processing interface",
+    "durable closure receipt and post-return zero-balance checks",
+    "37 brand cards with independent account selection"
+  ],
+  "planCompletion": {
+    "allItemsComplete": false,
+    "productionAcceptedProfiles": 0,
+    "stillUnimplementedListedProfiles": 39,
+    "megaH5AccountClosureContractInstalled": false,
+    "jdbMerchantAuthorizationAccepted": false,
+    "realMemberGameJourneyVerified": false
+  },
+  "billingAndActivationChanges": false
 }
