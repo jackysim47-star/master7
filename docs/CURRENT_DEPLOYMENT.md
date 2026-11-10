@@ -1,467 +1,197 @@
-# MASTER7 Current Deployment Receipt
+# MASTER7 deployment handover
 
-## `.92` VPay payout current live deployment
+Candidate source: `17.0.0-selfbuilt.172-privileged-role-boundary`.
 
-- Live release: `17.0.0-selfbuilt.92-vpay-payout`.
-- Portal source commit: `11df333549718f9767fb31e9f5aaf9f780192e35`.
-- Gateway source commit: `628bac71cea05eda4e3d739148908133ae4fee3d`.
-- Publication commit: `e6606fa0b79ac540dd8b9f7b603805d3a90e0e0f`.
-- Portal Render deploy: `dep-dbne6epsrm7s7396f0jg`, `live` at
-  2026-11-07 16:38:54 MYT.
-- Gateway Render deploy: `dep-dbne6e95efls73b3k9a0`, `live` at
-  2026-11-07 16:37:42 MYT.
-- Bundle SHA-256:
-  `1493e47649410a371bfc8d8986372dda2615005fbc8416dffd619379d8683545`.
-- VPay payout is implemented, configured and enabled behind an isolated
-  Portal-to-Gateway token. The member withdrawal API exposes 18 MYR banks.
-- Submission, independent status query, authenticated callback forwarding,
-  wallet reservation, idempotent completion, rejection release, reversal and
-  ambiguous-state recovery are deployed. The callback readiness check is
-  active and both services report complete VPay payout configuration.
-- Portal validation passed 406/406 tests and the Render production build.
-  Gateway validation passed 105/105 tests.
-- No real payout was submitted during deployment. VPay correctly retains
-  `verified=false` and `settlementVerified=false` until a controlled real
-  payout is reconciled against VPay, the MASTER7 withdrawal and wallet state.
-- GSPAY+ payout stays closed pending its exact `bank_target` list and a valid
-  current outbound-IP whitelist. 1MPay payout stays closed pending its exact
-  bank-code list and final callback/status/acknowledgement contract.
+This candidate has not been deployed by the source commit. Confirm the actual
+Render release and deployment ID from the Portal service before cutover or
+rollback. Portal service: `srv-dbl0iv7f3r2c73848ei0`.
 
-## `.91` payment-network bridge current live deployment
+## Privileged staff role boundary
 
-- Live release: `17.0.0-selfbuilt.91-payment-network-bridge`.
-- Source commit: `308ca740b2995a1aaf857e8e8ff91fb0a168a6a8`.
-- Publication commit: `7ef90f0fd8fbc979a980bfff6cbf82e4a09d4d3e`.
-- Portal Render deploy: `dep-dbndmfff3r2c738capjg`, `live` at
-  2026-11-07 16:04:36 MYT.
-- Gateway Render deploy: `dep-dbndm3ijnfac73c3l7sg`, `live` at
-  2026-11-07 16:02:49 MYT.
-- Bundle SHA-256:
-  `fc1db450bc3271e5bb9f4448e65afdc62472fa89637409729e93bf7c48608b93`.
-- GSPAY Portal traffic now uses integration gateway `1.13.0` from commit
-  `3ab04dc6b196dda33b684cee59e6664b7d4b427e`. Supplier secrets stay in the gateway; Portal order,
-  query/signing and callback credentials are separate.
-- Source validation passed 400/400 Portal tests, 3/3 Render database-adapter
-  tests and the production build. Gateway validation passed 103/103 tests.
-- VPay, GSPAY and 1MPay each report `orderReady=true`, `queryReady=true` and
-  `callbacksReady=true`. VPay advertises MYR trade codes `1`, `2` and `7`.
-  Portal health reports `transactionsEnabled=true` and `realPayments=true`.
-- This verifies configuration and live order-route readiness. A paid payment,
-  wallet posting and merchant reconciliation have not yet been observed, so
-  all three correctly retain `settlementVerified=false` and `liveReady=false`.
-- Payouts remain disabled. The game lobby has 34 independent positions and 766
-  retained titles, but zero launch-ready providers and zero playable titles.
-- The final payment deployment window has zero application error/critical/fatal
-  logs and zero HTTP 5xx responses on payment, query or callback routes.
+v172 makes a staff role usable only through a local password session whose
+credential version is bound to a durable `staff_password_ready` marker. Hosted
+identity can no longer authorize a staff account. Promotion and setup-link
+reissue rotate the prior verifier to an unusable value, revoke sessions, remove
+readiness and issue a one-hour one-use setup link. Successful setup requires a
+12-character password, binds readiness to the new credential version and
+revokes every old session in the same transaction. Demotion and staff password
+changes rotate the credential version and preserve the same fail-closed
+boundary.
 
-## `.90` callback-route readiness current live deployment
+Startup migration 0125 quarantines every pre-v172 human staff credential that
+lacks matching readiness, deletes its sessions and creates an expired pending
+marker so the owner must explicitly reissue a private setup link. The
+`system-support-assistant` reply-author principal is excluded and cannot be
+changed through the role API. Setup secrets remain fragment-only in the
+browser, are cleared before portal startup, are stored only as SHA-256 digests
+and are excluded from owner exports. Release-bound asset queries and the
+service-worker cache are advanced together so an old cached authentication
+script cannot process the setup page.
 
-- Live release: `17.0.0-selfbuilt.90-callback-route-readiness`.
-- Source commit: `4fd55d63d6f433167074166e92468bc7fa56c2e2`.
-- Publication commit: `021c5735ccd57ac5e750a049f5f758dbfb45dc03`.
-- Render deploy: `dep-dbnd4a3l550s73eso8ag`, `live` at
-  2026-11-07 15:26:05 MYT.
-- Bundle SHA-256:
-  `a98bfc88723556b2b33c3c22a9830ede441d980b63dff9e10130db4bbdbda7f6`.
-- The GSPAY browser return is pinned to the direct Render application route;
-  forwarding-domain return URLs fail closed.
-- Source validation and a clean extraction of the published archive each passed
-  399/399 Portal tests, 3/3 Render database-adapter tests and the Render
-  production build.
-- Integration gateway `1.12.1` is live from commit
-  `4ebe8fe9141f9ee6a24b7a61902d7b50f734de84`, deploy
-  `dep-dbnd0e3m8hqs73bsaug0`. It uses the current Portal origin and direct
-  redirect default; its 102/102 tests passed.
-- All production payment, payout, settlement and live-game gates remain
-  closed pending provider and end-to-end acceptance.
-- Online acceptance confirms PostgreSQL and OTP ready; HTTP 200 member,
-  registration, management, payment-return and GSPAY callback-check routes; 34
-  suppliers; 766 retained catalogue titles; and 0 playable titles. VPay,
-  1MPay and GSPAY new-order readiness remains false.
-- The deployment window contains zero application error/critical/fatal logs
-  and zero HTTP 5xx request logs. Autoscaling remains 1–3 instances at CPU 75%
-  and memory 75%.
+This release does not enable deposits, payouts or games and does not change a
+provider credential, DNS record or production-acceptance result. The encrypted
+backup data contract remains 0122 with 76 tables; runtime migration 0125 is the
+latest required startup marker. See `V172_PRIVILEGED_ROLE_BOUNDARY.md`.
 
-## `.89` game-check truth current live deployment
+The last recorded integration-gateway baseline remains release `1.17.0`,
+deployment `dep-dbpchge417fc739h9b50`, commit
+`c4aab70060439469f3c2e6081a57c0b40e630ff4`. Gateway service:
+`srv-db6b7inlk1mc73ck6cmg`. The v172 candidate does not change the gateway.
 
-- Live release: `17.0.0-selfbuilt.89-game-check-truth`.
-- Source commit: `6bf4110ad12d1b2733c9ab3dbcbf1cba4e4ad226`.
-- Publication commit: `67115be2825a2cca3d3ab19af0050a4e92e94e14`.
-- Render deploy: `dep-dbncn4h5efls73avifj0`, `live` at
-  2026-11-07 14:57:47 MYT.
-- Bundle SHA-256:
-  `70fd1a348dcebcfc12e30b11f5fdcb38fabe6c6a7cde8c9c230a81523fe2b59f`.
-- The 34-provider backoffice check separates complete, acceptance pending,
-  waiting/maintenance and explicit-error states, shows catalogue counts and
-  names the current blocker. Payment and game production readiness now reads
-  **Acceptance pending** instead of the ambiguous **Maintenance**.
-- Runtime acceptance confirms PostgreSQL and OTP ready, 21 exact `.89` assets,
-  34 supplier positions, 766 retained titles and 0 production-playable titles.
-- Full acceptance passed 398/398 Portal tests, 3/3 Render database-adapter
-  tests, a clean extracted archive build, zero deployment-window application
-  errors and zero HTTP 5xx responses.
-- Payment, payout, settlement and live-game gates remain closed pending real
-  provider and settlement acceptance.
-- Autoscaling is 1–3 instances at CPU 75% / memory 75%, currently one instance.
+## Manual-bank audit evidence index
 
-## `.88` payment-readiness historical deployment
+v171 adds one non-unique partial index for the exact paid-evidence checks used by
+the manual-bank payout path. Migration 0124 indexes
+`audit(target,user_id,created_at)` only where
+`event='manual_bank_payout_paid'`. The evidence count and timestamp checks can
+therefore use a covering index instead of scanning the entire audit table as
+the operational history grows.
 
-- Live release: `17.0.0-selfbuilt.88-payment-readiness`.
-- Source commit: `680e1c240011f740e68394764df39b54ea4b5fb4`.
-- Publication commit: `c39e0410b0f365ac0cb2ff22d00e938681d2abf9`.
-- Render deploy: `dep-dbnc8kajnfac73bvq1ug`, `live` at
-  2026-11-07 14:27:13 MYT.
-- Bundle SHA-256:
-  `de6c8a12ebe7eef6545355438d1a1d3ac01ca726dc17d1a21c4e0fbd62473553`.
-- The public VPay, GSPAY+ and 1MPay cards now require their provider status API
-  to report `orderReady=true` as well as an active owner channel before showing
-  Available. Current new-order routes remain closed and display maintenance.
-- Runtime verification confirms PostgreSQL and OTP ready, exact `.88` asset and
-  service-worker cache identifiers, 34 supplier positions, 766 retained titles
-  and 0 production-playable titles.
-- Full acceptance passed 392/392 Portal tests, 3/3 Render database-adapter
-  tests, a clean production build, zero post-deploy application errors and zero
-  HTTP 5xx responses.
-- Payment, payout, settlement and live-game gates remain closed. Domain callback
-  and provider end-to-end acceptance blockers remain recorded in the main
-  acceptance note.
-- Autoscaling is currently 1–3 instances at CPU 75% / memory 75%. The service
-  has remained at one instance; the cap limits unexpected compute cost.
+The index is deliberately not unique. Duplicate paid evidence must remain
+representable so the v170 integrity checks can detect it and fail closed for
+review. This is a query-performance migration only: it does not change an
+audit record, payout state, wallet reservation, provider credential, runtime
+control or production-acceptance result. Runtime migration 0124 becomes the
+latest migration; the encrypted-backup data contract remains 0122 with 76
+tables, and the nine trigger plus five function guards are unchanged.
 
-## `.84` management gate historical deployment
+## Manual-bank payout atomicity
 
-- Live release: `17.0.0-selfbuilt.84-management-gate`.
-- Source commit: `24b17a4745d90a7db3d41701dbdb53cc83f0c3a5`.
-- Publication commit: `035f1907970c19cdfbc31a1b816e23b46ed0a53b`.
-- Render deploy: `dep-dbna5gvf3r2c73828a20`, `live` at
-  2026-11-07 12:03:39 MYT.
-- Bundle SHA-256:
-  `6568687ed13f8e521407b34a515ecae4b421300543a5b7639c34360596de842e`.
-- Corrects the signed-out management route: Rewards and member navigation no
-  longer leak into `/admin`; the page opens directly as an isolated Management
-  sign-in and successful authentication clears the entry-only body state.
-- The management entry now uses the `MASTER7 · Management Console` document
-  title and displays the MASTER7 logo, `SERVICE PORTAL` identity and management
-  badge. Customer member copy is absent from this route.
-- Desktop acceptance at 1440 px and mobile acceptance at 390 px both have exact
-  client and scroll widths, zero visible portal sections behind the dialog and
-  zero browser console errors. The member sign-in remains independently branded
-  with member OTP controls.
-- Runtime acceptance confirms `.84`, PostgreSQL ready and SMS OTP ready. The
-  post-deploy window contains zero application error/fatal logs and zero HTTP
-  5xx request logs.
-- Existing provider truth is unchanged: 34 supplier positions remain separate;
-  only the accepted launch adapter is playable. Payouts remain disabled,
-  payment settlement remains unverified and `productionReady=false`.
-- `master7.best` and `www.master7.site` return HTTP 200. `www.master7.best`
-  still has no resolvable DNS record and remains an external domain blocker.
-- Checksum receipt:
-  `docs/MASTER7_MANAGEMENT_GATE_RELEASE_SHA256_20261107.txt`.
+v170 makes both manual-bank payout transitions depend on their exact audit
+evidence. A start audit is inserted before the provider payout can move to
+`processing`, so an audit primary-key collision leaves the withdrawal approved
+and its full reservation intact. Paid evidence is inserted before a provider
+payout can become `succeeded`; the transaction, audit, provider result,
+withdrawal state and reservation release must all match the same bank proof.
 
-## `.82` luxury casino suite current live deployment
+Paid evidence now requires exactly one audit row for the bank transaction,
+recorder and event, with the same timestamp as the recorded bank transaction.
+An unrelated audit collision therefore cannot authorize a payout. A repeated
+confirmation with identical evidence reuses the existing transaction, while a
+different proof remains in review with the hold intact. The same restricted
+path can finish a legacy `succeeded` provider payout whose withdrawal and hold
+were left incomplete, but only when every stored bank-evidence field matches.
 
-- Live release: `17.0.0-selfbuilt.82-luxury-casino-suite`.
-- Source commit: `09784afcf73318df0eb394783b08aa55cc894816`.
-- Publication commit: `7ca63ab57b5ecc1e4b2c35b09f5fbe00096856f5`.
-- Render deploy: `dep-dbn5j17f3r2c73eed58g`, `live` at
-  2026-11-07 06:51:02 MYT.
-- Bundle SHA-256:
-  `b7d38c381a73f4185b03efd7e7a39275ada3d142fa55eb40e6beade81a5c338c`.
-- Member and management pages now share the compact premium casino visual
-  system, slow cyan navigation lamps, professional copy, responsive controls
-  and dedicated artwork. Management menus retain all functional targets; every
-  functional target has an inline guide and a full manual entry.
-- The public lobby retains exactly 34 independent supplier positions and 34
-  unique fallback covers. Online catalogue inspection returned HTTP 200 for all
-  34 positions with no request errors: five catalogues contain 766 titles in
-  total. MegaH5 is the only accepted launch adapter, with 166 playable titles;
-  JILI, 918KISS H5, RECTANGLE and EVO888H5 are catalogue-ready but cannot launch;
-  the remaining 29 positions still await supplier APIs.
-- Runtime acceptance confirms `.82`, PostgreSQL ready, SMS OTP ready, new theme
-  and provider artwork HTTP 200, protected management/referral APIs HTTP 401
-  when anonymous, no application error/fatal logs and no HTTP 5xx logs. The
-  automatic accounting close completed one period on the new instance.
-- Real deposits remain enabled by the pre-existing environment. Payouts remain
-  disabled, settlement remains unverified and `productionReady=false`; those
-  states were not changed or overstated by this release.
-- `master7.best` currently forwards to the Render service and the management
-  forwarding entry reaches `/admin`. `www.master7.best` still has no resolvable
-  DNS record in online acceptance, so the primary branded `www` member entry is
-  an external domain configuration blocker.
-- Checksum receipt:
-  `docs/MASTER7_LUXURY_CASINO_SUITE_RELEASE_SHA256_20261107.txt`.
+The change adds SQLite collision, retry and legacy-state regression coverage
+plus PostgreSQL 18 concurrent-confirmation coverage. It does not call a bank,
+enable payouts, change a provider credential, or change a production flag. The
+v170 release added no schema migration; migration 0123 and the 0122/76-table
+backup contract were current for that release. See
+`V170_MANUAL_BANK_PAYOUT_ATOMICITY.md`.
 
-## `.79` luxury portal and manual RM88 voucher current live deployment
+## Runtime database guard monitor
 
-- Live release: `17.0.0-selfbuilt.79-manual-rm88-voucher`.
-- Source commit: `629409be3114a7549eab41eb1b7077bd86192dc7`.
-- Publication commit: `685d08109eb3bfdc6f3e12a5848a116d340b7352`.
-- Render deploy: `dep-dbn4h9bncjis73e4ja3g`, `live` at
-  2026-11-07 05:39:06 MYT.
-- Bundle SHA-256:
-  `3de5c34fd4edd1b3de5702401a0fa5a61839644b34de2c0769f29f779321661f`.
-- Adds premium responsive member/management artwork and layout, compact cyan
-  status lights, owner-managed company bank artwork, public contact channels,
-  opt-in Meta Pixel configuration and expanded Operations Intelligence metrics.
-- Adds an auditable company-manual RM88 sponsored voucher: JILI, MegaH5 or
-  918KISS; at most five evidenced plays; first win stops remaining plays;
-  MYR 1,760 reviewed turnover; at most MYR 50 company payout. It never creates
-  provider credit, wallet credit or a bank transfer automatically.
-- Acceptance passed: 383/383 portal tests, 3/3 Render database tests,
-  TypeScript, lint and production build. The reproducible archive has 523
-  tracked entries and excludes repository metadata and dependencies.
-- Online acceptance confirms `.79`, database ready, SMS OTP ready, HTTP 200
-  member/management pages, the seeded RM88 rule and byte-identical voucher
-  artwork. Anonymous protected APIs return HTTP 401. The release window has no
-  application error/fatal or request 5xx logs, and automatic accounting closed
-  one period.
-- The public lobby still has exactly 34 independent platform positions and no
-  launch-ready platform. VPay/1MPay deposits remain Active but unverified;
-  GSPAY, every payout channel, payment settlement and global production
-  readiness remain closed/unverified.
-- Checksum receipt:
-  `docs/MASTER7_LUXURY_VOUCHER_RELEASE_SHA256_20261107.txt`.
+v169 adds a mandatory per-instance PostgreSQL monitor after Nitro startup and
+outside scheduler leadership. It opens a new bounded client for each check and
+re-attests the nine critical triggers and five guard functions every 60 seconds
+by default. Checks never overlap: the next unreferenced timer is created only
+after the current connection, attestation and cleanup have completed.
 
-## `.76` operations suite previous live deployment
+Connection and server statement timeouts default to 10 seconds, the client
+query timeout is one second longer, lock waits are bounded to two seconds, and
+client cleanup is bounded to two seconds. A connection, metadata query,
+attestation or cleanup failure emits one fixed, sanitized fail-closed message
+and exits the instance once. Render then restarts it, where the existing startup
+attestation prevents drifted definitions from becoming ready. The monitor never
+repairs drift. Default Node SIGTERM/SIGINT behavior is preserved, and its idle
+timer is unreferenced. See `V169_RUNTIME_DATABASE_GUARD_MONITOR.md`.
 
-- Live release: `17.0.0-selfbuilt.76-operations-suite`.
-- Source commit: `6b2ca6c6a315198ad714a46ae43d09f80ebf0ac3`.
-- Bundle SHA-256:
-  `c883258f5f15fe2a7902a5663ebf88eb52022f123845c66536f8322149f9ae42`.
-- Publication commit: `331b1b7e6bee207b1e74b28d1cdca4a5e0e1b7f5`.
-- Render deploy: `dep-dbn28f3rjlhs73df294g`, `live` at
-  2026-11-07 03:03:52 MYT.
-- Adds the owner operations suite: dedicated VIP and commission setup, MYT
-  finance views, Stephanie support assistant, curated game-platform ranking,
-  monitor-only Bonus Hunter, non-cash Rewards Hub, owner-controlled Events
-  Center, responsible-play controls, inline guides and a read-only AI Operations
-  Manager.
-- Money-moving and enforcement boundaries remain unchanged: no AI approval,
-  automatic wallet credit, automatic payout, automatic member sanction or
-  automatic marketing send. Missing provider evidence remains unverified.
-- Local acceptance passed: 373/373 complete portal tests, 3/3 Render database
-  adapter tests, Render TypeScript, lint with zero errors and four existing
-  unused-code warnings, and the Render production build. The reproducible
-  509-entry archive passed checks for repository metadata, dependencies,
-  private keys, retired personal values and known production credential
-  fragments.
-- Online acceptance confirms runtime/source `.76`, database ready, SMS OTP
-  ready, HTTP 200 member/management routes and `.76` assets, and HTTP 401 for
-  anonymous summary and Operations Intelligence requests.
-- The public game API remains platform-only with exactly 34 unique positions,
-  `games=[]`, `playable=false` and zero launch-ready platforms. Payouts, GSPAY,
-  payment settlement and global production readiness remain off/unverified.
-- The acceptance window contains zero application error/fatal logs and zero
-  request 5xx logs. Automatic accounting completed one close period.
-- `master7.best` reaches member sign-in; `master7.site` and `www.master7.site`
-  reach management. The separate `www.master7.best` DNS record is still absent.
-- Checksum receipt:
-  `docs/MASTER7_OPERATIONS_SUITE_RELEASE_SHA256_20261107.txt`.
+## Mobile dock navigation
 
-## `.75` previous live deployment
+The v169 member shell also gives Home and Games independent mobile-dock state.
+Opening Games, a provider or a game category keeps Games as the single active
+`aria-current` destination while the lobby section remains mounted. Home
+returns the dock to Home, and Wallet, Promotions and Support retain their own
+current-state indicators. This is a presentation and navigation correction; it
+does not enable a provider, game launch or money flow.
 
-- Live release: `17.0.0-selfbuilt.75-deposit-rejection-recovery`.
-- Source commit: `9d5ad7661897b02e5c6d753fd69783b28708399e`.
-- Bundle SHA-256: `93f669935a59e3745cfe4717862df639c6af58bd129b6f0508294a94575f71e3`.
-- Bundle publication commit: `0448c33397ea765149830f8bc8b222d81115d4d9`;
-  final `.75` receipt commit: `47a3266b1878a895b25f4a8666d56de00501ed5a`.
-- Latest `.75` Render deploy: `dep-dbn0kle7bikc73c6mk7g`, `live` at
-  2026-11-07 01:13:27 MYT and deactivated by `.76`.
-- Explicit provider business rejection now becomes `failed` and returns HTTP
-  422 `PROVIDER_REJECTED`, so the member can start a new deposit attempt.
-- Timeout, network and ambiguous provider results remain `unknown` and retain
-  the same idempotency key, preventing accidental duplicate real orders.
-- The UI provider timeout is 35 seconds. Historical stuck orders are reconciled
-  only when the same member's sanitized audit proves the explicit rejection and
-  the stored order has no provider reference or checkout URL.
-- Existing payment and game switches are unchanged. VPay supplier configuration
-  must still be corrected before a real checkout URL can be accepted.
-- Local acceptance passed: 284/284 portal tests, 3/3 Render database tests,
-  TypeScript, lint, JavaScript syntax and the production build.
-- Online acceptance confirms runtime/source `.75`, database ready, SMS OTP
-  ready, and the `.75` CSS and JavaScript assets. Member and management domain
-  entry routes return HTTP 200 through the Render service.
-- VPay and 1MPay remain Active with order/query configured. Both remain
-  `liveReady=false` and `settlementVerified=false`; no real deposit was created
-  during release verification. The public lobby remains platform-only with 34
-  provider positions and no internal game list.
-- No application error/fatal or request 5xx logs appeared in the acceptance
-  window. Automatic accounting completed its close check on the new instance.
+## Guard function attestation
 
-## `.74` previous live deployment
+v168 freezes the definitions of the five unique PostgreSQL functions behind
+the nine protected triggers. Portal startup and the external readiness gate
+share the same contract and verify canonical `pg_proc.prosrc` SHA-256 values,
+all behavior-relevant function metadata, and trigger `WHEN`, argument,
+transition-table, constraint and parent fields. Drift aborts startup before
+directory seeding and commit. One-time migration 0123 hardens all five
+functions with a fixed safe search path and explicit runtime schema binding;
+after 0123 is applied, drift is never repaired automatically. Custom restore
+schemas remain supported. The backup data contract remains 0122/76 tables.
+See `V168_GUARD_FUNCTION_ATTESTATION.md`.
 
-- Live release: `17.0.0-selfbuilt.74-whatsapp-business-queue`.
-- Source commit: `440a096da78322a23a11cb8fb2d6cf5a7098aaab`.
-- Bundle SHA-256: `fc65dc0e3084edb50c33414dc143bf01ad572147bb9b128db1240d993abb3c64`.
-- Publication commit: `f2f4f27e76dc99a3f5f880ada717f97ae1f40d87`.
-- Render deploy: `dep-dbn00gijnfac73bk1fag`, `live` at
-  2026-11-07 00:30:28 MYT.
-- Adds the official Meta approved-template queue, raw-body webhook signature
-  verification, monotonic delivery receipts, opt-out cancellation, safe retry
-  behavior and a protected loopback worker.
-- Contact capacity is 1,000,000. Launching still requires the current verified
-  Meta recipient tier, a complete approved template configuration and explicit
-  consent evidence for every queued contact.
-- The uploaded 123,676-row CSV passed format and deduplication checks but has
-  only a `phone` column. It is not inside the bundle and was not imported or
-  sent.
-- No WhatsApp credential is included in source or bundle. Sending defaults to
-  off and the module remains `Waiting` until Meta values are configured
-  and separately accepted.
-- Existing payment and game environment settings are unchanged. VPay and 1MPay
-  remain Active, GSPAY remains Closed, payouts remain disabled and payment
-  settlement remains unverified. `productionReady=false` stays truthful.
-- Local acceptance passed: 278/278 portal tests, 23/23 WhatsApp-focused tests,
-  3/3 Render database tests, TypeScript, lint and the production build.
-- Online acceptance confirms `.74`, database ready, SMS OTP ready, 34 unique
-  provider positions, platform-only public output and no public internal-game
-  list. Anonymous game cards remain non-launchable. Webhook signatures, worker
-  authorization and admin marketing authentication fail closed.
-- No application error/fatal or request 5xx logs appeared in the acceptance
-  window. Automatic accounting completed its close check on the new instance.
+## Startup log severity
 
-## `.73` previous live deployment
+v167 removes alert-severity words from the successful database-guard startup
+message. It still reports `database guards 9/9 ready`; the nine-guard
+attestation and its fail-closed behavior are unchanged. This prevents Render
+from classifying a successful startup message as a critical log entry. See
+`V167_GUARD_LOG_SEVERITY.md`.
 
-- Live release: `17.0.0-selfbuilt.73-management-login-copy`.
-- Source commit: `d7e9b02261a3de9e5af90e2433cd4f68651b4011`.
-- Bundle SHA-256: `024fb30a5927209320427e6797b238d02965033e5ee5d188640bbea0d158efac`.
-- Publication commit: `6abfeefbffe564903a441147fb01f5e059d8d35f`.
-- Render deploy: `dep-dbmvekdbedkc73dk1u10`, `live` at
-  2026-11-06 23:52:20 MYT.
-- `/health` returns HTTP 200 and reports `.73` for runtime and source;
-  `database=ready` and `smsOtpReady=true`.
-- Mobile browser acceptance of `/admin` returns HTTP 200. Opening the sign-in
-  dialog shows `Management sign-in`, asks for an owner or staff ID and password,
-  displays only the ID and password controls, and produces no browser console
-  errors. Member OTP wording is absent from the management flow.
-- `/api/games` still returns exactly 34 unique providers at positions 1–34,
-  `platformsOnly=true`, `games: []`, `playable=false` and zero launch-ready
-  providers. Internal game records remain out of the customer response.
-- Existing payment order switches are unchanged: VPay and 1MPay remain enabled;
-  GSPAY and GSPAY+ remain disabled.
-- `productionReady=false` and `settlementVerified=false` remain truthful. This
-  patch does not claim that the pending platform launch or settlement work is
-  complete.
-- Local acceptance passed: 257/257 portal tests, 3/3 Render database tests,
-  TypeScript, lint, JavaScript syntax and the production build.
+## Critical database guard attestation
 
-## `.72` previous live deployment
+v166 verifies all nine critical PostgreSQL guard triggers on every portal
+startup, including their table, name, enabled state, trigger function, trigger
+shape and update-column binding. The attestation runs inside the existing
+migration transaction and advisory lock after migrations and before catalog
+seeding. Any missing, disabled, rebound or malformed guard aborts startup and
+rolls back the transaction; startup never repairs drift silently. The external
+PostgreSQL readiness gate imports the same frozen guard contract. See
+`V166_DATABASE_GUARD_ATTESTATION.md`.
 
-- Live release: `17.0.0-selfbuilt.72-white-label-platform`.
-- Source commit: `931a4ef51d2054dc3c8c177d9b0899019c75e7ce`.
-- Bundle SHA-256: `170cebbd34a833841c75a1b8c1d8d6fa0cb3da849e895209a232a3815044f2a6`.
-- Publication commit: `47afc025d6ec8ce39f1c18108aa387a9b72cc67b`.
-- Render deploy: `dep-dbmv92gm7kps73ce7j90`, `live` at
-  2026-11-06 23:40:18 MYT.
-- Public games API is intentionally platform-only: exactly 34 provider summaries,
-  `platformsOnly=true`, and `games: []`. Internal game titles and IDs remain in
-  the protected backoffice.
-- The lobby contains three separate sponsored positions and independent artwork
-  for the 34 providers. Categories filter provider cards only.
-- Platform-level launch adapters have not passed acceptance, so unverified cards
-  remain `playable=false` and cannot be presented as ready for real play.
-- Benefits remain preview-only until wager APIs, wallet payout, claim settlement
-  and Turnover enforcement have production evidence.
-- Built-in customer assistance is included. Telegram stays `Waiting` until the
-  real server-side token and chat ID are supplied.
-- Connected payment/game environment values and switches are unchanged by this
-  release. Automatic accounting is already active and remains configured.
-- Local acceptance passed: 257/257 portal tests, 3/3 Render database tests,
-  TypeScript, lint, JavaScript syntax and production build.
-- Online acceptance: `/health` and `/signin` return HTTP 200; runtime and source
-  report `.72`; database and SMS OTP report ready. `/api/games` returns exactly
-  34 unique providers at positions 1–34, `platformsOnly=true`, `games: []`,
-  `playable=false` and zero launch-ready providers. The provider states are 30
-  `awaiting_api` and four `awaiting_platform_adapter`.
-- Post-deploy logs contain zero application error/fatal entries and zero HTTP
-  5xx requests. The new instance logged a successful automatic accounting
-  close check.
-- Payment settings were preserved: VPay and 1MPay orders remain enabled;
-  GSPAY remains disabled. `productionReady=false` and
-  `settlementVerified=false` remain truthful.
-- `master7.best` member entry, sign-in and health routes work; `master7.site`
-  root correctly sends staff to `/admin`.
+## Acceptance evidence integrity
 
-## Previous `.71` live deployment
+v165 makes game-provider and production-acceptance event history immutable and
+only permits each current projection to advance to the next latest revision.
+Runtime reads derive the latest event from history and fail closed if the
+projection disagrees. The PostgreSQL readiness gate requires migration 0122
+and all acceptance-integrity triggers. See
+`V165_ACCEPTANCE_LEDGER_INTEGRITY.md`.
 
-更新时间：2026-11-06 22:15 MYT
-验收时区：Asia/Kuching（MYT，UTC+8）
+## Current game registry
 
-当前线上版：`17.0.0-selfbuilt.71-frontend-route-compat`
-当前回滚版：`17.0.0-selfbuilt.69-payout-safe-support`
+- The member lobby contains 38 distinct provider brands and 43 listed provider
+  profiles.
+- Implemented adapter profiles: 6.
+- Launch-ready profiles: 0.
+- Production-verified profiles: 0.
+- Playable profiles: 0.
 
-## `.71` 路线与域名清理
+COBA8 remains registered as the 38th member-facing provider and independent
+`coba8_myr` profile. Its official API contract is unavailable, so it remains
+`contract_missing` with no catalogue, player, Play, launch, wallet, settlement
+or recovery capability.
 
-- 正式会员前台统一为 `https://www.master7.best/`，正式公司后台统一为 `https://www.master7.site/`。
-- 404 日志证明用户请求曾误带结尾反引号，形成 `/%60` 与 `/admin/%60`；`.71` 自动纠正这些地址。
-- `/games`、`/player/games`、`/home`、`/lobby`、`/player` 和 `/index.html` 会回到有效前台。
-- 当前源码和新发布包删除旧 `.admin`、`.vip` 域名文字；正式 `/admin` 后台路线和 VIP 福利功能保留。
-- `www.master7.best` 当前仍缺 DNS；发布程序不能替代域名方设置。DNS 完成前使用 `master7.best` 或 Render 直达入口。
-- 详细记录见 `docs/MASTER7_FRONTEND_ROUTE_AND_RENDER_CLEANUP_20261106.md`。
+JDB remains unavailable for member Play. v164 adds durable fixture-only wager
+coverage staging: exact page deduplication, lease fencing, transactional crash
+retry, and aggregate gap/duplicate/late/revision/reversal-candidate diagnostics.
+The storage keeps hashed identifiers plus review-only amounts and timestamps;
+it cannot feed wallet, turnover, reward or accounting operations. Supplier finality, official session closure, merchant
+authorization, production acceptance, launch, wallet, settlement and recovery
+remain unverified and false. See `V164_JDB_WAGER_COVERAGE_STAGING.md`.
 
-## 正式发布记录
+Unavailable provider cards now identify their accessible state as `Coming
+soon`; only actually available cards retain game-entry semantics. This text
+change does not alter readiness.
 
-| 项目 | 已核实值 |
-|---|---|
-| Source commit | `524bab01fcdfe52dee189a9972afbf9f27bef070` |
-| Publication commit | `99c16ae8c0b2a206ea13ce0b45057e3a5b49a080` |
-| Portal deploy | `dep-dbmu1cdbedkc73dgl8s0`，`live` |
-| 部署包 SHA-256 | `b40efb291f25e5fc156ffeae91cdf895356ac6c89bbd55db8258202b6321d874` |
-| 上线完成 | 2026-11-06 22:15:38 MYT |
-| Portal service | `srv-dbl0iv7f3r2c73848ei0` / `master7-v17-staging` |
-| Render workspace | `tea-dakfo2h594qs73du231g` / ahbi |
-| Branch | `codex/v17-render-staging-20261104` |
-| Auto deploy | Off；本版已人工触发并记录 deploy ID |
+Catalogue presence, credentials, HTTP success, an implemented adapter, staged
+report continuity, or a merchant login do not establish launch availability.
+Production acceptance and runtime readiness remain independent fail-closed
+gates.
 
-## 线上验收
+## Other operational boundaries
 
-- `/health` 为 HTTP 200，版本 `.71`，`database=ready`，`smsOtpReady=true`。
-- `/`、`/signin`、`/register` 与 `/admin` 正常；误带反引号和旧游戏入口返回 HTTPS 308；`/favicon.ico` 返回 200。
-- VPay Deposit 为 Active、production，order/query/callback 均 ready。
-- 1MPay Deposit 为 Active、production，order/query/callback 均 ready。
-- 已连接的 VPay、1MPay 与 MegaH5 设置在部署后保持开启。
-- MegaH5 wallet、live games、settlement 均 ready；`liveGames=true`。
-- 游戏目录返回 766 款、9 个来源。匿名访问 `playable=false` 是会员登录闸门；获批准会员才进入启动流程。
-- GSPAY Deposit 为 Closed；当前凭证合约未通过，order/query/callback 均不启用。
-- 三家 Payout 均关闭：VPay/1MPay 缺完整 payout contract；GSPAY 程序已实现，但生产前置条件未齐。
-- `productionReady=false`，准确 blockers 为 `payout_provider_not_ready` 与 `payment_settlement_not_verified`。
-- 新实例 application error/critical/fatal 为 0，request 5xx 为 0。
+Payment work remains paused. VPay, GSPAY and 1MPay code, credentials, callbacks,
+activation flags, service plans and DNS are unchanged by v171. This candidate
+does not enable any real-money payment, payout or live-game switch.
 
-## 本版完成
+V171 source verification passed: maintenance 12/12, release probe 27/27,
+full regression 1,414/1,414, targeted migration/readiness/index 23/23,
+SQLite manual-bank 19/19, isolated PostgreSQL 18 manual-bank 6/6,
+backup/report 19/19 and Render database compatibility 3/3. TypeScript,
+lint, diff checks and the Render build also passed. Verification made no live
+provider, customer-money or wallet call. No deployment or production
+acceptance is claimed by this handover.
 
-- VPay readiness 改为读取 Gateway 远程合约，已连接充值不会再被本地旧判断错误阻挡。
-- GSPAY Payout 已完成签名、回调、独立查单、幂等、钱包预留、失败释放、不确定状态恢复、数据库原子单调用锁和加密银行资料。
-- GSPAY Payout 默认关闭；缺任一生产条件时，前台不显示为可用提款公司。
-- 客服工单已接入内建中英双语自动回复；员工可继续接手、回复和关闭。
-- 健康页使用真实充值、提款、支付结算与游戏结算条件计算营业状态。
-
-## 当前公开业务内容
-
-- 已发布公司广告：0。
-- Active 福利：0；福利计算为 preview-only，领取、钱包派发与 Turnover enforcement 均关闭。
-- 已发布公告：0。
-- 提款银行目录：18 家；当前可提交的 Payout Provider：0。
-- 公司银行账号只允许已登录会员读取，公开检查得到 401，符合权限设计。账号内容需由 Owner 在后台确认。
-
-## GSPAY 尚需厂家/域名方完成
-
-1. 提供可复制的准确 Operator Authentication Key；当前收到的文字只有 31 个十六进制字符，不能写入生产环境。
-2. `master7.best` 当前对 callback 路径返回 HTTP 302。须改为 Render 直接自定义域名或保留 POST method/body 的反向代理。
-3. 厂家确认 Render Singapore 完整出站 IP 范围白名单。单次观测 IP 不能当作稳定白名单证明。
-4. 提供准确的 18 家 `bank_target` 对照与可用 Settlement balance，再做一笔获授权的真实 Payout 验收。
-5. 分别完成 Order、Query、Callback、Wallet、Reconcile 与 Payout 六阶段生产签收后，才打开对应开关。
-
-## Owner 营业资料
-
-Owner 仍需在后台录入并核对公司银行账号、正式福利/Turnover/VIP 条款、公司广告与公告。这些内容属于业务资料，程序不会代造。VPay、1MPay 与 MegaH5 维持现有开启状态。
-
-## 入口
-
-- Portal：`https://master7-v17-staging.onrender.com`
-- 正式会员前台：`https://www.master7.best/`，当前仍需 DNS/TLS。
-- 会员前台备用：`https://master7.best/`，当前为 302 URL forwarding。
-- 正式后台：`https://www.master7.site/`，当前可经转发进入 `/admin`。
-
-## 最终内部收尾
-
-不需要厂家、Owner 业务资料或真实资金授权的项目已全部复查完成。完整验收证据与外部输入清单见 `docs/MASTER7_FINAL_INTERNAL_COMPLETION_20261106.md`。
+Workspace: `tea-dakfo2h594qs73du231g`.
+Publication branch: `codex/v17-render-staging-20261104`.
+Portal automatic deployment is off; the recorded gateway automatic deployment
+setting is on.

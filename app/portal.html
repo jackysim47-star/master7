@@ -1,0 +1,976 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f4fbff">
+  <link rel="preload" as="image" href="/assets/master7-casino-lobby-premium.webp" type="image/webp">
+  <link rel="preload" as="image" href="/assets/master7-sponsored-mascots.webp" type="image/webp">
+  <meta name="description" content="MASTER7 · Premium games, rewards and member wallet">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MASTER7">
+  <title>MASTER7 · Premium Game Lobby</title>
+  <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.172-privileged-role-boundary">
+  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.172-privileged-role-boundary">
+  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.172-privileged-role-boundary">
+  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.172-privileged-role-boundary">
+  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.172-privileged-role-boundary">
+  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.172-privileged-role-boundary">
+  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.172-privileged-role-boundary">
+  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.172-privileged-role-boundary">
+  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.172-privileged-role-boundary">
+  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.172-privileged-role-boundary">
+  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.172-privileged-role-boundary">
+  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.172-privileged-role-boundary">
+  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.172-privileged-role-boundary">
+  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.172-privileged-role-boundary">
+  <script src="/assets/app.js?v=17.0.0-selfbuilt.172-privileged-role-boundary" defer></script>
+  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.172-privileged-role-boundary" defer></script>
+  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.172-privileged-role-boundary" defer></script>
+  <script src="/assets/vip.js?v=17.0.0-selfbuilt.172-privileged-role-boundary" defer></script>
+  <script src="/assets/finance.js?v=17.0.0-selfbuilt.172-privileged-role-boundary" defer></script>
+  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.172-privileged-role-boundary" defer></script>
+  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.172-privileged-role-boundary" defer></script>
+  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.172-privileged-role-boundary" defer></script>
+  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.172-privileged-role-boundary" defer></script>
+  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.172-privileged-role-boundary" defer></script>
+  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.172-privileged-role-boundary" defer></script>
+  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.172-privileged-role-boundary" defer></script>
+  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.172-privileged-role-boundary" defer></script>
+</head>
+<body>
+  <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+  <header class="topbar">
+    <a href="/" class="brand" aria-label="MASTER7 home"><img class="brand-logo" src="/assets/seven-emblem.png" alt=""><span>MASTER7<small>SERVICE PORTAL</small></span></a>
+    <nav class="topnav" aria-label="Main navigation">
+      <button data-section="lobby" class="nav-button active" data-i18n="navLobby">Games</button>
+      <button data-section="vip" id="referralNav" class="nav-button">VIP Club</button>
+      <button data-section="rewards" class="nav-button">Rewards</button>
+      <button data-section="events" class="nav-button">Events</button>
+      <button data-section="responsible-play" class="nav-button" hidden>Play settings</button>
+      <button data-section="member-verification" class="nav-button" hidden>Verification</button>
+      <button data-section="deposit" class="nav-button" data-i18n="navDeposit" hidden>Deposit</button>
+      <button data-section="withdraw" class="nav-button" data-i18n="navWithdraw" hidden>Withdraw</button>
+      <button data-section="support" class="nav-button ticket-nav-button"><span data-i18n="navSupport">Support</span><b class="ticket-unread-badge" data-ticket-unread hidden>0</b></button>
+      <button data-section="admin" id="adminNav" class="nav-button" hidden data-i18n="navAdmin">Backoffice</button>
+    </nav>
+    <div class="top-actions">
+      <label class="sr-only" for="locale" data-i18n="language">Language</label>
+      <select id="locale" aria-label="Language"><option value="en" selected>English</option><option value="zh">中文</option><option value="ms">Bahasa Melayu</option></select>
+      <span id="userChip" class="user-chip" hidden></span>
+      <button id="accountSecurity" class="button button-outline small" hidden data-i18n="accountSecurity">Account security</button>
+      <button id="loginButton" class="button button-primary small" data-i18n="login">Sign in</button>
+      <a id="logoutButton" aria-label="Log out" href="/signout-with-chatgpt?return_to=%2F" target="_top" class="button button-ghost small" hidden data-i18n="logout">Log out</a>
+    </div>
+  </header>
+
+  <nav class="mobile-dock" aria-label="Mobile member navigation">
+    <button type="button" class="mobile-dock-button nav-button active" data-section="lobby" data-mobile-dock-target="home" aria-current="page"><span aria-hidden="true">⌂</span><small>Home</small></button>
+    <button type="button" class="mobile-dock-button" id="mobileGamesButton" data-mobile-dock-target="games"><span aria-hidden="true">▦</span><small>Games</small></button>
+    <button type="button" class="mobile-dock-button nav-button" data-section="deposit" data-mobile-dock-target="deposit" hidden><span aria-hidden="true">◇</span><small>Wallet</small></button>
+    <button type="button" class="mobile-dock-button nav-button" data-section="rewards" data-mobile-dock-target="rewards"><span aria-hidden="true">✦</span><small>Promotions</small></button>
+    <button type="button" class="mobile-dock-button nav-button" data-section="support" data-mobile-dock-target="support"><span aria-hidden="true">🎧</span><small>Support</small></button>
+  </nav>
+
+  <aside class="portal-sidebar" aria-label="Portal navigation">
+    <p class="portal-sidebar-heading">MENU</p>
+    <button data-section="lobby" class="nav-button sidebar-nav-button active"><span class="sidebar-icon" aria-hidden="true">▦</span><span data-i18n="navLobby">Games</span></button>
+    <button data-section="vip" id="referralSidebarNav" class="nav-button sidebar-nav-button"><span class="sidebar-icon" aria-hidden="true">♛</span><span>VIP Club</span></button>
+    <button data-section="rewards" class="nav-button sidebar-nav-button"><span class="sidebar-icon" aria-hidden="true">✦</span><span>Rewards</span></button>
+    <button data-section="events" class="nav-button sidebar-nav-button"><span class="sidebar-icon" aria-hidden="true">◇</span><span>Events</span></button>
+    <button data-section="responsible-play" class="nav-button sidebar-nav-button" hidden><span class="sidebar-icon" aria-hidden="true">◉</span><span>Play settings</span></button>
+    <button data-section="member-verification" class="nav-button sidebar-nav-button" hidden><span class="sidebar-icon" aria-hidden="true">◇</span><span>Verification</span></button>
+    <button data-section="deposit" class="nav-button sidebar-nav-button" hidden><span class="sidebar-icon" aria-hidden="true">＋</span><span data-i18n="navDeposit">Deposit</span></button>
+    <button data-section="withdraw" class="nav-button sidebar-nav-button" hidden><span class="sidebar-icon" aria-hidden="true">−</span><span data-i18n="navWithdraw">Withdraw</span></button>
+    <button data-section="support" class="nav-button sidebar-nav-button ticket-nav-button"><span class="sidebar-icon" aria-hidden="true">◌</span><span data-i18n="navSupport">Support</span><b class="ticket-unread-badge" data-ticket-unread hidden>0</b></button>
+    <button data-section="admin" id="adminSidebarNav" class="nav-button sidebar-nav-button" hidden><span class="sidebar-icon" aria-hidden="true">▤</span><span data-i18n="navAdmin">Backoffice</span></button>
+    <p class="portal-sidebar-heading portal-game-heading">GAMES</p>
+    <button type="button" class="sidebar-game-filter active" data-sidebar-game-category="HOT"><span class="sidebar-icon" aria-hidden="true">🔥</span><span>Hot</span></button>
+    <button type="button" class="sidebar-game-filter" data-sidebar-game-category="SLOT"><span class="sidebar-icon" aria-hidden="true">🎰</span><span>Slot</span></button>
+    <button type="button" class="sidebar-game-filter" data-sidebar-game-category="LIVE"><span class="sidebar-icon" aria-hidden="true">🎥</span><span>Live</span></button>
+    <button type="button" class="sidebar-game-filter" data-sidebar-game-category="FISH"><span class="sidebar-icon" aria-hidden="true">🐟</span><span>Fish</span></button>
+    <button type="button" class="sidebar-game-filter" data-sidebar-game-category="COCK"><span class="sidebar-icon" aria-hidden="true">🐓</span><span>Cock</span></button>
+    <button type="button" class="sidebar-game-filter" data-sidebar-game-category="SPORT"><span class="sidebar-icon" aria-hidden="true">⚽</span><span>Sport</span></button>
+    <button type="button" class="sidebar-game-filter" data-sidebar-game-category="FAV"><span class="sidebar-icon" aria-hidden="true">♥</span><span>Fav</span></button>
+    <div class="sidebar-foot"><span class="sidebar-status-dot"></span><span>MYR · MASTER7</span></div>
+  </aside>
+
+  <main class="page" id="main"><div id="accountNotice" class="notice" hidden></div>
+    <section id="home" class="section">
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="eyebrow">MASTER7 · PREMIUM EXPERIENCE</p>
+          <h1><span data-i18n="heroTitle">Premium games</span><br><em data-i18n="heroAccent">One MASTER7 experience.</em></h1>
+          <p class="intro" data-i18n="heroDescription">Explore slots, live casino, fishing and sports with member rewards and service in one place.</p>
+          <div class="hero-actions">
+            <button id="exploreButton" class="button button-primary" data-i18n="explore">Explore games</button>
+            <button id="aboutButton" class="button button-outline" data-i18n="viewStatus">Platform status</button>
+          </div>
+        </div>
+        <div class="hero-display" aria-label="MASTER7 premium lobby">
+          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+          <img class="hero-monogram hero-logo" src="/assets/seven-emblem.png" alt="MASTER7">
+          <div class="version-panel"><span data-i18n="previewLabel">Premium member platform</span><b>MASTER7</b><small>PREMIUM MEMBER CLUB</small></div>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <div class="feature"><span class="feature-icon">🌐</span><h3 data-i18n="featureLang">Three languages</h3><p data-i18n="featureLangDesc">Chinese, English and Malay</p></div>
+        <div class="feature"><span class="feature-icon" aria-hidden="true"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg></span><h3 data-i18n="featureOtp">Secure sign-in</h3><p data-i18n="featureOtpDesc">MASTER7 ID + Malaysian mobile</p></div>
+        <div class="feature"><span class="feature-icon">🛡️</span><h3 data-i18n="featureStaff">Staff permissions</h3><p data-i18n="featureStaffDesc">Admin, staff and member roles</p></div>
+        <div class="feature"><span class="feature-icon">📋</span><h3 data-i18n="featureAudit">Audit history</h3><p data-i18n="featureAuditDesc">Traceable approvals and changes</p></div>
+      </div>
+      <div class="section-header"><div><p class="eyebrow">SYSTEM NOTICE</p><h2 data-i18n="announcements">System notices</h2></div><span class="tiny-label">MEMBER EXCLUSIVE</span></div>
+      <div id="announcements" class="announcement-list"><p class="muted" data-i18n="loading">Loading…</p></div>
+    </section>
+
+    <section id="vip" class="section vip-center" aria-labelledby="vipCenterTitle">
+      <header class="vip-hero">
+        <div class="vip-hero-copy"><p class="eyebrow">MASTER7 VIP · MEMBER PRIVILEGES</p><h1 id="vipCenterTitle" data-member-zh="VIP 会员中心">VIP Member Center</h1><p data-member-zh="八个会员等级、升级与保级、专属礼金、Cashback、分红和介绍人佣金集中在这里。">Eight membership tiers, upgrades, retention, exclusive bonuses, cashback, dividends and referral commission in one place.</p><div id="vipProgramBadges" class="vip-status-row" aria-live="polite"><span class="vip-status-chip pending" data-member-zh="正在读取 VIP 配套">Loading VIP program</span></div></div>
+        <div class="vip-crest" aria-hidden="true"><span>♛</span><strong>MASTER7</strong><small>VIP CLUB</small></div>
+      </header>
+      <p id="vipProgramNotice" class="verification-note pending" data-member-zh="VIP 配套仍在读取。只有已验收的数据源才会自动计算或派发。">The VIP program is loading. Only accepted data sources can calculate or issue benefits automatically.</p>
+      <section id="vipMemberPanel" class="surface vip-member-panel" hidden aria-labelledby="vipMemberTitle">
+        <div class="vip-member-heading"><div><p class="eyebrow">MY VIP STATUS</p><h2 id="vipMemberTitle" data-member-zh="会员等级进度">Tier progress</h2></div><span id="vipCurrentTier" class="vip-current-tier">—</span></div>
+        <div id="vipMemberStats" class="stats"></div>
+        <div class="vip-progress-wrap"><div class="vip-progress-label"><span id="vipProgressLabel" data-member-zh="等待会员资料">Waiting for member details</span><strong id="vipProgressPercent">0%</strong></div><div class="vip-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="vipProgressBar"></span></div></div>
+      </section>
+      <section class="vip-showcase" aria-labelledby="vipTierTitle"><div class="vip-section-heading"><div><p class="eyebrow">8 VIP LEVELS</p><h2 id="vipTierTitle" data-member-zh="会员等级">VIP tiers</h2></div><span data-member-zh="名称与条件由管理员配置；等级及配色固定">Names and conditions are configured by management; levels and colours are fixed.</span></div><div id="vipTierGrid" class="vip-tier-grid"><p class="muted">Loading VIP tiers…</p></div></section>
+      <section class="surface vip-benefit-panel" aria-labelledby="vipBenefitTitle"><div class="vip-section-heading"><div><p class="eyebrow">LEVEL PRIVILEGES</p><h2 id="vipBenefitTitle" data-member-zh="VIP 权益与 Cashback">VIP benefits and cashback</h2></div><span data-member-zh="按等级独立配置">Configured separately for each tier</span></div><div id="vipBenefitMatrix" class="vip-matrix-scroll"><p class="muted">Loading benefits…</p></div></section>
+      <section class="surface vip-commission-center" aria-labelledby="vipCommissionTitle">
+        <div class="vip-section-heading"><div><p class="eyebrow" data-member-zh="COMMISSION CENTER · 独立账本">COMMISSION CENTER · SEPARATE LEDGERS</p><h2 id="vipCommissionTitle" data-member-zh="介绍人佣金">Referral commission</h2><p class="muted" data-member-zh="三类佣金同页查看、独立开关、独立结算；同一笔交易不会重复派发。">View three commission types together, with separate controls and settlement. A transaction is never credited twice.</p></div><span id="vipCommissionLedgerStatus" class="vip-status-chip pending">NO WALLET CREDIT</span></div>
+        <div class="vip-commission-grid">
+          <article><span class="vip-module-icon">＋</span><h3>Deposit Commission</h3><strong id="vipDepositCommissionStatus" data-member-zh="等待连接">Awaiting connection</strong><p data-member-zh="只依据已成功入账的存款计算。待处理、失败、重复回调和退款不计佣金。">Calculated only from successfully credited deposits. Pending, failed, duplicate-callback and refunded deposits do not qualify.</p><div id="vipDepositCommissionRates" class="vip-level-rates">L1 — · L2 — · L3 —</div></article>
+          <article><span class="vip-module-icon">↻</span><h3>Turnover Commission</h3><strong id="vipTurnoverCommissionStatus" data-member-zh="等待投注数据">Awaiting wager data</strong><p data-member-zh="必须接通并验收有效投注来源后才计算，避免用存款冒充 Turnover。">Calculated only after a verified valid-wager source is connected, so deposits cannot be treated as turnover.</p><div id="vipTurnoverCommissionRates" class="vip-level-rates">L1 — · L2 — · L3 —</div></article>
+          <article><span class="vip-module-icon">◇</span><h3>Company Profit Dividend</h3><strong id="vipProfitCommissionStatus" data-member-zh="等待结算数据">Awaiting settlement data</strong><p data-member-zh="公司利润须先扣除提款、红利和厂家结算，完成对账后才可分红。">Company profit must account for withdrawals, bonuses and provider settlement before a reconciled dividend is available.</p><div id="vipProfitCommissionRates" class="vip-level-rates">L1 — · L2 — · L3 —</div></article>
+        </div>
+        <div id="vipCommissionDetails" class="vip-commission-details"></div>
+      </section>
+      <p class="vip-disclosure" data-member-zh="VIP 礼金、Cashback、分红与介绍佣金分别记账。显示“等待连接”或“关闭”的项目不会自动增加会员钱包。">VIP bonuses, cashback, dividends and referral commission use separate ledgers. Items marked awaiting connection or off do not add funds to the member wallet.</p>
+    </section>
+
+    <section id="rewards" class="section rewards-center" aria-labelledby="rewardsTitle">
+      <header class="rewards-hero">
+        <div class="rewards-hero-copy"><p class="eyebrow">MASTER7 · MEMBER PROMOTIONS</p><h1 id="rewardsTitle">Promotions</h1><p>Explore published MASTER7 offers, then review the full eligibility and processing details before taking part.</p><div id="rewardsProgramStatus" class="rewards-status-row" aria-live="polite"><span class="rewards-chip pending">Loading member rewards</span></div></div>
+        <div class="rewards-hero-mark" aria-hidden="true"><strong>✦</strong><span>REWARDS</span></div>
+      </header>
+      <section class="promotions-showcase" aria-labelledby="promotionsPublishedTitle">
+        <div class="promotions-heading"><div><p class="eyebrow">PUBLISHED OFFERS</p><h2 id="promotionsPublishedTitle">Discover what is available</h2><p>Only offers published by MASTER7 management appear here.</p></div><span class="promotions-readonly">DETAILS &amp; ELIGIBILITY</span></div>
+        <div id="promotionCategoryFilters" class="promotion-category-filters" role="group" aria-label="Promotion categories">
+          <button type="button" class="promotion-category active" data-promotion-category="all" aria-pressed="true">All</button>
+          <button type="button" class="promotion-category" data-promotion-category="new-member" aria-pressed="false">New Member</button>
+          <button type="button" class="promotion-category" data-promotion-category="deposit" aria-pressed="false">Deposit</button>
+          <button type="button" class="promotion-category" data-promotion-category="games" aria-pressed="false">Game Offers</button>
+          <button type="button" class="promotion-category" data-promotion-category="other" aria-pressed="false">Other</button>
+        </div>
+        <div id="promotionsPublishedList" class="promotion-card-list" aria-live="polite"><p class="promotions-empty">Loading published promotions…</p></div>
+        <p class="promotions-disclosure">Promotion cards show published information only. Eligibility review, reward processing, wallet credit and turnover status follow the terms shown for each offer.</p>
+      </section>
+      <p id="rewardsNotice" class="rewards-noncash" data-member-zh="正在核对 Rewards Hub 状态。">Checking Rewards Hub status.</p>
+      <p id="rewardsLoginNotice" class="surface rewards-empty" data-member-zh="登录会员账号后可查看个人积分、签到与任务进度。">Sign in to view your points, check-in and mission progress.</p>
+      <div id="rewardsMemberArea" class="stack" hidden>
+        <div class="rewards-member-overview">
+          <section class="rewards-points-card" aria-labelledby="rewardsPointsHeading"><div><p id="rewardsPointsHeading" class="eyebrow">NON-CASH POINTS</p><strong id="rewardsPointsBalance">0</strong><span id="rewardsPointsName">Lucky Points</span><p class="rewards-meta" data-member-zh="无现金价值 · 不进入会员真钱钱包 · 暂不可兑换">No cash value · Not added to the real-money wallet · Redemption unavailable</p></div><div class="rewards-points-orb" aria-hidden="true">LP</div></section>
+          <section class="rewards-checkin-card"><p class="eyebrow">MYT DAILY CHECK-IN</p><strong id="rewardsCheckInMeta" data-member-zh="连续 0 天">0-day streak</strong><p class="rewards-meta" data-member-zh="每天只记录一次，重复点击不会重复发点。">Recorded once per day; repeated clicks do not issue points twice.</p></section>
+        </div>
+        <section class="rewards-panel" aria-labelledby="rewardsCheckInTitle"><div class="rewards-section-heading"><div><p class="eyebrow">7-DAY CYCLE</p><h2 id="rewardsCheckInTitle" data-member-zh="每日签到">Daily check-in</h2></div><span class="rewards-meta">Asia/Kuching · MYT</span></div><div id="rewardsWeek" class="rewards-week"></div><div class="rewards-checkin-actions"><span class="rewards-meta" data-member-zh="积分只写入 Rewards 非现金账本。">Points are recorded only in the non-cash Rewards ledger.</span><button id="rewardsCheckIn" type="button" class="button button-primary" disabled data-member-zh="签到尚未开放">Check-in unavailable</button></div></section>
+        <section hidden class="rewards-panel" aria-labelledby="rewardsMissionsTitle"><div class="rewards-section-heading"><div><p class="eyebrow">VERIFIED MISSIONS</p><h2 id="rewardsMissionsTitle" data-member-zh="任务进度">Mission progress</h2></div><span class="rewards-meta" data-member-zh="未连接的数据不能完成或领奖">Unconnected data cannot complete a mission or issue a reward.</span></div><div id="rewardsMissions" class="rewards-grid"></div></section>
+        <section hidden class="rewards-panel" aria-labelledby="rewardsReferralTitle"><div class="rewards-section-heading"><div><p class="eyebrow">DIRECT REFERRAL MILESTONES</p><h2 id="rewardsReferralTitle" data-member-zh="推荐里程碑">Referral milestones</h2></div><span class="rewards-chip ready"><span id="rewardsQualifiedReferrals">0</span>&nbsp; QUALIFIED</span></div><div id="rewardsReferralMilestones" class="rewards-grid"></div></section>
+        <section hidden class="rewards-panel" aria-labelledby="rewardsCouponTitle"><div class="rewards-section-heading"><div><p class="eyebrow">VOUCHER WALLET · ELIGIBILITY</p><h2 id="rewardsCouponTitle" data-member-zh="Voucher 优惠券钱包">Voucher wallet</h2></div><span class="rewards-chip pending">CLAIM / REDEMPTION OFF</span></div><div id="rewardsCoupons" class="rewards-grid"></div></section>
+        <section class="rewards-panel" aria-labelledby="rewardsLedgerTitle"><div class="rewards-section-heading"><div><p class="eyebrow">POINTS HISTORY</p><h2 id="rewardsLedgerTitle" data-member-zh="积分记录">Points history</h2></div><span class="rewards-meta" data-member-zh="最近 50 笔">Latest 50 entries</span></div><div id="rewardsLedger" class="rewards-ledger"></div></section>
+      </div>
+      <p class="rewards-noncash" data-member-zh="Rewards Points 没有现金价值，不能提现、不能转入真钱钱包，也不会自动兑换。VIP、普通福利和 Rewards 各自使用独立记录。">Rewards Points have no cash value, cannot be withdrawn or transferred to the real-money wallet, and are never redeemed automatically. VIP, standard benefits and Rewards keep separate records.</p>
+    </section>
+
+    <section id="events" class="section engagement-center" aria-labelledby="engagementTitle">
+      <header class="engagement-hero">
+        <div><p class="eyebrow">MASTER7 EVENTS · VERIFIED SOURCES ONLY</p><h1 id="engagementTitle" data-member-zh="Events Center · 活动中心">Events Center</h1><p data-member-zh="查看个人大厅偏好和消息入口。收藏与最近游戏帮助您找到常用游戏，消息状态以实际记录为准。">View your lobby preferences and message shortcuts. Favourites and recent games help you find providers you use often; message status follows the actual record.</p><div id="engagementProgramState" class="engagement-status-row" aria-live="polite"><span class="engagement-chip pending">○ Loading Events status</span></div></div>
+        <div class="engagement-hero-mark" aria-hidden="true"><strong>◇</strong><span>EVENTS</span></div>
+      </header>
+      <div id="engagementPublicContent"><p class="muted">Loading Events Center…</p></div>
+    </section>
+
+    <section id="member-verification" class="section" aria-labelledby="manualComplianceTitle">
+      <div class="surface stack">
+        <h1 id="manualComplianceTitle" data-member-zh="身份审核">Identity review</h1>
+        <p id="manualComplianceIntro" class="muted" data-member-zh="提交申请后，请通过客服了解身份审核步骤。">After submitting a request, contact support for the identity-review steps.</p>
+        <p id="manualComplianceStatus" role="status" aria-live="polite"></p>
+        <button id="manualComplianceRequest" class="button button-primary" type="button" data-member-zh="申请审核">Request review</button>
+      </div>
+    </section>
+
+    <section id="responsible-play" class="section responsible-play-center" aria-labelledby="responsiblePlayTitle">
+      <header class="responsible-play-hero">
+        <div><p class="eyebrow">MY PLAY SETTINGS · MEMBER CONTROL</p><h1 id="responsiblePlayTitle">Play settings</h1><p data-member-zh="为自己的充值安排设置清楚的额度或暂停时间。所有周期按马来西亚时间（MYT）计算；设置只影响新充值和新游戏启动。">Set clear deposit limits or pause periods for yourself. All periods follow Malaysia Time (MYT); settings affect only new deposits and new game launches.</p></div>
+        <div class="responsible-play-mark" aria-hidden="true"><span>◉</span><small>MY CHOICE</small></div>
+      </header>
+      <div class="responsible-play-assurance" aria-label="Services that remain available">
+        <article><strong class="on" data-member-zh="✓ 不额外限制提款">✓ No additional withdrawal restriction</strong><span data-member-zh="实际申请以提款通道状态为准">Actual requests follow payout-channel availability</span></article>
+        <article><strong class="on" data-member-zh="✓ 账号保持可用">✓ Account remains available</strong><span data-member-zh="登录和历史记录不受影响">Sign-in and history remain available</span></article>
+        <article><strong class="on" data-member-zh="✓ 客服保持可用">✓ Support remains available</strong><span data-member-zh="可以随时联系 Stephanie 或人员">Contact Stephanie or staff at any time</span></article>
+        <article><strong data-member-zh="余额不会被冻结">Balance is not frozen</strong><span data-member-zh="暂停不会没收或扣除现有余额">A pause does not remove or deduct the existing balance</span></article>
+      </div>
+      <p id="responsiblePlayStatus" class="responsible-play-note pending" role="status" aria-live="polite" data-member-zh="登录会员账号后读取你的设置。">Sign in to load your play settings.</p>
+      <div class="responsible-play-grid">
+        <section class="responsible-play-card" aria-labelledby="responsiblePlayLimitsTitle">
+          <div class="section-header"><div><p class="eyebrow">DEPOSIT LIMITS · MYT</p><h2 id="responsiblePlayLimitsTitle" data-member-zh="充值额度">Deposit limits</h2></div><button id="responsiblePlayRefresh" type="button" class="button button-outline small" data-member-zh="刷新">Refresh</button></div>
+          <p data-member-zh="额度包括本周期已入账的充值，以及仍在处理或状态未明的充值预留，避免同时提交多笔订单超过额度。">Limits include credited deposits in the current period and reservations for deposits that are pending or uncertain, preventing concurrent orders from exceeding the limit.</p>
+          <div class="responsible-play-usage">
+            <div id="responsiblePlayDailyUsage"><span data-member-zh="Daily · 今日已用">Daily · Used today</span><strong data-rp-used>MYR 0.00</strong><small data-rp-limit>No limit</small></div>
+            <div id="responsiblePlayWeeklyUsage"><span data-member-zh="Weekly · 本周已用">Weekly · Used this week</span><strong data-rp-used>MYR 0.00</strong><small data-rp-limit>No limit</small></div>
+            <div id="responsiblePlayMonthlyUsage"><span data-member-zh="Monthly · 本月已用">Monthly · Used this month</span><strong data-rp-used>MYR 0.00</strong><small data-rp-limit>No limit</small></div>
+          </div>
+          <p data-member-zh="处理中及状态未明的充值预留：">Pending and uncertain deposit reservations:<strong id="responsiblePlayOutstanding">MYR 0.00</strong></p>
+          <form id="responsiblePlayLimitForm" class="responsible-play-limit-form">
+            <label>Daily limit · MYR<input id="responsiblePlayDailyLimit" inputmode="decimal" autocomplete="off" placeholder="Leave blank for no limit" aria-describedby="responsiblePlayLimitHelp"></label>
+            <label>Weekly limit · MYR<input id="responsiblePlayWeeklyLimit" inputmode="decimal" autocomplete="off" placeholder="Leave blank for no limit" aria-describedby="responsiblePlayLimitHelp"></label>
+            <label>Monthly limit · MYR<input id="responsiblePlayMonthlyLimit" inputmode="decimal" autocomplete="off" placeholder="Leave blank for no limit" aria-describedby="responsiblePlayLimitHelp"></label>
+            <div class="responsible-play-form-actions"><button type="submit" class="button button-primary" data-member-zh="保存额度">Save limits</button><span id="responsiblePlayLimitHelp" class="muted" data-member-zh="降低额度立即生效；提高或移除额度须等待安全延迟。">Lower limits take effect immediately; increases or removals require a safety delay.</span></div>
+          </form>
+          <p id="responsiblePlayPendingLimits" class="responsible-play-note pending" hidden></p>
+        </section>
+        <section class="responsible-play-card" aria-labelledby="responsiblePlayWindowTitle">
+          <p class="eyebrow">CURRENT WINDOWS</p><h2 id="responsiblePlayWindowTitle" data-member-zh="当前安排">Current settings</h2>
+          <div class="responsible-play-window-list">
+            <div id="responsiblePlayCoolingState" class="responsible-play-window"><div><strong>Cooling-off available</strong><span>No active cooling-off period</span></div><b aria-hidden="true">◷</b></div>
+            <div id="responsiblePlayExclusionState" class="responsible-play-window"><div><strong>Self-exclusion available</strong><span>No active self-exclusion</span></div><b aria-hidden="true">◇</b></div>
+          </div>
+          <p data-member-zh="会员主动开始的有效期在结束前不能取消或缩短，管理员和员工也不能代为解除。">A member-selected active period cannot be cancelled or shortened before it ends, including by administrators or staff.</p>
+        </section>
+        <section class="responsible-play-card" aria-labelledby="responsiblePlayCoolingTitle">
+          <p class="eyebrow">COOLING-OFF</p><h2 id="responsiblePlayCoolingTitle" data-member-zh="短期暂停">Cooling-off period</h2><p data-member-zh="暂停期间不能建立新充值或启动新游戏。安心设置不会额外限制提款，实际申请以提款通道状态为准；登录、记录和客服继续可用。">New deposits and game launches are paused. Play settings add no withdrawal block; actual requests follow payout-channel availability. Sign-in, records and support remain available.</p>
+          <div class="responsible-play-duration-grid"><button type="button" class="button button-outline" data-rp-cooling-hours="24" data-member-zh="24 小时">24 hours</button><button type="button" class="button button-outline" data-rp-cooling-hours="72" data-member-zh="72 小时">72 hours</button><button type="button" class="button button-outline" data-rp-cooling-hours="168" data-member-zh="7 天">7 days</button><button type="button" class="button button-outline" data-rp-cooling-hours="720" data-member-zh="30 天">30 days</button></div>
+        </section>
+        <section class="responsible-play-card" aria-labelledby="responsiblePlayExclusionTitle">
+          <p class="eyebrow">SELF-EXCLUSION</p><h2 id="responsiblePlayExclusionTitle" data-member-zh="较长时间暂停">Longer pause</h2><p data-member-zh="选择后会立即暂停新充值、游戏启动及推广发送，直到所选日期结束。">Your selection immediately pauses new deposits, game launches and promotional messages until the selected date ends.</p>
+          <label data-member-zh="暂停时间">Pause duration<select id="responsiblePlayExclusionDuration" class="responsible-play-select"><option value="30" data-member-zh="30 天">30 days</option><option value="90" data-member-zh="90 天">90 days</option><option value="180" data-member-zh="180 天">180 days</option><option value="365" data-member-zh="1 年">1 year</option><option value="1825" data-member-zh="5 年">5 years</option></select></label>
+          <label class="responsible-play-confirm"><input id="responsiblePlayExclusionConfirm" type="checkbox"><span data-member-zh="我明白此安排开始后不能提前取消或缩短；安心设置不会额外限制提款，实际申请以提款通道状态为准；登录、历史记录、客服和现有余额仍然可用。">I understand that this setting cannot be cancelled or shortened after it starts. It adds no withdrawal block; actual requests follow payout-channel availability. Sign-in, history, support and the existing balance remain available.</span></label>
+          <button id="responsiblePlayExclusionStart" type="button" class="button button-outline" data-member-zh="开始所选暂停期">Start selected pause</button>
+        </section>
+      </div>
+      <p id="responsiblePlayActionStatus" class="responsible-play-status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="lobby" class="section active">
+      <section class="member-wallet member-home-wallet surface stack" id="memberWallet" hidden aria-labelledby="memberWalletTitle">
+        <div class="wallet-heading"><div><p class="eyebrow">MEMBER WALLET · MYR</p><h2 id="memberWalletTitle" data-i18n="memberWalletTitle">My wallet</h2><p id="walletNotice" class="muted" role="status" aria-live="polite">Sign in with an approved member account to view wallet status.</p></div><button id="refreshWallet" type="button" class="button button-outline">Refresh wallet</button></div>
+        <div class="wallet-balance"><span data-i18n="availableBalance">Available balance</span><strong id="walletBalance">—</strong></div>
+        <div class="wallet-primary-actions wallet-quick-grid" role="group" aria-label="Wallet actions">
+          <button id="walletDepositAction" type="button" class="wallet-primary-action active"><span aria-hidden="true">↓</span><strong data-i18n="quickDeposit">Deposit</strong><small>Top up</small></button>
+          <button id="walletWithdrawAction" type="button" class="wallet-primary-action"><span aria-hidden="true">↑</span><strong data-i18n="quickWithdraw">Withdraw</strong><small>Cash out</small></button>
+          <button id="walletRecordsAction" type="button" class="wallet-primary-action"><span aria-hidden="true">≡</span><strong data-i18n="quickRecords">Records</strong><small>Activity</small></button>
+          <button type="button" class="wallet-primary-action" data-section="rewards"><span aria-hidden="true">✦</span><strong data-i18n="quickRewards">Rewards</strong><small>Offers</small></button>
+        </div>
+        <details class="wallet-recent-activity"><summary>Recent deposit records</summary><div class="wallet-records"><div class="wallet-records-heading"><h3 data-i18n="depositRecords">My deposit records</h3><button id="refreshPaymentRecords" type="button" class="button button-ghost small">Refresh records</button></div><div id="memberPaymentRecords"><p class="muted">Sign in to view records.</p></div></div></details>
+      </section>
+      <nav class="member-service-menu" aria-label="Member services">
+        <button type="button" data-home-service="deposit"><span aria-hidden="true">↓</span><strong>Deposit</strong><small>Payment options</small></button>
+        <button type="button" data-home-service="withdraw"><span aria-hidden="true">↑</span><strong>Withdraw</strong><small>Withdraw funds</small></button>
+        <button type="button" data-home-service="games"><span aria-hidden="true">▦</span><strong>Games</strong><small>Explore providers</small></button>
+        <button type="button" data-home-service="support"><span aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 13v-2a8 8 0 0 1 16 0v2M4 12H3v7h4v-7H4Zm16 0h1v7h-4v-7h3ZM18 19c0 2-2 3-6 3"/></svg></span><strong>Support</strong><small>Contact us</small></button>
+      </nav>
+      <section class="company-profile-hero" aria-labelledby="companyProfileTitle">
+        <div class="company-profile-media">
+          <img src="/assets/master7-company-hero.png" alt="MASTER7 premium digital member platform">
+        </div>
+        <div class="company-profile-copy">
+          <p class="eyebrow">MASTER7 · PREMIUM MEMBER PLATFORM</p>
+          <h1 id="companyProfileTitle">MASTER7 · One Connected Experience</h1>
+          <p class="company-profile-lead">Play with confidence. One premium experience.</p>
+          <details class="company-profile-about">
+            <summary>About MASTER7 <span aria-hidden="true">+</span></summary>
+            <p>MASTER7 brings secure sign-in, a clear member wallet, payment access, game access and dedicated support together in one refined digital experience. Every key activity is presented through traceable records and clear status updates, helping members understand what is available and what happens next.</p>
+            <p>Our platform is designed around straightforward navigation, protected account access and responsible support, so members can move between account services, payments and entertainment with confidence.</p>
+            <div class="company-profile-points" aria-label="MASTER7 service principles">
+              <span>SECURE SIGN-IN</span><span>CLEAR WALLET</span><span>TRACEABLE RECORDS</span><span>DEDICATED SUPPORT</span>
+            </div>
+          </details>
+        </div>
+      </section>
+      <div class="section-header lobby-hero lobby-overview">
+        <div class="lobby-hero-copy"><p class="eyebrow" data-i18n="lobbyEyebrow">GAME LOBBY</p><h1 data-i18n="lobbyTitle">MASTER7 Game Lobby</h1><p class="muted" data-i18n="lobbyNotice">Browse 38 independent provider platforms by category.</p><div class="casino-trust-row" aria-label="Platform highlights"><span>MYR</span><span>EN · 中文 · BM</span><span>38 PROVIDERS</span><span>MEMBER ACCESS</span></div></div>
+        <div class="casino-hero-stage" aria-hidden="true"><div class="casino-symbols"><span>♠</span><span>♦</span><span>♣</span><span>♥</span></div><img src="/assets/seven-emblem.png" alt=""><b>MASTER7</b><small>PREMIUM GAME LOBBY</small></div>
+        <div class="lobby-live-summary" aria-label="Game catalogue summary"><span><strong id="lobbyGameCount">43</strong><small>ENTRIES</small></span><span><strong id="lobbyBrandCount">38</strong><small>BRANDS</small></span><span><strong>3</strong><small>FEATURED</small></span></div>
+      </div>
+      <section id="lobbyAdCarousel" class="lobby-ad-carousel" aria-label="Lobby advertisements" hidden>
+        <a id="lobbyAdLink" class="lobby-ad-link" href="#" target="_blank" rel="noopener noreferrer" hidden>
+          <img id="lobbyAdImage" class="lobby-ad-image" alt="">
+          <span id="lobbyAdLabel" class="lobby-ad-label"></span>
+          <span class="lobby-ad-sponsored">MASTER7 PROMOTION</span>
+        </a>
+        <div id="lobbyAdStatic" class="lobby-ad-static" hidden>
+          <img id="lobbyAdStaticImage" class="lobby-ad-image" alt="">
+          <span id="lobbyAdStaticLabel" class="lobby-ad-label"></span>
+          <span class="lobby-ad-sponsored">MASTER7 PROMOTION</span>
+        </div>
+        <div class="lobby-ad-controls" aria-label="Advertisement controls">
+          <button id="lobbyAdPrevious" type="button" aria-label="Previous advertisement">‹</button>
+          <span id="lobbyAdCounter" aria-live="polite"></span>
+          <button id="lobbyAdNext" type="button" aria-label="Next advertisement">›</button>
+        </div>
+      </section>
+      <div id="lobbyAdGrid" class="lobby-ad-grid" aria-label="More lobby advertisements" hidden></div>
+      <section id="customerBenefits" class="customer-benefits" aria-labelledby="customerBenefitsTitle" hidden>
+        <div class="section-header"><div><p class="eyebrow">MEMBER OFFERS</p><h2 id="customerBenefitsTitle" data-member-zh="会员福利">Member benefits</h2><p class="muted" data-member-zh="只显示后台已发布的福利规则；金额、资格、Turnover 与有效期以每项说明为准。">Only published benefit rules appear here. Amount, eligibility, turnover and validity follow each offer description.</p></div></div>
+        <div id="customerBenefitsList" class="benefit-grid" aria-live="polite"></div>
+      </section>
+      <div class="lobby-secondary-content">
+      <div class="featured-games-panel">
+      <section class="bonus-brand-lobby" id="bonusBrandLobby" aria-labelledby="bonusBrandTitle">
+        <div class="bonus-lobby-head"><div><p class="eyebrow">SPONSORED PROVIDERS</p><h2 id="bonusBrandTitle" data-bonus-i18n="title">Three Sponsored Provider Slots</h2><p class="muted" data-bonus-i18n="intro">Three sponsored provider slots are managed in the MASTER7 backoffice and displayed in the member lobby.</p></div><span class="bonus-head-count" data-bonus-i18n="brandCount">3 SPONSORED SLOTS</span></div>
+        <div class="bonus-brand-grid" role="group" aria-label="Featured game brands">
+          <article class="bonus-brand-card bonus--jili"><span class="bonus-card-top"><span class="bonus-index">SPONSORED 01</span><span class="bonus-locked">JILI × MASTER7</span></span><img class="sponsor-art" data-provider-art="jili" data-sponsor-index="0" alt="JILI and MASTER7 sponsored provider artwork"><span class="bonus-big-mark bonus-mark-jili">JILI × MASTER7</span><span class="bonus-offer-label">FEATURED PROVIDER</span><span class="bonus-btn-bottom"><button class="bonus-brand-action" type="button" data-bonus-brand="jili" data-bonus-i18n="cta">View games</button><button class="bonus-extra-action" type="button" data-provider-bonus="jili" data-bonus-i18n="claim">Terms &amp; offers</button></span></article>
+          <article class="bonus-brand-card bonus--megah5"><span class="bonus-card-top"><span class="bonus-index">SPONSORED 02</span><span class="bonus-locked">MEGA H5 × MASTER7</span></span><img class="sponsor-art" data-provider-art="megah5" data-sponsor-index="1" alt="MEGAH5 and MASTER7 sponsored provider artwork"><span class="bonus-big-mark bonus-mark-mega">MEGA H5 × MASTER7</span><span class="bonus-offer-label">FEATURED PROVIDER</span><span class="bonus-btn-bottom"><button class="bonus-brand-action" type="button" data-bonus-brand="megah5" data-bonus-i18n="cta">View games</button><button class="bonus-extra-action" type="button" data-provider-bonus="megah5" data-bonus-i18n="claim">Terms &amp; offers</button></span></article>
+          <article class="bonus-brand-card bonus--918kiss"><span class="bonus-card-top"><span class="bonus-index">SPONSORED 03</span><span class="bonus-locked">918KISS × MASTER7</span></span><img class="sponsor-art" data-provider-art="918kissh5" data-sponsor-index="2" alt="918KISS and MASTER7 sponsored provider artwork"><span class="bonus-big-mark bonus-mark-kiss">918KISS × MASTER7</span><span class="bonus-offer-label">FEATURED PROVIDER</span><span class="bonus-btn-bottom"><button class="bonus-brand-action" type="button" data-bonus-brand="918kissh5" data-bonus-i18n="cta">View games</button><button class="bonus-extra-action" type="button" data-provider-bonus="918kissh5" data-bonus-i18n="claim">Terms &amp; offers</button></span></article>
+        </div>
+        <div class="sponsor-pagination" aria-label="Three featured providers"><span class="active"></span><span></span><span></span></div>
+        <p class="bonus-disclosure" data-bonus-i18n="disclosure">Game covers and provider areas are managed in the MASTER7 backoffice.</p>
+      </section>
+      </div>
+      </div>
+      <div class="game-category-filters" role="group" aria-label="Game categories">
+        <button type="button" class="game-category-chip active" data-game-category="HOT">🔥 HOT</button>
+        <button type="button" class="game-category-chip" data-game-category="SLOT">SLOT</button>
+        <button type="button" class="game-category-chip" data-game-category="LIVE">LIVE</button>
+        <button type="button" class="game-category-chip" data-game-category="FISH">FISH</button>
+        <button type="button" class="game-category-chip" data-game-category="COCK">COCK</button>
+        <button type="button" class="game-category-chip" data-game-category="SPORT">SPORT</button>
+        <button type="button" class="game-category-chip" data-game-category="FAV">♥ FAV</button>
+      </div>
+      <div class="filters platform-search"><input id="search" placeholder="Search platform name" autocomplete="off"></div>
+      <section class="api-supplier-lobby" id="apiSupplierLobby" aria-labelledby="apiSupplierTitle">
+        <div class="provider-directory-heading"><div><p class="eyebrow">PREMIUM GAME COLLECTION</p><h2 id="apiSupplierTitle">38 Game Providers</h2><p class="muted">Choose a provider to browse its game catalogue.</p></div><span id="apiSupplierCountLabel" class="tiny-label">38 PROVIDERS</span></div>
+        <div id="apiSupplierButtons" class="api-supplier-grid" aria-live="polite"></div>
+      </section>
+      <button id="clearProviderFilter" class="button button-ghost small" type="button" hidden>Back to 38 game platforms</button>
+      <p id="gamesStatus" class="notice member-catalogue-status" role="status" aria-live="polite">Choose a provider to browse available titles.</p>
+      <div id="providers" class="catalog-providers"></div>
+      <section id="gameWalletPanel" class="game-wallet-panel surface" hidden aria-labelledby="gameWalletTitle">
+        <div class="game-wallet-heading">
+          <div><p class="eyebrow">GAME WALLET · PROVIDER SETTLEMENT</p><h2 id="gameWalletTitle" data-member-zh="游戏钱包">Game wallet</h2><p id="gameWalletStateLabel" class="muted" role="status" aria-live="polite" data-member-zh="正在读取游戏钱包…">Loading game wallet…</p></div>
+          <span id="gameWalletLiveState" class="wallet-record-status">CHECKING</span>
+        </div>
+        <div class="game-wallet-balances" aria-label="Game wallet balances">
+          <span><small data-member-zh="前台可用">Available</small><strong id="gameWalletAvailable">MYR —</strong></span>
+          <span><small data-member-zh="游戏中">In game</small><strong id="gameWalletHeld">MYR —</strong></span>
+          <span><small data-member-zh="本局结果">Session result</small><strong id="gameWalletResult">—</strong></span>
+        </div>
+        <p id="gameWalletProfileMeta" class="game-wallet-profile-meta" data-member-zh="请选择一个游戏入口查看钱包模式与连接能力。">Choose a game entry to view its wallet mode and connection capabilities.</p>
+        <p id="gameWalletSession" class="game-wallet-session" data-member-zh="目前没有进行中的游戏。">No game session is currently active.</p>
+        <div id="gameWalletTransfers" class="game-wallet-transfers" aria-live="polite" hidden></div>
+        <div class="game-wallet-actions">
+          <button id="refreshGameWallet" type="button" class="button button-outline" data-member-zh="刷新">Refresh</button>
+          <button id="gameWalletSettle" type="button" class="button button-primary" hidden data-member-zh="退出并结算回前台">Exit and settle to wallet</button>
+          <button id="gameWalletRecover" type="button" class="button button-outline" hidden data-member-zh="查询厂家结果">Query provider result</button>
+        </div>
+      </section>
+    </section>
+
+    <section id="deposit" class="section">
+      <div class="section-header"><div><p class="eyebrow">MYR · DEPOSIT</p><h1 data-i18n="depositTitle">Deposit</h1><p class="muted" data-i18n="depositIntro">Payment options and deposit records are collected on this page.</p></div></div>
+      <div class="payment-lobby surface" id="paymentLobby" aria-labelledby="paymentLobbyTitle">
+        <div class="payment-lobby-heading">
+          <div>
+            <p class="eyebrow">MYR · PAYMENT CHANNELS</p>
+            <h2 id="paymentLobbyTitle" data-payment-i18n="title">Deposit options</h2>
+            <p class="muted" data-payment-i18n="notice">Choose a deposit method to continue.</p>
+          </div>
+          <span class="payment-lobby-counter">4 PAYMENT PROFILES · MYR / USDT</span>
+        </div>
+        <div class="cashier-bank-entry">
+          <button type="button" class="button button-primary cashier-bank-option" data-payment-channel="duitnow-qr"><strong>DUITNOW QR</strong><span class="payment-hint" data-payment-i18n="duitNowHint">Scan the company QR and submit the payment receipt for review.</span><span class="payment-state">View QR</span></button>
+          <button type="button" class="button button-primary cashier-bank-option" data-payment-channel="manual-bank"><strong>BANK TRANSFER</strong><span class="payment-hint" data-payment-i18n="bankHint">Transfer to the displayed company bank account and submit the receipt.</span><span class="payment-state">View bank</span></button>
+        </div>
+        <div id="paymentButtons" class="payment-grid" role="group" aria-label="Payment deposit options">
+          <button type="button" class="payment-option" data-payment-channel="vpay"><span class="payment-number">01</span><strong>VPAY</strong><span class="payment-hint" data-payment-i18n="vpayHint">Separate option · MYR</span><span class="payment-state" data-payment-i18n="status">View status</span></button>
+          <button type="button" class="payment-option" data-payment-channel="gspay"><span class="payment-number">02</span><strong>GSPAY+ MYR</strong><span class="payment-hint" data-payment-i18n="gspayHint">Separate option · MYR</span><span class="payment-state" data-payment-i18n="status">View status</span></button>
+          <button type="button" class="payment-option" data-payment-channel="gspay-usdt"><span class="payment-number">03</span><strong>GSPAY+ USDT</strong><span class="payment-hint" data-payment-i18n="gspayUsdtHint">Separate option · USDT · provider contract pending</span><span class="payment-state" data-payment-i18n="status">View status</span></button>
+          <button type="button" class="payment-option" data-payment-channel="1mpay"><span class="payment-number">04</span><strong>1MPAY</strong><span class="payment-hint" data-payment-i18n="oneMpayHint">Separate option · MYR</span><span class="payment-state" data-payment-i18n="status">View status</span></button>
+        </div>
+        <p class="payment-caveat" data-payment-i18n="caveat">Each channel has its own status. Available channels open their payment flow directly.</p>
+      </div>
+      <section class="deposit-guide surface" id="depositGuide" aria-labelledby="depositGuideTitle">
+        <div class="deposit-guide-head"><div><p class="eyebrow">DEPOSIT HELP</p><h2 id="depositGuideTitle" data-member-zh="充值帮助">Deposit help</h2><p class="muted" data-member-zh="正式付款时只使用平台当次显示的付款页面与收款资料。">For a real payment, use only the payment page and collection details shown by the platform for that order.</p></div><span class="preview-stamp">MEMBER GUIDE</span></div>
+        <div class="deposit-guide-grid">
+          <video controls playsinline preload="metadata" poster="/assets/guide-cover.png" aria-label="MASTER7 deposit help"><source src="/assets/guide-demo-not-official.mp4" type="video/mp4">Your browser does not support MP4 video playback.</video>
+          <div class="deposit-guide-aside"><h3 data-member-zh="充值步骤">Deposit steps</h3><p data-member-zh="选择充值公司与金额，确认付款页面资料后完成付款，并在充值记录查看结果。">Choose a payment company and amount, confirm the payment-page details, complete payment, then check the result in deposit records.</p><div class="guide-vendor"><b>1</b><span data-member-zh="选择充值公司">Choose a payment company</span></div><div class="guide-vendor"><b>2</b><span data-member-zh="输入充值金额">Enter the deposit amount</span></div><div class="guide-vendor"><b>3</b><span data-member-zh="确认付款结果">Confirm the payment result</span></div><small data-member-zh="如果通道显示维护中，请稍后再试或联系在线客服。">If a channel is under maintenance, try again later or contact online support.</small></div>
+        </div>
+      </section>
+    </section>
+
+    <section id="withdraw" class="section">
+      <div class="section-header"><div><p class="eyebrow">MYR · WITHDRAW</p><h1 data-i18n="withdrawTitle">Withdraw</h1><p class="muted">Choose an available payout company and send to a Malaysian bank account. E-wallet requests use Company Bank manual review.</p></div></div>
+      <div class="withdraw-layout">
+        <form id="withdrawalForm" class="surface stack withdrawal-form">
+          <div class="wallet-balance"><span>Available balance</span><strong id="withdrawAvailable">—</strong></div>
+          <label for="withdrawProvider">Payout company</label><select id="withdrawProvider" required><option value="">Choose company</option></select>
+          <fieldset class="withdraw-destination-choice"><legend>Send to</legend><label><input type="radio" name="withdrawDestinationType" value="bank" checked> Bank Account</label><label><input type="radio" name="withdrawDestinationType" value="ewallet"> E-Wallet</label></fieldset>
+          <div id="withdrawBankFields" class="stack withdraw-destination-fields">
+            <label for="withdrawBank">Malaysia bank</label><select id="withdrawBank" required><option value="">Choose bank</option></select>
+            <label for="withdrawAccountNumber">Bank account number</label><input id="withdrawAccountNumber" inputmode="numeric" minlength="6" maxlength="24" autocomplete="off" required>
+          </div>
+          <div id="withdrawEwalletFields" class="stack withdraw-destination-fields" hidden>
+            <label for="withdrawEwallet">Malaysia e-wallet</label><select id="withdrawEwallet"><option value="">Choose e-wallet</option></select>
+            <label for="withdrawEwalletIdentifier">Verified member phone / wallet ID</label><input id="withdrawEwalletIdentifier" inputmode="tel" maxlength="32" autocomplete="tel"><small id="withdrawVerifiedPhone" class="muted">Use the verified phone number on your member account.</small>
+          </div>
+          <label for="withdrawAccountHolder">Account holder legal name</label><input id="withdrawAccountHolder" minlength="2" maxlength="80" autocomplete="name" required>
+          <label for="withdrawAmount">Amount · RM</label><input id="withdrawAmount" type="number" min="1" max="100000" step="0.01" inputmode="decimal" required>
+          <button id="withdrawSubmit" class="button button-primary" type="submit">Submit Withdraw</button>
+          <p id="withdrawMessage" class="muted" role="status" aria-live="polite">Sign in with an approved customer account to submit.</p>
+        </form>
+        <section class="surface stack withdrawal-records" aria-labelledby="withdrawRecordsTitle"><div class="wallet-records-heading"><h2 id="withdrawRecordsTitle">My withdrawal records</h2><button id="refreshWithdrawals" type="button" class="button button-outline">Refresh</button></div><div id="memberWithdrawalRecords"><p class="muted">Sign in to view records.</p></div></section>
+      </div>
+    </section>
+
+    <section id="support" class="section">
+      <div class="section-header"><div><p class="eyebrow">AI SUPPORT CENTER</p><h1 data-i18n="supportTitle">Support center</h1><p class="muted" data-i18n="supportIntro">Stephanie AI support replies first; backoffice staff can continue in the same ticket.</p></div></div>
+      <article class="stephanie-intro" aria-label="Stephanie MASTER7 AI customer support">
+        <div class="stephanie-avatar" aria-hidden="true"><span>👩🏻‍💼</span><b>AI</b></div>
+        <div><p class="eyebrow">STEPHANIE · MASTER7 AI SUPPORT</p><h2>Hello, I am Stephanie</h2><p>I can help with common questions in English, Chinese and Bahasa Melayu. Payment, withdrawal, account security and complaint cases remain available for staff review.</p><div class="stephanie-chips"><span>AI assistance</span><span>Three languages</span><span>Staff follow-up</span></div></div>
+        <p class="stephanie-safety">Never send a password, OTP, full bank account number or API key.</p>
+      </article>
+      <div class="two-col">
+        <form id="ticketForm" class="surface stack"><h2 data-i18n="newTicket">New ticket</h2><label for="ticketSubject" data-i18n="subject">Subject</label><input id="ticketSubject" minlength="3" maxlength="120" required><label for="ticketMessage" data-i18n="message">Message</label><textarea id="ticketMessage" rows="5" minlength="5" maxlength="2000" required></textarea><button class="button button-primary" type="submit" data-i18n="submitTicket">Submit ticket</button><small data-i18n="ticketLogin">Sign in and await member approval to submit a ticket.</small></form>
+        <div class="surface stack"><h2 data-i18n="myTickets">Ticket history</h2><button id="refreshTickets" type="button" class="button button-outline" data-i18n="refreshRecords">Refresh records</button><div id="tickets"><p class="muted" data-i18n="loginFirst">Please sign in.</p></div></div>
+      </div>
+    </section>
+
+    <section id="admin" class="section">
+      <div class="section-header"><div><p class="eyebrow">BACKOFFICE / V17</p><h1 data-i18n="adminTitle">运营管理后台</h1><p class="muted" data-i18n="adminIntro">管理本门户的会员、员工、公告和工单。</p></div><span class="security-tag" data-i18n="staffOnly">员工权限保护</span></div>
+      <div id="adminBody" hidden>
+        <header class="admin-commandbar" aria-label="Backoffice command bar">
+          <button id="adminMenuToggle" class="admin-icon-button" type="button" aria-label="Open backoffice menu" aria-expanded="false">☰</button>
+          <div class="admin-command-title"><span class="admin-command-mark">7</span><div><strong>MASTER7 Backoffice</strong><small>MYT · V17</small></div></div>
+          <div class="admin-command-actions"><a id="adminSupportButton" class="admin-status-chip" href="#support"><span></span> Live Chat</a><button id="financialAudioToggle" class="admin-icon-button admin-sound-toggle" type="button" aria-label="Enable financial alert sound" aria-pressed="false" title="Click to enable financial alert sound">🔈</button><button id="adminNotificationButton" class="admin-icon-button" type="button" aria-label="Notifications">🔔<b id="adminNotificationCount">0</b></button><span id="adminCommandUser" class="admin-command-user">Staff</span></div>
+        </header>
+        <div id="adminMenuBackdrop" class="admin-menu-backdrop" hidden></div>
+        <div class="admin-workspace">
+          <nav id="adminInternalSidebar" class="admin-internal-sidebar" aria-label="Backoffice sections">
+            <button id="adminMenuClose" class="admin-menu-close" type="button" aria-label="Close menu">×</button>
+            <p class="admin-sidebar-heading">CONTROL · 总控</p>
+            <a href="#operationsPanel">🏠 今日总览</a>
+            <a href="#operationsAiPanel" data-owner-only>✦ AI 平台管理中心</a>
+            <a href="#supportOperationsPanel" data-owner-only>💬 Stephanie 客服</a>
+            <p class="admin-sidebar-heading">MONEY · 钱与银行</p>
+            <a href="#manualBankAdminPanel">🏦 公司银行与银行单</a>
+            <a href="#adminDepositPanel" data-owner-only>📥 充值日报</a>
+            <a href="#adminWithdrawalPanel">📤 提款记录</a>
+            <a href="#paymentChannelManager">💳 三家支付通道</a>
+            <a href="#financeCenterPanel">💹 财务与三方对账</a>
+            <a href="#accountingPanel" data-owner-only>📊 日／月／年账目</a>
+            <p class="admin-sidebar-heading">MEMBERS · 会员</p>
+            <a href="#pendingPanel" data-owner-only>👥 会员与 CRM</a>
+            <a href="#manualComplianceAdminPanel" data-owner-only>◇ 身份与风险审核</a>
+            <a href="#vipManager" data-owner-only>♛ VIP 配套</a>
+            <a href="#benefitManager">🎁 福利规则</a>
+            <a href="#referralAdminPanel" data-owner-only>🤝 介绍与佣金</a>
+            <a href="#rewardsManager" data-owner-only>✦ Rewards Hub</a>
+            <p class="admin-sidebar-heading">GAMES · 38 家游戏</p>
+            <a href="#apiSupplierManager">🎮 38 家厂家大厅</a>
+            <a href="#gameCatalogManager">🎛 游戏分类与控制</a>
+            <a href="#gameRankingPanel" data-owner-only>🏆 游戏排行榜</a>
+            <a href="#gameWalletAdminPanel">💰 游戏钱包记录</a>
+            <p class="admin-sidebar-heading">PROMOTION · 推广</p>
+            <a href="#lobbyAdManager">📢 平台广告</a>
+            <a href="#socialPanel">◎ 联系方式与 Pixel</a>
+            <a href="#announcementPanel">📣 公告</a>
+            <a href="#marketingCenter" data-owner-only>🚀 发布中心</a>
+            <p class="admin-sidebar-heading">MORE · 较少使用</p>
+            <a href="#bonusHunterPanel">🔎 KYC／风险／Bonus Hunter</a>
+            <a href="#securityPanel" data-owner-only>🛡 安全检查</a>
+            <a href="#responsiblePlayAdminPanel" data-owner-only>◉ 会员安心设置</a>
+            <a href="#engagementManager" data-owner-only>◇ 活动中心</a>
+            <a href="#providerPanel">◆ 三家赞助展示</a>
+            <a href="#gameSyncPanel">↻ 厂家健康与同步</a>
+            <a href="#telegramBotPanel" data-owner-only>✈ Telegram Bot</a>
+            <a href="#auditPanel" data-owner-only>📋 操作记录</a>
+            <a href="#systemReadinessPanel">🧰 备份与上线检查</a>
+            <a href="#productionAcceptancePanel">✅ 生产验收证据</a>
+            <a href="#ownerManualPanel" data-owner-only>📘 功能说明书</a>
+          </nav>
+          <div class="admin-content">
+        <div class="admin-dashboard-heading">
+          <div><p class="eyebrow">LIVE OPERATIONS · MYT</p><h2>Operational Dashboard</h2><p class="muted">Today at a glance · values update from the connected MASTER7 services.</p></div>
+          <span id="adminLivePill" class="admin-live-pill checking"><span></span><b id="adminLiveLabel">CHECKING</b></span>
+        </div>
+        <div class="stats admin-kpi-grid" id="adminStats" aria-label="Nine operational dashboard metrics"></div>
+        <div class="surface stack" id="operationsPanel">
+          <div class="admin-panel-heading"><div><p class="eyebrow">TODAY · FINANCIAL OVERVIEW</p><h2 id="operationsHeading">今日门户数据</h2></div><span class="tiny-label">MYR</span></div>
+          <p class="muted" id="operationsNotice">真实 MYR 充值、提款、Bonus、进群数据未连接；未连接不等于 RM0。</p>
+          <div class="admin-trend-chart" role="img" aria-label="Daily financial trend area. Connected totals appear when available.">
+            <span class="trend-line trend-line-a"></span><span class="trend-line trend-line-b"></span><span class="trend-line trend-line-c"></span><span class="trend-line trend-line-d"></span>
+            <div class="admin-trend-empty">Connected daily totals appear here</div>
+          </div>
+          <div id="operationsStats" hidden></div>
+        </div>
+        <section class="surface stack ops-ai-panel" id="operationsAiPanel" hidden data-owner-only aria-labelledby="operationsAiTitle">
+          <header class="ops-ai-hero">
+            <div><p class="eyebrow">AI PLATFORM MANAGER · ADMIN CONTROL</p><h2 id="operationsAiTitle">AI 整个平台管理中心</h2><p>集中进行确定性检查：会员 CRM、留存、钱与对账、38 家厂家、福利代理、KYC 风险及客服。AI 负责监察、整理、提醒和建议；资金批准及营业开关保留管理员确认。</p></div>
+            <div class="ops-ai-controls" aria-label="Operations report period"><button type="button" class="button button-outline active" data-ops-period="day" aria-pressed="true">今日</button><button type="button" class="button button-outline" data-ops-period="week" aria-pressed="false">本周</button><button type="button" class="button button-outline" data-ops-period="month" aria-pressed="false">本月</button><button id="refreshOperationsAi" type="button" class="button button-outline">刷新</button></div>
+          </header>
+          <p id="operationsAiStatus" class="verification-note pending" role="status" aria-live="polite">等待读取真实运营记录；所有建议必须人工批准。</p>
+          <nav class="ops-ai-capability-grid" aria-label="White label platform modules">
+            <a href="#pendingPanel" data-admin-shortcut="pendingPanel"><strong>会员 CRM</strong><span>会员、标签与留存</span></a><a href="#financeCenterPanel" data-admin-shortcut="financeCenterPanel"><strong>支付对账</strong><span>银行、通道、钱包</span></a><a href="#gameSyncPanel" data-admin-shortcut="gameSyncPanel"><strong>厂家健康</strong><span>38 家状态与同步</span></a><a href="#bonusHunterPanel" data-admin-shortcut="bonusHunterPanel"><strong>KYC 与风险</strong><span>异常与套利检查</span></a><a href="#benefitManager" data-admin-shortcut="benefitManager"><strong>优惠规则</strong><span>Bonus 与 Turnover</span></a><a href="#referralAdminPanel" data-admin-shortcut="referralAdminPanel"><strong>代理联盟</strong><span>介绍与佣金账本</span></a>
+          </nav>
+          <div id="operationsAiSummary" class="ops-ai-summary" aria-label="AI operations summary"></div>
+          <div><div class="wallet-records-heading"><div><h3>真实记录汇总</h3><p class="muted">金额只来自已保存的账本状态；缺少的外部资料保持未连接。</p></div><span class="tiny-label">MYT</span></div><div id="operationsAiMetrics" class="ops-ai-metrics"></div></div>
+          <div><div class="wallet-records-heading"><div><h3>人工处理建议</h3><p class="muted">每条建议附带聚合证据，没有自动执行按钮。</p></div><span class="tiny-label">ADMIN ONLY</span></div><div id="operationsAiRecommendations" class="ops-ai-recommendations"></div></div>
+          <p id="operationsAiSourcePolicy" class="ops-ai-policy">Only persisted platform records and explicit readiness flags are used.</p>
+        </section>
+        <section class="surface stack finance-center-panel" id="financeCenterPanel" hidden aria-labelledby="financeCenterTitle">
+          <div class="finance-center-hero"><div><p class="eyebrow">FINANCE CENTER · MYT</p><h2 id="financeCenterTitle">公司财务管理中心</h2><p>集中查看充值、提款、银行单、VIP／Cashback／佣金、游戏盈亏和厂家结算。未连接的资料显示“等待连接”，不会用 RM0 冒充已经对账。</p></div><button id="refreshFinanceCenter" type="button" class="button button-outline">刷新财务</button></div>
+          <div class="finance-center-controls" aria-label="Finance report period"><button type="button" class="button button-outline" data-finance-period="today">今日</button><button type="button" class="button button-outline active" data-finance-period="month">本月</button><button type="button" class="button button-outline" data-finance-period="half">半年</button><button type="button" class="button button-outline" data-finance-period="year">今年</button><label>选择月份 <input id="financeMonth" type="month"></label><button id="loadFinanceMonth" type="button" class="button button-outline">查看月份</button></div>
+          <p id="financeCenterStatus" class="verification-note pending">正在读取财务资料…</p>
+          <div id="financeCenterSummary" class="finance-center-summary"></div>
+          <section class="finance-bank-card" id="financeCenterBank" aria-label="Bank and deposit status"></section>
+          <div><div class="wallet-records-heading"><div><h3>财务项目与资料来源</h3><p class="muted">只有已连接且已验收的来源会进入确认金额。</p></div></div><div id="financeCenterSources" class="finance-source-wrap"></div></div>
+          <div><div class="wallet-records-heading"><div><h3>三方对账状态</h3><p class="muted">会员钱包、支付商结算单和公司银行流水分别核对。</p></div></div><div id="financeCenterReconciliation" class="finance-reconcile-grid"></div></div>
+        </section>
+        <section class="surface stack" id="accountingPanel" hidden aria-labelledby="accountingTitle">
+          <div class="wallet-records-heading"><div><p class="eyebrow">SETTLED CASHFLOW · MYT</p><h2 id="accountingTitle">公司已结算现金流</h2><p class="muted">MYT 每日 00:05 自动封存上一日：已入账充值减已付款提款。这里不是利润表，不含福利、佣金、游戏盈亏、厂家费、退款或公司开支。</p></div><button id="refreshAccounting" type="button" class="button button-outline">刷新账目</button></div>
+          <div class="accounting-controls">
+            <button type="button" class="button button-outline active" data-accounting-period="yesterday">昨日</button><button type="button" class="button button-outline" data-accounting-period="month">本月</button><button type="button" class="button button-outline" data-accounting-period="half">半年</button><button type="button" class="button button-outline" data-accounting-period="year">今年</button>
+            <label>选择月份 <input id="accountingMonth" type="month"></label><button id="loadAccountingMonth" type="button" class="button button-outline">查看月份</button><a id="exportAccounting" class="button button-outline" href="#">导出 CSV</a>
+          </div>
+          <div id="accountingSummary" class="stats"></div><div id="accountingBreakdown"></div>
+        </section>
+        <section class="surface stack" id="paymentChannelManager" aria-labelledby="paymentChannelManagerTitle">
+          <h2 id="paymentChannelManagerTitle">Deposit channels · connection records</h2>
+          <p class="muted">会员在前台通过支付 API 充值；后台查看连接、订单与结算记录。老板可暂停新充值；已有申请、回调和补查可能继续处理。</p>
+          <div id="paymentGatewayChecks" class="table-scroll"><p class="muted">Checking VPay MYR, GSPAY+ MYR, GSPAY+ USDT and 1MPAY MYR…</p></div>
+          <p class="muted">✅ 表示该项检查通过。可建单与真实付款入账验收分别显示；只有核验成功的支付结果才会计入会员钱包。</p>
+          <div id="paymentAcceptanceBlockerMatrix" class="acceptance-blockers" aria-live="polite"><p class="muted">正在等待读取支付验收阻塞项。</p></div>
+          <div class="gateway-backoffice-links" aria-label="Provider reconciliation backoffices"><a class="button button-outline" href="https://zxc.vpayonline.asia/login" target="_blank" rel="noopener noreferrer">Open VPay BO</a><a class="button button-outline" href="https://bo.thegspay.com/index" target="_blank" rel="noopener noreferrer">Open GSPAY+ reconciliation BO</a><a class="button button-outline" href="https://www.1mpay.net/login" target="_blank" rel="noopener noreferrer">Open 1MPay BO</a></div>
+          <div id="paymentChannelSettings"><p class="muted">Loading channels…</p></div>
+        </section>
+        <section class="surface stack" id="adminDepositPanel" hidden aria-labelledby="adminDepositTitle">
+          <div class="wallet-records-heading"><div><p class="eyebrow">DEPOSIT REPORT · MYT</p><h2 id="adminDepositTitle">充值日报 · MYT</h2><p id="adminDepositNotice" class="muted">只读充值报表；默认显示马来西亚今日记录，已入账与待确认、失败、复核状态分别统计。</p></div><button id="refreshAdminDeposits" type="button" class="button button-outline">刷新报表</button></div>
+          <div class="accounting-controls" aria-label="充值报表筛选">
+            <label>MYT 日期 <input id="adminDepositDate" type="date"></label><button id="adminDepositToday" type="button" class="button button-outline" aria-pressed="true">今日</button><button id="adminDepositAll" type="button" class="button button-outline" aria-pressed="false">全部历史</button>
+            <label>每页记录 <select id="adminDepositPageSize"><option value="50">50</option><option value="100" selected>100</option><option value="250">250</option></select></label>
+          </div>
+          <div id="adminDepositSummary" class="stats" aria-live="polite"></div>
+          <div><h3>渠道汇总</h3><div id="adminDepositProviders" class="table-scroll"></div></div>
+          <div class="game-catalog-pager"><button id="adminDepositPrevious" type="button" class="button button-outline small" disabled>上一页</button><span id="adminDepositPageStatus" role="status">等待加载</span><button id="adminDepositNext" type="button" class="button button-outline small" disabled>下一页</button></div>
+          <form id="adminDepositTraceForm" class="accounting-controls"><label>按订单号查看证据 <input id="adminDepositTraceOrderId" type="text" maxlength="128" autocomplete="off"></label><button type="submit" class="button button-outline small">查找订单</button></form>
+          <div id="adminDepositRecords"><p class="muted">Loading records…</p></div>
+          <div id="adminDepositTrace" class="stack" aria-live="polite" hidden></div>
+        </section>
+        <section class="surface stack admin-feature-cover bank-admin-cover" id="manualBankAdminPanel" hidden aria-labelledby="manualBankAdminTitle">
+          <div class="wallet-records-heading admin-feature-cover-head"><div><p class="eyebrow">BANKING · MYR</p><h2 id="manualBankAdminTitle">公司银行与银行单</h2><p class="muted">录入顾客可复制的公司收款户口，并在同一页审核顾客上传的银行单。</p></div><button id="refreshManualBank" type="button" class="button button-outline">刷新</button></div>
+          <nav class="admin-cover-tabs bank-admin-tabs" aria-label="Company bank views" role="tablist">
+            <button class="active" type="button" role="tab" aria-selected="true" data-bank-admin-tab="accounts">公司银行户口</button>
+            <button type="button" role="tab" aria-selected="false" data-bank-admin-tab="receipts">银行单审核 <span id="manualBankPendingBadge">0</span></button>
+          </nav>
+          <div id="manualBankModeControls"></div>
+          <section class="bank-admin-view" data-bank-admin-view="accounts">
+            <form id="companyBankForm" class="wallet-order-form bank-account-form">
+              <input id="companyBankId" type="hidden">
+              <div class="bank-form-grid"><label for="companyBankName">银行名称<input id="companyBankName" maxlength="80" required></label><label for="companyBankAccountName">户口名字<input id="companyBankAccountName" maxlength="100" required></label><label for="companyBankAccountNumber">银行号码<input id="companyBankAccountNumber" inputmode="numeric" maxlength="32" required></label></div>
+              <label class="bank-photo-upload" for="companyBankImage"><span>Company bank image / 公司银行图片 · 前台顾客会看到</span><input id="companyBankImage" type="file" accept="image/jpeg,image/png,image/webp"><small>JPG、PNG 或 WebP，系统保持比例并自动压缩；此图片不会启用 DuitNow QR。</small></label>
+              <div id="companyBankImagePreview" class="bank-image-preview" hidden><img alt="Bank artwork preview"><span>当前银行照片</span></div>
+              <div class="bank-form-actions"><label class="bank-visibility-toggle"><input id="companyBankEnabled" type="checkbox" checked><span>给前台顾客显示</span></label><button type="submit" class="button button-primary">保存公司银行</button></div>
+            </form>
+            <div class="bank-view-heading"><div><h3>已保存公司银行</h3><p class="muted">前台只显示已开启的户口名字和银行号码，不保存网银登录资料。</p></div><span class="admin-cover-kicker">COPY READY</span></div>
+            <div id="companyBankList" class="bank-account-list"></div>
+          </section>
+          <section class="bank-admin-view" data-bank-admin-view="receipts" hidden>
+            <div class="bank-view-heading"><div><h3>顾客银行单审核</h3><p class="muted">员工确认公司实际收款后才批准；批准动作只会执行一次。</p></div><span class="admin-cover-kicker">MANUAL REVIEW</span></div>
+            <div id="manualBankRequests"><p class="muted">Loading requests…</p></div>
+          </section>
+        </section>
+        <section class="surface stack" id="adminWithdrawalPanel" hidden aria-labelledby="adminWithdrawalTitle">
+          <div class="wallet-records-heading"><div><h2 id="adminWithdrawalTitle">Withdrawal records · Admin view</h2><p id="adminWithdrawalNotice" class="muted">Approving can submit a real payout when the provider is enabled. Review each request first.</p></div><button id="refreshAdminWithdrawals" type="button" class="button button-outline">Refresh records</button></div>
+          <div id="adminWithdrawalRecords"><p class="muted">Loading requests…</p></div>
+        </section>
+        <section class="surface stack bonus-risk-panel" id="bonusHunterPanel" hidden aria-labelledby="bonusHunterTitle">
+          <header class="bonus-risk-hero">
+            <div><p class="eyebrow">RISK CONTROL · MONITOR ONLY</p><div class="bonus-risk-title-row"><span class="bonus-risk-live-light" aria-hidden="true"></span><h2 id="bonusHunterTitle">Bonus Hunter / Promotion Abuse Monitor</h2></div><p>只使用已经连接的客观记录产生人工审核提示。设备、IP、投注模式、Turnover、Chargeback、银行流水等未连接资料不会被伪造成风险分。</p></div>
+            <button id="refreshBonusRisk" type="button" class="button button-outline">刷新监控</button>
+          </header>
+          <div class="bonus-risk-controls" aria-label="Bonus Hunter filters">
+            <label>时间范围<select id="bonusRiskHours"><option value="1">最近 1 小时</option><option value="6">最近 6 小时</option><option value="24" selected>最近 24 小时</option><option value="168">最近 7 天</option><option value="720">最近 30 天</option></select></label>
+            <label>严重程度<select id="bonusRiskSeverity"><option value="">全部</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></label>
+            <label>显示数量<select id="bonusRiskLimit"><option value="25">25</option><option value="50">50</option><option value="100" selected>100</option><option value="200">200</option></select></label>
+            <button id="applyBonusRiskFilters" type="button" class="button button-outline">应用筛选</button>
+          </div>
+          <p id="bonusRiskStatus" class="verification-note pending" role="status" aria-live="polite">正在读取已连接的客观风险信号…</p>
+          <div id="bonusRiskSummary" class="bonus-risk-summary" aria-label="Bonus risk case summary"></div>
+          <div><div class="wallet-records-heading"><div><h3>Risk Control readiness</h3><p class="muted">每个模块独立显示资料来源。source: not_connected 代表不能产生 Case，也不代表风险为零。</p></div><span class="tiny-label">14 MODULES</span></div><div id="bonusRiskReadiness" class="bonus-risk-readiness"></div></div>
+          <div><div class="wallet-records-heading"><div><h3>Manual review queue</h3><p class="muted">Case 只显示规则、原因、证据数量和时间，以及最少会员识别资料。这里没有自动处分按钮。</p></div><span class="tiny-label">UNREVIEWED</span></div><div id="bonusRiskCases" class="bonus-risk-cases"></div></div>
+          <section id="bonusRiskConfigPanel" class="bonus-risk-config" hidden data-owner-only aria-labelledby="bonusRiskConfigTitle">
+            <div><h3 id="bonusRiskConfigTitle">Admin monitor thresholds</h3><p class="muted">只调整何时产生人工审核提示；模式固定为 monitor_only，不能开启自动封号、冻结、扣款、拒付或提款拦截。</p></div>
+            <form id="bonusRiskConfigForm">
+              <div class="bonus-risk-config-grid">
+                <label>Deposit attempts<input id="bonusRiskDepositAttempts" type="number" min="2" max="1000" required></label>
+                <label>Failed / unknown deposits<input id="bonusRiskFailedDeposits" type="number" min="2" max="1000" required></label>
+                <label>Referral fanout<input id="bonusRiskReferralFanout" type="number" min="2" max="1000" required></label>
+                <label>Benefit claim intents<input id="bonusRiskBenefitClaims" type="number" min="2" max="1000" required></label>
+                <label>Benefits per deposit<input id="bonusRiskBenefitStack" type="number" min="2" max="100" required></label>
+                <label>Write rate limits<input id="bonusRiskRateLimits" type="number" min="1" max="1000" required></label>
+              </div>
+              <div class="bonus-risk-config-actions"><button id="saveBonusRiskConfig" type="submit" class="button button-primary">保存监控阈值</button><span id="bonusRiskConfigStatus" class="muted" role="status" aria-live="polite"></span></div>
+            </form>
+          </section>
+          <p class="verification-note pending">Manual review only：系统不会自动封号、冻结、扣款、拒付、拦截提款或改变福利。银行单重复检测等待可靠的持久化回单哈希，现有 bank / amount fingerprint 不会被当作回单证据。</p>
+        </section>
+        <div class="surface stack" id="securityPanel" hidden>
+          <h2 id="securityHeading">今日操作监控</h2>
+          <p class="muted" id="securityNotice">仅显示匿名安全事件计数，不包含密码、IP 或 OTP。</p>
+          <div class="stats" id="securityStats"></div>
+        </div>
+        <div class="two-col">
+          <div id="announcementPanel" class="surface stack"><form class="stack" id="announcementForm"><h2 data-i18n="publishAnnouncement">发布公告</h2><p class="muted">公告时间使用马来西亚时间（MYT）。草稿不会在前台出现。</p><label for="announcementTitle" data-i18n="subject">主题</label><input id="announcementTitle" maxlength="100" minlength="3" required><label for="announcementBody" data-i18n="message">内容</label><textarea id="announcementBody" maxlength="1000" minlength="5" rows="4" required></textarea><div class="commission-fields two"><label>开始时间（MYT，可选）<input id="announcementStartsAt" type="datetime-local"></label><label>结束时间（MYT，可选）<input id="announcementEndsAt" type="datetime-local"></label></div><label>状态<select id="announcementStatus"><option value="draft">草稿</option><option value="published">发布</option></select></label><div class="ad-form-actions"><button type="submit" class="button button-primary">保存公告</button><button id="announcementCancel" type="button" class="button button-outline" hidden>取消编辑</button></div><small id="announcementFormStatus" class="muted" role="status"></small></form><h3>已保存公告</h3><div id="announcementAdminList" class="ad-admin-list"><p class="muted">Loading…</p></div></div>
+          <div class="surface stack" id="providerPanel"><h2 data-i18n="providerManager">3 个免费赞助厂家位</h2><p class="muted" data-i18n="providerManagerHint">管理三个免费赞助位的图片；38 家游戏平台的封面与连接记录在下方查看。</p><div id="providerManager"></div></div>
+        </div>
+        <section class="surface stack" id="apiSupplierManager" aria-labelledby="apiSupplierManagerTitle">
+          <h2 id="apiSupplierManagerTitle">38 game suppliers</h2>
+          <p class="muted">查看厂家 API 连接及游戏记录；可编辑平台封面。游戏可用性由实际 API 状态决定，连接凭证保存在服务器端。</p>
+          <div id="apiSupplierAdminButtons" class="api-supplier-admin-grid"></div>
+        </section>
+        <section class="surface stack game-ranking-panel" id="gameRankingPanel" hidden data-owner-only aria-labelledby="gameRankingTitle">
+          <div class="wallet-records-heading"><div><p class="eyebrow">ADMIN CURATED · 38 PLATFORM CARDS</p><h2 id="gameRankingTitle">Game platform ranking</h2><p class="muted">Arrange all 38 provider platforms by lobby category. This is an administrator-managed display order; it does not alter provider game IDs, odds or settlement.</p></div><button id="reloadGameRanking" type="button" class="button button-outline">Reload</button></div>
+          <div class="game-ranking-toolbar"><label for="gameRankingCategory">Lobby category</label><select id="gameRankingCategory"><option>HOT</option><option>SLOT</option><option>LIVE</option><option>FISH</option><option>COCK</option><option>SPORT</option></select><span class="tiny-label">Each category keeps its own order</span></div>
+          <p id="gameRankingNotice" class="verification-note pending">Admin curated · internal games are not ranked</p>
+          <div id="gameRankingList" class="game-ranking-list"><p class="muted">Open this panel to load the ranking.</p></div>
+          <div class="game-ranking-footer"><button id="saveGameRanking" type="button" class="button button-primary">Save category rankings</button><span id="gameRankingStatus" class="muted" role="status" aria-live="polite"></span></div>
+        </section>
+        <section class="surface stack game-sync-panel" id="gameSyncPanel" aria-labelledby="gameSyncTitle">
+          <div class="wallet-heading"><h2 id="gameSyncTitle">游戏检查</h2><button id="syncGamesNow" class="button button-outline" type="button">立即同步</button></div>
+          <p class="muted" id="gameSyncNotice" role="status" aria-live="polite">正在读取 38 家厂家状态…</p>
+          <div id="gameSyncResults"></div>
+          <div id="acceptanceBlockerMatrix" class="acceptance-blockers" aria-live="polite"><p class="muted">打开本页后读取游戏与支付验收阻塞项。</p></div>
+        </section>
+        <section class="surface stack" id="gameCatalogManager" aria-labelledby="gameCatalogTitle">
+          <div class="wallet-records-heading"><div><p class="eyebrow">CATALOGUE · CONNECTION RECORDS</p><h2 id="gameCatalogTitle">游戏目录与连接记录</h2><p class="muted">按厂家、分类或名称筛选；每页显示 24 款。可编辑 FREE/PAID 展示分类、游戏分类与 800 × 600 封面；可用性跟随实际 API。</p></div></div>
+          <details id="gameCatalogDetails" class="game-catalog-details">
+            <summary>Open game catalogue · 展开游戏目录</summary>
+            <div class="game-catalog-toolbar">
+              <label>Search <input id="adminGameSearch" type="search" maxlength="100" placeholder="Game name or ID"></label>
+              <label>Supplier <select id="adminGameProviderFilter"><option value="ALL">All suppliers</option></select></label>
+              <label>Category <select id="adminGameCategoryFilter"><option value="ALL">All categories</option><option>SLOT</option><option>FAST GAME</option><option>LIVE</option><option>FISH</option><option>COCK</option><option>SPORT</option><option>OTHERS</option></select></label>
+            </div>
+            <div class="game-catalog-pager"><button id="adminGamePrevious" class="button button-outline small" type="button">Previous</button><span id="adminGamePageStatus">Open to load games</span><button id="adminGameNext" class="button button-outline small" type="button">Next</button></div>
+            <div id="gameCatalogSettings"><p class="muted">Open the controls to load one page of games.</p></div>
+          </details>
+        </section>
+        <section class="surface stack" id="gameWalletAdminPanel" aria-labelledby="gameWalletAdminTitle">
+          <div class="wallet-records-heading"><div><p class="eyebrow">GAME WALLET · PROVIDER SETTLEMENT LEDGER</p><h2 id="gameWalletAdminTitle">游戏钱包记录</h2><p id="gameWalletAdminNotice" class="muted">只读记录：显示转入游戏、结算回前台及需要核对的状态。</p></div><button id="refreshAdminGameWallet" type="button" class="button button-outline">刷新记录</button></div>
+          <div id="gameWalletAdminRecords"><p class="muted">正在读取记录…</p></div>
+        </section>
+        <section class="surface ad-manager" id="lobbyAdManager" aria-labelledby="lobbyAdManagerTitle">
+          <div class="section-header"><div><p class="eyebrow">MASTER7 COMPANY PROMOTION</p><h2 id="lobbyAdManagerTitle" data-ui-key="adsManager">MASTER7 company advertising</h2><p class="muted" data-ui-key="adsManagerIntro">Upload company promotions such as New Year campaigns, seasonal benefits and MASTER7 notices. Enabled ads appear to customers and rotate every 5 minutes.</p></div></div>
+          <p class="ad-slot-spec"><strong>Banner size:</strong> 1200 × 360 px (10:3). JPG, PNG or WebP; max 350 KB. Center-cropped if needed. One photo-ad placement is active in the lobby.</p>
+          <form id="lobbyAdForm" class="stack">
+            <label for="lobbyAdTitle" data-ui-key="adTitleLabel">Ad title / description</label><input id="lobbyAdTitle" maxlength="100" minlength="2" required>
+            <label for="lobbyAdFile" data-ui-key="adImageLabel">Banner image · 1200 × 360 px</label><input id="lobbyAdFile" type="file" accept="image/jpeg,image/png,image/webp" required>
+            <label for="lobbyAdTarget" data-ui-key="adTargetLabel">Click destination (optional HTTPS link)</label><input id="lobbyAdTarget" type="url" maxlength="500" placeholder="https://example.com">
+            <div class="commission-fields two"><label>Start（MYT，可选）<input id="lobbyAdStartsAt" type="datetime-local"></label><label>End（MYT，可选）<input id="lobbyAdEndsAt" type="datetime-local"></label></div>
+            <label>Status<select id="lobbyAdStatus"><option value="draft">Draft</option><option value="published">Published</option></select></label>
+            <div class="ad-form-actions"><button id="lobbyAdSave" class="button button-primary" type="submit" data-ui-key="adSave">Save advertisement</button><button id="lobbyAdCancel" class="button button-outline" type="button" hidden data-ui-key="adCancel">Cancel edit</button></div>
+            <small id="lobbyAdFormStatus" class="muted" role="status"></small>
+          </form>
+          <h3 data-ui-key="adsSaved">Saved advertisements</h3><div id="lobbyAdList" class="ad-admin-list"><p class="muted">Loading…</p></div>
+        </section>
+        <section class="surface stack marketing-center" id="marketingCenter" hidden data-owner-only aria-labelledby="marketingCenterTitle">
+          <div class="wallet-records-heading"><div><p class="eyebrow">WHATSAPP BUSINESS · 1M</p><h2 id="marketingCenterTitle">100万客户发布中心</h2><p class="muted">导入马来西亚号码，准备祝福语、照片、福利和 Referral 注册链接。只有已记录同意来源和证明的客户会进入发送队列。</p></div><span id="marketingProviderStatus" class="marketing-provider-status blocked">发送通道未连接</span></div>
+          <section class="organic-promotion-kit" aria-labelledby="organicPromotionTitle">
+            <div class="wallet-records-heading"><div><p class="eyebrow">FREE ORGANIC REACH · 4 CHANNELS</p><h3 id="organicPromotionTitle">免费四渠道推广</h3><p class="muted">系统准备三语文案、宣传图和平台注册链接；您按一下选择发布位置，不会产生广告费。</p></div><span class="status ready">NO AD SPEND</span></div>
+            <div class="organic-promotion-fields"><label>宣传语言<select id="organicPromoLanguage"><option value="zh">中文</option><option value="en">English</option><option value="ms">Bahasa Melayu</option></select></label><label>平台注册链接<input id="organicPromoLink" value="/register" readonly></label></div>
+            <label>自动准备的宣传内容<textarea id="organicPromoText" rows="4" maxlength="1200"></textarea></label>
+            <div class="organic-share-actions" role="group" aria-label="Free promotion channels"><button type="button" class="button button-outline" data-organic-share="whatsapp">WhatsApp</button><button type="button" class="button button-outline" data-organic-share="telegram">Telegram</button><button type="button" class="button button-outline" data-organic-share="facebook">Facebook</button><button type="button" class="button button-outline" data-organic-share="instagram">Instagram</button><a class="button button-ghost" href="/assets/master7-luxury-lobby.webp" download="MASTER7-promotion.webp">下载宣传照片</a></div>
+            <p id="organicPromoStatus" class="muted" role="status">宣传内容已准备；正式发布仍使用各平台官方分享页面。</p>
+          </section>
+          <div id="marketingProviderDetails" class="marketing-provider-details" aria-live="polite"><span>WhatsApp Business 号码：+601166336686</span><span>正在等待 Meta 官方凭证与已审批模板。</span></div>
+          <div id="marketingSummary" class="stats"></div>
+          <div class="marketing-grid">
+            <form id="marketingImportForm" class="stack marketing-box">
+              <h3>① 导入客户号码</h3><p class="muted">CSV/TXT 每行可放：电话号码,姓名。最多保存 1,000,000 个；系统自动统一成 +60 并去重复。</p>
+              <input id="marketingContactFile" type="file" accept=".csv,.txt,text/csv,text/plain" required>
+              <label class="social-toggle"><input id="marketingConsent" type="checkbox"><span>名单中的客户已同意接收推广信息</span></label>
+              <label>同意来源<input id="marketingConsentSource" maxlength="100" placeholder="例如：2026 发布会报名表"></label>
+              <label>同意证明/备注<textarea id="marketingConsentProof" maxlength="500" rows="2" placeholder="记录取得同意的日期、页面或活动"></textarea></label>
+              <button id="marketingImportButton" class="button button-primary" type="submit">导入并去重复</button><progress id="marketingImportProgress" value="0" max="100" hidden></progress><small id="marketingImportStatus" class="muted" role="status"></small>
+            </form>
+            <form id="marketingCampaignForm" class="stack marketing-box">
+              <h3>② 准备发布内容</h3><input id="marketingCampaignId" type="hidden">
+              <label>发布会名称<input id="marketingCampaignName" maxlength="100" required placeholder="MASTER7 盛大发布"></label>
+              <label>发送方式<select id="marketingCampaignChannel"><option value="whatsapp">WhatsApp 官方</option><option value="sms">SMS 短信</option><option value="share">免费分享 / CSV</option></select></label>
+              <label>祝福语与邀请内容<textarea id="marketingCampaignMessage" maxlength="1024" rows="5" required placeholder="祝您顺心如意，欢迎注册 MASTER7…"></textarea></label>
+              <label>福利说明<textarea id="marketingCampaignBenefit" maxlength="1000" rows="3" placeholder="新会员福利与条件"></textarea></label>
+              <label>照片（可选，JPG/PNG/WebP，350KB内）<input id="marketingCampaignImage" type="file" accept="image/jpeg,image/png,image/webp"></label><div id="marketingCampaignImageState" class="marketing-image-state" hidden><img id="marketingCampaignImagePreview" alt="Saved campaign"><span>已保存照片</span><label class="social-toggle"><input id="marketingCampaignClearImage" type="checkbox"><span>保存时明确删除旧照片</span></label></div>
+              <label>归属 Referral<select id="marketingReferralCode"><option value="">平台注册链接</option></select></label>
+              <label>保留目标人数<input id="marketingRetentionGoal" type="number" min="1" max="1000000" value="18000" required></label>
+              <label>每分钟发送数量<input id="marketingSendRate" type="number" min="1" max="10000" value="30" required></label>
+              <label>预定开始时间 · MYT (+08:00)<input id="marketingScheduledAt" type="datetime-local"></label>
+              <p id="marketingDuration" class="muted">1,000,000 条按每分钟 30 条，预计约 23.1 天；实际速度服从 WhatsApp 官方限额。</p>
+              <button class="button button-primary" type="submit">保存发布内容</button><small id="marketingCampaignStatus" class="muted" role="status"></small>
+            </form>
+          </div>
+          <div class="marketing-launch-bar"><div><strong>③ 发布 / 导出</strong><p class="muted">Meta 官方通道、已审批营销模板和实际受众额度齐全后，可在下方对单个活动启动发送。未就绪时仍可导出已同意名单。</p></div></div>
+          <div id="marketingCampaignList" class="ad-admin-list"></div>
+          <section class="marketing-contacts-panel" aria-labelledby="marketingContactsTitle"><div class="wallet-records-heading"><div><h3 id="marketingContactsTitle">④ 联系人同意与退订管理</h3><p class="muted">只有已记录来源及证明的 opted-in 联系人可导出。退订会写入审计并保持抑制。</p></div><button id="marketingContactsRefresh" class="button button-outline small" type="button">刷新</button></div><div class="marketing-contact-filters"><input id="marketingContactSearch" maxlength="100" placeholder="搜索号码或姓名"><select id="marketingContactConsent"><option value="">全部状态</option><option value="opted_in">已同意</option><option value="unknown">待确认</option><option value="opted_out">已退订</option></select><button id="marketingContactSearchButton" class="button button-outline small" type="button">搜索</button></div><div id="marketingContactList" class="marketing-contact-list"><p class="muted">选择此页面后读取联系人。</p></div><div class="marketing-contact-pages"><button id="marketingContactsPrev" class="button button-outline small" type="button">上一页</button><span id="marketingContactsPage">1 / 1</span><button id="marketingContactsNext" class="button button-outline small" type="button">下一页</button></div></section>
+        </section>
+        <section class="surface vip-manager admin-feature-cover vip-admin-cover" id="vipManager" hidden data-owner-only aria-labelledby="vipManagerTitle">
+          <div class="vip-section-heading admin-feature-cover-head"><div><p class="eyebrow">VIP PROGRAM · ADMIN CONTROL</p><h2 id="vipManagerTitle">VIP 配套管理</h2><p class="muted">一个完整 VIP 封面管理八个等级；表格横向滑动，手机上保持紧凑。</p></div><button id="reloadVipManager" type="button" class="button button-outline">重新读取</button></div>
+          <form id="vipManagerForm" class="stack">
+            <fieldset class="commission-card"><legend>Program control</legend><div class="commission-fields three"><label class="social-toggle"><input id="vipProgramEnabled" type="checkbox"><span>Enable VIP program display</span></label><label>Program name<input id="vipProgramName" maxlength="80" value="MASTER7 VIP Club"></label><label>Version<input id="vipProgramVersion" readonly value="vip_program_v1"></label></div><p class="verification-note">开启显示不等于自动派钱。钱包入账、Cashback、分红及 Turnover 执行各自需要验收后端数据源。</p></fieldset>
+            <div class="vip-editor-heading"><div><h3>Eight-tier template</h3><p class="muted">八级名称与金额可配置；铜、银、金、白金、钻石、皇家、皇冠及黑金使用专业固定等级色。数值为 0 表示未配置，不会产生金钱承诺。</p></div><span>MYR · % · days</span></div>
+            <nav class="vip-matrix-tabs" aria-label="VIP tier setting groups" role="tablist"><button class="active" type="button" role="tab" aria-selected="true" data-vip-matrix-tab="qualification">等级与保级</button><button type="button" role="tab" aria-selected="false" data-vip-matrix-tab="rewards">礼金与分红</button><button type="button" role="tab" aria-selected="false" data-vip-matrix-tab="cashback">Cashback</button><button type="button" role="tab" aria-selected="false" data-vip-matrix-tab="limits">领取与提款</button></nav>
+            <div id="vipTierEditor" class="vip-tier-editor"><p class="muted">Loading VIP configuration…</p></div>
+            <div class="vip-manager-actions"><button id="saveVipManager" class="button button-primary" type="submit">保存 VIP 配套</button><span id="vipManagerStatus" class="muted" role="status"></span></div>
+          </form>
+          <div class="vip-editor-heading vip-secondary-heading"><div><h3>连接状态</h3><p class="muted">较少使用的自动派发与数据源状态放在下方，不影响上面的等级设置。</p></div><span>READINESS</span></div>
+          <div id="vipAdminReadiness" class="vip-readiness-grid" aria-live="polite"></div>
+          <section class="vip-admin-commission"><div class="vip-section-heading"><div><h3>Commission Center</h3><p class="muted">Deposit、Turnover 与 Company Profit 使用独立设置；详细比率在 Referral / Commission 页面管理。</p></div><button id="openReferralCommission" type="button" class="button button-outline">打开佣金管理</button></div><div id="vipAdminCommission" class="vip-commission-grid"></div></section>
+        </section>
+        <section class="surface rewards-admin-manager" id="rewardsManager" hidden data-owner-only aria-labelledby="rewardsManagerTitle">
+          <div class="rewards-section-heading"><div><p class="eyebrow">REWARDS HUB · ADMIN CONTROL</p><h2 id="rewardsManagerTitle">Rewards Manager</h2><p class="muted">配置每日签到与非现金积分，查看积分记录。保存不会向真钱钱包加款。</p></div><button id="reloadRewardsManager" type="button" class="button button-outline">重新读取</button></div>
+          <div class="rewards-admin-banner"><div><strong>安全边界</strong><p class="muted">Cash value、wallet credit、claim 与 redemption 均固定关闭。</p></div><span id="rewardsAdminActivity" class="rewards-chip ready">0 non-cash points</span></div>
+          <form id="rewardsManagerForm" class="stack">
+            <fieldset class="commission-card"><legend>Program control</legend><div class="rewards-editor-grid"><label class="rewards-switch"><input id="rewardsAdminEnabled" type="checkbox"><span>Enable Rewards Hub</span></label><label class="rewards-switch"><input id="rewardsAdminPointsEnabled" type="checkbox"><span>Enable non-cash points ledger</span></label><label class="rewards-switch"><input id="rewardsAdminCheckinEnabled" type="checkbox"><span>Enable MYT daily check-in</span></label><label>Program name<input id="rewardsAdminName" maxlength="60" value="MASTER7 Rewards Hub"></label><label>Points name<input id="rewardsAdminPointsName" maxlength="40" value="Lucky Points"></label></div></fieldset>
+            <fieldset class="commission-card"><legend>7-day check-in points</legend><p class="muted">默认全部为 0。每个 MYT 日期最多记录一次；第 7 天后循环。</p><div id="rewardsDayEditor" class="rewards-day-editor"></div></fieldset>
+            <fieldset hidden class="commission-card"><legend>Missions</legend><p class="muted">Registration、credited deposit 与直属推荐使用已验证来源。Turnover 和 gameplay 仍未接通，即使配置也不能完成或领奖。</p><div id="rewardsMissionEditor" class="rewards-editor-list"></div></fieldset>
+            <fieldset hidden class="commission-card"><legend>Direct referral milestones</legend><div class="rewards-editor-actions"><p class="muted">进度仅计算已批准且至少有一笔 MYR 已入账存款的直属会员。</p><button id="addRewardsMilestone" type="button" class="button button-outline">Add milestone</button></div><div id="rewardsMilestoneEditor" class="rewards-editor-list"></div></fieldset>
+            <fieldset hidden class="commission-card"><legend>Voucher eligibility previews</legend><div class="rewards-editor-actions"><p class="muted">设置 Voucher 名称、资格和有效期；钱包领取未验收前只显示资格预览。</p><button id="addRewardsCoupon" type="button" class="button button-outline">Add Voucher</button></div><div id="rewardsCouponEditor" class="rewards-editor-list"></div></fieldset>
+            <div class="rewards-editor-actions"><button id="saveRewardsManager" type="submit" class="button button-primary">保存 Rewards 配置</button><span id="rewardsManagerStatus" class="muted" role="status" aria-live="polite"></span></div>
+          </form>
+        </section>
+        <section class="surface engagement-manager" id="engagementManager" hidden data-owner-only aria-labelledby="engagementManagerTitle">
+          <div class="engagement-manager-head"><div><p class="eyebrow">EVENTS CENTER · ADMIN CONTROL</p><h2 id="engagementManagerTitle">Engagement Manager</h2><p class="muted">配置公开草稿与本机偏好入口。配置不会接通投注、排行、奖池、抽奖、奖励或钱包。</p></div><button id="reloadEngagementManager" type="button" class="button button-outline">重新读取</button></div>
+          <div class="engagement-manager-boundary"><span class="engagement-chip pending">NO SCORE SOURCE</span><span class="engagement-chip pending">NO RANDOM DRAW</span><span class="engagement-chip pending">NO AUTO REWARDS</span><span class="engagement-chip pending">NO WALLET CREDIT</span></div>
+          <span id="engagementManagerStatus" class="engagement-manager-status" role="status" aria-live="polite">All modules default OFF.</span>
+          <div id="engagementAdminContent"><p class="muted">Open this page to load administrator settings.</p></div>
+        </section>
+        <section class="surface stack" id="manualComplianceAdminPanel" hidden data-owner-only aria-labelledby="manualComplianceAdminTitle">
+          <div class="section-header"><h2 id="manualComplianceAdminTitle">身份与风险审核</h2><button id="manualComplianceAdminRefresh" class="button button-outline" type="button">刷新</button></div>
+          <p id="manualComplianceAdminIntro" class="muted">仅记录人工审核结果。请先完成证件核验和风险检查；此处不接收证件资料。</p>
+          <p id="manualComplianceAdminStatus" role="status" aria-live="polite"></p>
+          <div id="manualComplianceAdminRows" class="stack"></div>
+        </section>
+        <section class="surface responsible-play-card" id="responsiblePlayAdminPanel" hidden data-owner-only aria-labelledby="responsiblePlayAdminTitle">
+          <div class="section-header"><div><p class="eyebrow">PLAY SETTINGS · AGGREGATE ONLY</p><h2 id="responsiblePlayAdminTitle">Member settings overview</h2><p class="muted">这里只显示匿名汇总数字，不显示个人额度或暂停日期，也没有解除按钮。</p></div></div>
+          <div id="responsiblePlayAdminStats" class="responsible-play-admin-stats"><p class="muted">Open this page to load aggregate status.</p></div>
+          <p id="responsiblePlayAdminStatus" class="responsible-play-note pending" role="status" aria-live="polite">Admin and staff cannot cancel or shorten a member-selected active window.</p>
+        </section>
+        <section class="surface benefit-manager" id="benefitManager" aria-labelledby="benefitManagerTitle">
+          <h2 id="benefitManagerTitle">Customer benefits · 普通福利</h2>
+          <p class="muted" data-ui-key="benefitManagerIntro">Set calculation previews here. Published rules show customers a reward and displayed turnover estimate.</p>
+          <p class="benefit-scope-note" data-ui-key="benefitScope">普通活动福利在这里管理；VIP 等级、Cashback 和分红请使用独立 VIP Manager。钱包入账与 Turnover 执行须通过各自验收。</p>
+          <form id="benefitForm" class="stack">
+            <input id="benefitId" type="hidden">
+            <label for="benefitProvider">Game provider</label><select id="benefitProvider"><option value="all">All 38 game platforms</option><option value="megah5">MegaH5</option><option value="jili">JILI</option><option value="918kissh5">918KISS H5</option><option value="gameplay">GAMEPLAY INTERACTIVE</option><option value="lionking">LION KING</option><option value="suncity">SUNCITY</option><option value="pgsoft">PGSOFT</option><option value="gfg">GFG / G4</option><option value="sagaming">SA GAMING</option><option value="ps9">PS9</option><option value="dragoonsoft">DRAGOONSOFT</option><option value="jdb">JDB</option><option value="bg">BG</option><option value="allbet">ALLBET</option><option value="quickspin">QUICKSPIN</option><option value="astar">ASTAR</option><option value="metagaming">META GAMING</option><option value="fuma">FUMA</option><option value="yl">YL</option><option value="funky">FUNKY</option><option value="gamitech">GAMITECH</option><option value="spadegaming">SPADE GAMING</option><option value="turbo">TURBO</option><option value="ct855">CT855</option><option value="pragmaticplay">PRAGMATIC PLAY</option><option value="joker">JOKER</option><option value="cg">CG</option><option value="atg">ATG</option><option value="rectangle">RECTANGLE</option><option value="m8bet">M8BET</option><option value="awc">AWC</option><option value="evo888h5">EVO888H5</option><option value="cosmoplay">COSMOPLAY</option><option value="geminiupdown">GEMINI UPDOWN</option><option value="epicwin">EPICWIN</option><option value="venus">VENUS GAMING</option><option value="clotplay">CLOTPLAY</option><option value="coba8">COBA8</option></select>
+            <label for="benefitTitle">Benefit name</label><input id="benefitTitle" maxlength="100" minlength="2" required>
+            <label for="benefitType">Benefit type</label><select id="benefitType"><option value="deposit_bonus">Deposit bonus</option><option value="cashback">Cashback</option><option value="free_credit">Free credit</option><option value="referral">Referral</option><option value="turnover">Turnover reward</option><option value="other">Other</option></select>
+            <label for="benefitDescription">Customer-facing details and conditions</label><textarea id="benefitDescription" maxlength="2000" rows="4" required></textarea>
+            <div class="benefit-fields">
+              <label>Reward amount · MYR<input id="benefitAmount" type="number" min="0" step="0.01" inputmode="decimal"></label>
+              <label>Reward rate · %<input id="benefitPercent" type="number" min="0" max="1000" step="0.01" inputmode="decimal"></label>
+              <label>Minimum deposit · MYR<input id="benefitMinDeposit" type="number" min="0" step="0.01" inputmode="decimal"></label>
+              <label>Maximum reward · MYR<input id="benefitMaxReward" type="number" min="0" step="0.01" inputmode="decimal"></label>
+              <label>Turnover multiplier<input id="benefitMultiplier" type="number" min="0" step="0.01" inputmode="decimal"></label>
+              <label>Turnover base<select id="benefitTurnoverBase"><option value="deposit_plus_bonus">Deposit + bonus</option><option value="deposit">Deposit</option><option value="bonus">Bonus</option></select></label>
+              <label>Fixed turnover requirement · MYR<input id="benefitTurnover" type="number" min="0" step="0.01" inputmode="decimal"></label>
+              <label>Withdrawal cap · MYR<input id="benefitWithdrawalCap" type="number" min="0" step="0.01" inputmode="decimal"></label>
+              <label>Free chances<input id="benefitFreeChances" type="number" min="0" max="100" step="1" inputmode="numeric"></label>
+              <label>Claims per member<input id="benefitClaimLimit" type="number" min="1" step="1" inputmode="numeric"></label>
+              <label>Validity · days<input id="benefitValidity" type="number" min="1" step="1" inputmode="numeric"></label>
+            </div>
+            <label class="social-toggle"><input id="benefitNewMemberOnly" type="checkbox"><span>New registered members only · 仅限活动开始后注册的新会员</span></label>
+            <label class="social-toggle"><input id="benefitStopOnFirstWin" type="checkbox"><span>Stop remaining free chances after first win · 中奖一次即结束剩余免费次数</span></label>
+            <div class="benefit-calculation-preview"><label for="benefitExampleDeposit">Calculation preview · Deposit MYR</label><input id="benefitExampleDeposit" type="number" min="0.01" step="0.01" inputmode="decimal" value="100"><strong id="benefitCalculationPreview">Enter the rule values to calculate reward and turnover.</strong></div>
+            <div class="ad-form-actions"><button class="button button-outline" type="submit">Save draft</button><button id="benefitPublish" class="button button-primary" type="button">Save and publish</button><button id="benefitCancel" class="button button-ghost" type="button" hidden>Cancel edit</button></div>
+            <small id="benefitFormStatus" class="muted" role="status"></small>
+          </form>
+          <h3>Saved benefit rules</h3><div id="benefitDrafts" class="ad-admin-list"></div>
+        </section>
+        <section class="surface stack commission-console admin-feature-cover commission-admin-cover" id="referralAdminPanel" hidden data-owner-only aria-labelledby="referralAdminTitle">
+          <div class="wallet-records-heading commission-heading admin-feature-cover-head"><div><p class="eyebrow">COMMISSION · MYT (+08)</p><h2 id="referralAdminTitle">多层介绍佣金</h2><p class="muted">当前只保存核对预览；佣金不可领取，也不会进入会员钱包。Turnover 与提款限制尚未执行。</p></div><button id="refreshReferrals" type="button" class="button button-outline">Refresh</button></div>
+          <nav class="commission-tabs" aria-label="Commission views">
+            <button class="active" type="button" data-commission-tab="settings">Settings</button><button type="button" data-commission-tab="ledger">Ledger</button><button type="button" data-commission-tab="upline">By upline</button><button type="button" data-commission-tab="tools">Tools</button>
+          </nav>
+          <form id="referralSettingsForm" class="commission-form" data-commission-view="settings">
+            <fieldset class="commission-card"><legend>管理员专属介绍链接</legend><div class="commission-fields two"><label>Referral link<input id="adminReferralLink" readonly aria-label="Admin referral registration link"></label><label>Referral code<input id="adminReferralCode" readonly aria-label="Admin referral code"></label></div><button id="copyAdminReferral" type="button" class="button button-outline">复制注册链接</button><p class="muted">此入口只在后台显示；顾客前台没有代理菜单。使用此链接注册的会员会记录为管理员介绍关系。</p></fieldset>
+            <fieldset class="commission-card"><legend>Program · 核心规则</legend><label class="social-toggle"><input id="referralEnabled" type="checkbox"><span>Enable commission program</span></label><div class="commission-fields three"><label>Basis<select id="commissionBasis"><option value="deposit">Deposit %</option><option value="turnover">Turnover % · 待验证</option><option value="company_profit">Company Profit · 待验证</option></select></label><label>Max levels (1–3)<input id="commissionMaxLevels" type="number" min="1" max="3" step="1" required></label><label>Claim mode<select id="commissionClaimMode"><option value="manual">Manual claim</option><option value="automatic">Automatic · 待验收</option></select></label></div><p id="commissionBasisNotice" class="verification-note"></p></fieldset>
+            <fieldset class="commission-card"><legend>Tier rates (%)</legend><div class="commission-fields three"><label>L1 %<input id="commissionL1" type="number" min="0" max="100" step="0.01" required></label><label>L2 %<input id="commissionL2" type="number" min="0" max="100" step="0.01" required></label><label>L3 %<input id="commissionL3" type="number" min="0" max="100" step="0.01" required></label></div></fieldset>
+            <fieldset class="commission-card"><legend>Period settlement</legend><div class="commission-fields three"><label>Frequency (MYT)<select id="commissionFrequency"><option value="daily">Daily</option><option value="weekly_mon">Weekly · Monday</option><option value="monthly">Monthly</option></select></label><label>Min qualifying turnover / deposit<input id="commissionMinQualifying" type="number" min="0" step="0.01" required></label><label>Min active downlines<input id="commissionMinActive" type="number" min="0" step="1" required></label></div></fieldset>
+            <fieldset class="commission-card"><legend>Caps / hold / expiry</legend><div class="commission-fields four"><label>Daily cap · MYR<input id="commissionDailyCap" type="number" min="0" step="0.01" required></label><label>Monthly cap · MYR<input id="commissionMonthlyCap" type="number" min="0" step="0.01" required></label><label>Lifetime cap · MYR<input id="commissionLifetimeCap" type="number" min="0" step="0.01" required></label><label>Hold days<input id="commissionHoldDays" type="number" min="0" step="1" required></label><label>Expire unclaimed · days<input id="commissionExpiry" type="number" min="0" step="1" required></label><label>Min claim · MYR<input id="commissionMinClaim" type="number" min="0" step="0.01" required></label><label>Min accrual unit · MYR<input id="commissionMinAccrual" type="number" min="0.01" step="0.01" required></label></div></fieldset>
+            <fieldset class="commission-card"><legend>Wagering / maximum withdrawal on claim</legend><div class="commission-fields four"><label>Turnover<input id="commissionTurnover" type="number" min="0" step="0.01" required></label><label>Turnover type<select id="commissionTurnoverType"><option value="multiplier">Multiplier</option><option value="fixed">Fixed MYR</option></select></label><label>Winover<input id="commissionWinover" type="number" min="0" step="0.01" required></label><label>Winover type<select id="commissionWinoverType"><option value="multiplier">Multiplier</option><option value="fixed">Fixed MYR</option></select></label><label>Max withdrawal fixed · MYR<input id="commissionMaxWithdrawFixed" type="number" min="0" step="0.01" required></label><label>Max withdrawal ×<input id="commissionMaxWithdrawMultiplier" type="number" min="0" step="0.01" required></label><label>Game category<select id="commissionGameCategory"><option value="all">All</option><option value="slot">Slot</option><option value="live">Live</option><option value="fish">Fish</option><option value="sport">Sport</option><option value="fast_game">Fast Game</option></select></label><label>Eligible games (CSV)<input id="commissionEligibleGames" maxlength="2000" placeholder="Leave blank for all"></label><label>Starts at · MYT<input id="commissionStartsAt" type="datetime-local"></label><label>Ends at · MYT<input id="commissionEndsAt" type="datetime-local"></label></div></fieldset>
+            <div class="commission-actions"><button class="button button-primary" type="submit">Save commission settings</button><button id="commissionRunNow" class="button button-outline" type="button">Run now · latest period</button><span id="commissionSaveStatus" class="muted" role="status"></span></div>
+            <details class="commission-guide"><summary>Setup guide · 设置说明</summary><p>Deposit basis 使用已成功入账的充值记录计算 L1/L2/L3。Turnover 与 Company Profit 需先完成游戏结算数据验收。Run now 只生成核对预览和审计记录，不会直接增加会员钱包。</p></details>
+          </form>
+          <section data-commission-view="ledger" hidden><div id="referralAdminSummary" class="stats"></div><p id="commissionPeriodStatus" class="verification-note"></p><div id="commissionLedger" class="table-scroll"></div></section>
+          <section data-commission-view="upline" hidden><div id="commissionUplineSummary" class="stats"></div><div id="commissionByUpline" class="table-scroll"></div></section>
+          <section data-commission-view="tools" hidden><div class="commission-tools-grid"><article class="status-card"><strong>Wallet payout</strong><span class="status pending">Disabled</span><p>Preview records are persisted; claiming and automatic wallet credit are disabled.</p></article><article class="status-card"><strong>Turnover enforcement</strong><span class="status pending">Not connected</span><p>No trusted wager source is connected, so commission turnover and withdrawal limits are not enforced.</p></article><article class="status-card"><strong>Period timezone</strong><span class="status ready">MYT +08</span><p>Daily, weekly and monthly periods use Malaysia time.</p></article><article class="status-card"><strong>Relationship records</strong><span id="commissionRelationshipCount" class="status ready">0</span><p>Registration ownership is stored when a valid referral link is used.</p></article></div><h3>Referral relationships</h3><div id="referralAdminList" class="referral-members"></div></section>
+        </section>
+        <section class="surface stack admin-feature-cover contact-admin-cover" id="socialPanel" hidden aria-labelledby="socialPanelTitle">
+          <div class="wallet-records-heading admin-feature-cover-head"><div><p class="eyebrow">CONTACT &amp; ADVERTISING · ADMIN</p><h2 id="socialPanelTitle" data-social-key="adminTitle">联系方式与广告 Pixel</h2><p class="muted" data-social-key="adminHint">集中设置顾客可见的 Hotline、聊天入口、社交主页和 Meta Pixel。</p></div><span id="contactPublishStatus" class="status pending admin-cover-state">OFF</span></div>
+          <form id="socialForm" class="stack contact-admin-form" hidden>
+            <section class="contact-settings-block" aria-labelledby="contactSettingsTitle"><div class="bank-view-heading"><div><h3 id="contactSettingsTitle">前台联系方式</h3><p class="muted">只有已填写并开启的项目才会出现在顾客前台。</p></div><span class="admin-cover-kicker">PUBLIC CONTACT</span></div>
+              <div id="contactRows" class="contact-config-list" aria-live="polite"></div>
+              <button id="addContact" class="button button-outline contact-add-button" type="button" data-social-key="addContact">新增联系方式</button>
+              <label class="social-toggle contact-master-toggle"><input id="socialEnabled" type="checkbox"><span data-social-key="publishToggle">在前台展示已确认的联系方式</span></label>
+            </section>
+            <section class="contact-settings-block pixel-settings-block" aria-labelledby="pixelSettingsTitle"><div class="bank-view-heading"><div><h3 id="pixelSettingsTitle">广告 Pixel</h3><p class="muted" data-social-key="pixelHint">仅支持 Meta Pixel ID 与 Google G-/AW- ID；不接受脚本或自定义事件。</p></div><span id="pixelStatus" class="admin-cover-kicker">DISABLED</span></div>
+              <div id="pixelRows" class="contact-config-list" aria-live="polite"></div>
+              <button id="addPixel" class="button button-outline contact-add-button" type="button" data-social-key="addPixel">新增广告 Pixel</button>
+            </section>
+            <div class="contact-save-row"><button type="submit" class="button button-primary" data-social-key="saveLinks">保存联系方式与 Pixel</button><span id="socialRevision" class="admin-cover-kicker">REV 0</span><span id="socialFormStatus" class="muted" role="status"></span></div>
+          </form>
+          <div class="muted contact-readonly" id="socialReadOnly" hidden></div>
+          <div id="socialHistory" class="contact-history" aria-label="Contact configuration history"></div>
+          <div class="social-admin-actions"><a href="https://business.facebook.com/latest/home" target="_blank" rel="noopener noreferrer" data-social-key="metaSuite">Meta Business Suite</a><a href="https://business.facebook.com/adsmanager/" target="_blank" rel="noopener noreferrer" data-social-key="metaAds">Meta Ads Manager</a></div>
+          <details class="commission-guide contact-guide"><summary>功能说明 · Setup guide</summary><p data-social-key="noAutoAds">这里保存联系方式和 Pixel 设置；广告素材、受众、预算及发布仍在官方广告平台完成。系统不会自行花费广告费。</p></details>
+        </section>
+        <section class="surface stack admin-feature-cover support-admin-cover" id="supportOperationsPanel" hidden data-owner-only aria-labelledby="supportOperationsTitle">
+          <div class="wallet-records-heading admin-feature-cover-head"><div><p class="eyebrow">STEPHANIE AI · AUTOMATIC / HUMAN</p><h2 id="supportOperationsTitle">Stephanie · MASTER7 AI 客服</h2><p class="muted">Stephanie 会先回复会员工单；涉及资金、安全和投诉时，系统保留后台人员审核、回复与关闭流程。</p></div><span id="supportEffectiveStatus" class="status pending admin-cover-state">CHECKING</span></div>
+          <form id="supportAutomationForm" class="commission-card"><div class="commission-fields two"><label class="social-toggle"><input id="supportAiEnabled" type="checkbox"><span>Enable automatic first reply</span></label><label class="social-toggle"><input id="supportHumanHandoff" type="checkbox"><span>Human handoff required</span></label></div><button class="button button-primary" type="submit">Save support settings</button></form>
+          <div id="supportAutomationSummary" class="stats"></div><p id="supportAutomationNotice" class="verification-note">正在检查外部 AI 与安全规则 fallback；服务器密钥不会显示在网页。</p>
+        </section>
+        <section class="surface stack" id="telegramBotPanel" hidden data-owner-only aria-labelledby="telegramBotTitle">
+          <div class="wallet-records-heading"><div><p class="eyebrow">OUTBOUND ADMIN ALERTS</p><h2 id="telegramBotTitle">Telegram Bot · 后台通知</h2><p class="muted">Bot Token 与管理员 Chat ID 只保存在服务器环境变量；网页不会显示。此版本提供后台通知连接与测试，不接收 Telegram 指令。</p></div><span id="telegramBotStatus" class="status pending">CHECKING</span></div>
+          <div id="telegramBotSummary" class="stats"></div>
+          <button id="telegramBotTest" class="button button-primary" type="button" disabled>发送测试通知</button>
+          <p id="telegramBotNotice" class="verification-note">需要在 Render 设置 TELEGRAM_BOT_TOKEN 和 TELEGRAM_ADMIN_CHAT_ID。</p>
+        </section>
+        <section class="surface stack" id="systemReadinessPanel" hidden aria-labelledby="systemReadinessTitle">
+          <div class="wallet-records-heading"><div><p class="eyebrow">MD HANDOVER · RELEASE READINESS</p><h2 id="systemReadinessTitle">备份、恢复与上线状态</h2><p class="muted">严格按你提供的 MD 显示：有证据才打勾，没有证据显示“待验证”。</p></div><button id="refreshSystemReadiness" class="button button-outline" type="button">Refresh</button></div>
+          <div id="systemReadinessSummary" class="stats"></div><div id="systemReadinessList" class="readiness-list"></div>
+          <div class="commission-fields two"><button id="createEncryptedBackup" class="button button-primary" type="button" data-owner-only>Create encrypted backup</button><a class="button button-outline" href="/api/admin/export" data-owner-only>Export redacted records</a></div>
+          <p id="encryptedBackupStatus" class="verification-note">备份会使用独立 RSA 公钥及 AES-256-GCM 加密；恢复私钥不会保存在网站服务器。</p>
+        </section>
+        <section class="surface stack" id="productionAcceptancePanel" hidden aria-labelledby="productionAcceptanceTitle">
+          <div class="wallet-records-heading"><div><p class="eyebrow">APPEND-ONLY EVIDENCE · FAIL CLOSED</p><h2 id="productionAcceptanceTitle">生产验收证据</h2><p class="muted">记录域名／TLS、凭据轮换、真实支付、厂家 Profile 和最终签收。文件只在浏览器计算 SHA-256，不上传内容；没有通过证据时上线状态保持关闭。</p></div><button id="refreshProductionAcceptance" class="button button-outline" type="button">Refresh</button></div>
+          <div id="productionAcceptanceSummary" class="stats"></div>
+          <div id="productionAcceptanceRequirements" class="readiness-list"></div>
+          <form id="productionAcceptanceForm" class="commission-card" hidden data-owner-only>
+            <h3>域名、凭据、支付与签收证据</h3>
+            <div class="commission-fields two"><label>验收项目<select id="productionAcceptanceRequirement" required></select></label><label>结果<select id="productionAcceptanceResult" required><option value="passed">PASS</option><option value="failed">FAIL</option><option value="revoked">REVOKED</option></select></label><label>证据编号<input id="productionAcceptanceReference" required maxlength="200" placeholder="ticket:case-123"></label><label>证据 SHA-256<input id="productionAcceptanceDigest" pattern="[a-f0-9]{64}" maxlength="64" placeholder="64 lowercase hex"></label><label>或选择证据文件（不会上传）<input id="productionAcceptanceFile" type="file"></label></div>
+            <button class="button button-primary" type="submit">记录验收事件</button><p id="productionAcceptanceFormStatus" class="verification-note"></p>
+          </form>
+          <form id="gameAcceptanceForm" class="commission-card" hidden data-owner-only>
+            <h3>游戏厂家 Profile 证据</h3>
+            <div class="commission-fields two"><label>Profile<select id="gameAcceptanceProfile" required></select></label><label>能力<select id="gameAcceptanceCapability" required><option value="catalogue">Catalogue</option><option value="launch">Launch</option><option value="wallet">Wallet</option><option value="settlement">Settlement</option><option value="recovery">Recovery</option></select></label><label>结果<select id="gameAcceptanceResult" required><option value="passed">PASS</option><option value="failed">FAIL</option><option value="revoked">REVOKED</option></select></label><label>证据编号<input id="gameAcceptanceReference" required maxlength="200" placeholder="provider-uat:case-123"></label><label>证据 SHA-256<input id="gameAcceptanceDigest" pattern="[a-f0-9]{64}" maxlength="64" placeholder="64 lowercase hex"></label><label>或选择证据文件（不会上传）<input id="gameAcceptanceFile" type="file"></label></div>
+            <button class="button button-primary" type="submit">记录 Profile 验收事件</button><p id="gameAcceptanceFormStatus" class="verification-note"></p>
+          </form>
+          <div id="gameAcceptanceSummary" class="stats"></div>
+          <p id="productionAcceptanceNotice" class="verification-note">正在读取持久化验收事件…</p>
+        </section>
+        <section class="surface owner-manual-panel" id="ownerManualPanel" hidden data-owner-only aria-labelledby="ownerManualTitle"></section>
+        <div class="surface stack" id="pendingPanel" hidden><h2 data-i18n="memberApproval">会员审批与员工授权</h2><p class="muted" data-i18n="staffInstruction">员工先登录，再由管理员在此批准和授权。</p><div id="userManager"></div><a href="/api/admin/export" class="button button-outline" data-i18n="exportRecords">导出门户数据</a></div>
+        <div class="surface stack" id="auditPanel" hidden><h2 data-i18n="auditTrail">操作审计</h2><div id="auditLog"></div></div>
+          </div>
+        </div>
+      </div>
+      <div id="adminDenied" class="notice"><p data-i18n="adminDenied">需要员工或管理员账号登录后才可进入。</p><button id="adminSignIn" class="button button-primary" data-i18n="signIn">登录</button></div>
+    </section>
+  </main>
+
+  <div class="public-social" id="publicSocial" hidden>
+    <strong data-social-key="publicTitle">Contact MASTER7</strong>
+    <span class="muted" data-social-key="publicHint">Official hotline and chat links</span>
+    <div id="publicSocialLinks" class="public-social-links"></div>
+  </div>
+  <footer class="footer"><div class="footer-brand">MASTER7 <small>PREMIUM MEMBER CLUB</small></div><p data-i18n="footerDisclaimer">Games, wallet, rewards, deposits, withdrawals and support in one member platform.</p><div class="footer-state"><span class="dot"></span><span data-i18n="sandbox">MASTER7 · SECURE MEMBER PORTAL</span></div></footer>
+
+  <dialog id="depositCashier" class="deposit-cashier" aria-labelledby="depositCashierTitle" aria-describedby="depositCashierStatus">
+    <div class="dialog-head"><div class="brand-mini" aria-hidden="true">7</div><div><p id="depositCashierCurrency" class="eyebrow">MYR · DEPOSIT</p><h2 id="depositCashierTitle">Deposit</h2></div><button id="depositCashierClose" class="close" type="button" aria-label="Close">×</button></div>
+    <p id="depositCashierStatus" class="cashier-status" role="status" aria-live="polite">Choose a payment provider.</p>
+    <button id="depositCashierRetry" class="button button-outline" type="button" hidden>Check availability again</button>
+        <form id="vpayOrderForm" class="wallet-order-form" hidden>
+          <label for="vpayAmount" data-cashier-copy="amount">Amount · MYR</label><input id="vpayAmount" type="number" min="1" max="100000" step="0.01" inputmode="decimal" required>
+          <label for="vpayTradeCode" data-cashier-copy="channelLabel">Payment channel</label><select id="vpayTradeCode" required></select>
+          <label for="vpayPayerName" data-cashier-copy="payer">Payer name</label><input id="vpayPayerName" maxlength="30" autocomplete="name" required><small class="muted" data-cashier-copy="payerHint">Use the name shown on the paying bank account.</small>
+          <button id="vpaySubmit" type="submit" class="button button-primary">Continue to payment</button>
+          <p id="vpayOrderMessage" class="muted" role="status" aria-live="polite"></p>
+        </form>
+        <form id="oneMpayOrderForm" class="wallet-order-form" hidden>
+          <label for="oneMpayAmount" data-cashier-copy="amount">Amount · MYR</label><input id="oneMpayAmount" type="number" min="1" max="100000" step="0.01" inputmode="decimal" required>
+          <button id="oneMpaySubmit" type="submit" class="button button-primary">Continue</button>
+          <p id="oneMpayOrderMessage" class="muted" role="status" aria-live="polite"></p>
+        </form>
+        <form id="gspayOrderForm" class="wallet-order-form" hidden>
+          <label for="gspayAmount" data-cashier-copy="amount">Amount · MYR</label><input id="gspayAmount" type="number" min="1" max="100000" step="0.01" inputmode="decimal" required>
+          <button id="gspaySubmit" type="submit" class="button button-primary">Continue</button>
+          <p id="gspayOrderMessage" class="muted" role="status" aria-live="polite"></p>
+        </form>
+        <form id="gspayUsdtOrderForm" class="wallet-order-form" hidden>
+          <p class="muted">USDT order creation remains closed until the provider confirms asset precision, network, checkout and callback/query contracts.</p>
+          <button id="gspayUsdtSubmit" type="button" class="button button-primary" disabled>Unavailable</button>
+          <p id="gspayUsdtOrderMessage" class="muted" role="status" aria-live="polite"></p>
+        </form>
+        <form id="manualBankDepositForm" class="wallet-order-form" hidden>
+          <h3 data-member-zh="Bank Transfer · 公司银行">Bank Transfer · Company Bank</h3><p class="muted" data-member-zh="转账到公司银行后上传银行单。后台核对后才会入账。">Transfer to the company bank account and upload the receipt. Wallet credit follows backoffice verification.</p>
+          <label for="manualBankAccount">Company bank</label><select id="manualBankAccount" required></select>
+          <div id="manualBankCopyDetails" class="bank-copy-details" hidden>
+            <figure class="bank-customer-photo"><img id="manualBankPhoto" alt="DuitNow QR or company bank"><span id="manualBankPhotoFallback" aria-hidden="true">🏦</span><figcaption id="manualBankImageLabel">Company bank</figcaption></figure>
+            <div><span data-member-zh="Bank · 银行名称">Bank name</span><strong id="manualBankCopyBank">—</strong><button id="copyBankBank" type="button" class="button button-outline small">Copy</button></div>
+            <div><span data-member-zh="Account name · 户口名字">Account name</span><strong id="manualBankCopyName">—</strong><button id="copyBankName" type="button" class="button button-outline small">Copy</button></div>
+            <div><span data-member-zh="Account number · 银行号码">Account number</span><strong id="manualBankCopyNumber">—</strong><button id="copyBankNumber" type="button" class="button button-outline small">Copy</button></div>
+          </div>
+          <label for="manualBankAmount" data-cashier-copy="amount">Amount · MYR</label><input id="manualBankAmount" type="number" min="1" max="100000" step="0.01" inputmode="decimal" required>
+          <label for="manualBankReceipt" data-member-zh="Bank receipt · 银行单">Bank receipt</label><input id="manualBankReceipt" type="file" accept="image/jpeg,image/png,image/webp" required>
+          <button id="manualBankSubmit" type="submit" class="button button-primary">Upload & Submit</button>
+          <p id="manualBankMessage" class="muted" role="status" aria-live="polite"></p>
+        </form>
+    <div class="cashier-footer"><button id="depositCashierRecords" class="button button-ghost" type="button">View deposit records</button></div>
+  </dialog>
+  <dialog id="bonusDialog" class="bonus-dialog" aria-labelledby="bonusDialogTitle" aria-describedby="bonusDialogNotice">
+    <div class="dialog-head"><div class="brand-mini" aria-hidden="true">✦</div><div><p class="eyebrow">BONUS · OFFER DETAILS</p><h2 id="bonusDialogTitle">JILI</h2></div><button class="close" type="button" id="closeBonusDialog" aria-label="Close bonus details">×</button></div>
+    <p id="bonusDialogNotice" class="muted"></p>
+    <div id="providerBonusOffers" class="provider-bonus-offers"></div>
+    <button class="button button-outline full" id="dismissBonusDialog" type="button" data-bonus-i18n="close">Close</button>
+  </dialog>
+  <dialog id="authDialog" aria-labelledby="authTitle">
+    <div class="auth-glow" aria-hidden="true"></div>
+    <div class="member-auth-hero">
+      <div class="member-auth-logo"><span class="member-auth-logo-ring" aria-hidden="true"></span><img src="/assets/seven-emblem.png" alt="MASTER7 company logo"></div>
+      <div class="member-auth-wordmark"><strong>MASTER7</strong><span id="authBrandSub" data-i18n="memberBrand">MEMBER LOUNGE</span></div>
+      <span id="authBrandBadge" class="member-auth-badge" data-i18n="memberBadge">MEMBER ACCESS</span>
+    </div>
+    <p id="authTagline" class="member-auth-tagline" data-i18n="memberTagline">Your premium game lobby</p>
+    <div class="dialog-head"><div class="brand-mini lock-brand" aria-hidden="true">M7</div><div><p class="eyebrow" id="authEyebrow">MEMBER ACCESS</p><h2 id="authTitle" data-i18n="signInTitle">Member sign-in</h2></div><button class="close" id="closeAuth" aria-label="Close">×</button></div>
+    <p id="authNotice" class="muted"></p>
+    <form id="passwordForm" class="stack">
+      <label id="usernameField"><span data-i18n="portalId">MASTER7 ID</span><input id="authUsername" name="username" autocomplete="username" inputmode="text" autocapitalize="none" spellcheck="false" pattern="[a-zA-Z0-9_]{4,32}" minlength="4" maxlength="32" data-i18n-placeholder="portalId" placeholder="MASTER7 ID" required></label>
+      <label id="phoneField" hidden><span data-i18n="malaysiaPhone">Malaysia mobile number</span><input id="memberPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+60 1X-XXX XXXX" maxlength="24"></label>
+      <label id="referralField" hidden><span data-member-zh="介绍码 · Referral code">Referral code</span><input id="memberReferralCode" name="referralCode" autocomplete="off" inputmode="text" maxlength="12" readonly></label>
+      <p id="phoneOtpNote" class="otp-phone-note" hidden><span class="otp-dot" aria-hidden="true"></span><span id="phoneOtpCopy" data-i18n="phoneOtpPending">Enter your ID and mobile number, then sign in with the SMS OTP.</span></p>
+      <div id="otpFields" class="stack" hidden><label><span data-i18n="otpLabel">SMS verification code</span><input id="memberOtp" name="otp" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6"></label><button id="sendOtpButton" class="button button-ghost full" type="button" data-i18n="sendOtp">Send verification code</button></div>
+      <label id="activationField" hidden><span id="codeLabel">One-time activation code</span><input id="activationCode" name="activationCode" type="password" autocomplete="off" maxlength="43"></label>
+      <label id="currentPasswordField" hidden><span data-i18n="currentPassword">Current password</span><input id="currentPassword" name="currentPassword" type="password" autocomplete="current-password" maxlength="128"></label>
+      <label id="passwordField"><span id="passwordLabel" data-i18n="password">Password</span><input id="authPassword" name="password" type="password" autocomplete="current-password" maxlength="128" data-i18n-placeholder="password" placeholder="Password" required><button id="authPasswordToggle" class="auth-password-toggle" type="button" aria-pressed="false" data-i18n-aria-label="showPassword" aria-label="Show password"><span aria-hidden="true"></span></button></label>
+      <label id="confirmPasswordField" hidden><span data-i18n="confirmPassword">Confirm new password</span><input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" maxlength="128"></label>
+      <label id="showPasswordField" class="password-toggle" hidden><input id="showPasswords" type="checkbox"><span data-i18n="showPasswords">Show new password (private setting only)</span></label>
+      <p id="passwordMatch" class="muted" role="status" aria-live="polite"></p>
+      <p id="authFeedback" role="status" aria-live="polite"></p>
+      <button id="authSubmit" type="submit" class="button button-primary full" data-i18n="signIn">Sign in</button>
+    </form>
+    <div class="auth-secondary">
+      <button id="memberPasswordHelp" type="button" class="button button-ghost" data-i18n="forgotPassword">Forgot password</button>
+      <button id="registerToggle" type="button" class="button button-ghost" data-i18n="createMember">Create member ID</button>
+      <a id="ownerResetLink" href="/reset-owner" class="button button-ghost full" data-i18n="resetTitle">Reset owner password</a>
+    </div>
+    <div class="auth-language-row" role="group" aria-label="Language">
+      <button type="button" data-auth-lang="en">ENG</button><button type="button" data-auth-lang="zh">中文</button><button type="button" data-auth-lang="ms">BM</button>
+    </div>
+    <div class="auth-quick-actions auth-quick-actions-single">
+      <details class="auth-company-details"><summary><span class="auth-quick-icon auth-quick-logo" aria-hidden="true">7</span><span><small data-i18n="learnMore">Learn more</small><strong data-i18n="aboutMaster7">About MASTER7</strong></span></summary><p data-i18n="companyIntro">MASTER7 brings games, member rewards, wallet, deposits, withdrawals and support together.</p></details>
+    </div>
+    <p class="auth-company-foot">MASTER7 <span>•</span> PREMIUM MEMBER CLUB</p>
+  </dialog>
+  <dialog id="staffSetupLinkDialog" class="staff-setup-link-dialog" aria-labelledby="staffSetupLinkTitle">
+    <div class="dialog-head"><div class="brand-mini lock-brand" aria-hidden="true">M7</div><div><p class="eyebrow">SECURE STAFF ACCESS</p><h2 id="staffSetupLinkTitle" data-i18n="staffSetupLinkTitle">One-time staff setup link</h2></div><button class="close" id="closeStaffSetupLink" type="button" aria-label="Close">×</button></div>
+    <p id="staffSetupLinkNotice" class="muted" data-i18n="staffSetupLinkNotice">Send this link privately to the staff member. It expires in one hour and works once.</p>
+    <label><span data-i18n="staffSetupPrivateLink">Private setup link</span><input id="staffSetupLink" type="text" readonly autocomplete="off" spellcheck="false"></label>
+    <p id="staffSetupLinkStatus" class="muted" role="status" aria-live="polite"></p>
+    <div class="two-col"><button id="copyStaffSetupLink" class="button button-primary" type="button" data-i18n="copyStaffSetupLink">Copy link</button><button id="dismissStaffSetupLink" class="button button-outline" type="button" data-i18n="done">Done</button></div>
+  </dialog>
+  <dialog id="marketingUnsubscribeDialog" aria-labelledby="marketingUnsubscribeTitle"><div class="dialog-head"><div class="brand-mini" aria-hidden="true">7</div><div><p class="eyebrow">MASTER7 · MESSAGE PREFERENCES</p><h2 id="marketingUnsubscribeTitle" data-i18n="marketingUnsubscribeTitle">Stop promotional messages</h2></div></div><p id="marketingUnsubscribeStatus" class="muted" role="status" data-i18n="marketingUnsubscribeLoading">Verifying unsubscribe link…</p><div class="two-col"><button id="marketingUnsubscribeConfirm" class="button button-primary" type="button" disabled data-i18n="marketingUnsubscribeConfirm">Confirm unsubscribe</button><a class="button button-outline" href="/" data-i18n="marketingUnsubscribeReturn">Return to MASTER7</a></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

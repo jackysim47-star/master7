@@ -1,0 +1,136 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {DatabaseSync} from 'node:sqlite';
+import {readFileSync,readdirSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {handle} from '../lib/backend.ts';
+import {withdrawalWalletState} from '../lib/withdrawals.ts';
+import {walletGuardStatements,walletGuardedReservation} from '../lib/wallet-guard.ts';
+import {manualBankReadiness} from '../lib/manual-bank.ts';
+import {bankAccountKey,bankHash} from '../lib/manual-bank-evidence.ts';
+
+const origin='https://portal.example.test',image='data:image/png;base64,'+Buffer.from([137,80,78,71,13,10,26,10,...new Array(40).fill(1)]).toString('base64');
+export function bankFixture(t){
+ const sql=new DatabaseSync(':memory:');for(const file of readdirSync(new URL('../drizzle/',import.meta.url)).filter(x=>x.endsWith('.sql')).sort())sql.exec(readFileSync(new URL('../drizzle/'+file,import.meta.url),'utf8'));
+ for(const [id,role] of [['alice','member'],['bob','member'],['owner','owner'],['employee','staff']])sql.prepare('INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES(?,?,?,1,?,0)').run(id,id,role,'csrf-'+id);
+ const staffToken='e'.repeat(43),staffVersion=1,staffTokenHash=createHash('sha256').update(staffToken).digest('hex');
+ sql.prepare("INSERT INTO password_credentials(username,user_id,salt,password_hash,version,changed_at) VALUES('employee','employee','fixture-salt','fixture-hash',?,0)").run(staffVersion);
+ sql.prepare("INSERT INTO settings(id,value) VALUES('staff_password_ready:employee',?)").run(String(staffVersion));
+ sql.prepare("INSERT INTO password_sessions(token_hash,user_id,csrf,credential_version,expires_at,created_at) VALUES(?,'employee','csrf-employee',?,?,0)").run(staffTokenHash,staffVersion,Math.floor(Date.now()/1000)+3600);
+ sql.exec("INSERT INTO manual_compliance_reviews(user_id,identity_status,aml_status,version,last_change_id,created_at,updated_at) VALUES('alice','passed','passed',1,'c',0,0),('bob','passed','passed',1,'b',0,0)");
+ class Statement{constructor(text,args=[]){this.text=text;this.args=args;}bind(...args){return new Statement(this.text,args);}async first(){return sql.prepare(this.text).get(...this.args)??null;}async all(){return {results:sql.prepare(this.text).all(...this.args)};}async run(){return sql.prepare(this.text).run(...this.args);}}
+ const db={prepare:text=>new Statement(text),async batch(statements){sql.exec('BEGIN');try{const result=[];for(const s of statements)result.push(sql.prepare(s.text).run(...s.args));sql.exec('COMMIT');return result;}catch(error){sql.exec('ROLLBACK');throw error;}}};
+ const config={db,identity:null,ownerEmail:'',newDepositsEnabled:'true',newPayoutsEnabled:'true',newGameLaunchesEnabled:'false',manualComplianceEnforced:'true',withdrawalDataKey:'synthetic-bank-data-key-'+ 'x'.repeat(40)};
+ async function call(path,{who='alice',method='GET',data,extra={}}={}){const response=await handle(new Request(origin+path,{method,headers:{Origin:origin,'Content-Type':'application/json','X-CSRF-Token':'csrf-'+who,...(who==='employee'?{Cookie:`__Host-master7_session=${staffToken}`}:{})},...(data===undefined?{}:{body:JSON.stringify(data)})}),{...config,identity:who&&who!=='employee'?{userId:who,email:who+'@example.test'}:null,...extra});return {status:response.status,data:response.headers.get('content-type')?.includes('application/json')?await response.json():await response.text()};}
+ const post=(path,data,who='owner',extra={})=>call(path,{method:'POST',data,who,extra});
+ const state={bank:null};
+ async function setup(){const b=await post('/api/admin/manual-bank/account',{bankName:'Test Company Bank',accountName:'Fixture Company',accountNumber:'1234567890',enabled:true,imageData:image});assert.equal(b.status,200,JSON.stringify(b));state.bank=b.data.id;const mode=await post('/api/admin/manual-bank/settings',{mode:'qa',qaMemberIds:['alice']});assert.equal(mode.status,200,JSON.stringify(mode));return state.bank;}
+ const proof=(reference='BANK-REF-0001',amount='50.00',patch={})=>({bankAccountId:state.bank,bankReference:reference,bankAmount:amount,currency:'MYR',bankOccurredAt:Math.floor(Date.now()/1000)-10,proofData:image,bankConfirmed:true,...patch});
+ async function deposit({amount='50.00',key=crypto.randomUUID(),who='alice',reference='BANK-REF-0001',approve=true}={}){const result=await post('/api/manual-bank/deposits',{bankId:state.bank,amount,receiptData:image,requestKey:key},who);assert.equal(result.status,201,JSON.stringify(result));if(approve){const accepted=await post('/api/admin/manual-bank/review',{id:result.data.id,action:'approve',...proof(reference,amount)},'employee');assert.equal(accepted.status,200,JSON.stringify(accepted));}return result.data.id;}
+ async function withdrawal({amount='20.00',key=crypto.randomUUID(),approve=true,start=true}={}){const result=await post('/api/withdrawals',{providerId:'manual_bank',bankCode:'maybank',accountHolder:'Alice Example',accountNumber:'223456789012',amount,requestKey:key},'alice');assert.equal(result.status,201,JSON.stringify(result));const id=result.data.withdrawal.id;if(approve){const list=await call('/api/admin/withdrawals',{who:'owner'}),item=list.data.items.find(x=>x.id===id);assert.equal(item.approvalEligible,true);const approved=await post('/api/admin/withdrawals/approve',{id,approvalFingerprint:item.approvalFingerprint,ownerNote:'Synthetic bank QA'});assert.equal(approved.status,202,JSON.stringify(approved));assert.equal(approved.data.status,'approved');if(start){const started=await post('/api/admin/manual-bank/payout/start',{id,bankAccountId:state.bank});assert.equal(started.status,202,JSON.stringify(started));}}return id;}
+ t.after(()=>sql.close());return {sql,db,config,call,post,setup,proof,deposit,withdrawal,state};
+}
+
+test('company bank starts closed; QA is limited to named approved members and automatic channels stay off',async t=>{
+ const f=bankFixture(t);assert.deepEqual((await f.call('/api/manual-bank/accounts')).data.items,[]);await f.setup();assert.equal((await f.call('/api/manual-bank/accounts')).data.items.length,1);assert.equal((await f.call('/api/manual-bank/accounts',{who:'bob'})).data.items.length,0);
+ const refused=await f.post('/api/manual-bank/deposits',{bankId:f.state.bank,amount:'1',requestKey:crypto.randomUUID(),receiptData:image},'bob');assert.equal(refused.status,503);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM deposit_orders').get().n,0);
+ const live=await f.post('/api/admin/manual-bank/settings',{mode:'live',qaMemberIds:[]});assert.equal(live.status,409);for(const provider of ['vpay','gspay','1mpay'])assert.equal(f.sql.prepare('SELECT submission_enabled n FROM provider_payout_controls WHERE provider_id=?').get(provider).n,0);
+});
+test('manual bank confirmation creates one balanced deposit journal and links the bank proof',async t=>{
+ const f=bankFixture(t);await f.setup();const id=await f.deposit();assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger WHERE order_id=?').get(id).n,2);assert.equal(f.sql.prepare('SELECT SUM(amount_minor) n FROM wallet_ledger WHERE order_id=?').get(id).n,0);assert.equal((await f.call('/api/wallet')).data.balanceMinor,'5000');assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM manual_bank_transactions WHERE deposit_order_id=?').get(id).n,1);assert.equal((await f.post('/api/admin/manual-bank/review',{id,action:'approve',...f.proof()},'employee')).status,409);assert.equal((await f.call('/api/wallet')).data.balanceMinor,'5000');
+});
+test('a receipt alone never credits; amount/currency/account mismatch and cross-member access are rejected',async t=>{
+ const f=bankFixture(t);await f.setup();const id=await f.deposit({approve:false});assert.equal((await f.post('/api/admin/manual-bank/review',{id,action:'approve'},'employee')).status,400);
+ for(const patch of [{bankAmount:'51.00'},{currency:'USDT'},{bankAccountId:'different-account'},{bankConfirmed:false},{bankOccurredAt:Math.floor(Date.now()/1000)+1000},{proofData:'not an image'}])assert.ok([400,409].includes((await f.post('/api/admin/manual-bank/review',{id,action:'approve',...f.proof('BANK-REF-0001','50.00',patch)},'employee')).status));
+ assert.equal((await f.post('/api/admin/manual-bank/review',{id,action:'approve',...f.proof()},'bob')).status,403);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);assert.equal((await f.call('/api/manual-bank/deposits',{who:'bob'})).data.items.length,0);
+});
+test('same company bank and normalized reference can credit only one order across members',async t=>{
+ const f=bankFixture(t);await f.setup();await f.post('/api/admin/manual-bank/settings',{mode:'qa',qaMemberIds:['alice','bob']});await f.deposit();const id=await f.deposit({who:'bob',approve:false});const duplicate=await f.post('/api/admin/manual-bank/review',{id,action:'approve',...f.proof('bank ref 0001')},'employee');assert.equal(duplicate.status,409);assert.equal(duplicate.data.status,'review');assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(id).status,'review');assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM manual_bank_transactions').get().n,1);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,2);assert.equal((await f.call('/api/wallet',{who:'bob'})).data.balanceMinor,'0');
+});
+test('rejecting a pending manual deposit does not create a bank proof or wallet credit',async t=>{
+ const f=bankFixture(t);await f.setup();const id=await f.deposit({approve:false});assert.equal((await f.post('/api/admin/manual-bank/review',{id,action:'reject'},'employee')).status,200);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM manual_bank_transactions').get().n,0);
+});
+test('replacing bank identity preserves historical orders and prevents editing the historical account',async t=>{
+ const f=bankFixture(t);await f.setup();const old=f.state.bank,id=await f.deposit({approve:false});const replaced=await f.post('/api/admin/manual-bank/account',{id:old,bankName:'Test Company Bank',accountName:'Fixture Company',accountNumber:'9999999999',enabled:true});assert.equal(replaced.status,200);assert.notEqual(replaced.data.id,old);assert.equal(f.sql.prepare('SELECT account_number,enabled FROM company_bank_accounts WHERE id=?').get(old).account_number,'1234567890');assert.equal(f.sql.prepare('SELECT enabled FROM company_bank_accounts WHERE id=?').get(old).enabled,0);assert.equal((await f.call('/api/manual-bank/accounts')).data.items[0].id,replaced.data.id);assert.equal((await f.call('/api/manual-bank/deposits')).data.items[0].account_number,'1234567890');assert.equal((await f.post('/api/admin/manual-bank/review',{id,action:'approve',...f.proof()},'employee')).status,200);assert.equal((await f.post('/api/admin/manual-bank/account',{id:old,bankName:'Test Company Bank',accountName:'Fixture Company',accountNumber:'8888888888',enabled:true})).status,409);
+});
+test('manual withdrawal reserves funds, owner approves separately, bank confirmation debits once and releases the hold',async t=>{
+ const f=bankFixture(t);await f.setup();await f.deposit();const id=await f.withdrawal();let wallet=(await f.call('/api/wallet')).data;assert.equal(wallet.balanceMinor,'5000');assert.equal(wallet.availableMinor,'3000');const proof=f.proof('PAYOUT-0001','20.00');const done=await f.post('/api/admin/manual-bank/payout/confirm',{id,...proof});assert.equal(done.status,200,JSON.stringify(done));assert.equal(done.data.status,'paid');wallet=(await f.call('/api/wallet')).data;assert.equal(wallet.balanceMinor,'3000');assert.equal(wallet.availableMinor,'3000');assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);assert.equal((await f.post('/api/admin/manual-bank/payout/confirm',{id,...proof})).data.idempotent,true);assert.equal((await f.call('/api/wallet')).data.balanceMinor,'3000');assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,2);assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM manual_bank_transactions WHERE direction='withdrawal'").get().n,1);
+});
+test('legacy fixed start and paid audit IDs cannot block a valid manual payout',async t=>{
+ const f=bankFixture(t);await f.setup();await f.deposit();const id=await f.withdrawal({start:false}),payout=f.sql.prepare('SELECT id FROM provider_payouts WHERE withdrawal_id=?').get(id);
+ f.sql.prepare("INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,'unrelated_event','unrelated_target',0)").run(`manual_bank_payout_started_${payout.id}`,'owner');
+ const started=await f.post('/api/admin/manual-bank/payout/start',{id,bankAccountId:f.state.bank});assert.equal(started.status,202,JSON.stringify(started));
+ f.sql.prepare("INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,'unrelated_event','unrelated_target',0)").run(`manual_bank_payout_paid_${payout.id}`,'owner');
+ const proof=f.proof('LEGACY-ID-COLLISION','20.00'),done=await f.post('/api/admin/manual-bank/payout/confirm',{id,...proof});assert.equal(done.status,200,JSON.stringify(done));
+ const transaction=f.sql.prepare('SELECT * FROM manual_bank_transactions WHERE payout_id=?').get(payout.id);assert.ok(transaction);
+ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit WHERE event='manual_bank_payout_paid' AND target=? AND user_id=? AND created_at=?").get(transaction.id,transaction.recorded_by,transaction.recorded_at).n,1);
+ assert.equal(f.sql.prepare("SELECT event FROM audit WHERE id=?").get(`manual_bank_payout_paid_${payout.id}`).event,'unrelated_event');
+});
+test('a start-audit primary-key collision leaves approval and the full hold retryable',async t=>{
+ const f=bankFixture(t);await f.setup();await f.deposit();const id=await f.withdrawal({start:false}),original=crypto.randomUUID.bind(crypto),authorization='forced-start-authorization';
+ f.sql.prepare("INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,'unrelated_event','unrelated_target',0)").run(`manual_bank_payout_started_${authorization}`,'owner');
+ crypto.randomUUID=()=>authorization;let failed;try{failed=await f.post('/api/admin/manual-bank/payout/start',{id,bankAccountId:f.state.bank});}finally{crypto.randomUUID=original;}
+ assert.equal(failed.status,409,JSON.stringify(failed));assert.equal(f.sql.prepare('SELECT status FROM withdrawal_requests WHERE id=?').get(id).status,'approved');assert.equal(f.sql.prepare('SELECT status FROM provider_payouts WHERE withdrawal_id=?').get(id).status,'prepared');assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations WHERE reference_id=?').get(id).n,1);
+ const retry=await f.post('/api/admin/manual-bank/payout/start',{id,bankAccountId:f.state.bank});assert.equal(retry.status,202,JSON.stringify(retry));assert.equal(f.sql.prepare('SELECT status FROM withdrawal_requests WHERE id=?').get(id).status,'processing');
+});
+test('a paid-audit primary-key collision keeps the hold and the same evidence retries safely',async t=>{
+ const f=bankFixture(t);await f.setup();await f.deposit();const id=await f.withdrawal(),proof=f.proof('PAID-AUDIT-COLLISION','20.00'),original=crypto.randomUUID.bind(crypto);
+ f.sql.prepare("INSERT INTO audit(id,user_id,event,target,created_at) VALUES('occupied-paid-audit','owner','unrelated_event','unrelated_target',0)").run();
+ const forced=['forced-bank-proof','occupied-paid-audit','forced-review-audit'];let cursor=0;crypto.randomUUID=()=>forced[cursor++]??original();
+ let failed;try{failed=await f.post('/api/admin/manual-bank/payout/confirm',{id,...proof});}finally{crypto.randomUUID=original;}
+ assert.equal(failed.status,409,JSON.stringify(failed));assert.equal(failed.data.fundsHeld,true);
+ assert.equal(f.sql.prepare('SELECT status FROM provider_payouts WHERE withdrawal_id=?').get(id).status,'review');
+ assert.equal(f.sql.prepare('SELECT status FROM withdrawal_requests WHERE id=?').get(id).status,'processing');
+ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations WHERE reference_id=?').get(id).n,1);
+ assert.equal((await f.call('/api/wallet')).data.balanceMinor,'5000');
+ const retried=await f.post('/api/admin/manual-bank/payout/confirm',{id,...proof});assert.equal(retried.status,200,JSON.stringify(retried));assert.equal(retried.data.status,'paid');
+ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM manual_bank_transactions WHERE payout_id=(SELECT id FROM provider_payouts WHERE withdrawal_id=?)").get(id).n,1);
+ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit a JOIN manual_bank_transactions b ON b.id=a.target WHERE b.payout_id=(SELECT id FROM provider_payouts WHERE withdrawal_id=?) AND a.event='manual_bank_payout_paid' AND a.user_id=b.recorded_by").get(id).n,1);
+ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations WHERE reference_id=?').get(id).n,0);
+ assert.equal((await f.call('/api/wallet')).data.availableMinor,'3000');
+});
+test('a legacy succeeded payout with its hold intact can attach missing audit evidence and finish once',async t=>{
+ const f=bankFixture(t);await f.setup();await f.deposit();const id=await f.withdrawal(),payout=f.sql.prepare('SELECT * FROM provider_payouts WHERE withdrawal_id=?').get(id),proof=f.proof('LEGACY-SUCCEEDED-REPAIR','20.00'),transactionId='legacy-succeeded-proof',recordedAt=Math.floor(Date.now()/1000);
+ f.sql.prepare(`INSERT INTO manual_bank_transactions(id,bank_account_id,bank_account_key,bank_reference,normalized_reference,direction,amount_minor,currency,payout_id,proof_data,proof_sha256,bank_occurred_at,recorded_by,recorded_at)
+  VALUES(?,?,?,?,?,'withdrawal',2000,'MYR',?,?,?,?,?,?)`).run(transactionId,f.state.bank,bankAccountKey('1234567890'),proof.bankReference,proof.bankReference.toUpperCase().replace(/[\s-]/g,''),payout.id,proof.proofData,bankHash(proof.proofData),proof.bankOccurredAt,'owner',recordedAt);
+ f.sql.prepare("UPDATE provider_payouts SET status='succeeded',create_outcome='accepted',provider_reference=?,last_event_hash=?,last_error_code=NULL,completed_at=? WHERE id=?").run(transactionId,bankHash(proof.proofData),recordedAt,payout.id);
+ f.sql.prepare("INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,'unrelated_event','unrelated_target',0)").run(`manual_bank_payout_paid_${payout.id}`,'owner');
+ const repaired=await f.post('/api/admin/manual-bank/payout/confirm',{id,...proof});assert.equal(repaired.status,200,JSON.stringify(repaired));assert.equal(repaired.data.status,'paid');
+ assert.equal(f.sql.prepare('SELECT status FROM withdrawal_requests WHERE id=?').get(id).status,'paid');assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations WHERE reference_id=?').get(id).n,0);
+ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit WHERE event='manual_bank_payout_paid' AND target=? AND user_id='owner' AND created_at=?").get(transactionId,recordedAt).n,1);
+ assert.equal((await f.call('/api/wallet')).data.availableMinor,'3000');
+});
+test('manual Company Bank pays an allowlisted e-wallet through the same reviewed queue',async t=>{
+ const f=bankFixture(t);f.sql.prepare("UPDATE users SET phone='+60123456789' WHERE id='alice'").run();await f.setup();await f.deposit();
+ const requested=await f.post('/api/withdrawals',{providerId:'manual_bank',destinationType:'ewallet',ewalletCode:'boost',ewalletAccountIdentifier:'012-345 6789',accountHolder:'Alice Example',amount:'20.00',requestKey:crypto.randomUUID()},'alice');assert.equal(requested.status,201,JSON.stringify(requested));const id=requested.data.withdrawal.id;
+ const list=await f.call('/api/admin/withdrawals',{who:'owner'}),item=list.data.items.find(row=>row.id===id);assert.equal(item.destinationMethod,'E-Wallet');assert.equal(item.ewalletName,'Boost');assert.equal(item.accountLast4,'6789');assert.equal(item.approvalEligible,true);
+ const approved=await f.post('/api/admin/withdrawals/approve',{id,approvalFingerprint:item.approvalFingerprint,ownerNote:'Reviewed e-wallet destination'});assert.equal(approved.status,202,JSON.stringify(approved));assert.equal(approved.data.manualTransferRequired,true);
+ const detail=await f.call(`/api/admin/manual-bank/payout?id=${encodeURIComponent(id)}`,{who:'owner'});assert.equal(detail.status,200,JSON.stringify(detail));assert.deepEqual(detail.data.recipient,{destinationType:'ewallet',ewalletCode:'boost',ewalletName:'Boost',accountHolder:'Alice Example',accountIdentifier:'+60123456789'});
+ const started=await f.post('/api/admin/manual-bank/payout/start',{id,bankAccountId:f.state.bank});assert.equal(started.status,202,JSON.stringify(started));assert.equal(started.data.recipient.destinationType,'ewallet');
+ const paid=await f.post('/api/admin/manual-bank/payout/confirm',{id,...f.proof('EWALLET-PAYOUT-0001','20.00')});assert.equal(paid.status,200,JSON.stringify(paid));assert.equal(paid.data.status,'paid');assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);assert.equal((await f.call('/api/wallet')).data.availableMinor,'3000');
+});
+test('staff see redacted withdrawal records but cannot approve, start, view recipient or confirm payouts',async t=>{
+ const f=bankFixture(t);await f.setup();await f.deposit();const id=await f.withdrawal({approve:false});const list=await f.call('/api/admin/withdrawals',{who:'employee'});assert.equal(list.status,200);assert.equal(list.data.readOnly,true);assert.equal(list.data.items[0].accountHolder,undefined);assert.equal(list.data.items[0].accountNumber,'•••• 9012');for(const path of ['/api/admin/withdrawals/approve','/api/admin/manual-bank/payout/start','/api/admin/manual-bank/payout/confirm'])assert.equal((await f.post(path,{id,...f.proof()},'employee')).status,403);assert.equal((await f.call('/api/admin/manual-bank/payout?id='+id,{who:'employee'})).status,403);assert.equal((await f.post('/api/admin/manual-bank/settings',{mode:'qa',qaMemberIds:['alice']},'employee')).status,403);
+});
+test('maintenance blocks new manual requests but existing reviews and payout confirmation still finish',async t=>{
+ const f=bankFixture(t);await f.setup();const id=await f.deposit({approve:false});const close={newDepositsEnabled:'false',newPayoutsEnabled:'false'};assert.equal((await f.post('/api/manual-bank/deposits',{bankId:f.state.bank,amount:'5',requestKey:crypto.randomUUID(),receiptData:image},'alice',close)).status,503);assert.equal((await f.post('/api/admin/manual-bank/review',{id,action:'approve',...f.proof()},'employee',close)).status,200);const w=await f.withdrawal();assert.equal((await f.post('/api/withdrawals',{providerId:'manual_bank',amount:'1'},'alice',close)).status,503);assert.equal((await f.post('/api/admin/manual-bank/payout/confirm',{id:w,...f.proof('PAYOUT-MAINTENANCE','20.00')},'owner',close)).status,200);assert.equal((await f.call('/api/wallet')).data.availableMinor,'3000');
+});
+test('unknown manual transfer keeps funds reserved and a later bank proof resolves it once',async t=>{
+ const f=bankFixture(t);await f.setup();await f.deposit();const id=await f.withdrawal();assert.equal((await f.post('/api/admin/manual-bank/payout/unknown',{id})).status,200);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,1);assert.equal((await f.call('/api/wallet')).data.reconciliationRequired,true);assert.equal((await f.post('/api/admin/withdrawals/status',{id,status:'cancelled',ownerNote:'unknown'})).status,409);const done=await f.post('/api/admin/manual-bank/payout/confirm',{id,...f.proof('PAYOUT-RESOLVED','20.00')});assert.equal(done.status,200,JSON.stringify(done));assert.equal((await f.call('/api/wallet')).data.availableMinor,'3000');
+});
+test('manual payout with a reused bank reference stays in review with the full hold',async t=>{
+ const f=bankFixture(t);await f.setup();await f.deposit();const id=await f.withdrawal();const result=await f.post('/api/admin/manual-bank/payout/confirm',{id,...f.proof('BANK-REF-0001','20.00')});assert.equal(result.status,409);assert.equal(result.data.fundsHeld,true);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,1);assert.equal(f.sql.prepare('SELECT status FROM withdrawal_requests').get().status,'processing');assert.equal((await f.call('/api/wallet')).data.balanceMinor,'5000');
+});
+test('paid status without manual bank proof freezes balance reads and atomic new reservations',async t=>{
+ const f=bankFixture(t);await f.setup();await f.deposit();const id=await f.withdrawal();f.sql.prepare("UPDATE provider_payouts SET status='succeeded',create_outcome='accepted',provider_reference='forged',last_error_code=NULL WHERE withdrawal_id=?").run(id);f.sql.prepare("UPDATE withdrawal_requests SET status='paid' WHERE id=?").run(id);f.sql.prepare('DELETE FROM wallet_reservations').run();assert.equal((await withdrawalWalletState(f.db,'alice')).reconciliationRequired,true);const result=await f.db.batch([...walletGuardStatements(f.db,'alice'),walletGuardedReservation(f.db,{userId:'alice',kind:'withdrawal',referenceId:'new-reservation',amountMinor:'100',createdAt:0})]);assert.equal(Number(result.at(-1).changes),0);
+});
+test('live banking requires linked real-bank acceptance and does not make full-platform readiness green',async t=>{
+ const f=bankFixture(t);await f.setup();const depositId=await f.deposit(),withdrawalId=await f.withdrawal();assert.equal(await manualBankReadiness(f.db),false);assert.equal((await f.post('/api/admin/manual-bank/acceptance',{depositId,withdrawalId,bankConfirmed:true})).status,409);await f.post('/api/admin/manual-bank/payout/confirm',{id:withdrawalId,...f.proof('PAYOUT-ACCEPTED','20.00')});const accepted=await f.post('/api/admin/manual-bank/acceptance',{depositId,withdrawalId,bankConfirmed:true});assert.equal(accepted.status,200,JSON.stringify(accepted));assert.equal(await manualBankReadiness(f.db),true);assert.equal((await f.post('/api/admin/manual-bank/settings',{mode:'live',qaMemberIds:[]})).status,200);assert.equal((await f.call('/api/manual-bank/accounts',{who:'bob'})).data.items.length,1);const health=await f.call('/health',{who:null});assert.equal(health.data.manualBankReady,true);assert.equal(health.data.productionReady,false);f.sql.prepare('UPDATE company_bank_accounts SET enabled=0').run();assert.equal(await manualBankReadiness(f.db),false);assert.equal((await f.call('/api/manual-bank/accounts')).data.items.length,0);
+});
+
+
+test('receipt and bank-proof routes accept supported uploads above the generic JSON limit and still cap their size',async t=>{
+ const f=bankFixture(t);await f.setup();const large='data:image/png;base64,'+Buffer.from([137,80,78,71,13,10,26,10,...new Array(40000).fill(0)]).toString('base64');
+ const submitted=await f.post('/api/manual-bank/deposits',{bankId:f.state.bank,amount:'50.00',receiptData:large,requestKey:crypto.randomUUID()},'alice');assert.equal(submitted.status,201,JSON.stringify(submitted));const reviewed=await f.post('/api/admin/manual-bank/review',{id:submitted.data.id,action:'approve',...f.proof('LARGE-PROOF','50.00',{proofData:large})},'employee');assert.equal(reviewed.status,200,JSON.stringify(reviewed));
+ const oversized='data:image/png;base64,'+Buffer.alloc(450000).toString('base64');assert.equal((await f.post('/api/admin/manual-bank/account',{bankName:'Synthetic Bank',accountName:'Fixture',accountNumber:'1234567890',enabled:true,imageData:oversized})).status,413);
+});
