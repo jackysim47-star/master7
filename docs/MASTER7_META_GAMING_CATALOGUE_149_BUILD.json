@@ -1,0 +1,77 @@
+{
+  "release": "17.0.0-selfbuilt.149-meta-catalogue-isolation",
+  "preparedAt": "2026-11-10T05:07:30.303221+00:00",
+  "sourceCommit": "bad7477fa39dc072849fe266b7f89eddc769350f",
+  "baselineSourceCommit": "fb9c96d71c1310094a45f4cc7cf40571503a04e7",
+  "baselineRelease": "17.0.0-selfbuilt.148-jili-transfer-wallet",
+  "archive": {
+    "sha256": "ee7cfbcd41900f3e0f6b7aac5ef441902cec6a66bd14ebc76805658ff240a347",
+    "bytes": 7124420,
+    "files": 677,
+    "entries": 738,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/MASTER7_META_GAMING_CATALOGUE_CANDIDATE_20261110.md"
+    ],
+    "changed": [
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "lib/backend.ts",
+      "lib/game-catalogue.ts",
+      "lib/game-provider-registry.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/assets/app.js",
+      "public/service-worker.js",
+      "tests/api.test.mjs",
+      "tests/game-catalogue.test.mjs",
+      "tests/game-launch.test.mjs",
+      "tests/game-provider-acceptance.test.mjs",
+      "tests/game-provider-registry.test.mjs",
+      "tests/lobby-render.test.mjs",
+      "tests/official-entries-probe.test.mjs",
+      "tests/operations-intelligence-api.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1309,
+    "focusedFinalSource": 130,
+    "renderDatabase": 3,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "supplierTests": "read-only catalogue probes only; no launch, balance, transfer or settlement acceptance"
+  },
+  "predeployBackup": {
+    "path": "/workspace/master7-production-backups/master7-v148-postdeploy-20261110T042140Z.json",
+    "schemaChanged": false,
+    "note": "Existing post-v148 backup retained; v149 has no database migration."
+  },
+  "implementedCatalogueProfiles": [
+    "metagaming_normal_myr",
+    "metagaming_free_myr"
+  ],
+  "remaining": {
+    "productionAcceptedProfiles": 0,
+    "metaLaunchImplemented": false,
+    "metaWalletImplemented": false,
+    "metaSettlementImplemented": false,
+    "legacyMegaMappingVerified": false,
+    "actualGameLaunchesDuringThisWork": 0,
+    "realMoneyTransfersDuringThisWork": 0
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false
+}

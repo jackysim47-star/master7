@@ -1,0 +1,565 @@
+diff --git a/app/portal.html b/app/portal.html
+index be27915..64638a1 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.149-meta-catalogue-isolation">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.149-meta-catalogue-isolation">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.149-meta-catalogue-isolation">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.149-meta-catalogue-isolation">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.149-meta-catalogue-isolation">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.149-meta-catalogue-isolation">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.149-meta-catalogue-isolation">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.149-meta-catalogue-isolation">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.149-meta-catalogue-isolation">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.149-meta-catalogue-isolation">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.149-meta-catalogue-isolation">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.149-meta-catalogue-isolation">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.149-meta-catalogue-isolation">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.149-meta-catalogue-isolation">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.149-meta-catalogue-isolation" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.149-meta-catalogue-isolation" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.149-meta-catalogue-isolation" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.149-meta-catalogue-isolation" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.149-meta-catalogue-isolation" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.149-meta-catalogue-isolation" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.149-meta-catalogue-isolation" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.149-meta-catalogue-isolation" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.149-meta-catalogue-isolation" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.149-meta-catalogue-isolation" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.149-meta-catalogue-isolation" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.149-meta-catalogue-isolation" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.149-meta-catalogue-isolation" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index cab7e5c..0aa40f3 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,8 +1,16 @@
+ # MASTER7 deployment handover
+ 
+-Candidate source: `17.0.0-selfbuilt.148-jili-transfer-wallet`.
++Candidate source: `17.0.0-selfbuilt.149-meta-catalogue-isolation`.
+ 
+-Baseline: live `17.0.0-selfbuilt.147-game-runtime-repair`, deployment `dep-dbp92tutlv9c73et00lg`, publication commit `7220347815b6c167d3495a9bc56f8ad90d050133`.
++Baseline: live `17.0.0-selfbuilt.148-jili-transfer-wallet`, deployment `dep-dbp9m9p42hec73c0ng10`, source commit `587d8368d5e783970953541c7b0f9eb821bfedcb`.
++
++META GAMING now has two isolated, read-only catalogue profiles for the Normal
++MYR and Free Credit MYR accounts. Their gateway paths, cache keys, catalogue
++account labels and player/ledger namespaces are separate. Both profiles remain
++`adapter_unimplemented` and `playable=false`; this release does not enable a
++launch, balance, transfer, settlement or recovery route. Remote META artwork is
++not trusted until the supplier confirms an official image host, so the portal
++uses the local provider artwork.
+ 
+ JILI now has a legacy transfer protocol, executable adapter, per-account runtime factory and the universal game-wallet API. Its 1:1 and 1:100 catalogues have separate cache keys and check the account, currency and ratio. Deposits are confirmed by querying the original account, transaction, direction and normalized amount. Returns use the supplier's all-funds transfer rather than a delayed balance. A zero return still needs a real supplier receipt. Unknown transfers remain reserved; recovery never resubmits them.
+ 
+diff --git a/docs/MASTER7_META_GAMING_CATALOGUE_CANDIDATE_20261110.md b/docs/MASTER7_META_GAMING_CATALOGUE_CANDIDATE_20261110.md
+new file mode 100644
+index 0000000..4dea085
+--- /dev/null
++++ b/docs/MASTER7_META_GAMING_CATALOGUE_CANDIDATE_20261110.md
+@@ -0,0 +1,57 @@
++# MASTER7 META GAMING catalogue candidate
++
++Date: 2026-11-10
++Baseline: `17.0.0-selfbuilt.148-jili-transfer-wallet`
++State: local candidate only; not deployed
++
++## Scope
++
++This candidate adds two independent, read-only META GAMING catalogue profiles:
++
++| Portal profile | Gateway request | Portal balance class | Runtime adapter |
++|---|---|---|---|
++| `metagaming_normal_myr` | `GET /providers/metagaming/games?account=normal` | `cash` | `adapter_unimplemented` |
++| `metagaming_free_myr` | `GET /providers/metagaming/games?account=free` | `free_credit` | `adapter_unimplemented` |
++
++The profiles have separate player namespaces, ledger namespaces and catalogue
++cache keys. A successful normalized gateway response must identify the exact
++`provider`, `account` and `currency` expected by the requested profile:
++
++```json
++{
++  "provider": "metagaming",
++  "account": "normal",
++  "currency": "MYR",
++  "games": []
++}
++```
++
++Any metadata mismatch blocks the refresh and retains the previous snapshot in
++maintenance state. Catalogue rows are always returned with `playable=false`.
++There is no launch, wallet, transfer, settlement or recovery implementation in
++this candidate, and neither profile can perform a funds operation.
++
++## Artwork policy
++
++The official META GAMING integration document describes `ImageUrl` and shows
++only the template `https://<base-domain-url>/thumbs/Web/<GameCode>.png`. It
++does not identify a concrete production thumbnail hostname. Remote META image
++URLs are therefore rejected. Catalogue rows use the existing local
++`/assets/providers/metagaming.webp` fallback until an official host or asset
++manifest is supplied and reviewed.
++
++## Legacy MegaH5 boundary
++
++The existing `megah5` catalogue and `megah5_myr` profile are unchanged. The
++available META GAMING document and credential attachment names do not prove
++that legacy MegaH5 is the same merchant account or protocol. Renaming,
++relabelling, enabling, or sharing a cache/player/ledger namespace would create
++an unsafe mapping. Legacy MegaH5 therefore remains separate and fail-closed
++under the existing production controls while its mapping remains ambiguous.
++
++## Evidence boundary
++
++Implementation used only the supplied offline META GAMING document and
++existing repository artwork. No provider endpoint was called, no credential or
++secret was added, and no deployment or environment configuration was changed.
++This is catalogue contract work, not production provider acceptance.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 7dfaf63..80321e8 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -3,7 +3,7 @@ import {gameTransferRuntime,seedTransferProfile,transferProfileSupported} from '
+ import type {MegaSessionCloser,MegaAcceptanceCapabilities} from './mega-session-closure.ts';
+ import {authorizeDepositIncidentRead} from './deposit-incident-evidence.ts';
+ import {createHash,timingSafeEqual} from 'node:crypto';
+-import {getGameCatalogue,cachedGameArtwork,gameControlSourceIds,configuredGameCatalogueSourceIds,gameCatalogueCacheFresh} from './game-catalogue.ts';
++import {getGameCatalogue,cachedGameArtwork,gameControlSourceIds,configuredGameCatalogueSourceIds,configuredGameCatalogueCacheKeys,defaultGameCatalogueCacheKey,gameCatalogueCacheFresh} from './game-catalogue.ts';
+ import { readLocalSession, handlePasswordAuth, AuthError } from './password-auth.ts';
+ import { requestOriginAllowed } from './request-origin.ts';
+ import {createVPayOrder,readVPayDepositProviderEvidence,handleVPay,vpayOrdersConfigured,vpayRemoteOrderReady,refreshVPayOrder,recoverVPayDeposits,vpayCapabilitySnapshot} from './vpay.ts';
+@@ -38,7 +38,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.148-jili-transfer-wallet';
++export const RELEASE = '17.0.0-selfbuilt.149-meta-catalogue-isolation';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+@@ -221,7 +221,7 @@ async function canonicalOperationsReadiness(c:Context){
+  // capability for every listed profile.
+  const allGamesVerified=gameAcceptance.allGamesVerified,gamesReady=gameAcceptance.liveGames;
+  const productionAcceptance=payments.productionAcceptance;
+- return {payments,readiness:{productionReady:payments.realPayments===true&&payments.payoutsEnabled===true&&settlementVerified&&gamesReady&&recovery.backupReady&&recovery.restoreReady&&productionAcceptance.domainReady&&productionAcceptance.credentialRotationReady&&productionAcceptance.signoffReady,paymentsReady:payments.realPayments===true&&productionAcceptance.paymentReady,payoutsReady:payments.payoutsEnabled===true,settlementVerified,gamesReady,backupReady:recovery.backupReady,restoreReady:recovery.restoreReady,backupCreatedAt:recovery.backupCreatedAt,restoreVerifiedAt:recovery.restoreVerifiedAt,megaAvailable,allGamesVerified,gameAcceptance,productionAcceptance,whatsappReady:whatsappCampaignStatus(whatsappCampaignSettings(c)).ready===true,supportAiProviderReady:supportAiProviderStatus(supportAiSettings(c)).externalProviderReady===true,expectedCatalogueIds:configuredGameCatalogueSourceIds(c)}};
++ return {payments,readiness:{productionReady:payments.realPayments===true&&payments.payoutsEnabled===true&&settlementVerified&&gamesReady&&recovery.backupReady&&recovery.restoreReady&&productionAcceptance.domainReady&&productionAcceptance.credentialRotationReady&&productionAcceptance.signoffReady,paymentsReady:payments.realPayments===true&&productionAcceptance.paymentReady,payoutsReady:payments.payoutsEnabled===true,settlementVerified,gamesReady,backupReady:recovery.backupReady,restoreReady:recovery.restoreReady,backupCreatedAt:recovery.backupCreatedAt,restoreVerifiedAt:recovery.restoreVerifiedAt,megaAvailable,allGamesVerified,gameAcceptance,productionAcceptance,whatsappReady:whatsappCampaignStatus(whatsappCampaignSettings(c)).ready===true,supportAiProviderReady:supportAiProviderStatus(supportAiSettings(c)).externalProviderReady===true,expectedCatalogueIds:configuredGameCatalogueCacheKeys(c)}};
+ }
+ 
+ async function gameRuntimeReadyProfileIds(c:Context){
+@@ -380,7 +380,7 @@ function providerCapability(c:Context,provider:any,games:any[],mega:MegaWalletCa
+ }
+ async function publicSupplierPlatforms(c:Context,capability?:MegaWalletCapability){
+  const [cached,rankingState]=await Promise.all([rows(c.db,'SELECT provider_id,status,complete,checked_at,games_json FROM game_catalogue_cache'),loadGameRanking(c.db)]),mega=capability??cachedCatalogueCapability(c),cacheById=new Map((cached as any[]).map(item=>[String(item.provider_id),item])),configuredSources=new Set(configuredGameCatalogueSourceIds(c)),platforms=apiSupplierIds.map((id,index)=>{
+-  const cache=cacheById.get(id) as any,cacheStatus=['available','empty','blocked','unavailable'].includes(String(cache?.status))?String(cache.status):'missing',fresh=!!cache&&gameCatalogueCacheFresh(c,Number(cache.checked_at)),connectionVerified=configuredSources.has(id)&&cacheStatus==='available'&&fresh;
++  const cache=cacheById.get(defaultGameCatalogueCacheKey(id)) as any,cacheStatus=['available','empty','blocked','unavailable'].includes(String(cache?.status))?String(cache.status):'missing',fresh=!!cache&&gameCatalogueCacheFresh(c,Number(cache.checked_at)),connectionVerified=configuredSources.has(id)&&cacheStatus==='available'&&fresh;
+   let games:any[]=[];try{const decoded=JSON.parse(String(cache?.games_json??'[]'));if(Array.isArray(decoded))games=decoded.slice(0,2000).filter(game=>game&&game.provider===id&&typeof game.gameCode==='string');}catch{}
+   const provider={id,name:apiSupplierNames[id],position:index+1,connectionVerified,catalogueSynced:connectionVerified&&Number(cache?.complete)===1&&games.length>0,complete:Number(cache?.complete)===1,stale:!fresh||!connectionVerified,checkedAt:Number(cache?.checked_at??0),catalogueCacheStatus:cacheStatus,catalogueCacheFresh:fresh,cachedGameCount:games.length};
+   return providerCapability(c,provider,games,mega);
+@@ -715,7 +715,7 @@ async function route(req:Request,c:Context){
+    if(requestedProfile&&selectedProvider!==null&&requestedProfile.providerId!==selectedProvider)throw new ApiError(400,'Game profile does not belong to provider');
+    if(requestedProfile)selectedProvider=requestedProfile.providerId;
+    if(selectedProvider===null){const platformState=await publicSupplierPlatforms(c),{providers,rankingState,...profileState}=platformState,liveReady=providers.some(provider=>provider.platformLaunchReady);return json(await providerGameResponse(c,u,{...automaticAvailability,...profileState,mode:'provider-platforms',providers,games:[],providersOnly:true,platformsOnly:false,gamesOmittedUntilProviderSelected:true,gameCountScope:'current_response',selectedProvider:null,selectedProfile:null,selectedProfileId:null,selectedPlatform:null,platformCount:providers.length,totalGameCount:0,selectedGameCount:0,playable:liveReady,liveReady,launchProvider:liveReady?'megah5':null,launchProfile:liveReady?'megah5_myr':null,ranking:{...rankingState.ranking,configured:rankingState.configured,source:'owner_curated',automaticRanking:false,internalGamesRanked:false}}));}
+-   const trustedSource=configuredGameCatalogueSourceIds(c).includes(selectedProvider),capability=await megaProviderCapability(c),catalogue=trustedSource?await automaticCatalogue(c,await getGameCatalogue(c,{providerId:selectedProvider,profileId:requestedProfileId??undefined}),capability):{providers:[],games:[]},games=catalogue.games.filter((game:any)=>game.provider===selectedProvider),fresh=await publicSupplierPlatforms(c,capability),selected=(catalogue.providers??[]).find((provider:any)=>provider.id===selectedProvider),providers=fresh.providers.map((provider:any)=>provider.id===selectedProvider&&selected?{...provider,...selected,cachedGameCount:Number(selected.count??0)}:provider),selectedPlatform=providers.find((provider:any)=>provider.id===selectedProvider)??null,liveReady=selectedPlatform?.platformLaunchReady===true;
++   const trustedSource=configuredGameCatalogueSourceIds(c).includes(selectedProvider),capability=await megaProviderCapability(c),catalogue=trustedSource?await automaticCatalogue(c,await getGameCatalogue(c,{providerId:selectedProvider,profileId:requestedProfileId??undefined}),capability):{providers:[],games:[]},games=catalogue.games.filter((game:any)=>game.provider===selectedProvider),fresh=await publicSupplierPlatforms(c,capability),selected=(catalogue.providers??[]).find((provider:any)=>provider.id===selectedProvider),providers=fresh.providers.map((provider:any)=>provider.id===selectedProvider&&selected?{...provider,...selected,catalogueCacheStatus:String(selected.status??'missing'),catalogueCacheFresh:gameCatalogueCacheFresh(c,Number(selected.checkedAt)),cachedGameCount:Number(selected.count??0)}:provider),selectedPlatform=providers.find((provider:any)=>provider.id===selectedProvider)??null,liveReady=selectedPlatform?.platformLaunchReady===true;
+    const providerProfiles=fresh.profiles.filter(profile=>profile.providerId===selectedProvider),selectedProfile=requestedProfileId?fresh.profiles.find(profile=>profile.profileId===requestedProfileId)??null:providerProfiles.length===1?providerProfiles[0]:null;
+    return json(await providerGameResponse(c,u,{...automaticAvailability,profiles:fresh.profiles,profileCount:fresh.profileCount,profileBrandCount:fresh.profileBrandCount,implementedProfileCount:fresh.implementedProfileCount,launchReadyProfileCount:fresh.launchReadyProfileCount,verifiedProfileCount:fresh.verifiedProfileCount,mode:'provider-games',providers,games,providersOnly:false,platformsOnly:false,selectedProvider,selectedProfile,selectedProfileId:selectedProfile?.profileId??null,selectedPlatform,platformCount:providers.length,totalGameCount:games.length,selectedGameCount:games.length,playable:games.some((game:any)=>game.playable),liveReady,launchProvider:liveReady?'megah5':null,launchProfile:liveReady?'megah5_myr':null,ranking:{...fresh.rankingState.ranking,configured:fresh.rankingState.configured,source:'owner_curated',automaticRanking:false,internalGamesRanked:false}}));
+   }
+diff --git a/lib/game-catalogue.ts b/lib/game-catalogue.ts
+index 6d61cc9..9ba57a4 100644
+--- a/lib/game-catalogue.ts
++++ b/lib/game-catalogue.ts
+@@ -19,6 +19,7 @@ export const gameSources:readonly Source[]=[
+  {id:'jdb',name:'JDB',path:'/providers/jdb/games',shape:'normalized'},
+  {id:'pragmaticplay',name:'PRAGMATIC PLAY',path:'/providers/pragmaticplay/games',shape:'normalized'},
+  {id:'918kissh5',name:'918KISS H5',path:'/providers/918kissh5/games?account=normal',shape:'normalized',imageHost:'gth.kissh5.com',expectedAccount:'normal',expectedCurrency:'MYR'},
++ {id:'metagaming',name:'META GAMING',path:'/providers/metagaming/games?account=normal',shape:'normalized',cacheKey:'metagaming_normal_myr',profileId:'metagaming_normal_myr',expectedAccount:'normal',expectedCurrency:'MYR'},
+  {id:'evo888h5',name:'EVO888H5',path:'/providers/evo888h5/games',shape:'evo',imageHost:'backendapi.evo888h5.com'},
+  {id:'epicwin',name:'EPICWIN',path:'/providers/epicwin/games?account=normal',shape:'normalized'},
+  {id:'venus',name:'VENUS GAMING',path:'/providers/venus/games',shape:'normalized'},
+@@ -35,6 +36,11 @@ const jiliProfileSources:Readonly<Record<string,Source>>=Object.freeze({
+  'jili_myr_1to1':Object.freeze({...jiliSource,cacheKey:'jili_myr_1to1',profileId:'jili_myr_1to1',expectedAccount:'1to1',expectedCurrency:'MYR',expectedRatio:'1:1'}),
+  'jili_my1_1to100':Object.freeze({...jiliSource,path:'/providers/jili/games?account=1to100',cacheKey:'jili_my1_1to100',profileId:'jili_my1_1to100',expectedAccount:'1to100',expectedCurrency:'MYR',expectedRatio:'1:100'}),
+ });
++const metaSource=gameSources.find(source=>source.id==='metagaming')!;
++const metaProfileSources:Readonly<Record<string,Source>>=Object.freeze({
++ 'metagaming_normal_myr':metaSource,
++ 'metagaming_free_myr':Object.freeze({...metaSource,path:'/providers/metagaming/games?account=free',cacheKey:'metagaming_free_myr',profileId:'metagaming_free_myr',expectedAccount:'free'}),
++});
+ // GodeeZone is a separate, internal-only profile until its brand, wallet and
+ // launch contract are verified. Never reuse ATG's account or cached catalogue.
+ const directSources:readonly Source[]=[{id:'rectangle',name:'RECTANGLE',path:'',shape:'normalized',direct:true},{id:'godeezone',name:'GodeeZone',path:'',shape:'normalized',direct:true}];
+@@ -47,14 +53,20 @@ const text=(value:unknown,max=160)=>typeof value==='string'?value.trim().slice(0
+ const sourceCacheKey=(source:Source)=>source.cacheKey??source.id;
+ function selectProfileSource(providerId:string|undefined,profileId:string|undefined){
+  if(providerId==='jili'&&profileId)return jiliProfileSources[profileId]??null;
++ if(providerId==='metagaming'&&profileId)return metaProfileSources[profileId]??null;
+  if(providerId!=='918kissh5'||!profileId)return null;
+  return kissProfileSources[profileId]??null;
+ }
++export function defaultGameCatalogueCacheKey(providerId:string){return gameSources.find(source=>source.id===providerId)?.cacheKey??providerId;}
+ function configured(value?:string){try{const u=new URL(value??'');return u.origin===gateway&&u.pathname==='/'&&!u.search&&!u.hash&&!u.username&&!u.password;}catch{return false;}}
+ export function configuredGameCatalogueSourceIds(c:DirectCatalogueConfig&{gameGatewayUrl?:string}):readonly string[]{
+  const sources=[...(configured(c.gameGatewayUrl)?gameSources:[]),...directSources.filter(source=>directCatalogueConfigured(c,source.id))];
+  return Object.freeze(sources.map(source=>source.id));
+ }
++export function configuredGameCatalogueCacheKeys(c:DirectCatalogueConfig&{gameGatewayUrl?:string}):readonly string[]{
++ const sources=[...(configured(c.gameGatewayUrl)?gameSources:[]),...directSources.filter(source=>directCatalogueConfigured(c,source.id))];
++ return Object.freeze(sources.map(sourceCacheKey));
++}
+ export function approvedArtworkUrl(source:Source,value:unknown){
+  try{const u=new URL(String(value));const path=source.id==='evo888h5'?/^\/slots\/cover-img\/[A-Za-z0-9_-]+\.(?:png|webp|jpe?g)$/.test(u.pathname):u.pathname.startsWith('/thumbs/');return u.protocol==='https:'&&u.hostname===source.imageHost&&path&&!u.port&&!u.search&&!u.hash&&!u.username&&!u.password?u.href:null;}catch{return null;}
+ }
+@@ -67,8 +79,8 @@ function normalize(source:Source,rows:any[]){
+   if(!gameCode||/[\u0000-\u001f\u007f]/.test(gameCode)||seen.has(gameCode))return null;seen.add(gameCode);
+   const artwork=approvedArtworkUrl(source,mega?g.ImageUrl:evo?g.thumbnail:g.imageUrl);
+   const profileQuery=source.profileId?`&profileId=${encodeURIComponent(source.profileId)}`:'';
+-  const imageUrl=artwork?`/api/game-art?provider=${source.id}${profileQuery}&gameCode=${encodeURIComponent(gameCode)}`:source.id==='jili'?'/assets/providers/jili.webp':source.id==='jdb'?'/assets/providers/jdb.webp':source.id==='pragmaticplay'?'/assets/providers/pragmaticplay.webp':source.id==='evo888h5'?'/assets/providers/evo888h5.webp':source.id==='rectangle'?'/assets/providers/rectangle.webp':source.id==='atg'?'/assets/providers/atg.webp':null;
+-  return {provider:source.id,providerName:source.id==='godeezone'?text(g.providerName)||source.name:source.name,gameCode,...(source.id==='godeezone'?{originalProviderId:text(g.originalProviderId,40),originalGameCode:text(g.originalGameCode,100)}:{}),...(source.profileId?{profileId:source.profileId}:{}),...(source.expectedAccount?{catalogueAccount:source.expectedAccount}:{}),...(source.expectedCurrency?{providerCurrency:source.expectedCurrency}:{}),name:text(mega?g.GameName??g.OtherName:evo?g.title??g.name:g.name)||gameCode,nameZh:text(g.nameZh??(mega?g.OtherName:'')),category:evo?'SLOT':text(mega?g.GameType:g.category,40),imageUrl,maintenance:mega?g.Maintenance===true||g.Maintenance===1||g.Maintenance==='true'||g.Maintenance==='1':g.maintenance===true,playable:false,...(source.id==='evo888h5'&&artwork?{artworkSource:artwork}:{})};
++  const imageUrl=artwork?`/api/game-art?provider=${source.id}${profileQuery}&gameCode=${encodeURIComponent(gameCode)}`:source.id==='jili'?'/assets/providers/jili.webp':source.id==='jdb'?'/assets/providers/jdb.webp':source.id==='pragmaticplay'?'/assets/providers/pragmaticplay.webp':source.id==='metagaming'?'/assets/providers/metagaming.webp':source.id==='evo888h5'?'/assets/providers/evo888h5.webp':source.id==='rectangle'?'/assets/providers/rectangle.webp':source.id==='atg'?'/assets/providers/atg.webp':null;
++  return {provider:source.id,providerName:source.id==='godeezone'?text(g.providerName)||source.name:source.name,gameCode,...(source.id==='godeezone'?{originalProviderId:text(g.originalProviderId,40),originalGameCode:text(g.originalGameCode,100)}:{}),...(source.profileId?{profileId:source.profileId}:{}),...(source.expectedAccount?{catalogueAccount:source.expectedAccount}:{}),...(source.expectedCurrency?{providerCurrency:source.expectedCurrency}:{}),name:text(mega?g.GameName??g.OtherName:evo?g.title??g.name:g.name)||gameCode,nameZh:text(g.nameZh??(mega?g.OtherName:'')),category:evo?'SLOT':text(mega?g.GameType:source.id==='metagaming'?g.gameType:g.category,40),imageUrl,maintenance:mega?g.Maintenance===true||g.Maintenance===1||g.Maintenance==='true'||g.Maintenance==='1':g.maintenance===true,playable:false,...(source.id==='evo888h5'&&artwork?{artworkSource:artwork}:{})};
+  }).filter((g):g is Game=>g!==null);
+ }
+ async function boundedJson(response:Response){
+@@ -113,7 +125,7 @@ export async function getGameCatalogue(c:SyncContext,options:{force?:boolean;pro
+  const direct=directSources.filter(source=>directCatalogueConfigured(c,source.id));
+  if(!configured(c.gameGatewayUrl)&&!direct.length)return {mode:'catalogue-only',playable:false,providers:gameSources.map(s=>({id:s.id,name:s.name,status:'not_configured',count:0,catalogueSynced:false,launchVerified:false,walletVerified:false})),games:[]};
+  const available=[...(configured(c.gameGatewayUrl)?gameSources:[]),...direct];
+- const selectedProfileSource=configured(c.gameGatewayUrl)?selectProfileSource(options.providerId,options.profileId):null,sources=selectedProfileSource?[selectedProfileSource]:options.profileId&&['918kissh5','jili'].includes(options.providerId??'')?[]:options.providerId?available.filter(source=>source.id===options.providerId):available;
++ const selectedProfileSource=configured(c.gameGatewayUrl)?selectProfileSource(options.providerId,options.profileId):null,sources=selectedProfileSource?[selectedProfileSource]:options.profileId&&['918kissh5','jili','metagaming'].includes(options.providerId??'')?[]:options.providerId?available.filter(source=>source.id===options.providerId):available;
+  const time=Math.floor(c.gameSyncNow?.()??Date.now()/1000);
+  await Promise.all(sources.map(source=>synchronizeSource(c,source,!!options.force,time)));
+  const rows=(await c.db.prepare('SELECT * FROM game_catalogue_cache').all<Cache>()).results??[];
+diff --git a/lib/game-provider-registry.ts b/lib/game-provider-registry.ts
+index f24bbf7..48bb003 100644
+--- a/lib/game-provider-registry.ts
++++ b/lib/game-provider-registry.ts
+@@ -67,7 +67,7 @@ const profile = (input: ProfileInput): RegisteredGameProviderProfile => {
+ };
+ 
+ const transferProviders = new Set<GameProviderId>(['jdb', 'fuma', 'gamitech', 'spadegaming', 'cg', 'rectangle', 'evo888h5', 'venus', 'clotplay']);
+-const specializedProviders = new Set<GameProviderId>(['megah5', 'jili', '918kissh5', 'epicwin']);
++const specializedProviders = new Set<GameProviderId>(['megah5', 'jili', '918kissh5', 'metagaming', 'epicwin']);
+ 
+ const baselineProfiles = GAME_PROVIDER_IDS
+   .filter(providerId => !specializedProviders.has(providerId))
+@@ -86,6 +86,8 @@ const independentProfiles = [
+   profile({profileId: '918kiss_normal_myr', providerId: '918kissh5', displayName: '918KISS H5 · Normal MYR', adapterStatus: 'adapter_unimplemented'}),
+   profile({profileId: '918kiss_normal_my1_1to100', providerId: '918kissh5', displayName: '918KISS H5 · Normal MY1 1:100', unitScale: 100, adapterStatus: 'adapter_unimplemented'}),
+   profile({profileId: '918kiss_free_myr', providerId: '918kissh5', displayName: '918KISS H5 · Free Credit MYR', adapterStatus: 'adapter_unimplemented'}),
++  profile({profileId: 'metagaming_normal_myr', providerId: 'metagaming', displayName: 'META GAMING · Normal MYR', adapterStatus: 'adapter_unimplemented'}),
++  profile({profileId: 'metagaming_free_myr', providerId: 'metagaming', displayName: 'META GAMING · Free Credit MYR', adapterStatus: 'adapter_unimplemented'}),
+   profile({profileId: 'epicwin_normal_myr', providerId: 'epicwin', displayName: 'EPICWIN · Normal MYR', adapterStatus: 'adapter_unimplemented'}),
+   profile({profileId: 'epicwin_free_myr', providerId: 'epicwin', displayName: 'EPICWIN · Free Credit MYR', adapterStatus: 'adapter_unimplemented'}),
+   // SPRIBE must never reuse JDB's player or ledger namespace even if its future
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index 99dff3a..f7329a5 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.148-jili-transfer-wallet' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.149-meta-catalogue-isolation' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/package.json b/package.json
+index b8350ac..ee44b81 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.148-jili-transfer-wallet node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.148-jili-transfer-wallet node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.149-meta-catalogue-isolation node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.149-meta-catalogue-isolation node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.148-jili-transfer-wallet node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.149-meta-catalogue-isolation node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/assets/app.js b/public/assets/app.js
+index 8a52b07..4ac1dec 100644
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -808,6 +808,7 @@ function normalizedGameCategory(game){
+   jili:{"1":"SLOT","5":"FISH","8":"FAST GAME"},
+   megah5:{"0":"OTHERS","1":"SLOT","2":"FAST GAME","3":"LIVE","4":"FAST GAME","5":"FAST GAME","6":"FISH","7":"FAST GAME"},
+   "918kissh5":{"0":"OTHERS","1":"SLOT","2":"FAST GAME","3":"LIVE","4":"FAST GAME","5":"FAST GAME","6":"FISH","7":"FAST GAME"},
++  metagaming:{"1":"SLOT"},
+   epicwin:{"0":"OTHERS","1":"SLOT","2":"FAST GAME","3":"LIVE","4":"FAST GAME","5":"FAST GAME","6":"FISH"},
+   venus:{"1":"SLOT","2":"LIVE","3":"SPORT","4":"FAST GAME","5":"FAST GAME","6":"FISH","7":"COCK","8":"FAST GAME","9":"LIVE","10":"FAST GAME","99":"OTHERS"}
+  };
+diff --git a/public/service-worker.js b/public/service-worker.js
+index ab9eeb3..e08da24 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.148-jili-transfer-wallet';
++const CACHE='master7-shell-17.0.0-selfbuilt.149-meta-catalogue-isolation';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/tests/api.test.mjs b/tests/api.test.mjs
+index 8ac9ac6..918ae81 100644
+--- a/tests/api.test.mjs
++++ b/tests/api.test.mjs
+@@ -51,10 +51,12 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+   insert.run('jili','available',JSON.stringify([{provider:'jili',gameCode:'J-COUNT-1',secret:'cache-secret-must-not-leak'},{provider:'jili',gameCode:'J-COUNT-2'},{provider:'megah5',gameCode:'WRONG-PROVIDER'},{provider:'jili',name:'missing-code'}]),1_700_000_000,1_700_000_000,1);
+   insert.run('megah5','blocked',JSON.stringify([{provider:'megah5',gameCode:'M-COUNT-1',apiKey:'cache-api-key-must-not-leak'}]),1_699_999_000,1_699_999_000,1);
+   insert.run('918kissh5','empty','[]',1_700_000_000,1_700_000_000,1);
+-  const cached=await call(null,'/api/games','GET',undefined,{},gatewayOptions),jili=cached.data.providers.find(p=>p.id==='jili'),mega=cached.data.providers.find(p=>p.id==='megah5'),kiss=cached.data.providers.find(p=>p.id==='918kissh5');
+-  assert.equal(cached.status,200);assert.deepEqual(cached.data.games,[]);assert.equal(cached.data.totalGameCount,0);assert.equal(cached.data.gameCountScope,'current_response');assert.equal(cached.data.gamesOmittedUntilProviderSelected,true);assert.equal(cached.data.cachedGameCount,3);assert.deepEqual(cached.data.catalogueCacheSummary,{source:'database_cache',cachedGameCount:3,cachedProviderCount:3,providersWithCachedGames:2,freshCacheProviderCount:2,completeCacheProviderCount:3,missingCacheProviderCount:34});
+-  assert.deepEqual([jili.catalogueCacheStatus,jili.catalogueCacheFresh,jili.cachedGameCount],['available',true,2]);assert.deepEqual([mega.catalogueCacheStatus,mega.catalogueCacheFresh,mega.cachedGameCount],['blocked',false,1]);assert.deepEqual([kiss.catalogueCacheStatus,kiss.catalogueCacheFresh,kiss.cachedGameCount],['empty',true,0]);assert.equal(calls,0);
+-  const serialized=JSON.stringify(cached.data);for(const value of ['J-COUNT-1','J-COUNT-2','M-COUNT-1','cache-secret-must-not-leak','cache-api-key-must-not-leak','private detail'])assert.ok(!serialized.includes(value),value);
++  insert.run('metagaming_normal_myr','available',JSON.stringify([{provider:'metagaming',profileId:'metagaming_normal_myr',gameCode:'META-NORMAL-1'},{provider:'metagaming',profileId:'metagaming_normal_myr',gameCode:'META-NORMAL-2'}]),1_700_000_000,1_700_000_000,1);
++  insert.run('metagaming_free_myr','available',JSON.stringify([{provider:'metagaming',profileId:'metagaming_free_myr',gameCode:'META-FREE-1',secret:'free-cache-must-not-leak'},{provider:'metagaming',profileId:'metagaming_free_myr',gameCode:'META-FREE-2'},{provider:'metagaming',profileId:'metagaming_free_myr',gameCode:'META-FREE-3'}]),1_700_000_000,1_700_000_000,1);
++  const cached=await call(null,'/api/games','GET',undefined,{},gatewayOptions),jili=cached.data.providers.find(p=>p.id==='jili'),mega=cached.data.providers.find(p=>p.id==='megah5'),kiss=cached.data.providers.find(p=>p.id==='918kissh5'),meta=cached.data.providers.find(p=>p.id==='metagaming');
++  assert.equal(cached.status,200);assert.deepEqual(cached.data.games,[]);assert.equal(cached.data.totalGameCount,0);assert.equal(cached.data.gameCountScope,'current_response');assert.equal(cached.data.gamesOmittedUntilProviderSelected,true);assert.equal(cached.data.cachedGameCount,5);assert.deepEqual(cached.data.catalogueCacheSummary,{source:'database_cache',cachedGameCount:5,cachedProviderCount:4,providersWithCachedGames:3,freshCacheProviderCount:3,completeCacheProviderCount:4,missingCacheProviderCount:33});
++  assert.deepEqual([jili.catalogueCacheStatus,jili.catalogueCacheFresh,jili.cachedGameCount],['available',true,2]);assert.deepEqual([mega.catalogueCacheStatus,mega.catalogueCacheFresh,mega.cachedGameCount],['blocked',false,1]);assert.deepEqual([kiss.catalogueCacheStatus,kiss.catalogueCacheFresh,kiss.cachedGameCount],['empty',true,0]);assert.deepEqual([meta.catalogueCacheStatus,meta.catalogueCacheFresh,meta.cachedGameCount],['available',true,2],'free-credit cache must not replace or aggregate the normal supplier summary');assert.equal(calls,0);
++  const serialized=JSON.stringify(cached.data);for(const value of ['J-COUNT-1','J-COUNT-2','M-COUNT-1','META-NORMAL-1','META-FREE-1','cache-secret-must-not-leak','cache-api-key-must-not-leak','free-cache-must-not-leak','private detail'])assert.ok(!serialized.includes(value),value);
+   sqlite.exec('DELETE FROM game_catalogue_cache');
+  });
+  await t.test('anonymous access exposes no admin or ticket data',async()=>{assert.equal((await call(null,'/health')).status,200);assert.equal((await call(null,'/api/session')).data.user,null);assert.equal((await call(null,'/api/admin/summary')).status,401);assert.equal((await call(null,'/api/tickets')).status,401);});
+@@ -62,7 +64,7 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+  await t.test('CSRF, foreign origins and privilege escalation rejected',async()=>{assert.equal((await call('owner','/api/admin/approve','POST',{userId:'alice'},{'x-csrf-token':'bad'})).status,403);assert.equal((await call('owner','/api/admin/approve','POST',{userId:'alice'},{origin:'https://evil.test'})).status,403);assert.equal((await call('owner','/api/admin/role','POST',{userId:'alice',role:'owner'})).status,400);assert.equal((await call('owner','/api/admin/role','POST',{userId:'owner',role:'member'})).status,403);});
+  await t.test('owner approval and staff assignment persist',async()=>{assert.equal((await call('owner','/api/admin/approve','POST',{userId:'alice'})).status,200);assert.equal((await call('owner','/api/admin/approve','POST',{userId:'bob'})).status,200);assert.equal((await call('owner','/api/admin/role','POST',{userId:'employee',role:'staff'})).status,200);assert.equal((await call('employee','/api/admin/users')).status,403);assert.equal((await call('alice','/api/admin/summary')).status,403);assert.equal((await call('employee','/api/admin/approve','POST',{userId:'bob'})).status,403);});
+  await t.test('owner appends provider acceptance while staff has read-only evidence access',async()=>{
+-  const initial=await call('employee','/api/admin/game-acceptance?environment=production');assert.equal(initial.status,200);assert.equal(initial.data.profiles.length,42);assert.ok(initial.data.profiles.every(profile=>profile.accepted===false));assert.equal((await call('alice','/api/admin/game-acceptance')).status,403);
++  const initial=await call('employee','/api/admin/game-acceptance?environment=production');assert.equal(initial.status,200);assert.equal(initial.data.profiles.length,43);assert.ok(initial.data.profiles.every(profile=>profile.accepted===false));assert.equal((await call('alice','/api/admin/game-acceptance')).status,403);
+   const at=Math.floor(Date.now()/1000),input={profileId:'megah5_myr',capability:'catalogue',environment:'production',result:'passed',evidenceSha256:'a'.repeat(64),evidenceReference:'case:api-acceptance-1',observedAt:at,expectedEventId:null};
+   assert.equal((await call('employee','/api/admin/game-acceptance','POST',input)).status,403);
+   const saved=await call('owner','/api/admin/game-acceptance','POST',input);assert.equal(saved.status,201);assert.equal(saved.data.accepted,true);
+diff --git a/tests/game-catalogue.test.mjs b/tests/game-catalogue.test.mjs
+index c226c3d..02685e2 100644
+--- a/tests/game-catalogue.test.mjs
++++ b/tests/game-catalogue.test.mjs
+@@ -22,6 +22,7 @@ function fixture(t){
+   if(provider==='megah5')return Response.json({result:{Status:200,Game:state.empty?[]:[{GameCode:'1',GameName:'Mega title',Maintenance:'false'}]}});
+   if(provider==='evo888h5')return Response.json({result:{code:0,data:state.empty?[]:[{gameid:'1',title:'EVO title',thumbnail:state.image,privateToken:'must-not-leak',weekturnover:90000}]}});
+   if(provider==='918kissh5')return Response.json({provider,account:u.searchParams.get('account'),currency:u.searchParams.get('account')==='my1'?'MY1':'MYR',games:rows});
++  if(provider==='metagaming')return Response.json({provider,account:u.searchParams.get('account'),currency:'MYR',games:rows});
+   return Response.json({games:rows});
+  }};return {sql,c,state};
+ }
+@@ -120,3 +121,43 @@ test('918KISS profile metadata mismatch cannot overwrite or borrow another profi
+  assert.equal(data.providers[0].status,'blocked');assert.equal(data.providers[0].stale,true);assert.equal(data.games.length,88);assert.ok(data.games.every(game=>game.profileId===freeProfile&&game.catalogueAccount==='free'&&game.gameCode.startsWith('free-')&&game.maintenance===true));
+  assert.equal(sql.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').get(freeProfile).games_json,stored);assert.ok(!JSON.stringify(data).includes('normal-only'));
+ });
++
++test('META GAMING normal and free-credit catalogues use fixed paths and isolated cache keys',async t=>{
++ const {sql,c}=fixture(t),requests=[];
++ const definitions=[
++  ['metagaming_normal_myr','normal'],
++  ['metagaming_free_myr','free'],
++ ];
++ const isolated={...c,gameGatewayFetch:async(url,init)=>{
++  const parsed=new URL(url),account=parsed.searchParams.get('account');
++  assert.equal(parsed.origin,c.gameGatewayUrl);assert.equal(parsed.pathname,'/providers/metagaming/games');assert.equal(init.method,'GET');assert.ok(definitions.some(([,value])=>value===account));
++  requests.push(parsed.pathname+parsed.search);
++  return Response.json({apiVersion:'3.4.8',provider:'metagaming',account,currency:'MYR',games:[{gameCode:`${account}-1`,name:`${account} title`,gameType:1,imageUrl:'https://unverified.example.test/thumbs/Web/10000.png',hasDemo:true}]});
++ }};
++ for(const [profileId,account] of definitions){
++  const data=await getGameCatalogue(isolated,{providerId:'metagaming',profileId});
++  assert.equal(data.providers.length,1);assert.equal(data.providers[0].catalogueProfileId,profileId);assert.equal(data.providers[0].catalogueAccount,account);assert.equal(data.providers[0].providerCurrency,'MYR');assert.equal(data.providers[0].count,1);
++  assert.deepEqual(data.games.map(game=>({profileId:game.profileId,account:game.catalogueAccount,currency:game.providerCurrency,code:game.gameCode,category:game.category,playable:game.playable,imageUrl:game.imageUrl})),[{profileId,account,currency:'MYR',code:`${account}-1`,category:'1',playable:false,imageUrl:'/assets/providers/metagaming.webp'}]);
++  assert.equal(await cachedGameArtwork(isolated,'metagaming',`${account}-1`,profileId),null,'the official document supplies no concrete thumbnail host');
++ }
++ assert.deepEqual(requests,definitions.map(([,account])=>`/providers/metagaming/games?account=${account}`));
++ assert.deepEqual(sql.prepare("SELECT provider_id FROM game_catalogue_cache WHERE provider_id LIKE 'metagaming_%' ORDER BY provider_id").all().map(row=>row.provider_id),definitions.map(([profileId])=>profileId).sort());
++ const noNetwork={...isolated,gameGatewayFetch:async()=>{throw Error('fresh META profile snapshots must not contact the gateway');}};
++ for(const [profileId,account] of definitions){const data=await getGameCatalogue(noNetwork,{providerId:'metagaming',profileId});assert.equal(data.games.length,1);assert.equal(data.games[0].gameCode,`${account}-1`);}
++});
++
++test('META GAMING rejects provider, account or currency metadata mismatches without crossing profile snapshots',async t=>{
++ const {sql,c,state}=fixture(t),profileId='metagaming_free_myr',goodGames=[{gameCode:'free-1',name:'Free title'}];
++ let data=await getGameCatalogue({...c,gameGatewayFetch:async()=>Response.json({provider:'metagaming',account:'free',currency:'MYR',games:goodGames})},{providerId:'metagaming',profileId});
++ assert.equal(data.games.length,1);const stored=sql.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').get(profileId).games_json;
++ for(const mismatch of [
++  {provider:'megah5',account:'free',currency:'MYR'},
++  {provider:'metagaming',account:'normal',currency:'MYR'},
++  {provider:'metagaming',account:'free',currency:'MY1'},
++ ]){
++  state.time+=301;
++  data=await getGameCatalogue({...c,gameGatewayFetch:async()=>Response.json({...mismatch,games:[{gameCode:'foreign-1',name:'Foreign title'}]})},{providerId:'metagaming',profileId});
++  assert.equal(data.providers[0].status,'blocked');assert.equal(data.providers[0].stale,true);assert.equal(data.games.length,1);assert.equal(data.games[0].gameCode,'free-1');assert.equal(data.games[0].maintenance,true);assert.ok(!JSON.stringify(data).includes('foreign-1'));
++  assert.equal(sql.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').get(profileId).games_json,stored);
++ }
++});
+diff --git a/tests/game-launch.test.mjs b/tests/game-launch.test.mjs
+index f4f53d8..3e41850 100644
+--- a/tests/game-launch.test.mjs
++++ b/tests/game-launch.test.mjs
+@@ -44,6 +44,12 @@ function harness(){
+    catalogueCalls.push({path,account,currency});
+    return Response.json({provider:'918kissh5',account,currency,games:Array.from({length:count},(_,index)=>({gameCode:`${account}-${index+1}`,name:`${account} title ${index+1}`,category:'SLOT'}))});
+   }
++  if(path==='/providers/metagaming/games'){
++   const account=parsed.searchParams.get('account'),currency='MYR',count=account==='free'?2:3;
++   if(!['normal','free'].includes(account))throw Error('Unexpected META GAMING account: '+account);
++   catalogueCalls.push({path,account,currency});
++   return Response.json({apiVersion:'3.4.8',provider:'metagaming',account,currency,games:Array.from({length:count},(_,index)=>({gameCode:`meta-${account}-${index+1}`,name:`META ${account} ${index+1}`,gameType:1,imageUrl:'https://unverified.example.test/thumbs/Web/10000.png',hasDemo:true}))});
++  }
+   calls.push({path,method:init.method,authorization:new Headers(init.headers).get('authorization'),body:init.body?JSON.parse(init.body):null});
+   if(path==='/providers/megah5/games')return Response.json({provider:'megah5',result:{Status:200,Game:[{GameCode:'55021',GameName:'Ocean Quest',GameType:'2'}]}});
+   if(path==='/platform/megah5/session')return Response.json({provider:'megah5',upstreamStatus:200,result:{Status:fixture.sessionStatus,Url:'https://launch.example.test/session'}});
+@@ -107,6 +113,22 @@ test('918KISS profile selection returns only its independent normal, MY1 or free
+  }finally{h.close();}
+ });
+ 
++test('META GAMING profile selection keeps normal and free-credit catalogues isolated and unplayable',async()=>{
++ const h=harness();try{
++  const cases=[['metagaming_free_myr','free',2],['metagaming_normal_myr','normal',3]];
++  for(const [profileId,account,count] of cases){
++   const response=await h.request(`/api/games?profileId=${encodeURIComponent(profileId)}`);assert.equal(response.status,200);
++   assert.equal(response.data.selectedProvider,'metagaming');assert.equal(response.data.selectedProfileId,profileId);assert.equal(response.data.selectedProfile.profileId,profileId);
++   assert.equal(response.data.selectedPlatform.catalogueProfileId,profileId);assert.equal(response.data.selectedPlatform.catalogueAccount,account);assert.equal(response.data.selectedPlatform.providerCurrency,'MYR');assert.equal(response.data.selectedPlatform.cachedGameCount,count);
++   assert.equal(response.data.selectedPlatform.connectionVerified,true);assert.equal(response.data.selectedPlatform.catalogueCacheStatus,'available');assert.equal(response.data.selectedPlatform.catalogueCacheFresh,true);
++   assert.equal(response.data.games.length,count);assert.ok(response.data.games.every(game=>game.profileId===profileId&&game.catalogueAccount===account&&game.providerCurrency==='MYR'&&game.gameCode.startsWith(`meta-${account}-`)&&game.category==='1'&&game.imageUrl==='/assets/providers/metagaming.webp'&&game.playable===false));
++   assert.equal(response.data.playable,false);assert.equal(response.data.liveReady,false);assert.equal(response.data.launchProvider,null);
++  }
++  assert.deepEqual(h.catalogueCalls.map(call=>[call.account,call.currency]),[['free','MYR'],['normal','MYR']]);
++  assert.deepEqual(h.sqlite.prepare("SELECT provider_id FROM game_catalogue_cache WHERE provider_id LIKE 'metagaming_%' ORDER BY provider_id").all().map(row=>row.provider_id),cases.map(([profileId])=>profileId).sort());
++ }finally{h.close();}
++});
++
+ test('non-executable and mismatched launch profiles fail before any game state or supplier request',async()=>{
+  const h=harness();try{
+   const cases=[
+diff --git a/tests/game-provider-acceptance.test.mjs b/tests/game-provider-acceptance.test.mjs
+index 809173a..d6f7f32 100644
+--- a/tests/game-provider-acceptance.test.mjs
++++ b/tests/game-provider-acceptance.test.mjs
+@@ -34,7 +34,7 @@ const evidence=(overrides={})=>({profileId:'megah5_myr',capability:'catalogue',e
+ test('acceptance defaults every registered profile and capability to false',async t=>{
+  const f=fixture(t),report=await getGameProviderAcceptance(f.db,staff,{environment:'production'});
+  assert.equal(report.profiles.length,GAME_PROVIDER_PROFILES.length);
+- assert.equal(report.profiles.filter(item=>item.listedInLobby).length,41);
++ assert.equal(report.profiles.filter(item=>item.listedInLobby).length,42);
+  assert.deepEqual(report.events,[]);
+  for(const profile of report.profiles){
+   assert.equal(profile.accepted,false,profile.profileId);
+@@ -43,7 +43,7 @@ test('acceptance defaults every registered profile and capability to false',asyn
+   }
+  }
+  const readiness=await getGameProviderAcceptanceReadiness(f.db,['megah5_myr']);
+- assert.deepEqual({required:readiness.requiredProfileCount,accepted:readiness.acceptedProfileCount,live:readiness.liveProfileCount,verified:readiness.allGamesVerified,liveGames:readiness.liveGames},{required:41,accepted:0,live:0,verified:false,liveGames:false});
++ assert.deepEqual({required:readiness.requiredProfileCount,accepted:readiness.acceptedProfileCount,live:readiness.liveProfileCount,verified:readiness.allGamesVerified,liveGames:readiness.liveGames},{required:42,accepted:0,live:0,verified:false,liveGames:false});
+ });
+ 
+ test('only an owner can append evidence while staff can read the immutable history',async t=>{
+diff --git a/tests/game-provider-registry.test.mjs b/tests/game-provider-registry.test.mjs
+index 254dfa8..7da5025 100644
+--- a/tests/game-provider-registry.test.mjs
++++ b/tests/game-provider-registry.test.mjs
+@@ -35,9 +35,14 @@ test('every profile has isolated player and ledger namespaces and remains unveri
+ test('known multi-account suppliers keep exact independent profiles and scales', () => {
+   assert.deepEqual(getGameProviderProfiles('jili').map(item => item.profileId), ['jili_myr_1to1', 'jili_my1_1to100']);
+   assert.deepEqual(getGameProviderProfiles('918kissh5').map(item => item.profileId), ['918kiss_normal_myr', '918kiss_normal_my1_1to100', '918kiss_free_myr']);
++  assert.deepEqual(getGameProviderProfiles('metagaming').map(item => item.profileId), ['metagaming_normal_myr', 'metagaming_free_myr']);
+   assert.deepEqual(getGameProviderProfiles('epicwin').map(item => item.profileId), ['epicwin_normal_myr', 'epicwin_free_myr']);
+   assert.equal(getGameProviderProfile('jili_my1_1to100').unitScale, 100);
+   assert.equal(getGameProviderProfile('918kiss_normal_my1_1to100').unitScale, 100);
++  const metaNormal=getGameProviderProfile('metagaming_normal_myr'),metaFree=getGameProviderProfile('metagaming_free_myr');
++  assert.equal(metaNormal.adapterStatus,'adapter_unimplemented');assert.equal(metaFree.adapterStatus,'adapter_unimplemented');
++  assert.equal(metaNormal.balanceClass,'cash');assert.equal(metaFree.balanceClass,'free_credit');
++  assert.notEqual(metaNormal.playerNamespace,metaFree.playerNamespace);assert.notEqual(metaNormal.ledgerNamespace,metaFree.ledgerNamespace);
+ });
+ 
+ test('SPRIBE is independent from JDB while remaining outside the current 37 lobby brands', () => {
+@@ -71,6 +76,8 @@ test('implemented MegaH5 and JDB profiles resolve an injected executable adapter
+ test('all unavailable adapter operations fail closed with a precise reason', async () => {
+   for (const [profileId, expectedReason] of [
+     ['jili_myr_1to1', 'adapter_unimplemented'],
++    ['metagaming_normal_myr', 'adapter_unimplemented'],
++    ['metagaming_free_myr', 'adapter_unimplemented'],
+     ['fuma_myr', 'contract_missing'],
+     ['unknown_profile', 'contract_missing'],
+   ]) {
+diff --git a/tests/lobby-render.test.mjs b/tests/lobby-render.test.mjs
+index 47217a0..bd35333 100644
+--- a/tests/lobby-render.test.mjs
++++ b/tests/lobby-render.test.mjs
+@@ -47,6 +47,14 @@ test('category filters classify platform entries without duplicating or inventin
+  assert.doesNotMatch(html,/id="category"/);assert.doesNotMatch(source,/recommendedCatalog|\$\("category"\)/);
+ });
+ 
++test('META GAMING documented GameType 1 is a slot while unknown codes remain uncategorized',()=>{
++ const start=source.indexOf('function normalizedGameCategory('),end=source.indexOf('\nfunction gameIdentity(',start),context={};assert.ok(start>=0&&end>start);
++ vm.runInNewContext(`${source.slice(start,end)}\nthis.category=normalizedGameCategory;`,context);
++ assert.equal(context.category({provider:'metagaming',category:'1'}),'SLOT');
++ assert.equal(context.category({provider:'metagaming',category:'2'}),'OTHERS');
++ assert.equal(context.category({provider:'unknown',category:'1'}),'OTHERS');
++});
++
+ test('customer rendering expands only the selected supplier into safe game cards',()=>{
+  const start=source.indexOf('function publicGameCard('),end=source.indexOf('\nfunction renderCarousel()',start),renderSource=source.slice(start,end),openStart=source.indexOf('function openCatalogProvider('),openEnd=source.indexOf('\nfunction openProviderBonus',openStart),openSource=source.slice(openStart,openEnd);
+  assert.match(renderSource,/game-card|gameCode|state\.games|startGame/);
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index 8b78bb4..a4c9419 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.148-jili-transfer-wallet';
++const release='17.0.0-selfbuilt.149-meta-catalogue-isolation';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+diff --git a/tests/operations-intelligence-api.test.mjs b/tests/operations-intelligence-api.test.mjs
+index 5db7ad8..92278be 100644
+--- a/tests/operations-intelligence-api.test.mjs
++++ b/tests/operations-intelligence-api.test.mjs
+@@ -57,7 +57,7 @@ function fixture(t){
+   INSERT INTO accounting_job_runs VALUES('close-1',${stamp-86400},${stamp-1200},NULL,'running','','private-accounting-error');
+   INSERT INTO audit VALUES('audit-seed','owner','seed','private-audit-target',${stamp});
+  `);
+- const expectedGateway=['megah5','jili','jdb','pragmaticplay','918kissh5','evo888h5','epicwin','venus','clotplay'];
++ const expectedGateway=['megah5','jili','jdb','pragmaticplay','918kissh5','metagaming_normal_myr','evo888h5','epicwin','venus','clotplay'];
+  const insertCache=sqlite.prepare('INSERT INTO game_catalogue_cache VALUES(?,?,?,?,?)');
+  for(const id of [...expectedGateway,'rectangle'])insertCache.run(id,'available',stamp,stamp,1);
+  insertCache.run('atg','unavailable',stamp,0,0);
