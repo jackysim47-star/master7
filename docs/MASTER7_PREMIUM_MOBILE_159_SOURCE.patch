@@ -1,0 +1,1076 @@
+diff --git a/app/portal.html b/app/portal.html
+index 7ddfac2..ef0a1ff 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.157-member-guide-polish">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.157-member-guide-polish">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.157-member-guide-polish">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.157-member-guide-polish">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.157-member-guide-polish">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.157-member-guide-polish">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.157-member-guide-polish">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.157-member-guide-polish">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.157-member-guide-polish">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.157-member-guide-polish">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.157-member-guide-polish">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.157-member-guide-polish">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.157-member-guide-polish">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.157-member-guide-polish">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.159-premium-mobile">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.159-premium-mobile">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.159-premium-mobile">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.159-premium-mobile">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.159-premium-mobile">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.159-premium-mobile">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.159-premium-mobile">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.159-premium-mobile">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.159-premium-mobile">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.159-premium-mobile">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.159-premium-mobile">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.159-premium-mobile">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.159-premium-mobile">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.159-premium-mobile">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+@@ -105,52 +105,52 @@
+       <div class="hero">
+         <div class="hero-copy">
+           <p class="eyebrow" data-i18n="eyebrow">MASTER7 · PREMIUM EXPERIENCE</p>
+-          <h1><span data-i18n="heroTitle">精彩游戏</span><br><em data-i18n="heroAccent">尽在 MASTER7。</em></h1>
+-          <p class="intro" data-i18n="heroDescription">热门老虎机、真人、捕鱼与体育专区，尊享会员优惠与服务。</p>
++          <h1><span data-i18n="heroTitle">Premium games</span><br><em data-i18n="heroAccent">One MASTER7 experience.</em></h1>
++          <p class="intro" data-i18n="heroDescription">Explore slots, live casino, fishing and sports with member rewards and service in one place.</p>
+           <div class="hero-actions">
+-            <button id="exploreButton" class="button button-primary" data-i18n="explore">立即探索游戏</button>
+-            <button id="aboutButton" class="button button-outline" data-i18n="viewStatus">查看平台状态</button>
++            <button id="exploreButton" class="button button-primary" data-i18n="explore">Explore games</button>
++            <button id="aboutButton" class="button button-outline" data-i18n="viewStatus">Platform status</button>
+           </div>
+         </div>
+         <div class="hero-display" aria-label="MASTER7 premium lobby">
+           <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+           <img class="hero-monogram hero-logo" src="/assets/seven-emblem.png" alt="MASTER7">
+-          <div class="version-panel"><span data-i18n="previewLabel">尊贵会员平台</span><b>MASTER7</b><small>PREMIUM MEMBER CLUB</small></div>
++          <div class="version-panel"><span data-i18n="previewLabel">Premium member platform</span><b>MASTER7</b><small>PREMIUM MEMBER CLUB</small></div>
+         </div>
+       </div>
+       <div class="feature-grid">
+-        <div class="feature"><span class="feature-icon">🌐</span><h3 data-i18n="featureLang">三种语言</h3><p data-i18n="featureLangDesc">中文、英文、马来文切换</p></div>
+-        <div class="feature"><span class="feature-icon" aria-hidden="true"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg></span><h3 data-i18n="featureOtp">安全登录</h3><p data-i18n="featureOtpDesc">MASTER7 ID + Malaysian mobile</p></div>
+-        <div class="feature"><span class="feature-icon">🛡️</span><h3 data-i18n="featureStaff">员工权限</h3><p data-i18n="featureStaffDesc">管理员、员工和会员分级</p></div>
+-        <div class="feature"><span class="feature-icon">📋</span><h3 data-i18n="featureAudit">操作记录</h3><p data-i18n="featureAuditDesc">审批和更改可追踪</p></div>
++        <div class="feature"><span class="feature-icon">🌐</span><h3 data-i18n="featureLang">Three languages</h3><p data-i18n="featureLangDesc">Chinese, English and Malay</p></div>
++        <div class="feature"><span class="feature-icon" aria-hidden="true"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg></span><h3 data-i18n="featureOtp">Secure sign-in</h3><p data-i18n="featureOtpDesc">MASTER7 ID + Malaysian mobile</p></div>
++        <div class="feature"><span class="feature-icon">🛡️</span><h3 data-i18n="featureStaff">Staff permissions</h3><p data-i18n="featureStaffDesc">Admin, staff and member roles</p></div>
++        <div class="feature"><span class="feature-icon">📋</span><h3 data-i18n="featureAudit">Audit history</h3><p data-i18n="featureAuditDesc">Traceable approvals and changes</p></div>
+       </div>
+-      <div class="section-header"><div><p class="eyebrow">SYSTEM NOTICE</p><h2 data-i18n="announcements">系统公告</h2></div><span class="tiny-label">MEMBER EXCLUSIVE</span></div>
+-      <div id="announcements" class="announcement-list"><p class="muted" data-i18n="loading">读取中…</p></div>
++      <div class="section-header"><div><p class="eyebrow">SYSTEM NOTICE</p><h2 data-i18n="announcements">System notices</h2></div><span class="tiny-label">MEMBER EXCLUSIVE</span></div>
++      <div id="announcements" class="announcement-list"><p class="muted" data-i18n="loading">Loading…</p></div>
+     </section>
+ 
+     <section id="vip" class="section vip-center" aria-labelledby="vipCenterTitle">
+       <header class="vip-hero">
+-        <div class="vip-hero-copy"><p class="eyebrow">MASTER7 VIP · MEMBER PRIVILEGES</p><h1 id="vipCenterTitle">VIP 会员中心</h1><p>八个会员等级、升级与保级、专属礼金、Cashback、分红和介绍人佣金集中在这里。</p><div id="vipProgramBadges" class="vip-status-row" aria-live="polite"><span class="vip-status-chip pending">正在读取 VIP 配套</span></div></div>
++        <div class="vip-hero-copy"><p class="eyebrow">MASTER7 VIP · MEMBER PRIVILEGES</p><h1 id="vipCenterTitle" data-member-zh="VIP 会员中心">VIP Member Center</h1><p data-member-zh="八个会员等级、升级与保级、专属礼金、Cashback、分红和介绍人佣金集中在这里。">Eight membership tiers, upgrades, retention, exclusive bonuses, cashback, dividends and referral commission in one place.</p><div id="vipProgramBadges" class="vip-status-row" aria-live="polite"><span class="vip-status-chip pending" data-member-zh="正在读取 VIP 配套">Loading VIP program</span></div></div>
+         <div class="vip-crest" aria-hidden="true"><span>♛</span><strong>MASTER7</strong><small>VIP CLUB</small></div>
+       </header>
+-      <p id="vipProgramNotice" class="verification-note pending">VIP 配套仍在读取。只有已验收的数据源才会自动计算或派发。</p>
++      <p id="vipProgramNotice" class="verification-note pending" data-member-zh="VIP 配套仍在读取。只有已验收的数据源才会自动计算或派发。">The VIP program is loading. Only accepted data sources can calculate or issue benefits automatically.</p>
+       <section id="vipMemberPanel" class="surface vip-member-panel" hidden aria-labelledby="vipMemberTitle">
+-        <div class="vip-member-heading"><div><p class="eyebrow">MY VIP STATUS</p><h2 id="vipMemberTitle">会员等级进度</h2></div><span id="vipCurrentTier" class="vip-current-tier">—</span></div>
++        <div class="vip-member-heading"><div><p class="eyebrow">MY VIP STATUS</p><h2 id="vipMemberTitle" data-member-zh="会员等级进度">Tier progress</h2></div><span id="vipCurrentTier" class="vip-current-tier">—</span></div>
+         <div id="vipMemberStats" class="stats"></div>
+-        <div class="vip-progress-wrap"><div class="vip-progress-label"><span id="vipProgressLabel">等待会员资料</span><strong id="vipProgressPercent">0%</strong></div><div class="vip-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="vipProgressBar"></span></div></div>
++        <div class="vip-progress-wrap"><div class="vip-progress-label"><span id="vipProgressLabel" data-member-zh="等待会员资料">Waiting for member details</span><strong id="vipProgressPercent">0%</strong></div><div class="vip-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="vipProgressBar"></span></div></div>
+       </section>
+-      <section class="vip-showcase" aria-labelledby="vipTierTitle"><div class="vip-section-heading"><div><p class="eyebrow">8 VIP LEVELS</p><h2 id="vipTierTitle">会员等级</h2></div><span>名称与条件由管理员配置；等级及配色固定</span></div><div id="vipTierGrid" class="vip-tier-grid"><p class="muted">Loading VIP tiers…</p></div></section>
+-      <section class="surface vip-benefit-panel" aria-labelledby="vipBenefitTitle"><div class="vip-section-heading"><div><p class="eyebrow">LEVEL PRIVILEGES</p><h2 id="vipBenefitTitle">VIP 权益与 Cashback</h2></div><span>按等级独立配置</span></div><div id="vipBenefitMatrix" class="vip-matrix-scroll"><p class="muted">Loading benefits…</p></div></section>
++      <section class="vip-showcase" aria-labelledby="vipTierTitle"><div class="vip-section-heading"><div><p class="eyebrow">8 VIP LEVELS</p><h2 id="vipTierTitle" data-member-zh="会员等级">VIP tiers</h2></div><span data-member-zh="名称与条件由管理员配置；等级及配色固定">Names and conditions are configured by management; levels and colours are fixed.</span></div><div id="vipTierGrid" class="vip-tier-grid"><p class="muted">Loading VIP tiers…</p></div></section>
++      <section class="surface vip-benefit-panel" aria-labelledby="vipBenefitTitle"><div class="vip-section-heading"><div><p class="eyebrow">LEVEL PRIVILEGES</p><h2 id="vipBenefitTitle" data-member-zh="VIP 权益与 Cashback">VIP benefits and cashback</h2></div><span data-member-zh="按等级独立配置">Configured separately for each tier</span></div><div id="vipBenefitMatrix" class="vip-matrix-scroll"><p class="muted">Loading benefits…</p></div></section>
+       <section class="surface vip-commission-center" aria-labelledby="vipCommissionTitle">
+-        <div class="vip-section-heading"><div><p class="eyebrow">COMMISSION CENTER · 独立账本</p><h2 id="vipCommissionTitle">介绍人佣金</h2><p class="muted">三类佣金同页查看、独立开关、独立结算；同一笔交易不会重复派发。</p></div><span id="vipCommissionLedgerStatus" class="vip-status-chip pending">NO WALLET CREDIT</span></div>
++        <div class="vip-section-heading"><div><p class="eyebrow" data-member-zh="COMMISSION CENTER · 独立账本">COMMISSION CENTER · SEPARATE LEDGERS</p><h2 id="vipCommissionTitle" data-member-zh="介绍人佣金">Referral commission</h2><p class="muted" data-member-zh="三类佣金同页查看、独立开关、独立结算；同一笔交易不会重复派发。">View three commission types together, with separate controls and settlement. A transaction is never credited twice.</p></div><span id="vipCommissionLedgerStatus" class="vip-status-chip pending">NO WALLET CREDIT</span></div>
+         <div class="vip-commission-grid">
+-          <article><span class="vip-module-icon">＋</span><h3>Deposit Commission</h3><strong id="vipDepositCommissionStatus">等待连接</strong><p>只依据已成功入账的存款计算。待处理、失败、重复回调和退款不计佣金。</p><div id="vipDepositCommissionRates" class="vip-level-rates">L1 — · L2 — · L3 —</div></article>
+-          <article><span class="vip-module-icon">↻</span><h3>Turnover Commission</h3><strong id="vipTurnoverCommissionStatus">等待投注数据</strong><p>必须接通并验收有效投注来源后才计算，避免用存款冒充 Turnover。</p><div id="vipTurnoverCommissionRates" class="vip-level-rates">L1 — · L2 — · L3 —</div></article>
+-          <article><span class="vip-module-icon">◇</span><h3>Company Profit Dividend</h3><strong id="vipProfitCommissionStatus">等待结算数据</strong><p>公司利润须先扣除提款、红利和厂家结算，完成对账后才可分红。</p><div id="vipProfitCommissionRates" class="vip-level-rates">L1 — · L2 — · L3 —</div></article>
++          <article><span class="vip-module-icon">＋</span><h3>Deposit Commission</h3><strong id="vipDepositCommissionStatus" data-member-zh="等待连接">Awaiting connection</strong><p data-member-zh="只依据已成功入账的存款计算。待处理、失败、重复回调和退款不计佣金。">Calculated only from successfully credited deposits. Pending, failed, duplicate-callback and refunded deposits do not qualify.</p><div id="vipDepositCommissionRates" class="vip-level-rates">L1 — · L2 — · L3 —</div></article>
++          <article><span class="vip-module-icon">↻</span><h3>Turnover Commission</h3><strong id="vipTurnoverCommissionStatus" data-member-zh="等待投注数据">Awaiting wager data</strong><p data-member-zh="必须接通并验收有效投注来源后才计算，避免用存款冒充 Turnover。">Calculated only after a verified valid-wager source is connected, so deposits cannot be treated as turnover.</p><div id="vipTurnoverCommissionRates" class="vip-level-rates">L1 — · L2 — · L3 —</div></article>
++          <article><span class="vip-module-icon">◇</span><h3>Company Profit Dividend</h3><strong id="vipProfitCommissionStatus" data-member-zh="等待结算数据">Awaiting settlement data</strong><p data-member-zh="公司利润须先扣除提款、红利和厂家结算，完成对账后才可分红。">Company profit must account for withdrawals, bonuses and provider settlement before a reconciled dividend is available.</p><div id="vipProfitCommissionRates" class="vip-level-rates">L1 — · L2 — · L3 —</div></article>
+         </div>
+         <div id="vipCommissionDetails" class="vip-commission-details"></div>
+       </section>
+-      <p class="vip-disclosure">VIP 礼金、Cashback、分红与介绍佣金分别记账。显示“等待连接”或“关闭”的项目不会自动增加会员钱包。</p>
++      <p class="vip-disclosure" data-member-zh="VIP 礼金、Cashback、分红与介绍佣金分别记账。显示“等待连接”或“关闭”的项目不会自动增加会员钱包。">VIP bonuses, cashback, dividends and referral commission use separate ledgers. Items marked awaiting connection or off do not add funds to the member wallet.</p>
+     </section>
+ 
+     <section id="rewards" class="section rewards-center" aria-labelledby="rewardsTitle">
+@@ -170,25 +170,25 @@
+         <div id="promotionsPublishedList" class="promotion-card-list" aria-live="polite"><p class="promotions-empty">Loading published promotions…</p></div>
+         <p class="promotions-disclosure">Promotion cards show published information only. Eligibility review, reward processing, wallet credit and turnover status follow the terms shown for each offer.</p>
+       </section>
+-      <p id="rewardsNotice" class="rewards-noncash">正在核对 Rewards Hub 状态。</p>
+-      <p id="rewardsLoginNotice" class="surface rewards-empty">登录会员账号后可查看个人积分、签到与任务进度。</p>
++      <p id="rewardsNotice" class="rewards-noncash" data-member-zh="正在核对 Rewards Hub 状态。">Checking Rewards Hub status.</p>
++      <p id="rewardsLoginNotice" class="surface rewards-empty" data-member-zh="登录会员账号后可查看个人积分、签到与任务进度。">Sign in to view your points, check-in and mission progress.</p>
+       <div id="rewardsMemberArea" class="stack" hidden>
+         <div class="rewards-member-overview">
+-          <section class="rewards-points-card" aria-labelledby="rewardsPointsHeading"><div><p id="rewardsPointsHeading" class="eyebrow">NON-CASH POINTS</p><strong id="rewardsPointsBalance">0</strong><span id="rewardsPointsName">Lucky Points</span><p class="rewards-meta">无现金价值 · 不进入会员真钱钱包 · 暂不可兑换</p></div><div class="rewards-points-orb" aria-hidden="true">LP</div></section>
+-          <section class="rewards-checkin-card"><p class="eyebrow">MYT DAILY CHECK-IN</p><strong id="rewardsCheckInMeta">连续 0 天</strong><p class="rewards-meta">每天只记录一次，重复点击不会重复发点。</p></section>
++          <section class="rewards-points-card" aria-labelledby="rewardsPointsHeading"><div><p id="rewardsPointsHeading" class="eyebrow">NON-CASH POINTS</p><strong id="rewardsPointsBalance">0</strong><span id="rewardsPointsName">Lucky Points</span><p class="rewards-meta" data-member-zh="无现金价值 · 不进入会员真钱钱包 · 暂不可兑换">No cash value · Not added to the real-money wallet · Redemption unavailable</p></div><div class="rewards-points-orb" aria-hidden="true">LP</div></section>
++          <section class="rewards-checkin-card"><p class="eyebrow">MYT DAILY CHECK-IN</p><strong id="rewardsCheckInMeta" data-member-zh="连续 0 天">0-day streak</strong><p class="rewards-meta" data-member-zh="每天只记录一次，重复点击不会重复发点。">Recorded once per day; repeated clicks do not issue points twice.</p></section>
+         </div>
+-        <section class="rewards-panel" aria-labelledby="rewardsCheckInTitle"><div class="rewards-section-heading"><div><p class="eyebrow">7-DAY CYCLE</p><h2 id="rewardsCheckInTitle">每日签到</h2></div><span class="rewards-meta">Asia/Kuching · MYT</span></div><div id="rewardsWeek" class="rewards-week"></div><div class="rewards-checkin-actions"><span class="rewards-meta">积分只写入 Rewards 非现金账本。</span><button id="rewardsCheckIn" type="button" class="button button-primary" disabled>签到尚未开放</button></div></section>
+-        <section hidden class="rewards-panel" aria-labelledby="rewardsMissionsTitle"><div class="rewards-section-heading"><div><p class="eyebrow">VERIFIED MISSIONS</p><h2 id="rewardsMissionsTitle">任务进度</h2></div><span class="rewards-meta">未连接的数据不能完成或领奖</span></div><div id="rewardsMissions" class="rewards-grid"></div></section>
+-        <section hidden class="rewards-panel" aria-labelledby="rewardsReferralTitle"><div class="rewards-section-heading"><div><p class="eyebrow">DIRECT REFERRAL MILESTONES</p><h2 id="rewardsReferralTitle">推荐里程碑</h2></div><span class="rewards-chip ready"><span id="rewardsQualifiedReferrals">0</span>&nbsp; QUALIFIED</span></div><div id="rewardsReferralMilestones" class="rewards-grid"></div></section>
+-        <section hidden class="rewards-panel" aria-labelledby="rewardsCouponTitle"><div class="rewards-section-heading"><div><p class="eyebrow">VOUCHER WALLET · ELIGIBILITY</p><h2 id="rewardsCouponTitle">Voucher 优惠券钱包</h2></div><span class="rewards-chip pending">CLAIM / REDEMPTION OFF</span></div><div id="rewardsCoupons" class="rewards-grid"></div></section>
+-        <section class="rewards-panel" aria-labelledby="rewardsLedgerTitle"><div class="rewards-section-heading"><div><p class="eyebrow">POINTS HISTORY</p><h2 id="rewardsLedgerTitle">积分记录</h2></div><span class="rewards-meta">最近 50 笔</span></div><div id="rewardsLedger" class="rewards-ledger"></div></section>
++        <section class="rewards-panel" aria-labelledby="rewardsCheckInTitle"><div class="rewards-section-heading"><div><p class="eyebrow">7-DAY CYCLE</p><h2 id="rewardsCheckInTitle" data-member-zh="每日签到">Daily check-in</h2></div><span class="rewards-meta">Asia/Kuching · MYT</span></div><div id="rewardsWeek" class="rewards-week"></div><div class="rewards-checkin-actions"><span class="rewards-meta" data-member-zh="积分只写入 Rewards 非现金账本。">Points are recorded only in the non-cash Rewards ledger.</span><button id="rewardsCheckIn" type="button" class="button button-primary" disabled data-member-zh="签到尚未开放">Check-in unavailable</button></div></section>
++        <section hidden class="rewards-panel" aria-labelledby="rewardsMissionsTitle"><div class="rewards-section-heading"><div><p class="eyebrow">VERIFIED MISSIONS</p><h2 id="rewardsMissionsTitle" data-member-zh="任务进度">Mission progress</h2></div><span class="rewards-meta" data-member-zh="未连接的数据不能完成或领奖">Unconnected data cannot complete a mission or issue a reward.</span></div><div id="rewardsMissions" class="rewards-grid"></div></section>
++        <section hidden class="rewards-panel" aria-labelledby="rewardsReferralTitle"><div class="rewards-section-heading"><div><p class="eyebrow">DIRECT REFERRAL MILESTONES</p><h2 id="rewardsReferralTitle" data-member-zh="推荐里程碑">Referral milestones</h2></div><span class="rewards-chip ready"><span id="rewardsQualifiedReferrals">0</span>&nbsp; QUALIFIED</span></div><div id="rewardsReferralMilestones" class="rewards-grid"></div></section>
++        <section hidden class="rewards-panel" aria-labelledby="rewardsCouponTitle"><div class="rewards-section-heading"><div><p class="eyebrow">VOUCHER WALLET · ELIGIBILITY</p><h2 id="rewardsCouponTitle" data-member-zh="Voucher 优惠券钱包">Voucher wallet</h2></div><span class="rewards-chip pending">CLAIM / REDEMPTION OFF</span></div><div id="rewardsCoupons" class="rewards-grid"></div></section>
++        <section class="rewards-panel" aria-labelledby="rewardsLedgerTitle"><div class="rewards-section-heading"><div><p class="eyebrow">POINTS HISTORY</p><h2 id="rewardsLedgerTitle" data-member-zh="积分记录">Points history</h2></div><span class="rewards-meta" data-member-zh="最近 50 笔">Latest 50 entries</span></div><div id="rewardsLedger" class="rewards-ledger"></div></section>
+       </div>
+-      <p class="rewards-noncash">Rewards Points 没有现金价值，不能提现、不能转入真钱钱包，也不会自动兑换。VIP、普通福利和 Rewards 各自使用独立记录。</p>
++      <p class="rewards-noncash" data-member-zh="Rewards Points 没有现金价值，不能提现、不能转入真钱钱包，也不会自动兑换。VIP、普通福利和 Rewards 各自使用独立记录。">Rewards Points have no cash value, cannot be withdrawn or transferred to the real-money wallet, and are never redeemed automatically. VIP, standard benefits and Rewards keep separate records.</p>
+     </section>
+ 
+     <section id="events" class="section engagement-center" aria-labelledby="engagementTitle">
+       <header class="engagement-hero">
+-        <div><p class="eyebrow">MASTER7 EVENTS · VERIFIED SOURCES ONLY</p><h1 id="engagementTitle">Events Center · 活动中心</h1><p>查看个人大厅偏好和消息入口。收藏与最近游戏帮助您找到常用游戏，消息状态以实际记录为准。</p><div id="engagementProgramState" class="engagement-status-row" aria-live="polite"><span class="engagement-chip pending">○ Loading Events status</span></div></div>
++        <div><p class="eyebrow">MASTER7 EVENTS · VERIFIED SOURCES ONLY</p><h1 id="engagementTitle" data-member-zh="Events Center · 活动中心">Events Center</h1><p data-member-zh="查看个人大厅偏好和消息入口。收藏与最近游戏帮助您找到常用游戏，消息状态以实际记录为准。">View your lobby preferences and message shortcuts. Favourites and recent games help you find providers you use often; message status follows the actual record.</p><div id="engagementProgramState" class="engagement-status-row" aria-live="polite"><span class="engagement-chip pending">○ Loading Events status</span></div></div>
+         <div class="engagement-hero-mark" aria-hidden="true"><strong>◇</strong><span>EVENTS</span></div>
+       </header>
+       <div id="engagementPublicContent"><p class="muted">Loading Events Center…</p></div>
+@@ -196,60 +196,60 @@
+ 
+     <section id="member-verification" class="section" aria-labelledby="manualComplianceTitle">
+       <div class="surface stack">
+-        <h1 id="manualComplianceTitle">身份审核</h1>
+-        <p id="manualComplianceIntro" class="muted">提交申请后，请通过客服了解身份审核步骤。</p>
++        <h1 id="manualComplianceTitle" data-member-zh="身份审核">Identity review</h1>
++        <p id="manualComplianceIntro" class="muted" data-member-zh="提交申请后，请通过客服了解身份审核步骤。">After submitting a request, contact support for the identity-review steps.</p>
+         <p id="manualComplianceStatus" role="status" aria-live="polite"></p>
+-        <button id="manualComplianceRequest" class="button button-primary" type="button">申请审核</button>
++        <button id="manualComplianceRequest" class="button button-primary" type="button" data-member-zh="申请审核">Request review</button>
+       </div>
+     </section>
+ 
+     <section id="responsible-play" class="section responsible-play-center" aria-labelledby="responsiblePlayTitle">
+       <header class="responsible-play-hero">
+-        <div><p class="eyebrow">MY PLAY SETTINGS · MEMBER CONTROL</p><h1 id="responsiblePlayTitle">Play settings</h1><p>为自己的充值安排设置清楚的额度或暂停时间。所有周期按马来西亚时间（MYT）计算；设置只影响新充值和新游戏启动。</p></div>
++        <div><p class="eyebrow">MY PLAY SETTINGS · MEMBER CONTROL</p><h1 id="responsiblePlayTitle">Play settings</h1><p data-member-zh="为自己的充值安排设置清楚的额度或暂停时间。所有周期按马来西亚时间（MYT）计算；设置只影响新充值和新游戏启动。">Set clear deposit limits or pause periods for yourself. All periods follow Malaysia Time (MYT); settings affect only new deposits and new game launches.</p></div>
+         <div class="responsible-play-mark" aria-hidden="true"><span>◉</span><small>MY CHOICE</small></div>
+       </header>
+       <div class="responsible-play-assurance" aria-label="Services that remain available">
+-        <article><strong class="on">✓ 不额外限制提款</strong><span>实际申请以提款通道状态为准</span></article>
+-        <article><strong class="on">✓ 账号保持可用</strong><span>登录和历史记录不受影响</span></article>
+-        <article><strong class="on">✓ 客服保持可用</strong><span>可以随时联系 Stephanie 或人员</span></article>
+-        <article><strong>余额不会被冻结</strong><span>暂停不会没收或扣除现有余额</span></article>
++        <article><strong class="on" data-member-zh="✓ 不额外限制提款">✓ No additional withdrawal restriction</strong><span data-member-zh="实际申请以提款通道状态为准">Actual requests follow payout-channel availability</span></article>
++        <article><strong class="on" data-member-zh="✓ 账号保持可用">✓ Account remains available</strong><span data-member-zh="登录和历史记录不受影响">Sign-in and history remain available</span></article>
++        <article><strong class="on" data-member-zh="✓ 客服保持可用">✓ Support remains available</strong><span data-member-zh="可以随时联系 Stephanie 或人员">Contact Stephanie or staff at any time</span></article>
++        <article><strong data-member-zh="余额不会被冻结">Balance is not frozen</strong><span data-member-zh="暂停不会没收或扣除现有余额">A pause does not remove or deduct the existing balance</span></article>
+       </div>
+-      <p id="responsiblePlayStatus" class="responsible-play-note pending" role="status" aria-live="polite">登录会员账号后读取你的设置。</p>
++      <p id="responsiblePlayStatus" class="responsible-play-note pending" role="status" aria-live="polite" data-member-zh="登录会员账号后读取你的设置。">Sign in to load your play settings.</p>
+       <div class="responsible-play-grid">
+         <section class="responsible-play-card" aria-labelledby="responsiblePlayLimitsTitle">
+-          <div class="section-header"><div><p class="eyebrow">DEPOSIT LIMITS · MYT</p><h2 id="responsiblePlayLimitsTitle">充值额度</h2></div><button id="responsiblePlayRefresh" type="button" class="button button-outline small">刷新</button></div>
+-          <p>额度包括本周期已入账的充值，以及仍在处理或状态未明的充值预留，避免同时提交多笔订单超过额度。</p>
++          <div class="section-header"><div><p class="eyebrow">DEPOSIT LIMITS · MYT</p><h2 id="responsiblePlayLimitsTitle" data-member-zh="充值额度">Deposit limits</h2></div><button id="responsiblePlayRefresh" type="button" class="button button-outline small" data-member-zh="刷新">Refresh</button></div>
++          <p data-member-zh="额度包括本周期已入账的充值，以及仍在处理或状态未明的充值预留，避免同时提交多笔订单超过额度。">Limits include credited deposits in the current period and reservations for deposits that are pending or uncertain, preventing concurrent orders from exceeding the limit.</p>
+           <div class="responsible-play-usage">
+-            <div id="responsiblePlayDailyUsage"><span>Daily · 今日已用</span><strong data-rp-used>MYR 0.00</strong><small data-rp-limit>No limit</small></div>
+-            <div id="responsiblePlayWeeklyUsage"><span>Weekly · 本周已用</span><strong data-rp-used>MYR 0.00</strong><small data-rp-limit>No limit</small></div>
+-            <div id="responsiblePlayMonthlyUsage"><span>Monthly · 本月已用</span><strong data-rp-used>MYR 0.00</strong><small data-rp-limit>No limit</small></div>
++            <div id="responsiblePlayDailyUsage"><span data-member-zh="Daily · 今日已用">Daily · Used today</span><strong data-rp-used>MYR 0.00</strong><small data-rp-limit>No limit</small></div>
++            <div id="responsiblePlayWeeklyUsage"><span data-member-zh="Weekly · 本周已用">Weekly · Used this week</span><strong data-rp-used>MYR 0.00</strong><small data-rp-limit>No limit</small></div>
++            <div id="responsiblePlayMonthlyUsage"><span data-member-zh="Monthly · 本月已用">Monthly · Used this month</span><strong data-rp-used>MYR 0.00</strong><small data-rp-limit>No limit</small></div>
+           </div>
+-          <p>处理中及状态未明的充值预留：<strong id="responsiblePlayOutstanding">MYR 0.00</strong></p>
++          <p data-member-zh="处理中及状态未明的充值预留：">Pending and uncertain deposit reservations:<strong id="responsiblePlayOutstanding">MYR 0.00</strong></p>
+           <form id="responsiblePlayLimitForm" class="responsible-play-limit-form">
+             <label>Daily limit · MYR<input id="responsiblePlayDailyLimit" inputmode="decimal" autocomplete="off" placeholder="Leave blank for no limit" aria-describedby="responsiblePlayLimitHelp"></label>
+             <label>Weekly limit · MYR<input id="responsiblePlayWeeklyLimit" inputmode="decimal" autocomplete="off" placeholder="Leave blank for no limit" aria-describedby="responsiblePlayLimitHelp"></label>
+             <label>Monthly limit · MYR<input id="responsiblePlayMonthlyLimit" inputmode="decimal" autocomplete="off" placeholder="Leave blank for no limit" aria-describedby="responsiblePlayLimitHelp"></label>
+-            <div class="responsible-play-form-actions"><button type="submit" class="button button-primary">保存额度</button><span id="responsiblePlayLimitHelp" class="muted">降低额度立即生效；提高或移除额度须等待安全延迟。</span></div>
++            <div class="responsible-play-form-actions"><button type="submit" class="button button-primary" data-member-zh="保存额度">Save limits</button><span id="responsiblePlayLimitHelp" class="muted" data-member-zh="降低额度立即生效；提高或移除额度须等待安全延迟。">Lower limits take effect immediately; increases or removals require a safety delay.</span></div>
+           </form>
+           <p id="responsiblePlayPendingLimits" class="responsible-play-note pending" hidden></p>
+         </section>
+         <section class="responsible-play-card" aria-labelledby="responsiblePlayWindowTitle">
+-          <p class="eyebrow">CURRENT WINDOWS</p><h2 id="responsiblePlayWindowTitle">当前安排</h2>
++          <p class="eyebrow">CURRENT WINDOWS</p><h2 id="responsiblePlayWindowTitle" data-member-zh="当前安排">Current settings</h2>
+           <div class="responsible-play-window-list">
+             <div id="responsiblePlayCoolingState" class="responsible-play-window"><div><strong>Cooling-off available</strong><span>No active cooling-off period</span></div><b aria-hidden="true">◷</b></div>
+             <div id="responsiblePlayExclusionState" class="responsible-play-window"><div><strong>Self-exclusion available</strong><span>No active self-exclusion</span></div><b aria-hidden="true">◇</b></div>
+           </div>
+-          <p>会员主动开始的有效期在结束前不能取消或缩短，管理员和员工也不能代为解除。</p>
++          <p data-member-zh="会员主动开始的有效期在结束前不能取消或缩短，管理员和员工也不能代为解除。">A member-selected active period cannot be cancelled or shortened before it ends, including by administrators or staff.</p>
+         </section>
+         <section class="responsible-play-card" aria-labelledby="responsiblePlayCoolingTitle">
+-          <p class="eyebrow">COOLING-OFF</p><h2 id="responsiblePlayCoolingTitle">短期暂停</h2><p>暂停期间不能建立新充值或启动新游戏。安心设置不会额外限制提款，实际申请以提款通道状态为准；登录、记录和客服继续可用。</p>
+-          <div class="responsible-play-duration-grid"><button type="button" class="button button-outline" data-rp-cooling-hours="24">24 小时</button><button type="button" class="button button-outline" data-rp-cooling-hours="72">72 小时</button><button type="button" class="button button-outline" data-rp-cooling-hours="168">7 天</button><button type="button" class="button button-outline" data-rp-cooling-hours="720">30 天</button></div>
++          <p class="eyebrow">COOLING-OFF</p><h2 id="responsiblePlayCoolingTitle" data-member-zh="短期暂停">Cooling-off period</h2><p data-member-zh="暂停期间不能建立新充值或启动新游戏。安心设置不会额外限制提款，实际申请以提款通道状态为准；登录、记录和客服继续可用。">New deposits and game launches are paused. Play settings add no withdrawal block; actual requests follow payout-channel availability. Sign-in, records and support remain available.</p>
++          <div class="responsible-play-duration-grid"><button type="button" class="button button-outline" data-rp-cooling-hours="24" data-member-zh="24 小时">24 hours</button><button type="button" class="button button-outline" data-rp-cooling-hours="72" data-member-zh="72 小时">72 hours</button><button type="button" class="button button-outline" data-rp-cooling-hours="168" data-member-zh="7 天">7 days</button><button type="button" class="button button-outline" data-rp-cooling-hours="720" data-member-zh="30 天">30 days</button></div>
+         </section>
+         <section class="responsible-play-card" aria-labelledby="responsiblePlayExclusionTitle">
+-          <p class="eyebrow">SELF-EXCLUSION</p><h2 id="responsiblePlayExclusionTitle">较长时间暂停</h2><p>选择后会立即暂停新充值、游戏启动及推广发送，直到所选日期结束。</p>
+-          <label>暂停时间<select id="responsiblePlayExclusionDuration" class="responsible-play-select"><option value="30">30 天</option><option value="90">90 天</option><option value="180">180 天</option><option value="365">1 年</option><option value="1825">5 年</option></select></label>
+-          <label class="responsible-play-confirm"><input id="responsiblePlayExclusionConfirm" type="checkbox"><span>我明白此安排开始后不能提前取消或缩短；安心设置不会额外限制提款，实际申请以提款通道状态为准；登录、历史记录、客服和现有余额仍然可用。</span></label>
+-          <button id="responsiblePlayExclusionStart" type="button" class="button button-outline">开始所选暂停期</button>
++          <p class="eyebrow">SELF-EXCLUSION</p><h2 id="responsiblePlayExclusionTitle" data-member-zh="较长时间暂停">Longer pause</h2><p data-member-zh="选择后会立即暂停新充值、游戏启动及推广发送，直到所选日期结束。">Your selection immediately pauses new deposits, game launches and promotional messages until the selected date ends.</p>
++          <label data-member-zh="暂停时间">Pause duration<select id="responsiblePlayExclusionDuration" class="responsible-play-select"><option value="30" data-member-zh="30 天">30 days</option><option value="90" data-member-zh="90 天">90 days</option><option value="180" data-member-zh="180 天">180 days</option><option value="365" data-member-zh="1 年">1 year</option><option value="1825" data-member-zh="5 年">5 years</option></select></label>
++          <label class="responsible-play-confirm"><input id="responsiblePlayExclusionConfirm" type="checkbox"><span data-member-zh="我明白此安排开始后不能提前取消或缩短；安心设置不会额外限制提款，实际申请以提款通道状态为准；登录、历史记录、客服和现有余额仍然可用。">I understand that this setting cannot be cancelled or shortened after it starts. It adds no withdrawal block; actual requests follow payout-channel availability. Sign-in, history, support and the existing balance remain available.</span></label>
++          <button id="responsiblePlayExclusionStart" type="button" class="button button-outline" data-member-zh="开始所选暂停期">Start selected pause</button>
+         </section>
+       </div>
+       <p id="responsiblePlayActionStatus" class="responsible-play-status" role="status" aria-live="polite"></p>
+@@ -315,20 +315,20 @@
+       </section>
+       <div id="lobbyAdGrid" class="lobby-ad-grid" aria-label="More lobby advertisements" hidden></div>
+       <section id="customerBenefits" class="customer-benefits" aria-labelledby="customerBenefitsTitle" hidden>
+-        <div class="section-header"><div><p class="eyebrow">MEMBER OFFERS</p><h2 id="customerBenefitsTitle">会员福利</h2><p class="muted">只显示后台已发布的福利规则；金额、资格、Turnover 与有效期以每项说明为准。</p></div></div>
++        <div class="section-header"><div><p class="eyebrow">MEMBER OFFERS</p><h2 id="customerBenefitsTitle" data-member-zh="会员福利">Member benefits</h2><p class="muted" data-member-zh="只显示后台已发布的福利规则；金额、资格、Turnover 与有效期以每项说明为准。">Only published benefit rules appear here. Amount, eligibility, turnover and validity follow each offer description.</p></div></div>
+         <div id="customerBenefitsList" class="benefit-grid" aria-live="polite"></div>
+       </section>
+       <div class="lobby-secondary-content">
+       <div class="featured-games-panel">
+       <section class="bonus-brand-lobby" id="bonusBrandLobby" aria-labelledby="bonusBrandTitle">
+-        <div class="bonus-lobby-head"><div><p class="eyebrow">SPONSORED PROVIDERS</p><h2 id="bonusBrandTitle" data-bonus-i18n="title">Three Sponsored Provider Slots</h2><p class="muted" data-bonus-i18n="intro">三个赞助厂家位由 MASTER7 后台管理，并在会员前台展示。</p></div><span class="bonus-head-count" data-bonus-i18n="brandCount">3 SPONSORED SLOTS</span></div>
++        <div class="bonus-lobby-head"><div><p class="eyebrow">SPONSORED PROVIDERS</p><h2 id="bonusBrandTitle" data-bonus-i18n="title">Three Sponsored Provider Slots</h2><p class="muted" data-bonus-i18n="intro">Three sponsored provider slots are managed in the MASTER7 backoffice and displayed in the member lobby.</p></div><span class="bonus-head-count" data-bonus-i18n="brandCount">3 SPONSORED SLOTS</span></div>
+         <div class="bonus-brand-grid" role="group" aria-label="Featured game brands">
+           <article class="bonus-brand-card bonus--jili"><span class="bonus-card-top"><span class="bonus-index">SPONSORED 01</span><span class="bonus-locked">JILI × MASTER7</span></span><img class="sponsor-art" data-provider-art="jili" data-sponsor-index="0" alt="JILI and MASTER7 sponsored provider artwork"><span class="bonus-big-mark bonus-mark-jili">JILI × MASTER7</span><span class="bonus-offer-label">FEATURED PROVIDER</span><span class="bonus-btn-bottom"><button class="bonus-brand-action" type="button" data-bonus-brand="jili" data-bonus-i18n="cta">View games</button><button class="bonus-extra-action" type="button" data-provider-bonus="jili" data-bonus-i18n="claim">Terms &amp; offers</button></span></article>
+           <article class="bonus-brand-card bonus--megah5"><span class="bonus-card-top"><span class="bonus-index">SPONSORED 02</span><span class="bonus-locked">MEGA H5 × MASTER7</span></span><img class="sponsor-art" data-provider-art="megah5" data-sponsor-index="1" alt="MEGAH5 and MASTER7 sponsored provider artwork"><span class="bonus-big-mark bonus-mark-mega">MEGA H5 × MASTER7</span><span class="bonus-offer-label">FEATURED PROVIDER</span><span class="bonus-btn-bottom"><button class="bonus-brand-action" type="button" data-bonus-brand="megah5" data-bonus-i18n="cta">View games</button><button class="bonus-extra-action" type="button" data-provider-bonus="megah5" data-bonus-i18n="claim">Terms &amp; offers</button></span></article>
+           <article class="bonus-brand-card bonus--918kiss"><span class="bonus-card-top"><span class="bonus-index">SPONSORED 03</span><span class="bonus-locked">918KISS × MASTER7</span></span><img class="sponsor-art" data-provider-art="918kissh5" data-sponsor-index="2" alt="918KISS and MASTER7 sponsored provider artwork"><span class="bonus-big-mark bonus-mark-kiss">918KISS × MASTER7</span><span class="bonus-offer-label">FEATURED PROVIDER</span><span class="bonus-btn-bottom"><button class="bonus-brand-action" type="button" data-bonus-brand="918kissh5" data-bonus-i18n="cta">View games</button><button class="bonus-extra-action" type="button" data-provider-bonus="918kissh5" data-bonus-i18n="claim">Terms &amp; offers</button></span></article>
+         </div>
+         <div class="sponsor-pagination" aria-label="Three featured providers"><span class="active"></span><span></span><span></span></div>
+-        <p class="bonus-disclosure" data-bonus-i18n="disclosure">游戏封面与品牌专区由 MASTER7 后台统一管理。</p>
++        <p class="bonus-disclosure" data-bonus-i18n="disclosure">Game covers and provider areas are managed in the MASTER7 backoffice.</p>
+       </section>
+       </div>
+       </div>
+@@ -341,7 +341,7 @@
+         <button type="button" class="game-category-chip" data-game-category="SPORT">SPORT</button>
+         <button type="button" class="game-category-chip" data-game-category="FAV">♥ FAV</button>
+       </div>
+-      <div class="filters platform-search"><input id="search" placeholder="Search platform name · 搜索游戏平台" autocomplete="off"></div>
++      <div class="filters platform-search"><input id="search" placeholder="Search platform name" autocomplete="off"></div>
+       <section class="api-supplier-lobby" id="apiSupplierLobby" aria-labelledby="apiSupplierTitle">
+         <div class="provider-directory-heading"><div><p class="eyebrow">PREMIUM GAME COLLECTION</p><h2 id="apiSupplierTitle">37 Game Providers</h2><p class="muted">Choose a provider to browse its game catalogue.</p></div><span id="apiSupplierCountLabel" class="tiny-label">37 PROVIDERS</span></div>
+         <div id="apiSupplierButtons" class="api-supplier-grid" aria-live="polite"></div>
+@@ -351,21 +351,21 @@
+       <div id="providers" class="catalog-providers"></div>
+       <section id="gameWalletPanel" class="game-wallet-panel surface" hidden aria-labelledby="gameWalletTitle">
+         <div class="game-wallet-heading">
+-          <div><p class="eyebrow">GAME WALLET · PROVIDER SETTLEMENT</p><h2 id="gameWalletTitle">游戏钱包</h2><p id="gameWalletStateLabel" class="muted" role="status" aria-live="polite">正在读取游戏钱包…</p></div>
++          <div><p class="eyebrow">GAME WALLET · PROVIDER SETTLEMENT</p><h2 id="gameWalletTitle" data-member-zh="游戏钱包">Game wallet</h2><p id="gameWalletStateLabel" class="muted" role="status" aria-live="polite" data-member-zh="正在读取游戏钱包…">Loading game wallet…</p></div>
+           <span id="gameWalletLiveState" class="wallet-record-status">CHECKING</span>
+         </div>
+         <div class="game-wallet-balances" aria-label="Game wallet balances">
+-          <span><small>前台可用</small><strong id="gameWalletAvailable">MYR —</strong></span>
+-          <span><small>游戏中</small><strong id="gameWalletHeld">MYR —</strong></span>
+-          <span><small>本局结果</small><strong id="gameWalletResult">—</strong></span>
++          <span><small data-member-zh="前台可用">Available</small><strong id="gameWalletAvailable">MYR —</strong></span>
++          <span><small data-member-zh="游戏中">In game</small><strong id="gameWalletHeld">MYR —</strong></span>
++          <span><small data-member-zh="本局结果">Session result</small><strong id="gameWalletResult">—</strong></span>
+         </div>
+-        <p id="gameWalletProfileMeta" class="game-wallet-profile-meta">请选择一个游戏入口查看钱包模式与连接能力。</p>
+-        <p id="gameWalletSession" class="game-wallet-session">目前没有进行中的游戏。</p>
++        <p id="gameWalletProfileMeta" class="game-wallet-profile-meta" data-member-zh="请选择一个游戏入口查看钱包模式与连接能力。">Choose a game entry to view its wallet mode and connection capabilities.</p>
++        <p id="gameWalletSession" class="game-wallet-session" data-member-zh="目前没有进行中的游戏。">No game session is currently active.</p>
+         <div id="gameWalletTransfers" class="game-wallet-transfers" aria-live="polite" hidden></div>
+         <div class="game-wallet-actions">
+-          <button id="refreshGameWallet" type="button" class="button button-outline">刷新</button>
+-          <button id="gameWalletSettle" type="button" class="button button-primary" hidden>退出并结算回前台</button>
+-          <button id="gameWalletRecover" type="button" class="button button-outline" hidden>查询厂家结果</button>
++          <button id="refreshGameWallet" type="button" class="button button-outline" data-member-zh="刷新">Refresh</button>
++          <button id="gameWalletSettle" type="button" class="button button-primary" hidden data-member-zh="退出并结算回前台">Exit and settle to wallet</button>
++          <button id="gameWalletRecover" type="button" class="button button-outline" hidden data-member-zh="查询厂家结果">Query provider result</button>
+         </div>
+       </section>
+     </section>
+@@ -386,18 +386,18 @@
+           <button type="button" class="button button-primary cashier-bank-option" data-payment-channel="manual-bank"><strong>BANK TRANSFER</strong><span class="payment-hint" data-payment-i18n="bankHint">Transfer to the displayed company bank account and submit the receipt.</span><span class="payment-state">View bank</span></button>
+         </div>
+         <div id="paymentButtons" class="payment-grid" role="group" aria-label="Payment deposit options">
+-          <button type="button" class="payment-option" data-payment-channel="vpay"><span class="payment-number">01</span><strong>VPAY</strong><span class="payment-hint" data-payment-i18n="vpayHint">独立入口 · MYR</span><span class="payment-state" data-payment-i18n="status">查看状态</span></button>
+-          <button type="button" class="payment-option" data-payment-channel="gspay"><span class="payment-number">02</span><strong>GSPAY+ MYR</strong><span class="payment-hint" data-payment-i18n="gspayHint">独立入口 · MYR</span><span class="payment-state" data-payment-i18n="status">查看状态</span></button>
+-          <button type="button" class="payment-option" data-payment-channel="gspay-usdt"><span class="payment-number">03</span><strong>GSPAY+ USDT</strong><span class="payment-hint" data-payment-i18n="gspayUsdtHint">独立入口 · USDT · 待厂家协议验收</span><span class="payment-state" data-payment-i18n="status">查看状态</span></button>
+-          <button type="button" class="payment-option" data-payment-channel="1mpay"><span class="payment-number">04</span><strong>1MPAY</strong><span class="payment-hint" data-payment-i18n="oneMpayHint">独立入口 · MYR</span><span class="payment-state" data-payment-i18n="status">查看状态</span></button>
++          <button type="button" class="payment-option" data-payment-channel="vpay"><span class="payment-number">01</span><strong>VPAY</strong><span class="payment-hint" data-payment-i18n="vpayHint">Separate option · MYR</span><span class="payment-state" data-payment-i18n="status">View status</span></button>
++          <button type="button" class="payment-option" data-payment-channel="gspay"><span class="payment-number">02</span><strong>GSPAY+ MYR</strong><span class="payment-hint" data-payment-i18n="gspayHint">Separate option · MYR</span><span class="payment-state" data-payment-i18n="status">View status</span></button>
++          <button type="button" class="payment-option" data-payment-channel="gspay-usdt"><span class="payment-number">03</span><strong>GSPAY+ USDT</strong><span class="payment-hint" data-payment-i18n="gspayUsdtHint">Separate option · USDT · provider contract pending</span><span class="payment-state" data-payment-i18n="status">View status</span></button>
++          <button type="button" class="payment-option" data-payment-channel="1mpay"><span class="payment-number">04</span><strong>1MPAY</strong><span class="payment-hint" data-payment-i18n="oneMpayHint">Separate option · MYR</span><span class="payment-state" data-payment-i18n="status">View status</span></button>
+         </div>
+-        <p class="payment-caveat" data-payment-i18n="caveat">每个通道独立显示状态；开放后可直接进入付款流程。</p>
++        <p class="payment-caveat" data-payment-i18n="caveat">Each channel has its own status. Available channels open their payment flow directly.</p>
+       </div>
+       <section class="deposit-guide surface" id="depositGuide" aria-labelledby="depositGuideTitle">
+-        <div class="deposit-guide-head"><div><p class="eyebrow">DEPOSIT HELP</p><h2 id="depositGuideTitle">充值帮助</h2><p class="muted">正式付款时只使用平台当次显示的付款页面与收款资料。</p></div><span class="preview-stamp">MEMBER GUIDE</span></div>
++        <div class="deposit-guide-head"><div><p class="eyebrow">DEPOSIT HELP</p><h2 id="depositGuideTitle" data-member-zh="充值帮助">Deposit help</h2><p class="muted" data-member-zh="正式付款时只使用平台当次显示的付款页面与收款资料。">For a real payment, use only the payment page and collection details shown by the platform for that order.</p></div><span class="preview-stamp">MEMBER GUIDE</span></div>
+         <div class="deposit-guide-grid">
+-          <video controls playsinline preload="metadata" poster="/assets/guide-cover.png" aria-label="MASTER7 充值帮助"><source src="/assets/guide-demo-not-official.mp4" type="video/mp4">您的浏览器不支持 MP4 视频播放。</video>
+-          <div class="deposit-guide-aside"><h3>充值步骤</h3><p>选择充值公司与金额，确认付款页面资料后完成付款，并在充值记录查看结果。</p><div class="guide-vendor"><b>1</b><span>选择充值公司</span></div><div class="guide-vendor"><b>2</b><span>输入充值金额</span></div><div class="guide-vendor"><b>3</b><span>确认付款结果</span></div><small>如果通道显示维护中，请稍后再试或联系在线客服。</small></div>
++          <video controls playsinline preload="metadata" poster="/assets/guide-cover.png" aria-label="MASTER7 deposit help"><source src="/assets/guide-demo-not-official.mp4" type="video/mp4">Your browser does not support MP4 video playback.</video>
++          <div class="deposit-guide-aside"><h3 data-member-zh="充值步骤">Deposit steps</h3><p data-member-zh="选择充值公司与金额，确认付款页面资料后完成付款，并在充值记录查看结果。">Choose a payment company and amount, confirm the payment-page details, complete payment, then check the result in deposit records.</p><div class="guide-vendor"><b>1</b><span data-member-zh="选择充值公司">Choose a payment company</span></div><div class="guide-vendor"><b>2</b><span data-member-zh="输入充值金额">Enter the deposit amount</span></div><div class="guide-vendor"><b>3</b><span data-member-zh="确认付款结果">Confirm the payment result</span></div><small data-member-zh="如果通道显示维护中，请稍后再试或联系在线客服。">If a channel is under maintenance, try again later or contact online support.</small></div>
+         </div>
+       </section>
+     </section>
+@@ -434,8 +434,8 @@
+         <p class="stephanie-safety">Never send a password, OTP, full bank account number or API key.</p>
+       </article>
+       <div class="two-col">
+-        <form id="ticketForm" class="surface stack"><h2 data-i18n="newTicket">创建工单</h2><label for="ticketSubject" data-i18n="subject">主题</label><input id="ticketSubject" minlength="3" maxlength="120" required><label for="ticketMessage" data-i18n="message">内容</label><textarea id="ticketMessage" rows="5" minlength="5" maxlength="2000" required></textarea><button class="button button-primary" type="submit" data-i18n="submitTicket">提交工单</button><small data-i18n="ticketLogin">登录并通过会员审批后可提交工单。</small></form>
+-        <div class="surface stack"><h2 data-i18n="myTickets">工单记录</h2><button id="refreshTickets" type="button" class="button button-outline" data-i18n="refreshRecords">刷新记录</button><div id="tickets"><p class="muted" data-i18n="loginFirst">请先登录。</p></div></div>
++        <form id="ticketForm" class="surface stack"><h2 data-i18n="newTicket">New ticket</h2><label for="ticketSubject" data-i18n="subject">Subject</label><input id="ticketSubject" minlength="3" maxlength="120" required><label for="ticketMessage" data-i18n="message">Message</label><textarea id="ticketMessage" rows="5" minlength="5" maxlength="2000" required></textarea><button class="button button-primary" type="submit" data-i18n="submitTicket">Submit ticket</button><small data-i18n="ticketLogin">Sign in and await member approval to submit a ticket.</small></form>
++        <div class="surface stack"><h2 data-i18n="myTickets">Ticket history</h2><button id="refreshTickets" type="button" class="button button-outline" data-i18n="refreshRecords">Refresh records</button><div id="tickets"><p class="muted" data-i18n="loginFirst">Please sign in.</p></div></div>
+       </div>
+     </section>
+ 
+@@ -871,8 +871,8 @@
+   </main>
+ 
+   <div class="public-social" id="publicSocial" hidden>
+-    <strong data-social-key="publicTitle">联系 MASTER7</strong>
+-    <span class="muted" data-social-key="publicHint">官方 Hotline 与聊天入口</span>
++    <strong data-social-key="publicTitle">Contact MASTER7</strong>
++    <span class="muted" data-social-key="publicHint">Official hotline and chat links</span>
+     <div id="publicSocialLinks" class="public-social-links"></div>
+   </div>
+   <footer class="footer"><div class="footer-brand">MASTER7 <small>PREMIUM MEMBER CLUB</small></div><p data-i18n="footerDisclaimer">Games, wallet, rewards, deposits, withdrawals and support in one member platform.</p><div class="footer-state"><span class="dot"></span><span data-i18n="sandbox">MASTER7 · SECURE MEMBER PORTAL</span></div></footer>
+@@ -885,7 +885,7 @@
+           <label for="vpayAmount" data-cashier-copy="amount">Amount · MYR</label><input id="vpayAmount" type="number" min="1" max="100000" step="0.01" inputmode="decimal" required>
+           <label for="vpayTradeCode" data-cashier-copy="channelLabel">Payment channel</label><select id="vpayTradeCode" required></select>
+           <label for="vpayPayerName" data-cashier-copy="payer">Payer name</label><input id="vpayPayerName" maxlength="30" autocomplete="name" required><small class="muted" data-cashier-copy="payerHint">Use the name shown on the paying bank account.</small>
+-          <button id="vpaySubmit" type="submit" class="button button-primary">提交充值</button>
++          <button id="vpaySubmit" type="submit" class="button button-primary">Continue to payment</button>
+           <p id="vpayOrderMessage" class="muted" role="status" aria-live="polite"></p>
+         </form>
+         <form id="oneMpayOrderForm" class="wallet-order-form" hidden>
+@@ -904,16 +904,16 @@
+           <p id="gspayUsdtOrderMessage" class="muted" role="status" aria-live="polite"></p>
+         </form>
+         <form id="manualBankDepositForm" class="wallet-order-form" hidden>
+-          <h3>Bank Transfer · 公司银行</h3><p class="muted">转账到公司银行后上传银行单。后台核对后才会入账。</p>
++          <h3 data-member-zh="Bank Transfer · 公司银行">Bank Transfer · Company Bank</h3><p class="muted" data-member-zh="转账到公司银行后上传银行单。后台核对后才会入账。">Transfer to the company bank account and upload the receipt. Wallet credit follows backoffice verification.</p>
+           <label for="manualBankAccount">Company bank</label><select id="manualBankAccount" required></select>
+           <div id="manualBankCopyDetails" class="bank-copy-details" hidden>
+             <figure class="bank-customer-photo"><img id="manualBankPhoto" alt="DuitNow QR or company bank"><span id="manualBankPhotoFallback" aria-hidden="true">🏦</span><figcaption id="manualBankImageLabel">Company bank</figcaption></figure>
+-            <div><span>Bank · 银行名称</span><strong id="manualBankCopyBank">—</strong><button id="copyBankBank" type="button" class="button button-outline small">Copy</button></div>
+-            <div><span>Account name · 户口名字</span><strong id="manualBankCopyName">—</strong><button id="copyBankName" type="button" class="button button-outline small">Copy</button></div>
+-            <div><span>Account number · 银行号码</span><strong id="manualBankCopyNumber">—</strong><button id="copyBankNumber" type="button" class="button button-outline small">Copy</button></div>
++            <div><span data-member-zh="Bank · 银行名称">Bank name</span><strong id="manualBankCopyBank">—</strong><button id="copyBankBank" type="button" class="button button-outline small">Copy</button></div>
++            <div><span data-member-zh="Account name · 户口名字">Account name</span><strong id="manualBankCopyName">—</strong><button id="copyBankName" type="button" class="button button-outline small">Copy</button></div>
++            <div><span data-member-zh="Account number · 银行号码">Account number</span><strong id="manualBankCopyNumber">—</strong><button id="copyBankNumber" type="button" class="button button-outline small">Copy</button></div>
+           </div>
+           <label for="manualBankAmount" data-cashier-copy="amount">Amount · MYR</label><input id="manualBankAmount" type="number" min="1" max="100000" step="0.01" inputmode="decimal" required>
+-          <label for="manualBankReceipt">Bank receipt · 银行单</label><input id="manualBankReceipt" type="file" accept="image/jpeg,image/png,image/webp" required>
++          <label for="manualBankReceipt" data-member-zh="Bank receipt · 银行单">Bank receipt</label><input id="manualBankReceipt" type="file" accept="image/jpeg,image/png,image/webp" required>
+           <button id="manualBankSubmit" type="submit" class="button button-primary">Upload & Submit</button>
+           <p id="manualBankMessage" class="muted" role="status" aria-live="polite"></p>
+         </form>
+@@ -938,22 +938,22 @@
+     <form id="passwordForm" class="stack">
+       <label id="usernameField"><span data-i18n="portalId">MASTER7 ID</span><input id="authUsername" name="username" autocomplete="username" inputmode="text" autocapitalize="none" spellcheck="false" pattern="[a-zA-Z0-9_]{4,32}" minlength="4" maxlength="32" data-i18n-placeholder="portalId" placeholder="MASTER7 ID" required></label>
+       <label id="phoneField" hidden><span data-i18n="malaysiaPhone">Malaysia mobile number</span><input id="memberPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+60 1X-XXX XXXX" maxlength="24"></label>
+-      <label id="referralField" hidden><span>介绍码 · Referral code</span><input id="memberReferralCode" name="referralCode" autocomplete="off" inputmode="text" maxlength="12" readonly></label>
+-      <p id="phoneOtpNote" class="otp-phone-note" hidden><span class="otp-dot" aria-hidden="true"></span><span id="phoneOtpCopy" data-i18n="phoneOtpPending">输入 ID 和手机号码，再用短信 OTP 登录。</span></p>
++      <label id="referralField" hidden><span data-member-zh="介绍码 · Referral code">Referral code</span><input id="memberReferralCode" name="referralCode" autocomplete="off" inputmode="text" maxlength="12" readonly></label>
++      <p id="phoneOtpNote" class="otp-phone-note" hidden><span class="otp-dot" aria-hidden="true"></span><span id="phoneOtpCopy" data-i18n="phoneOtpPending">Enter your ID and mobile number, then sign in with the SMS OTP.</span></p>
+       <div id="otpFields" class="stack" hidden><label><span data-i18n="otpLabel">SMS verification code</span><input id="memberOtp" name="otp" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6"></label><button id="sendOtpButton" class="button button-ghost full" type="button" data-i18n="sendOtp">Send verification code</button></div>
+-      <label id="activationField" hidden><span id="codeLabel">一次性激活码</span><input id="activationCode" name="activationCode" type="password" autocomplete="off" maxlength="43"></label>
+-      <label id="currentPasswordField" hidden><span data-i18n="currentPassword">当前密码</span><input id="currentPassword" name="currentPassword" type="password" autocomplete="current-password" maxlength="128"></label>
+-      <label id="passwordField"><span id="passwordLabel" data-i18n="password">密码</span><input id="authPassword" name="password" type="password" autocomplete="current-password" maxlength="128" data-i18n-placeholder="password" placeholder="Password" required><button id="authPasswordToggle" class="auth-password-toggle" type="button" aria-pressed="false" data-i18n-aria-label="showPassword" aria-label="Show password"><span aria-hidden="true"></span></button></label>
+-      <label id="confirmPasswordField" hidden><span data-i18n="confirmPassword">确认新密码</span><input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" maxlength="128"></label>
+-      <label id="showPasswordField" class="password-toggle" hidden><input id="showPasswords" type="checkbox"><span data-i18n="showPasswords">显示新密码（仅在私密环境查看）</span></label>
++      <label id="activationField" hidden><span id="codeLabel">One-time activation code</span><input id="activationCode" name="activationCode" type="password" autocomplete="off" maxlength="43"></label>
++      <label id="currentPasswordField" hidden><span data-i18n="currentPassword">Current password</span><input id="currentPassword" name="currentPassword" type="password" autocomplete="current-password" maxlength="128"></label>
++      <label id="passwordField"><span id="passwordLabel" data-i18n="password">Password</span><input id="authPassword" name="password" type="password" autocomplete="current-password" maxlength="128" data-i18n-placeholder="password" placeholder="Password" required><button id="authPasswordToggle" class="auth-password-toggle" type="button" aria-pressed="false" data-i18n-aria-label="showPassword" aria-label="Show password"><span aria-hidden="true"></span></button></label>
++      <label id="confirmPasswordField" hidden><span data-i18n="confirmPassword">Confirm new password</span><input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" maxlength="128"></label>
++      <label id="showPasswordField" class="password-toggle" hidden><input id="showPasswords" type="checkbox"><span data-i18n="showPasswords">Show new password (private setting only)</span></label>
+       <p id="passwordMatch" class="muted" role="status" aria-live="polite"></p>
+       <p id="authFeedback" role="status" aria-live="polite"></p>
+-      <button id="authSubmit" type="submit" class="button button-primary full" data-i18n="signIn">登录</button>
++      <button id="authSubmit" type="submit" class="button button-primary full" data-i18n="signIn">Sign in</button>
+     </form>
+     <div class="auth-secondary">
+-      <button id="memberPasswordHelp" type="button" class="button button-ghost" data-i18n="forgotPassword">忘记密码</button>
+-      <button id="registerToggle" type="button" class="button button-ghost" data-i18n="createMember">注册会员 ID</button>
+-      <a id="ownerResetLink" href="/reset-owner" class="button button-ghost full" data-i18n="resetTitle">重设管理员密码</a>
++      <button id="memberPasswordHelp" type="button" class="button button-ghost" data-i18n="forgotPassword">Forgot password</button>
++      <button id="registerToggle" type="button" class="button button-ghost" data-i18n="createMember">Create member ID</button>
++      <a id="ownerResetLink" href="/reset-owner" class="button button-ghost full" data-i18n="resetTitle">Reset owner password</a>
+     </div>
+     <div class="auth-language-row" role="group" aria-label="Language">
+       <button type="button" data-auth-lang="en">ENG</button><button type="button" data-auth-lang="zh">中文</button><button type="button" data-auth-lang="ms">BM</button>
+@@ -963,7 +963,7 @@
+     </div>
+     <p class="auth-company-foot">MASTER7 <span>•</span> PREMIUM MEMBER CLUB</p>
+   </dialog>
+-  <dialog id="marketingUnsubscribeDialog" aria-labelledby="marketingUnsubscribeTitle"><div class="dialog-head"><div class="brand-mini" aria-hidden="true">7</div><div><p class="eyebrow">MASTER7 · MESSAGE PREFERENCES</p><h2 id="marketingUnsubscribeTitle">停止接收推广信息</h2></div></div><p id="marketingUnsubscribeStatus" class="muted" role="status">正在验证退订链接…</p><div class="two-col"><button id="marketingUnsubscribeConfirm" class="button button-primary" type="button" disabled>确认退订</button><a class="button button-outline" href="/">返回 MASTER7</a></div></dialog>
++  <dialog id="marketingUnsubscribeDialog" aria-labelledby="marketingUnsubscribeTitle"><div class="dialog-head"><div class="brand-mini" aria-hidden="true">7</div><div><p class="eyebrow">MASTER7 · MESSAGE PREFERENCES</p><h2 id="marketingUnsubscribeTitle" data-i18n="marketingUnsubscribeTitle">Stop promotional messages</h2></div></div><p id="marketingUnsubscribeStatus" class="muted" role="status" data-i18n="marketingUnsubscribeLoading">Verifying unsubscribe link…</p><div class="two-col"><button id="marketingUnsubscribeConfirm" class="button button-primary" type="button" disabled data-i18n="marketingUnsubscribeConfirm">Confirm unsubscribe</button><a class="button button-outline" href="/" data-i18n="marketingUnsubscribeReturn">Return to MASTER7</a></div></dialog>
+   <div id="toast" role="status" aria-live="polite"></div>
+ </body>
+ </html>
+diff --git a/docs/MASTER7_CUSTOMER_ENGLISH_FALLBACKS_158.md b/docs/MASTER7_CUSTOMER_ENGLISH_FALLBACKS_158.md
+new file mode 100644
+index 0000000..d3a3824
+--- /dev/null
++++ b/docs/MASTER7_CUSTOMER_ENGLISH_FALLBACKS_158.md
+@@ -0,0 +1,7 @@
++# MASTER7 V17.158 Customer English Fallbacks
++
++Release: `17.0.0-selfbuilt.158-customer-english-fallbacks`
++
++The member portal now renders English fallback copy throughout the lobby, deposit, withdrawal, wallet, VIP, rewards, events, support, authentication and play-settings surfaces when English is selected. Dynamic VIP, Rewards and Events states are locale-aware, including unavailable and empty states. Support notifications and marketing unsubscribe copy also follow the selected language.
++
++Chinese and Bahasa Melayu dictionaries, admin/backoffice copy, payment and game logic, APIs, runtime controls and production flags are unchanged. Deliberate language labels such as `中文` remain in the language selectors.
+diff --git a/docs/MASTER7_PREMIUM_MOBILE_159.md b/docs/MASTER7_PREMIUM_MOBILE_159.md
+new file mode 100644
+index 0000000..0b940fb
+--- /dev/null
++++ b/docs/MASTER7_PREMIUM_MOBILE_159.md
+@@ -0,0 +1,7 @@
++# MASTER7 V17.159 Premium Mobile Frontend
++
++Release: `17.0.0-selfbuilt.159-premium-mobile`
++
++The member frontend uses a clearer water-blue, deep-blue and white mobile presentation. The header, wallet actions, Deposit, Withdraw and Support entry points, compact hero, sponsored providers, game directory and fixed bottom navigation have larger tap targets and more readable spacing at 393px.
++
++Customer-facing English fallbacks from V17.158 remain in place. This release changes presentation only; it does not enable payment orders, game launch, wallet transfer, settlement, payout, or any unverified provider profile.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index dc7e1a2..5c654c0 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -38,7 +38,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.157-member-guide-polish';
++export const RELEASE = '17.0.0-selfbuilt.159-premium-mobile';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index 8e09dc5..1752fd7 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.157-member-guide-polish' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.159-premium-mobile' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/package.json b/package.json
+index d51ee6b..81847a3 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.157-member-guide-polish node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.157-member-guide-polish node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.159-premium-mobile node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.159-premium-mobile node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.157-member-guide-polish node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.159-premium-mobile node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/assets/app.js b/public/assets/app.js
+index c31f30f..cac5e3f 100644
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -390,7 +390,7 @@ async function loadMemberWallet(){
+ function renderManualBankCopyDetails(){const bank=state.manualBanks.find(item=>item.id===$("manualBankAccount").value),panel=$("manualBankCopyDetails"),photo=$("manualBankPhoto"),fallback=$("manualBankPhotoFallback"),qrMode=state.depositProvider==="duitnow-qr";panel.hidden=!bank;panel.classList.toggle("duitnow-qr",qrMode);if(!bank)return;$("manualBankImageLabel").textContent=qrMode?"DuitNow QR":"Company bank";$("manualBankCopyBank").textContent=bank.bank_name;$("manualBankCopyName").textContent=bank.account_name;$("manualBankCopyNumber").textContent=bank.account_number;const hasPhoto=typeof bank.image_data==="string"&&bank.image_data.startsWith("data:image/");photo.hidden=!hasPhoto;fallback.hidden=hasPhoto;if(hasPhoto)photo.src=bank.image_data;else photo.removeAttribute("src");}
+ function showCompanyBankImagePreview(imageData=""){const preview=$("companyBankImagePreview"),image=preview?.querySelector("img"),valid=typeof imageData==="string"&&imageData.startsWith("data:image/");if(!preview||!image)return;preview.hidden=!valid;if(valid)image.src=imageData;else image.removeAttribute("src");}
+ function selectManualBankAdminTab(tab){const selected=tab==="receipts"?"receipts":"accounts";document.querySelectorAll("[data-bank-admin-tab]").forEach(button=>{const active=button.dataset.bankAdminTab===selected;button.classList.toggle("active",active);button.setAttribute("aria-selected",String(active));});document.querySelectorAll("[data-bank-admin-view]").forEach(view=>{view.hidden=view.dataset.bankAdminView!==selected;});}
+-async function copyBankValue(id){const value=$(id).textContent;if(!value||value==="—")return;try{await navigator.clipboard.writeText(value);notification("Copied · 已复制");}catch{const area=document.createElement("textarea");area.value=value;document.body.append(area);area.select();document.execCommand("copy");area.remove();notification("Copied · 已复制");}}
++async function copyBankValue(id){const value=$(id).textContent;if(!value||value==="—")return;try{await navigator.clipboard.writeText(value);notification(t("copied"));}catch{const area=document.createElement("textarea");area.value=value;document.body.append(area);area.select();document.execCommand("copy");area.remove();notification(t("copied"));}}
+ function manualBankAttemptStorageKey(){return state.user?.id?`m7-manual-bank-order-${state.user.id}`:"";}
+ function manualBankAttemptFor(bankId,amount,file){
+  const storageKey=manualBankAttemptStorageKey(),fingerprint=JSON.stringify({bankId,amount:String(amount).trim(),file:{name:file.name||"",size:Number(file.size)||0,lastModified:Number(file.lastModified)||0,type:file.type||""}});let attempt=state.manualBankAttempt;
+@@ -774,7 +774,7 @@ async function saveMarketingCampaign(event){event.preventDefault();const status=
+ function organicPromotionMessage(language){const counts=gameProfileCounts();return language==="en"?`Welcome to the MASTER7 premium member platform. Explore ${counts.profiles} independent game entries across ${counts.brands} brands, VIP privileges, Rewards Hub and dedicated support. Register through the official link: `:language==="ms"?`Selamat datang ke platform ahli premium MASTER7. Terokai ${counts.profiles} pintu permainan merentas ${counts.brands} jenama, keistimewaan VIP, Rewards Hub dan sokongan khas. Daftar melalui pautan rasmi: `:`欢迎来到 MASTER7 尊贵会员平台。探索 ${counts.profiles} 个独立游戏入口与 ${counts.brands} 家游戏品牌、VIP 会员礼遇、Rewards Hub 与专属客服。点击官方链接注册：`;}
+ function updateOrganicPromotion(){const language=$("organicPromoLanguage")?.value||"zh",input=$("organicPromoLink"),raw=input?.value||"/register",link=raw.startsWith("/")?new URL(raw,location.origin).href:raw,text=$("organicPromoText");if(input)input.value=link;if(text)text.value=`${organicPromotionMessage(language)}${link}`;}
+ async function shareOrganicPromotion(channel){const link=$("organicPromoLink").value.trim(),message=$("organicPromoText").value.trim(),status=$("organicPromoStatus"),encodedMessage=encodeURIComponent(message),encodedLink=encodeURIComponent(link);let url="";if(channel==="whatsapp")url=`https://wa.me/?text=${encodedMessage}`;else if(channel==="telegram")url=`https://t.me/share/url?url=${encodedLink}&text=${encodeURIComponent(message.replace(link,"").trim())}`;else if(channel==="facebook")url=`https://www.facebook.com/sharer/sharer.php?u=${encodedLink}&quote=${encodedMessage}`;else if(channel==="instagram"){try{await navigator.clipboard.writeText(message);status.textContent="✅ Instagram 文案和注册链接已复制；请选择宣传照片发布。";}catch{status.textContent="请长按复制宣传内容，再到 Instagram 发布。";}url="https://www.instagram.com/";}if(url){const opened=window.open(url,"_blank","noopener,noreferrer");if(opened)opened.opener=null;if(channel!=="instagram")status.textContent=`✅ 已打开 ${channel} 官方分享页面；请检查内容后发布。`;}}
+-function initMarketingUnsubscribe(){if(location.pathname.replace(/\/$/,"")!=="/unsubscribe")return false;const dialog=$("marketingUnsubscribeDialog"),status=$("marketingUnsubscribeStatus"),confirmButton=$("marketingUnsubscribeConfirm"),token=new URLSearchParams(location.search).get("token")||"";dialog.showModal();if(!/^[a-f0-9]{32}$/i.test(token)){status.textContent="退订链接无效。请检查完整链接。";return true;}(async()=>{try{const result=await api(`/api/marketing/unsubscribe?token=${encodeURIComponent(token)}`);if(!result.valid)throw new Error("退订链接无效");if(result.optedOut){status.textContent="此号码已经停止接收推广信息。";return;}status.textContent="确认后，此号码将停止接收 MASTER7 推广信息。";confirmButton.disabled=false;confirmButton.onclick=async()=>{confirmButton.disabled=true;status.textContent="正在保存…";try{await api("/api/marketing/unsubscribe","POST",{token});status.textContent="✅ 已退订。此号码不会再加入推广名单。";}catch(error){status.textContent=error.message;confirmButton.disabled=false;}};}catch(error){status.textContent=error.message||"退订链接无效。";}})();return true;}
++function initMarketingUnsubscribe(){if(location.pathname.replace(/\/$/,"")!=="/unsubscribe")return false;const dialog=$("marketingUnsubscribeDialog"),status=$("marketingUnsubscribeStatus"),confirmButton=$("marketingUnsubscribeConfirm"),token=new URLSearchParams(location.search).get("token")||"";dialog.showModal();if(!/^[a-f0-9]{32}$/i.test(token)){status.textContent=t("unsubscribeInvalid");return true;}(async()=>{try{const result=await api(`/api/marketing/unsubscribe?token=${encodeURIComponent(token)}`);if(!result.valid)throw new Error(t("unsubscribeInvalid"));if(result.optedOut){status.textContent=t("unsubscribeAlready");return;}status.textContent=t("unsubscribeConfirmText");confirmButton.disabled=false;confirmButton.onclick=async()=>{confirmButton.disabled=true;status.textContent=t("unsubscribeSaving");try{await api("/api/marketing/unsubscribe","POST",{token});status.textContent=t("unsubscribeDone");}catch(error){status.textContent=error.message;confirmButton.disabled=false;}};}catch(error){status.textContent=error.message||t("unsubscribeInvalid");}})();return true;}
+ 
+ 
+ function node(tag, css="", text=""){const x=document.createElement(tag);if(css)x.className=css;if(text!==null)x.textContent=String(text);return x;}
+@@ -784,12 +784,22 @@ function complianceReviewRequiredText(){
+  const copy={zh:"请先在身份审核页面申请身份及风险审核，或联系客服。",en:"Please request identity and risk review on the verification page, or contact support.",ms:"Sila mohon semakan identiti dan risiko di halaman pengesahan, atau hubungi sokongan."};
+  return copy[state.lang]||copy.en;
+ }
++function applyMemberFallbackLanguage(){
++ document.querySelectorAll("[data-member-zh]").forEach(el=>{
++  if(!Object.hasOwn(el.dataset,"memberEn"))el.dataset.memberEn=el.textContent;
++  el.textContent=state.lang==="en"?el.dataset.memberEn:el.dataset.memberZh;
++ });
++ document.querySelectorAll("[data-member-zh-placeholder]").forEach(el=>{
++  if(!Object.hasOwn(el.dataset,"memberEnPlaceholder"))el.dataset.memberEnPlaceholder=el.placeholder;
++  el.placeholder=state.lang==="en"?el.dataset.memberEnPlaceholder:el.dataset.memberZhPlaceholder;
++ });
++}
+ function applyLang(){
+- document.documentElement.lang=state.lang==="zh"?"zh-Hans":state.lang;$("locale").value=state.lang;document.querySelectorAll("[data-i18n]").forEach(el=>{el.textContent=t(el.dataset.i18n);});document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{el.placeholder=t(el.dataset.i18nPlaceholder);});document.querySelectorAll("[data-i18n-aria-label]").forEach(el=>{el.setAttribute("aria-label",t(el.dataset.i18nAriaLabel));});document.querySelectorAll("[data-auth-lang]").forEach(el=>{const active=el.dataset.authLang===state.lang;el.classList.toggle("active",active);el.setAttribute("aria-pressed",String(active));});
++ document.documentElement.lang=state.lang==="zh"?"zh-Hans":state.lang;$("locale").value=state.lang;document.querySelectorAll("[data-i18n]").forEach(el=>{el.textContent=t(el.dataset.i18n);});document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{el.placeholder=t(el.dataset.i18nPlaceholder);});document.querySelectorAll("[data-i18n-aria-label]").forEach(el=>{el.setAttribute("aria-label",t(el.dataset.i18nAriaLabel));});document.querySelectorAll("[data-auth-lang]").forEach(el=>{const active=el.dataset.authLang===state.lang;el.classList.toggle("active",active);el.setAttribute("aria-pressed",String(active));});applyMemberFallbackLanguage();
+  const lobbyNotice=document.querySelector('[data-i18n="lobbyNotice"]'),providerHint=document.querySelector('[data-i18n="providerManagerHint"]'),counts=gameProfileCounts();
+  if(lobbyNotice)lobbyNotice.textContent=state.lang==="zh"?`${counts.profiles} 个独立入口来自 ${counts.brands} 家游戏品牌；内部游戏由各厂家平台提供。`:state.lang==="ms"?`${counts.profiles} pintu berasingan daripada ${counts.brands} jenama; permainan dalaman kekal dalam setiap platform pembekal.`:`${counts.profiles} independent entries across ${counts.brands} game brands; internal games remain within each provider platform.`;
+  if(providerHint)providerHint.textContent=state.lang==="zh"?`管理三个免费赞助位的图片；${counts.profiles} 个入口与 ${counts.brands} 家品牌的封面及连接记录在下方查看。`:state.lang==="ms"?`Urus imej tiga slot tajaan percuma. Lihat ${counts.profiles} pintu dan ${counts.brands} jenama di bawah.`:`Manage artwork for the three free sponsored slots. View ${counts.profiles} entries across ${counts.brands} brands below.`;
+- renderCatalog();renderAnnouncements();renderTickets();renderSession();renderPaymentPreview();renderBonusBrandPreview();renderCarousel();renderBenefits();applySocialLanguage();renderSocial();renderAuthMode();if(state.section==="admin")renderAdmin();
++ renderCatalog();renderAnnouncements();renderTickets();renderSession();renderPaymentPreview();renderBonusBrandPreview();renderCarousel();renderBenefits();applySocialLanguage();renderSocial();renderAuthMode();window.Master7Vip?.languageChanged?.();window.Master7Rewards?.languageChanged?.();window.Master7Engagement?.languageChanged?.();if(state.section==="admin")renderAdmin();
+ }
+ async function api(url,method="GET",payload=undefined,timeoutMs=12000){
+  const headers={};
+@@ -1113,10 +1123,10 @@ async function renderPaymentChannelManager(){
+ }
+ 
+ function renderTicketUnreadBadges(){const count=Math.max(0,Number(state.ticketUnread)||0);document.querySelectorAll("[data-ticket-unread]").forEach(badge=>{badge.textContent=count>99?"99+":String(count);badge.hidden=count===0;});const admin=$("adminNotificationCount");if(admin)admin.textContent=String(count);}
+-function renderTickets(){const host=$("tickets");clear(host);if(!state.user){host.append(node("p","muted",t("loginFirst")));return;}if(!state.tickets.length){host.append(node("p","muted",t("noTickets")));return;}for(const ticket of state.tickets){const box=node("div",`ticket${ticket.unread?" ticket-unread":""}`),heading=node("h4","",`#${ticket.id} · ${ticket.subject}`),msg=node("p","",ticket.message),meta=node("time","",`${ticket.username} · ${new Date(ticket.created_at*1000).toLocaleString()} · ${t(ticket.status)}`);box.append(heading,msg,meta);if(ticket.unread)box.append(node("span","ticket-new-label","NEW"));if(state.user.role!=="member"){const close=node("button","button button-ghost",ticket.status==="open"?t("closeTicket"):t("reopenTicket"));close.type="button";close.onclick=async()=>{try{await api("/api/admin/ticket-status","POST",{ticketId:ticket.id,status:ticket.status==="open"?"closed":"open"});await refreshTickets();await loadAdminBase(true);notification(t("success"));}catch(e){notification(e.message)}};box.append(close);}if(ticket.repliesTruncated)box.append(node("p","muted","显示最新 200 条回复 / Showing the latest 200 replies"));for(const reply of ticket.replies||[]){const replyBox=node("div","ticket-reply");replyBox.append(node("small","muted",reply.username+" · "+new Date(reply.created_at*1000).toLocaleString()),node("p","",reply.message));box.append(replyBox);}if(ticket.status==="open"&&state.user.approved){const form=node("form","stack"),input=node("textarea");input.required=true;input.maxLength=2000;input.rows=2;input.setAttribute("aria-label",t("reply"));input.placeholder=t("reply");const send=node("button","button button-outline",t("sendReply"));send.type="submit";form.append(input,send);form.onsubmit=async e=>{e.preventDefault();send.disabled=true;try{await api("/api/tickets/reply","POST",{ticketId:ticket.id,message:input.value});await refreshTickets();}catch(e){notification(e.message);send.disabled=false;}};box.append(form);}host.append(box);}if(state.ticketHasMore){const more=node("button","button button-outline","加载更多 / Load more");more.type="button";more.onclick=async()=>{more.disabled=true;await refreshTickets(true);};host.append(more);}}
++function renderTickets(){const host=$("tickets");clear(host);if(!state.user){host.append(node("p","muted",t("loginFirst")));return;}if(!state.tickets.length){host.append(node("p","muted",t("noTickets")));return;}for(const ticket of state.tickets){const box=node("div",`ticket${ticket.unread?" ticket-unread":""}`),heading=node("h4","",`#${ticket.id} · ${ticket.subject}`),msg=node("p","",ticket.message),meta=node("time","",`${ticket.username} · ${new Date(ticket.created_at*1000).toLocaleString()} · ${t(ticket.status)}`);box.append(heading,msg,meta);if(ticket.unread)box.append(node("span","ticket-new-label","NEW"));if(state.user.role!=="member"){const close=node("button","button button-ghost",ticket.status==="open"?t("closeTicket"):t("reopenTicket"));close.type="button";close.onclick=async()=>{try{await api("/api/admin/ticket-status","POST",{ticketId:ticket.id,status:ticket.status==="open"?"closed":"open"});await refreshTickets();await loadAdminBase(true);notification(t("success"));}catch(e){notification(e.message)}};box.append(close);}if(ticket.repliesTruncated)box.append(node("p","muted",t("ticketTruncated")));for(const reply of ticket.replies||[]){const replyBox=node("div","ticket-reply");replyBox.append(node("small","muted",reply.username+" · "+new Date(reply.created_at*1000).toLocaleString()),node("p","",reply.message));box.append(replyBox);}if(ticket.status==="open"&&state.user.approved){const form=node("form","stack"),input=node("textarea");input.required=true;input.maxLength=2000;input.rows=2;input.setAttribute("aria-label",t("reply"));input.placeholder=t("reply");const send=node("button","button button-outline",t("sendReply"));send.type="submit";form.append(input,send);form.onsubmit=async e=>{e.preventDefault();send.disabled=true;try{await api("/api/tickets/reply","POST",{ticketId:ticket.id,message:input.value});await refreshTickets();}catch(e){notification(e.message);send.disabled=false;}};box.append(form);}host.append(box);}if(state.ticketHasMore){const more=node("button","button button-outline",t("loadMore"));more.type="button";more.onclick=async()=>{more.disabled=true;await refreshTickets(true);};host.append(more);}}
+ async function markVisibleTicketsRead(){const ids=state.tickets.filter(ticket=>ticket.unread).slice(0,50).map(ticket=>ticket.id);if(!ids.length)return;try{await api("/api/tickets/read","POST",{ticketIds:ids});for(const ticket of state.tickets)if(ids.includes(ticket.id))ticket.unread=false;const status=await api("/api/tickets/notifications");state.ticketUnread=Number(status.unread)||0;state.ticketLatestEvent=status.latestEvent||state.ticketLatestEvent;renderTicketUnreadBadges();renderTickets();}catch{}}
+ async function refreshTickets(append=false){if(!state.user){state.tickets=[];state.ticketPage=1;state.ticketHasMore=false;state.ticketUnread=0;state.ticketLatestEvent=null;renderTicketUnreadBadges();renderTickets();return;}const page=append?state.ticketPage+1:1;try{const r=await api(`/api/tickets?page=${page}&limit=20`);state.tickets=append?[...state.tickets,...(r.items||[])]:r.items||[];state.ticketPage=Number(r.page)||page;state.ticketHasMore=!!r.hasMore;state.ticketUnread=Number(r.unread)||0;if(state.ticketLatestEvent===null)state.ticketLatestEvent=r.latestEvent||"";else if(typeof r.latestEvent==="string")state.ticketLatestEvent=r.latestEvent;renderTicketUnreadBadges();renderTickets();if(state.section==="support")await markVisibleTicketsRead();}catch(e){notification(e.message)}}
+-async function pollTicketNotifications(){if(state.ticketPollBusy||document.visibilityState!=="visible"||!state.user)return;state.ticketPollBusy=true;try{const data=await api("/api/tickets/notifications"),next=typeof data.latestEvent==="string"?data.latestEvent:"",previous=state.ticketLatestEvent;state.ticketUnread=Number(data.unread)||0;state.ticketLatestEvent=next;renderTicketUnreadBadges();if(previous!==null&&next&&next!==previous&&state.ticketUnread>0){try{if(state.financialSoundEnabled!==false&&!playTicketTone())armFinancialAudio();}catch{}notification("💬 收到新的客服消息 / New support message");}if(state.section==="support"&&state.ticketUnread>0)await refreshTickets();}catch{}finally{state.ticketPollBusy=false;}}
++async function pollTicketNotifications(){if(state.ticketPollBusy||document.visibilityState!=="visible"||!state.user)return;state.ticketPollBusy=true;try{const data=await api("/api/tickets/notifications"),next=typeof data.latestEvent==="string"?data.latestEvent:"",previous=state.ticketLatestEvent;state.ticketUnread=Number(data.unread)||0;state.ticketLatestEvent=next;renderTicketUnreadBadges();if(previous!==null&&next&&next!==previous&&state.ticketUnread>0){try{if(state.financialSoundEnabled!==false&&!playTicketTone())armFinancialAudio();}catch{}notification(t("newSupportMessage"));}if(state.section==="support"&&state.ticketUnread>0)await refreshTickets();}catch{}finally{state.ticketPollBusy=false;}}
+ async function loadPublic(){try{const [providers,anns,social,channels,supplierArt,vpayStatus,oneMpayStatus,gspayStatus,gspayUsdtStatus]=await Promise.all([api("/api/providers"),api("/api/announcements"),api("/api/social-links"),api("/api/payment-channels"),api("/api/supplier-art-list"),api("/api/payments/vpay/status").catch(()=>null),api("/api/payments/1mpay/status").catch(()=>null),api("/api/payments/gspay/status").catch(()=>null),api("/api/payments/gspay/usdt/status").catch(()=>null)]);state.paymentChannels=Object.fromEntries((channels.items||[]).map(x=>[x.provider_id,x.status]));state.paymentStatus=vpayStatus;state.oneMpayStatus=oneMpayStatus;state.gspayStatus=gspayStatus;state.gspayUsdtStatus=gspayUsdtStatus;state.providers=providers.items;state.announcements=anns.items;state.social=social;state.supplierArtwork=Object.fromEntries((supplierArt.items||[]).filter(x=>x.image_updated_at).map(x=>[x.provider_id,x.image_updated_at]));renderAnnouncements();renderSocial();renderBonusBrandPreview();renderPaymentPreview();renderApiSupplierButtons();}catch(e){notification(e.message)}await Promise.all([loadGameCatalogue(),loadLobbyContent(),window.Master7Engagement?.loadPublic()]);}
+ async function loadGameCatalogue(profileId=state.selectedCatalogProvider){const requestId=++state.gameCatalogueRequestId,url=profileId?`/api/games?profileId=${encodeURIComponent(profileId)}`:"/api/games";try{const catalogue=await api(url);if(requestId!==state.gameCatalogueRequestId)return;if(typeof syncGameProfiles==="function")syncGameProfiles(catalogue);const entry=profileId&&typeof gameProfileEntry==="function"?gameProfileEntry(profileId):null,providerId=entry&&typeof gameProfileProviderId==="function"?gameProfileProviderId(entry):"";state.gameCatalogue=catalogue;state.gameRanking=catalogue.ranking||state.gameRanking;state.games=Array.isArray(catalogue.games)?catalogue.games.map(game=>{if(!profileId)return game;const returnedProfile=String(game?.profileId||game?.profile_id||"");return {...game,profileId:returnedProfile||profileId,...(!game?.providerId&&!game?.provider_id&&providerId?{providerId}:{}),...(returnedProfile&&returnedProfile!==profileId?{playable:false,profileMismatch:true}:{})};}):[];renderCatalog();renderApiSupplierButtons();}catch{if(requestId!==state.gameCatalogueRequestId)return;state.gameCatalogue={...(state.gameCatalogue||{}),selectedProfileId:profileId,selectedProvider:profileId,profiles:state.gameCatalogue?.profiles||[],providers:state.gameCatalogue?.providers||[],games:[]};state.games=[];renderCatalog();renderApiSupplierButtons();}}
+ 
+@@ -1298,6 +1308,9 @@ Object.assign(translations.zh,{memberWalletTitle:"我的钱包",availableBalance
+ Object.assign(translations.en,{memberWalletTitle:"My wallet",availableBalance:"Available balance",quickDeposit:"Deposit",quickWithdraw:"Withdraw",quickRecords:"Records",quickRewards:"Rewards",depositRecords:"My deposit records",dockHome:"Home",dockGames:"Games",dockWallet:"Wallet",dockSupport:"Support",dockAccount:"Account"});
+ Object.assign(translations.ms,{memberWalletTitle:"Dompet saya",availableBalance:"Baki tersedia",quickDeposit:"Deposit",quickWithdraw:"Pengeluaran",quickRecords:"Rekod",quickRewards:"Ganjaran",depositRecords:"Rekod deposit saya",dockHome:"Utama",dockGames:"Permainan",dockWallet:"Dompet",dockSupport:"Sokongan",dockAccount:"Akaun"});
+ Object.assign(translations.ms,{registrationDone:"Pendaftaran dan pengesahan telefon selesai. Log masuk dengan ID, kata laluan dan OTP telefon.",registerSaved:"Berjaya didaftarkan. Sila log masuk.",loginNotice:"Masukkan ID ahli dan kata laluan, kemudian isi OTP 6 digit yang dihantar ke telefon berdaftar.",managementSignIn:"Log masuk pengurusan",managementLoginNotice:"Masukkan ID pentadbir atau kakitangan dan kata laluan.",featureOtpDesc:"Sahkan telefon Malaysia semasa pendaftaran; log masuk ahli menggunakan ID, kata laluan dan OTP SMS"});
++Object.assign(translations.en,{copied:"Copied",ticketTruncated:"Showing the latest 200 replies",loadMore:"Load more",newSupportMessage:"💬 New support message",marketingUnsubscribeTitle:"Stop promotional messages",marketingUnsubscribeLoading:"Verifying unsubscribe link…",marketingUnsubscribeConfirm:"Confirm unsubscribe",marketingUnsubscribeReturn:"Return to MASTER7",unsubscribeInvalid:"The unsubscribe link is invalid. Check the complete link.",unsubscribeAlready:"This number has already stopped receiving promotional messages.",unsubscribeConfirmText:"After confirmation, this number will stop receiving MASTER7 promotional messages.",unsubscribeSaving:"Saving…",unsubscribeDone:"✅ Unsubscribed. This number will not be added to promotional audiences again."});
++Object.assign(translations.zh,{copied:"已复制",ticketTruncated:"显示最新 200 条回复",loadMore:"加载更多",newSupportMessage:"💬 收到新的客服消息",marketingUnsubscribeTitle:"停止接收推广信息",marketingUnsubscribeLoading:"正在验证退订链接…",marketingUnsubscribeConfirm:"确认退订",marketingUnsubscribeReturn:"返回 MASTER7",unsubscribeInvalid:"退订链接无效。请检查完整链接。",unsubscribeAlready:"此号码已经停止接收推广信息。",unsubscribeConfirmText:"确认后，此号码将停止接收 MASTER7 推广信息。",unsubscribeSaving:"正在保存…",unsubscribeDone:"✅ 已退订。此号码不会再加入推广名单。"});
++Object.assign(translations.ms,{copied:"Disalin",ticketTruncated:"Menunjukkan 200 balasan terkini",loadMore:"Muat lagi",newSupportMessage:"💬 Mesej sokongan baharu",marketingUnsubscribeTitle:"Hentikan mesej promosi",marketingUnsubscribeLoading:"Mengesahkan pautan berhenti langgan…",marketingUnsubscribeConfirm:"Sahkan berhenti langgan",marketingUnsubscribeReturn:"Kembali ke MASTER7",unsubscribeInvalid:"Pautan berhenti langgan tidak sah. Semak pautan penuh.",unsubscribeAlready:"Nombor ini telah berhenti menerima mesej promosi.",unsubscribeConfirmText:"Selepas pengesahan, nombor ini akan berhenti menerima mesej promosi MASTER7.",unsubscribeSaving:"Menyimpan…",unsubscribeDone:"✅ Berhenti langgan selesai. Nombor ini tidak akan ditambahkan ke khalayak promosi lagi."});
+ (async function start(){loadFavoriteGames();loadFavoriteProviders();bind();bindPasswordAuth();bindPaymentPreview();bindWalletActions();bindBonusBrandPreview();
+  if(initMarketingUnsubscribe())return;
+  const startupPath=location.pathname.replace(/\/+$/,"")||"/";
+diff --git a/public/assets/engagement.js b/public/assets/engagement.js
+index 85aeab4..ea9c13d 100644
+--- a/public/assets/engagement.js
++++ b/public/assets/engagement.js
+@@ -2,6 +2,8 @@
+ (function master7EngagementSuite(){
+  const byId=id=>document.getElementById(id);
+  const make=(tag,className="",value="")=>{const item=document.createElement(tag);if(className)item.className=className;if(value!=="")item.textContent=String(value);return item;};
++ const locale=()=>typeof state!=="undefined"&&["en","zh","ms"].includes(state.lang)?state.lang:"zh";
++ const memberCopy=(english,chinese)=>locale()==="en"?english:chinese;
+  const knownProviders=new Set(["megah5","jili","918kissh5","gameplay","lionking","suncity","pgsoft","gfg","sagaming","ps9","dragoonsoft","jdb","bg","allbet","quickspin","astar","metagaming","fuma","yl","funky","gamitech","spadegaming","turbo","ct855","pragmaticplay","joker","cg","atg","rectangle","m8bet","awc","evo888h5","cosmoplay","geminiupdown","epicwin","venus","clotplay"]);
+  const recentKey="master7-recent-providers",favoriteKey="master7-favorite-providers";
+  let publicData=null,adminData=null;
+@@ -26,7 +28,7 @@
+  function openSection(section){if(typeof window.selected==="function")window.selected(section);else document.querySelector(`[data-section="${section}"]`)?.click();}
+ 
+  function renderPersonalized(data,host){
+-  const config=data.program.personalizedLobby,ready=data.readiness.personalizedLobby,item=card("Personalized Lobby","LOCAL PREFERENCES ONLY");item.append(status(ready.published?"DISPLAY ON":"OFF",ready.published),make("p","engagement-note","只使用本机收藏、最近浏览和管理员精选。不会根据投注金额、输赢或敏感行为推断。"));const providers=personalizedProviders(data.program),list=make("div","engagement-provider-list");if(!providers.length)list.append(make("p","engagement-empty",config.enabled?"收藏或浏览游戏平台后会显示在这里。":"Personalized Lobby is off."));
++  const config=data.program.personalizedLobby,ready=data.readiness.personalizedLobby,item=card("Personalized Lobby","LOCAL PREFERENCES ONLY");item.append(status(ready.published?"DISPLAY ON":"OFF",ready.published),make("p","engagement-note",memberCopy("Uses only this device's favourites, recent views and management selections. It does not infer preferences from wager amounts, wins, losses or sensitive behaviour.","只使用本机收藏、最近浏览和管理员精选。不会根据投注金额、输赢或敏感行为推断。")));const providers=personalizedProviders(data.program),list=make("div","engagement-provider-list");if(!providers.length)list.append(make("p","engagement-empty",config.enabled?memberCopy("Favourite or browse a game provider to see it here.","收藏或浏览游戏平台后会显示在这里。"):"Personalized Lobby is off."));
+   for(const provider of providers){const row=make("button","engagement-provider");row.type="button";row.append(make("strong","",provider.name),make("small","",provider.sources.join(" · ")));row.onclick=()=>{recordRecentProvider(provider.id,provider.name);if(typeof window.openCatalogProvider==="function")window.openCatalogProvider(provider.id,provider.name);else openSection("lobby");};list.append(row);}item.append(list);host.append(item);
+  }
+  function ticketCount(){const badge=document.querySelector("[data-ticket-unread]:not([hidden])");const count=Number(badge?.textContent||0);return Number.isFinite(count)&&count>0?Math.floor(count):0;}
+@@ -34,7 +36,7 @@
+   const ready=data?.readiness?.notificationCenter||{},centerEnabled=data?.program?.enabled===true&&ready.published===true,sources=(ready.sources||[]).map(source=>({...source,displayEnabled:centerEnabled&&source.enabled===true}));return {centerEnabled,sources,soundEnabled:centerEnabled&&ready.sound===true&&sources.some(source=>source.displayEnabled)};
+  }
+  function renderNotifications(data,host){
+-  const display=notificationDisplayState(data),item=card("Notification Center","EXISTING RECORDS · ONE CENTER");item.append(status(display.centerEnabled?"DISPLAY ON":"OFF",display.centerEnabled),make("p","engagement-note","此中心只汇总现有工单、会员财务记录和系统状态入口，不复制或制造第二份记录。"));const list=make("div","engagement-notification-list"),labels={tickets:"Support tickets",financial:"Deposit / withdrawal",system_status:"System status"};
++  const display=notificationDisplayState(data),item=card("Notification Center","EXISTING RECORDS · ONE CENTER");item.append(status(display.centerEnabled?"DISPLAY ON":"OFF",display.centerEnabled),make("p","engagement-note",memberCopy("This center brings together existing support tickets, member financial records and system-status links. It does not duplicate or create a second record.","此中心只汇总现有工单、会员财务记录和系统状态入口，不复制或制造第二份记录。")));const list=make("div","engagement-notification-list"),labels={tickets:"Support tickets",financial:"Deposit / withdrawal",system_status:"System status"};
+   for(const source of display.sources){const row=make("article","engagement-notification-row"),copy=make("div","");copy.append(make("strong","",labels[source.id]||source.id),make("small","",`${source.source} · ${source.scope}`));const sourceEnabled=source.displayEnabled,chip=status(sourceEnabled?"ON":"OFF",sourceEnabled);row.append(copy,chip);if(source.id==="tickets"&&sourceEnabled){const button=make("button","button button-outline small",ticketCount()?`${ticketCount()} unread · Open Support`:"Open Support");button.type="button";button.onclick=()=>openSection("support");row.append(button);}else if(source.id==="financial"&&sourceEnabled){const button=make("button","button button-outline small","Open records");button.type="button";button.onclick=()=>openSection("deposit");row.append(button);}else if(source.id==="system_status"&&sourceEnabled){const button=make("button","button button-outline small","View status");button.type="button";button.onclick=()=>byId("aboutButton")?.click();row.append(button);}list.append(row);}item.append(list,valueLine("Notification sound",display.soundEnabled?"ON · client controlled":"OFF"),valueLine("Delivery automation","OFF"));host.append(item);
+  }
+  function renderPublic(data){
+@@ -60,8 +62,9 @@
+  async function saveAdmin(event){event.preventDefault();const form=event.currentTarget,button=form.querySelector("button[type=submit]"),statusHost=byId("engagementManagerStatus");button.disabled=true;if(statusHost)statusHost.textContent="Saving…";try{adminData=await api("/api/admin/engagement","POST",{program:adminPayload(form)});renderAdmin(adminData);await loadPublic();if(typeof window.notification==="function")window.notification("Lobby and message settings saved");}catch(error){if(statusHost)statusHost.textContent=error.message;}finally{button.disabled=false;}}
+  async function loadAdmin(){const statusHost=byId("engagementManagerStatus");if(statusHost)statusHost.textContent="Loading…";try{renderAdmin(await api("/api/admin/engagement"));}catch(error){if(statusHost)statusHost.textContent=error.message;}}
+  function soundEnabled(){return publicData?.program?.enabled===true&&publicData.program.notificationCenter?.enabled===true&&publicData.program.notificationCenter.sound===true;}
++ function languageChanged(){if(publicData)renderPublic(publicData);}
+  function sessionChanged(){if(publicData)renderPublic(publicData);}
+  function bind(){byId("reloadEngagementManager")?.addEventListener("click",loadAdmin);}
+- window.Master7Engagement={loadPublic,loadAdmin,sessionChanged,recordRecentProvider,soundEnabled,_test:{favoriteIds,recentItems,personalizedProviders,notificationDisplayState,adminPayload}};
++ window.Master7Engagement={loadPublic,loadAdmin,sessionChanged,languageChanged,recordRecentProvider,soundEnabled,_test:{favoriteIds,recentItems,personalizedProviders,notificationDisplayState,adminPayload}};
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",bind);else bind();
+ })();
+diff --git a/public/assets/member-refresh.css b/public/assets/member-refresh.css
+index be036de..39cf640 100644
+--- a/public/assets/member-refresh.css
++++ b/public/assets/member-refresh.css
+@@ -300,3 +300,254 @@ body:not(.auth-entry):not(.admin-mode) .feature-inline-guide p:last-child{paddin
+   body:not(.auth-entry):not(.admin-mode) #deposit .payment-option{grid-template-columns:30px minmax(0,1fr);}
+   body:not(.auth-entry):not(.admin-mode) #deposit .payment-option .payment-state{grid-column:2;grid-row:3;justify-self:start;margin-top:4px}
+ }
++
++/* Premium mobile finish. Presentation only: payment and game readiness still
++   comes from the existing API state and no disabled action is promoted. */
++body:not(.auth-entry):not(.admin-mode){
++  --premium-navy:#08345f;
++  --premium-blue:#126db7;
++  --premium-water:#5ecdf0;
++  --premium-ice:#effaff;
++  --premium-white:#fff;
++  --premium-line:#cbe4f3;
++  --premium-shadow:0 12px 32px rgba(19,77,119,.11);
++}
++body:not(.auth-entry):not(.admin-mode) .topbar{
++  border-bottom-color:rgba(121,183,220,.42);
++  background:rgba(255,255,255,.94);
++  -webkit-backdrop-filter:blur(18px);
++  backdrop-filter:blur(18px);
++}
++body:not(.auth-entry):not(.admin-mode) .brand span{
++  color:var(--premium-navy);
++  font-weight:850;
++  letter-spacing:.1em;
++}
++body:not(.auth-entry):not(.admin-mode) .brand small{color:#5e8098;letter-spacing:.13em}
++body:not(.auth-entry):not(.admin-mode) .member-service-menu button,
++body:not(.auth-entry):not(.admin-mode) .wallet-quick-grid .wallet-primary-action{
++  border-color:var(--premium-line);
++  background:
++    radial-gradient(circle at 105% 110%,rgba(94,205,240,.18),transparent 45%),
++    linear-gradient(145deg,#fff 12%,#f3faff 100%);
++  box-shadow:var(--premium-shadow);
++}
++body:not(.auth-entry):not(.admin-mode) .member-service-menu button:hover,
++body:not(.auth-entry):not(.admin-mode) .wallet-quick-grid .wallet-primary-action:hover{
++  border-color:#7fc9ed;
++  background:linear-gradient(145deg,#fff,#e9f7ff);
++}
++body:not(.auth-entry):not(.admin-mode) .member-service-menu button>span,
++body:not(.auth-entry):not(.admin-mode) .wallet-quick-grid .wallet-primary-action>span{
++  color:#0d70bd;
++  background:linear-gradient(145deg,#e4f7ff,#f5fbff);
++  box-shadow:inset 0 0 0 1px #bfe5f7,0 6px 16px rgba(22,111,174,.10);
++}
++body:not(.auth-entry):not(.admin-mode) .company-profile-hero{
++  border:1px solid rgba(102,189,231,.48);
++  box-shadow:0 18px 42px rgba(4,46,81,.18);
++}
++body:not(.auth-entry):not(.admin-mode) .company-profile-copy{
++  background:linear-gradient(145deg,#062c52,#07507d);
++}
++body:not(.auth-entry):not(.admin-mode) #lobby>.lobby-overview,
++body:not(.auth-entry):not(.admin-mode) .api-supplier-lobby,
++body:not(.auth-entry):not(.admin-mode) .payment-lobby{
++  border-color:var(--premium-line)!important;
++  background:
++    radial-gradient(circle at 100% 0,rgba(94,205,240,.13),transparent 34%),
++    #fff!important;
++  box-shadow:var(--premium-shadow)!important;
++}
++body:not(.auth-entry):not(.admin-mode) .lobby-live-summary span{
++  border:1px solid #d4eaf6;
++  background:linear-gradient(145deg,#f8fdff,#edf8ff);
++}
++body:not(.auth-entry):not(.admin-mode) .game-category-filters{
++  scrollbar-width:none;
++  -ms-overflow-style:none;
++}
++body:not(.auth-entry):not(.admin-mode) .game-category-filters::-webkit-scrollbar{display:none}
++body:not(.auth-entry):not(.admin-mode) .game-category-chip{
++  border-color:#c7e2f2;
++  background:rgba(255,255,255,.92);
++  color:#315f7f;
++  box-shadow:0 5px 16px rgba(21,75,112,.06);
++}
++body:not(.auth-entry):not(.admin-mode) .game-category-chip.active{
++  border-color:#176db8;
++  background:linear-gradient(120deg,#126db7,#199acb);
++  color:#fff;
++  box-shadow:0 8px 20px rgba(20,113,183,.22);
++}
++body:not(.auth-entry):not(.admin-mode) .platform-search input{
++  border-color:#c8e2f1;
++  background:#fff;
++  box-shadow:0 8px 22px rgba(20,75,113,.08);
++}
++body:not(.auth-entry):not(.admin-mode) .api-supplier-button{
++  border-color:#d0e5f2!important;
++  background:linear-gradient(150deg,#fff,#f0f9ff)!important;
++  box-shadow:0 9px 24px rgba(18,77,118,.09)!important;
++}
++body:not(.auth-entry):not(.admin-mode) .api-supplier-button.connected,
++body:not(.auth-entry):not(.admin-mode) .api-supplier-button.playable{
++  border-color:#9ed7eb!important;
++  background:linear-gradient(150deg,#fff,#e9f9ff)!important;
++}
++body:not(.auth-entry):not(.admin-mode) .api-supplier-art{
++  background:linear-gradient(145deg,#eaf8ff,#fff);
++  box-shadow:inset 0 0 0 1px rgba(172,215,237,.6);
++}
++body:not(.auth-entry):not(.admin-mode) .api-supplier-button strong{color:#123f64!important}
++body:not(.auth-entry):not(.admin-mode) .api-supplier-button small{color:#5d7c91!important}
++
++@media(max-width:760px){
++  body:not(.auth-entry):not(.admin-mode){
++    padding-bottom:calc(96px + env(safe-area-inset-bottom));
++    background:
++      radial-gradient(circle at 100% 0,rgba(94,205,240,.26),transparent 22rem),
++      linear-gradient(180deg,#effaff 0,#f7fbff 32rem,#f4f8fc 100%);
++  }
++  body:not(.auth-entry):not(.admin-mode) .topbar{
++    position:sticky;
++    top:0;
++    z-index:40;
++    height:64px;
++    min-height:64px;
++    padding:8px 12px;
++  }
++  body:not(.auth-entry):not(.admin-mode) .topbar .brand-logo{width:40px;height:40px;flex-basis:40px}
++  body:not(.auth-entry):not(.admin-mode) .topbar .brand{font-size:17px}
++  body:not(.auth-entry):not(.admin-mode) .top-actions :is(select,#loginButton,#logoutButton){min-height:44px}
++  body:not(.auth-entry):not(.admin-mode) .top-actions #loginButton{padding-inline:15px;border-radius:13px}
++
++  body:not(.auth-entry):not(.admin-mode) .mobile-dock{
++    z-index:55;
++    left:8px;
++    right:8px;
++    bottom:calc(7px + env(safe-area-inset-bottom));
++    min-height:70px;
++    padding:6px;
++    border:1px solid rgba(151,204,233,.75);
++    border-radius:22px;
++    background:rgba(255,255,255,.96);
++    box-shadow:0 16px 42px rgba(5,49,82,.24);
++    -webkit-backdrop-filter:blur(18px);
++    backdrop-filter:blur(18px);
++  }
++  body:not(.auth-entry):not(.admin-mode) .mobile-dock-button{
++    min-height:57px;
++    padding:4px 2px;
++    border-radius:16px;
++    color:#52738c;
++  }
++  body:not(.auth-entry):not(.admin-mode) .mobile-dock-button>span{
++    display:grid;
++    place-items:center;
++    width:30px;
++    height:30px;
++    border-radius:10px;
++    color:#1c75b7;
++    background:#eaf7ff;
++    font-size:18px;
++  }
++  body:not(.auth-entry):not(.admin-mode) .mobile-dock-button>small{font-size:12px;font-weight:800}
++  body:not(.auth-entry):not(.admin-mode) .mobile-dock-button.active{
++    border-color:#b9ddf2;
++    background:linear-gradient(145deg,#e6f6ff,#f6fcff);
++    color:#075a9b;
++    box-shadow:inset 0 0 0 1px #e8f8ff;
++  }
++  body:not(.auth-entry):not(.admin-mode) .mobile-dock-button.active>span{
++    color:#fff;
++    background:linear-gradient(145deg,#126db7,#1ba7ce);
++    box-shadow:0 5px 12px rgba(17,109,179,.22);
++  }
++
++  body:not(.auth-entry):not(.admin-mode) .member-service-menu{gap:11px}
++  body:not(.auth-entry):not(.admin-mode) .member-service-menu button{
++    min-height:108px;
++    padding:13px 8px;
++    border-radius:19px;
++  }
++  body:not(.auth-entry):not(.admin-mode) .member-service-menu button>span{width:48px;height:48px;font-size:27px}
++  body:not(.auth-entry):not(.admin-mode) .member-service-menu strong{font-size:16px}
++  body:not(.auth-entry):not(.admin-mode) .member-service-menu small{font-size:11px}
++
++  body:not(.auth-entry):not(.admin-mode) .wallet-quick-grid{
++    grid-template-columns:repeat(2,minmax(0,1fr));
++    gap:10px;
++  }
++  body:not(.auth-entry):not(.admin-mode) .wallet-quick-grid .wallet-primary-action{
++    min-height:104px;
++    padding:12px 8px;
++    border-radius:17px;
++  }
++  body:not(.auth-entry):not(.admin-mode) .wallet-quick-grid .wallet-primary-action>span{width:44px;height:44px;border-radius:14px}
++  body:not(.auth-entry):not(.admin-mode) .wallet-quick-grid .wallet-primary-action strong{font-size:16px}
++  body:not(.auth-entry):not(.admin-mode) .wallet-quick-grid .wallet-primary-action small{font-size:12px}
++
++  body:not(.auth-entry):not(.admin-mode) .company-profile-hero{min-height:228px;border-radius:21px}
++  body:not(.auth-entry):not(.admin-mode) .company-profile-media,
++  body:not(.auth-entry):not(.admin-mode) .company-profile-media img{min-height:228px;height:228px}
++  body:not(.auth-entry):not(.admin-mode) .company-profile-copy{
++    padding:58px 18px 18px;
++    background:linear-gradient(180deg,rgba(2,20,41,.05) 8%,rgba(3,32,60,.82) 58%,#05375f 100%);
++  }
++  body:not(.auth-entry):not(.admin-mode) .company-profile-copy h1{max-width:15ch;font-size:27px;line-height:1.06}
++  body:not(.auth-entry):not(.admin-mode) .company-profile-copy .company-profile-lead{font-size:14px}
++
++  body:not(.auth-entry):not(.admin-mode) #lobby>.lobby-overview{padding:17px!important;border-radius:19px!important}
++  body:not(.auth-entry):not(.admin-mode) #lobby>.lobby-overview .casino-hero-stage{display:none!important}
++  body:not(.auth-entry):not(.admin-mode) #lobby>.lobby-overview h1{font-size:26px!important;letter-spacing:-.025em}
++  body:not(.auth-entry):not(.admin-mode) .lobby-live-summary{gap:8px}
++  body:not(.auth-entry):not(.admin-mode) .lobby-live-summary span{min-height:70px;border-radius:15px}
++  body:not(.auth-entry):not(.admin-mode) .lobby-live-summary strong{font-size:24px}
++  body:not(.auth-entry):not(.admin-mode) .lobby-live-summary small{font-size:10px;letter-spacing:.07em}
++
++  body:not(.auth-entry):not(.admin-mode) .lobby-secondary-content .bonus-brand-grid{
++    display:flex!important;
++    gap:10px;
++    overflow-x:auto;
++    scroll-snap-type:x mandatory;
++    scrollbar-width:none;
++  }
++  body:not(.auth-entry):not(.admin-mode) .lobby-secondary-content .bonus-brand-grid::-webkit-scrollbar{display:none}
++  body:not(.auth-entry):not(.admin-mode) .lobby-secondary-content .bonus-brand-card{
++    flex:0 0 86%;
++    scroll-snap-align:start;
++    border-radius:18px!important;
++  }
++  body:not(.auth-entry):not(.admin-mode) .bonus-brand-action,
++  body:not(.auth-entry):not(.admin-mode) .bonus-extra-action{min-height:44px;font-size:12px}
++
++  body:not(.auth-entry):not(.admin-mode) .game-category-filters{padding:3px 1px 10px;gap:8px}
++  body:not(.auth-entry):not(.admin-mode) .game-category-chip{min-height:46px;padding:10px 15px;font-size:13px}
++  body:not(.auth-entry):not(.admin-mode) .platform-search input{min-height:50px;border-radius:14px;font-size:16px}
++  body:not(.auth-entry):not(.admin-mode) .api-supplier-lobby{padding:15px 12px;border-radius:20px}
++  body:not(.auth-entry):not(.admin-mode) .api-supplier-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
++  body:not(.auth-entry):not(.admin-mode) .api-supplier-button{
++    min-height:170px!important;
++    padding:8px!important;
++    grid-template-rows:105px auto!important;
++    border-radius:17px!important;
++  }
++  body:not(.auth-entry):not(.admin-mode) .api-supplier-art{height:105px!important;border-radius:12px!important}
++  body:not(.auth-entry):not(.admin-mode) .api-supplier-button strong{font-size:15px!important;line-height:1.25}
++  body:not(.auth-entry):not(.admin-mode) .api-supplier-button small{font-size:12px!important;line-height:1.3}
++
++  body:not(.auth-entry):not(.admin-mode) #deposit .payment-option{
++    min-height:98px;
++    border-radius:17px;
++    box-shadow:0 9px 24px rgba(18,77,118,.08);
++  }
++  body:not(.auth-entry):not(.admin-mode) #deposit .payment-option strong{font-size:18px}
++}
++
++@media(max-width:370px){
++  body:not(.auth-entry):not(.admin-mode) .api-supplier-grid{gap:8px!important}
++  body:not(.auth-entry):not(.admin-mode) .api-supplier-button{min-height:154px!important;grid-template-rows:90px auto!important}
++  body:not(.auth-entry):not(.admin-mode) .api-supplier-art{height:90px!important}
++  body:not(.auth-entry):not(.admin-mode) .api-supplier-button strong{font-size:14px!important}
++}
+diff --git a/public/assets/rewards.js b/public/assets/rewards.js
+index baa2572..4fbab52 100644
+--- a/public/assets/rewards.js
++++ b/public/assets/rewards.js
+@@ -2,7 +2,9 @@
+ (function master7RewardsHub(){
+  const byId=id=>document.getElementById(id);
+  const el=(tag,className,value)=>{const item=document.createElement(tag);if(className)item.className=className;if(value!==undefined)item.textContent=String(value);return item;};
+- const hub={publicData:null,adminData:null,loading:false,promotions:[],promotionCategory:"all"};
++ const locale=()=>typeof state!=="undefined"&&["en","zh","ms"].includes(state.lang)?state.lang:"zh";
++ const copy=(english,chinese)=>locale()==="en"?english:chinese;
++ const hub={publicData:null,publicError:null,adminData:null,loading:false,promotions:[],promotionCategory:"all"};
+  const number=value=>{const parsed=Number(value);return Number.isFinite(parsed)&&parsed>=0?parsed:0;};
+  const integer=value=>Math.max(0,Math.trunc(number(value)));
+  const chip=(label,ready)=>el("span",`rewards-chip ${ready?"ready":"pending"}`,`${ready?"●":"○"} ${label}`);
+@@ -41,7 +43,7 @@
+  function renderStatus(data){
+   const host=byId("rewardsProgramStatus"),program=data?.program||{};if(!host)return;
+   host.replaceChildren(chip(program.enabled?"PROGRAM ON":"PROGRAM OFF",program.enabled),chip(program.pointsEnabled?`${program.pointsName||"Lucky Points"} ON`:"POINTS OFF",program.pointsEnabled),chip("NON-CASH LEDGER",true),chip("NO REDEMPTION",false));
+-  const notice=byId("rewardsNotice");if(notice)notice.textContent=program.enabled?"Rewards Hub 已开放。只有已连接的数据来源会显示实际进度；积分不会进入真钱钱包，也不能兑换现金。":"Rewards Hub 尚未开放。管理员可先在后台配置，关闭期间不会派发积分。";
++  const notice=byId("rewardsNotice");if(notice)notice.textContent=program.enabled?copy("Rewards Hub is available. Only connected data sources show actual progress; points do not enter the real-money wallet and cannot be redeemed for cash.","Rewards Hub 已开放。只有已连接的数据来源会显示实际进度；积分不会进入真钱钱包，也不能兑换现金。"):copy("Rewards Hub is not available yet. Management can configure it in the backoffice; no points are issued while it is off.","Rewards Hub 尚未开放。管理员可先在后台配置，关闭期间不会派发积分。");
+  }
+  function renderPoints(member,program){
+   const panel=byId("rewardsMemberArea"),login=byId("rewardsLoginNotice"),isMember=typeof state!=="undefined"&&state.user?.role==="member";
+@@ -50,13 +52,14 @@
+   byId("rewardsPointsName").textContent=program.pointsName||"Lucky Points";
+   const week=byId("rewardsWeek");week.replaceChildren();const next=integer(member.checkIn?.nextCycleDay)||1;
+   (member.checkIn?.dailyPoints||[0,0,0,0,0,0,0]).forEach((points,index)=>{const day=el("div",`rewards-day${next===index+1?" current":""}${member.checkIn?.checkedInToday&&next===index+1?" claimed":""}`);day.append(el("span","",`DAY ${index+1}`),el("strong","",`+${integer(points)}`),el("span","",program.pointsName||"POINTS"));week.append(day);});
+-  const button=byId("rewardsCheckIn"),enabled=Boolean(member.checkIn?.enabled),done=Boolean(member.checkIn?.checkedInToday);button.disabled=!enabled||done;button.textContent=done?"今日已签到":enabled?"签到领取积分":"签到尚未开放";
+-  byId("rewardsCheckInMeta").textContent=`MYT · 连续 ${integer(member.checkIn?.streak)} 天 · 第 ${next} 天`;
++  const button=byId("rewardsCheckIn"),enabled=Boolean(member.checkIn?.enabled),done=Boolean(member.checkIn?.checkedInToday);button.disabled=!enabled||done;button.textContent=done?copy("Checked in today","今日已签到"):enabled?copy("Check in for points","签到领取积分"):copy("Check-in unavailable","签到尚未开放");
++  byId("rewardsCheckInMeta").textContent=locale()==="en"?`MYT · ${integer(member.checkIn?.streak)} day streak · Day ${next}`:`MYT · 连续 ${integer(member.checkIn?.streak)} 天 · 第 ${next} 天`;
+  }
+- function renderLedger(member){const host=byId("rewardsLedger");if(!host)return;host.replaceChildren();const entries=member?.points?.ledger||[];if(!entries.length){host.append(el("p","rewards-empty","暂无积分记录。"));return;}entries.forEach(item=>{const row=el("div","rewards-ledger-row"),copy=el("div");copy.append(el("strong","",item.source_type==="checkin"?"每日签到":"Rewards event"),el("span","",new Date(number(item.created_at)*1000).toLocaleString()));row.append(copy,el("strong","",`+${integer(item.points)}`));host.append(row);});}
+- function renderPublic(data){hub.publicData=data||{};renderStatus(hub.publicData);renderPoints(data?.member,data?.program||{});renderLedger(data?.member);}
+- async function loadPublic(){if(hub.loading)return;hub.loading=true;try{const [rewards,promotions]=await Promise.all([api("/api/rewards"),api("/api/benefits").catch(()=>({items:[]}))]);renderPublic(rewards);renderPromotions(promotions);}catch(error){const notice=byId("rewardsNotice");if(notice)notice.textContent=`Rewards Hub 暂时无法读取：${error.message}`;renderPromotions({items:[]});}finally{hub.loading=false;}}
+- async function checkIn(){const button=byId("rewardsCheckIn");button.disabled=true;try{const result=await api("/api/rewards/check-in","POST",{});hub.publicData={...(hub.publicData||{}),member:result.member};renderPublic(hub.publicData);if(typeof notification==="function")notification(result.idempotent?"今日已经签到。":`签到成功 · +${integer(result.points)} ${hub.publicData.program?.pointsName||"Points"}`);}catch(error){if(typeof notification==="function")notification(error.message);else button.title=error.message;}finally{if(!hub.publicData?.member?.checkIn?.checkedInToday)button.disabled=false;}}
++ function renderLedger(member){const host=byId("rewardsLedger");if(!host)return;host.replaceChildren();const entries=member?.points?.ledger||[];if(!entries.length){host.append(el("p","rewards-empty",copy("No points history yet.","暂无积分记录。")));return;}entries.forEach(item=>{const row=el("div","rewards-ledger-row"),entryCopy=el("div");entryCopy.append(el("strong","",item.source_type==="checkin"?copy("Daily check-in","每日签到"):"Rewards event"),el("span","",new Date(number(item.created_at)*1000).toLocaleString()));row.append(entryCopy,el("strong","",`+${integer(item.points)}`));host.append(row);});}
++ function renderPublic(data){hub.publicError=null;hub.publicData=data||{};renderStatus(hub.publicData);renderPoints(data?.member,data?.program||{});renderLedger(data?.member);}
++ function renderPublicError(error){hub.publicError=error;const notice=byId("rewardsNotice");if(notice)notice.textContent=`${copy("Rewards Hub is temporarily unavailable","Rewards Hub 暂时无法读取")}：${error.message}`;renderPromotions({items:[]});}
++ async function loadPublic(){if(hub.loading)return;hub.loading=true;try{const [rewards,promotions]=await Promise.all([api("/api/rewards"),api("/api/benefits").catch(()=>({items:[]}))]);renderPublic(rewards);renderPromotions(promotions);}catch(error){renderPublicError(error);}finally{hub.loading=false;}}
++ async function checkIn(){const button=byId("rewardsCheckIn");button.disabled=true;try{const result=await api("/api/rewards/check-in","POST",{});hub.publicData={...(hub.publicData||{}),member:result.member};renderPublic(hub.publicData);if(typeof notification==="function")notification(result.idempotent?copy("Already checked in today.","今日已经签到。"):`${copy("Check-in complete","签到成功")} · +${integer(result.points)} ${hub.publicData.program?.pointsName||"Points"}`);}catch(error){if(typeof notification==="function")notification(error.message);else button.title=error.message;}finally{if(!hub.publicData?.member?.checkIn?.checkedInToday)button.disabled=false;}}
+ 
+  function input(label,key,value,{type="number",step="1",min="0",className=""}={}){const wrap=el("label",className,label),field=document.createElement("input");field.dataset.rewardField=key;field.type=type;if(type==="number"){field.min=min;field.step=step;field.inputMode=step==="1"?"numeric":"decimal";}field.value=value??"";wrap.append(field);return wrap;}
+  function renderDayEditor(program){const host=byId("rewardsDayEditor");host.replaceChildren();program.checkIn.dailyPoints.forEach((value,index)=>host.append(input(`Day ${index+1}`,`day.${index}`,value)));}
+@@ -73,8 +76,9 @@
+  }
+  async function loadAdmin(){const status=byId("rewardsManagerStatus");try{status.textContent="Loading…";renderAdmin(await api("/api/admin/rewards"));status.textContent="Configuration loaded.";}catch(error){status.textContent=error.message;}}
+  async function saveAdmin(event){event.preventDefault();const button=byId("saveRewardsManager"),status=byId("rewardsManagerStatus");button.disabled=true;try{const data=await api("/api/admin/rewards","POST",{program:programFromForm()});renderAdmin(data);status.textContent="Rewards Hub configuration saved with audit record.";await loadPublic();}catch(error){status.textContent=error.message;}finally{button.disabled=false;}}
++ function languageChanged(){if(hub.publicError)renderPublicError(hub.publicError);else if(hub.publicData)renderPublic(hub.publicData);}
+  function sessionChanged(){loadPublic();}
+  function bind(){hidePreviewSections();byId("rewardsCheckIn")?.addEventListener("click",checkIn);byId("rewardsManagerForm")?.addEventListener("submit",saveAdmin);byId("reloadRewardsManager")?.addEventListener("click",loadAdmin);document.querySelectorAll('[data-promotion-category]').forEach(button=>button.addEventListener("click",()=>{hub.promotionCategory=button.dataset.promotionCategory||"all";document.querySelectorAll('[data-promotion-category]').forEach(item=>{const active=item===button;item.classList.toggle("active",active);item.setAttribute("aria-pressed",String(active));});renderPromotions({items:hub.promotions});}));document.querySelectorAll('[data-section="rewards"]').forEach(button=>button.addEventListener("click",loadPublic));}
+- window.Master7Rewards={loadPublic,loadAdmin,renderPublic,sessionChanged};
++ window.Master7Rewards={loadPublic,loadAdmin,renderPublic,sessionChanged,languageChanged};
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>{bind();loadPublic();});else{bind();loadPublic();}
+ })();
+diff --git a/public/assets/vip.js b/public/assets/vip.js
+index 6e67516..08a8d7c 100644
+--- a/public/assets/vip.js
++++ b/public/assets/vip.js
+@@ -2,11 +2,13 @@
+ (function master7VipSuite(){
+  const byId=id=>document.getElementById(id);
+  const text=(tag,className,value)=>{const el=document.createElement(tag);if(className)el.className=className;if(value!==undefined&&value!==null)el.textContent=String(value);return el;};
++ const locale=()=>typeof state!=="undefined"&&["en","zh","ms"].includes(state.lang)?state.lang:"zh";
++ const copy=(english,chinese)=>locale()==="en"?english:chinese;
+  const tierNames=["Bronze","Silver","Gold","Platinum","Diamond","Royal","Crown","Master"];
+  const tierColors=["#B87333","#C0C7D1","#D4AF37","#E5E4E2","#75D6E8","#7C4DCC","#E6C45A","#151923"];
+  const numericFields=["cumulativeDepositMYR","turnoverThresholdMYR","retentionPeriodDays","retentionDepositMYR","retentionTurnoverMYR","upgradeBonusMYR","birthdayBonusMYR","dailyBonusMYR","weeklyBonusMYR","monthlyBonusMYR","dividendPercent","rewardTurnoverMultiplier","withdrawalLimitMYR","claimLimit","validityDays"];
+  const adminState={raw:null,program:null,referral:null,matrixTab:"qualification"};
+- let publicState=null,publicRequestId=0;
++ let publicState=null,publicError=null,publicRequestId=0;
+ 
+  function number(value,fallback=0){const parsed=Number(value);return Number.isFinite(parsed)&&parsed>=0?parsed:fallback;}
+  function first(source,keys,fallback=undefined){for(const key of keys){if(source&&source[key]!==undefined&&source[key]!==null)return source[key];}return fallback;}
+@@ -18,19 +20,19 @@
+  function tiersFrom(program){const incoming=Array.isArray(program?.tiers)?program.tiers:[];return tierNames.map((_,index)=>normalizedTier(incoming[index]||{},index));}
+  function capability(program,data,key){const caps=program?.capabilities||data?.capabilities||{};const aliases={walletCredit:["walletCredit","walletCreditEnabled"],cashbackAutomation:["cashbackAutomation","cashbackAutomationEnabled"],dividendAutomation:["dividendAutomation","dividendAutomationEnabled"],turnoverEnforcement:["turnoverEnforcement","turnoverConnected"],wagerSource:["wagerSource","turnoverSource"]};const value=first(caps,aliases[key]||[key],first(data,aliases[key]||[key],false));return value===true||value==="connected"||value==="ready";}
+  function statusChip(label,ready){const chip=text("span",`vip-status-chip ${ready?"ready":"pending"}`,`${ready?"●":"○"} ${label}`);return chip;}
+- function renderProgramBadges(data){const program=programFrom(data),host=byId("vipProgramBadges");if(!host)return;host.replaceChildren(statusChip("SCOPE · ALL 37 PLATFORMS",true),statusChip(program.enabled?"VIP DISPLAY ON":"VIP DISPLAY OFF",program.enabled),statusChip("WALLET CREDIT",capability(program,data,"walletCredit")),statusChip("CASHBACK AUTO",capability(program,data,"cashbackAutomation")),statusChip("DIVIDEND AUTO",capability(program,data,"dividendAutomation")),statusChip("TURNOVER SOURCE",capability(program,data,"turnoverEnforcement")));const notice=byId("vipProgramNotice"),moneyReady=capability(program,data,"walletCredit");notice.className=`verification-note ${moneyReady?"ready":"pending"}`;notice.textContent=program.enabled?(moneyReady?"VIP 配套已显示；只有符合已验收规则的项目才会进入钱包。":"VIP 等级配套可查看。钱包入账、Cashback、分红及 Turnover 自动结算尚未全部启用，当前不会自动派真钱。"):("VIP 配套由管理员准备中。等级与条件可预览，未启用的项目不会计算或派发。");}
+- function renderMember(data,tiers){const member=data?.member||data?.memberStatus||null,panel=byId("vipMemberPanel");if(!panel)return;const isMember=typeof state!=="undefined"&&state.user?.role==="member";panel.hidden=!isMember;if(!isMember)return;const assigned=member?.currentTier&&typeof member.currentTier==="object"?member.currentTier:null,preview=member?.previewCurrentTier&&typeof member.previewCurrentTier==="object"?member.previewCurrentTier:null,currentRaw=assigned||preview,currentLevel=Math.max(1,Math.min(8,number(currentRaw?.level,1))),current=currentRaw?normalizedTier(currentRaw,currentLevel-1):(tiers.find(t=>t.level===currentLevel)||tiers[0]),nextRaw=member?.nextTier&&typeof member.nextTier==="object"?member.nextTier:null,next=nextRaw?normalizedTier(nextRaw,Math.max(0,number(nextRaw.level,2)-1)):tiers.find(t=>t.level>currentLevel&&t.active);byId("vipCurrentTier").textContent=`${assigned?"":"预览 · "}${current?.name||"Bronze"}`;byId("vipCurrentTier").style.setProperty("--vip-tier-color",current?.color||tierColors[0]);const deposit=number(member?.creditedDeposits?.amountMYR??first(member,["creditedDepositMYR","cumulativeDepositMYR","depositMYR"],0)),turnover=number(first(member,["verifiedTurnoverMYR","turnoverMYR"],0)),stats=byId("vipMemberStats");stats.replaceChildren();[[money(deposit),"累计已入账存款"],[capability(programFrom(data),data,"turnoverEnforcement")?money(turnover):"等待连接","有效 Turnover"],[current?.name||"Bronze",assigned?"当前等级":"预览等级"],[next?.name||"最高等级","下一个等级"]].forEach(([value,label])=>{const item=text("div","stat");item.append(text("strong","",value),text("span","",label));stats.append(item);});const threshold=number(member?.nextTierProgress?.requiredDepositMYR??next?.cumulativeDepositMYR,0),provided=Number(member?.nextTierProgress?.percent??first(member,["progressPercent","depositProgressPercent"],-1)),progress=Math.max(0,Math.min(100,Number.isFinite(provided)&&provided>=0?provided:(threshold>0?deposit/threshold*100:(next?0:100))));byId("vipProgressLabel").textContent=next?(threshold>0?`${current.name} → ${next.name} · 存款门槛 ${money(threshold)}`:`${next.name} 门槛尚未配置`):"已达到最高 VIP 等级";byId("vipProgressPercent").textContent=`${progress.toFixed(0)}%`;byId("vipProgressBar").style.width=`${progress}%`;byId("vipProgressBar").style.background=`linear-gradient(90deg,${current?.color||tierColors[0]},${next?.color||current?.color||tierColors[0]})`;byId("vipProgressBar").parentElement.setAttribute("aria-valuenow",String(progress.toFixed(0)));}
+- function renderTierGrid(tiers){const host=byId("vipTierGrid");if(!host)return;host.replaceChildren();for(const tier of tiers){const card=text("article",`vip-tier-card${tier.active?"":" inactive"}`);card.style.setProperty("--vip-tier-color",tier.color);const top=text("div","vip-tier-card-top");top.append(text("span","vip-tier-number",`VIP ${tier.level}`),text("span",`vip-status-chip ${tier.active?"ready":"pending"}`,tier.active?"ACTIVE":"DRAFT"));const crown=text("div","vip-tier-symbol","♛"),title=text("h3","",tier.name),requirements=text("div","vip-tier-requirements");requirements.append(text("span","",`累计存款 ${tier.cumulativeDepositMYR?money(tier.cumulativeDepositMYR):"待设置"}`),text("span","",`Turnover ${tier.turnoverThresholdMYR?money(tier.turnoverThresholdMYR):"待连接"}`),text("span","",tier.retentionPeriodDays?`保级 ${tier.retentionPeriodDays} 天周期`:"保级规则待设置"));card.append(top,crown,title,requirements);host.append(card);}}
+- function renderBenefitMatrix(tiers){const host=byId("vipBenefitMatrix");if(!host)return;host.replaceChildren();const table=text("table","vip-benefit-table"),head=document.createElement("thead"),headRow=document.createElement("tr");["等级","升级礼","生日礼","日 / 周 / 月礼","分红","Cashback · Slot / Live / Fish / Sport / Fast","奖励 Turnover","提款上限","领取 / 有效期"].forEach(label=>headRow.append(text("th","",label)));head.append(headRow);const body=document.createElement("tbody");for(const tier of tiers){const row=document.createElement("tr"),cb=tier.cashbackPercent;const tierCell=document.createElement("td"),mark=text("span","vip-table-tier",tier.name);mark.style.setProperty("--vip-tier-color",tier.color);tierCell.append(mark);row.append(tierCell,text("td","",money(tier.upgradeBonusMYR)),text("td","",money(tier.birthdayBonusMYR)),text("td","",`${money(tier.dailyBonusMYR)} / ${money(tier.weeklyBonusMYR)} / ${money(tier.monthlyBonusMYR)}`),text("td","",percent(tier.dividendPercent)),text("td","",`${percent(cb.slot)} / ${percent(cb.live)} / ${percent(cb.fish)} / ${percent(cb.sport)} / ${percent(cb.fastGame)}`),text("td","",tier.rewardTurnoverMultiplier?`${tier.rewardTurnoverMultiplier}×`:"—"),text("td","",tier.withdrawalLimitMYR?money(tier.withdrawalLimitMYR):"—"),text("td","",`${tier.claimLimit||"—"} / ${tier.validityDays?tier.validityDays+" days":"—"}`));body.append(row);}table.append(head,body);host.append(table);}
++ function renderProgramBadges(data){const program=programFrom(data),host=byId("vipProgramBadges");if(!host)return;host.replaceChildren(statusChip("SCOPE · ALL 37 PLATFORMS",true),statusChip(program.enabled?"VIP DISPLAY ON":"VIP DISPLAY OFF",program.enabled),statusChip("WALLET CREDIT",capability(program,data,"walletCredit")),statusChip("CASHBACK AUTO",capability(program,data,"cashbackAutomation")),statusChip("DIVIDEND AUTO",capability(program,data,"dividendAutomation")),statusChip("TURNOVER SOURCE",capability(program,data,"turnoverEnforcement")));const notice=byId("vipProgramNotice"),moneyReady=capability(program,data,"walletCredit");notice.className=`verification-note ${moneyReady?"ready":"pending"}`;notice.textContent=program.enabled?(moneyReady?copy("VIP benefits are displayed. Only items that meet accepted rules can enter the wallet.","VIP 配套已显示；只有符合已验收规则的项目才会进入钱包。"):copy("VIP tiers are available to view. Wallet credit, cashback, dividends and turnover settlement are not fully enabled, so no real money is credited automatically.","VIP 等级配套可查看。钱包入账、Cashback、分红及 Turnover 自动结算尚未全部启用，当前不会自动派真钱。")):copy("The VIP program is being prepared. Tiers and conditions are available to preview; disabled items are not calculated or credited.","VIP 配套由管理员准备中。等级与条件可预览，未启用的项目不会计算或派发。");}
++ function renderMember(data,tiers){const member=data?.member||data?.memberStatus||null,panel=byId("vipMemberPanel");if(!panel)return;const isMember=typeof state!=="undefined"&&state.user?.role==="member";panel.hidden=!isMember;if(!isMember)return;const assigned=member?.currentTier&&typeof member.currentTier==="object"?member.currentTier:null,preview=member?.previewCurrentTier&&typeof member.previewCurrentTier==="object"?member.previewCurrentTier:null,currentRaw=assigned||preview,currentLevel=Math.max(1,Math.min(8,number(currentRaw?.level,1))),current=currentRaw?normalizedTier(currentRaw,currentLevel-1):(tiers.find(t=>t.level===currentLevel)||tiers[0]),nextRaw=member?.nextTier&&typeof member.nextTier==="object"?member.nextTier:null,next=nextRaw?normalizedTier(nextRaw,Math.max(0,number(nextRaw.level,2)-1)):tiers.find(t=>t.level>currentLevel&&t.active);byId("vipCurrentTier").textContent=`${assigned?"":copy("Preview · ","预览 · ")}${current?.name||"Bronze"}`;byId("vipCurrentTier").style.setProperty("--vip-tier-color",current?.color||tierColors[0]);const deposit=number(member?.creditedDeposits?.amountMYR??first(member,["creditedDepositMYR","cumulativeDepositMYR","depositMYR"],0)),turnover=number(first(member,["verifiedTurnoverMYR","turnoverMYR"],0)),stats=byId("vipMemberStats");stats.replaceChildren();[[money(deposit),copy("Credited deposits","累计已入账存款")],[capability(programFrom(data),data,"turnoverEnforcement")?money(turnover):copy("Awaiting connection","等待连接"),copy("Verified turnover","有效 Turnover")],[current?.name||"Bronze",assigned?copy("Current tier","当前等级"):copy("Preview tier","预览等级")],[next?.name||copy("Highest tier","最高等级"),copy("Next tier","下一个等级")]].forEach(([value,label])=>{const item=text("div","stat");item.append(text("strong","",value),text("span","",label));stats.append(item);});const threshold=number(member?.nextTierProgress?.requiredDepositMYR??next?.cumulativeDepositMYR,0),provided=Number(member?.nextTierProgress?.percent??first(member,["progressPercent","depositProgressPercent"],-1)),progress=Math.max(0,Math.min(100,Number.isFinite(provided)&&provided>=0?provided:(threshold>0?deposit/threshold*100:(next?0:100))));byId("vipProgressLabel").textContent=next?(threshold>0?`${current.name} → ${next.name} · ${copy("Deposit threshold","存款门槛")} ${money(threshold)}`:`${next.name} ${copy("threshold is not configured","门槛尚未配置")}`):copy("Highest VIP tier reached","已达到最高 VIP 等级");byId("vipProgressPercent").textContent=`${progress.toFixed(0)}%`;byId("vipProgressBar").style.width=`${progress}%`;byId("vipProgressBar").style.background=`linear-gradient(90deg,${current?.color||tierColors[0]},${next?.color||current?.color||tierColors[0]})`;byId("vipProgressBar").parentElement.setAttribute("aria-valuenow",String(progress.toFixed(0)));}
++ function renderTierGrid(tiers){const host=byId("vipTierGrid");if(!host)return;host.replaceChildren();for(const tier of tiers){const card=text("article",`vip-tier-card${tier.active?"":" inactive"}`);card.style.setProperty("--vip-tier-color",tier.color);const top=text("div","vip-tier-card-top");top.append(text("span","vip-tier-number",`VIP ${tier.level}`),text("span",`vip-status-chip ${tier.active?"ready":"pending"}`,tier.active?"ACTIVE":"DRAFT"));const crown=text("div","vip-tier-symbol","♛"),title=text("h3","",tier.name),requirements=text("div","vip-tier-requirements");requirements.append(text("span","",`${copy("Cumulative deposits","累计存款")} ${tier.cumulativeDepositMYR?money(tier.cumulativeDepositMYR):copy("Not set","待设置")}`),text("span","",`Turnover ${tier.turnoverThresholdMYR?money(tier.turnoverThresholdMYR):copy("Awaiting connection","待连接")}`),text("span","",tier.retentionPeriodDays?`${copy("Retention","保级")} ${tier.retentionPeriodDays} ${copy("day cycle","天周期")}`:copy("Retention rule not set","保级规则待设置")));card.append(top,crown,title,requirements);host.append(card);}}
++ function renderBenefitMatrix(tiers){const host=byId("vipBenefitMatrix");if(!host)return;host.replaceChildren();const table=text("table","vip-benefit-table"),head=document.createElement("thead"),headRow=document.createElement("tr");[copy("Tier","等级"),copy("Upgrade bonus","升级礼"),copy("Birthday bonus","生日礼"),copy("Daily / weekly / monthly","日 / 周 / 月礼"),copy("Dividend","分红"),"Cashback · Slot / Live / Fish / Sport / Fast",copy("Reward turnover","奖励 Turnover"),copy("Withdrawal limit","提款上限"),copy("Claims / validity","领取 / 有效期")].forEach(label=>headRow.append(text("th","",label)));head.append(headRow);const body=document.createElement("tbody");for(const tier of tiers){const row=document.createElement("tr"),cb=tier.cashbackPercent;const tierCell=document.createElement("td"),mark=text("span","vip-table-tier",tier.name);mark.style.setProperty("--vip-tier-color",tier.color);tierCell.append(mark);row.append(tierCell,text("td","",money(tier.upgradeBonusMYR)),text("td","",money(tier.birthdayBonusMYR)),text("td","",`${money(tier.dailyBonusMYR)} / ${money(tier.weeklyBonusMYR)} / ${money(tier.monthlyBonusMYR)}`),text("td","",percent(tier.dividendPercent)),text("td","",`${percent(cb.slot)} / ${percent(cb.live)} / ${percent(cb.fish)} / ${percent(cb.sport)} / ${percent(cb.fastGame)}`),text("td","",tier.rewardTurnoverMultiplier?`${tier.rewardTurnoverMultiplier}×`:"—"),text("td","",tier.withdrawalLimitMYR?money(tier.withdrawalLimitMYR):"—"),text("td","",`${tier.claimLimit||"—"} / ${tier.validityDays?tier.validityDays+" days":"—"}`));body.append(row);}table.append(head,body);host.append(table);}
+  function commissionModule(data,basis){const referral=data?.referral||data?.commission||data?.referralProgram||{},capabilities=data?.commissionCapabilities||{},capabilityKey=basis==="profit"?"companyProfitDividend":`${basis}Commission`,modules=referral.commissions||referral.modules||{},direct=capabilities[capabilityKey]||modules[basis]||referral[capabilityKey]||referral[`${basis}Commission`]||{},settings=referral.settings||referral,settingsBasis=String(settings.basis||"").replace("company_profit","profit"),rates=direct.ratesPercent||direct.tierRatesPercent||direct.rates||((settingsBasis===basis||basis==="deposit"&&settingsBasis==="")?settings.tierRatesPercent:null)||{},rateValues=Array.isArray(rates)?rates:[rates.L1,rates.L2,rates.L3],source=String(first(direct,["source"],basis==="deposit"?"not_connected":"not_connected")),configured=Boolean(first(direct,["configured"],settingsBasis===basis&&settings.configured)),requested=Boolean(first(direct,["requestedEnabled"],settingsBasis===basis&&settings.enabled)),enabled=Boolean(first(direct,["enabled","active"],false)),sourceReady=Boolean(first(direct,["sourceReady","settlementVerified","ready"],source!=="not_connected"));return {enabled,configured,requested,sourceReady,source,settlement:String(direct.settlement||"disabled"),rates:[number(rateValues[0]),number(rateValues[1]),number(rateValues[2])],holdDays:number(first(direct,["holdDays"],first(settings,["holdDays"],0))),dailyCapMYR:number(first(direct,["dailyCapMYR"],first(settings,["dailyCapMYR"],0))),monthlyCapMYR:number(first(direct,["monthlyCapMYR"],first(settings,["monthlyCapMYR"],0))),firstDepositOnly:Boolean(direct.firstDepositOnly)};}
+- function renderCommission(data){const commissionStates={deposit:commissionModule(data,"deposit"),turnover:commissionModule(data,"turnover"),profit:commissionModule(data,"profit")};const labels={deposit:["vipDepositCommissionStatus","vipDepositCommissionRates"],turnover:["vipTurnoverCommissionStatus","vipTurnoverCommissionRates"],profit:["vipProfitCommissionStatus","vipProfitCommissionRates"]};for(const [key,commissionState] of Object.entries(commissionStates)){const [statusId,ratesId]=labels[key],status=byId(statusId);status.textContent=commissionState.enabled&&commissionState.sourceReady?(commissionState.settlement==="preview_only"?"核对预览已启用":"数据源就绪"):commissionState.configured||commissionState.requested?(commissionState.sourceReady?"规则已设置 · 未派发":"已设置 · 等待数据源"):"关闭";status.className=commissionState.enabled&&commissionState.sourceReady?"ready":"pending";byId(ratesId).textContent=`L1 ${percent(commissionState.rates[0])} · L2 ${percent(commissionState.rates[1])} · L3 ${percent(commissionState.rates[2])}`;}const ledger=byId("vipCommissionLedgerStatus"),walletReady=capability(programFrom(data),data,"walletCredit");ledger.textContent=walletReady?"WALLET CREDIT READY":"NO WALLET CREDIT";ledger.className=`vip-status-chip ${walletReady?"ready":"pending"}`;const detail=byId("vipCommissionDetails");detail.replaceChildren();[["Deposit ledger",commissionStates.deposit,`冻结 ${commissionStates.deposit.holdDays} 天 · 日封顶 ${money(commissionStates.deposit.dailyCapMYR)} · 月封顶 ${money(commissionStates.deposit.monthlyCapMYR)}`],["Turnover ledger",commissionStates.turnover,"只接受已验收有效投注"],["Profit ledger",commissionStates.profit,"只接受完成对账的公司利润"]].forEach(([title,commissionState,desc])=>{const row=text("div","vip-ledger-row");row.append(text("strong","",title),text("span","",commissionState.enabled||commissionState.configured||commissionState.requested?desc:"Program off"));detail.append(row);});}
+- function renderPublic(data){publicState=data||{};const program=programFrom(publicState),tiers=tiersFrom(program);renderProgramBadges(publicState);renderMember(publicState,tiers);renderTierGrid(tiers);renderBenefitMatrix(tiers);renderCommission({...publicState,referral:publicState.referral||((typeof state!=="undefined"&&state.referral)||null)});}
++ function renderCommission(data){const commissionStates={deposit:commissionModule(data,"deposit"),turnover:commissionModule(data,"turnover"),profit:commissionModule(data,"profit")};const labels={deposit:["vipDepositCommissionStatus","vipDepositCommissionRates"],turnover:["vipTurnoverCommissionStatus","vipTurnoverCommissionRates"],profit:["vipProfitCommissionStatus","vipProfitCommissionRates"]};for(const [key,commissionState] of Object.entries(commissionStates)){const [statusId,ratesId]=labels[key],status=byId(statusId);status.textContent=commissionState.enabled&&commissionState.sourceReady?(commissionState.settlement==="preview_only"?copy("Review preview enabled","核对预览已启用"):copy("Data source ready","数据源就绪")):commissionState.configured||commissionState.requested?(commissionState.sourceReady?copy("Rule set · Not credited","规则已设置 · 未派发"):copy("Set · Awaiting data source","已设置 · 等待数据源")):copy("Off","关闭");status.className=commissionState.enabled&&commissionState.sourceReady?"ready":"pending";byId(ratesId).textContent=`L1 ${percent(commissionState.rates[0])} · L2 ${percent(commissionState.rates[1])} · L3 ${percent(commissionState.rates[2])}`;}const ledger=byId("vipCommissionLedgerStatus"),walletReady=capability(programFrom(data),data,"walletCredit");ledger.textContent=walletReady?"WALLET CREDIT READY":"NO WALLET CREDIT";ledger.className=`vip-status-chip ${walletReady?"ready":"pending"}`;const detail=byId("vipCommissionDetails");detail.replaceChildren();[["Deposit ledger",commissionStates.deposit,`${copy("Hold","冻结")} ${commissionStates.deposit.holdDays} ${copy("days","天")} · ${copy("Daily cap","日封顶")} ${money(commissionStates.deposit.dailyCapMYR)} · ${copy("Monthly cap","月封顶")} ${money(commissionStates.deposit.monthlyCapMYR)}`],["Turnover ledger",commissionStates.turnover,copy("Accepted verified turnover only","只接受已验收有效投注")],["Profit ledger",commissionStates.profit,copy("Accepted reconciled company profit only","只接受完成对账的公司利润")]].forEach(([title,commissionState,desc])=>{const row=text("div","vip-ledger-row");row.append(text("strong","",title),text("span","",commissionState.enabled||commissionState.configured||commissionState.requested?desc:"Program off"));detail.append(row);});}
++ function renderPublic(data){publicError=null;publicState=data||{};const program=programFrom(publicState),tiers=tiersFrom(program);renderProgramBadges(publicState);renderMember(publicState,tiers);renderTierGrid(tiers);renderBenefitMatrix(tiers);renderCommission({...publicState,referral:publicState.referral||((typeof state!=="undefined"&&state.referral)||null)});}
+  function renderPublicUnavailable(error){
+-  publicState=null;byId("vipProgramBadges")?.replaceChildren(statusChip("VIP DATA UNAVAILABLE",false));const member=byId("vipMemberPanel");if(member)member.hidden=true;
+-  for(const id of ["vipTierGrid","vipBenefitMatrix","vipCommissionDetails"])byId(id)?.replaceChildren(text("p","muted","VIP 资料暂时无法读取，请稍后重试。"));
+-  for(const prefix of ["vipDepositCommission","vipTurnoverCommission","vipProfitCommission"]){const status=byId(`${prefix}Status`),rates=byId(`${prefix}Rates`);if(status){status.className="pending";status.textContent="暂时无法读取";}if(rates)rates.textContent="L1 — · L2 — · L3 —";}
++  publicState=null;publicError=error;byId("vipProgramBadges")?.replaceChildren(statusChip("VIP DATA UNAVAILABLE",false));const member=byId("vipMemberPanel");if(member)member.hidden=true;
++  for(const id of ["vipTierGrid","vipBenefitMatrix","vipCommissionDetails"])byId(id)?.replaceChildren(text("p","muted",copy("VIP information is temporarily unavailable. Please try again later.","VIP 资料暂时无法读取，请稍后重试。")));
++  for(const prefix of ["vipDepositCommission","vipTurnoverCommission","vipProfitCommission"]){const status=byId(`${prefix}Status`),rates=byId(`${prefix}Rates`);if(status){status.className="pending";status.textContent=copy("Temporarily unavailable","暂时无法读取");}if(rates)rates.textContent="L1 — · L2 — · L3 —";}
+   const ledger=byId("vipCommissionLedgerStatus");if(ledger){ledger.className="vip-status-chip pending";ledger.textContent="STATUS UNCONFIRMED";}
+-  const notice=byId("vipProgramNotice");if(notice){notice.className="verification-note pending";notice.textContent=`VIP 配套暂时无法读取：${error.message}`;}
++  const notice=byId("vipProgramNotice");if(notice){notice.className="verification-note pending";notice.textContent=`${copy("VIP program temporarily unavailable","VIP 配套暂时无法读取")}：${error.message}`;}
+  }
+  async function loadPublic(){const currentRequest=++publicRequestId;try{const data=await api("/api/vip");if(currentRequest!==publicRequestId)return;renderPublic(data);}catch(error){if(currentRequest===publicRequestId)renderPublicUnavailable(error);}}
+  function setReferralData(referral){if(!publicState)publicState={};publicState={...publicState,referral:{...(publicState.referral||{}),...referral}};renderCommission(publicState);}
+@@ -59,8 +61,9 @@
+  async function loadAdmin(){if(typeof state==="undefined"||state.user?.role!=="owner")return;const status=byId("vipManagerStatus");if(status)status.textContent="读取中…";try{const [data,referral]=await Promise.all([api("/api/admin/vip"),api("/api/admin/referrals").catch(()=>null)]);renderAdmin(data,referral);if(status)status.textContent="✅ 已读取当前 VIP 配套";}catch(error){if(status)status.textContent=error.message;const editor=byId("vipTierEditor");if(editor)editor.replaceChildren(text("p","verification-note pending",`VIP Manager 暂时无法读取：${error.message}`));}}
+  function collectTier(index){const base=normalizedTier(adminState.program?.tiers?.[index]||{},index),tier={...base,cashbackPercent:{...base.cashbackPercent}};for(const input of byId("vipTierEditor").querySelectorAll(`[data-vip-tier-index="${index}"]`)){const path=input.dataset.vipField;if(path==="active"){tier.active=input.checked;continue;}const value=path==="withdrawalLimitMYR"&&input.value.trim()===""?null:input.type==="number"?number(input.value):input.value.trim();if(path.startsWith("cashbackPercent."))tier.cashbackPercent[path.split(".")[1]]=value;else tier[path]=value;}for(const key of numericFields)if(key!=="withdrawalLimitMYR")tier[key]=number(tier[key]);tier.withdrawalLimitMYR=tier.withdrawalLimitMYR===null?null:number(tier.withdrawalLimitMYR);tier.level=Math.max(1,Math.min(8,Math.round(number(tier.level,index+1))));return tier;}
+  async function saveAdmin(event){event.preventDefault();const button=byId("saveVipManager"),status=byId("vipManagerStatus");button.disabled=true;status.textContent="保存中…";try{const tiers=tiersFrom(adminState.program).map((_,index)=>collectTier(index)),payload={version:1,enabled:byId("vipProgramEnabled").checked,name:byId("vipProgramName").value.trim()||"MASTER7 VIP Club",tiers};const result=await api("/api/admin/vip","POST",payload);status.textContent="✅ VIP 配套已保存；自动派发仍服从各项 readiness 开关";renderAdmin(result,adminState.referral);await loadPublic();if(typeof notification==="function")notification("VIP 配套已保存");}catch(error){status.textContent=error.message;}finally{button.disabled=false;}}
++ function languageChanged(){if(publicError)renderPublicUnavailable(publicError);else if(publicState)renderPublic(publicState);}
+  function sessionChanged(user){if(byId("referralCard"))byId("referralCard").hidden=user?.role!=="member";loadPublic();}
+  function bind(){byId("vipManagerForm")?.addEventListener("submit",saveAdmin);document.querySelectorAll("[data-vip-matrix-tab]").forEach(button=>button.addEventListener("click",()=>selectVipMatrixTab(button.dataset.vipMatrixTab)));byId("reloadVipManager")?.addEventListener("click",loadAdmin);byId("openReferralCommission")?.addEventListener("click",()=>{if(typeof selectAdminPanel==="function")selectAdminPanel("referralAdminPanel");});document.querySelectorAll('[data-section="vip"]').forEach(button=>button.addEventListener("click",loadPublic));}
+- window.Master7Vip={loadPublic,loadAdmin,renderPublic,setReferralData,sessionChanged};
++ window.Master7Vip={loadPublic,loadAdmin,renderPublic,setReferralData,sessionChanged,languageChanged};
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>{bind();loadPublic();});else{bind();loadPublic();}
+ })();
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 02dbb0c..45aee1d 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.157-member-guide-polish';
++const CACHE='master7-shell-17.0.0-selfbuilt.159-premium-mobile';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/tests/customer-english-fallbacks.test.mjs b/tests/customer-english-fallbacks.test.mjs
+new file mode 100644
+index 0000000..dd3d172
+--- /dev/null
++++ b/tests/customer-english-fallbacks.test.mjs
+@@ -0,0 +1,37 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {readFileSync} from 'node:fs';
++
++const read=file=>readFileSync(new URL(`../${file}`,import.meta.url),'utf8');
++const han=/[\u3400-\u9fff]/;
++
++test('English customer fallback text contains no Chinese outside deliberate language labels',()=>{
++ const portal=read('app/portal.html');
++ const adminStart=portal.indexOf('<section id="admin"');
++ const adminEnd=portal.indexOf('  </main>',adminStart);
++ assert.ok(adminStart>0&&adminEnd>adminStart);
++ const customer=portal.slice(0,adminStart)+portal.slice(adminEnd);
++ const visibleText=[...customer.matchAll(/>([^<>]+)</g)].map(match=>match[1].replace(/\s+/g,' ').trim()).filter(Boolean);
++ const allowed=new Set(['中文','EN · 中文 · BM']);
++ const leaks=visibleText.filter(value=>han.test(value)&&!allowed.has(value));
++ assert.deepEqual(leaks,[]);
++ const admin=portal.slice(adminStart,adminEnd);
++ assert.doesNotMatch(admin,/data-member-zh=/,'customer fallback localization must not modify backoffice markup');
++});
++
++test('customer modules localize every public Chinese source string for English',()=>{
++ const modules=[
++  ['VIP',read('public/assets/vip.js'),' const vipMatrixSections='],
++  ['Rewards',read('public/assets/rewards.js'),' function input('],
++  ['Events',read('public/assets/engagement.js'),' function inputField(']
++ ];
++ for(const [name,source,adminMarker] of modules){
++  const publicSource=source.slice(0,source.indexOf(adminMarker));
++  const unguarded=publicSource.split('\n').filter(line=>han.test(line)&&!/(?:memberCopy|copy)\(|locale\(\)==="en"/.test(line));
++  assert.deepEqual(unguarded,[],`${name} public renderer must guard Chinese copy by locale`);
++  assert.match(source,/languageChanged/);
++ }
++ const app=read('public/assets/app.js');
++ for(const removed of ['Copied · 已复制','显示最新 200 条回复 / Showing the latest 200 replies','加载更多 / Load more','收到新的客服消息 / New support message'])assert.doesNotMatch(app,new RegExp(removed.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
++ assert.match(app,/marketingUnsubscribeTitle:"Stop promotional messages"/);
++});
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index 68c7681..c304e3f 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.157-member-guide-polish';
++const release='17.0.0-selfbuilt.159-premium-mobile';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{

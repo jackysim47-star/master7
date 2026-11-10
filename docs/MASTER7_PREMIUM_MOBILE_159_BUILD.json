@@ -1,0 +1,98 @@
+{
+  "release": "17.0.0-selfbuilt.159-premium-mobile",
+  "preparedAt": "2026-11-10T09:43:43.139997+00:00",
+  "sourceCommit": "07ad4419b09b7606ee539ddf939ea16c812f0736",
+  "baselineSourceCommit": "13f259306de746958c00df7e63b40bdc0c7af1eb",
+  "baselineRelease": "17.0.0-selfbuilt.157-member-guide-polish",
+  "archive": {
+    "sha256": "2cf2c7a61ad6bd35ada6d9be944e94d2a8b4b71b076ddbe602e42a863403aad1",
+    "bytes": 7139985,
+    "files": 688,
+    "entries": 749,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/MASTER7_CUSTOMER_ENGLISH_FALLBACKS_158.md",
+      "docs/MASTER7_PREMIUM_MOBILE_159.md",
+      "tests/customer-english-fallbacks.test.mjs"
+    ],
+    "changed": [
+      "app/portal.html",
+      "lib/backend.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/assets/app.js",
+      "public/assets/engagement.js",
+      "public/assets/member-refresh.css",
+      "public/assets/rewards.js",
+      "public/assets/vip.js",
+      "public/service-worker.js",
+      "tests/official-entries-probe.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1332,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "renderDatabase": 3,
+    "gatewayTests": 151,
+    "gatewaySourceChanged": false,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "command": "pnpm verify:render",
+    "scope": "local synthetic and isolated validation; no live provider, player, wallet or payment calls"
+  },
+  "customerEnglishFallbacks": {
+    "englishCustomerFallbacksComplete": true,
+    "englishFallbackTestCount": 2,
+    "intentionalLanguageLabelsRetained": true,
+    "adminBackofficeCopyChanged": false
+  },
+  "premiumMobile": {
+    "palette": [
+      "water-blue",
+      "deep-blue",
+      "white"
+    ],
+    "memberFrontendOnly": true,
+    "largeTouchTargets": true,
+    "compactHero": true,
+    "fixedBottomNavigation": true,
+    "sponsoredProviderRail": true,
+    "twoColumnProviderGrid": true,
+    "mobileViewportAudit": {
+      "viewportWidthPx": 393,
+      "renderedPageWidthPx": 393,
+      "horizontalOverflow": false,
+      "mobileDockHeightPx": 71,
+      "mobileDockButtonHeightPx": 57,
+      "primaryServiceButtonHeightPx": 121,
+      "providerCardWidthPx": 167,
+      "providerCardsRendered": 37
+    }
+  },
+  "operationalChanges": {
+    "newDepositsUiFlagChanged": false,
+    "providerOrderSubmissionEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPaymentsEnabled": false,
+    "supplierAcceptanceBypassed": false
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false
+}
