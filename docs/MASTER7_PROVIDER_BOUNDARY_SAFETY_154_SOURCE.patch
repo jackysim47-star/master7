@@ -1,0 +1,360 @@
+diff --git a/app/portal.html b/app/portal.html
+index b645196..fb76a00 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index 44f8fb1..28a2a68 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,37 +1,42 @@
+ # MASTER7 deployment handover
+ 
+-Candidate source: `17.0.0-selfbuilt.153-provider-catalogue-safety`.
+-
+-Baseline live: `17.0.0-selfbuilt.152-918kiss-catalogue-safety`, deployment
+-`dep-dbpc5og8v5cc73drg1r0`, publication commit
+-`0d818b1dc829a82c251715f3f62a4d88c498916c`, source commit
+-`c59c6ba83c6d651d6dbb294f3d6f8fe056293fb2`, source archive SHA-256
+-`941240970673ac478ef2bac7ff74eea8b65c10e2263264428cb6baf44e92ee15`.
+-
+-Gateway baseline: release `1.16.0`, deployment `dep-dbpc4du7bikc73ck6cmg`,
+-commit `1a682dfa9de3013ff44c7fd9364103134f95a44c`.
+-
+-The candidate isolates EPICWIN Normal MYR and Free MYR catalogue paths,
+-profiles, cache keys, account labels and currency checks. Gateway catalogue
+-rows are bounded and strictly projected. Malformed, duplicate or oversized
+-responses fail closed, remote artwork is not published, and the portal retains
+-the last complete snapshot instead of accepting a partial refresh.
+-
+-META GAMING Normal and Free Credit MYR remain isolated. Unknown title
+-availability is always suspended, and unapproved remote artwork is withheld.
+-The provider currently rejects both production catalogue accounts with HTTP
+-403, so no META title is treated as connected or playable.
+-
+-JDB catalogue rows without an explicit availability signal now default to
+-maintenance. The provider currently rejects Action 49 with status `9001`, so
+-JDB remains disconnected and non-playable. JILI's implemented adapter is now
+-reported truthfully as awaiting both its incomplete provider contract and
+-production acceptance, rather than as an unimplemented adapter.
++Candidate source: `17.0.0-selfbuilt.154-provider-boundary-safety`.
++
++Baseline live: `17.0.0-selfbuilt.153-provider-catalogue-safety`, deployment
++`dep-dbpcipbm8hqs73dhl2bg`, publication commit
++`593a90c87386ca11337ecd23aada65083843117b`, source commit
++`aeaaeaceb2897911fd7934693f55840ee29fd99c`, source archive SHA-256
++`38c762a1b209f6a7eafb6d9165c7b4bb951af98e022fc303f5ec01b3639c5ac6`.
++
++Gateway baseline: release `1.17.0`, deployment `dep-dbpchge417fc739h9b50`,
++commit `c4aab70060439469f3c2e6081a57c0b40e630ff4`.
++
++The candidate strictly validates and projects the EVO888H5, CLOTPLAY,
++Pragmatic Play and Venus Gaming catalogue boundaries. Malformed, duplicate,
++oversized or partial catalogue results fail closed. Unapproved remote artwork
++and private supplier fields are withheld from the public gateway response.
++
++Catalogue presence does not establish launch availability. EVO888H5,
++Pragmatic Play and Venus Gaming titles remain maintenance because their
++reviewed catalogue evidence contains no accepted per-title availability
++signal. CLOTPLAY requires consistent pagination and treats missing maintenance
++as unavailable.
++
++Current supplier evidence remains externally blocked:
++
++- EVO888H5 returns provider code `130`: Render egress IP not in whitelist.
++- Pragmatic Play returns HTTP `435` before a JSON business response.
++- CLOTPLAY returns HTTP `403`.
++- Venus Gaming returns a catalogue body without the response-signature headers
++  required by its official contract.
++
++The Portal retains the last complete EVO snapshot, marks it stale and
++maintenance, and exposes no Play action.
+ 
+ There are 37 lobby brands and 42 listed profiles. Production-accepted profiles,
+ launch-ready profiles and playable profiles remain zero. This release adds no
+-player, Play, wallet, transfer, settlement or recovery route for EPICWIN, META
+-or JDB and does not enable any real-money game switch.
++player, Play, wallet, transfer, settlement or recovery route and does not
++enable any real-money game switch.
+ 
+ Payment work remains paused. VPay, GSPAY and 1MPay code, credentials, callbacks,
+ activation flags, service plans and DNS are unchanged.
+diff --git a/docs/MASTER7_PROVIDER_BOUNDARY_SAFETY_154.md b/docs/MASTER7_PROVIDER_BOUNDARY_SAFETY_154.md
+new file mode 100644
+index 0000000..f629ced
+--- /dev/null
++++ b/docs/MASTER7_PROVIDER_BOUNDARY_SAFETY_154.md
+@@ -0,0 +1,25 @@
++# MASTER7 v154 supplier catalogue boundary safety release
++
++Release: `17.0.0-selfbuilt.154-provider-boundary-safety`
++
++This release hardens the read-only catalogue boundary for EVO888H5, CLOTPLAY,
++Pragmatic Play and Venus Gaming.
++
++- EVO validates the response envelope, game IDs, names, duplicates and maximum
++  size, hides raw provider bodies and keeps unknown title availability closed.
++- CLOTPLAY validates pagination, row fields, duplicates, maximum size and exact
++  page completeness. Missing maintenance stays closed.
++- Pragmatic Play no longer treats catalogue presence as proof that a title is
++  available.
++- Venus Gaming titles remain maintenance and unapproved remote thumbnails are
++  withheld.
++- The Portal keeps EVO titles suspended and preserves the last complete
++  snapshot when a malformed refresh is received.
++
++The suppliers remain blocked externally: EVO code 130, Pragmatic HTTP 435,
++CLOTPLAY HTTP 403 and missing Venus response-signature headers. These conditions
++cannot be bypassed safely and no Play action is exposed.
++
++No player, launch, balance, wallet, transfer, settlement, recovery or payment
++operation is enabled by this release. VPay, GSPAY, 1MPay, payment switches,
++credentials, service plans and DNS are unchanged.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 936d88e..27a6c57 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -38,7 +38,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.153-provider-catalogue-safety';
++export const RELEASE = '17.0.0-selfbuilt.154-provider-boundary-safety';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff --git a/lib/game-catalogue.ts b/lib/game-catalogue.ts
+index 3c68778..67070ad 100644
+--- a/lib/game-catalogue.ts
++++ b/lib/game-catalogue.ts
+@@ -86,12 +86,12 @@ function normalize(source:Source,rows:any[]){
+   const artwork=approvedArtworkUrl(source,mega?g.ImageUrl:evo?g.thumbnail:g.imageUrl);
+   const profileQuery=source.profileId?`&profileId=${encodeURIComponent(source.profileId)}`:'';
+   const imageUrl=artwork?`/api/game-art?provider=${source.id}${profileQuery}&gameCode=${encodeURIComponent(gameCode)}`:source.id==='jili'?'/assets/providers/jili.webp':source.id==='jdb'?'/assets/providers/jdb.webp':source.id==='pragmaticplay'?'/assets/providers/pragmaticplay.webp':source.id==='metagaming'?'/assets/providers/metagaming.webp':source.id==='epicwin'?'/assets/providers/epicwin.webp':source.id==='evo888h5'?'/assets/providers/evo888h5.webp':source.id==='rectangle'?'/assets/providers/rectangle.webp':source.id==='atg'?'/assets/providers/atg.webp':null;
+-  // These profile contracts currently have no accepted per-title availability.
++  // These contracts currently have no accepted per-title availability signal.
+   // Never turn that absence into an active customer game. 918KISS may carry
+-  // the gateway's explicit fail-closed boolean; META and EPICWIN stay closed
+-  // until separately reviewed supplier contracts add availability.
+-  const unknownAvailabilityProfile=!!source.profileId&&['918kissh5','metagaming','epicwin'].includes(source.id);
+-  const maintenance=mega?g.Maintenance===true||g.Maintenance===1||g.Maintenance==='true'||g.Maintenance==='1':unknownAvailabilityProfile?source.id==='918kissh5'&&typeof g.maintenance==='boolean'?g.maintenance:true:g.maintenance===true;
++  // the gateway's explicit fail-closed boolean; META, EPICWIN and EVO stay
++  // closed until separately reviewed supplier contracts add availability.
++  const unknownAvailability=source.id==='evo888h5'||!!source.profileId&&['918kissh5','metagaming','epicwin'].includes(source.id);
++  const maintenance=mega?g.Maintenance===true||g.Maintenance===1||g.Maintenance==='true'||g.Maintenance==='1':unknownAvailability?source.id==='918kissh5'&&typeof g.maintenance==='boolean'?g.maintenance:true:g.maintenance===true;
+   return {provider:source.id,providerName:source.id==='godeezone'?text(g.providerName)||source.name:source.name,gameCode,...(source.id==='godeezone'?{originalProviderId:text(g.originalProviderId,40),originalGameCode:text(g.originalGameCode,100)}:{}),...(source.profileId?{profileId:source.profileId}:{}),...(source.expectedAccount?{catalogueAccount:source.expectedAccount}:{}),...(source.expectedCurrency?{providerCurrency:source.expectedCurrency}:{}),name:text(mega?g.GameName??g.OtherName:evo?g.title??g.name:g.name)||gameCode,nameZh:text(g.nameZh??(mega?g.OtherName:'')),category:evo?'SLOT':text(mega?g.GameType:source.id==='metagaming'?g.gameType:g.category,40),imageUrl,maintenance,playable:false,...(source.id==='evo888h5'&&artwork?{artworkSource:artwork}:{})};
+  }).filter((g):g is Game=>g!==null);
+ }
+@@ -122,10 +122,11 @@ async function synchronizeSource(c:SyncContext,source:Source,force:boolean,time:
+   if(source.expectedAccount&&(data.provider!==source.id||data.account!==source.expectedAccount||data.currency!==source.expectedCurrency)){status='blocked';return;}
+   if(source.expectedRatio&&data.ratio!==source.expectedRatio){status='blocked';return;}
+   const games=normalize(source,rows);
+-  // Profile-bound 918KISS and META catalogues are account boundaries.
+-  // Reject the refresh if normalization discarded malformed or duplicate rows
+-  // so a partial response cannot replace the last complete profile snapshot.
+-  if(['918kissh5','metagaming','epicwin'].includes(source.id)&&source.profileId&&games.length!==rows.length){status='blocked';return;}
++  // Profile-bound catalogues are account boundaries; EVO also has a strict
++  // all-or-nothing public snapshot. Reject any refresh where normalization
++  // discarded malformed, duplicate or excess rows so a partial response
++  // cannot replace the last complete snapshot.
++  if((['918kissh5','metagaming','epicwin'].includes(source.id)&&source.profileId||source.id==='evo888h5')&&games.length!==rows.length){status='blocked';return;}
+   complete=data.complete!==false&&rows.length<=maxGames&&!(source.id==='clotplay'&&Number(data.pagination?.last_page)>1);
+   // An empty success replaces the previous catalogue intentionally; transport
+   // and protocol failures retain the last good snapshot for a stable lobby.
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index f66c2e7..5ea3eb2 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.153-provider-catalogue-safety' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.154-provider-boundary-safety' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/package.json b/package.json
+index f85ad93..febb1bb 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.153-provider-catalogue-safety node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.153-provider-catalogue-safety node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.154-provider-boundary-safety node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.154-provider-boundary-safety node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.153-provider-catalogue-safety node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.154-provider-boundary-safety node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/assets/app.js b/public/assets/app.js
+index 4ac1dec..555fd78 100644
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -176,7 +176,19 @@ function syncGameProfiles(catalogue){
+  const valid=new Set(profiles.map(profile=>profile.id));state.favoriteProviders=(state.favoriteProviders||[]).filter(id=>valid.has(id));if(state.selectedCatalogProvider&&!valid.has(state.selectedCatalogProvider)){state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;state.gameWallet=null;}
+ }
+ function gameProfileCategories(entry){if(entry.categories?.length)return new Set(["HOT",...entry.categories]);const providerId=gameProfileProviderId(entry);return new Set(["HOT",...Object.entries(apiSupplierCategoryIds).filter(([category,ids])=>category!=="HOT"&&ids.includes(providerId)).map(([category])=>category)]);}
+-function profileCapabilityText(entry,info=apiSupplierState(entry)){const details=[entry.currency||info.currency,entry.walletMode||info.walletMode].filter(Boolean),reason=entry.capabilityReason||info.capabilityReason;if(reason)details.push(reason==="acceptance_pending"?(state.lang==="zh"?"等待验收":state.lang==="ms"?"Menunggu pengesahan":"Awaiting acceptance"):reason);return details.join(" · ");}
++function profileCapabilityText(entry,info=apiSupplierState(entry)){
++ const details=[entry.currency||info.currency].filter(Boolean),walletMode=String(entry.walletMode||info.walletMode||"").toLowerCase(),reason=String(info.capabilityReason||entry.capabilityReason||"");
++ if(walletMode==="transfer")details.push(state.lang==="zh"?"转账钱包":state.lang==="ms"?"Dompet pindahan":"Transfer wallet");
++ const labels={
++  acceptance_pending:["等待生产验收","Menunggu penerimaan produksi","Production acceptance pending"],profile_acceptance_pending:["等待生产验收","Menunggu penerimaan produksi","Production acceptance pending"],
++  provider_contract_and_acceptance_pending:["等待厂家协议与生产验收","Menunggu kontrak penyedia dan penerimaan produksi","Provider contract and acceptance pending"],
++  catalogue_or_provider_connection_pending:["等待厂家连接","Menunggu sambungan penyedia","Provider connection pending"],catalogue_not_ready:["等待游戏目录","Menunggu katalog permainan","Game catalogue pending"],
++  provider_maintenance:["厂家维护中","Penyelenggaraan penyedia","Provider maintenance"],ready:["入口已就绪","Pintu masuk sedia","Entry ready"],
++  implemented:["等待厂家设置","Menunggu persediaan penyedia","Provider setup pending"],adapter_unimplemented:["等待厂家设置","Menunggu persediaan penyedia","Provider setup pending"],
++  launch_wallet_adapter_not_implemented:["等待厂家设置","Menunggu persediaan penyedia","Provider setup pending"],contract_missing:["等待厂家协议","Menunggu kontrak penyedia","Provider contract pending"],adapter_unavailable:["等待厂家设置","Menunggu persediaan penyedia","Provider setup pending"]
++ },label=labels[reason]||((reason&&reason!=="unknown")?["等待厂家设置","Menunggu persediaan penyedia","Provider setup pending"]:null);
++ if(label)details.push(label[state.lang==="zh"?0:state.lang==="ms"?1:2]);return details.join(" · ");
++}
+ function supplierFavoriteKeys(){return new Set(Array.isArray(state.favoriteProviders)?state.favoriteProviders:[]);}
+ function loadFavoriteProviders(){try{const value=JSON.parse(localStorage.getItem("master7-favorite-providers")||"[]");state.favoriteProviders=Array.isArray(value)?value.filter(id=>typeof id==="string"&&profileIdPattern.test(id)).slice(0,200):[];}catch{state.favoriteProviders=[];}}
+ function toggleFavoriteProvider(providerId){const favorites=supplierFavoriteKeys();if(favorites.has(providerId))favorites.delete(providerId);else favorites.add(providerId);state.favoriteProviders=[...favorites];try{localStorage.setItem("master7-favorite-providers",JSON.stringify(state.favoriteProviders));}catch{}renderApiSupplierButtons();renderCatalog();}
+diff --git a/public/service-worker.js b/public/service-worker.js
+index cf229d8..3cef9b3 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.153-provider-catalogue-safety';
++const CACHE='master7-shell-17.0.0-selfbuilt.154-provider-boundary-safety';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/tests/game-catalogue.test.mjs b/tests/game-catalogue.test.mjs
+index c3ae612..91018b0 100644
+--- a/tests/game-catalogue.test.mjs
++++ b/tests/game-catalogue.test.mjs
+@@ -70,6 +70,19 @@ test('only the pinned EVO cover host and path may be fetched through the same-or
+  }
+  assert.equal(await cachedGameArtwork(c,'unknown','1'),null);
+ });
++test('EVO titles stay suspended and a partial malformed refresh preserves the complete snapshot',async t=>{
++ const {c,state}=fixture(t),first=await getGameCatalogue(c,{providerId:'evo888h5'});
++ assert.equal(first.games.length,1);assert.equal(first.games[0].maintenance,true);assert.equal(first.games[0].playable,false);
++ state.time+=301;
++ const malformed={...c,gameGatewayFetch:async()=>Response.json({provider:'evo888h5',upstreamStatus:200,complete:true,result:{code:0,data:[
++  {gameid:'1',title:'One',maintenance:false},
++  {gameid:'1',title:'Duplicate',maintenance:false},
++ ]}})};
++ const retained=await getGameCatalogue(malformed,{providerId:'evo888h5'});
++ assert.equal(retained.providers[0].status,'blocked');assert.equal(retained.providers[0].connectionVerified,false);
++ assert.equal(retained.providers[0].lastSuccessAt,1000);assert.equal(retained.games.length,1);
++ assert.equal(retained.games[0].name,'EVO title');assert.equal(retained.games[0].maintenance,true);assert.equal(retained.games[0].playable,false);
++});
+ test('malformed or oversized provider data cannot overwrite a known good catalogue',async t=>{
+  const {c,state}=fixture(t);await getGameCatalogue(c);state.time+=301;
+  const invalid={...c,gameGatewayFetch:async()=>new Response('x'.repeat(2*1024*1024+1),{headers:{'Content-Type':'application/json'}})};
+diff --git a/tests/game-wallet-records-ui.test.mjs b/tests/game-wallet-records-ui.test.mjs
+index 0a37057..0b1fae4 100644
+--- a/tests/game-wallet-records-ui.test.mjs
++++ b/tests/game-wallet-records-ui.test.mjs
+@@ -61,13 +61,23 @@ test('insufficient wallet funds are explained to members in all supported langua
+ });
+ 
+ test('an unverified game entry explains that acceptance is pending in each language',()=>{
+- for(const [lang,expected] of [['zh','等待验收'],['en','Awaiting acceptance'],['ms','Menunggu pengesahan']]){
++ for(const [lang,wallet,expected] of [['zh','转账钱包','等待生产验收'],['en','Transfer wallet','Production acceptance pending'],['ms','Dompet pindahan','Menunggu penerimaan produksi']]){
+   const context={state:{lang},apiSupplierState:()=>({})};
+   const result=vm.runInNewContext(section('function profileCapabilityText(','function supplierFavoriteKeys(')+'\nprofileCapabilityText({currency:"MYR",walletMode:"Transfer",capabilityReason:"acceptance_pending"})',context);
+-  assert.equal(result,`MYR · Transfer · ${expected}`);
++  assert.equal(result,`MYR · ${wallet} · ${expected}`);
+  }
+ });
+ 
++test('customer game cards never expose internal capability codes or unknown wallet modes',()=>{
++ const context={state:{lang:'en'},apiSupplierState:()=>({})};
++ const source=section('function profileCapabilityText(','function supplierFavoriteKeys(');
++ for(const [reason,label] of [['adapter_unimplemented','Provider setup pending'],['contract_missing','Provider contract pending'],['provider_maintenance','Provider maintenance'],['provider_contract_and_acceptance_pending','Provider contract and acceptance pending']]){
++  const result=vm.runInNewContext(source+`\nprofileCapabilityText({currency:"MYR",walletMode:"unknown",capabilityReason:"${reason}"})`,context);
++  assert.equal(result,`MYR · ${label}`);assert.equal(result.includes(reason),false);
++ }
++ assert.equal(vm.runInNewContext(source+'\nprofileCapabilityText({currency:"MYR",walletMode:"unknown",capabilityReason:"unknown"})',context),'MYR');
++});
++
+ test('unclosed provider sessions show reconciliation in all languages and hide financial actions',()=>{
+  for(const [lang,expected] of [['zh','游戏会话关闭状态需要核对'],['en','game session closure needs review'],['ms','Penutupan sesi permainan perlu disemak']]){
+   const elements=new Map(),get=id=>{if(!elements.has(id))elements.set(id,new Element());return elements.get(id);};
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index 024d222..4792d83 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.153-provider-catalogue-safety';
++const release='17.0.0-selfbuilt.154-provider-boundary-safety';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{

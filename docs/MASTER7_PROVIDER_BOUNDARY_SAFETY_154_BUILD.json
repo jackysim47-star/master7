@@ -1,0 +1,94 @@
+{
+  "release": "17.0.0-selfbuilt.154-provider-boundary-safety",
+  "preparedAt": "2026-11-10T07:55:05.838251+00:00",
+  "sourceCommit": "a766bd8ae30fbbe86d8b29f1cd10d7c4cfc8eb6f",
+  "baselineSourceCommit": "aeaaeaceb2897911fd7934693f55840ee29fd99c",
+  "baselineRelease": "17.0.0-selfbuilt.153-provider-catalogue-safety",
+  "archive": {
+    "sha256": "9ebddaff0bd1ab258448c3415f407ad451285f04d6607f67e200c156f432f297",
+    "bytes": 7127245,
+    "files": 682,
+    "entries": 743,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/MASTER7_PROVIDER_BOUNDARY_SAFETY_154.md"
+    ],
+    "changed": [
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "lib/backend.ts",
+      "lib/game-catalogue.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/assets/app.js",
+      "public/service-worker.js",
+      "tests/game-catalogue.test.mjs",
+      "tests/game-wallet-records-ui.test.mjs",
+      "tests/official-entries-probe.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1325,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "focusedFrontendProviderSafety": 54,
+    "renderDatabase": 3,
+    "gatewayTests": 150,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "supplierTests": "read-only catalogue probes only; no launch, player, balance, transfer, settlement, recovery or payment acceptance"
+  },
+  "supplierBoundarySafety": {
+    "evo888h5": {
+      "strictGatewayProjection": true,
+      "malformedRefreshPolicy": "blocked_keep_last_complete_snapshot",
+      "unknownAvailabilityPolicy": "maintenance_true",
+      "remoteArtworkPublished": false,
+      "currentSupplierOutcome": "provider_code_130_egress_not_allowlisted",
+      "retainedCachedTitles": 150
+    },
+    "clotplay": {
+      "strictGatewayProjection": true,
+      "exactPaginationRequired": true,
+      "missingAvailabilityPolicy": "maintenance_true",
+      "remoteArtworkPublished": false,
+      "currentSupplierOutcome": "http_403"
+    },
+    "pragmaticplay": {
+      "strictGatewayProjection": true,
+      "unknownAvailabilityPolicy": "maintenance_true",
+      "currentSupplierOutcome": "http_435"
+    },
+    "venus": {
+      "responseSignatureRequired": true,
+      "unknownAvailabilityPolicy": "maintenance_true",
+      "remoteArtworkPublished": false,
+      "currentSupplierOutcome": "response_signature_headers_missing"
+    },
+    "frontend": {
+      "internalCapabilityCodesExposed": false,
+      "unknownWalletModeExposed": false,
+      "friendlyEnglishStatusLabels": true
+    },
+    "productionAcceptedProfiles": 0,
+    "launchReadyProfiles": 0,
+    "playableProfiles": 0
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false
+}
