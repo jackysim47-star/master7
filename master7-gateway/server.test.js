@@ -383,7 +383,10 @@ test('EPICWIN and KISSH5 catalogue profiles keep credentials and currencies sepa
     const now=()=>new Date('2026-10-12T22:00:00Z');
     const fetchImpl=async(url,options)=>{
       sent={url,headers:options.headers,body:JSON.parse(options.body)};
-      return new Response(JSON.stringify({Status:200,Game:[{GameCode:'1',GameName:'Sample',GameType:1,ImageUrl:'https://example.test/a.png',private:'hidden'}],SecretKey:secret}));
+      const game = provider === '918kissh5'
+        ? {GameCode:'1',GameName:'Sample',GameType:1,ImageUrl:'https://gth.kissh5.com/thumbs/web/1.png',IsActive:true,IsH5Support:true,Maintenance:false,private:'hidden'}
+        : {GameCode:'1',GameName:'Sample',GameType:1,ImageUrl:'https://example.test/a.png',private:'hidden'};
+      return new Response(JSON.stringify({Status:200,Game:[game],SecretKey:secret}));
     };
     const res=await run(makeApp({env,fetchImpl,now}),'/providers/'+provider+'/games?account='+account);
     const data=await res.json();
@@ -391,7 +394,8 @@ test('EPICWIN and KISSH5 catalogue profiles keep credentials and currencies sepa
     assert.equal(sent.body.OperatorId,id);assert.equal(sent.body.Currency,currency);
     assert.equal(sent.body.Signature,megaSignature('GetGameList','2026-10-12T22:00:00Z',id,secret));
     assert.match(sent.headers['User-Agent'], /^MASTER7-Integration-Gateway\//);
-    assert.equal(data.games[0].imageUrl,'https://example.test/a.png');
+    assert.equal(data.games[0].imageUrl,provider==='918kissh5'?'https://gth.kissh5.com/thumbs/web/1.png':'https://example.test/a.png');
+    if(provider==='918kissh5')assert.equal(data.games[0].maintenance,false);
     assert.ok(!JSON.stringify(data).includes(secret));assert.ok(!JSON.stringify(data).includes('hidden'));
     assert.equal(data.currency,currency);
   }
@@ -409,5 +413,24 @@ test('catalogue provider denial remains a failure and hides upstream secrets',as
   const res=await run(makeApp({env:{EPICWIN_NORMAL_OPERATOR_ID:'id',EPICWIN_NORMAL_SECRET_KEY:'secret'},fetchImpl}),'/providers/epicwin/games');
   const data=await res.json();assert.equal(res.status,502);assert.equal(data.providerStatus,900403);
   assert.ok(!JSON.stringify(data).includes('private'));
+});
+
+test('KISSH5 rejects malformed success catalogues without leaking upstream fields',async()=>{
+  const env={KISSH5_NORMAL_OPERATOR_ID:'kiss-normal',KISSH5_NORMAL_SECRET_KEY:'kiss-secret'};
+  const invalid=[
+    {Status:'200',Game:[]},
+    {Status:200,Game:[{GameCode:'',GameName:'Missing code',GameType:1}]},
+    {Status:200,Game:[{GameCode:'1',GameName:'Duplicate',GameType:1},{GameCode:'1',GameName:'Duplicate',GameType:1}]},
+    {Status:200,Game:[{GameCode:'1',GameName:'Unsafe image',GameType:1,ImageUrl:'https://attacker.example.test/thumbs/1.png'}]},
+  ];
+  for(const payload of invalid){
+    payload.SecretKey='must-not-pass';
+    const fetchImpl=async()=>Response.json(payload);
+    const response=await run(makeApp({env,fetchImpl}),'/providers/918kissh5/games');
+    const data=await response.json();
+    assert.equal(response.status,502);
+    assert.deepEqual(data,{error:'provider_catalogue_failed',provider:'918kissh5',upstreamStatus:200,providerStatus:Number.isSafeInteger(payload.Status)?payload.Status:null});
+    assert.ok(!JSON.stringify(data).includes('must-not-pass'));
+  }
 });
 
