@@ -1,0 +1,57 @@
+{
+  "release": "17.0.0-selfbuilt.145-payment-callback-evidence",
+  "baselineRelease": "17.0.0-selfbuilt.144-sponsor-withdrawal-lobby",
+  "generatedAt": "2026-11-10T01:26:31.322809Z",
+  "archive": {
+    "path": "master7-v17-render-staging.tar.gz",
+    "sha256": "4cfca8d0aefb1f93bb0c56f06943681c60365feeb0252d81195e0222f7b638c4",
+    "bytes": 7082362,
+    "entries": 726,
+    "links": 0,
+    "independentArchivesByteIdentical": true,
+    "cleanExtractionMatchesSource": true
+  },
+  "changeSummary": {
+    "addedFiles": 3,
+    "changedFiles": 23,
+    "deletedFiles": 0
+  },
+  "validation": {
+    "maintenance": "12/12",
+    "releaseProbes": "27/27",
+    "regression": "1258/1258",
+    "renderDatabase": "3/3",
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "cleanArchiveVerifyRender": true
+  },
+  "scope": [
+    "persist authenticated provider-specific callback receipt evidence after exact order binding",
+    "fail closed when durable callback receipt cannot be verified",
+    "show callback delivery separately from provider payment and wallet settlement",
+    "allowlist server-side 1MPay runtime variables without forwarding browser or back-office values"
+  ],
+  "activation": {
+    "paymentProfileOrdersEnabled": false,
+    "realPaymentsAccepted": false,
+    "gameProductionProfilesVerified": 0,
+    "productionGoLive": false
+  },
+  "evidenceBoundary": {
+    "depositOrders": 12,
+    "walletLedgerRows": 0,
+    "creditedOrders": 0,
+    "vpay": "FAIL_INVALID_SIGNATURE",
+    "gspay": "NOT_VERIFIED",
+    "oneMpay": "NOT_VERIFIED"
+  },
+  "deployment": {
+    "candidateDeployed": false,
+    "renderDeployId": null
+  }
+}
