@@ -1,15 +1,28 @@
 # MASTER7 deployment handover
 
-Candidate source: `17.0.0-selfbuilt.173-staff-setup-route`.
+Current Portal release: `17.0.0-selfbuilt.173-staff-setup-route`.
 
-This candidate has not been deployed by the source commit. Confirm the actual
-Render release and deployment ID from the Portal service before cutover or
-rollback. Portal service: `srv-dbl0iv7f3r2c73848ei0`.
+Render deployment `dep-dbpn9ugm7kps7381nvcg` reached `live` on 2026-11-10.
+Portal service: `srv-dbl0iv7f3r2c73848ei0`. Publication branch:
+`codex/v17-render-staging-20261104`.
 
-The live baseline observed while preparing this candidate was v172 deployment
-`dep-dbpn29k9v7es73f3ljdg`. Its health endpoint and database were ready, but an
-external GET to `/staff-setup` returned 404 because Vinext had no explicit file
-route for that path.
+Release evidence:
+
+- local source commit: `c826624`;
+- remote source commit: `42ee462c5452c7a216f44bfef94595969437439d`;
+- remote tar publication commit:
+  `bca27aee28de007fe7bfe58c0999054c59e4e7ce`;
+- published tar SHA-256:
+  `43198cd4b40a72b957d34c6cfafba784d63b44e75a1947797696d97883594629`.
+
+External verification found `/staff-setup` available for GET and HEAD with
+HTTP 200, with an empty HEAD response body and v173 browser assets in the GET
+response. `/health/live` reported the exact v173 release and a ready database.
+The deployment keeps new deposits, game launches and payouts disabled. Backup
+and restore evidence are not ready for this release, and the production domain,
+provider, real-payment and live-game acceptance items remain outstanding. The
+platform therefore remains in integration/UAT and is not approved for
+production go-live. See `MASTER7_STAFF_SETUP_ROUTE_173_POSTDEPLOY.md`.
 
 ## Staff setup route
 
@@ -199,16 +212,14 @@ gates.
 ## Other operational boundaries
 
 Payment work remains paused. VPay, GSPAY and 1MPay code, credentials, callbacks,
-activation flags, service plans and DNS are unchanged by v171. This candidate
+activation flags, service plans and DNS are unchanged by v173. This release
 does not enable any real-money payment, payout or live-game switch.
 
-V171 source verification passed: maintenance 12/12, release probe 27/27,
-full regression 1,414/1,414, targeted migration/readiness/index 23/23,
-SQLite manual-bank 19/19, isolated PostgreSQL 18 manual-bank 6/6,
-backup/report 19/19 and Render database compatibility 3/3. TypeScript,
+V173 source verification passed: maintenance 12/12, release probe 27/27,
+full regression 1,426/1,426 and Render database compatibility 3/3. TypeScript,
 lint, diff checks and the Render build also passed. Verification made no live
-provider, customer-money or wallet call. No deployment or production
-acceptance is claimed by this handover.
+provider, customer-money or wallet call. This handover records deployment of
+the staff-setup route repair only and does not claim production acceptance.
 
 Workspace: `tea-dakfo2h594qs73du231g`.
 Publication branch: `codex/v17-render-staging-20261104`.
