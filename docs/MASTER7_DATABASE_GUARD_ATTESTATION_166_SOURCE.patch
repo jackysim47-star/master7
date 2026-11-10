@@ -1,0 +1,612 @@
+diff --git a/app/portal.html b/app/portal.html
+index 40582302cfc8c7b484d91147ce726a751d2b7866..f5c771cdb937368c7f3e6840e86e8c171caab918 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index 4a5f631d234d9cd074c6ce4c3b3a9ed7eea8ccf9..4610aed34e984b05308640a8929181b8a616c450 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,6 +1,6 @@
+ # MASTER7 deployment handover
+ 
+-Candidate source: `17.0.0-selfbuilt.165-acceptance-ledger-integrity`.
++Candidate source: `17.0.0-selfbuilt.166-database-guard-attestation`.
+ 
+ This candidate has not been deployed by the source commit. Confirm the actual
+ Render release and deployment ID from the Portal service before cutover or
+@@ -9,7 +9,18 @@ rollback. Portal service: `srv-dbl0iv7f3r2c73848ei0`.
+ The last recorded integration-gateway baseline remains release `1.17.0`,
+ deployment `dep-dbpchge417fc739h9b50`, commit
+ `c4aab70060439469f3c2e6081a57c0b40e630ff4`. Gateway service:
+-`srv-db6b7inlk1mc73ck6cmg`. The v165 candidate does not change the gateway.
++`srv-db6b7inlk1mc73ck6cmg`. The v166 candidate does not change the gateway.
++
++## Critical database guard attestation
++
++v166 verifies all nine critical PostgreSQL guard triggers on every portal
++startup, including their table, name, enabled state, trigger function, trigger
++shape and update-column binding. The attestation runs inside the existing
++migration transaction and advisory lock after migrations and before catalog
++seeding. Any missing, disabled, rebound or malformed guard aborts startup and
++rolls back the transaction; startup never repairs drift silently. The external
++PostgreSQL readiness gate imports the same frozen guard contract. See
++`V166_DATABASE_GUARD_ATTESTATION.md`.
+ 
+ ## Acceptance evidence integrity
+ 
+@@ -54,10 +65,10 @@ gates.
+ ## Other operational boundaries
+ 
+ Payment work remains paused. VPay, GSPAY and 1MPay code, credentials, callbacks,
+-activation flags, service plans and DNS are unchanged by v165. This candidate
++activation flags, service plans and DNS are unchanged by v166. This candidate
+ does not enable any real-money payment, payout or live-game switch.
+ 
+-The verification totals for v165 must be recorded only after the complete
++The verification totals for v166 must be recorded only after the complete
+ source verification finishes. No deployment or production acceptance is
+ claimed by this handover.
+ 
+diff --git a/docs/V166_DATABASE_GUARD_ATTESTATION.md b/docs/V166_DATABASE_GUARD_ATTESTATION.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..d04c96f8ece0db578db786060a8ddb29308858e2
+--- /dev/null
++++ b/docs/V166_DATABASE_GUARD_ATTESTATION.md
+@@ -0,0 +1,49 @@
++# MASTER7 v166 database guard attestation
++
++Release: `17.0.0-selfbuilt.166-database-guard-attestation`
++
++## Purpose
++
++Migration markers prove that a guard was installed once. They do not prove
++that the physical PostgreSQL trigger still exists, remains enabled, or still
++invokes the intended function. v166 adds a fail-closed attestation on every
++portal database initialization.
++
++## Startup contract
++
++The portal verifies nine critical triggers covering provider-wallet contract
++immutability and both acceptance ledgers. Each trigger must match the frozen
++contract for:
++
++- public table and trigger name;
++- enabled state `O`;
++- public trigger-function name;
++- PostgreSQL trigger type;
++- exact `UPDATE OF` columns where applicable.
++
++The check runs after migrations 0120 and 0122 and before directory seeding,
++inside the existing transaction and migration advisory lock. Missing,
++disabled, duplicate, wrong-table, rebound, malformed, or wrongly scoped
++triggers abort startup and roll back all work in that transaction. The startup
++path never recreates or enables a drifted trigger automatically.
++
++The PostgreSQL readiness gate imports this same frozen contract so startup and
++external evidence cannot drift onto different trigger lists.
++
++## Schema and operational scope
++
++This release adds no table or migration. Backup schema remains
++`0122-acceptance-ledger-integrity`, with its existing schema hash and 76-table
++coverage. v166 does not change payment credentials, provider endpoints,
++wallet balances, payment or game submission flags, DNS, or service plans.
++
++## Verification
++
++Unit tests cover the exact nine-trigger contract, ordering before seed,
++idempotent second startup, rollback, and rejection of missing, disabled,
++duplicate, wrong-table, wrong-function, wrong-schema, wrong-type, and wrong
++column-binding evidence. The isolated PostgreSQL 18 test additionally damages
++live trigger metadata after the migration marker exists, proves that restart
++fails closed, restores the trigger explicitly, and proves that restart passes.
++
++All provider and money paths remain closed during validation.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index d84ccb9885b2fc3dda9f3a8f7b908dbd1ab9e131..8f40ce0265849c152926307f5a525b1d7515d47f 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -39,7 +39,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.165-acceptance-ledger-integrity';
++export const RELEASE = '17.0.0-selfbuilt.166-database-guard-attestation';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index 97aa684b785d211fcf135f889ba4d771f293db46..4d54d847eeb8b0f16accb5ba701ad109a0e88ac7 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.165-acceptance-ledger-integrity' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.166-database-guard-attestation' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/lib/render-migrations.mjs b/lib/render-migrations.mjs
+index 45d6f8484b06fdc9c660cfed493669896a654bc4..2cf0d4dc20a66f071f9d542ae758493e4326642f 100644
+--- a/lib/render-migrations.mjs
++++ b/lib/render-migrations.mjs
+@@ -942,6 +942,51 @@ async function applyAcceptanceLedgerIntegrityMigration(client){
+  await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION]);return true;
+ }
+ 
++export const CRITICAL_DATABASE_GUARDS=Object.freeze([
++ Object.freeze({tableName:'provider_wallet_operations',triggerName:'provider_wallet_contract_immutable',functionName:'reject_provider_wallet_contract_mutation',triggerType:19,updateColumns:Object.freeze(['withdrawal_mode','adapter_contract_sha256'])}),
++ Object.freeze({tableName:'game_provider_acceptance_events',triggerName:'game_provider_acceptance_events_immutable',functionName:'guard_game_provider_acceptance_event',triggerType:31,updateColumns:Object.freeze([])}),
++ Object.freeze({tableName:'game_provider_acceptance_events',triggerName:'game_provider_acceptance_events_no_truncate',functionName:'guard_game_provider_acceptance_event',triggerType:34,updateColumns:Object.freeze([])}),
++ Object.freeze({tableName:'production_acceptance_events',triggerName:'production_acceptance_events_immutable',functionName:'guard_production_acceptance_event',triggerType:31,updateColumns:Object.freeze([])}),
++ Object.freeze({tableName:'production_acceptance_events',triggerName:'production_acceptance_events_no_truncate',functionName:'guard_production_acceptance_event',triggerType:34,updateColumns:Object.freeze([])}),
++ Object.freeze({tableName:'game_provider_acceptance_current',triggerName:'game_provider_acceptance_current_monotonic',functionName:'guard_game_provider_acceptance_current',triggerType:31,updateColumns:Object.freeze([])}),
++ Object.freeze({tableName:'game_provider_acceptance_current',triggerName:'game_provider_acceptance_current_no_truncate',functionName:'guard_game_provider_acceptance_current',triggerType:34,updateColumns:Object.freeze([])}),
++ Object.freeze({tableName:'production_acceptance_current',triggerName:'production_acceptance_current_monotonic',functionName:'guard_production_acceptance_current',triggerType:31,updateColumns:Object.freeze([])}),
++ Object.freeze({tableName:'production_acceptance_current',triggerName:'production_acceptance_current_no_truncate',functionName:'guard_production_acceptance_current',triggerType:34,updateColumns:Object.freeze([])}),
++]);
++
++export async function assertCriticalDatabaseGuards(client){
++ const normalizeColumns=value=>Array.isArray(value)?value.map(String):typeof value==='string'&&value.startsWith('{')&&value.endsWith('}')?(value.slice(1,-1)?value.slice(1,-1).split(','):[]):[];
++ const tableNames=[...new Set(CRITICAL_DATABASE_GUARDS.map(item=>item.tableName))];
++ const triggerNames=[...new Set(CRITICAL_DATABASE_GUARDS.map(item=>item.triggerName))];
++ const rows=(await client.query(`SELECT n.nspname table_schema,c.relname table_name,t.tgname trigger_name,t.tgenabled enabled,t.tgtype trigger_type,p.proname function_name,pn.nspname function_schema,
++  COALESCE(ARRAY(SELECT a.attname::text FROM unnest(t.tgattr::smallint[]) WITH ORDINALITY position(attnum,ordinality)
++   JOIN pg_catalog.pg_attribute a ON a.attrelid=t.tgrelid AND a.attnum=position.attnum ORDER BY position.ordinality),'{}'::text[]) update_columns
++  FROM pg_catalog.pg_trigger t
++  JOIN pg_catalog.pg_class c ON c.oid=t.tgrelid
++  JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
++  JOIN pg_catalog.pg_proc p ON p.oid=t.tgfoid
++  JOIN pg_catalog.pg_namespace pn ON pn.oid=p.pronamespace
++  WHERE n.nspname=current_schema() AND NOT t.tgisinternal AND t.tgname=ANY($1::text[])
++  ORDER BY c.relname,t.tgname`,[triggerNames])).rows;
++ const signature=item=>`${item.tableName}.${item.triggerName}.${item.functionName}.${item.triggerType}.${item.updateColumns.join(',')}`;
++ const expected=new Set(CRITICAL_DATABASE_GUARDS.map(signature));
++ const observed=new Map();
++ for(const row of rows){
++  const key=`${String(row.table_name)}.${String(row.trigger_name)}.${String(row.function_name)}.${String(row.trigger_type)}.${normalizeColumns(row.update_columns).join(',')}`;
++  if(expected.has(key)&&String(row.function_schema)===String(row.table_schema)&&String(row.table_schema))observed.set(key,(observed.get(key)??[]).concat(String(row.enabled)));
++ }
++ const invalid=CRITICAL_DATABASE_GUARDS.filter(item=>{
++  const values=observed.get(signature(item))??[];
++  return values.length!==1||values[0]!=='O';
++ }).map(item=>`${item.tableName}.${item.triggerName}`);
++ const unexpected=rows.filter(row=>!String(row.table_schema)||String(row.function_schema)!==String(row.table_schema)||!expected.has(`${String(row.table_name)}.${String(row.trigger_name)}.${String(row.function_name)}.${String(row.trigger_type)}.${normalizeColumns(row.update_columns).join(',')}`));
++ if(invalid.length||unexpected.length||rows.length!==CRITICAL_DATABASE_GUARDS.length){
++  const details=[...invalid,...unexpected.map(row=>`${String(row.table_name)}.${String(row.trigger_name)}.${String(row.function_schema)}.${String(row.function_name)}.${String(row.trigger_type)}.${normalizeColumns(row.update_columns).join(',')}`)].sort();
++  throw new Error(`Critical database guard attestation failed (${invalid.length||unexpected.length||rows.length}/${CRITICAL_DATABASE_GUARDS.length}): ${details.join(',')||'unexpected row count'}`);
++ }
++ return {criticalDatabaseGuardsReady:true,criticalDatabaseGuardCount:CRITICAL_DATABASE_GUARDS.length,criticalDatabaseGuardTables:tableNames.length};
++}
++
+ export const FLEXIBLE_PUBLIC_CONTACTS_MIGRATION='0117-flexible-public-contacts';
+ async function applyFlexiblePublicContactsMigration(client){
+  const applied=await client.query('SELECT version FROM portal_schema_migrations WHERE version=$1',[FLEXIBLE_PUBLIC_CONTACTS_MIGRATION]);if(applied.rows.length)return false;
+@@ -1047,6 +1092,7 @@ export async function initializePortalDatabase(pool, schema, directoryEntries, o
+     await applyProviderWalletSweepsMigration(client);
+     await applyJdbWagerCoverageStagingMigration(client);
+     await applyAcceptanceLedgerIntegrityMigration(client);
++    const criticalDatabaseGuards = await assertCriticalDatabaseGuards(client);
+     const rows = seedRows(directoryEntries);
+     await client.query(
+       `INSERT INTO brand_directory_entries(id,category,display_name,position,marked,status,image_data,updated_at)
+@@ -1056,7 +1102,7 @@ export async function initializePortalDatabase(pool, schema, directoryEntries, o
+       [JSON.stringify(rows)],
+     );
+     await client.query("COMMIT");
+-    return { migrated, connectedServicesOpened, seededBrandCount: rows.length };
++    return { migrated, connectedServicesOpened, seededBrandCount: rows.length, ...criticalDatabaseGuards };
+   } catch (error) {
+     await client.query("ROLLBACK");
+     throw error;
+diff --git a/package.json b/package.json
+index 8512855902ead11f5bbd4482f47ad25c1065e21f..54b5e3d000e0afec20f2467a37ffeb115fdf1dc5 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.165-acceptance-ledger-integrity node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.165-acceptance-ledger-integrity node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.166-database-guard-attestation node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.166-database-guard-attestation node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.165-acceptance-ledger-integrity node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.166-database-guard-attestation node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs",
+     "test:acceptance-integrity-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-acceptance-integrity.mjs"
+diff --git a/public/service-worker.js b/public/service-worker.js
+index f92f41cfc6671cfad2c9704fa80104ebed2b162e..7d6d442593dc6bed38643c294547ddef06d1ab63 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.165-acceptance-ledger-integrity';
++const CACHE='master7-shell-17.0.0-selfbuilt.166-database-guard-attestation';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/scripts/postgres-readiness-gate.mjs b/scripts/postgres-readiness-gate.mjs
+index 4b992794ec73cddc379b8a3cab328d490bd41651..9cb2a1aaca5d2c6f8e3566471c3280529ee77109 100644
+--- a/scripts/postgres-readiness-gate.mjs
++++ b/scripts/postgres-readiness-gate.mjs
+@@ -8,6 +8,7 @@ import {
+  CONNECTED_SERVICES_MIGRATION,FIXED_VOUCHER_RETIREMENT_MIGRATION,GAME_ACCESS_ZONE_MIGRATION,
+  GAME_PROVIDER_ADAPTER_CORE_MIGRATION,MEGAH5_LAUNCH_OPERATIONS_MIGRATION,GAME_PROVIDER_ACCEPTANCE_MIGRATION,GENERIC_GAME_WALLET_RISK_MIGRATION,
+  WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,
++ CRITICAL_DATABASE_GUARDS,
+  GSPAY_PAYOUT_ACTIVATION_MIGRATION,GSPAY_USDT_PROFILE_MIGRATION,MANUAL_BANK_MIGRATION,MANUAL_COMPLIANCE_MIGRATION,
+  MARKETING_CONTACT_SCALE_MIGRATION,NEW_MEMBER_VOUCHER_MIGRATION,ONE_MPAY_CHANNEL_MIGRATION,
+  OPERATIONS_AUTOMATION_MIGRATION,PAYMENT_ACCEPTANCE_GUARD_MIGRATION,PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS,
+@@ -34,17 +35,7 @@ export const REQUIRED_COLUMNS=Object.freeze({
+  withdrawal_requests:Object.freeze(['destination_type','ewallet_code','ewallet_name','ewallet_account_encrypted','ewallet_account_last4']),
+  provider_wallet_operations:Object.freeze(['withdrawal_mode','adapter_contract_sha256']),
+ });
+-export const REQUIRED_TRIGGERS=Object.freeze([
+- Object.freeze({tableName:'provider_wallet_operations',triggerName:'provider_wallet_contract_immutable'}),
+- Object.freeze({tableName:'game_provider_acceptance_events',triggerName:'game_provider_acceptance_events_immutable'}),
+- Object.freeze({tableName:'game_provider_acceptance_events',triggerName:'game_provider_acceptance_events_no_truncate'}),
+- Object.freeze({tableName:'production_acceptance_events',triggerName:'production_acceptance_events_immutable'}),
+- Object.freeze({tableName:'production_acceptance_events',triggerName:'production_acceptance_events_no_truncate'}),
+- Object.freeze({tableName:'game_provider_acceptance_current',triggerName:'game_provider_acceptance_current_monotonic'}),
+- Object.freeze({tableName:'game_provider_acceptance_current',triggerName:'game_provider_acceptance_current_no_truncate'}),
+- Object.freeze({tableName:'production_acceptance_current',triggerName:'production_acceptance_current_monotonic'}),
+- Object.freeze({tableName:'production_acceptance_current',triggerName:'production_acceptance_current_no_truncate'}),
+-]);
++export const REQUIRED_TRIGGERS=CRITICAL_DATABASE_GUARDS;
+ 
+ const sha256=value=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
+ const parse=value=>{try{return typeof value==='string'?JSON.parse(value):null;}catch{return null;}};
+@@ -64,7 +55,7 @@ export function evaluatePostgresReadinessEvidence(input,{expectedRelease,nowMs=D
+  check(checks,'migration_timestamps',migrations.every(row=>Number.isSafeInteger(Number(row.applied_at))&&Number(row.applied_at)>0&&Number(row.applied_at)<=Math.floor(nowMs/1000)+300));
+  check(checks,'migration_dependency_order',[WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION].every(version=>migrationTimes.has(version))&&migrationTimes.get(WITHDRAWAL_DESTINATION_METHODS_MIGRATION)<=migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)&&migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)<=migrationTimes.get(JDB_WAGER_COVERAGE_STAGING_MIGRATION)&&migrationTimes.get(JDB_WAGER_COVERAGE_STAGING_MIGRATION)<=migrationTimes.get(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION));
+  check(checks,'required_schema_columns',Object.entries(REQUIRED_COLUMNS).every(([table,names])=>names.every(name=>columns.has(`${table}.${name}`))));
+- check(checks,'required_schema_triggers',REQUIRED_TRIGGERS.every(required=>triggers.some(row=>String(row.table_name)===required.tableName&&String(row.trigger_name)===required.triggerName&&String(row.enabled)==='O')));
++ check(checks,'required_schema_triggers',REQUIRED_TRIGGERS.every(required=>triggers.some(row=>String(row.table_name)===required.tableName&&String(row.trigger_name)===required.triggerName&&String(row.enabled)==='O'&&String(row.function_schema)==='public'&&String(row.function_name)===required.functionName&&Number(row.trigger_type)===required.triggerType&&JSON.stringify((Array.isArray(row.update_columns)?row.update_columns:[]).map(String))===JSON.stringify(required.updateColumns)))&&triggers.length===REQUIRED_TRIGGERS.length);
+ 
+  const backup=parse(input.backupAudit?.target),backupAuditAt=Number(input.backupAudit?.created_at),backupReady=!!backup&&backup.format===BACKUP_FORMAT&&backup.release===expectedRelease&&backup.schemaVersion===BACKUP_SCHEMA_VERSION&&backup.schemaSha256===BACKUP_SCHEMA_SHA256&&backup.publicKeySha256===BACKUP_PUBLIC_KEY_SHA256&&backup.readConsistency==='transaction_snapshot'&&backup.tableCount===BACKUP_TABLES.length&&Number.isSafeInteger(backup.totalRecords)&&backup.totalRecords>=0&&sha256(backup.backupSha256)&&sha256(backup.plaintextSha256)&&sha256(backup.ciphertextSha256)&&fresh(backup.createdAt,7*86400,nowMs)&&Number.isSafeInteger(backupAuditAt)&&backupAuditAt>=Math.floor(nowMs/1000)-7*86400&&backupAuditAt<=Math.floor(nowMs/1000)+300;
+  check(checks,'current_encrypted_backup',backupReady);
+@@ -92,7 +83,7 @@ export async function runPostgresReadinessGate(client,options){
+       has_table_privilege(current_user,format('%I.%I','public',table_name),'TRIGGER')) can_write_tables`,[REQUIRED_TABLES])).rows[0];
+   const tables=(await client.query("SELECT c.relname name FROM pg_catalog.pg_class c JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND c.relkind IN ('r','p') ORDER BY c.relname")).rows;
+   const columns=(await client.query("SELECT table_name,column_name FROM information_schema.columns WHERE table_schema='public' AND table_name=ANY($1::text[]) ORDER BY table_name,column_name",[Object.keys(REQUIRED_COLUMNS)])).rows;
+-  const triggers=(await client.query("SELECT c.relname table_name,t.tgname trigger_name,t.tgenabled enabled FROM pg_catalog.pg_trigger t JOIN pg_catalog.pg_class c ON c.oid=t.tgrelid JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND NOT t.tgisinternal AND c.relname=ANY($1::text[]) AND t.tgname=ANY($2::text[]) ORDER BY c.relname,t.tgname",[[...new Set(REQUIRED_TRIGGERS.map(item=>item.tableName))],[...new Set(REQUIRED_TRIGGERS.map(item=>item.triggerName))]])).rows;
++  const triggers=(await client.query("SELECT c.relname table_name,t.tgname trigger_name,t.tgenabled enabled,t.tgtype trigger_type,p.proname function_name,pn.nspname function_schema,COALESCE(ARRAY(SELECT a.attname::text FROM unnest(t.tgattr::smallint[]) WITH ORDINALITY position(attnum,ordinality) JOIN pg_catalog.pg_attribute a ON a.attrelid=t.tgrelid AND a.attnum=position.attnum ORDER BY position.ordinality),'{}'::text[]) update_columns FROM pg_catalog.pg_trigger t JOIN pg_catalog.pg_class c ON c.oid=t.tgrelid JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace JOIN pg_catalog.pg_proc p ON p.oid=t.tgfoid JOIN pg_catalog.pg_namespace pn ON pn.oid=p.pronamespace WHERE n.nspname='public' AND NOT t.tgisinternal AND t.tgname=ANY($1::text[]) ORDER BY c.relname,t.tgname",[[...new Set(REQUIRED_TRIGGERS.map(item=>item.triggerName))]])).rows;
+   const migrations=(await client.query('SELECT version,applied_at FROM portal_schema_migrations ORDER BY version')).rows;
+   const backupCandidates=(await client.query("SELECT target,created_at FROM audit WHERE event='encrypted_backup_created' AND created_at=(SELECT MAX(created_at) FROM audit WHERE event='encrypted_backup_created')")).rows;
+   const backupAudit=backupCandidates.map(row=>({row,metadata:parse(row.target)})).filter(item=>item.metadata&&fresh(item.metadata.createdAt,30*86400,options?.nowMs??Date.now())).sort((a,b)=>Date.parse(b.metadata.createdAt)-Date.parse(a.metadata.createdAt))[0]?.row??null;
+diff --git a/scripts/start-render.mjs b/scripts/start-render.mjs
+index 95907f81263edefde31fcc7692ae32f59ce7d1a8..a99d8acc570e0cfca2bdcc1c95043aa1f74d89fc 100644
+--- a/scripts/start-render.mjs
++++ b/scripts/start-render.mjs
+@@ -29,7 +29,7 @@ try {
+   const directoryEntries = JSON.parse(await readFile(resolve("db/vendor-directory.json"), "utf8"));
+   const paymentActivation = renderPaymentActivationOptions(process.env);
+   const result = await initializePortalDatabase(pool, schema, directoryEntries, paymentActivation);
+-  console.log(`MASTER7 V17 Render staging database ready; status migration ${result.migrated ? "applied" : "already applied"}; ${result.seededBrandCount} closed directory entries available.`);
++  console.log(`MASTER7 V17 Render staging database ready; status migration ${result.migrated ? "applied" : "already applied"}; critical database guards ${result.criticalDatabaseGuardCount}/9 ready; ${result.seededBrandCount} closed directory entries available.`);
+ } catch (error) {
+   console.error("MASTER7 V17 staging database initialization failed:", error instanceof Error ? error.message : "unknown error");
+   await pool.end();
+diff --git a/scripts/verify-isolated-postgres-acceptance-integrity.mjs b/scripts/verify-isolated-postgres-acceptance-integrity.mjs
+index ca0857906336c10e9cbe02b93811d56e73552a74..56df4e5e11e6515d53d2454a3610898210e52e90 100644
+--- a/scripts/verify-isolated-postgres-acceptance-integrity.mjs
++++ b/scripts/verify-isolated-postgres-acceptance-integrity.mjs
+@@ -8,7 +8,7 @@ import {fileURLToPath} from 'node:url';
+ import {createHash,createPublicKey,generateKeyPairSync,randomBytes} from 'node:crypto';
+ import {spawn} from 'node:child_process';
+ import pg from 'pg';
+-import {initializePortalDatabase,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION} from '../lib/render-migrations.mjs';
++import {initializePortalDatabase,assertCriticalDatabaseGuards,CRITICAL_DATABASE_GUARDS,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION} from '../lib/render-migrations.mjs';
+ import {RenderD1Compat,closeRenderPool} from '../lib/render-d1.ts';
+ import {GameProviderAcceptanceError,getGameProviderAcceptanceReadiness,recordGameProviderAcceptance} from '../lib/game-provider-acceptance.ts';
+ import {ProductionAcceptanceError,getProductionAcceptanceReadiness,recordProductionAcceptance} from '../lib/production-acceptance.ts';
+@@ -16,19 +16,50 @@ import {BACKUP_TABLES,createEncryptedPortalBackup} from '../lib/encrypted-backup
+ 
+ const connection=process.env.MASTER7_ISOLATED_ACCEPTANCE_DATABASE_URL??'';let target;
+ try{target=new URL(connection);}catch{throw Error('A fresh loopback-only acceptance database is required');}
+-if(!['postgres:','postgresql:'].includes(target.protocol)||target.hostname!=='127.0.0.1'||target.username!=='postgres'||target.password||target.pathname!=='/master7_v165_acceptance_test'||target.search||target.hash||!target.port||process.env.MASTER7_ISOLATED_ACCEPTANCE_CONFIRM!=='master7_v165_acceptance_test')throw Error('A fresh loopback-only acceptance database is required');
++if(!['postgres:','postgresql:'].includes(target.protocol)||target.hostname!=='127.0.0.1'||target.username!=='postgres'||target.password||target.pathname!=='/master7_v166_acceptance_test'||target.search||target.hash||!target.port||process.env.MASTER7_ISOLATED_ACCEPTANCE_CONFIRM!=='master7_v166_acceptance_test')throw Error('A fresh loopback-only acceptance database is required');
+ 
+ test('acceptance ledgers are immutable, contiguous and fail closed on PostgreSQL 18',{timeout:90000},async t=>{
+  const pool=new pg.Pool({connectionString:connection,ssl:false,max:6}),oldUrl=process.env.PORTAL_POSTGRES_URL,oldSsl=process.env.PGSSLMODE,oldFetch=globalThis.fetch;
+  t.after(async()=>{await closeRenderPool();await pool.end();globalThis.fetch=oldFetch;if(oldUrl===undefined)delete process.env.PORTAL_POSTGRES_URL;else process.env.PORTAL_POSTGRES_URL=oldUrl;if(oldSsl===undefined)delete process.env.PGSSLMODE;else process.env.PGSSLMODE=oldSsl;});
+  const identity=(await pool.query("SELECT current_database() name,current_setting('server_version_num')::int version,(SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='public')::int tables")).rows[0];
+- assert.equal(identity.name,'master7_v165_acceptance_test');assert.ok(identity.version>=180000,`PostgreSQL 18 required, got ${identity.version}`);assert.equal(identity.tables,0,'Refuse nonempty database');
++ assert.equal(identity.name,'master7_v166_acceptance_test');assert.ok(identity.version>=180000,`PostgreSQL 18 required, got ${identity.version}`);assert.equal(identity.tables,0,'Refuse nonempty database');
+  const schema=await readFile(new URL('../db/render-schema.sql',import.meta.url),'utf8'),directory=JSON.parse(await readFile(new URL('../db/vendor-directory.json',import.meta.url),'utf8'));
+  await initializePortalDatabase(pool,schema,directory);await initializePortalDatabase(pool,schema,directory);
+  assert.equal((await pool.query('SELECT COUNT(*)::int n FROM portal_schema_migrations WHERE version=$1',[ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION])).rows[0].n,1);
+- const requiredTriggers=['game_provider_acceptance_events_immutable','game_provider_acceptance_events_no_truncate','production_acceptance_events_immutable','production_acceptance_events_no_truncate','game_provider_acceptance_current_monotonic','game_provider_acceptance_current_no_truncate','production_acceptance_current_monotonic','production_acceptance_current_no_truncate'];
++ const attestation=await assertCriticalDatabaseGuards(pool);assert.equal(attestation.criticalDatabaseGuardsReady,true);assert.equal(attestation.criticalDatabaseGuardCount,9);
++ const requiredTriggers=CRITICAL_DATABASE_GUARDS.map(item=>item.triggerName);
+  const triggers=(await pool.query(`SELECT t.tgname name,t.tgenabled enabled FROM pg_catalog.pg_trigger t WHERE NOT t.tgisinternal AND t.tgname=ANY($1::text[]) ORDER BY t.tgname`,[requiredTriggers])).rows;
+  assert.deepEqual(triggers.map(row=>row.name),[...requiredTriggers].sort());assert.ok(triggers.every(row=>row.enabled==='O'));
++
++ await pool.query('ALTER TABLE provider_wallet_operations DISABLE TRIGGER provider_wallet_contract_immutable');
++ await assert.rejects(()=>initializePortalDatabase(pool,schema,directory),/Critical database guard attestation failed/);
++ await pool.query('ALTER TABLE provider_wallet_operations ENABLE TRIGGER provider_wallet_contract_immutable');
++ assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
++
++ const missingDefinition=(await pool.query("SELECT pg_get_triggerdef(t.oid) definition FROM pg_catalog.pg_trigger t JOIN pg_catalog.pg_class c ON c.oid=t.tgrelid WHERE c.relname='production_acceptance_current' AND t.tgname='production_acceptance_current_no_truncate' AND NOT t.tgisinternal")).rows[0]?.definition;
++ assert.ok(missingDefinition);await pool.query('DROP TRIGGER production_acceptance_current_no_truncate ON production_acceptance_current');
++ await assert.rejects(()=>initializePortalDatabase(pool,schema,directory),/Critical database guard attestation failed/);
++ await pool.query(missingDefinition);assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
++
++ const reboundDefinition=(await pool.query("SELECT pg_get_triggerdef(t.oid) definition FROM pg_catalog.pg_trigger t JOIN pg_catalog.pg_class c ON c.oid=t.tgrelid WHERE c.relname='provider_wallet_operations' AND t.tgname='provider_wallet_contract_immutable' AND NOT t.tgisinternal")).rows[0]?.definition;
++ assert.ok(reboundDefinition);await pool.query("CREATE OR REPLACE FUNCTION v166_noop_guard() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RETURN NEW; END $$");
++ await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');
++ await pool.query('CREATE TRIGGER provider_wallet_contract_immutable BEFORE UPDATE OF withdrawal_mode,adapter_contract_sha256 ON provider_wallet_operations FOR EACH ROW EXECUTE FUNCTION v166_noop_guard()');
++ await assert.rejects(()=>initializePortalDatabase(pool,schema,directory),/Critical database guard attestation failed/);
++ await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');await pool.query(reboundDefinition);await pool.query('DROP FUNCTION v166_noop_guard()');
++ assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
++
++ await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');
++ await pool.query('CREATE TRIGGER provider_wallet_contract_immutable BEFORE UPDATE OF last_error_code ON provider_wallet_operations FOR EACH ROW EXECUTE FUNCTION reject_provider_wallet_contract_mutation()');
++ await assert.rejects(()=>initializePortalDatabase(pool,schema,directory),/Critical database guard attestation failed/);
++ await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');await pool.query(reboundDefinition);
++ assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
++
++ await pool.query('DROP TRIGGER production_acceptance_current_no_truncate ON production_acceptance_current');
++ await pool.query('CREATE TRIGGER production_acceptance_current_no_truncate BEFORE TRUNCATE ON production_acceptance_events FOR EACH STATEMENT EXECUTE FUNCTION guard_production_acceptance_current()');
++ await assert.rejects(()=>initializePortalDatabase(pool,schema,directory),/Critical database guard attestation failed/);
++ await pool.query('DROP TRIGGER production_acceptance_current_no_truncate ON production_acceptance_events');await pool.query(missingDefinition);
++ assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
+  await pool.query("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES('owner','owner','owner',1,'fixture',0)");
+  process.env.PORTAL_POSTGRES_URL=connection;process.env.PGSSLMODE='disable';globalThis.fetch=async()=>{throw Error('Unexpected external request');};const db=new RenderD1Compat(),owner={id:'owner',role:'owner'};
+ 
+@@ -47,13 +78,13 @@ test('acceptance ledgers are immutable, contiguous and fail closed on PostgreSQL
+  await assert.rejects(()=>pool.query(`INSERT INTO production_acceptance_events(id,category,subject_id,capability,environment,revision,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at) VALUES('gap-production','domain','www.master7.site','dns_tls_routing','production',3,'passed',$1,'pg18:gap','owner',103,103)`,['3'.repeat(64)]),/contiguous/);
+  await assert.rejects(()=>pool.query('TRUNCATE production_acceptance_current'),/truncated/);await assert.rejects(()=>pool.query('TRUNCATE production_acceptance_current,production_acceptance_events CASCADE'),/immutable|truncated/);assert.equal((await getProductionAcceptanceReadiness(db)).integrityReady,true);
+ 
+- const restoreDirectory=mkdtempSync(join(tmpdir(),'master7-v165-acceptance-restore-')),passphrase=randomBytes(24).toString('hex'),{publicKey,privateKey}=generateKeyPairSync('rsa',{modulusLength:2048,publicKeyEncoding:{type:'spki',format:'pem'},privateKeyEncoding:{type:'pkcs8',format:'pem',cipher:'aes-256-cbc',passphrase}}),fingerprint=createHash('sha256').update(createPublicKey(publicKey).export({type:'spki',format:'der'})).digest('hex');
++ const restoreDirectory=mkdtempSync(join(tmpdir(),'master7-v166-acceptance-restore-')),passphrase=randomBytes(24).toString('hex'),{publicKey,privateKey}=generateKeyPairSync('rsa',{modulusLength:2048,publicKeyEncoding:{type:'spki',format:'pem'},privateKeyEncoding:{type:'pkcs8',format:'pem',cipher:'aes-256-cbc',passphrase}}),fingerprint=createHash('sha256').update(createPublicKey(publicKey).export({type:'spki',format:'der'})).digest('hex');
+  try{
+-  const {envelope}=await createEncryptedPortalBackup(db,'synthetic-v165-acceptance',{publicKey,publicKeySha256:fingerprint});for(const [name,value] of [['backup.json',JSON.stringify(envelope)],['private.pem',privateKey],['passphrase',passphrase]])writeFileSync(join(restoreDirectory,name),value,{mode:0o600});
+-  await pool.query('DROP DATABASE IF EXISTS master7_v165_acceptance_restore WITH (FORCE)');await pool.query('CREATE DATABASE master7_v165_acceptance_restore');const restoreUrl=new URL(connection);restoreUrl.pathname='/master7_v165_acceptance_restore';let output='';
++  const {envelope}=await createEncryptedPortalBackup(db,'synthetic-v166-acceptance',{publicKey,publicKeySha256:fingerprint});for(const [name,value] of [['backup.json',JSON.stringify(envelope)],['private.pem',privateKey],['passphrase',passphrase]])writeFileSync(join(restoreDirectory,name),value,{mode:0o600});
++  await pool.query('DROP DATABASE IF EXISTS master7_v166_acceptance_restore WITH (FORCE)');await pool.query('CREATE DATABASE master7_v166_acceptance_restore');const restoreUrl=new URL(connection);restoreUrl.pathname='/master7_v166_acceptance_restore';let output='';
+   const status=await new Promise((resolve,reject)=>{const child=spawn(process.execPath,[fileURLToPath(new URL('./postgres-restore-dry-run.mjs',import.meta.url)),join(restoreDirectory,'backup.json'),join(restoreDirectory,'private.pem'),join(restoreDirectory,'passphrase'),join(restoreDirectory,'receipt.json'),'--confirm-isolated'],{env:{...process.env,MASTER7_RESTORE_DATABASE_URL:restoreUrl.href,PORTAL_POSTGRES_URL:connection,PGSSLMODE:'disable'}});child.stdout.on('data',value=>output+=value);child.stderr.on('data',value=>output+=value);child.on('error',reject);child.on('exit',resolve);});
+   assert.equal(status,0,output);const receipt=JSON.parse(readFileSync(join(restoreDirectory,'receipt.json'),'utf8'));assert.equal(receipt.coverageComplete,true);assert.equal(receipt.tableCount,BACKUP_TABLES.length);assert.equal(receipt.persistentWrites,false);assert.equal(receipt.tables.find(item=>item.name==='game_provider_acceptance_events').rows,3);assert.equal(receipt.tables.find(item=>item.name==='production_acceptance_events').rows,1);
+   const restored=new pg.Client({connectionString:restoreUrl.href,ssl:false});await restored.connect();try{assert.equal((await restored.query("SELECT COUNT(*)::int n FROM information_schema.tables WHERE table_schema NOT IN ('pg_catalog','information_schema')")).rows[0].n,0);}finally{await restored.end();}
+-  await pool.query('DROP DATABASE master7_v165_acceptance_restore WITH (FORCE)');
++  await pool.query('DROP DATABASE master7_v166_acceptance_restore WITH (FORCE)');
+  }finally{rmSync(restoreDirectory,{recursive:true,force:true});}
+ });
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index df3447433cd3793f9f180f24ab35f2085b3cf885..dd29a05bf5296fb2f58665a3e8af2c1f75dfcc47 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.165-acceptance-ledger-integrity';
++const release='17.0.0-selfbuilt.166-database-guard-attestation';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+diff --git a/tests/postgres-readiness-gate.test.mjs b/tests/postgres-readiness-gate.test.mjs
+index b901383e5f94d37e18fec0c553415e5792594669..08cf8b9101e83b3eb4d1330eff6603b16826bed7 100644
+--- a/tests/postgres-readiness-gate.test.mjs
++++ b/tests/postgres-readiness-gate.test.mjs
+@@ -13,7 +13,7 @@ const fixture=()=>({
+  role:{transaction_read_only:'on',can_create_database:false,can_create_schema:false,can_write_tables:false},
+  tables:REQUIRED_TABLES.map(name=>({name})),
+  columns:Object.entries(REQUIRED_COLUMNS).flatMap(([table_name,names])=>names.map(column_name=>({table_name,column_name}))),
+- triggers:REQUIRED_TRIGGERS.map(({tableName:table_name,triggerName:trigger_name})=>({table_name,trigger_name,enabled:'O'})),
++ triggers:REQUIRED_TRIGGERS.map(({tableName:table_name,triggerName:trigger_name,functionName:function_name,triggerType:trigger_type,updateColumns:update_columns})=>({table_name,trigger_name,function_name,function_schema:'public',trigger_type,update_columns:[...update_columns],enabled:'O'})),
+  migrations:[...REQUIRED_MIGRATIONS,...OPTIONAL_MIGRATIONS.slice(0,2)].sort().map(version=>({version,applied_at:Math.floor(nowMs/1000)-100})),
+  backupAudit:{target:JSON.stringify(backup),created_at:Math.floor(Date.parse(createdAt)/1000)},
+  restoreSetting:{value:JSON.stringify(restore)},
+@@ -47,6 +47,25 @@ test('evidence gate rejects every missing or disabled required integrity trigger
+  }
+ });
+ 
++test('evidence gate rejects wrong trigger binding, function, type, schema or duplicate rows',()=>{
++ const required=REQUIRED_TRIGGERS[0];
++ const variants=[
++  row=>({...row,table_name:'users'}),
++  row=>({...row,function_name:'no_op_guard'}),
++  row=>({...row,function_schema:'private'}),
++  row=>({...row,trigger_type:31}),
++  row=>({...row,update_columns:['adapter_contract_sha256']}),
++ ];
++ for(const mutate of variants){
++  const drift=fixture();drift.triggers=drift.triggers.map(row=>row.trigger_name===required.triggerName?mutate(row):row);
++  const result=evaluatePostgresReadinessEvidence(drift,{expectedRelease:release,nowMs});
++  assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='required_schema_triggers').pass,false);
++ }
++ const duplicate=fixture();duplicate.triggers.push({...duplicate.triggers[0]});
++ const result=evaluatePostgresReadinessEvidence(duplicate,{expectedRelease:release,nowMs});
++ assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='required_schema_triggers').pass,false);
++});
++
+ test('evidence gate rejects dependency markers applied after their consumers',()=>{
+  const outOfOrder=fixture(),epoch=Math.floor(nowMs/1000)-100;
+  for(const row of outOfOrder.migrations){if(row.version===WITHDRAWAL_DESTINATION_METHODS_MIGRATION)row.applied_at=epoch+3;if(row.version===PROVIDER_WALLET_SWEEPS_MIGRATION)row.applied_at=epoch+2;if(row.version===JDB_WAGER_COVERAGE_STAGING_MIGRATION)row.applied_at=epoch+1;if(row.version===ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION)row.applied_at=epoch;}
+diff --git a/tests/postgres-restore-safety.test.mjs b/tests/postgres-restore-safety.test.mjs
+index c6ec735fc0070af5ab039002a7478dadc61a4219..ca310de2b141fa294b8f1227a79fad4378efd4a2 100644
+--- a/tests/postgres-restore-safety.test.mjs
++++ b/tests/postgres-restore-safety.test.mjs
+@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
+ import {assertIsolatedRestoreTarget} from '../lib/restore-safety.mjs';
+ import {ACCEPTANCE_PROTECTED_TABLES,BACKUP_EXCLUDED_TABLES,BACKUP_TABLES} from '../lib/encrypted-backup.ts';
+ import {initializeRehearsalSchema,withRollbackOnlyTransaction} from '../scripts/restore-postgres-schema.mjs';
++import {CRITICAL_DATABASE_GUARDS} from '../lib/render-migrations.mjs';
+ 
+ test('PostgreSQL restore rehearsal only accepts an explicitly isolated database',()=>{
+  assert.throws(()=>assertIsolatedRestoreTarget('postgres://user:pass@db.example/master7'),/isolated/);
+@@ -56,6 +57,7 @@ class RehearsalClient {
+   assert.doesNotMatch(sql,/^\s*(?:BEGIN|COMMIT|END|ABORT)\b/i,'The schema initializer must never control the outer transaction');
+   if(this.failOn?.test(sql))throw new Error('synthetic migration failure');
+   if(sql.startsWith('SELECT version FROM portal_schema_migrations'))return {rows:this.applied.has(params[0])?[{version:params[0]}]:[]};
++  if(sql.includes('FROM pg_catalog.pg_trigger'))return {rows:CRITICAL_DATABASE_GUARDS.map(({tableName:table_name,triggerName:trigger_name,functionName:function_name,triggerType:trigger_type,updateColumns:update_columns})=>({table_schema:'restore_fixture',table_name,trigger_name,function_name,function_schema:'restore_fixture',trigger_type,update_columns:[...update_columns],enabled:'O'}))};
+   if(sql.startsWith('INSERT INTO portal_schema_migrations'))this.applied.add(params[0]);
+   return {rows:[]};
+  }
+diff --git a/tests/render-migrations.test.mjs b/tests/render-migrations.test.mjs
+index 82ced4039d2cfa8d34bfbce3d3f4e29374a9b24e..e592a8e0433117803b0675b911841f9fd275315c 100644
+--- a/tests/render-migrations.test.mjs
++++ b/tests/render-migrations.test.mjs
+@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
+ import { DatabaseSync } from 'node:sqlite';
+ import { readFileSync } from 'node:fs';
+ import { join } from 'node:path';
+-import { initializePortalDatabase, PORTAL_STATUS_MIGRATION, PAYMENT_PROVIDERS_MIGRATION, ONE_MPAY_CHANNEL_MIGRATION, GAME_ACCESS_ZONE_MIGRATION, PAYMENT_ACCEPTANCE_GUARD_MIGRATION, MARKETING_CONTACT_SCALE_MIGRATION, OPERATIONS_AUTOMATION_MIGRATION, SUPPORT_MARKETING_MIGRATION, WHATSAPP_CAMPAIGN_DELIVERY_MIGRATION, REWARDS_HUB_MIGRATION, RESPONSIBLE_PLAY_MIGRATION, COMPANY_BANK_ARTWORK_MIGRATION, NEW_MEMBER_VOUCHER_MIGRATION, VOUCHER_MANUAL_WORKFLOW_MIGRATION, FIXED_VOUCHER_RETIREMENT_MIGRATION, BENEFIT_CLAIM_REVIEW_MIGRATION, MANUAL_COMPLIANCE_MIGRATION, GSPAY_USDT_PROFILE_MIGRATION, GAME_PROVIDER_ADAPTER_CORE_MIGRATION, MEGAH5_LAUNCH_OPERATIONS_MIGRATION, GAME_PROVIDER_ACCEPTANCE_MIGRATION, GENERIC_GAME_WALLET_RISK_MIGRATION, JDB_WAGER_COVERAGE_STAGING_MIGRATION, ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION, PAYOUT_CONTROL_MIGRATION, GSPAY_PAYOUT_ACTIVATION_MIGRATION, PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS, PORTAL_MIGRATION_ADVISORY_LOCK } from '../lib/render-migrations.mjs';
++import { initializePortalDatabase, assertCriticalDatabaseGuards, CRITICAL_DATABASE_GUARDS, PORTAL_STATUS_MIGRATION, PAYMENT_PROVIDERS_MIGRATION, ONE_MPAY_CHANNEL_MIGRATION, GAME_ACCESS_ZONE_MIGRATION, PAYMENT_ACCEPTANCE_GUARD_MIGRATION, MARKETING_CONTACT_SCALE_MIGRATION, OPERATIONS_AUTOMATION_MIGRATION, SUPPORT_MARKETING_MIGRATION, WHATSAPP_CAMPAIGN_DELIVERY_MIGRATION, REWARDS_HUB_MIGRATION, RESPONSIBLE_PLAY_MIGRATION, COMPANY_BANK_ARTWORK_MIGRATION, NEW_MEMBER_VOUCHER_MIGRATION, VOUCHER_MANUAL_WORKFLOW_MIGRATION, FIXED_VOUCHER_RETIREMENT_MIGRATION, BENEFIT_CLAIM_REVIEW_MIGRATION, MANUAL_COMPLIANCE_MIGRATION, GSPAY_USDT_PROFILE_MIGRATION, GAME_PROVIDER_ADAPTER_CORE_MIGRATION, MEGAH5_LAUNCH_OPERATIONS_MIGRATION, GAME_PROVIDER_ACCEPTANCE_MIGRATION, GENERIC_GAME_WALLET_RISK_MIGRATION, JDB_WAGER_COVERAGE_STAGING_MIGRATION, ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION, PAYOUT_CONTROL_MIGRATION, GSPAY_PAYOUT_ACTIVATION_MIGRATION, PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS, PORTAL_MIGRATION_ADVISORY_LOCK } from '../lib/render-migrations.mjs';
+ 
+ const beforeFinalMigration = [
+   '0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql',
+@@ -50,13 +50,17 @@ test('D1 historical promotion migrations never seed a fixed offer and retire a l
+ });
+ 
+ class FakePgClient {
+-  constructor({ failOnSeed = false } = {}) { this.events = []; this.applied = new Set(); this.failOnSeed = failOnSeed; this.released = false; }
++  constructor({ failOnSeed = false, guardRows } = {}) {
++    this.events = []; this.applied = new Set(); this.failOnSeed = failOnSeed; this.released = false;
++    this.guardRows=guardRows??CRITICAL_DATABASE_GUARDS.map(({tableName:table_name,triggerName:trigger_name,functionName:function_name,triggerType:trigger_type,updateColumns:update_columns})=>({table_schema:'public',table_name,trigger_name,function_name,function_schema:'public',trigger_type,update_columns:[...update_columns],enabled:'O'}));
++  }
+   async query(sql, params = []) {
+     const clean = sql.trim(); this.events.push({ sql: clean, params });
+     if (clean === 'BEGIN') return { rows: [] };
+     if (clean === 'COMMIT') return { rows: [] };
+     if (clean === 'ROLLBACK') { this.applied.clear(); return { rows: [] }; }
+     if (clean.startsWith('SELECT version FROM portal_schema_migrations')) return { rows: this.applied.has(params[0]) ? [{ version: params[0] }] : [] };
++    if (clean.includes('FROM pg_catalog.pg_trigger')) return { rows: this.guardRows };
+     if (clean.startsWith("SELECT id FROM users WHERE role='owner'")) return { rows: [{ id: 'owner' }] };
+     if (clean.startsWith('INSERT INTO portal_schema_migrations')) this.applied.add(params[0]);
+     if (clean.startsWith('INSERT INTO brand_directory_entries') && this.failOnSeed) throw new Error('seed failed');
+@@ -70,7 +74,7 @@ test('Render startup status migration is transactional, idempotent and rolls bac
+   const pool = { connect: async () => client };
+   const entries = JSON.parse(readFileSync(join('db', 'vendor-directory.json'), 'utf8'));
+   const first = await initializePortalDatabase(pool, 'CREATE TABLE test_schema(id INTEGER);', entries);
+-  assert.deepEqual(first, { migrated: true, connectedServicesOpened: true, seededBrandCount: 76 });
++  assert.deepEqual(first, { migrated: true, connectedServicesOpened: true, seededBrandCount: 76, criticalDatabaseGuardsReady:true, criticalDatabaseGuardCount:9, criticalDatabaseGuardTables:5 });
+   const lock=client.events.find(event=>event.sql==='SELECT pg_advisory_xact_lock($1)');assert.deepEqual(lock?.params,[PORTAL_MIGRATION_ADVISORY_LOCK]);
+   assert.ok(client.events.findIndex(event=>event.sql==='SELECT pg_advisory_xact_lock($1)')<client.events.findIndex(event=>event.sql==='CREATE TABLE test_schema(id INTEGER);'));
+   const snapshots = client.events.filter(event => event.sql.startsWith('INSERT INTO portal_status_snapshots'));
+@@ -139,10 +143,13 @@ test('Render startup status migration is transactional, idempotent and rolls bac
+   assert.ok(client.events.some(event => event.sql === 'COMMIT'));
+   const seed = client.events.find(event => event.sql.startsWith('INSERT INTO brand_directory_entries'));
+   assert.equal(JSON.parse(seed.params[0]).length, 76);
++  const guardRead=client.events.findIndex(event=>event.sql.includes('FROM pg_catalog.pg_trigger'));
++  assert.ok(guardRead>client.events.findIndex(event=>event.sql.includes('INSERT INTO portal_schema_migrations')&&event.params[0]===ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION));
++  assert.ok(guardRead<client.events.findIndex(event=>event.sql.startsWith('INSERT INTO brand_directory_entries')));
+   assert.equal(client.released, true);
+ 
+   const second = await initializePortalDatabase(pool, 'CREATE TABLE test_schema(id INTEGER);', entries);
+-  assert.deepEqual(second, { migrated: false, connectedServicesOpened: false, seededBrandCount: 76 });
++  assert.deepEqual(second, { migrated: false, connectedServicesOpened: false, seededBrandCount: 76, criticalDatabaseGuardsReady:true, criticalDatabaseGuardCount:9, criticalDatabaseGuardTables:5 });
+   assert.equal(client.events.filter(event => event.sql.startsWith('UPDATE game_visibility')).length, 2);
+   assert.equal(client.events.filter(event => event.sql.startsWith('INSERT INTO portal_status_snapshots')).length, 8);
+   assert.equal(usdtProfileWrites(),1);
+@@ -156,6 +163,27 @@ test('Render startup status migration is transactional, idempotent and rolls bac
+   });
+ });
+ 
++test('critical database guard startup attestation rejects missing, disabled, rebound, mis-shaped, wrong-table and duplicate guards',async()=>{
++ assert.equal(Object.isFrozen(CRITICAL_DATABASE_GUARDS),true);assert.equal(CRITICAL_DATABASE_GUARDS.length,9);
++ const good=CRITICAL_DATABASE_GUARDS.map(({tableName:table_name,triggerName:trigger_name,functionName:function_name,triggerType:trigger_type,updateColumns:update_columns})=>({table_schema:'public',table_name,trigger_name,function_name,function_schema:'public',trigger_type,update_columns:[...update_columns],enabled:'O'}));
++ assert.deepEqual(await assertCriticalDatabaseGuards({query:async()=>({rows:good})}),{criticalDatabaseGuardsReady:true,criticalDatabaseGuardCount:9,criticalDatabaseGuardTables:5});
++ const mutations=[
++  rows=>rows.slice(1),
++  rows=>rows.map((row,index)=>index?row:{...row,enabled:'D'}),
++  rows=>rows.map((row,index)=>index?row:{...row,function_name:'no_op_guard'}),
++  rows=>rows.map((row,index)=>index?row:{...row,function_schema:'private'}),
++  rows=>rows.map((row,index)=>index?row:{...row,trigger_type:31}),
++  rows=>rows.map((row,index)=>index?row:{...row,update_columns:['adapter_contract_sha256']}),
++  rows=>rows.map((row,index)=>index?row:{...row,table_name:'users'}),
++  rows=>[...rows,{...rows[0]}],
++ ];
++ for(const mutate of mutations){
++  const guardRows=mutate(good.map(row=>({...row}))),client=new FakePgClient({guardRows});
++  await assert.rejects(()=>initializePortalDatabase({connect:async()=>client},'SELECT 1;',[]),/Critical database guard attestation failed/);
++  assert.equal(client.events.at(-1).sql,'ROLLBACK');assert.equal(client.events.some(event=>event.sql.startsWith('INSERT INTO brand_directory_entries')),false);assert.equal(client.released,true);
++ }
++});
++
+ test('explicit verified payment configuration opens each deposit channel once', async () => {
+   const client=new FakePgClient(),pool={connect:async()=>client},entries=[];
+   await initializePortalDatabase(pool,'SELECT 1;',entries);
+diff --git a/tests/scheduler-leader.test.mjs b/tests/scheduler-leader.test.mjs
+index a4364b6ae50484c9f64d1507c7b21d757f26447a..85fb76d737e69e0de138dc7dd86303f3da8bc17f 100644
+--- a/tests/scheduler-leader.test.mjs
++++ b/tests/scheduler-leader.test.mjs
+@@ -114,6 +114,8 @@ test("Render starts schedulers only through the advisory-lock leader", () => {
+   const source = readFileSync(new URL("../scripts/start-render.mjs", import.meta.url), "utf8");
+   assert.match(source, /startSchedulerLeadership\(\{/);
+   assert.match(source, /startWorkers:\s*\(\)\s*=>\s*\[/);
++  assert.match(source,/critical database guards \$\{result\.criticalDatabaseGuardCount\}\/9 ready/);
++  assert.ok(source.indexOf('initializePortalDatabase')<source.indexOf('await import("../.output/server/index.mjs")'));
+   for (const name of ["startCatalogueSync", "startAccountingCloseScheduler", "startPaymentRecovery", "startWhatsAppDispatch"]) {
+     assert.equal((source.match(new RegExp(`${name}\\(\\)`, "g")) ?? []).length, 1, name);
+   }

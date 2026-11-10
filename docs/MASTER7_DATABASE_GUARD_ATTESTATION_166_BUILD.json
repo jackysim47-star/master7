@@ -1,0 +1,121 @@
+{
+  "release": "17.0.0-selfbuilt.166-database-guard-attestation",
+  "preparedAt": "2026-11-10T15:17:45.164653+00:00",
+  "sourceCommit": "6e50815a60cdc23d3791085a967310d2e9e5343d",
+  "sourceTree": "f7bd8e428d8b65ad084924df1de57114968976ef",
+  "baselineSourceCommit": "091507b3d7f53a7547549410379d4d1c561fb307",
+  "baselineRelease": "17.0.0-selfbuilt.165-acceptance-ledger-integrity",
+  "archive": {
+    "sha256": "1b0fdf8bf08779ac8dcf896af8f837c693ed7f64f5ebe1330f0fe22c9efecc0e",
+    "bytes": 7224232,
+    "files": 712,
+    "entries": 773,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/V166_DATABASE_GUARD_ATTESTATION.md"
+    ],
+    "changed": [
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "lib/backend.ts",
+      "lib/production-acceptance.ts",
+      "lib/render-migrations.mjs",
+      "package.json",
+      "public/service-worker.js",
+      "scripts/postgres-readiness-gate.mjs",
+      "scripts/start-render.mjs",
+      "scripts/verify-isolated-postgres-acceptance-integrity.mjs",
+      "tests/official-entries-probe.test.mjs",
+      "tests/postgres-readiness-gate.test.mjs",
+      "tests/postgres-restore-safety.test.mjs",
+      "tests/render-migrations.test.mjs",
+      "tests/scheduler-leader.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1389,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "renderDatabase": 3,
+    "isolatedPostgres18": 1,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "diffCheck": true,
+    "independentFinalAudit": true,
+    "command": "npm run verify:render",
+    "scope": "local synthetic, fixture-only and isolated validation; no live provider, player, wallet, game launch or payment calls"
+  },
+  "databaseGuardAttestation": {
+    "requiredGuards": 9,
+    "protectedTables": 5,
+    "verifiedOnEveryPostgresStartup": true,
+    "runsAfterMigrationsBeforeSeedAndCommit": true,
+    "underMigrationAdvisoryLock": true,
+    "sameStartupTransaction": true,
+    "requiresPublicTableBinding": true,
+    "requiresUniqueTriggerName": true,
+    "requiresEnabledOriginState": true,
+    "requiresExpectedFunctionSchemaAndName": true,
+    "requiresExpectedTriggerType": true,
+    "requiresExpectedUpdateOfColumns": true,
+    "functionBodyHashAttested": false,
+    "sharedWithPostgresReadinessGate": true,
+    "driftFailsClosedAndRollsBack": true,
+    "automaticRepair": false,
+    "postgres18DriftCases": [
+      "disabled",
+      "missing",
+      "wrong_function",
+      "wrong_update_columns",
+      "wrong_table",
+      "duplicate"
+    ],
+    "providerCallsDuringValidation": 0,
+    "moneyOrWalletWritesDuringValidation": 0
+  },
+  "databaseChanges": {
+    "newMigration": false,
+    "latestMigration": "0122-acceptance-ledger-integrity",
+    "backupSchemaVersion": "0122-acceptance-ledger-integrity",
+    "backupSchemaSha256": "534b830dc4330ee48c77543500116451880b13540d5e0691ee8a09910041328b",
+    "backupTableCount": 76,
+    "sqliteSupported": true,
+    "postgres18Supported": true
+  },
+  "operationalChanges": {
+    "newDepositsUiFlagChanged": false,
+    "providerOrderSubmissionEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPaymentsEnabled": false,
+    "liveGamesEnabled": false,
+    "supplierAcceptanceBypassed": false
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "renderYaml": false,
+    "environmentTemplates": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false,
+  "securityScan": {
+    "privateKeyMarkers": 0,
+    "credentialBearingUrlsTotal": 13,
+    "credentialBearingUrlsAllUnderTests": true,
+    "newCredentialBearingUrlsVersusV165": 0,
+    "newSuspectCredentialAssignmentsVersusV165": 0,
+    "newPrivateKeyMarkersVersusV165": 0
+  }
+}
