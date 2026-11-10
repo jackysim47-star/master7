@@ -1,0 +1,1052 @@
+diff --git a/app/portal.html b/app/portal.html
+index 530b5c2e0ee54b70b5eee196f029c4eb40cd05b1..a82bf0d9c6dbc5c17ad69363cdb6f77d12d7491f 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.167-guard-log-severity">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.167-guard-log-severity">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.167-guard-log-severity">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.167-guard-log-severity">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.167-guard-log-severity">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.167-guard-log-severity">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.167-guard-log-severity">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.167-guard-log-severity">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.167-guard-log-severity">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.167-guard-log-severity">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.167-guard-log-severity">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.167-guard-log-severity">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.167-guard-log-severity">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.167-guard-log-severity">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.168-guard-function-attestation">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.168-guard-function-attestation" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index 813e50e584a23a67e7a14d64c8190ec49acf49f4..5f2a0d5b2510871b525b52cb0b9770aab5958f7f 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,6 +1,6 @@
+ # MASTER7 deployment handover
+ 
+-Candidate source: `17.0.0-selfbuilt.167-guard-log-severity`.
++Candidate source: `17.0.0-selfbuilt.168-guard-function-attestation`.
+ 
+ This candidate has not been deployed by the source commit. Confirm the actual
+ Render release and deployment ID from the Portal service before cutover or
+@@ -9,7 +9,20 @@ rollback. Portal service: `srv-dbl0iv7f3r2c73848ei0`.
+ The last recorded integration-gateway baseline remains release `1.17.0`,
+ deployment `dep-dbpchge417fc739h9b50`, commit
+ `c4aab70060439469f3c2e6081a57c0b40e630ff4`. Gateway service:
+-`srv-db6b7inlk1mc73ck6cmg`. The v167 candidate does not change the gateway.
++`srv-db6b7inlk1mc73ck6cmg`. The v168 candidate does not change the gateway.
++
++## Guard function attestation
++
++v168 freezes the definitions of the five unique PostgreSQL functions behind
++the nine protected triggers. Portal startup and the external readiness gate
++share the same contract and verify canonical `pg_proc.prosrc` SHA-256 values,
++all behavior-relevant function metadata, and trigger `WHEN`, argument,
++transition-table, constraint and parent fields. Drift aborts startup before
++directory seeding and commit. One-time migration 0123 hardens all five
++functions with a fixed safe search path and explicit runtime schema binding;
++after 0123 is applied, drift is never repaired automatically. Custom restore
++schemas remain supported. The backup data contract remains 0122/76 tables.
++See `V168_GUARD_FUNCTION_ATTESTATION.md`.
+ 
+ ## Startup log severity
+ 
+@@ -73,10 +86,10 @@ gates.
+ ## Other operational boundaries
+ 
+ Payment work remains paused. VPay, GSPAY and 1MPay code, credentials, callbacks,
+-activation flags, service plans and DNS are unchanged by v167. This candidate
++activation flags, service plans and DNS are unchanged by v168. This candidate
+ does not enable any real-money payment, payout or live-game switch.
+ 
+-The verification totals for v167 must be recorded only after the complete
++The verification totals for v168 must be recorded only after the complete
+ source verification finishes. No deployment or production acceptance is
+ claimed by this handover.
+ 
+diff --git a/docs/V168_GUARD_FUNCTION_ATTESTATION.md b/docs/V168_GUARD_FUNCTION_ATTESTATION.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..70e2bb9d55287b55393186a103d7352397be17f0
+--- /dev/null
++++ b/docs/V168_GUARD_FUNCTION_ATTESTATION.md
+@@ -0,0 +1,60 @@
++# V168 Guard Function Attestation
++
++Release: `17.0.0-selfbuilt.168-guard-function-attestation`
++
++## Change
++
++Portal startup and the external PostgreSQL readiness gate now use one frozen
++contract for the five unique functions behind the nine protected database
++triggers. The contract verifies the canonical SHA-256 of `pg_proc.prosrc` and
++the function schema, name, identity arguments, language, trigger return type,
++kind, volatility, parallel safety, security mode, leakproof flag, strict flag,
++set-returning flag and per-function configuration.
++
++Migration `0123-guard-function-schema-binding` performs the one-time v168
++upgrade of all five guard functions. It pins each function to
++`search_path=pg_catalog, pg_temp`; the four acceptance functions resolve their
++ledger tables through `TG_TABLE_SCHEMA` and identifier-quoted dynamic SQL.
++This prevents a session-local `pg_temp` table from shadowing the protected
++ledger while preserving production and custom restore schemas.
++
++The attestation also verifies that each trigger has no `WHEN` clause, no
++arguments, no transition tables, no constraint binding and no parent trigger.
++The existing enabled state, event shape, table binding, function binding and
++update-column checks remain active.
++
++Function source canonicalization changes CRLF line endings to LF and trims
++outer whitespace only. Every internal source byte remains part of the hash.
++Schema binding remains relative to the table schema during startup, so an
++isolated restore rehearsal can use its custom schema. The external readiness
++gate continues to require the production `public` schema.
++
++## Failure behavior
++
++Attestation runs after migration `0123-guard-function-schema-binding` and before
++directory seeding and `COMMIT`. The 0123 upgrade creates the hardened function
++definitions once. After its migration marker exists, any function-body,
++function-metadata or trigger metadata drift aborts startup and rolls back the
++transaction without replacing or repairing the drifted definition.
++
++The PostgreSQL 18 isolation suite replaces an expected function body under the
++same name, changes security/configuration/volatility metadata, and adds trigger
++`WHEN` and argument drift. Each case must fail closed, remain drifted after the
++failed startup, be explicitly restored, and then pass attestation. It also
++proves that an extra differently named trigger is rejected and that a `pg_temp`
++shadow ledger cannot redirect the acceptance guards.
++
++## Provenance and scope
++
++The previous `0120` definition originated in baseline commit `fb9c96d`; the
++previous `0122` definitions originated in the v165 commit `091507b`. Historical
++0122 stays unchanged. Migration 0123 updates the four acceptance function
++bodies and fixes `proconfig` on all five functions while preserving their guard
++rules.
++
++- no table, column, backup format or backup data-contract change;
++- the required migration set adds 0123, while the backup manifest/schema
++  version remains `0122-acceptance-ledger-integrity` with 76 tables;
++- no payment, payout, wallet, game-provider, DNS, credential, plan or
++  production-control change;
++- no live provider or customer transaction calls during validation.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index b04507719f13f34f537201768b46cc1abb3b2277..c91067775242b902ec62ab823379c2656ab52103 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -39,7 +39,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.167-guard-log-severity';
++export const RELEASE = '17.0.0-selfbuilt.168-guard-function-attestation';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index cb97e2e0e8f0f868952d4e00879b881145f6bc61..7cfa815784804bb3bc015ba648d021d60beb67b6 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.167-guard-log-severity' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.168-guard-function-attestation' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/lib/render-migrations.mjs b/lib/render-migrations.mjs
+index 2cf0d4dc20a66f071f9d542ae758493e4326642f..472206a84687ae2f762170961179fddc9390623b 100644
+--- a/lib/render-migrations.mjs
++++ b/lib/render-migrations.mjs
+@@ -1,3 +1,5 @@
++import {createHash} from 'node:crypto';
++
+ export const PORTAL_STATUS_MIGRATION = "0012-close-defaults-and-brand-directory";
+ export const CONNECTED_SERVICES_MIGRATION = "0013-open-connected-catalog-and-vpay";
+ export const PAYMENT_PROVIDERS_MIGRATION = "0017-payment-providers";
+@@ -942,6 +944,112 @@ async function applyAcceptanceLedgerIntegrityMigration(client){
+  await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION]);return true;
+ }
+ 
++export const GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION='0123-guard-function-schema-binding';
++async function applyGuardFunctionSchemaBindingMigration(client,schemaName){
++ const applied=await client.query('SELECT version FROM portal_schema_migrations WHERE version=$1',[GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION]);if(applied.rows.length)return false;
++ const qualifiedSchema=`"${schemaName.replaceAll('"','""')}"`;
++ for(const name of ['reject_provider_wallet_contract_mutation','guard_game_provider_acceptance_event','guard_production_acceptance_event','guard_game_provider_acceptance_current','guard_production_acceptance_current']){
++  await client.query(`CREATE OR REPLACE FUNCTION ${qualifiedSchema}.${name}() RETURNS trigger
++   LANGUAGE plpgsql VOLATILE NOT LEAKPROOF CALLED ON NULL INPUT SECURITY INVOKER PARALLEL UNSAFE
++   SET search_path = pg_catalog, pg_temp AS $$
++${requiredCriticalDatabaseGuardFunctionSource(name)}
++$$`);
++ }
++ await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION]);return true;
++}
++
++export const canonicalizeCriticalDatabaseGuardFunctionSource=value=>String(value??'').replace(/\r\n/g,'\n').trim();
++export const criticalDatabaseGuardFunctionSourceSha256=value=>createHash('sha256').update(canonicalizeCriticalDatabaseGuardFunctionSource(value)).digest('hex');
++export const CRITICAL_DATABASE_GUARD_FUNCTION_CONFIG=Object.freeze(['search_path=pg_catalog, pg_temp']);
++
++export const CRITICAL_DATABASE_GUARD_FUNCTIONS=Object.freeze([
++ Object.freeze({name:'reject_provider_wallet_contract_mutation',identityArguments:'',language:'plpgsql',returnType:'trigger',kind:'f',volatility:'v',parallelSafety:'u',securityDefiner:false,leakproof:false,strict:false,returnsSet:false,config:CRITICAL_DATABASE_GUARD_FUNCTION_CONFIG,source:`BEGIN IF NEW.withdrawal_mode<>OLD.withdrawal_mode OR NEW.adapter_contract_sha256<>OLD.adapter_contract_sha256 THEN RAISE EXCEPTION 'provider wallet contract is immutable'; END IF; RETURN NEW; END`,sourceSha256:'953c05ab59c8ab8fcee8feab8733a079e99d7335245f92d4b89b43c12e2989c7'}),
++ Object.freeze({name:'guard_game_provider_acceptance_event',identityArguments:'',language:'plpgsql',returnType:'trigger',kind:'f',volatility:'v',parallelSafety:'u',securityDefiner:false,leakproof:false,strict:false,returnsSet:false,config:CRITICAL_DATABASE_GUARD_FUNCTION_CONFIG,source:`DECLARE latest_revision INTEGER;
++ BEGIN
++  IF TG_OP IN ('UPDATE','DELETE','TRUNCATE') THEN RAISE EXCEPTION 'game provider acceptance history is immutable' USING ERRCODE='55000'; END IF;
++  EXECUTE pg_catalog.format(
++   'SELECT MAX(revision) FROM %I.%I WHERE profile_id=$1 AND capability=$2 AND environment=$3',
++   TG_TABLE_SCHEMA,'game_provider_acceptance_events'
++  ) INTO latest_revision USING NEW.profile_id,NEW.capability,NEW.environment;
++  IF NEW.revision<>COALESCE(latest_revision,0)+1 THEN RAISE EXCEPTION 'game provider acceptance history revisions must be contiguous' USING ERRCODE='55000'; END IF;
++  RETURN NEW;
++ END`,sourceSha256:'fcc34ad74d303220023ada6cd1713024e80a62550d493a8c13e2244ecf69f2f8'}),
++ Object.freeze({name:'guard_production_acceptance_event',identityArguments:'',language:'plpgsql',returnType:'trigger',kind:'f',volatility:'v',parallelSafety:'u',securityDefiner:false,leakproof:false,strict:false,returnsSet:false,config:CRITICAL_DATABASE_GUARD_FUNCTION_CONFIG,source:`DECLARE latest_revision INTEGER;
++ BEGIN
++  IF TG_OP IN ('UPDATE','DELETE','TRUNCATE') THEN RAISE EXCEPTION 'production acceptance history is immutable' USING ERRCODE='55000'; END IF;
++  EXECUTE pg_catalog.format(
++   'SELECT MAX(revision) FROM %I.%I WHERE category=$1 AND subject_id=$2 AND capability=$3 AND environment=$4',
++   TG_TABLE_SCHEMA,'production_acceptance_events'
++  ) INTO latest_revision USING NEW.category,NEW.subject_id,NEW.capability,NEW.environment;
++  IF NEW.revision<>COALESCE(latest_revision,0)+1 THEN RAISE EXCEPTION 'production acceptance history revisions must be contiguous' USING ERRCODE='55000'; END IF;
++  RETURN NEW;
++ END`,sourceSha256:'d3dcbc475023e811fe123028c194cfd0d8446ec08bedcc62890434109d273bad'}),
++ Object.freeze({name:'guard_game_provider_acceptance_current',identityArguments:'',language:'plpgsql',returnType:'trigger',kind:'f',volatility:'v',parallelSafety:'u',securityDefiner:false,leakproof:false,strict:false,returnsSet:false,config:CRITICAL_DATABASE_GUARD_FUNCTION_CONFIG,source:`DECLARE previous_revision INTEGER; next_revision INTEGER; latest_revision INTEGER; minimum_revision INTEGER; history_count BIGINT;
++ BEGIN
++  IF TG_OP IN ('DELETE','TRUNCATE') THEN RAISE EXCEPTION 'game provider acceptance projection cannot be deleted or truncated' USING ERRCODE='55000'; END IF;
++  EXECUTE pg_catalog.format(
++   'SELECT revision FROM %I.%I WHERE id=$1 AND profile_id=$2 AND capability=$3 AND environment=$4',
++   TG_TABLE_SCHEMA,'game_provider_acceptance_events'
++  ) INTO next_revision USING NEW.event_id,NEW.profile_id,NEW.capability,NEW.environment;
++  EXECUTE pg_catalog.format(
++   'SELECT MIN(revision),MAX(revision),COUNT(*) FROM %I.%I WHERE profile_id=$1 AND capability=$2 AND environment=$3',
++   TG_TABLE_SCHEMA,'game_provider_acceptance_events'
++  ) INTO minimum_revision,latest_revision,history_count USING NEW.profile_id,NEW.capability,NEW.environment;
++  IF next_revision IS NULL OR minimum_revision<>1 OR history_count<>latest_revision OR next_revision<>latest_revision THEN
++   RAISE EXCEPTION 'game provider acceptance projection must reference the latest revision' USING ERRCODE='55000';
++  END IF;
++  IF TG_OP='UPDATE' THEN
++   IF NEW.profile_id<>OLD.profile_id OR NEW.capability<>OLD.capability OR NEW.environment<>OLD.environment THEN
++    RAISE EXCEPTION 'game provider acceptance projection key is immutable' USING ERRCODE='55000';
++   END IF;
++   EXECUTE pg_catalog.format('SELECT revision FROM %I.%I WHERE id=$1',TG_TABLE_SCHEMA,'game_provider_acceptance_events')
++    INTO previous_revision USING OLD.event_id;
++   IF previous_revision IS NULL OR next_revision<>previous_revision+1 THEN
++    RAISE EXCEPTION 'game provider acceptance projection must advance exactly one revision' USING ERRCODE='55000';
++   END IF;
++  END IF;
++  RETURN NEW;
++ END`,sourceSha256:'4f6ee9b06e91ace5e4c28bc5a7d058a02c6f185fa84379184abad4e59bbf4bd8'}),
++ Object.freeze({name:'guard_production_acceptance_current',identityArguments:'',language:'plpgsql',returnType:'trigger',kind:'f',volatility:'v',parallelSafety:'u',securityDefiner:false,leakproof:false,strict:false,returnsSet:false,config:CRITICAL_DATABASE_GUARD_FUNCTION_CONFIG,source:`DECLARE previous_revision INTEGER; next_revision INTEGER; latest_revision INTEGER; minimum_revision INTEGER; history_count BIGINT;
++ BEGIN
++  IF TG_OP IN ('DELETE','TRUNCATE') THEN RAISE EXCEPTION 'production acceptance projection cannot be deleted or truncated' USING ERRCODE='55000'; END IF;
++  EXECUTE pg_catalog.format(
++   'SELECT revision FROM %I.%I WHERE id=$1 AND category=$2 AND subject_id=$3 AND capability=$4 AND environment=$5',
++   TG_TABLE_SCHEMA,'production_acceptance_events'
++  ) INTO next_revision USING NEW.event_id,NEW.category,NEW.subject_id,NEW.capability,NEW.environment;
++  EXECUTE pg_catalog.format(
++   'SELECT MIN(revision),MAX(revision),COUNT(*) FROM %I.%I WHERE category=$1 AND subject_id=$2 AND capability=$3 AND environment=$4',
++   TG_TABLE_SCHEMA,'production_acceptance_events'
++  ) INTO minimum_revision,latest_revision,history_count USING NEW.category,NEW.subject_id,NEW.capability,NEW.environment;
++  IF next_revision IS NULL OR minimum_revision<>1 OR history_count<>latest_revision OR next_revision<>latest_revision THEN
++   RAISE EXCEPTION 'production acceptance projection must reference the latest revision' USING ERRCODE='55000';
++  END IF;
++  IF TG_OP='UPDATE' THEN
++   IF NEW.category<>OLD.category OR NEW.subject_id<>OLD.subject_id OR NEW.capability<>OLD.capability OR NEW.environment<>OLD.environment THEN
++    RAISE EXCEPTION 'production acceptance projection key is immutable' USING ERRCODE='55000';
++   END IF;
++   EXECUTE pg_catalog.format('SELECT revision FROM %I.%I WHERE id=$1',TG_TABLE_SCHEMA,'production_acceptance_events')
++    INTO previous_revision USING OLD.event_id;
++   IF previous_revision IS NULL OR next_revision<>previous_revision+1 THEN
++    RAISE EXCEPTION 'production acceptance projection must advance exactly one revision' USING ERRCODE='55000';
++   END IF;
++  END IF;
++  RETURN NEW;
++ END`,sourceSha256:'d73341a61fa4f1f011e784521b2ceeb9f93a419e3a80accc087f7501fecc3097'}),
++]);
++
++function requiredCriticalDatabaseGuardFunctionSource(name){
++ const contract=CRITICAL_DATABASE_GUARD_FUNCTIONS.find(item=>item.name===name);
++ if(!contract)throw new Error(`Missing critical database guard function contract: ${name}`);
++ return contract.source;
++}
++
++for(const contract of CRITICAL_DATABASE_GUARD_FUNCTIONS){
++ if(criticalDatabaseGuardFunctionSourceSha256(contract.source)!==contract.sourceSha256)throw new Error(`Critical database guard source contract is invalid: ${contract.name}`);
++}
++
++export const CRITICAL_DATABASE_GUARD_TRIGGER_BEHAVIOR=Object.freeze({whenIsNull:true,argumentCount:0,argumentsEmpty:true,oldTransitionTable:null,newTransitionTable:null,constraintOid:0,constraintRelationOid:0,deferrable:false,initiallyDeferred:false,parentTriggerOid:0});
++
+ export const CRITICAL_DATABASE_GUARDS=Object.freeze([
+  Object.freeze({tableName:'provider_wallet_operations',triggerName:'provider_wallet_contract_immutable',functionName:'reject_provider_wallet_contract_mutation',triggerType:19,updateColumns:Object.freeze(['withdrawal_mode','adapter_contract_sha256'])}),
+  Object.freeze({tableName:'game_provider_acceptance_events',triggerName:'game_provider_acceptance_events_immutable',functionName:'guard_game_provider_acceptance_event',triggerType:31,updateColumns:Object.freeze([])}),
+@@ -954,11 +1062,70 @@ export const CRITICAL_DATABASE_GUARDS=Object.freeze([
+  Object.freeze({tableName:'production_acceptance_current',triggerName:'production_acceptance_current_no_truncate',functionName:'guard_production_acceptance_current',triggerType:34,updateColumns:Object.freeze([])}),
+ ]);
+ 
+-export async function assertCriticalDatabaseGuards(client){
+- const normalizeColumns=value=>Array.isArray(value)?value.map(String):typeof value==='string'&&value.startsWith('{')&&value.endsWith('}')?(value.slice(1,-1)?value.slice(1,-1).split(','):[]):[];
++const normalizeGuardColumns=value=>Array.isArray(value)?value.map(String):typeof value==='string'&&value.startsWith('{')&&value.endsWith('}')?(value.slice(1,-1)?value.slice(1,-1).split(','):[]):[];
++const normalizeGuardConfig=value=>Array.isArray(value)?value.map(String):typeof value==='string'&&value.startsWith('{')&&value.endsWith('}')?(value.slice(1,-1)?value.slice(1,-1).split(','):[]):[];
++const guardTriggerKey=(tableName,triggerName)=>`${tableName}.${triggerName}`;
++const guardFunctionContracts=new Map(CRITICAL_DATABASE_GUARD_FUNCTIONS.map(item=>[item.name,item]));
++const guardRowMatches=(row,trigger,schemaName)=>{
++ const fn=guardFunctionContracts.get(trigger.functionName),behavior=CRITICAL_DATABASE_GUARD_TRIGGER_BEHAVIOR;
++ return !!fn
++  &&String(row.table_schema)===schemaName
++  &&String(row.table_name)===trigger.tableName
++  &&String(row.trigger_name)===trigger.triggerName
++  &&String(row.enabled)==='O'
++  &&Number(row.trigger_type)===trigger.triggerType
++  &&JSON.stringify(normalizeGuardColumns(row.update_columns))===JSON.stringify(trigger.updateColumns)
++  &&row.trigger_when_is_null===behavior.whenIsNull
++  &&Number(row.trigger_argument_count)===behavior.argumentCount
++  &&row.trigger_arguments_empty===behavior.argumentsEmpty
++  &&row.old_transition_table===behavior.oldTransitionTable
++  &&row.new_transition_table===behavior.newTransitionTable
++  &&Number(row.constraint_oid)===behavior.constraintOid
++  &&Number(row.constraint_relation_oid)===behavior.constraintRelationOid
++  &&row.trigger_deferrable===behavior.deferrable
++  &&row.trigger_initially_deferred===behavior.initiallyDeferred
++  &&Number(row.parent_trigger_oid)===behavior.parentTriggerOid
++  &&String(row.function_schema)===schemaName
++  &&String(row.function_name)===fn.name
++  &&String(row.function_identity_arguments)===fn.identityArguments
++  &&String(row.function_language)===fn.language
++  &&String(row.function_return_type)===fn.returnType
++  &&String(row.function_kind)===fn.kind
++  &&String(row.function_volatility)===fn.volatility
++  &&String(row.function_parallel_safety)===fn.parallelSafety
++  &&row.function_security_definer===fn.securityDefiner
++  &&row.function_leakproof===fn.leakproof
++  &&row.function_strict===fn.strict
++  &&row.function_returns_set===fn.returnsSet
++  &&JSON.stringify(normalizeGuardConfig(row.function_config))===JSON.stringify(fn.config)
++  &&criticalDatabaseGuardFunctionSourceSha256(row.function_source)===fn.sourceSha256;
++};
++
++export function evaluateCriticalDatabaseGuardRows(rows,{schemaName}={}){
++ const source=Array.isArray(rows)?rows:[];
++ const observedSchemas=[...new Set(source.map(row=>String(row.table_schema??'')).filter(Boolean))];
++ const expectedSchema=typeof schemaName==='string'&&schemaName?schemaName:observedSchemas.length===1?observedSchemas[0]:'';
++ const rowsByKey=new Map();
++ for(const row of source){const key=guardTriggerKey(String(row.table_name),String(row.trigger_name));rowsByKey.set(key,(rowsByKey.get(key)??[]).concat(row));}
++ const invalid=CRITICAL_DATABASE_GUARDS.filter(trigger=>{const matches=rowsByKey.get(guardTriggerKey(trigger.tableName,trigger.triggerName))??[];return matches.length!==1||!guardRowMatches(matches[0],trigger,expectedSchema);}).map(trigger=>guardTriggerKey(trigger.tableName,trigger.triggerName));
++ const expectedKeys=new Set(CRITICAL_DATABASE_GUARDS.map(trigger=>guardTriggerKey(trigger.tableName,trigger.triggerName)));
++ const unexpected=source.filter(row=>!expectedKeys.has(guardTriggerKey(String(row.table_name),String(row.trigger_name))));
++ const functionIdentities=new Set(source.filter(row=>row.function_schema&&row.function_name).map(row=>`${String(row.function_schema)}.${String(row.function_name)}(${String(row.function_identity_arguments)})`));
++ const ready=!!expectedSchema&&invalid.length===0&&unexpected.length===0&&source.length===CRITICAL_DATABASE_GUARDS.length&&functionIdentities.size===CRITICAL_DATABASE_GUARD_FUNCTIONS.length;
++ return {ready,invalid,unexpected,functionCount:functionIdentities.size,schemaName:expectedSchema};
++}
++
++export async function assertCriticalDatabaseGuards(client,{schemaName='public'}={}){
++ if(typeof schemaName!=='string'||!/^[a-z_][a-z0-9_]{0,62}$/.test(schemaName))throw new Error('Critical database guard schema is invalid');
+  const tableNames=[...new Set(CRITICAL_DATABASE_GUARDS.map(item=>item.tableName))];
+- const triggerNames=[...new Set(CRITICAL_DATABASE_GUARDS.map(item=>item.triggerName))];
+- const rows=(await client.query(`SELECT n.nspname table_schema,c.relname table_name,t.tgname trigger_name,t.tgenabled enabled,t.tgtype trigger_type,p.proname function_name,pn.nspname function_schema,
++ const rows=(await client.query(`SELECT n.nspname table_schema,c.relname table_name,t.tgname trigger_name,t.tgenabled enabled,t.tgtype trigger_type,
++  t.tgqual IS NULL trigger_when_is_null,t.tgnargs trigger_argument_count,octet_length(t.tgargs)=0 trigger_arguments_empty,
++  t.tgoldtable old_transition_table,t.tgnewtable new_transition_table,t.tgconstraint constraint_oid,t.tgconstrrelid constraint_relation_oid,
++  t.tgdeferrable trigger_deferrable,t.tginitdeferred trigger_initially_deferred,t.tgparentid parent_trigger_oid,
++  p.proname function_name,pn.nspname function_schema,pg_catalog.pg_get_function_identity_arguments(p.oid) function_identity_arguments,
++  l.lanname function_language,pg_catalog.format_type(p.prorettype,NULL) function_return_type,p.prokind function_kind,
++  p.provolatile function_volatility,p.proparallel function_parallel_safety,p.prosecdef function_security_definer,
++  p.proleakproof function_leakproof,p.proisstrict function_strict,p.proretset function_returns_set,p.proconfig function_config,p.prosrc function_source,
+   COALESCE(ARRAY(SELECT a.attname::text FROM unnest(t.tgattr::smallint[]) WITH ORDINALITY position(attnum,ordinality)
+    JOIN pg_catalog.pg_attribute a ON a.attrelid=t.tgrelid AND a.attnum=position.attnum ORDER BY position.ordinality),'{}'::text[]) update_columns
+   FROM pg_catalog.pg_trigger t
+@@ -966,25 +1133,15 @@ export async function assertCriticalDatabaseGuards(client){
+   JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+   JOIN pg_catalog.pg_proc p ON p.oid=t.tgfoid
+   JOIN pg_catalog.pg_namespace pn ON pn.oid=p.pronamespace
+-  WHERE n.nspname=current_schema() AND NOT t.tgisinternal AND t.tgname=ANY($1::text[])
+-  ORDER BY c.relname,t.tgname`,[triggerNames])).rows;
+- const signature=item=>`${item.tableName}.${item.triggerName}.${item.functionName}.${item.triggerType}.${item.updateColumns.join(',')}`;
+- const expected=new Set(CRITICAL_DATABASE_GUARDS.map(signature));
+- const observed=new Map();
+- for(const row of rows){
+-  const key=`${String(row.table_name)}.${String(row.trigger_name)}.${String(row.function_name)}.${String(row.trigger_type)}.${normalizeColumns(row.update_columns).join(',')}`;
+-  if(expected.has(key)&&String(row.function_schema)===String(row.table_schema)&&String(row.table_schema))observed.set(key,(observed.get(key)??[]).concat(String(row.enabled)));
+- }
+- const invalid=CRITICAL_DATABASE_GUARDS.filter(item=>{
+-  const values=observed.get(signature(item))??[];
+-  return values.length!==1||values[0]!=='O';
+- }).map(item=>`${item.tableName}.${item.triggerName}`);
+- const unexpected=rows.filter(row=>!String(row.table_schema)||String(row.function_schema)!==String(row.table_schema)||!expected.has(`${String(row.table_name)}.${String(row.trigger_name)}.${String(row.function_name)}.${String(row.trigger_type)}.${normalizeColumns(row.update_columns).join(',')}`));
+- if(invalid.length||unexpected.length||rows.length!==CRITICAL_DATABASE_GUARDS.length){
+-  const details=[...invalid,...unexpected.map(row=>`${String(row.table_name)}.${String(row.trigger_name)}.${String(row.function_schema)}.${String(row.function_name)}.${String(row.trigger_type)}.${normalizeColumns(row.update_columns).join(',')}`)].sort();
+-  throw new Error(`Critical database guard attestation failed (${invalid.length||unexpected.length||rows.length}/${CRITICAL_DATABASE_GUARDS.length}): ${details.join(',')||'unexpected row count'}`);
++  JOIN pg_catalog.pg_language l ON l.oid=p.prolang
++  WHERE n.nspname=$1 AND c.relname=ANY($2::text[]) AND NOT t.tgisinternal
++  ORDER BY c.relname,t.tgname`,[schemaName,tableNames])).rows;
++ const result=evaluateCriticalDatabaseGuardRows(rows,{schemaName});
++ if(!result.ready){
++  const details=[...result.invalid,...result.unexpected.map(row=>guardTriggerKey(String(row.table_name),String(row.trigger_name)))].sort();
++  throw new Error(`Critical database guard attestation failed (invalid ${result.invalid.length} of ${CRITICAL_DATABASE_GUARDS.length}; unexpected ${result.unexpected.length}; functions ${result.functionCount} of ${CRITICAL_DATABASE_GUARD_FUNCTIONS.length}): ${details.join(',')||'unexpected row or function count'}`);
+  }
+- return {criticalDatabaseGuardsReady:true,criticalDatabaseGuardCount:CRITICAL_DATABASE_GUARDS.length,criticalDatabaseGuardTables:tableNames.length};
++ return {criticalDatabaseGuardsReady:true,criticalDatabaseGuardCount:CRITICAL_DATABASE_GUARDS.length,criticalDatabaseGuardTables:tableNames.length,criticalDatabaseGuardFunctionCount:CRITICAL_DATABASE_GUARD_FUNCTIONS.length};
+ }
+ 
+ export const FLEXIBLE_PUBLIC_CONTACTS_MIGRATION='0117-flexible-public-contacts';
+@@ -1053,8 +1210,11 @@ async function applyWithdrawalDestinationMethodsMigration(client){
+ export async function initializePortalDatabase(pool, schema, directoryEntries, options = {}) {
+   const client = await pool.connect();
+   try {
++    const expectedSchema=options.expectedSchema??'public';
++    if(typeof expectedSchema!=='string'||!/^[a-z_][a-z0-9_]{0,62}$/.test(expectedSchema))throw new Error('Portal database schema is invalid');
+     await client.query("BEGIN");
+     await client.query("SELECT pg_advisory_xact_lock($1)", [PORTAL_MIGRATION_ADVISORY_LOCK]);
++    await client.query("SELECT pg_catalog.set_config('search_path',$1,true)", [`${expectedSchema}, pg_catalog, pg_temp`]);
+     await client.query("SELECT 1");
+     await client.query(schema);
+     const migrated = await applyStatusMigration(client);
+@@ -1092,7 +1252,8 @@ export async function initializePortalDatabase(pool, schema, directoryEntries, o
+     await applyProviderWalletSweepsMigration(client);
+     await applyJdbWagerCoverageStagingMigration(client);
+     await applyAcceptanceLedgerIntegrityMigration(client);
+-    const criticalDatabaseGuards = await assertCriticalDatabaseGuards(client);
++    await applyGuardFunctionSchemaBindingMigration(client,expectedSchema);
++    const criticalDatabaseGuards = await assertCriticalDatabaseGuards(client,{schemaName:expectedSchema});
+     const rows = seedRows(directoryEntries);
+     await client.query(
+       `INSERT INTO brand_directory_entries(id,category,display_name,position,marked,status,image_data,updated_at)
+diff --git a/package.json b/package.json
+index 2a1b040c803db660bb0c053c02768738095672aa..f6041d993bd3d40569ae5eeaee16158b7d48d0af 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.167-guard-log-severity node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.167-guard-log-severity node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.168-guard-function-attestation node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.168-guard-function-attestation node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.167-guard-log-severity node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.168-guard-function-attestation node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs",
+     "test:acceptance-integrity-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-acceptance-integrity.mjs"
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 5e234d37e03e1034f79783b89ea46f317fffa2d4..e5b2002e3b617b23b4cb1f6170ba0601c38cc585 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.167-guard-log-severity';
++const CACHE='master7-shell-17.0.0-selfbuilt.168-guard-function-attestation';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/scripts/postgres-readiness-gate.mjs b/scripts/postgres-readiness-gate.mjs
+index 9cb2a1aaca5d2c6f8e3566471c3280529ee77109..3880721c0ac55a0b95993a1b27b3741e012eca49 100644
+--- a/scripts/postgres-readiness-gate.mjs
++++ b/scripts/postgres-readiness-gate.mjs
+@@ -7,8 +7,8 @@ import {
+  PRODUCTION_ACCEPTANCE_EVIDENCE_MIGRATION,FLEXIBLE_PUBLIC_CONTACTS_MIGRATION,PROVIDER_WALLET_OPERATIONS_MIGRATION,MANUAL_BANK_FUNDS_MIGRATION,API_SUPPLIER_STATUS_MIGRATION,BENEFIT_CLAIM_REVIEW_MIGRATION,COMPANY_BANK_ARTWORK_MIGRATION,
+  CONNECTED_SERVICES_MIGRATION,FIXED_VOUCHER_RETIREMENT_MIGRATION,GAME_ACCESS_ZONE_MIGRATION,
+  GAME_PROVIDER_ADAPTER_CORE_MIGRATION,MEGAH5_LAUNCH_OPERATIONS_MIGRATION,GAME_PROVIDER_ACCEPTANCE_MIGRATION,GENERIC_GAME_WALLET_RISK_MIGRATION,
+- WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,
+- CRITICAL_DATABASE_GUARDS,
++ WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION,
++ CRITICAL_DATABASE_GUARDS,CRITICAL_DATABASE_GUARD_FUNCTIONS,evaluateCriticalDatabaseGuardRows,
+  GSPAY_PAYOUT_ACTIVATION_MIGRATION,GSPAY_USDT_PROFILE_MIGRATION,MANUAL_BANK_MIGRATION,MANUAL_COMPLIANCE_MIGRATION,
+  MARKETING_CONTACT_SCALE_MIGRATION,NEW_MEMBER_VOUCHER_MIGRATION,ONE_MPAY_CHANNEL_MIGRATION,
+  OPERATIONS_AUTOMATION_MIGRATION,PAYMENT_ACCEPTANCE_GUARD_MIGRATION,PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS,
+@@ -26,7 +26,7 @@ export const REQUIRED_MIGRATIONS=Object.freeze([
+  RESPONSIBLE_PLAY_MIGRATION,COMPANY_BANK_ARTWORK_MIGRATION,NEW_MEMBER_VOUCHER_MIGRATION,
+  VOUCHER_MANUAL_WORKFLOW_MIGRATION,FIXED_VOUCHER_RETIREMENT_MIGRATION,BENEFIT_CLAIM_REVIEW_MIGRATION,
+  MANUAL_COMPLIANCE_MIGRATION,GSPAY_USDT_PROFILE_MIGRATION,GAME_PROVIDER_ADAPTER_CORE_MIGRATION,MEGAH5_LAUNCH_OPERATIONS_MIGRATION,GAME_PROVIDER_ACCEPTANCE_MIGRATION,GENERIC_GAME_WALLET_RISK_MIGRATION,
+- WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,
++ WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION,
+ ].sort());
+ export const OPTIONAL_MIGRATIONS=Object.freeze([
+  ONE_MPAY_CHANNEL_MIGRATION,...Object.values(PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS),GSPAY_PAYOUT_ACTIVATION_MIGRATION,
+@@ -53,16 +53,16 @@ export function evaluatePostgresReadinessEvidence(input,{expectedRelease,nowMs=D
+  check(checks,'required_migrations',REQUIRED_MIGRATIONS.every(version=>versions.includes(version)));
+  check(checks,'no_unknown_migrations',versions.every(version=>knownMigrations.has(version)));
+  check(checks,'migration_timestamps',migrations.every(row=>Number.isSafeInteger(Number(row.applied_at))&&Number(row.applied_at)>0&&Number(row.applied_at)<=Math.floor(nowMs/1000)+300));
+- check(checks,'migration_dependency_order',[WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION].every(version=>migrationTimes.has(version))&&migrationTimes.get(WITHDRAWAL_DESTINATION_METHODS_MIGRATION)<=migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)&&migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)<=migrationTimes.get(JDB_WAGER_COVERAGE_STAGING_MIGRATION)&&migrationTimes.get(JDB_WAGER_COVERAGE_STAGING_MIGRATION)<=migrationTimes.get(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION));
++ check(checks,'migration_dependency_order',[WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION].every(version=>migrationTimes.has(version))&&migrationTimes.get(WITHDRAWAL_DESTINATION_METHODS_MIGRATION)<=migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)&&migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)<=migrationTimes.get(JDB_WAGER_COVERAGE_STAGING_MIGRATION)&&migrationTimes.get(JDB_WAGER_COVERAGE_STAGING_MIGRATION)<=migrationTimes.get(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION)&&migrationTimes.get(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION)<=migrationTimes.get(GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION));
+  check(checks,'required_schema_columns',Object.entries(REQUIRED_COLUMNS).every(([table,names])=>names.every(name=>columns.has(`${table}.${name}`))));
+- check(checks,'required_schema_triggers',REQUIRED_TRIGGERS.every(required=>triggers.some(row=>String(row.table_name)===required.tableName&&String(row.trigger_name)===required.triggerName&&String(row.enabled)==='O'&&String(row.function_schema)==='public'&&String(row.function_name)===required.functionName&&Number(row.trigger_type)===required.triggerType&&JSON.stringify((Array.isArray(row.update_columns)?row.update_columns:[]).map(String))===JSON.stringify(required.updateColumns)))&&triggers.length===REQUIRED_TRIGGERS.length);
++ check(checks,'required_schema_triggers',evaluateCriticalDatabaseGuardRows(triggers,{schemaName:'public'}).ready);
+ 
+  const backup=parse(input.backupAudit?.target),backupAuditAt=Number(input.backupAudit?.created_at),backupReady=!!backup&&backup.format===BACKUP_FORMAT&&backup.release===expectedRelease&&backup.schemaVersion===BACKUP_SCHEMA_VERSION&&backup.schemaSha256===BACKUP_SCHEMA_SHA256&&backup.publicKeySha256===BACKUP_PUBLIC_KEY_SHA256&&backup.readConsistency==='transaction_snapshot'&&backup.tableCount===BACKUP_TABLES.length&&Number.isSafeInteger(backup.totalRecords)&&backup.totalRecords>=0&&sha256(backup.backupSha256)&&sha256(backup.plaintextSha256)&&sha256(backup.ciphertextSha256)&&fresh(backup.createdAt,7*86400,nowMs)&&Number.isSafeInteger(backupAuditAt)&&backupAuditAt>=Math.floor(nowMs/1000)-7*86400&&backupAuditAt<=Math.floor(nowMs/1000)+300;
+  check(checks,'current_encrypted_backup',backupReady);
+ 
+  const restore=parse(input.restoreSetting?.value),createdAt=Date.parse(restore?.createdAt??''),verifiedAt=Date.parse(restore?.verifiedAt??''),restoreReady=backupReady&&!!restore&&restore.status==='verified'&&restore.format===BACKUP_FORMAT&&restore.release===expectedRelease&&restore.schemaVersion===BACKUP_SCHEMA_VERSION&&restore.schemaSha256===BACKUP_SCHEMA_SHA256&&restore.publicKeySha256===BACKUP_PUBLIC_KEY_SHA256&&restore.coverageComplete===true&&Array.isArray(restore.missingTables)&&restore.missingTables.length===0&&restore.readConsistency==='transaction_snapshot'&&restore.persistentWrites===false&&restore.restoreTargetKind==='isolated_postgresql_transaction'&&sha256(restore.restoreTargetSha256)&&restore.foreignKeyViolations===0&&restore.tableCount===BACKUP_TABLES.length&&restore.totalRecords===backup.totalRecords&&restore.createdAt===backup.createdAt&&restore.backupSha256===backup.backupSha256&&restore.plaintextSha256===backup.plaintextSha256&&fresh(restore.createdAt,30*86400,nowMs)&&fresh(restore.verifiedAt,30*86400,nowMs)&&Number.isFinite(createdAt)&&Number.isFinite(verifiedAt)&&verifiedAt>=createdAt;
+  check(checks,'bound_restore_rehearsal',restoreReady);
+- return {ok:checks.every(item=>item.pass),release:expectedRelease,checks,schema:{requiredTables:REQUIRED_TABLES.length,requiredMigrations:REQUIRED_MIGRATIONS.length,requiredColumns:Object.values(REQUIRED_COLUMNS).reduce((sum,names)=>sum+names.length,0),requiredTriggers:REQUIRED_TRIGGERS.length},evidence:{backupCreatedAt:backupReady?backup.createdAt:null,restoreVerifiedAt:restoreReady?restore.verifiedAt:null}};
++ return {ok:checks.every(item=>item.pass),release:expectedRelease,checks,schema:{requiredTables:REQUIRED_TABLES.length,requiredMigrations:REQUIRED_MIGRATIONS.length,requiredColumns:Object.values(REQUIRED_COLUMNS).reduce((sum,names)=>sum+names.length,0),requiredTriggers:REQUIRED_TRIGGERS.length,requiredGuardFunctions:CRITICAL_DATABASE_GUARD_FUNCTIONS.length},evidence:{backupCreatedAt:backupReady?backup.createdAt:null,restoreVerifiedAt:restoreReady?restore.verifiedAt:null}};
+ }
+ 
+ export async function runPostgresReadinessGate(client,options){
+@@ -83,7 +83,24 @@ export async function runPostgresReadinessGate(client,options){
+       has_table_privilege(current_user,format('%I.%I','public',table_name),'TRIGGER')) can_write_tables`,[REQUIRED_TABLES])).rows[0];
+   const tables=(await client.query("SELECT c.relname name FROM pg_catalog.pg_class c JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND c.relkind IN ('r','p') ORDER BY c.relname")).rows;
+   const columns=(await client.query("SELECT table_name,column_name FROM information_schema.columns WHERE table_schema='public' AND table_name=ANY($1::text[]) ORDER BY table_name,column_name",[Object.keys(REQUIRED_COLUMNS)])).rows;
+-  const triggers=(await client.query("SELECT c.relname table_name,t.tgname trigger_name,t.tgenabled enabled,t.tgtype trigger_type,p.proname function_name,pn.nspname function_schema,COALESCE(ARRAY(SELECT a.attname::text FROM unnest(t.tgattr::smallint[]) WITH ORDINALITY position(attnum,ordinality) JOIN pg_catalog.pg_attribute a ON a.attrelid=t.tgrelid AND a.attnum=position.attnum ORDER BY position.ordinality),'{}'::text[]) update_columns FROM pg_catalog.pg_trigger t JOIN pg_catalog.pg_class c ON c.oid=t.tgrelid JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace JOIN pg_catalog.pg_proc p ON p.oid=t.tgfoid JOIN pg_catalog.pg_namespace pn ON pn.oid=p.pronamespace WHERE n.nspname='public' AND NOT t.tgisinternal AND t.tgname=ANY($1::text[]) ORDER BY c.relname,t.tgname",[[...new Set(REQUIRED_TRIGGERS.map(item=>item.triggerName))]])).rows;
++  const triggers=(await client.query(`SELECT n.nspname table_schema,c.relname table_name,t.tgname trigger_name,t.tgenabled enabled,t.tgtype trigger_type,
++    t.tgqual IS NULL trigger_when_is_null,t.tgnargs trigger_argument_count,octet_length(t.tgargs)=0 trigger_arguments_empty,
++    t.tgoldtable old_transition_table,t.tgnewtable new_transition_table,t.tgconstraint constraint_oid,t.tgconstrrelid constraint_relation_oid,
++    t.tgdeferrable trigger_deferrable,t.tginitdeferred trigger_initially_deferred,t.tgparentid parent_trigger_oid,
++    p.proname function_name,pn.nspname function_schema,pg_catalog.pg_get_function_identity_arguments(p.oid) function_identity_arguments,
++    l.lanname function_language,pg_catalog.format_type(p.prorettype,NULL) function_return_type,p.prokind function_kind,
++    p.provolatile function_volatility,p.proparallel function_parallel_safety,p.prosecdef function_security_definer,
++    p.proleakproof function_leakproof,p.proisstrict function_strict,p.proretset function_returns_set,p.proconfig function_config,p.prosrc function_source,
++    COALESCE(ARRAY(SELECT a.attname::text FROM unnest(t.tgattr::smallint[]) WITH ORDINALITY position(attnum,ordinality)
++     JOIN pg_catalog.pg_attribute a ON a.attrelid=t.tgrelid AND a.attnum=position.attnum ORDER BY position.ordinality),'{}'::text[]) update_columns
++    FROM pg_catalog.pg_trigger t
++    JOIN pg_catalog.pg_class c ON c.oid=t.tgrelid
++    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
++    JOIN pg_catalog.pg_proc p ON p.oid=t.tgfoid
++    JOIN pg_catalog.pg_namespace pn ON pn.oid=p.pronamespace
++    JOIN pg_catalog.pg_language l ON l.oid=p.prolang
++    WHERE n.nspname='public' AND c.relname=ANY($1::text[]) AND NOT t.tgisinternal
++    ORDER BY c.relname,t.tgname`,[[...new Set(REQUIRED_TRIGGERS.map(item=>item.tableName))]])).rows;
+   const migrations=(await client.query('SELECT version,applied_at FROM portal_schema_migrations ORDER BY version')).rows;
+   const backupCandidates=(await client.query("SELECT target,created_at FROM audit WHERE event='encrypted_backup_created' AND created_at=(SELECT MAX(created_at) FROM audit WHERE event='encrypted_backup_created')")).rows;
+   const backupAudit=backupCandidates.map(row=>({row,metadata:parse(row.target)})).filter(item=>item.metadata&&fresh(item.metadata.createdAt,30*86400,options?.nowMs??Date.now())).sort((a,b)=>Date.parse(b.metadata.createdAt)-Date.parse(a.metadata.createdAt))[0]?.row??null;
+diff --git a/scripts/postgres-restore-dry-run.mjs b/scripts/postgres-restore-dry-run.mjs
+index cd510cdb1d6b988ac95348956b42876598f104d9..1e4041b0526af6eac82b886d0b82e5380aedb16c 100644
+--- a/scripts/postgres-restore-dry-run.mjs
++++ b/scripts/postgres-restore-dry-run.mjs
+@@ -32,7 +32,7 @@ const receipt=await withRollbackOnlyTransaction(client,async()=>{
+  const rehearsalSchema=`restore_${randomBytes(8).toString('hex')}`;
+  await client.query(`CREATE SCHEMA "${rehearsalSchema}"`);
+  await client.query(`SET LOCAL search_path TO "${rehearsalSchema}", pg_catalog`);
+- await initializeRehearsalSchema(client,readFileSync(new URL('../db/render-schema.sql',import.meta.url),'utf8'),JSON.parse(readFileSync(new URL('../db/vendor-directory.json',import.meta.url),'utf8')));
++ await initializeRehearsalSchema(client,readFileSync(new URL('../db/render-schema.sql',import.meta.url),'utf8'),JSON.parse(readFileSync(new URL('../db/vendor-directory.json',import.meta.url),'utf8')),rehearsalSchema);
+  for(const table of ACCEPTANCE_PROTECTED_TABLES){const result=await client.query(`SELECT COUNT(*)::bigint count FROM "${table}"`);if(Number(result.rows[0].count)!==0)throw new Error(`Fresh restore schema unexpectedly contains protected acceptance rows in ${table}`);}
+  // The acceptance tables retain their no-TRUNCATE triggers. They are empty in
+  // this fresh random schema, and users can be cleared safely after every other
+diff --git a/scripts/restore-postgres-schema.mjs b/scripts/restore-postgres-schema.mjs
+index 29b030dc31f3253bdb790f9dc22a85805d448761..ef8924211ffa689171c8503384c8a97d6b2a10b2 100644
+--- a/scripts/restore-postgres-schema.mjs
++++ b/scripts/restore-postgres-schema.mjs
+@@ -57,7 +57,7 @@ function assertNoTransactionControl(sql){
+ // The caller already owns a rollback-only transaction in a fresh schema.
+ // Reuse the production schema initializer without allowing its transaction
+ // boundaries to commit or abort that outer transaction.
+-export async function initializeRehearsalSchema(client,schema,directoryEntries){
++export async function initializeRehearsalSchema(client,schema,directoryEntries,expectedSchema='public'){
+  let active=false;
+  const isolated={
+   async query(sql,params){
+@@ -86,7 +86,7 @@ export async function initializeRehearsalSchema(client,schema,directoryEntries){
+   },
+   release(){},
+  };
+- const result=await initializePortalDatabase({connect:async()=>isolated},schema,directoryEntries);
++ const result=await initializePortalDatabase({connect:async()=>isolated},schema,directoryEntries,{expectedSchema});
+  if(active)throw new Error('Restore bootstrap did not finish its savepoint');
+  return result;
+ }
+diff --git a/scripts/start-render.mjs b/scripts/start-render.mjs
+index 62f64c235a6ffd36d2ef8388b103dd800026712d..3018d3a2ca74b809044fae3fca9580cf210a08d1 100644
+--- a/scripts/start-render.mjs
++++ b/scripts/start-render.mjs
+@@ -29,7 +29,7 @@ try {
+   const directoryEntries = JSON.parse(await readFile(resolve("db/vendor-directory.json"), "utf8"));
+   const paymentActivation = renderPaymentActivationOptions(process.env);
+   const result = await initializePortalDatabase(pool, schema, directoryEntries, paymentActivation);
+-  console.log(`MASTER7 V17 Render staging database ready; status migration ${result.migrated ? "applied" : "already applied"}; database guards ${result.criticalDatabaseGuardCount}/9 ready; ${result.seededBrandCount} closed directory entries available.`);
++  console.log(`MASTER7 V17 Render staging database ready; status migration ${result.migrated ? "applied" : "already applied"}; database guards ${result.criticalDatabaseGuardCount}/9 ready; guard functions ${result.criticalDatabaseGuardFunctionCount}/5 attested; ${result.seededBrandCount} closed directory entries available.`);
+ } catch (error) {
+   console.error("MASTER7 V17 staging database initialization failed:", error instanceof Error ? error.message : "unknown error");
+   await pool.end();
+diff --git a/scripts/verify-isolated-postgres-acceptance-integrity.mjs b/scripts/verify-isolated-postgres-acceptance-integrity.mjs
+index 56df4e5e11e6515d53d2454a3610898210e52e90..3d1d21d73ef8fbf9abea43e9c8c508ef7592e882 100644
+--- a/scripts/verify-isolated-postgres-acceptance-integrity.mjs
++++ b/scripts/verify-isolated-postgres-acceptance-integrity.mjs
+@@ -16,21 +16,35 @@ import {BACKUP_TABLES,createEncryptedPortalBackup} from '../lib/encrypted-backup
+ 
+ const connection=process.env.MASTER7_ISOLATED_ACCEPTANCE_DATABASE_URL??'';let target;
+ try{target=new URL(connection);}catch{throw Error('A fresh loopback-only acceptance database is required');}
+-if(!['postgres:','postgresql:'].includes(target.protocol)||target.hostname!=='127.0.0.1'||target.username!=='postgres'||target.password||target.pathname!=='/master7_v166_acceptance_test'||target.search||target.hash||!target.port||process.env.MASTER7_ISOLATED_ACCEPTANCE_CONFIRM!=='master7_v166_acceptance_test')throw Error('A fresh loopback-only acceptance database is required');
++if(!['postgres:','postgresql:'].includes(target.protocol)||target.hostname!=='127.0.0.1'||target.username!=='postgres'||target.password||target.pathname!=='/master7_v168_acceptance_test'||target.search||target.hash||!target.port||process.env.MASTER7_ISOLATED_ACCEPTANCE_CONFIRM!=='master7_v168_acceptance_test')throw Error('A fresh loopback-only acceptance database is required');
+ 
+ test('acceptance ledgers are immutable, contiguous and fail closed on PostgreSQL 18',{timeout:90000},async t=>{
+  const pool=new pg.Pool({connectionString:connection,ssl:false,max:6}),oldUrl=process.env.PORTAL_POSTGRES_URL,oldSsl=process.env.PGSSLMODE,oldFetch=globalThis.fetch;
+  t.after(async()=>{await closeRenderPool();await pool.end();globalThis.fetch=oldFetch;if(oldUrl===undefined)delete process.env.PORTAL_POSTGRES_URL;else process.env.PORTAL_POSTGRES_URL=oldUrl;if(oldSsl===undefined)delete process.env.PGSSLMODE;else process.env.PGSSLMODE=oldSsl;});
+  const identity=(await pool.query("SELECT current_database() name,current_setting('server_version_num')::int version,(SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='public')::int tables")).rows[0];
+- assert.equal(identity.name,'master7_v166_acceptance_test');assert.ok(identity.version>=180000,`PostgreSQL 18 required, got ${identity.version}`);assert.equal(identity.tables,0,'Refuse nonempty database');
++ assert.equal(identity.name,'master7_v168_acceptance_test');assert.ok(identity.version>=180000,`PostgreSQL 18 required, got ${identity.version}`);assert.equal(identity.tables,0,'Refuse nonempty database');
+  const schema=await readFile(new URL('../db/render-schema.sql',import.meta.url),'utf8'),directory=JSON.parse(await readFile(new URL('../db/vendor-directory.json',import.meta.url),'utf8'));
+  await initializePortalDatabase(pool,schema,directory);await initializePortalDatabase(pool,schema,directory);
+  assert.equal((await pool.query('SELECT COUNT(*)::int n FROM portal_schema_migrations WHERE version=$1',[ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION])).rows[0].n,1);
+- const attestation=await assertCriticalDatabaseGuards(pool);assert.equal(attestation.criticalDatabaseGuardsReady,true);assert.equal(attestation.criticalDatabaseGuardCount,9);
++ const attestation=await assertCriticalDatabaseGuards(pool);assert.equal(attestation.criticalDatabaseGuardsReady,true);assert.equal(attestation.criticalDatabaseGuardCount,9);assert.equal(attestation.criticalDatabaseGuardFunctionCount,5);
+  const requiredTriggers=CRITICAL_DATABASE_GUARDS.map(item=>item.triggerName);
+  const triggers=(await pool.query(`SELECT t.tgname name,t.tgenabled enabled FROM pg_catalog.pg_trigger t WHERE NOT t.tgisinternal AND t.tgname=ANY($1::text[]) ORDER BY t.tgname`,[requiredTriggers])).rows;
+  assert.deepEqual(triggers.map(row=>row.name),[...requiredTriggers].sort());assert.ok(triggers.every(row=>row.enabled==='O'));
+ 
++ const rejectFunctionDefinition=(await pool.query("SELECT pg_get_functiondef(p.oid) definition FROM pg_catalog.pg_proc p JOIN pg_catalog.pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='public' AND p.proname='reject_provider_wallet_contract_mutation' AND pg_get_function_identity_arguments(p.oid)='' ")).rows[0]?.definition;
++ assert.ok(rejectFunctionDefinition);
++ const rejectDrift=async(mutate,restore=async()=>pool.query(rejectFunctionDefinition))=>{
++  await mutate();
++  await assert.rejects(()=>initializePortalDatabase(pool,schema,directory),/Critical database guard attestation failed/);
++  await assert.rejects(()=>assertCriticalDatabaseGuards(pool),/Critical database guard attestation failed/);
++  await restore();
++  assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardFunctionCount,5);
++ };
++ await rejectDrift(()=>pool.query("CREATE OR REPLACE FUNCTION reject_provider_wallet_contract_mutation() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RETURN NEW; END $$"));
++ await rejectDrift(()=>pool.query('ALTER FUNCTION reject_provider_wallet_contract_mutation() SECURITY DEFINER'),()=>pool.query('ALTER FUNCTION reject_provider_wallet_contract_mutation() SECURITY INVOKER'));
++ await rejectDrift(()=>pool.query("ALTER FUNCTION reject_provider_wallet_contract_mutation() SET search_path TO pg_catalog"),()=>pool.query('ALTER FUNCTION reject_provider_wallet_contract_mutation() SET search_path TO pg_catalog, pg_temp'));
++ await rejectDrift(()=>pool.query('ALTER FUNCTION reject_provider_wallet_contract_mutation() STABLE'),()=>pool.query('ALTER FUNCTION reject_provider_wallet_contract_mutation() VOLATILE'));
++
+  await pool.query('ALTER TABLE provider_wallet_operations DISABLE TRIGGER provider_wallet_contract_immutable');
+  await assert.rejects(()=>initializePortalDatabase(pool,schema,directory),/Critical database guard attestation failed/);
+  await pool.query('ALTER TABLE provider_wallet_operations ENABLE TRIGGER provider_wallet_contract_immutable');
+@@ -42,11 +56,11 @@ test('acceptance ledgers are immutable, contiguous and fail closed on PostgreSQL
+  await pool.query(missingDefinition);assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
+ 
+  const reboundDefinition=(await pool.query("SELECT pg_get_triggerdef(t.oid) definition FROM pg_catalog.pg_trigger t JOIN pg_catalog.pg_class c ON c.oid=t.tgrelid WHERE c.relname='provider_wallet_operations' AND t.tgname='provider_wallet_contract_immutable' AND NOT t.tgisinternal")).rows[0]?.definition;
+- assert.ok(reboundDefinition);await pool.query("CREATE OR REPLACE FUNCTION v166_noop_guard() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RETURN NEW; END $$");
++ assert.ok(reboundDefinition);await pool.query("CREATE OR REPLACE FUNCTION v168_noop_guard() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RETURN NEW; END $$");
+  await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');
+- await pool.query('CREATE TRIGGER provider_wallet_contract_immutable BEFORE UPDATE OF withdrawal_mode,adapter_contract_sha256 ON provider_wallet_operations FOR EACH ROW EXECUTE FUNCTION v166_noop_guard()');
++ await pool.query('CREATE TRIGGER provider_wallet_contract_immutable BEFORE UPDATE OF withdrawal_mode,adapter_contract_sha256 ON provider_wallet_operations FOR EACH ROW EXECUTE FUNCTION v168_noop_guard()');
+  await assert.rejects(()=>initializePortalDatabase(pool,schema,directory),/Critical database guard attestation failed/);
+- await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');await pool.query(reboundDefinition);await pool.query('DROP FUNCTION v166_noop_guard()');
++ await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');await pool.query(reboundDefinition);await pool.query('DROP FUNCTION v168_noop_guard()');
+  assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
+ 
+  await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');
+@@ -55,12 +69,48 @@ test('acceptance ledgers are immutable, contiguous and fail closed on PostgreSQL
+  await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');await pool.query(reboundDefinition);
+  assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
+ 
++ await pool.query("CREATE OR REPLACE FUNCTION v168_late_mutation_guard() RETURNS trigger LANGUAGE plpgsql SET search_path=pg_catalog,pg_temp AS $$ BEGIN NEW.withdrawal_mode='all'; RETURN NEW; END $$");
++ await pool.query('CREATE TRIGGER zzz_provider_wallet_late_mutation BEFORE UPDATE ON provider_wallet_operations FOR EACH ROW EXECUTE FUNCTION v168_late_mutation_guard()');
++ await assert.rejects(()=>initializePortalDatabase(pool,schema,directory),/Critical database guard attestation failed \(invalid 0 of 9; unexpected 1;/);
++ await assert.rejects(()=>assertCriticalDatabaseGuards(pool),/Critical database guard attestation failed \(invalid 0 of 9; unexpected 1;/);
++ await pool.query('DROP TRIGGER zzz_provider_wallet_late_mutation ON provider_wallet_operations');await pool.query('DROP FUNCTION v168_late_mutation_guard()');
++ assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
++
++ await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');
++ await pool.query('CREATE TRIGGER provider_wallet_contract_immutable BEFORE UPDATE OF withdrawal_mode,adapter_contract_sha256 ON provider_wallet_operations FOR EACH ROW WHEN (false) EXECUTE FUNCTION reject_provider_wallet_contract_mutation()');
++ await assert.rejects(()=>initializePortalDatabase(pool,schema,directory),/Critical database guard attestation failed/);
++ await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');await pool.query(reboundDefinition);
++ assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
++
++ await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');
++ await pool.query("CREATE TRIGGER provider_wallet_contract_immutable BEFORE UPDATE OF withdrawal_mode,adapter_contract_sha256 ON provider_wallet_operations FOR EACH ROW EXECUTE FUNCTION reject_provider_wallet_contract_mutation('unexpected')");
++ await assert.rejects(()=>initializePortalDatabase(pool,schema,directory),/Critical database guard attestation failed/);
++ await pool.query('DROP TRIGGER provider_wallet_contract_immutable ON provider_wallet_operations');await pool.query(reboundDefinition);
++ assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
++
+  await pool.query('DROP TRIGGER production_acceptance_current_no_truncate ON production_acceptance_current');
+  await pool.query('CREATE TRIGGER production_acceptance_current_no_truncate BEFORE TRUNCATE ON production_acceptance_events FOR EACH STATEMENT EXECUTE FUNCTION guard_production_acceptance_current()');
+  await assert.rejects(()=>initializePortalDatabase(pool,schema,directory),/Critical database guard attestation failed/);
+  await pool.query('DROP TRIGGER production_acceptance_current_no_truncate ON production_acceptance_events');await pool.query(missingDefinition);
+  assert.equal((await initializePortalDatabase(pool,schema,directory)).criticalDatabaseGuardsReady,true);
+  await pool.query("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES('owner','owner','owner',1,'fixture',0)");
++
++ const shadowClient=await pool.connect();
++ try{
++  await shadowClient.query('BEGIN');
++  await shadowClient.query('SET LOCAL search_path TO pg_temp, public');
++  await shadowClient.query('CREATE TEMP TABLE game_provider_acceptance_events(profile_id TEXT,capability TEXT,environment TEXT,revision INTEGER)');
++  await shadowClient.query("INSERT INTO game_provider_acceptance_events VALUES('megah5_myr','catalogue','production',1)");
++  await shadowClient.query('SAVEPOINT shadow_insert');
++  await assert.rejects(()=>shadowClient.query(`INSERT INTO public.game_provider_acceptance_events(id,profile_id,revision,capability,environment,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at)
++   VALUES('shadow-gap','megah5_myr',2,'catalogue','production','passed',$1,'pg18:shadow','owner',1,1)`,['9'.repeat(64)]),/contiguous/);
++  await shadowClient.query('ROLLBACK TO SAVEPOINT shadow_insert');
++  assert.equal((await shadowClient.query("SELECT COUNT(*)::int n FROM public.game_provider_acceptance_events WHERE id='shadow-gap'")).rows[0].n,0);
++ }finally{
++  try{await shadowClient.query('ROLLBACK');shadowClient.release();}
++  catch{shadowClient.release(true);}
++ }
++
+  process.env.PORTAL_POSTGRES_URL=connection;process.env.PGSSLMODE='disable';globalThis.fetch=async()=>{throw Error('Unexpected external request');};const db=new RenderD1Compat(),owner={id:'owner',role:'owner'};
+ 
+  const game={profileId:'megah5_myr',capability:'catalogue',environment:'production',result:'passed',evidenceSha256:'a'.repeat(64),evidenceReference:'pg18:game-race',observedAt:100,expectedEventId:null};
+@@ -78,13 +128,13 @@ test('acceptance ledgers are immutable, contiguous and fail closed on PostgreSQL
+  await assert.rejects(()=>pool.query(`INSERT INTO production_acceptance_events(id,category,subject_id,capability,environment,revision,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at) VALUES('gap-production','domain','www.master7.site','dns_tls_routing','production',3,'passed',$1,'pg18:gap','owner',103,103)`,['3'.repeat(64)]),/contiguous/);
+  await assert.rejects(()=>pool.query('TRUNCATE production_acceptance_current'),/truncated/);await assert.rejects(()=>pool.query('TRUNCATE production_acceptance_current,production_acceptance_events CASCADE'),/immutable|truncated/);assert.equal((await getProductionAcceptanceReadiness(db)).integrityReady,true);
+ 
+- const restoreDirectory=mkdtempSync(join(tmpdir(),'master7-v166-acceptance-restore-')),passphrase=randomBytes(24).toString('hex'),{publicKey,privateKey}=generateKeyPairSync('rsa',{modulusLength:2048,publicKeyEncoding:{type:'spki',format:'pem'},privateKeyEncoding:{type:'pkcs8',format:'pem',cipher:'aes-256-cbc',passphrase}}),fingerprint=createHash('sha256').update(createPublicKey(publicKey).export({type:'spki',format:'der'})).digest('hex');
++ const restoreDirectory=mkdtempSync(join(tmpdir(),'master7-v168-acceptance-restore-')),passphrase=randomBytes(24).toString('hex'),{publicKey,privateKey}=generateKeyPairSync('rsa',{modulusLength:2048,publicKeyEncoding:{type:'spki',format:'pem'},privateKeyEncoding:{type:'pkcs8',format:'pem',cipher:'aes-256-cbc',passphrase}}),fingerprint=createHash('sha256').update(createPublicKey(publicKey).export({type:'spki',format:'der'})).digest('hex');
+  try{
+-  const {envelope}=await createEncryptedPortalBackup(db,'synthetic-v166-acceptance',{publicKey,publicKeySha256:fingerprint});for(const [name,value] of [['backup.json',JSON.stringify(envelope)],['private.pem',privateKey],['passphrase',passphrase]])writeFileSync(join(restoreDirectory,name),value,{mode:0o600});
+-  await pool.query('DROP DATABASE IF EXISTS master7_v166_acceptance_restore WITH (FORCE)');await pool.query('CREATE DATABASE master7_v166_acceptance_restore');const restoreUrl=new URL(connection);restoreUrl.pathname='/master7_v166_acceptance_restore';let output='';
++  const {envelope}=await createEncryptedPortalBackup(db,'synthetic-v168-acceptance',{publicKey,publicKeySha256:fingerprint});for(const [name,value] of [['backup.json',JSON.stringify(envelope)],['private.pem',privateKey],['passphrase',passphrase]])writeFileSync(join(restoreDirectory,name),value,{mode:0o600});
++  await pool.query('DROP DATABASE IF EXISTS master7_v168_acceptance_restore WITH (FORCE)');await pool.query('CREATE DATABASE master7_v168_acceptance_restore');const restoreUrl=new URL(connection);restoreUrl.pathname='/master7_v168_acceptance_restore';let output='';
+   const status=await new Promise((resolve,reject)=>{const child=spawn(process.execPath,[fileURLToPath(new URL('./postgres-restore-dry-run.mjs',import.meta.url)),join(restoreDirectory,'backup.json'),join(restoreDirectory,'private.pem'),join(restoreDirectory,'passphrase'),join(restoreDirectory,'receipt.json'),'--confirm-isolated'],{env:{...process.env,MASTER7_RESTORE_DATABASE_URL:restoreUrl.href,PORTAL_POSTGRES_URL:connection,PGSSLMODE:'disable'}});child.stdout.on('data',value=>output+=value);child.stderr.on('data',value=>output+=value);child.on('error',reject);child.on('exit',resolve);});
+   assert.equal(status,0,output);const receipt=JSON.parse(readFileSync(join(restoreDirectory,'receipt.json'),'utf8'));assert.equal(receipt.coverageComplete,true);assert.equal(receipt.tableCount,BACKUP_TABLES.length);assert.equal(receipt.persistentWrites,false);assert.equal(receipt.tables.find(item=>item.name==='game_provider_acceptance_events').rows,3);assert.equal(receipt.tables.find(item=>item.name==='production_acceptance_events').rows,1);
+   const restored=new pg.Client({connectionString:restoreUrl.href,ssl:false});await restored.connect();try{assert.equal((await restored.query("SELECT COUNT(*)::int n FROM information_schema.tables WHERE table_schema NOT IN ('pg_catalog','information_schema')")).rows[0].n,0);}finally{await restored.end();}
+-  await pool.query('DROP DATABASE master7_v166_acceptance_restore WITH (FORCE)');
++  await pool.query('DROP DATABASE master7_v168_acceptance_restore WITH (FORCE)');
+  }finally{rmSync(restoreDirectory,{recursive:true,force:true});}
+ });
+diff --git a/tests/critical-database-guard-fixture.mjs b/tests/critical-database-guard-fixture.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..e8dcc1de906b5a1e2962f43d16cf3760aaf148e7
+--- /dev/null
++++ b/tests/critical-database-guard-fixture.mjs
+@@ -0,0 +1,24 @@
++import {
++ CRITICAL_DATABASE_GUARDS,
++ CRITICAL_DATABASE_GUARD_FUNCTIONS,
++ CRITICAL_DATABASE_GUARD_TRIGGER_BEHAVIOR,
++} from '../lib/render-migrations.mjs';
++
++export function criticalDatabaseGuardRows(schema='public'){
++ return CRITICAL_DATABASE_GUARDS.map(({tableName:table_name,triggerName:trigger_name,functionName,triggerType:trigger_type,updateColumns:update_columns})=>{
++  const fn=CRITICAL_DATABASE_GUARD_FUNCTIONS.find(item=>item.name===functionName);
++  if(!fn)throw new Error(`Missing fixture contract for ${functionName}`);
++  const behavior=CRITICAL_DATABASE_GUARD_TRIGGER_BEHAVIOR;
++  return {
++   table_schema:schema,table_name,trigger_name,enabled:'O',trigger_type,update_columns:[...update_columns],
++   trigger_when_is_null:behavior.whenIsNull,trigger_argument_count:behavior.argumentCount,trigger_arguments_empty:behavior.argumentsEmpty,
++   old_transition_table:behavior.oldTransitionTable,new_transition_table:behavior.newTransitionTable,
++   constraint_oid:behavior.constraintOid,constraint_relation_oid:behavior.constraintRelationOid,
++   trigger_deferrable:behavior.deferrable,trigger_initially_deferred:behavior.initiallyDeferred,parent_trigger_oid:behavior.parentTriggerOid,
++   function_schema:schema,function_name:fn.name,function_identity_arguments:fn.identityArguments,function_language:fn.language,
++   function_return_type:fn.returnType,function_kind:fn.kind,function_volatility:fn.volatility,function_parallel_safety:fn.parallelSafety,
++   function_security_definer:fn.securityDefiner,function_leakproof:fn.leakproof,function_strict:fn.strict,function_returns_set:fn.returnsSet,
++   function_config:[...fn.config],function_source:`\r\n${fn.source}\r\n`,
++  };
++ });
++}
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index 010d926ed66144f1d6b7e5a03c2892064470207e..df2e96c31f04822952458c396882a9eaae785dfd 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.167-guard-log-severity';
++const release='17.0.0-selfbuilt.168-guard-function-attestation';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+diff --git a/tests/postgres-readiness-gate.test.mjs b/tests/postgres-readiness-gate.test.mjs
+index 08cf8b9101e83b3eb4d1330eff6603b16826bed7..f22adc04de26f8c2a3dbdf78a8d81746c6c048c7 100644
+--- a/tests/postgres-readiness-gate.test.mjs
++++ b/tests/postgres-readiness-gate.test.mjs
+@@ -2,8 +2,9 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {BACKUP_EXCLUDED_TABLES,BACKUP_FORMAT,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES} from '../lib/encrypted-backup.ts';
+ import {BACKUP_PUBLIC_KEY_SHA256} from '../lib/backup-public-key.ts';
+-import {ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,WITHDRAWAL_DESTINATION_METHODS_MIGRATION} from '../lib/render-migrations.mjs';
++import {ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,WITHDRAWAL_DESTINATION_METHODS_MIGRATION} from '../lib/render-migrations.mjs';
+ import {OPTIONAL_MIGRATIONS,REQUIRED_COLUMNS,REQUIRED_MIGRATIONS,REQUIRED_TABLES,REQUIRED_TRIGGERS,evaluatePostgresReadinessEvidence,runPostgresReadinessGate} from '../scripts/postgres-readiness-gate.mjs';
++import {criticalDatabaseGuardRows} from './critical-database-guard-fixture.mjs';
+ 
+ const release='17.0.0-readiness-fixture',nowMs=Date.parse('2026-11-08T12:00:00.000Z'),createdAt='2026-11-08T10:00:00.000Z',verifiedAt='2026-11-08T11:00:00.000Z';
+ const backup={format:BACKUP_FORMAT,release,schemaVersion:BACKUP_SCHEMA_VERSION,schemaSha256:BACKUP_SCHEMA_SHA256,publicKeySha256:BACKUP_PUBLIC_KEY_SHA256,readConsistency:'transaction_snapshot',tableCount:BACKUP_TABLES.length,totalRecords:123,backupSha256:'a'.repeat(64),plaintextSha256:'b'.repeat(64),ciphertextSha256:'c'.repeat(64),createdAt};
+@@ -13,7 +14,7 @@ const fixture=()=>({
+  role:{transaction_read_only:'on',can_create_database:false,can_create_schema:false,can_write_tables:false},
+  tables:REQUIRED_TABLES.map(name=>({name})),
+  columns:Object.entries(REQUIRED_COLUMNS).flatMap(([table_name,names])=>names.map(column_name=>({table_name,column_name}))),
+- triggers:REQUIRED_TRIGGERS.map(({tableName:table_name,triggerName:trigger_name,functionName:function_name,triggerType:trigger_type,updateColumns:update_columns})=>({table_name,trigger_name,function_name,function_schema:'public',trigger_type,update_columns:[...update_columns],enabled:'O'})),
++ triggers:criticalDatabaseGuardRows(),
+  migrations:[...REQUIRED_MIGRATIONS,...OPTIONAL_MIGRATIONS.slice(0,2)].sort().map(version=>({version,applied_at:Math.floor(nowMs/1000)-100})),
+  backupAudit:{target:JSON.stringify(backup),created_at:Math.floor(Date.parse(createdAt)/1000)},
+  restoreSetting:{value:JSON.stringify(restore)},
+@@ -21,10 +22,10 @@ const fixture=()=>({
+ 
+ test('evidence gate accepts only the current schema, migration, backup and bound restore contract',()=>{
+  const result=evaluatePostgresReadinessEvidence(fixture(),{expectedRelease:release,nowMs});
+- assert.equal(result.ok,true);assert.equal(result.schema.requiredTables,76+5);assert.equal(result.schema.requiredTables,BACKUP_TABLES.length+BACKUP_EXCLUDED_TABLES.length);assert.ok(BACKUP_EXCLUDED_TABLES.includes('member_wallet_guards'));assert.ok(!BACKUP_TABLES.includes('member_wallet_guards'));assert.ok(BACKUP_TABLES.includes('megah5_launch_operations'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_events'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_current'));assert.ok(BACKUP_TABLES.includes('production_acceptance_events'));assert.ok(BACKUP_TABLES.includes('production_acceptance_current'));assert.ok(BACKUP_TABLES.includes('public_contact_revisions'));assert.ok(BACKUP_TABLES.includes('jdb_wager_receipts'));assert.ok(BACKUP_TABLES.includes('jdb_wager_observations'));assert.ok(REQUIRED_TABLES.includes('member_wallet_guards'));assert.equal(result.schema.requiredMigrations,33);assert.equal(result.schema.requiredColumns,7);assert.equal(result.schema.requiredTriggers,9);assert.equal(new Set(REQUIRED_MIGRATIONS).size,33);assert.ok(REQUIRED_MIGRATIONS.indexOf(WITHDRAWAL_DESTINATION_METHODS_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(PROVIDER_WALLET_SWEEPS_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(PROVIDER_WALLET_SWEEPS_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(JDB_WAGER_COVERAGE_STAGING_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(JDB_WAGER_COVERAGE_STAGING_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION));assert.ok(result.checks.every(item=>item.pass));
++ assert.equal(result.ok,true);assert.equal(result.schema.requiredTables,76+5);assert.equal(result.schema.requiredTables,BACKUP_TABLES.length+BACKUP_EXCLUDED_TABLES.length);assert.ok(BACKUP_EXCLUDED_TABLES.includes('member_wallet_guards'));assert.ok(!BACKUP_TABLES.includes('member_wallet_guards'));assert.ok(BACKUP_TABLES.includes('megah5_launch_operations'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_events'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_current'));assert.ok(BACKUP_TABLES.includes('production_acceptance_events'));assert.ok(BACKUP_TABLES.includes('production_acceptance_current'));assert.ok(BACKUP_TABLES.includes('public_contact_revisions'));assert.ok(BACKUP_TABLES.includes('jdb_wager_receipts'));assert.ok(BACKUP_TABLES.includes('jdb_wager_observations'));assert.ok(REQUIRED_TABLES.includes('member_wallet_guards'));assert.equal(result.schema.requiredMigrations,34);assert.equal(result.schema.requiredColumns,7);assert.equal(result.schema.requiredTriggers,9);assert.equal(result.schema.requiredGuardFunctions,5);assert.equal(new Set(REQUIRED_MIGRATIONS).size,34);assert.ok(REQUIRED_MIGRATIONS.indexOf(WITHDRAWAL_DESTINATION_METHODS_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(PROVIDER_WALLET_SWEEPS_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(PROVIDER_WALLET_SWEEPS_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(JDB_WAGER_COVERAGE_STAGING_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(JDB_WAGER_COVERAGE_STAGING_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION));assert.ok(result.checks.every(item=>item.pass));
+ });
+ 
+-for(const migration of [WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION])test(`evidence gate fails when required schema marker ${migration} is missing`,()=>{
++for(const migration of [WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION])test(`evidence gate fails when required schema marker ${migration} is missing`,()=>{
+  const missing=fixture();missing.migrations=missing.migrations.filter(item=>item.version!==migration);
+  const result=evaluatePostgresReadinessEvidence(missing,{expectedRelease:release,nowMs});
+  assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='required_migrations').pass,false);
+@@ -55,6 +56,27 @@ test('evidence gate rejects wrong trigger binding, function, type, schema or dup
+   row=>({...row,function_schema:'private'}),
+   row=>({...row,trigger_type:31}),
+   row=>({...row,update_columns:['adapter_contract_sha256']}),
++  row=>({...row,function_source:'BEGIN RETURN NEW; END'}),
++  row=>({...row,function_identity_arguments:'flag boolean'}),
++  row=>({...row,function_language:'sql'}),
++  row=>({...row,function_return_type:'boolean'}),
++  row=>({...row,function_kind:'p'}),
++  row=>({...row,function_volatility:'s'}),
++  row=>({...row,function_parallel_safety:'s'}),
++  row=>({...row,function_security_definer:true}),
++  row=>({...row,function_leakproof:true}),
++  row=>({...row,function_strict:true}),
++  row=>({...row,function_returns_set:true}),
++  row=>({...row,function_config:['search_path=pg_temp, pg_catalog']}),
++  row=>({...row,trigger_when_is_null:false}),
++  row=>({...row,trigger_argument_count:1,trigger_arguments_empty:false}),
++  row=>({...row,old_transition_table:'old_rows'}),
++  row=>({...row,new_transition_table:'new_rows'}),
++  row=>({...row,constraint_oid:123}),
++  row=>({...row,constraint_relation_oid:123}),
++  row=>({...row,trigger_deferrable:true}),
++  row=>({...row,trigger_initially_deferred:true}),
++  row=>({...row,parent_trigger_oid:123}),
+  ];
+  for(const mutate of variants){
+   const drift=fixture();drift.triggers=drift.triggers.map(row=>row.trigger_name===required.triggerName?mutate(row):row);
+@@ -64,11 +86,14 @@ test('evidence gate rejects wrong trigger binding, function, type, schema or dup
+  const duplicate=fixture();duplicate.triggers.push({...duplicate.triggers[0]});
+  const result=evaluatePostgresReadinessEvidence(duplicate,{expectedRelease:release,nowMs});
+  assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='required_schema_triggers').pass,false);
++ const extra=fixture();extra.triggers.push({...extra.triggers[0],trigger_name:'zzz_extra_guard'});
++ const extraResult=evaluatePostgresReadinessEvidence(extra,{expectedRelease:release,nowMs});
++ assert.equal(extraResult.ok,false);assert.equal(extraResult.checks.find(item=>item.id==='required_schema_triggers').pass,false);
+ });
+ 
+ test('evidence gate rejects dependency markers applied after their consumers',()=>{
+  const outOfOrder=fixture(),epoch=Math.floor(nowMs/1000)-100;
+- for(const row of outOfOrder.migrations){if(row.version===WITHDRAWAL_DESTINATION_METHODS_MIGRATION)row.applied_at=epoch+3;if(row.version===PROVIDER_WALLET_SWEEPS_MIGRATION)row.applied_at=epoch+2;if(row.version===JDB_WAGER_COVERAGE_STAGING_MIGRATION)row.applied_at=epoch+1;if(row.version===ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION)row.applied_at=epoch;}
++ for(const row of outOfOrder.migrations){if(row.version===WITHDRAWAL_DESTINATION_METHODS_MIGRATION)row.applied_at=epoch+3;if(row.version===PROVIDER_WALLET_SWEEPS_MIGRATION)row.applied_at=epoch+2;if(row.version===JDB_WAGER_COVERAGE_STAGING_MIGRATION)row.applied_at=epoch+1;if(row.version===ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION)row.applied_at=epoch+1;if(row.version===GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION)row.applied_at=epoch;}
+  const result=evaluatePostgresReadinessEvidence(outOfOrder,{expectedRelease:release,nowMs});assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='migration_dependency_order').pass,false);
+ });
+ 
+@@ -100,6 +125,7 @@ test('PostgreSQL gate performs metadata-only reads in one rollback-only transact
+  const client=new FakeClient(),result=await runPostgresReadinessGate(client,{expectedRelease:release,nowMs});assert.equal(result.ok,true);
+  assert.equal(client.sql[0],'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');assert.equal(client.sql.at(-1),'ROLLBACK');
+  const sql=client.sql.join('\n');assert.doesNotMatch(sql,/SELECT\s+\*\s+FROM\s+(?:users|wallet_ledger|deposit_orders)/i);assert.doesNotMatch(sql,/\b(?:INSERT|UPDATE|DELETE|TRUNCATE)\s+(?:INTO|FROM)?\s*(?:users|wallet_ledger|deposit_orders)/i);
++ assert.match(sql,/c\.relname=ANY\(\$1::text\[\]\)/);assert.doesNotMatch(sql,/t\.tgname=ANY/);
+  assert.ok(sql.includes('pg_catalog.pg_class'));assert.ok(sql.includes('information_schema.columns'));assert.ok(sql.includes('pg_catalog.pg_trigger'));assert.ok(sql.includes('portal_schema_migrations'));assert.ok(sql.includes("event='encrypted_backup_created'"));assert.ok(sql.includes("id='backup_restore_rehearsal'"));
+ });
+ 
+diff --git a/tests/postgres-restore-safety.test.mjs b/tests/postgres-restore-safety.test.mjs
+index ca310de2b141fa294b8f1227a79fad4378efd4a2..bb7289724f5b6f0de1f77f6ae787f5c1a41d1900 100644
+--- a/tests/postgres-restore-safety.test.mjs
++++ b/tests/postgres-restore-safety.test.mjs
+@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
+ import {assertIsolatedRestoreTarget} from '../lib/restore-safety.mjs';
+ import {ACCEPTANCE_PROTECTED_TABLES,BACKUP_EXCLUDED_TABLES,BACKUP_TABLES} from '../lib/encrypted-backup.ts';
+ import {initializeRehearsalSchema,withRollbackOnlyTransaction} from '../scripts/restore-postgres-schema.mjs';
+-import {CRITICAL_DATABASE_GUARDS} from '../lib/render-migrations.mjs';
++import {criticalDatabaseGuardRows} from './critical-database-guard-fixture.mjs';
+ 
+ test('PostgreSQL restore rehearsal only accepts an explicitly isolated database',()=>{
+  assert.throws(()=>assertIsolatedRestoreTarget('postgres://user:pass@db.example/master7'),/isolated/);
+@@ -57,7 +57,7 @@ class RehearsalClient {
+   assert.doesNotMatch(sql,/^\s*(?:BEGIN|COMMIT|END|ABORT)\b/i,'The schema initializer must never control the outer transaction');
+   if(this.failOn?.test(sql))throw new Error('synthetic migration failure');
+   if(sql.startsWith('SELECT version FROM portal_schema_migrations'))return {rows:this.applied.has(params[0])?[{version:params[0]}]:[]};
+-  if(sql.includes('FROM pg_catalog.pg_trigger'))return {rows:CRITICAL_DATABASE_GUARDS.map(({tableName:table_name,triggerName:trigger_name,functionName:function_name,triggerType:trigger_type,updateColumns:update_columns})=>({table_schema:'restore_fixture',table_name,trigger_name,function_name,function_schema:'restore_fixture',trigger_type,update_columns:[...update_columns],enabled:'O'}))};
++  if(sql.includes('FROM pg_catalog.pg_trigger'))return {rows:criticalDatabaseGuardRows('restore_fixture')};
+   if(sql.startsWith('INSERT INTO portal_schema_migrations'))this.applied.add(params[0]);
+   return {rows:[]};
+  }
+@@ -66,7 +66,7 @@ class RehearsalClient {
+ 
+ test('PostgreSQL rehearsal bootstraps the complete runtime schema inside one savepoint',async()=>{
+  const client=new RehearsalClient(),schema=readFileSync(new URL('../db/render-schema.sql',import.meta.url),'utf8');
+- await initializeRehearsalSchema(client,schema,[]);
++ await initializeRehearsalSchema(client,schema,[],'restore_fixture');
+  const sql=client.events.map(event=>event.sql).join('\n');
+  const tables=[...new Set([...sql.matchAll(/CREATE TABLE IF NOT EXISTS ([a-z][a-z0-9_]*)\b/g)].map(match=>match[1]))].sort();
+  assert.ok(tables.includes('megah5_launch_operations'),'numeric characters are part of the complete SQL table name');
+@@ -82,7 +82,7 @@ test('PostgreSQL rehearsal bootstraps the complete runtime schema inside one sav
+ 
+ test('PostgreSQL rehearsal rolls a late migration failure back to its savepoint',async()=>{
+  const client=new RehearsalClient(/ALTER TABLE benefit_claims ADD COLUMN IF NOT EXISTS review_note/);
+- await assert.rejects(()=>initializeRehearsalSchema(client,'SELECT 1;',[]),/synthetic migration failure/);
++ await assert.rejects(()=>initializeRehearsalSchema(client,'SELECT 1;',[],'restore_fixture'),/synthetic migration failure/);
+  assert.deepEqual(client.events.slice(-2).map(event=>event.sql),['ROLLBACK TO SAVEPOINT master7_restore_bootstrap','RELEASE SAVEPOINT master7_restore_bootstrap']);
+  assert.equal(client.released,false);
+ });
+@@ -90,7 +90,7 @@ test('PostgreSQL rehearsal rolls a late migration failure back to its savepoint'
+ test('PostgreSQL rehearsal rejects transaction control hidden in SQL batches or comments',async()=>{
+  for(const schema of ['SELECT 1; COMMIT;','-- schema header\nCOMMIT AND CHAIN;','SELECT 1; /* outer /* inner */ comment */ END;','SELECT 1; PREPARE TRANSACTION \'fixture\';','SELECT 1; ROLLBACK;']){
+   const client=new RehearsalClient();
+-  await assert.rejects(()=>initializeRehearsalSchema(client,schema,[]),/Unsupported restore bootstrap transaction statement/);
++  await assert.rejects(()=>initializeRehearsalSchema(client,schema,[],'restore_fixture'),/Unsupported restore bootstrap transaction statement/);
+   assert.equal(client.events.some(event=>event.sql===schema),false,'Unsafe SQL must not reach the database');
+   assert.deepEqual(client.events.slice(-2).map(event=>event.sql),['ROLLBACK TO SAVEPOINT master7_restore_bootstrap','RELEASE SAVEPOINT master7_restore_bootstrap']);
+  }
+@@ -100,7 +100,7 @@ test('PostgreSQL rehearsal permits transaction words inside strings and function
+  const schema=`SELECT 'COMMIT; ''ROLLBACK''', E'escaped\\\'quote; COMMIT';
+  CREATE FUNCTION fixture_fn() RETURNS void LANGUAGE plpgsql AS $body$ BEGIN RETURN; END; $body$;`;
+  const client=new RehearsalClient();
+- await initializeRehearsalSchema(client,schema,[]);
++ await initializeRehearsalSchema(client,schema,[],'restore_fixture');
+  assert.ok(client.events.some(event=>event.sql===schema));
+  assert.equal(client.events.at(-1).sql,'RELEASE SAVEPOINT master7_restore_bootstrap');
+ });
+diff --git a/tests/render-migrations.test.mjs b/tests/render-migrations.test.mjs
+index e592a8e0433117803b0675b911841f9fd275315c..8b8b162cf22ad62e06203e220b321c6e43a559a4 100644
+--- a/tests/render-migrations.test.mjs
++++ b/tests/render-migrations.test.mjs
+@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
+ import { DatabaseSync } from 'node:sqlite';
+ import { readFileSync } from 'node:fs';
+ import { join } from 'node:path';
+-import { initializePortalDatabase, assertCriticalDatabaseGuards, CRITICAL_DATABASE_GUARDS, PORTAL_STATUS_MIGRATION, PAYMENT_PROVIDERS_MIGRATION, ONE_MPAY_CHANNEL_MIGRATION, GAME_ACCESS_ZONE_MIGRATION, PAYMENT_ACCEPTANCE_GUARD_MIGRATION, MARKETING_CONTACT_SCALE_MIGRATION, OPERATIONS_AUTOMATION_MIGRATION, SUPPORT_MARKETING_MIGRATION, WHATSAPP_CAMPAIGN_DELIVERY_MIGRATION, REWARDS_HUB_MIGRATION, RESPONSIBLE_PLAY_MIGRATION, COMPANY_BANK_ARTWORK_MIGRATION, NEW_MEMBER_VOUCHER_MIGRATION, VOUCHER_MANUAL_WORKFLOW_MIGRATION, FIXED_VOUCHER_RETIREMENT_MIGRATION, BENEFIT_CLAIM_REVIEW_MIGRATION, MANUAL_COMPLIANCE_MIGRATION, GSPAY_USDT_PROFILE_MIGRATION, GAME_PROVIDER_ADAPTER_CORE_MIGRATION, MEGAH5_LAUNCH_OPERATIONS_MIGRATION, GAME_PROVIDER_ACCEPTANCE_MIGRATION, GENERIC_GAME_WALLET_RISK_MIGRATION, JDB_WAGER_COVERAGE_STAGING_MIGRATION, ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION, PAYOUT_CONTROL_MIGRATION, GSPAY_PAYOUT_ACTIVATION_MIGRATION, PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS, PORTAL_MIGRATION_ADVISORY_LOCK } from '../lib/render-migrations.mjs';
++import { initializePortalDatabase, assertCriticalDatabaseGuards, CRITICAL_DATABASE_GUARDS, CRITICAL_DATABASE_GUARD_FUNCTIONS, criticalDatabaseGuardFunctionSourceSha256, PORTAL_STATUS_MIGRATION, PAYMENT_PROVIDERS_MIGRATION, ONE_MPAY_CHANNEL_MIGRATION, GAME_ACCESS_ZONE_MIGRATION, PAYMENT_ACCEPTANCE_GUARD_MIGRATION, MARKETING_CONTACT_SCALE_MIGRATION, OPERATIONS_AUTOMATION_MIGRATION, SUPPORT_MARKETING_MIGRATION, WHATSAPP_CAMPAIGN_DELIVERY_MIGRATION, REWARDS_HUB_MIGRATION, RESPONSIBLE_PLAY_MIGRATION, COMPANY_BANK_ARTWORK_MIGRATION, NEW_MEMBER_VOUCHER_MIGRATION, VOUCHER_MANUAL_WORKFLOW_MIGRATION, FIXED_VOUCHER_RETIREMENT_MIGRATION, BENEFIT_CLAIM_REVIEW_MIGRATION, MANUAL_COMPLIANCE_MIGRATION, GSPAY_USDT_PROFILE_MIGRATION, GAME_PROVIDER_ADAPTER_CORE_MIGRATION, MEGAH5_LAUNCH_OPERATIONS_MIGRATION, GAME_PROVIDER_ACCEPTANCE_MIGRATION, GENERIC_GAME_WALLET_RISK_MIGRATION, JDB_WAGER_COVERAGE_STAGING_MIGRATION, ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION, GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION, PAYOUT_CONTROL_MIGRATION, GSPAY_PAYOUT_ACTIVATION_MIGRATION, PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS, PORTAL_MIGRATION_ADVISORY_LOCK } from '../lib/render-migrations.mjs';
++import {criticalDatabaseGuardRows} from './critical-database-guard-fixture.mjs';
+ 
+ const beforeFinalMigration = [
+   '0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql',
+@@ -52,7 +53,7 @@ test('D1 historical promotion migrations never seed a fixed offer and retire a l
+ class FakePgClient {
+   constructor({ failOnSeed = false, guardRows } = {}) {
+     this.events = []; this.applied = new Set(); this.failOnSeed = failOnSeed; this.released = false;
+-    this.guardRows=guardRows??CRITICAL_DATABASE_GUARDS.map(({tableName:table_name,triggerName:trigger_name,functionName:function_name,triggerType:trigger_type,updateColumns:update_columns})=>({table_schema:'public',table_name,trigger_name,function_name,function_schema:'public',trigger_type,update_columns:[...update_columns],enabled:'O'}));
++    this.guardRows=guardRows??criticalDatabaseGuardRows();
+   }
+   async query(sql, params = []) {
+     const clean = sql.trim(); this.events.push({ sql: clean, params });
+@@ -74,8 +75,9 @@ test('Render startup status migration is transactional, idempotent and rolls bac
+   const pool = { connect: async () => client };
+   const entries = JSON.parse(readFileSync(join('db', 'vendor-directory.json'), 'utf8'));
+   const first = await initializePortalDatabase(pool, 'CREATE TABLE test_schema(id INTEGER);', entries);
+-  assert.deepEqual(first, { migrated: true, connectedServicesOpened: true, seededBrandCount: 76, criticalDatabaseGuardsReady:true, criticalDatabaseGuardCount:9, criticalDatabaseGuardTables:5 });
++  assert.deepEqual(first, { migrated: true, connectedServicesOpened: true, seededBrandCount: 76, criticalDatabaseGuardsReady:true, criticalDatabaseGuardCount:9, criticalDatabaseGuardTables:5, criticalDatabaseGuardFunctionCount:5 });
+   const lock=client.events.find(event=>event.sql==='SELECT pg_advisory_xact_lock($1)');assert.deepEqual(lock?.params,[PORTAL_MIGRATION_ADVISORY_LOCK]);
++  const pinnedSchema=client.events.find(event=>event.sql==="SELECT pg_catalog.set_config('search_path',$1,true)");assert.deepEqual(pinnedSchema?.params,['public, pg_catalog, pg_temp']);
+   assert.ok(client.events.findIndex(event=>event.sql==='SELECT pg_advisory_xact_lock($1)')<client.events.findIndex(event=>event.sql==='CREATE TABLE test_schema(id INTEGER);'));
+   const snapshots = client.events.filter(event => event.sql.startsWith('INSERT INTO portal_status_snapshots'));
+   assert.equal(snapshots.length, 8);
+@@ -94,6 +96,8 @@ test('Render startup status migration is transactional, idempotent and rolls bac
+   assert.ok(client.applied.has(GENERIC_GAME_WALLET_RISK_MIGRATION));
+   assert.ok(client.applied.has(JDB_WAGER_COVERAGE_STAGING_MIGRATION));
+   assert.ok(client.applied.has(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION));
++  assert.ok(client.applied.has(GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION));
++  assert.equal(client.events.filter(event=>event.sql.startsWith('CREATE OR REPLACE FUNCTION \"public\".')).length,5);
+   const acceptanceIntegritySql=client.events.map(event=>event.sql).join('\n');
+   for(const trigger of ['game_provider_acceptance_events_immutable','game_provider_acceptance_events_no_truncate','production_acceptance_events_immutable','production_acceptance_events_no_truncate','game_provider_acceptance_current_monotonic','game_provider_acceptance_current_no_truncate','production_acceptance_current_monotonic','production_acceptance_current_no_truncate'])assert.match(acceptanceIntegritySql,new RegExp(`CREATE TRIGGER ${trigger}\\b`));
+   assert.match(acceptanceIntegritySql,/game provider acceptance projection is not current/);
+@@ -144,14 +148,17 @@ test('Render startup status migration is transactional, idempotent and rolls bac
+   const seed = client.events.find(event => event.sql.startsWith('INSERT INTO brand_directory_entries'));
+   assert.equal(JSON.parse(seed.params[0]).length, 76);
+   const guardRead=client.events.findIndex(event=>event.sql.includes('FROM pg_catalog.pg_trigger'));
++  const guardReadEvent=client.events[guardRead];assert.equal(guardReadEvent.params[0],'public');assert.deepEqual([...guardReadEvent.params[1]].sort(),[...new Set(CRITICAL_DATABASE_GUARDS.map(item=>item.tableName))].sort());
+   assert.ok(guardRead>client.events.findIndex(event=>event.sql.includes('INSERT INTO portal_schema_migrations')&&event.params[0]===ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION));
++  assert.ok(guardRead>client.events.findIndex(event=>event.sql.includes('INSERT INTO portal_schema_migrations')&&event.params[0]===GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION));
+   assert.ok(guardRead<client.events.findIndex(event=>event.sql.startsWith('INSERT INTO brand_directory_entries')));
+   assert.equal(client.released, true);
+ 
+   const second = await initializePortalDatabase(pool, 'CREATE TABLE test_schema(id INTEGER);', entries);
+-  assert.deepEqual(second, { migrated: false, connectedServicesOpened: false, seededBrandCount: 76, criticalDatabaseGuardsReady:true, criticalDatabaseGuardCount:9, criticalDatabaseGuardTables:5 });
++  assert.deepEqual(second, { migrated: false, connectedServicesOpened: false, seededBrandCount: 76, criticalDatabaseGuardsReady:true, criticalDatabaseGuardCount:9, criticalDatabaseGuardTables:5, criticalDatabaseGuardFunctionCount:5 });
+   assert.equal(client.events.filter(event => event.sql.startsWith('UPDATE game_visibility')).length, 2);
+   assert.equal(client.events.filter(event => event.sql.startsWith('INSERT INTO portal_status_snapshots')).length, 8);
++  assert.equal(client.events.filter(event=>event.sql.startsWith('CREATE OR REPLACE FUNCTION "public".')).length,5);
+   assert.equal(usdtProfileWrites(),1);
+ 
+   await t.test('seed errors roll back the staged snapshot and status transition', async () => {
+@@ -163,10 +170,14 @@ test('Render startup status migration is transactional, idempotent and rolls bac
+   });
+ });
+ 
+-test('critical database guard startup attestation rejects missing, disabled, rebound, mis-shaped, wrong-table and duplicate guards',async()=>{
+- assert.equal(Object.isFrozen(CRITICAL_DATABASE_GUARDS),true);assert.equal(CRITICAL_DATABASE_GUARDS.length,9);
+- const good=CRITICAL_DATABASE_GUARDS.map(({tableName:table_name,triggerName:trigger_name,functionName:function_name,triggerType:trigger_type,updateColumns:update_columns})=>({table_schema:'public',table_name,trigger_name,function_name,function_schema:'public',trigger_type,update_columns:[...update_columns],enabled:'O'}));
+- assert.deepEqual(await assertCriticalDatabaseGuards({query:async()=>({rows:good})}),{criticalDatabaseGuardsReady:true,criticalDatabaseGuardCount:9,criticalDatabaseGuardTables:5});
++test('critical database guard startup attestation rejects trigger and function-definition drift',async()=>{
++ assert.equal(Object.isFrozen(CRITICAL_DATABASE_GUARDS),true);assert.equal(CRITICAL_DATABASE_GUARDS.length,9);assert.equal(Object.isFrozen(CRITICAL_DATABASE_GUARD_FUNCTIONS),true);assert.equal(CRITICAL_DATABASE_GUARD_FUNCTIONS.length,5);assert.ok(CRITICAL_DATABASE_GUARD_FUNCTIONS.every(Object.isFrozen));
++ const good=criticalDatabaseGuardRows();
++ assert.deepEqual(await assertCriticalDatabaseGuards({query:async()=>({rows:good})}),{criticalDatabaseGuardsReady:true,criticalDatabaseGuardCount:9,criticalDatabaseGuardTables:5,criticalDatabaseGuardFunctionCount:5});
++ assert.deepEqual(await assertCriticalDatabaseGuards({query:async()=>({rows:criticalDatabaseGuardRows('restore_fixture')})},{schemaName:'restore_fixture'}),{criticalDatabaseGuardsReady:true,criticalDatabaseGuardCount:9,criticalDatabaseGuardTables:5,criticalDatabaseGuardFunctionCount:5});
++ await assert.rejects(()=>assertCriticalDatabaseGuards({query:async()=>({rows:criticalDatabaseGuardRows('restore_fixture')})}),/Critical database guard attestation failed/);
++ assert.equal(criticalDatabaseGuardFunctionSourceSha256(`  ${CRITICAL_DATABASE_GUARD_FUNCTIONS[0].source.replaceAll('\n','\r\n')}  `),CRITICAL_DATABASE_GUARD_FUNCTIONS[0].sourceSha256);
++ assert.notEqual(criticalDatabaseGuardFunctionSourceSha256(CRITICAL_DATABASE_GUARD_FUNCTIONS[0].source.replace(' RETURN','\r RETURN')),CRITICAL_DATABASE_GUARD_FUNCTIONS[0].sourceSha256);
+  const mutations=[
+   rows=>rows.slice(1),
+   rows=>rows.map((row,index)=>index?row:{...row,enabled:'D'}),
+@@ -175,6 +186,28 @@ test('critical database guard startup attestation rejects missing, disabled, reb
+   rows=>rows.map((row,index)=>index?row:{...row,trigger_type:31}),
+   rows=>rows.map((row,index)=>index?row:{...row,update_columns:['adapter_contract_sha256']}),
+   rows=>rows.map((row,index)=>index?row:{...row,table_name:'users'}),
++  rows=>rows.map((row,index)=>index?row:{...row,function_source:'BEGIN RETURN NEW; END'}),
++  rows=>rows.map((row,index)=>index?row:{...row,function_identity_arguments:'flag boolean'}),
++  rows=>rows.map((row,index)=>index?row:{...row,function_language:'sql'}),
++  rows=>rows.map((row,index)=>index?row:{...row,function_return_type:'boolean'}),
++  rows=>rows.map((row,index)=>index?row:{...row,function_kind:'p'}),
++  rows=>rows.map((row,index)=>index?row:{...row,function_volatility:'s'}),
++  rows=>rows.map((row,index)=>index?row:{...row,function_parallel_safety:'s'}),
++  rows=>rows.map((row,index)=>index?row:{...row,function_security_definer:true}),
++  rows=>rows.map((row,index)=>index?row:{...row,function_leakproof:true}),
++  rows=>rows.map((row,index)=>index?row:{...row,function_strict:true}),
++  rows=>rows.map((row,index)=>index?row:{...row,function_returns_set:true}),
++  rows=>rows.map((row,index)=>index?row:{...row,function_config:['search_path=pg_temp, pg_catalog']}),
++  rows=>rows.map((row,index)=>index?row:{...row,trigger_when_is_null:false}),
++  rows=>rows.map((row,index)=>index?row:{...row,trigger_argument_count:1,trigger_arguments_empty:false}),
++  rows=>rows.map((row,index)=>index?row:{...row,old_transition_table:'old_rows'}),
++  rows=>rows.map((row,index)=>index?row:{...row,new_transition_table:'new_rows'}),
++  rows=>rows.map((row,index)=>index?row:{...row,constraint_oid:123}),
++  rows=>rows.map((row,index)=>index?row:{...row,constraint_relation_oid:123}),
++  rows=>rows.map((row,index)=>index?row:{...row,trigger_deferrable:true}),
++  rows=>rows.map((row,index)=>index?row:{...row,trigger_initially_deferred:true}),
++  rows=>rows.map((row,index)=>index?row:{...row,parent_trigger_oid:123}),
++  rows=>[...rows,{...rows[0],trigger_name:'zzz_extra_guard'}],
+   rows=>[...rows,{...rows[0]}],
+  ];
+  for(const mutate of mutations){
+diff --git a/tests/scheduler-leader.test.mjs b/tests/scheduler-leader.test.mjs
+index 8a8aa241f47614892d7c31af085879e55e843060..aec43dee672f42d7b573b82af4e07f29ba38e100 100644
+--- a/tests/scheduler-leader.test.mjs
++++ b/tests/scheduler-leader.test.mjs
+@@ -115,6 +115,7 @@ test("Render starts schedulers only through the advisory-lock leader", () => {
+   assert.match(source, /startSchedulerLeadership\(\{/);
+   assert.match(source, /startWorkers:\s*\(\)\s*=>\s*\[/);
+   assert.match(source,/database guards \$\{result\.criticalDatabaseGuardCount\}\/9 ready/);
++  assert.match(source,/guard functions \$\{result\.criticalDatabaseGuardFunctionCount\}\/5 attested/);
+   assert.ok(source.indexOf('initializePortalDatabase')<source.indexOf('await import("../.output/server/index.mjs")'));
+   for (const name of ["startCatalogueSync", "startAccountingCloseScheduler", "startPaymentRecovery", "startWhatsAppDispatch"]) {
+     assert.equal((source.match(new RegExp(`${name}\\(\\)`, "g")) ?? []).length, 1, name);
+@@ -126,5 +127,6 @@ test("successful database guard startup logging cannot be classified as an alert
+   const successLog = source.match(/console\.log\(`([^`]*database guards[^`]*)`\);/)?.[1] ?? "";
+   assert.ok(successLog, "database guard startup success log is missing");
+   assert.match(successLog, /database guards \$\{result\.criticalDatabaseGuardCount\}\/9 ready/);
++  assert.match(successLog, /guard functions \$\{result\.criticalDatabaseGuardFunctionCount\}\/5 attested/);
+   assert.doesNotMatch(successLog, /\b(?:critical|error|warning|warn|fatal|emergency|alert|panic|fail|failed|failure)\b/i);
+ });

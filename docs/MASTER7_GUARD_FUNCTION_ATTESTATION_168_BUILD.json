@@ -1,0 +1,162 @@
+{
+  "release": "17.0.0-selfbuilt.168-guard-function-attestation",
+  "preparedAt": "2026-11-10T16:23:37.099310+00:00",
+  "sourceCommit": "0a1e172c70e373a6355a7dc01ff3ac9e0f65db73",
+  "sourceTree": "8292cd06e31fa647b0fa5d865853b8e4e5fd7192",
+  "baselineSourceCommit": "75b4c110eb2872f4f5b944a830a7084c463ff400",
+  "baselineRelease": "17.0.0-selfbuilt.167-guard-log-severity",
+  "archive": {
+    "sha256": "67357f46e086ef195a0a18d458634ac9727adbd8cb964748438e7929ec891c7f",
+    "bytes": 7232913,
+    "files": 715,
+    "entries": 776,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/V168_GUARD_FUNCTION_ATTESTATION.md",
+      "tests/critical-database-guard-fixture.mjs"
+    ],
+    "changed": [
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "lib/backend.ts",
+      "lib/production-acceptance.ts",
+      "lib/render-migrations.mjs",
+      "package.json",
+      "public/service-worker.js",
+      "scripts/postgres-readiness-gate.mjs",
+      "scripts/postgres-restore-dry-run.mjs",
+      "scripts/restore-postgres-schema.mjs",
+      "scripts/start-render.mjs",
+      "scripts/verify-isolated-postgres-acceptance-integrity.mjs",
+      "tests/official-entries-probe.test.mjs",
+      "tests/postgres-readiness-gate.test.mjs",
+      "tests/postgres-restore-safety.test.mjs",
+      "tests/render-migrations.test.mjs",
+      "tests/scheduler-leader.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1391,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "renderDatabase": 3,
+    "isolatedPostgres18": 1,
+    "targeted": 30,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "diffCheck": true,
+    "independentReview": true,
+    "command": "npm run verify:render",
+    "scope": "local synthetic, fixture-only and isolated validation; no live provider, player, wallet, game launch or payment calls"
+  },
+  "guardFunctionAttestation": {
+    "requiredGuards": 9,
+    "protectedTables": 5,
+    "uniqueFunctions": 5,
+    "functionSourceSha256Attested": true,
+    "sourceCanonicalization": "CRLF to LF; trim outer whitespace only",
+    "functionMetadataAttested": [
+      "schema",
+      "name",
+      "identity arguments",
+      "language",
+      "return type",
+      "kind",
+      "volatility",
+      "parallel safety",
+      "security mode",
+      "leakproof",
+      "strict",
+      "returns set",
+      "configuration"
+    ],
+    "requiredFunctionConfig": [
+      "search_path=pg_catalog, pg_temp"
+    ],
+    "triggerMetadataAttested": [
+      "table binding",
+      "trigger name",
+      "enabled state",
+      "event shape",
+      "update columns",
+      "function binding",
+      "WHEN clause",
+      "arguments",
+      "transition tables",
+      "constraint binding",
+      "parent trigger"
+    ],
+    "startupSchemaBinding": "table schema",
+    "externalReadinessSchema": "public",
+    "customRestoreSchemaSupported": true,
+    "runsAfterMigrationBeforeSeedAndCommit": true,
+    "underMigrationAdvisoryLock": true,
+    "sameStartupTransaction": true,
+    "postMigrationDriftFailsClosedAndRollsBack": true,
+    "automaticRepairAfterMigrationMarker": false,
+    "postgres18DriftCases": [
+      "function_body",
+      "security_definer",
+      "search_path",
+      "volatility",
+      "disabled",
+      "missing",
+      "wrong_function",
+      "wrong_update_columns",
+      "wrong_table",
+      "extra_trigger",
+      "trigger_when",
+      "trigger_arguments",
+      "pg_temp_shadow"
+    ],
+    "providerCallsDuringValidation": 0,
+    "moneyOrWalletWritesDuringValidation": 0
+  },
+  "databaseChanges": {
+    "newMigration": true,
+    "latestMigration": "0123-guard-function-schema-binding",
+    "backupSchemaVersion": "0122-acceptance-ledger-integrity",
+    "backupSchemaSha256": "534b830dc4330ee48c77543500116451880b13540d5e0691ee8a09910041328b",
+    "backupTableCount": 76,
+    "sqliteSupported": true,
+    "postgres18Supported": true
+  },
+  "operationalChanges": {
+    "newDepositsUiFlagChanged": false,
+    "providerOrderSubmissionEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPaymentsEnabled": false,
+    "liveGamesEnabled": false,
+    "supplierAcceptanceBypassed": false
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "renderYaml": false,
+    "environmentTemplates": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": [
+      "0123-guard-function-schema-binding"
+    ]
+  },
+  "candidateLive": false,
+  "securityScan": {
+    "privateKeyMarkers": 0,
+    "credentialBearingUrlsTotal": 13,
+    "credentialBearingUrlsAllUnderTests": true,
+    "newCredentialBearingUrlsVersusV167": 0,
+    "newSuspectCredentialAssignmentsVersusV167": 0,
+    "newPrivateKeyMarkersVersusV167": 0
+  }
+}
