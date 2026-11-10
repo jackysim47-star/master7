@@ -1,0 +1,109 @@
+{
+  "release": "17.0.0-selfbuilt.155-catalogue-integrity",
+  "preparedAt": "2026-11-10T08:30:51.152378+00:00",
+  "sourceCommit": "37ac8ce0f4e6cf607375ad4dd2021ef317a630c9",
+  "baselineSourceCommit": "a766bd8ae30fbbe86d8b29f1cd10d7c4cfc8eb6f",
+  "baselineRelease": "17.0.0-selfbuilt.154-provider-boundary-safety",
+  "archive": {
+    "sha256": "e737fb5e17a9a14ccd4cc76f46bc718f271547fe8c72ba51a63fac0f1a8f73e5",
+    "bytes": 7130256,
+    "files": 683,
+    "entries": 744,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/MASTER7_GAME_CATALOGUE_INTEGRITY_155.md"
+    ],
+    "changed": [
+      "app/portal.html",
+      "lib/backend.ts",
+      "lib/direct-game-catalogues.ts",
+      "lib/game-catalogue.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/assets/app.js",
+      "public/service-worker.js",
+      "tests/api.test.mjs",
+      "tests/direct-game-catalogues.test.mjs",
+      "tests/game-catalogue.test.mjs",
+      "tests/jdb-wallet-api.test.mjs",
+      "tests/jili-wallet-api.test.mjs",
+      "tests/official-entries-probe.test.mjs",
+      "tests/sponsor-branding-ui.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1330,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "renderDatabase": 3,
+    "gatewayTests": 151,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "supplierTests": "read-only catalogue tests only; no player, launch, balance, wallet, transfer, settlement, recovery or payment acceptance"
+  },
+  "catalogueIntegrity": {
+    "supplierResponseIdentityRequired": true,
+    "malformedRefreshPolicy": "blocked_keep_last_complete_snapshot",
+    "incompleteRefreshPolicy": "blocked_keep_last_complete_snapshot",
+    "jili": {
+      "profiles": [
+        "jili_myr_1to1",
+        "jili_my1_1to100"
+      ],
+      "profileIsolation": true,
+      "independentProfileCaches": true,
+      "unknownAvailabilityPolicy": "maintenance_true",
+      "featuredEntryUsesSelectedProfile": true,
+      "summaryReadinessUsesSelectedProfile": true
+    },
+    "918kissh5": {
+      "profileArtworkCacheBound": true,
+      "guessedArtworkPathsPublished": false
+    },
+    "rectangle": {
+      "strictIdentifierAndTitleValidation": true,
+      "duplicateRowsRejected": true,
+      "incompleteSetsRejected": true
+    },
+    "godeezone": {
+      "strictIdentifierAndTitleValidation": true,
+      "duplicateRowsRejected": true,
+      "incompleteSetsRejected": true
+    },
+    "jdb": {
+      "catalogueCompletenessAttested": true
+    },
+    "rsghub": {
+      "catalogueCompletenessAttested": true,
+      "responseTimestampVerified": true,
+      "unsafeNamesRejected": true,
+      "unapprovedRemoteArtworkPublished": false
+    },
+    "frontend": {
+      "brandsListed": 37,
+      "profilesListed": 42,
+      "profileSpecificSelection": true,
+      "playRequiresFullProductionAcceptance": true
+    },
+    "productionAcceptedProfiles": 0,
+    "launchReadyProfiles": 0,
+    "playableProfiles": 0
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false
+}

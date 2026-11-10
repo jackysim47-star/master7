@@ -1,0 +1,617 @@
+diff --git a/app/portal.html b/app/portal.html
+index fb76a00..d3bc5a1 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.154-provider-boundary-safety">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.154-provider-boundary-safety" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
+diff --git a/docs/MASTER7_GAME_CATALOGUE_INTEGRITY_155.md b/docs/MASTER7_GAME_CATALOGUE_INTEGRITY_155.md
+new file mode 100644
+index 0000000..5c4248f
+--- /dev/null
++++ b/docs/MASTER7_GAME_CATALOGUE_INTEGRITY_155.md
+@@ -0,0 +1,29 @@
++# MASTER7 v155 game catalogue integrity release
++
++Release: `17.0.0-selfbuilt.155-catalogue-integrity`
++
++This release completes the next read-only catalogue integrity pass for the
++configured game suppliers.
++
++- Every non-direct supplier response must identify the exact requested
++  supplier. Malformed, duplicate, oversized or explicitly incomplete refreshes
++  preserve the last trusted snapshot under maintenance instead of publishing a
++  partial list.
++- JILI 1:1 and 1:100 use independent account caches and profile readiness.
++  Unknown per-title availability remains maintenance, and the sponsored JILI
++  entry opens the exact selected profile instead of an invalid brand ID.
++- 918KISS artwork uses the verified image URL stored for the exact profile and
++  game, rather than guessing a path from the game code.
++- Rectangle and GodeeZone direct catalogues reject unsafe IDs, names,
++  categories, duplicates and incomplete sets.
++- JDB and RSGHub explicitly attest catalogue completeness. RSGHub verifies the
++  response timestamp, rejects unsafe names and withholds unapproved remote
++  artwork.
++
++The public lobby remains truthful: 37 brands and 42 profiles may be listed,
++but no profile is Play-enabled until its supplier contract, launch, wallet,
++settlement and production acceptance evidence all pass.
++
++No player, launch, balance, wallet, transfer, settlement, recovery or payment
++operation is enabled by this release. VPay, GSPAY, 1MPay, payment switches,
++credentials, service plans, DNS and database schema are unchanged.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 27a6c57..1418aa1 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -3,7 +3,7 @@ import {gameTransferRuntime,seedTransferProfile,transferProfileSupported} from '
+ import type {MegaSessionCloser,MegaAcceptanceCapabilities} from './mega-session-closure.ts';
+ import {authorizeDepositIncidentRead} from './deposit-incident-evidence.ts';
+ import {createHash,timingSafeEqual} from 'node:crypto';
+-import {getGameCatalogue,cachedGameArtwork,gameControlSourceIds,configuredGameCatalogueSourceIds,configuredGameCatalogueCacheKeys,defaultGameCatalogueCacheKey,gameCatalogueCacheFresh} from './game-catalogue.ts';
++import {getGameCatalogue,cachedGameArtwork,gameControlSourceIds,configuredGameCatalogueSourceIds,configuredGameCatalogueCacheKeys,defaultGameCatalogueCacheKey,gameCatalogueProfileCacheKey,gameCatalogueCacheFresh} from './game-catalogue.ts';
+ import { readLocalSession, handlePasswordAuth, AuthError } from './password-auth.ts';
+ import { requestOriginAllowed } from './request-origin.ts';
+ import {createVPayOrder,readVPayDepositProviderEvidence,handleVPay,vpayOrdersConfigured,vpayRemoteOrderReady,refreshVPayOrder,recoverVPayDeposits,vpayCapabilitySnapshot} from './vpay.ts';
+@@ -38,7 +38,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.154-provider-boundary-safety';
++export const RELEASE = '17.0.0-selfbuilt.155-catalogue-integrity';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+@@ -352,13 +352,13 @@ const apiSupplierIdSet=new Set(apiSupplierIds);
+ const apiSupplierNames=GAME_PROVIDER_NAMES;
+ const automaticAvailability={availabilityMode:'automatic' as const,readOnlyAvailability:true as const};
+ const listedGameProfiles=GAME_PROVIDER_PROFILES.filter(profile=>profile.listedInLobby);
+-function publicGameProfile(profile:RegisteredGameProviderProfile,provider:any,position:number){
++function publicGameProfile(profile:RegisteredGameProviderProfile,provider:any,position:number,profileCatalogue:any=null){
+  const implemented=profile.implemented===true,mega=profile.profileId==='megah5_myr',launchReady=mega&&provider?.launchReady===true,walletReady=mega&&provider?.walletReady===true;
+  const capabilityReason=mega?String(provider?.capabilityReason??'adapter_unavailable'):profile.adapterStatus;
+- return {profileId:profile.profileId,providerId:profile.providerId,displayName:profile.displayName,walletMode:profile.walletMode,currency:profile.currency,unitScale:profile.unitScale,position,implemented,enabled:launchReady,launchReady,walletReady,recoveryReady:walletReady,launchVerified:mega&&provider?.launchVerified===true,walletVerified:mega&&provider?.walletVerified===true,settlementVerified:mega&&provider?.settlementVerified===true,capabilityReason,status:launchReady?'available':'unavailable'};
++ return {profileId:profile.profileId,providerId:profile.providerId,displayName:profile.displayName,walletMode:profile.walletMode,currency:profile.currency,unitScale:profile.unitScale,position,implemented,enabled:launchReady,launchReady,walletReady,recoveryReady:walletReady,launchVerified:mega&&provider?.launchVerified===true,walletVerified:mega&&provider?.walletVerified===true,settlementVerified:mega&&provider?.settlementVerified===true,capabilityReason,status:launchReady?'available':'unavailable',...(profileCatalogue??{catalogueProfileBound:false})};
+ }
+-function publicGameProfileDirectory(providers:any[]){
+- const byProvider=new Map(providers.map(provider=>[String(provider.id),provider])),profiles=listedGameProfiles.map((profile,index)=>publicGameProfile(profile,byProvider.get(profile.providerId),index+1));
++function publicGameProfileDirectory(providers:any[],profileCatalogues=new Map<string,any>()){
++ const byProvider=new Map(providers.map(provider=>[String(provider.id),provider])),profiles=listedGameProfiles.map((profile,index)=>publicGameProfile(profile,byProvider.get(profile.providerId),index+1,profileCatalogues.get(profile.profileId)));
+  return {profiles,profileCount:profiles.length,profileBrandCount:new Set(profiles.map(profile=>profile.providerId)).size,implementedProfileCount:profiles.filter(profile=>profile.implemented).length,launchReadyProfileCount:profiles.filter(profile=>profile.launchReady).length,verifiedProfileCount:profiles.filter(profile=>profile.launchVerified&&profile.walletVerified&&profile.settlementVerified).length};
+ }
+ function attachGameProfiles(providers:any[],directory:ReturnType<typeof publicGameProfileDirectory>){return providers.map(provider=>{const profiles=directory.profiles.filter(profile=>profile.providerId===provider.id);return {...provider,profiles,profileCount:profiles.length};});}
+@@ -387,14 +387,14 @@ async function publicSupplierPlatforms(c:Context,capability?:MegaWalletCapabilit
+   return providerCapability(c,provider,games,mega);
+  });
+  if(capability)observeGameAvailability(c,platforms.some(provider=>provider.platformLaunchReady));
+- const ranked=rankPlatforms(platforms,rankingState.ranking),directory=publicGameProfileDirectory(ranked),cachedGameCount=platforms.reduce((total,provider)=>total+provider.cachedGameCount,0),cachedProviderCount=platforms.filter(provider=>provider.catalogueCacheStatus!=='missing').length,providersWithCachedGames=platforms.filter(provider=>provider.cachedGameCount>0).length,freshCacheProviderCount=platforms.filter(provider=>provider.catalogueCacheFresh).length,completeCacheProviderCount=platforms.filter(provider=>provider.complete).length,missingCacheProviderCount=platforms.filter(provider=>provider.catalogueCacheStatus==='missing').length;
++ const profileCatalogues=new Map<string,any>();for(const profile of listedGameProfiles){const cacheKey=gameCatalogueProfileCacheKey(profile.providerId,profile.profileId);if(!cacheKey)continue;const cache=cacheById.get(cacheKey) as any,cacheStatus=['available','empty','blocked','unavailable'].includes(String(cache?.status))?String(cache.status):'missing',fresh=!!cache&&gameCatalogueCacheFresh(c,Number(cache.checked_at)),connectionVerified=configuredSources.has(profile.providerId)&&cacheStatus==='available'&&fresh;let games:any[]=[];try{const decoded=JSON.parse(String(cache?.games_json??'[]'));if(Array.isArray(decoded))games=decoded.slice(0,2000).filter(game=>game&&game.provider===profile.providerId&&game.profileId===profile.profileId&&typeof game.gameCode==='string');}catch{}profileCatalogues.set(profile.profileId,{catalogueProfileBound:true,connectionVerified,catalogueSynced:connectionVerified&&Number(cache?.complete)===1&&games.length>0,complete:Number(cache?.complete)===1,stale:!fresh||!connectionVerified,checkedAt:Number(cache?.checked_at??0),catalogueCacheStatus:cacheStatus,catalogueCacheFresh:fresh,cachedGameCount:games.length});}
++ const ranked=rankPlatforms(platforms,rankingState.ranking),directory=publicGameProfileDirectory(ranked,profileCatalogues),cachedGameCount=platforms.reduce((total,provider)=>total+provider.cachedGameCount,0),cachedProviderCount=platforms.filter(provider=>provider.catalogueCacheStatus!=='missing').length,providersWithCachedGames=platforms.filter(provider=>provider.cachedGameCount>0).length,freshCacheProviderCount=platforms.filter(provider=>provider.catalogueCacheFresh).length,completeCacheProviderCount=platforms.filter(provider=>provider.complete).length,missingCacheProviderCount=platforms.filter(provider=>provider.catalogueCacheStatus==='missing').length;
+  return {providers:attachGameProfiles(ranked,directory),rankingState,...directory,cachedGameCount,catalogueCacheSummary:{source:'database_cache',cachedGameCount,cachedProviderCount,providersWithCachedGames,freshCacheProviderCount,completeCacheProviderCount,missingCacheProviderCount}};
+ }
+ async function gameArt(req:Request,c:Context){
+- const search=new URL(req.url).searchParams,provider=search.get('provider')??'',gameCode=search.get('gameCode')??'';
+- if(!/^[A-Za-z0-9_-]{1,100}$/.test(gameCode)||!['megah5','918kissh5','evo888h5'].includes(provider))throw new ApiError(404,'Game artwork not found');
+- const host=provider==='megah5'?'gth.megah5.com':'gth.kissh5.com';
+- const artwork=provider==='evo888h5'?await cachedGameArtwork(c,provider,gameCode):`https://${host}/thumbs/web/${encodeURIComponent(gameCode)}.png`;
++ const search=new URL(req.url).searchParams,provider=search.get('provider')??'',gameCode=search.get('gameCode')??'',profileId=search.get('profileId')??undefined;
++ if(!/^[A-Za-z0-9_-]{1,100}$/.test(gameCode)||!['megah5','918kissh5','evo888h5'].includes(provider)||profileId&&(provider!=='918kissh5'||!/^[A-Za-z0-9_-]{1,100}$/.test(profileId)))throw new ApiError(404,'Game artwork not found');
++ const artwork=provider==='918kissh5'||provider==='evo888h5'?await cachedGameArtwork(c,provider,gameCode,profileId):`https://gth.megah5.com/thumbs/web/${encodeURIComponent(gameCode)}.png`;
+  if(!artwork)throw new ApiError(404,'Game artwork not found');
+  const source=new URL(artwork),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
+  try{
+@@ -440,9 +440,9 @@ async function providerGameResponse(c:Context,user:User|null,payload:any){
+   // Multi-account brands require the exact account selected by the member.
+   if(selected&&payload.selectedProfileId&&payload.selectedProfileId!==profile.profileId)continue;
+   if(selected&&!payload.selectedProfileId&&getGameProviderProfiles(profile.providerId).filter(p=>p.listedInLobby).length!==1)continue;
+-  const accepted=acceptance.profiles.find(item=>item.profileId===profile.profileId),runtime=gameTransferRuntime(c,profile.profileId,user.id,accepted?.evidenceAccepted===true),provider=providers.find((item:any)=>item.id===profile.providerId);
+-  const available=selected?games.some((game:any)=>game.provider===profile.providerId&&game.maintenance!==true):Number(provider?.cachedGameCount??0)>0;
+-  if(!runtime?.launchAuthorized||!provider||!catalogueReady(c,provider)||!available){observeTransferAvailability(c,profile.profileId,false);continue;}
++  const accepted=acceptance.profiles.find(item=>item.profileId===profile.profileId),runtime=gameTransferRuntime(c,profile.profileId,user.id,accepted?.evidenceAccepted===true),provider=providers.find((item:any)=>item.id===profile.providerId),profileState=profiles.find((item:any)=>item.profileId===profile.profileId),catalogueState=summary&&profileState?.catalogueProfileBound===true?profileState:provider;
++  const available=selected?games.some((game:any)=>game.provider===profile.providerId&&game.maintenance!==true):Number(catalogueState?.cachedGameCount??0)>0;
++  if(!runtime?.launchAuthorized||!provider||!catalogueReady(c,catalogueState)||!available){observeTransferAvailability(c,profile.profileId,false);continue;}
+   const production=runtime.mode==='production',qaOnly=runtime.mode==='qa',capabilities=accepted?.capabilities??{},reason=qaOnly?'restricted_qa':'profile_acceptance_ready';
+   if(production)observeTransferAvailability(c,profile.profileId,true);
+   profiles=profiles.map((p:any)=>p.profileId===profile.profileId?{...p,enabled:true,qaOnly,launchReady:true,walletReady:true,recoveryReady:true,launchVerified:production&&capabilities.launch===true,walletVerified:production&&capabilities.wallet===true,settlementVerified:production&&capabilities.settlement===true,status:qaOnly?'qa':'available',capabilityReason:reason}:p);
+diff --git a/lib/direct-game-catalogues.ts b/lib/direct-game-catalogues.ts
+index 5282c6f..7b76f34 100644
+--- a/lib/direct-game-catalogues.ts
++++ b/lib/direct-game-catalogues.ts
+@@ -4,6 +4,12 @@ import {createHash,createHmac} from 'node:crypto';
+ // payout operation is available through this module.
+ export type DirectCatalogueConfig={rectangleApiBase?:string;rectangleOperatorCode?:string;rectangleApiKey?:string;godeeApiBase?:string;godeeOperatorId?:string;godeeApiKey?:string;gameCatalogueFetch?:typeof fetch};
+ export class CatalogueReadError extends Error{upstreamStatus:number|null;constructor(upstreamStatus:number|null){super('CATALOGUE_READ_FAILED');this.upstreamStatus=upstreamStatus;}}
++const maxGames=2000;
++function identifier(value:unknown,max:number){
++ const text=typeof value==='string'||typeof value==='number'?String(value).trim():'';
++ return text.length>0&&text.length<=max&&!/[\u0000-\u001f\u007f-\u009f]/u.test(text)?text:null;
++}
++function title(value:unknown,max=512){return typeof value==='string'&&value.trim().length>0&&value.trim().length<=max&&!/[\u0000-\u001f\u007f-\u009f]/u.test(value)?value.trim():null;}
+ export function directCatalogueConfigured(c:DirectCatalogueConfig,id:string){
+  if(id==='rectangle')return c.rectangleApiBase==='https://apig.rg-lgna.com'&&/^[A-Za-z0-9_-]{1,64}$/.test(c.rectangleOperatorCode??'')&&(c.rectangleApiKey??'').length>=16;
+  if(id==='godeezone')return c.godeeApiBase==='https://api.godeezone1.com'&&/^[A-Za-z0-9_-]{1,64}$/.test(c.godeeOperatorId??'')&&(c.godeeApiKey??'').length>=16;
+@@ -25,30 +31,38 @@ async function read(c:DirectCatalogueConfig,url:string,headers:Record<string,str
+ async function rectangle(c:DirectCatalogueConfig,time:number,signal:AbortSignal){
+  const u=new URL('/api/v1/available-games',c.rectangleApiBase);u.searchParams.set('oc',c.rectangleOperatorCode!);u.searchParams.set('l','en');
+  const data=await read(c,u.href,rectangleCatalogueHeaders(u.hostname,c.rectangleApiKey!,time),signal);
+- if(!Array.isArray(data.data))throw new CatalogueReadError(200);
+- return {games:data.data.map((g:any)=>({gameCode:String(g?.code??''),name:g?.name,category:g?.type,maintenance:g?.status!=='ACTIVE'})),complete:true};
++ if(!Array.isArray(data.data)||data.data.length>maxGames)throw new CatalogueReadError(200);
++ const seen=new Set<string>(),games=data.data.map((g:any)=>{
++  if(!g||typeof g!=='object'||Array.isArray(g))throw new CatalogueReadError(200);
++  const gameCode=identifier(g.code,100),name=title(g.name),category=g.type===undefined?'':title(g.type,40);
++  if(!gameCode||!name||category===null||seen.has(gameCode))throw new CatalogueReadError(200);seen.add(gameCode);
++  return {gameCode,name,category,maintenance:g.status!=='ACTIVE'};
++ });
++ return {games,complete:true};
+ }
+ async function godee(c:DirectCatalogueConfig,signal:AbortSignal){
+  const base=c.godeeApiBase!,auth=await read(c,base+'/token',{Accept:'application/json','X-Operator':c.godeeOperatorId!,'X-Key':c.godeeApiKey!},signal);
+  const token=auth.status==='success'?auth.data?.token:null;if(typeof token!=='string'||token.length<8||token.length>8192)throw new CatalogueReadError(200);
+- const headers={Accept:'application/json','X-Token':token},providers:any[]=[];
++ const headers={Accept:'application/json','X-Token':token},providers:any[]=[],providerIds=new Set<string>();
+  for(let page=1;page<=10;page++){
+   const data=await read(c,base+`/game-providers?rows=100&page=${page}`,headers,signal);
+   if(data.status!=='success'||!Array.isArray(data.data?.gameProviders))throw new CatalogueReadError(200);
+-  providers.push(...data.data.gameProviders);if(data.data.meta?.hasNext!==true)break;if(page===10)throw new CatalogueReadError(200);
++  for(const provider of data.data.gameProviders){const providerId=identifier(provider?.id,12);if(!providerId||!/^[0-9]+$/.test(providerId)||providerIds.has(providerId))throw new CatalogueReadError(200);providerIds.add(providerId);providers.push(provider);}
++  if(data.data.meta?.hasNext!==true)break;if(page===10)throw new CatalogueReadError(200);
+  }
+- const games:any[]=[];let complete=true;
++ const games:any[]=[],gameIds=new Set<string>();let complete=true;
+  // The documented provider parameter is mandatory. Never substitute a global
+  // games request or copy another merchant's customer or wallet identifiers.
+  for(const p of providers.slice(0,40)){
+-  const providerId=String(p.id??'');if(!/^[0-9]{1,12}$/.test(providerId))throw new CatalogueReadError(200);
++  const providerId=identifier(p.id,12);if(!providerId||!/^[0-9]+$/.test(providerId))throw new CatalogueReadError(200);
+   for(let page=1;page<=20;page++){
+    const data=await read(c,base+`/games?provider=${providerId}&rows=100&page=${page}&locale=en`,headers,signal);
+    if(data.status!=='success'||!Array.isArray(data.data?.games))throw new CatalogueReadError(200);
+    for(const g of data.data.games){
+     if(String(g.providerId)!==providerId)throw new CatalogueReadError(200);
+-    const originalGameCode=String(g.code??g.gameId??g.id??'');
+-    games.push({gameCode:providerId+':'+originalGameCode,originalProviderId:providerId,originalGameCode,name:g.name,providerName:typeof p.name==='string'?p.name:'Games',category:g.category,maintenance:g.actived!==true||Number(g.disabled)!==0});
++   const originalGameCode=identifier(g.code??g.gameId??g.id,100),gameCode=originalGameCode?providerId+':'+originalGameCode:'';
++   if(!originalGameCode||gameIds.has(gameCode))throw new CatalogueReadError(200);gameIds.add(gameCode);
++   games.push({gameCode,originalProviderId:providerId,originalGameCode,name:title(g.name)??originalGameCode,providerName:title(p.name)??'Games',category:title(g.category,40)??'',maintenance:g.actived!==true||Number(g.disabled)!==0});
+    }
+    if(games.length>2000){complete=false;break;}
+    if(data.data.meta?.hasNext!==true)break;if(page===20)complete=false;
+diff --git a/lib/game-catalogue.ts b/lib/game-catalogue.ts
+index 67070ad..75bd440 100644
+--- a/lib/game-catalogue.ts
++++ b/lib/game-catalogue.ts
+@@ -64,6 +64,7 @@ function selectProfileSource(providerId:string|undefined,profileId:string|undefi
+  return kissProfileSources[profileId]??null;
+ }
+ export function defaultGameCatalogueCacheKey(providerId:string){return gameSources.find(source=>source.id===providerId)?.cacheKey??providerId;}
++export function gameCatalogueProfileCacheKey(providerId:string,profileId:string){const source=selectProfileSource(providerId,profileId);return source?sourceCacheKey(source):null;}
+ function configured(value?:string){try{const u=new URL(value??'');return u.origin===gateway&&u.pathname==='/'&&!u.search&&!u.hash&&!u.username&&!u.password;}catch{return false;}}
+ export function configuredGameCatalogueSourceIds(c:DirectCatalogueConfig&{gameGatewayUrl?:string}):readonly string[]{
+  const sources=[...(configured(c.gameGatewayUrl)?gameSources:[]),...directSources.filter(source=>directCatalogueConfigured(c,source.id))];
+@@ -87,12 +88,12 @@ function normalize(source:Source,rows:any[]){
+   const profileQuery=source.profileId?`&profileId=${encodeURIComponent(source.profileId)}`:'';
+   const imageUrl=artwork?`/api/game-art?provider=${source.id}${profileQuery}&gameCode=${encodeURIComponent(gameCode)}`:source.id==='jili'?'/assets/providers/jili.webp':source.id==='jdb'?'/assets/providers/jdb.webp':source.id==='pragmaticplay'?'/assets/providers/pragmaticplay.webp':source.id==='metagaming'?'/assets/providers/metagaming.webp':source.id==='epicwin'?'/assets/providers/epicwin.webp':source.id==='evo888h5'?'/assets/providers/evo888h5.webp':source.id==='rectangle'?'/assets/providers/rectangle.webp':source.id==='atg'?'/assets/providers/atg.webp':null;
+   // These contracts currently have no accepted per-title availability signal.
+-  // Never turn that absence into an active customer game. 918KISS may carry
+-  // the gateway's explicit fail-closed boolean; META, EPICWIN and EVO stay
+-  // closed until separately reviewed supplier contracts add availability.
+-  const unknownAvailability=source.id==='evo888h5'||!!source.profileId&&['918kissh5','metagaming','epicwin'].includes(source.id);
+-  const maintenance=mega?g.Maintenance===true||g.Maintenance===1||g.Maintenance==='true'||g.Maintenance==='1':unknownAvailability?source.id==='918kissh5'&&typeof g.maintenance==='boolean'?g.maintenance:true:g.maintenance===true;
+-  return {provider:source.id,providerName:source.id==='godeezone'?text(g.providerName)||source.name:source.name,gameCode,...(source.id==='godeezone'?{originalProviderId:text(g.originalProviderId,40),originalGameCode:text(g.originalGameCode,100)}:{}),...(source.profileId?{profileId:source.profileId}:{}),...(source.expectedAccount?{catalogueAccount:source.expectedAccount}:{}),...(source.expectedCurrency?{providerCurrency:source.expectedCurrency}:{}),name:text(mega?g.GameName??g.OtherName:evo?g.title??g.name:g.name)||gameCode,nameZh:text(g.nameZh??(mega?g.OtherName:'')),category:evo?'SLOT':text(mega?g.GameType:source.id==='metagaming'?g.gameType:g.category,40),imageUrl,maintenance,playable:false,...(source.id==='evo888h5'&&artwork?{artworkSource:artwork}:{})};
++  // Never turn that absence into an active customer game. 918KISS and JILI
++  // may carry the gateway's explicit fail-closed boolean; META, EPICWIN and
++  // EVO stay closed until separately reviewed contracts add availability.
++  const unknownAvailability=source.id==='evo888h5'||source.id==='jili'||!!source.profileId&&['918kissh5','metagaming','epicwin'].includes(source.id);
++  const maintenance=mega?g.Maintenance===true||g.Maintenance===1||g.Maintenance==='true'||g.Maintenance==='1':unknownAvailability?['918kissh5','jili'].includes(source.id)&&typeof g.maintenance==='boolean'?g.maintenance:true:g.maintenance===true;
++  return {provider:source.id,providerName:source.id==='godeezone'?text(g.providerName)||source.name:source.name,gameCode,...(source.id==='godeezone'?{originalProviderId:text(g.originalProviderId,40),originalGameCode:text(g.originalGameCode,100)}:{}),...(source.profileId?{profileId:source.profileId}:{}),...(source.expectedAccount?{catalogueAccount:source.expectedAccount}:{}),...(source.expectedCurrency?{providerCurrency:source.expectedCurrency}:{}),name:text(mega?g.GameName??g.OtherName:evo?g.title??g.name:g.name)||gameCode,nameZh:text(g.nameZh??(mega?g.OtherName:'')),category:evo?'SLOT':text(mega?g.GameType:source.id==='metagaming'?g.gameType:g.category,40),imageUrl,maintenance,playable:false,...(['evo888h5','918kissh5'].includes(source.id)&&artwork?{artworkSource:artwork}:{})};
+  }).filter((g):g is Game=>g!==null);
+ }
+ async function boundedJson(response:Response){
+@@ -116,18 +117,20 @@ async function synchronizeSource(c:SyncContext,source:Source,force:boolean,time:
+   const response=direct?Response.json({games:direct.games,complete:direct.complete,upstreamStatus:200}):await fetcher(gateway+source.path,{method:'GET',headers:{Accept:'application/json'},redirect:'error',signal:AbortSignal.timeout(10000)});
+   const data=await boundedJson(response);const code=Number(data.upstreamStatus);if(Number.isInteger(code)&&code>=100&&code<600)upstream=code;
+   if(!response.ok){status='blocked';return;}
++  // The route is fixed, but the returned identity is still part of the trust
++  // boundary. Never relabel another supplier's response as the selected brand.
++  if(!source.direct&&data.provider!==source.id){status='blocked';return;}
+   const rows=source.shape==='mega'?data.result?.Game:source.shape==='evo'?data.result?.data:data.games;
+   if(!Array.isArray(rows)){status='unavailable';return;}
+   if(source.shape==='mega'&&Number(data.result?.Status)!==200||source.shape==='evo'&&Number(data.result?.code)!==0){status='blocked';return;}
+   if(source.expectedAccount&&(data.provider!==source.id||data.account!==source.expectedAccount||data.currency!==source.expectedCurrency)){status='blocked';return;}
+   if(source.expectedRatio&&data.ratio!==source.expectedRatio){status='blocked';return;}
+   const games=normalize(source,rows);
+-  // Profile-bound catalogues are account boundaries; EVO also has a strict
+-  // all-or-nothing public snapshot. Reject any refresh where normalization
+-  // discarded malformed, duplicate or excess rows so a partial response
+-  // cannot replace the last complete snapshot.
+-  if((['918kissh5','metagaming','epicwin'].includes(source.id)&&source.profileId||source.id==='evo888h5')&&games.length!==rows.length){status='blocked';return;}
+   complete=data.complete!==false&&rows.length<=maxGames&&!(source.id==='clotplay'&&Number(data.pagination?.last_page)>1);
++  // Every supplier boundary is all-or-nothing. A malformed, duplicate,
++  // oversized or explicitly incomplete refresh must retain the last complete
++  // snapshot instead of publishing a partial catalogue under a trusted brand.
++  if(games.length!==rows.length||!complete){status='blocked';return;}
+   // An empty success replaces the previous catalogue intentionally; transport
+   // and protocol failures retain the last good snapshot for a stable lobby.
+   await c.db.prepare(`UPDATE game_catalogue_cache SET games_json=?,status=?,checked_at=?,last_success_at=?,upstream_status=?,complete=?,lease_until=0 WHERE provider_id=? AND lease_until=?`)
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index 5ea3eb2..8821bef 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.154-provider-boundary-safety' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.155-catalogue-integrity' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/package.json b/package.json
+index febb1bb..3417999 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.154-provider-boundary-safety node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.154-provider-boundary-safety node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.155-catalogue-integrity node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.155-catalogue-integrity node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.154-provider-boundary-safety node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.155-catalogue-integrity node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/assets/app.js b/public/assets/app.js
+index 555fd78..c619583 100644
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -95,6 +95,11 @@ const sponsorBannerAssets = Object.freeze({
+  megah5:"/assets/sponsor-megah5-master7.webp",
+  "918kissh5":"/assets/sponsor-918kiss-master7.webp"
+ });
++const featuredProviderDefaultProfiles = Object.freeze({
++ jili:"jili_myr_1to1",
++ megah5:"megah5_myr",
++ "918kissh5":"918kiss_normal_myr"
++});
+ const bonusBrandTranslations = {
+  zh:{title:"三个赞助厂家位",intro:"三个赞助位分别独立展示。福利金额、图片和条件由管理员在后台自行设置。",brandCount:"3 个赞助位",locked:"厂家入口",cta:"查看平台",claim:"查看福利",disclosure:"这里不预设金额。只有管理员在后台发布的福利会显示。",pending:"正在读取厂家平台状态",dialogNotice:"查看 {name} 目前由管理员发布的福利；没有发布时不会显示固定金额。",noOffers:"该厂商目前没有已发布的福利。",request:"提交福利申请",claimSent:"已申请 · 等待后台审核",claimLogin:"登录会员账号后申请",termsTitle:"福利规则",close:"关闭"},
+  en:{title:"Sponsored Game Providers",intro:"Explore each featured provider from its own lobby entry. Offer terms are published and managed by MASTER7.",brandCount:"3 FEATURED PROVIDERS",locked:"Featured provider",cta:"View games",claim:"Terms & offers",disclosure:"Provider artwork and offer terms are managed independently. Availability follows the live connection status.",pending:"Loading provider platform status",dialogNotice:"View current MASTER7-published offer terms for {name}. No fixed promotion is generated by the platform.",noOffers:"There are no published terms or offers for this provider right now.",request:"Submit offer request",claimSent:"Requested · awaiting review",claimLogin:"Sign in as a member to request",termsTitle:"Terms & conditions",close:"Close"},
+@@ -102,6 +107,10 @@ const bonusBrandTranslations = {
+ };
+ function bonusText(key){return bonusBrandTranslations[state.lang]?.[key] || bonusBrandTranslations.en[key] || key;}
+ function bonusBrandLookup(code){return bonusBrandOptions.find(b=>b.code===code) || null;}
++function featuredProviderProfile(code){
++ const candidates=(Array.isArray(state.gameProfiles)?state.gameProfiles:[]).filter(entry=>gameProfileProviderId(entry)===code),selectedId=state.providerAccountSelections?.[code],selectedProfile=candidates.find(entry=>entry.id===selectedId)||candidates[0];
++ return selectedProfile||featuredProviderDefaultProfiles[code]?{id:selectedProfile?.id||featuredProviderDefaultProfiles[code],name:selectedProfile?.name||bonusBrandLookup(code)?.label||code}:null;
++}
+ function renderBonusBrandPreview(){
+  document.querySelectorAll("[data-bonus-i18n]").forEach(el=>{el.textContent=bonusText(el.dataset.bonusI18n);});
+  for(const card of document.querySelectorAll(".bonus-brand-card")){
+@@ -111,8 +120,8 @@ function renderBonusBrandPreview(){
+   if(provider){button.setAttribute("aria-label",provider.label+" — "+bonusText("cta"));card.querySelector("[data-provider-bonus]")?.setAttribute("aria-label",provider.label+" — "+bonusText("claim"));}
+  }
+ }
+-function openCatalogProvider(profileId,profileName){
+- const entry=gameProfileEntry(profileId);if(!entry)return;state.providerAccountSelections={...(state.providerAccountSelections||{}),[gameProfileProviderId(entry)]:profileId};window.Master7Engagement?.recordRecentProvider(profileId,profileName);state.selectedCatalogProvider=profileId;state.selectedCatalogProviderName=profileName;state.gameLimit=12;state.games=[];state.gameWallet=null;selected('lobby');renderCatalog();loadGameCatalogue(profileId);loadGameWallet(profileId);$("providers").scrollIntoView({behavior:'smooth',block:'start'});
++function openCatalogProvider(profileId,profileName,providerIdHint){
++ const entry=gameProfileEntry(profileId),providerId=entry?gameProfileProviderId(entry):providerIdHint;if(!entry&&featuredProviderDefaultProfiles[providerId]!==profileId)return;state.providerAccountSelections={...(state.providerAccountSelections||{}),[providerId]:profileId};window.Master7Engagement?.recordRecentProvider(profileId,profileName);state.selectedCatalogProvider=profileId;state.selectedCatalogProviderName=profileName;state.gameLimit=12;state.games=[];state.gameWallet=null;selected('lobby');renderCatalog();loadGameCatalogue(profileId);loadGameWallet(profileId);$("providers").scrollIntoView({behavior:'smooth',block:'start'});
+ }
+ function openProviderBonus(code){
+  const provider=bonusBrandLookup(code);if(!provider)return;
+@@ -129,7 +138,7 @@ function bindBonusBrandPreview(){
+  document.querySelectorAll("[data-bonus-brand]").forEach(button=>button.addEventListener("click",()=>{
+   const provider=bonusBrandLookup(button.dataset.bonusBrand);
+   if(!provider)return;
+-  const providerId=provider.code==="jili"?"jili":provider.code==="megah5"?"megah5":"918kissh5";openCatalogProvider(providerId,provider.label);
++  const profile=featuredProviderProfile(provider.code);if(profile)openCatalogProvider(profile.id,profile.name,provider.code);
+  }));
+  document.querySelectorAll("[data-provider-bonus]").forEach(button=>button.addEventListener("click",()=>openProviderBonus(button.dataset.providerBonus)));
+  document.getElementById("closeBonusDialog").addEventListener("click",()=>document.getElementById("bonusDialog").close());
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 3cef9b3..6b14a34 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.154-provider-boundary-safety';
++const CACHE='master7-shell-17.0.0-selfbuilt.155-catalogue-integrity';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/tests/api.test.mjs b/tests/api.test.mjs
+index 517207d..f67178c 100644
+--- a/tests/api.test.mjs
++++ b/tests/api.test.mjs
+@@ -33,14 +33,25 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+  await t.test('public provider catalog expands only the selected supplier and remains fail closed for launch',async()=>{
+   sqlite.prepare("INSERT OR IGNORE INTO users(id,username,role,approved,csrf,created_at) VALUES('owner','owner@example.test','owner',1,'test-csrf',0)").run();
+   const seed=sqlite.prepare("INSERT INTO game_visibility(provider_id,game_code,visible,status,image_data,category_override,updated_by,updated_at) VALUES(?,?,1,'active','','','owner',0)");for(const [provider,code] of [['jili','1'],['megah5','55021'],['918kissh5','265022']])seed.run(provider,code);
+-  const calls=[];const gameGatewayFetch=async(url,options)=>{calls.push({url:String(url),method:options.method,redirect:options.redirect});const parsed=new URL(url),path=parsed.pathname;if(path.endsWith('/megah5/games'))return new Response(JSON.stringify({provider:'megah5',result:{Status:200,Game:[{GameCode:'55021',GameName:'Ocean Quest',GameType:'2',ImageUrl:'https://gth.megah5.com/thumbs/web/55021.png',apiKey:'must-not-leak'}]}}),{headers:{'content-type':'application/json'}});if(path.endsWith('/jili/games'))return new Response(JSON.stringify({games:[{gameCode:'1',name:'Royal Fishing',nameZh:'钱龙捕鱼',category:'5',jackpot:true,secret:'must-not-leak'}]}),{headers:{'content-type':'application/json'}});if(path.endsWith('/evo888h5/games'))return Response.json({result:{code:0,data:[{gameid:'2340',title:'Lord Guan Yu',thumbnail:'https://backendapi.evo888h5.com/slots/cover-img/cover_fixture.png'}]}});if(path.endsWith('/918kissh5/games'))return new Response(JSON.stringify({provider:'918kissh5',account:parsed.searchParams.get('account'),currency:'MYR',games:[{gameCode:'265022',name:'Supreme Zeus',category:'1',imageUrl:'https://gth.kissh5.com/thumbs/web/265022.png'}]}),{headers:{'content-type':'application/json'}});if(path.endsWith('/epicwin/games'))return Response.json({provider:'epicwin',account:parsed.searchParams.get('account'),currency:'MYR',games:[{gameCode:'EXTRA-1',name:'Excluded extra source',category:'1',maintenance:true}]});return Response.json({games:[]});};
++  const calls=[];const gameGatewayFetch=async(url,options)=>{calls.push({url:String(url),method:options.method,redirect:options.redirect});const parsed=new URL(url),path=parsed.pathname,provider=path.split('/')[2];if(path.endsWith('/megah5/games'))return new Response(JSON.stringify({provider:'megah5',result:{Status:200,Game:[{GameCode:'55021',GameName:'Ocean Quest',GameType:'2',ImageUrl:'https://gth.megah5.com/thumbs/web/55021.png',apiKey:'must-not-leak'}]}}),{headers:{'content-type':'application/json'}});if(path.endsWith('/jili/games'))return new Response(JSON.stringify({provider:'jili',games:[{gameCode:'1',name:'Royal Fishing',nameZh:'钱龙捕鱼',category:'5',jackpot:true,secret:'must-not-leak'}]}),{headers:{'content-type':'application/json'}});if(path.endsWith('/evo888h5/games'))return Response.json({provider:'evo888h5',result:{code:0,data:[{gameid:'2340',title:'Lord Guan Yu',thumbnail:'https://backendapi.evo888h5.com/slots/cover-img/cover_fixture.png'}]}});if(path.endsWith('/918kissh5/games'))return new Response(JSON.stringify({provider:'918kissh5',account:parsed.searchParams.get('account'),currency:'MYR',games:[{gameCode:'265022',name:'Supreme Zeus',category:'1',imageUrl:'https://gth.kissh5.com/thumbs/web/265022.png'}]}),{headers:{'content-type':'application/json'}});if(path.endsWith('/epicwin/games'))return Response.json({provider:'epicwin',account:parsed.searchParams.get('account'),currency:'MYR',games:[{gameCode:'EXTRA-1',name:'Excluded extra source',category:'1',maintenance:true}]});return Response.json({provider,games:[]});};
+   const options={gameGatewayUrl:'https://master7-integration-gateway.onrender.com',gameGatewayFetch};
+   const summary=await call(null,'/api/games','GET',undefined,{},options);
+   assert.equal(summary.status,200);assert.equal(summary.data.providersOnly,true);assert.equal(summary.data.platformsOnly,false);assert.equal(summary.data.gamesOmittedUntilProviderSelected,true);assert.equal(summary.data.gameCountScope,'current_response');assert.equal(summary.data.selectedProvider,null);assert.equal(summary.data.selectedPlatform,null);assert.deepEqual(summary.data.games,[]);assert.equal(summary.data.totalGameCount,0);assert.equal(summary.data.cachedGameCount,0);assert.equal(summary.data.catalogueCacheSummary.source,'database_cache');assert.equal(summary.data.platformCount,37);assert.equal(summary.data.providers.length,37);assert.deepEqual(summary.data.providers.slice(-3).map(provider=>provider.id),['epicwin','venus','clotplay']);assert.ok(summary.data.providers.every(provider=>provider.id!=='godeezone'&&provider.platformLaunchReady===false&&!('count' in provider)&&!('upstreamStatus' in provider)));
+   const jili=await call(null,'/api/games?provider=jili','GET',undefined,{},options),mega=await call(null,'/api/games?provider=megah5','GET',undefined,{},options),kiss=await call(null,'/api/games?provider=918kissh5','GET',undefined,{},options);
+   for(const selected of [jili,mega,kiss]){assert.equal(selected.status,200);assert.equal(selected.data.platformsOnly,false);assert.equal(selected.data.games.length,1);assert.ok(selected.data.games.every(game=>game.provider===selected.data.selectedProvider&&game.playable===false));assert.equal(selected.data.playable,false);assert.equal(selected.data.launchProvider,null);assert.equal(selected.data.selectedPlatform.id,selected.data.selectedProvider);assert.equal(selected.data.selectedPlatform.platformLaunchReady,false);}assert.equal(calls.length,3);const admin=await call('owner','/api/admin/games','GET',undefined,{},options);assert.equal(admin.status,200);assert.equal(admin.data.games.length,5);assert.equal(admin.data.games.find(game=>game.provider==='jili').nameZh,'钱龙捕鱼');assert.equal(admin.data.games.find(game=>game.provider==='jili').imageUrl,'/assets/providers/jili.webp');assert.equal(admin.data.games.find(game=>game.provider==='megah5').imageUrl,'/api/game-art?provider=megah5&gameCode=55021');assert.equal(admin.data.games.find(game=>game.provider==='918kissh5').imageUrl,'/api/game-art?provider=918kissh5&gameCode=265022');assert.equal(admin.data.games.find(game=>game.provider==='epicwin').playable,false);assert.ok(!JSON.stringify({summary:summary.data,jili:jili.data,mega:mega.data,kiss:kiss.data,admin:admin.data}).includes('must-not-leak'));const venus=await call(null,'/api/games?provider=venus','GET',undefined,{},options);assert.equal(venus.status,200);assert.equal(venus.data.selectedPlatform.id,'venus');assert.equal(venus.data.selectedPlatform.platformLaunchReady,false);assert.equal(calls.length,gameSources.length);assert.ok(calls.every(x=>x.method==='GET'&&x.redirect==='error'));for(const id of ['epicwin','venus','clotplay'])sqlite.prepare("INSERT INTO providers(id,name,category,symbol,visible) VALUES(?,?,'supplier','M7',1) ON CONFLICT(id) DO NOTHING").run(id,id);const publicProviders=await call(null,'/api/providers'),ownerProviders=await call('owner','/api/providers');for(const result of [publicProviders,ownerProviders])assert.deepEqual(result.data.items.filter(item=>['epicwin','venus','clotplay'].includes(item.id)).map(item=>item.id).sort(),['clotplay','epicwin','venus']);sqlite.prepare("DELETE FROM providers WHERE id IN ('epicwin','venus','clotplay')").run();sqlite.prepare('DELETE FROM game_visibility').run();
+  });
+- await t.test('same-origin game artwork proxy keeps provider images visible without exposing arbitrary fetches',async()=>{let observed;const art=await handle(new Request('https://portal.example.test/api/game-art?provider=megah5&gameCode=55021'),{db,identity:null,ownerEmail:'owner@example.test',gameArtFetch:async(url,init)=>{observed={url:String(url),headers:new Headers(init.headers),redirect:init.redirect};return new Response(new Uint8Array(32).fill(7),{headers:{'content-type':'image/png','content-length':'32'}});}});assert.equal(art.status,200);assert.equal(art.headers.get('content-type'),'image/png');assert.equal(observed.url,'https://gth.megah5.com/thumbs/web/55021.png');assert.equal(observed.headers.get('referer'),'https://portal.example.test/');assert.equal(observed.redirect,'error');assert.equal((await art.arrayBuffer()).byteLength,32);assert.equal((await handle(new Request('https://portal.example.test/api/game-art?provider=unknown&gameCode=55021'),{db,identity:null,ownerEmail:'owner@example.test'})).status,404);});
++ await t.test('same-origin game artwork proxy keeps provider images visible without exposing arbitrary fetches',async()=>{
++  let observed;const image=()=>new Response(new Uint8Array(32).fill(7),{headers:{'content-type':'image/png','content-length':'32'}}),context={db,identity:null,ownerEmail:'owner@example.test',gameArtFetch:async(url,init)=>{observed={url:String(url),headers:new Headers(init.headers),redirect:init.redirect};return image();}};
++  const art=await handle(new Request('https://portal.example.test/api/game-art?provider=megah5&gameCode=55021'),context);
++  assert.equal(art.status,200);assert.equal(art.headers.get('content-type'),'image/png');assert.equal(observed.url,'https://gth.megah5.com/thumbs/web/55021.png');assert.equal(observed.headers.get('referer'),'https://portal.example.test/');assert.equal(observed.redirect,'error');assert.equal((await art.arrayBuffer()).byteLength,32);
++  sqlite.prepare("INSERT INTO game_catalogue_cache(provider_id,status,games_json,checked_at,last_success_at,lease_until,upstream_status,complete) VALUES('918kiss_normal_myr','available',?,1,1,0,200,1) ON CONFLICT(provider_id) DO UPDATE SET games_json=excluded.games_json").run(JSON.stringify([{provider:'918kissh5',profileId:'918kiss_normal_myr',gameCode:'profile-art',artworkSource:'https://gth.kissh5.com/thumbs/profile-cover.png'}]));
++  const kiss=await handle(new Request('https://portal.example.test/api/game-art?provider=918kissh5&profileId=918kiss_normal_myr&gameCode=profile-art'),context);
++  assert.equal(kiss.status,200);assert.equal(observed.url,'https://gth.kissh5.com/thumbs/profile-cover.png','the proxy must use the approved profile snapshot instead of guessing a game-code URL');
++  const callsBefore=observed.url;
++  assert.equal((await handle(new Request('https://portal.example.test/api/game-art?provider=918kissh5&profileId=918kiss_free_myr&gameCode=profile-art'),context)).status,404);
++  assert.equal(observed.url,callsBefore,'a cross-profile lookup must fail before making an upstream request');
++  assert.equal((await handle(new Request('https://portal.example.test/api/game-art?provider=unknown&gameCode=55021'),context)).status,404);
++ });
+  await t.test('public platform summary reports only safe cached counts and never calls gateway origins',async()=>{
+   sqlite.exec('DELETE FROM game_catalogue_cache');let calls=0;
+   const gameGatewayFetch=async()=>{calls++;return new Response(JSON.stringify({error:'private detail'}),{status:502,headers:{'content-type':'application/json'}});};
+@@ -342,7 +353,7 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+   wallet=await call('alice','/api/wallet');assert.equal(wallet.data.availableMinor,'0');assert.equal(wallet.data.heldMinor,'600');assert.equal(wallet.data.reconciliationRequired,true);assert.equal(sqlite.prepare('SELECT COUNT(*) count FROM wallet_reservations').get().count,1);assert.equal(sqlite.prepare("SELECT COUNT(*) count FROM audit WHERE event='withdrawal_rejected' AND target='legacy-pending-01'").get().count,0);sqlite.prepare("DELETE FROM wallet_reservations WHERE reference_id='legacy-pending-01'").run();sqlite.prepare("DELETE FROM withdrawal_requests WHERE id='legacy-pending-01'").run();sqlite.prepare('DELETE FROM rate_limits').run();
+  });
+  await t.test('supplier platforms stay separate while the selected public supplier exposes safe game cards',async()=>{sqlite.exec('DELETE FROM game_catalogue_cache; DELETE FROM rate_limits');let providerFetches=0;
+-  const gameGatewayFetch=async url=>{providerFetches++;return new Response(JSON.stringify(new URL(url).pathname.endsWith('/jili/games')?{games:[{gameCode:'J-1',name:'One title',maintenance:true},{gameCode:'J-2',name:'Another title'},{gameCode:'J-3',name:'Fresh active title'}]}:new URL(url).pathname.endsWith('/megah5/games')?{result:{Game:[]}}:{games:[]}),{headers:{'content-type':'application/json'}});},extra={gameGatewayUrl:'https://master7-integration-gateway.onrender.com',gameGatewayFetch};
++  const gameGatewayFetch=async url=>{providerFetches++;const path=new URL(url).pathname,provider=path.split('/')[2];return new Response(JSON.stringify(path.endsWith('/jili/games')?{provider:'jili',games:[{gameCode:'J-1',name:'One title',maintenance:true},{gameCode:'J-2',name:'Another title',maintenance:false},{gameCode:'J-3',name:'Fresh active title',maintenance:false}]}:path.endsWith('/megah5/games')?{provider:'megah5',result:{Game:[]}}:{provider,games:[]}),{headers:{'content-type':'application/json'}});},extra={gameGatewayUrl:'https://master7-integration-gateway.onrender.com',gameGatewayFetch};
+   let publicDirectory=(await call(null,'/api/games?provider=jili','GET',undefined,{},extra)).data;assert.deepEqual(publicDirectory.games.map(game=>game.gameCode),['J-1','J-2','J-3']);assert.equal(publicDirectory.platformsOnly,false);assert.equal(publicDirectory.selectedPlatform.id,'jili');assert.equal(publicDirectory.selectedPlatform.connectionVerified,true);assert.equal(publicDirectory.selectedPlatform.platformLaunchReady,false);assert.equal(providerFetches,1);assert.ok(publicDirectory.games.every(game=>game.playable===false&&!('secret' in game)));
+   sqlite.prepare("UPDATE game_catalogue_cache SET status='blocked',checked_at=9999999999,complete=1 WHERE provider_id='jili'").run();const retainedDirectory=(await call(null,'/api/games?provider=jili','GET',undefined,{},extra)).data;assert.equal(retainedDirectory.selectedPlatform.connectionVerified,false);assert.equal(retainedDirectory.selectedPlatform.catalogueSynced,false);assert.equal(retainedDirectory.selectedPlatform.platformStatus,'maintenance');assert.equal(retainedDirectory.games.length,3);assert.ok(retainedDirectory.games.every(game=>game.maintenance===true&&game.playable===false));sqlite.prepare("UPDATE game_catalogue_cache SET status='available',checked_at=?,complete=1 WHERE provider_id='jili'").run(Math.floor(Date.now()/1000));
+   let adminGames=(await call('owner','/api/admin/games','GET',undefined,{},extra)).data;assert.deepEqual(adminGames.games.map(g=>[g.gameCode,g.status]),[['J-1','suspended'],['J-2','active'],['J-3','active']]);assert.ok(adminGames.games.every(g=>g.accessZone==='paid'));const fetchesAfterAdmin=providerFetches;assert.ok(fetchesAfterAdmin>0);publicDirectory=(await call(null,'/api/games?provider=jili','GET',undefined,{},extra)).data;assert.equal(publicDirectory.selectedPlatform.connectionVerified,true);assert.equal(providerFetches,fetchesAfterAdmin);
+diff --git a/tests/direct-game-catalogues.test.mjs b/tests/direct-game-catalogues.test.mjs
+index 247beb1..e5b1f0d 100644
+--- a/tests/direct-game-catalogues.test.mjs
++++ b/tests/direct-game-catalogues.test.mjs
+@@ -18,6 +18,16 @@ test('Rectangle reads only the assigned production host and the documented catal
+  let calls=0;const c={...rectangle,gameCatalogueFetch:async(url,init)=>{calls++;const u=new URL(url);assert.equal(u.origin,rectangle.rectangleApiBase);assert.equal(u.pathname,'/api/v1/available-games');assert.equal(u.searchParams.get('oc'),rectangle.rectangleOperatorCode);assert.equal(init.method,'GET');assert.equal(init.redirect,'error');assert.equal(Object.hasOwn(init,'body'),false);assert.ok(init.headers.Authorization.startsWith('RG-HMAC-SHA256 '));return Response.json({data:[{code:'fixture-game',name:'Fixture game',status:'ACTIVE',type:'SLOT',url:'https://game.example.test/fixture-game',privateKey:'must-not-leak'}]});}};
+  const d=await readDirectCatalogue(c,'rectangle',1793836800);assert.equal(calls,1);assert.deepEqual(d,{games:[{gameCode:'fixture-game',name:'Fixture game',category:'SLOT',maintenance:false}],complete:true});
+ });
++test('Rectangle rejects malformed or duplicate rows instead of publishing a partial catalogue',async()=>{
++ for(const data of [
++  [{code:'same',name:'One',status:'ACTIVE'},{code:'same',name:'Two',status:'ACTIVE'}],
++  [{code:'',name:'Missing code',status:'ACTIVE'}],
++  [{code:'one',name:'Unsafe name',type:'',status:'ACTIVE'}],
++ ]){
++  const c={...rectangle,gameCatalogueFetch:async()=>Response.json({data})};
++  await assert.rejects(()=>readDirectCatalogue(c,'rectangle',1793836800),CatalogueReadError);
++ }
++});
+ test('Godee token stays server-side and provider pagination keeps the same code in different providers separate',async()=>{
+  const seen=[];const c={...godee,gameCatalogueFetch:async(url,init)=>{
+   const u=new URL(url);seen.push(u.pathname+u.search);assert.equal(u.origin,godee.godeeApiBase);assert.equal(init.method,'GET');assert.equal(init.redirect,'error');
+@@ -61,9 +71,13 @@ test('Godee uses an independent private catalogue and never overwrites the exist
+ test('a newly configured direct provider persists its games and preserves owner visibility choices',async t=>{
+  const sql=new DatabaseSync(':memory:');t.after(()=>sql.close());for(const name of ['0000_broken_bloodscream.sql','0019_game_catalogue_sync.sql'])sql.exec(readFileSync(new URL('../drizzle/'+name,import.meta.url),'utf8'));
+  class S{constructor(sql,args=[]){this.sql=sql;this.args=args;}bind(...args){return new S(this.sql,args);}async first(){return sql.prepare(this.sql).get(...this.args)??null;}async all(){return {results:sql.prepare(this.sql).all(...this.args)};}async run(){return sql.prepare(this.sql).run(...this.args);}}
+- let time=1000;const c={...rectangle,db:{prepare:sql=>new S(sql)},gameSyncNow:()=>time,gameCatalogueFetch:async()=>Response.json({data:[{code:'fixture-game',name:'Fixture game',status:'ACTIVE',type:'SLOT'}]})};
++ let time=1000,rows=[{code:'fixture-game',name:'Fixture game',status:'ACTIVE',type:'SLOT'}];const c={...rectangle,db:{prepare:sql=>new S(sql)},gameSyncNow:()=>time,gameCatalogueFetch:async()=>Response.json({data:rows})};
+  let data=await getGameCatalogue(c);assert.equal(data.games.length,1);assert.equal(data.providers[0].catalogueSynced,true);assert.equal(data.games[0].playable,false);assert.equal(sql.prepare("SELECT visible FROM providers WHERE id='rectangle'").get().visible,1);
+  sql.prepare("UPDATE providers SET visible=0 WHERE id='rectangle'").run();time+=301;data=await getGameCatalogue(c);assert.equal(data.games.length,1);assert.equal(sql.prepare("SELECT visible FROM providers WHERE id='rectangle'").get().visible,0);
++ const trusted=sql.prepare("SELECT games_json FROM game_catalogue_cache WHERE provider_id='rectangle'").get().games_json;
++ rows=[{code:'foreign',name:'Foreign',status:'ACTIVE'},{code:'foreign',name:'Duplicate',status:'ACTIVE'}];time+=301;data=await getGameCatalogue(c);
++ assert.equal(data.providers[0].status,'unavailable');assert.equal(data.providers[0].stale,true);assert.equal(data.games.length,1);assert.equal(data.games[0].gameCode,'fixture-game');assert.equal(data.games[0].maintenance,true);assert.equal(data.games[0].playable,false);
++ assert.equal(sql.prepare("SELECT games_json FROM game_catalogue_cache WHERE provider_id='rectangle'").get().games_json,trusted);
+ });
+ test('background synchronization uses a fixed authenticated loopback GET and prevents overlapping runs',async()=>{
+  let calls=0,release;const gate=new Promise(resolve=>release=resolve),token='fixture-catalogue-sync-token-1234567890';
+diff --git a/tests/game-catalogue.test.mjs b/tests/game-catalogue.test.mjs
+index 91018b0..d19ccf2 100644
+--- a/tests/game-catalogue.test.mjs
++++ b/tests/game-catalogue.test.mjs
+@@ -19,12 +19,12 @@ function fixture(t){
+   const provider=u.pathname.split('/')[2];if(state.delay&&provider==='evo888h5')await state.delay;
+   if(state.fail)return Response.json({error:'sensitive-upstream-error',upstreamStatus:403},{status:502});
+   const rows=state.empty?[]:[{gameCode:'1',name:provider+' title',privateToken:'must-not-leak',playable:true}];
+-  if(provider==='megah5')return Response.json({result:{Status:200,Game:state.empty?[]:[{GameCode:'1',GameName:'Mega title',Maintenance:'false'}]}});
+-  if(provider==='evo888h5')return Response.json({result:{code:0,data:state.empty?[]:[{gameid:'1',title:'EVO title',thumbnail:state.image,privateToken:'must-not-leak',weekturnover:90000}]}});
++  if(provider==='megah5')return Response.json({provider,result:{Status:200,Game:state.empty?[]:[{GameCode:'1',GameName:'Mega title',Maintenance:'false'}]}});
++  if(provider==='evo888h5')return Response.json({provider,result:{code:0,data:state.empty?[]:[{gameid:'1',title:'EVO title',thumbnail:state.image,privateToken:'must-not-leak',weekturnover:90000}]}});
+   if(provider==='918kissh5')return Response.json({provider,account:u.searchParams.get('account'),currency:u.searchParams.get('account')==='my1'?'MY1':'MYR',games:rows});
+   if(provider==='metagaming')return Response.json({provider,account:u.searchParams.get('account'),currency:'MYR',games:rows});
+   if(provider==='epicwin')return Response.json({provider,account:u.searchParams.get('account'),currency:'MYR',games:rows});
+-  return Response.json({games:rows});
++  return Response.json({provider,games:rows});
+  }};return {sql,c,state};
+ }
+ test('all documented gateway catalogues synchronize independently and never become playable by a flag',async t=>{
+@@ -83,6 +83,27 @@ test('EVO titles stay suspended and a partial malformed refresh preserves the co
+  assert.equal(retained.providers[0].lastSuccessAt,1000);assert.equal(retained.games.length,1);
+  assert.equal(retained.games[0].name,'EVO title');assert.equal(retained.games[0].maintenance,true);assert.equal(retained.games[0].playable,false);
+ });
++test('supplier identity, row integrity and completeness failures preserve the trusted JDB snapshot',async t=>{
++ const {sql,c,state}=fixture(t);let data=await getGameCatalogue(c,{providerId:'jdb'});
++ assert.equal(data.providers[0].status,'available');assert.equal(data.games[0].gameCode,'1');
++ const stored=sql.prepare("SELECT games_json FROM game_catalogue_cache WHERE provider_id='jdb'").get().games_json;
++ for(const payload of [
++  {provider:'rsghub',games:[{gameCode:'foreign',name:'Foreign',maintenance:false}]},
++  {provider:'jdb',games:[{gameCode:'duplicate',name:'One'},{gameCode:'duplicate',name:'Two'}]},
++  {provider:'jdb',complete:false,games:[{gameCode:'partial',name:'Partial',maintenance:false}]},
++ ]){
++  state.time+=301;data=await getGameCatalogue({...c,gameGatewayFetch:async()=>Response.json(payload)},{providerId:'jdb'});
++  assert.equal(data.providers[0].status,'blocked');assert.equal(data.providers[0].stale,true);assert.equal(data.providers[0].lastSuccessAt,1000);
++  assert.equal(data.games.length,1);assert.equal(data.games[0].gameCode,'1');assert.equal(data.games[0].maintenance,true);assert.equal(data.games[0].playable,false);
++  assert.equal(sql.prepare("SELECT games_json FROM game_catalogue_cache WHERE provider_id='jdb'").get().games_json,stored);
++  for(const value of ['foreign','duplicate','partial'])assert.equal(JSON.stringify(data).includes(value),false);
++ }
++});
++test('RSGHub stays outside the public provider mapping until its supplier brand is confirmed',async t=>{
++ const {c,state}=fixture(t);const data=await getGameCatalogue(c);
++ assert.equal(gameSources.some(source=>source.id==='rsghub'),false);assert.equal(data.providers.some(provider=>provider.id==='rsghub'),false);
++ assert.equal(data.games.some(game=>game.provider==='rsghub'),false);assert.equal(state.calls.some(path=>path.includes('/rsghub/')),false);
++});
+ test('malformed or oversized provider data cannot overwrite a known good catalogue',async t=>{
+  const {c,state}=fixture(t);await getGameCatalogue(c);state.time+=301;
+  const invalid={...c,gameGatewayFetch:async()=>new Response('x'.repeat(2*1024*1024+1),{headers:{'Content-Type':'application/json'}})};
+@@ -112,7 +133,7 @@ test('JILI 1:1 and 1:100 profiles use fixed accounts, ratios and independent cat
+  for(const [profileId,account] of definitions){
+   const data=await getGameCatalogue(isolated,{providerId:'jili',profileId});
+   assert.deepEqual(data.providers.map(provider=>({profileId:provider.catalogueProfileId,account:provider.catalogueAccount,currency:provider.providerCurrency,count:provider.count})),[{profileId,account,currency:'MYR',count:1}]);
+-  assert.deepEqual(data.games.map(game=>({profileId:game.profileId,account:game.catalogueAccount,currency:game.providerCurrency,code:game.gameCode,playable:game.playable})),[{profileId,account,currency:'MYR',code:`${account}-1`,playable:false}]);
++  assert.deepEqual(data.games.map(game=>({profileId:game.profileId,account:game.catalogueAccount,currency:game.providerCurrency,code:game.gameCode,maintenance:game.maintenance,providerMaintenance:game.providerMaintenance,playable:game.playable})),[{profileId,account,currency:'MYR',code:`${account}-1`,maintenance:true,providerMaintenance:true,playable:false}]);
+  }
+  assert.deepEqual(requests,definitions.map(([,account])=>`/providers/jili/games?account=${account}`));
+  assert.deepEqual(sql.prepare("SELECT provider_id FROM game_catalogue_cache WHERE provider_id LIKE 'jili_%' ORDER BY provider_id").all().map(row=>row.provider_id),definitions.map(([profileId])=>profileId).sort());
+@@ -120,6 +141,18 @@ test('JILI 1:1 and 1:100 profiles use fixed accounts, ratios and independent cat
+  for(const [profileId,account] of definitions){const data=await getGameCatalogue(noNetwork,{providerId:'jili',profileId});assert.equal(data.games[0].profileId,profileId);assert.equal(data.games[0].gameCode,`${account}-1`);}
+ });
+ 
++test('JILI profile catalogues reject partial normalization and retain a closed complete snapshot',async t=>{
++ const {c,state}=fixture(t),profileId='jili_myr_1to1';
++ const initial={...c,gameGatewayFetch:async()=>Response.json({provider:'jili',account:'1to1',currency:'MYR',ratio:'1:1',complete:true,games:[{gameCode:'1',name:'Known title'}]})};
++ let data=await getGameCatalogue(initial,{providerId:'jili',profileId});
++ assert.equal(data.providers[0].status,'available');assert.equal(data.games[0].maintenance,true);assert.equal(data.games[0].playable,false);
++ state.time+=301;
++ const malformed={...c,gameGatewayFetch:async()=>Response.json({provider:'jili',account:'1to1',currency:'MYR',ratio:'1:1',complete:true,games:[{gameCode:'2',name:'Candidate title'},{gameCode:'2',name:'Duplicate title'}]})};
++ data=await getGameCatalogue(malformed,{providerId:'jili',profileId});
++ assert.equal(data.providers[0].status,'blocked');assert.equal(data.providers[0].connectionVerified,false);assert.equal(data.providers[0].stale,true);
++ assert.deepEqual(data.games.map(game=>game.gameCode),['1']);assert.ok(data.games.every(game=>game.maintenance===true&&game.playable===false));
++});
++
+ test('JILI rejects provider, account, currency or ratio mismatches without crossing profile snapshots',async t=>{
+  const {sql,c,state}=fixture(t),profileId='jili_my1_1to100',goodGames=[{gameCode:'1to100-1',name:'1:100 title'}];
+  let data=await getGameCatalogue({...c,gameGatewayFetch:async()=>Response.json({provider:'jili',account:'1to100',currency:'MYR',ratio:'1:100',games:goodGames})},{providerId:'jili',profileId});
+@@ -156,11 +189,15 @@ test('918KISS normal, MY1 and free profiles use fixed accounts and independent c
+   assert.equal(data.providers.length,1);assert.equal(data.providers[0].catalogueProfileId,profileId);assert.equal(data.providers[0].catalogueAccount,account);assert.equal(data.providers[0].providerCurrency,currency);assert.equal(data.providers[0].count,count);
+   assert.equal(data.games.length,count);assert.ok(data.games.every(game=>game.profileId===profileId&&game.catalogueAccount===account&&game.providerCurrency===currency&&game.playable===false&&game.maintenance===true&&game.providerMaintenance===true));
+   assert.ok(data.games.every(game=>game.gameCode.startsWith(account+'-')));assert.equal(data.games[0].imageUrl,`/api/game-art?provider=918kissh5&profileId=${encodeURIComponent(profileId)}&gameCode=${account}-1`);
++  assert.equal(await cachedGameArtwork(isolated,'918kissh5',`${account}-1`,profileId),'https://gth.kissh5.com/thumbs/profile-cover.png');
++  assert.ok(!JSON.stringify(data).includes('profile-cover.png'),'approved supplier source URLs stay private behind the same-origin proxy');
+  }
+  assert.deepEqual(requests,definitions.map(([,account])=>`/providers/918kissh5/games?account=${account}`));
+  assert.deepEqual(sql.prepare("SELECT provider_id FROM game_catalogue_cache WHERE provider_id LIKE '918kiss_%' ORDER BY provider_id").all().map(row=>row.provider_id),definitions.map(([profileId])=>profileId).sort());
+  const noNetwork={...isolated,gameGatewayFetch:async()=>{throw Error('fresh profile snapshots must not contact the gateway');}};
+  for(const [profileId,account,,count] of definitions){const data=await getGameCatalogue(noNetwork,{providerId:'918kissh5',profileId});assert.equal(data.games.length,count);assert.ok(data.games.every(game=>game.profileId===profileId&&game.gameCode.startsWith(account+'-')));}
++ assert.equal(await cachedGameArtwork(isolated,'918kissh5','normal-1','918kiss_free_myr'),null,'artwork cannot cross profile cache boundaries');
++ assert.equal(await cachedGameArtwork(isolated,'918kissh5','normal-1','unknown_profile'),null,'unknown profiles fail closed');
+ });
+ 
+ test('918KISS profile metadata mismatch cannot overwrite or borrow another profile catalogue',async t=>{
+diff --git a/tests/jdb-wallet-api.test.mjs b/tests/jdb-wallet-api.test.mjs
+index 148c08c..2897b58 100644
+--- a/tests/jdb-wallet-api.test.mjs
++++ b/tests/jdb-wallet-api.test.mjs
+@@ -30,7 +30,7 @@ function fixture(){
+  };
+  const gameGatewayFetch=async url=>{
+   assert.equal(url,'https://master7-integration-gateway.onrender.com/providers/jdb/games');
+-  return Response.json({games:[{gameCode:'0:100',name:'Synthetic game',category:'SLOT',maintenance:false}],complete:true,upstreamStatus:200});
++  return Response.json({provider:'jdb',games:[{gameCode:'0:100',name:'Synthetic game',category:'SLOT',maintenance:false}],complete:true,upstreamStatus:200});
+  };
+  const config={db,ownerEmail:'',newDepositsEnabled:'false',newPayoutsEnabled:'false',newGameLaunchesEnabled:'true',providerTransferFetch:transport,gameGatewayUrl:'https://master7-integration-gateway.onrender.com',gameGatewayFetch};
+  const request=async (who,path,method='GET',data,extra={})=>{
+diff --git a/tests/jili-wallet-api.test.mjs b/tests/jili-wallet-api.test.mjs
+index b899a15..4e9718e 100644
+--- a/tests/jili-wallet-api.test.mjs
++++ b/tests/jili-wallet-api.test.mjs
+@@ -75,6 +75,17 @@ test('a JILI return-origin misconfiguration cannot advertise Play, reserve a wal
+ test('JILI production readiness is per profile and does not certify its other account or 37 brands',async()=>{
+  const h=fixture();try{h.slot.mode='production';const before=await h.launch();assert.equal(before.status,503);assert.equal(h.state.calls.length,0);await h.accept();const catalogue=await h.request('alice',`/api/games?provider=jili&profileId=${h.profile.profileId}`);assert.equal(catalogue.body.selectedProfile.launchReady,true,JSON.stringify(catalogue));const health=await h.request(null,'/health');assert.equal(health.body.anyGamePlayable,true);assert.equal(health.body.providerAcceptance.liveProfileCount,1);assert.equal(health.body.liveGames,false);const other=await h.launch('alice','jili_my1_1to100');assert.equal(other.status,503);assert.equal(h.state.calls.filter(x=>x.method==='ExchangeTransferByAgentId').length,0);}finally{h.close();}
+ });
++test('JILI summary readiness uses the exact profile cache instead of borrowing the other account',async()=>{
++ const h=fixture('jili_my1_1to100');try{
++  h.slot.mode='production';await h.accept();const checkedAt=Math.floor(Date.now()/1000),insert=h.sql.prepare('INSERT INTO game_catalogue_cache(provider_id,status,games_json,checked_at,last_success_at,lease_until,upstream_status,complete) VALUES(?,?,?,?,?,0,200,1)');
++  insert.run('jili','available',JSON.stringify([{provider:'jili',gameCode:'1',maintenance:false}]),checkedAt,checkedAt);
++  let summary=await h.request('alice','/api/games'),target=summary.body.profiles.find(profile=>profile.profileId===h.profile.profileId),other=summary.body.profiles.find(profile=>profile.profileId==='jili_myr_1to1');
++  assert.equal(target.catalogueProfileBound,true);assert.equal(target.catalogueCacheStatus,'missing');assert.equal(target.launchReady,false);assert.equal(other.launchReady,false);assert.equal(summary.body.playable,false);assert.equal(h.state.calls.length,0);
++  insert.run(h.profile.profileId,'available',JSON.stringify([{provider:'jili',profileId:h.profile.profileId,gameCode:'1',maintenance:false}]),checkedAt,checkedAt);
++  summary=await h.request('alice','/api/games');target=summary.body.profiles.find(profile=>profile.profileId===h.profile.profileId);other=summary.body.profiles.find(profile=>profile.profileId==='jili_myr_1to1');
++  assert.equal(target.catalogueCacheStatus,'available');assert.equal(target.cachedGameCount,1);assert.equal(target.launchReady,true);assert.equal(other.launchReady,false);assert.equal(summary.body.playable,true);assert.equal(h.state.calls.length,0);
++ }finally{h.close();}
++});
+ test('a JILI catalogue bound to a different account cannot reserve or deposit any member funds',async()=>{
+  const h=fixture('jili_my1_1to100');try{h.state.badGatewayAccount=true;const result=await h.launch();assert.equal(result.status,409,JSON.stringify(result));assert.equal(h.state.calls.length,0);assert.equal(h.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);}finally{h.close();}
+ });
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index 4792d83..7a4be1e 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.154-provider-boundary-safety';
++const release='17.0.0-selfbuilt.155-catalogue-integrity';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+diff --git a/tests/sponsor-branding-ui.test.mjs b/tests/sponsor-branding-ui.test.mjs
+index 1c0ed52..cefeb94 100644
+--- a/tests/sponsor-branding-ui.test.mjs
++++ b/tests/sponsor-branding-ui.test.mjs
+@@ -44,6 +44,9 @@ test('three independent 16:9 sponsor artworks are present and wired to their pro
+  assert.match(app,/termsTitle:"Terms & conditions"/);
+  assert.match(app,/MASTER7-published offer terms/);
+  assert.match(app,/\[data-bonus-brand\][\s\S]*openCatalogProvider/);
++ assert.match(app,/jili:"jili_myr_1to1"/);
++ assert.match(app,/featuredProviderProfile\(provider\.code\)[\s\S]*openCatalogProvider\(profile\.id,profile\.name,provider\.code\)/);
++ assert.doesNotMatch(app,/openCatalogProvider\(providerId,provider\.label\)/);
+  assert.match(app,/\[data-provider-bonus\][\s\S]*openProviderBonus/);
+  const featured=html.slice(html.indexOf('id="bonusBrandLobby"'),html.indexOf('id="apiSupplierLobby"'));
+  assert.doesNotMatch(`${featured}\n${app.slice(app.indexOf('const bonusBrandTranslations'),app.indexOf('function bonusText'))}`,/vendor[- ]approved|provider[- ]approved|official partner|licensed by|certified by|authori[sz]ed partner|guaranteed/i);
