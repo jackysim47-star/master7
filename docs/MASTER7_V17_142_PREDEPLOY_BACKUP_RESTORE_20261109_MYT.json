@@ -1,0 +1,66 @@
+{
+  "purpose": "V17.144 pre-deploy production data protection",
+  "sourceRelease": "17.0.0-selfbuilt.142-acceptance-mobile-ui",
+  "sourceCommit": "32a5d4ceef77dce0805661a7c3bad2c433eebbb6",
+  "sourceDeploy": "dep-dbp5nap42hec73bljns0",
+  "capturedAt": "2026-11-09T23:50:26.212Z",
+  "verifiedAt": "2026-11-09T23:51:15.326Z",
+  "backup": {
+    "format": "MASTER7-ENCRYPTED-BACKUP-1",
+    "schemaVersion": "0118-production-acceptance-evidence",
+    "schemaSha256": "e67f7c6ebf850a6f35227c27bffab627baae479fa2e15990d6169e8616f3a37b",
+    "readConsistency": "transaction_snapshot",
+    "tableCount": 71,
+    "totalRecords": 446,
+    "sha256": "2412ef03ace599b2109e946fb510051150176d9dee567cc009bdbe59d0ed467d",
+    "plaintextSha256": "f9e3a6a0dfa0dba44a3d4692f452f54c5d1a29eed17db452bd8c035aec66a9fe",
+    "ciphertextSha256": "1e9a4687e06f277164306903c028c4cf16985f279a126b125cd035de2391db51",
+    "privateArtifactStored": true
+  },
+  "sqliteRestore": {
+    "status": "verified",
+    "coverageComplete": true,
+    "missingTables": [],
+    "tableCount": 71,
+    "totalRecords": 446,
+    "foreignKeyViolations": 0,
+    "receiptSha256": "88e147da2de17a72de1d0dfe98409be314aa5a9ab988461699904fef5dd7b0ae"
+  },
+  "postgresRestore": {
+    "engine": "PostgreSQL 18 isolated ephemeral container",
+    "status": "verified",
+    "coverageComplete": true,
+    "missingTables": [],
+    "readConsistency": "transaction_snapshot",
+    "tableCount": 71,
+    "totalRecords": 446,
+    "foreignKeyViolations": 0,
+    "persistentWrites": false,
+    "restoreTargetKind": "isolated_postgresql_transaction",
+    "receiptSha256": "f3de05674c2ff7dce23922b48fc8a2286493f39325782d5e205db098fc741011",
+    "privateReceiptStored": true
+  },
+  "productionAudit": {
+    "actor": "system:backup-job",
+    "createHttpStatus": 200,
+    "recordRehearsalHttpStatus": 200,
+    "productionDataMutatedByRestore": false
+  },
+  "healthAfterRecording": {
+    "database": "ready",
+    "backupReady": true,
+    "restoreReady": true,
+    "productionReady": false
+  },
+  "secretHandling": {
+    "jobTokenRotated": true,
+    "jobTokenDisclosed": false,
+    "privateKeyDisclosed": false,
+    "passphraseDisclosed": false,
+    "localSecretFileMode": "0600"
+  },
+  "cleanup": {
+    "isolatedContainerRemoved": true,
+    "productionCredentialsUsed": false
+  }
+}

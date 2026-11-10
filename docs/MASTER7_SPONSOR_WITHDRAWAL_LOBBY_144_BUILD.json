@@ -1,0 +1,130 @@
+{
+  "release": "17.0.0-selfbuilt.144-sponsor-withdrawal-lobby",
+  "baselineRelease": "17.0.0-selfbuilt.142-acceptance-mobile-ui",
+  "baselineCommit": "32a5d4ceef77dce0805661a7c3bad2c433eebbb6",
+  "baselineDeploy": "dep-dbp5nap42hec73bljns0",
+  "generatedAt": "2026-11-10T00:00:14.618508Z",
+  "files": 662,
+  "changedFiles": 53,
+  "addedFiles": 18,
+  "deletedFiles": 0,
+  "changed": [
+    ".env.example",
+    "app/portal.html",
+    "db/render-schema.sql",
+    "docs/CURRENT_DEPLOYMENT.md",
+    "docs/MASTER7_GSPAY_1MPAY_LIVE_AUDIT_20261109.md",
+    "docs/MASTER7_MEGAH5_ACTIVATION_AUDIT_20261109.md",
+    "docs/MASTER7_PROVIDER_TRANSFER_WALLET_20261109.md",
+    "docs/MASTER7_V17_142_PREDEPLOY_BACKUP_RESTORE_20261109_MYT.json",
+    "drizzle/0119_withdrawal_destination_methods.sql",
+    "lib/backend.ts",
+    "lib/encrypted-backup.ts",
+    "lib/jdb-profile-runtime.ts",
+    "lib/malaysia-ewallets.ts",
+    "lib/manual-bank-payouts.ts",
+    "lib/production-acceptance.ts",
+    "lib/render-migrations.mjs",
+    "lib/withdrawals.ts",
+    "package.json",
+    "public/assets/app.js",
+    "public/assets/favicon-64.png",
+    "public/assets/master7-company-hero.png",
+    "public/assets/member-shell.css",
+    "public/assets/providers/clotplay.webp",
+    "public/assets/providers/epicwin.webp",
+    "public/assets/providers/venus.webp",
+    "public/assets/pwa-icon-180.png",
+    "public/assets/pwa-icon-192.png",
+    "public/assets/pwa-icon-512.png",
+    "public/assets/rewards.css",
+    "public/assets/rewards.js",
+    "public/assets/sponsor-918kiss-master7.webp",
+    "public/assets/sponsor-jili-master7.webp",
+    "public/assets/sponsor-megah5-master7.webp",
+    "public/assets/style.css",
+    "public/favicon.ico",
+    "public/manifest.webmanifest",
+    "public/service-worker.js",
+    "tests/api.test.mjs",
+    "tests/automatic-availability-ui.test.mjs",
+    "tests/backup-restore-rehearsal.test.mjs",
+    "tests/deposit-cashier.test.mjs",
+    "tests/ios-pwa.test.mjs",
+    "tests/jdb-wallet-api.test.mjs",
+    "tests/lobby-render.test.mjs",
+    "tests/luxury-backoffice-ui.test.mjs",
+    "tests/manual-bank-funds.test.mjs",
+    "tests/member-portal-layout.test.mjs",
+    "tests/official-entries-probe.test.mjs",
+    "tests/promotions-ui.test.mjs",
+    "tests/rewards-ui.test.mjs",
+    "tests/sponsor-branding-ui.test.mjs",
+    "tests/startup-readiness.test.mjs",
+    "tests/withdrawal-ewallet.test.mjs"
+  ],
+  "sourceTreeSha256": "fd5326ddc349788c8760313f67587f027fd4b2729cfd24fdeaa937ee55f14625",
+  "archiveSha256": "d3083513f658debdf6be1c01fa2b1e2f791a5d523ec9ceffd47e868884dc989a",
+  "archiveBytes": 7074257,
+  "archiveEntries": 723,
+  "manifestSha256": "9a9054cdfde42d165c68994a414c4fdf06b908982316671aa54d6c819ae6cab3",
+  "reproducible": true,
+  "archiveReplayMatched": true,
+  "cleanArchiveVerifyRender": true,
+  "dependencyLockUnchangedFromBaseline": true,
+  "securityScan": {
+    "privateKeyHeaders": 0,
+    "sensitiveFiles": 0,
+    "archiveExcludedPathViolations": 0
+  },
+  "validation": {
+    "maintenanceTests": {
+      "passed": 12,
+      "total": 12
+    },
+    "releaseProbes": {
+      "passed": 27,
+      "total": 27
+    },
+    "regressionTests": {
+      "passed": 1246,
+      "total": 1246
+    },
+    "renderDatabaseTests": {
+      "passed": 3,
+      "total": 3
+    },
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true
+  },
+  "predeployDataProtection": {
+    "sourceRelease": "17.0.0-selfbuilt.142-acceptance-mobile-ui",
+    "evidencePath": "docs/MASTER7_V17_142_PREDEPLOY_BACKUP_RESTORE_20261109_MYT.json",
+    "evidenceSha256": "8f8fd166a2156a265caa7273fdf0963255a8b4a6a9ff9be67daf19fff7050fbd",
+    "tables": 71,
+    "records": 446,
+    "sqliteRestoreVerified": true,
+    "postgresRestoreVerified": true,
+    "foreignKeyViolations": 0,
+    "productionDataMutatedByRestore": false
+  },
+  "activation": {
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPayments": false,
+    "liveGames": false,
+    "productionReady": false
+  },
+  "externalAcceptance": {
+    "jdbProductionAccepted": false,
+    "gspayMyrRealMoneyAccepted": false,
+    "oneMpayMyrRealMoneyAccepted": false
+  },
+  "deployment": {
+    "candidateDeployed": false,
+    "renderDeployId": null,
+    "renderDeployTriggeredByPackaging": false
+  }
+}
