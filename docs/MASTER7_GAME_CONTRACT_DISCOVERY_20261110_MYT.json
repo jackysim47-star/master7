@@ -1,0 +1,87 @@
+{
+  "observedAt": "2026-11-10T02:41:59.548Z",
+  "purpose": "Identify account-specific protocol blockers before implementing game wallet and launch operations",
+  "productionGameActivation": false,
+  "paymentWork": "VPay, GSPAY and 1MPay integration work paused per owner; no credentials deleted and recovery controls untouched",
+  "findings": [
+    {
+      "provider": "jili",
+      "source": "https://wbgame.tadagaming.com/sss-doc/SSS_Seamless_API_Manual_TW.html",
+      "sourceType": "primary_public_documentation",
+      "statusCode": 200,
+      "documentedWalletMode": "singleWallet/seamless callbacks",
+      "documentedCurrencies": [
+        "GC",
+        "SC"
+      ],
+      "accountCurrenciesUnderReview": [
+        "MYR",
+        "MY1"
+      ],
+      "accountCompatibility": "not_established",
+      "reason": "This public SSS manual cannot by itself establish the supplied legacy MYR/MY1 merchant contract.",
+      "operations": [
+        "/singleWallet/LoginWithoutRedirect",
+        "/KickMember",
+        "operator token/auth/bet/cancel callbacks"
+      ]
+    },
+    {
+      "provider": "jili",
+      "source": "https://www.scribd.com/document/957889365/JiLi-zh-cn",
+      "sourceType": "unattributed_secondary_upload_of_legacy_manual",
+      "status": "candidate_protocol_reference_only",
+      "operations": [
+        "/CreateMember",
+        "/LoginWithoutRedirect",
+        "/KickMember",
+        "/GetMemberInfo",
+        "/GetOnlineMember",
+        "CheckTransferByTransactionId",
+        "/ExchangeTransferByAgentId"
+      ],
+      "textIncludesAllListedOperations": true,
+      "remaining": "Confirm primary source/version, assigned-account wallet mode, amount conversion, duplicate/unknown transfer rules, and session/wager finality before enabling money operations.",
+      "productionEvidence": false
+    },
+    {
+      "provider": "megah5_or_918kiss",
+      "source": "https://seeding.168a.com.tw/static/L22.pdf",
+      "sourceType": "other_provider_document_compatibility_reference",
+      "documentedProvider": "Live22",
+      "methods": [
+        "KickPlayer",
+        "GetUnfinishRound"
+      ],
+      "applicabilityToMaster7Accounts": "not_established",
+      "reason": "Similar opgateway signatures and endpoint shape do not prove another vendor supports the same close and finality contract. No such calls were made to the supplied accounts."
+    },
+    {
+      "provider": "jdb",
+      "sources": [
+        "https://doc.jygrq.com/en/transfer/introduction",
+        "https://doc.jygrq.com/en/transfer/functions/getGameURL/action49",
+        "https://doc.jygrq.com/en/transfer/functions/errorCodes"
+      ],
+      "primaryDocsReachable": true,
+      "accountBoundReadOnlyProbe": "HTTP200/provider9001 with and without optional envelope parent",
+      "code9001": "No authorized to access",
+      "rootCauseGranularity": "Cannot distinguish egress whitelist, account permission, or credentials from this code alone.",
+      "agentUiInspection": {
+        "url": "https://agent.datgeni2e47.net/",
+        "httpStatus": 200,
+        "title": "JDB Agent System",
+        "formAvailable": false,
+        "credentialSubmission": false
+      }
+    }
+  ],
+  "sideEffects": {
+    "gameLaunches": 0,
+    "walletTransfers": 0,
+    "newPlayers": 0,
+    "manualCredits": 0,
+    "configurationChanges": 0,
+    "supplierMessagesSent": 0
+  }
+}
