@@ -11,6 +11,20 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. A callback POST remains closed until that provider's signed callback contract is implemented; a reachability endpoint never claims transaction readiness.
 
+## Version 1.15.0: MegaH5 contract-boundary hardening
+
+The legacy MegaH5 catalogue, session, balance and transfer responses are now
+strictly validated and projected to bounded public fields. Invalid game rows,
+duplicate codes, impossible client IPv4 addresses, malformed launch URLs,
+wrong currencies and malformed transfer records fail closed. A successful
+upstream status alone is no longer treated as proof of a valid response.
+
+Game availability also fails closed. A title is reported as available only
+when the legacy feed explicitly reports it active, H5-capable and outside
+maintenance. The current schedule-shaped maintenance value remains unavailable
+until the supplier confirms its meaning. No Play or money switch is enabled by
+this release.
+
 ## Version 1.14.0: META GAMING catalogue boundary and legacy mapping gate
 
 `GET /providers/metagaming/games?account=normal|free` implements only the
@@ -31,8 +45,9 @@ The older `/platform/megah5/session`, `/balance`, `/deposit`, `/withdraw` and
 `/transfer-status` routes now also require
 `MEGA_PROVIDER_MAPPING_VERIFIED=true`. It defaults to false and blocks provider
 traffic until the exact legacy brand/account mapping is independently confirmed.
-The legacy `/providers/megah5/games` catalogue remains readable and otherwise
-keeps its existing request and response behavior.
+The legacy `/providers/megah5/games` catalogue remained readable in this
+release; version 1.15.0 replaces its raw response with strict validation and a
+safe public projection.
 
 ## Version 1.13.1: JDB protocol compatibility
 
