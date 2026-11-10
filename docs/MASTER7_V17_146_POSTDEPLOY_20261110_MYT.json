@@ -1,0 +1,116 @@
+{
+  "release": "17.0.0-selfbuilt.146-member-front-clarity",
+  "observedAt": "2026-11-10T02:01:13.697932+00:00",
+  "commit": "ce39d498b9e1ad3fb420d420eabd019562e6064c",
+  "deployId": "dep-dbp7k5jrjlhs73f3jsu0",
+  "deployStatus": "live",
+  "portalUrl": "https://master7-v17-staging.onrender.com",
+  "ui": {
+    "onlineCssMatchesSource": true,
+    "onlineReleaseBoundCss": true,
+    "expandableCompanyDescription": true,
+    "expandableRecords": true,
+    "largeWalletActions": true,
+    "theme": "water_blue_blue_white",
+    "layoutFixtureBrowserVerification": {
+      "testType": "isolated layout fixture; no real login, payment, game launch or wallet mutation",
+      "results": [
+        {
+          "viewport": 360,
+          "heroHeight": 397,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        },
+        {
+          "viewport": 390,
+          "heroHeight": 377,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        },
+        {
+          "viewport": 430,
+          "heroHeight": 371,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        },
+        {
+          "viewport": 1280,
+          "heroHeight": 314,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        }
+      ],
+      "mutatingRequests": []
+    }
+  },
+  "validation": {
+    "regression": "1258/1258",
+    "maintenance": "12/12",
+    "releaseProbes": "27/27",
+    "renderDatabase": "3/3",
+    "finalFocused": "40/40",
+    "typecheck": true,
+    "lint": true,
+    "finalRenderBuild": true,
+    "postLivePortalErrorLogs": 0,
+    "postLivePortal5xxLogs": 0,
+    "logWindow": "2026-11-10T01:59:11Z to 2026-11-10T02:00:16Z"
+  },
+  "backup": {
+    "sha256": "b77c636d3b3739a964d80b2554b4d0f21f75fc03cde888d5f7718f5efbe941b4",
+    "createdAt": "2026-11-10T01:59:15.813Z",
+    "tableCount": 71,
+    "records": 455,
+    "sqliteRestoreVerified": true,
+    "postgres18RestoreVerified": true,
+    "foreignKeyViolations": 0,
+    "persistentRestoreWrites": false,
+    "onlineReceiptRecorded": true,
+    "backupReady": true,
+    "restoreReady": true
+  },
+  "financialTableCounts": {
+    "deposit_orders": 12,
+    "wallet_ledger": 0,
+    "wallet_posting_intents": 0
+  },
+  "runtime": {
+    "database": "ready",
+    "newDepositsEnabled": true,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPayments": false,
+    "liveGames": false,
+    "productionReady": false
+  },
+  "vpayCorrection": {
+    "gatewayCommit": "eb64e493414db40ce08c8981787a886a30581ade",
+    "gatewayDeploy": "dep-dbp7i3jbc2fs73b88b30",
+    "gatewayStatus": "live",
+    "gatewayTests": "110/110",
+    "providerObservationAt": "2026-11-10T01:43:53.861Z",
+    "querySource": "execution_workspace_not_render",
+    "httpStatus": 200,
+    "providerCode": -1,
+    "providerMessage": "This deposit is not exist.",
+    "responseSha256": "fbe369bfb68b6cfef9f9b1a0ae3ecc4eeada3740f1ba5f8567a6e5ac5fe689fc",
+    "finding": "The original code-only signature classification was unsupported. Latest observed response reports a missing deposit. No payment or production acceptance is proved."
+  },
+  "classification": "UAT_RELEASE_LIVE_PAYMENT_AND_GAME_ACCEPTANCE_INCOMPLETE"
+}
