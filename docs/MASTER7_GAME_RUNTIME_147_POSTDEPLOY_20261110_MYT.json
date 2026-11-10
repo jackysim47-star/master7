@@ -1,0 +1,87 @@
+{
+  "observedAt": "2026-11-10T03:40:36.598751+00:00",
+  "release": "17.0.0-selfbuilt.147-game-runtime-repair",
+  "deployId": "dep-dbp92tutlv9c73et00lg",
+  "commit": "7220347815b6c167d3495a9bc56f8ad90d050133",
+  "archiveSha256": "e17175cd729611d5e00531ed8877316ccda74deabf9ba5a25a2817d3560ffc42",
+  "healthLiveHttp": 200,
+  "database": "ready",
+  "onlineAssetsMatchSource": {
+    "/assets/app.js": true,
+    "/assets/member-refresh.css": true
+  },
+  "gameDirectory": {
+    "profileCount": 41,
+    "profileBrandCount": 37,
+    "implementedProfileCount": 2,
+    "launchReadyProfileCount": 0,
+    "verifiedProfileCount": 0
+  },
+  "controls": {
+    "newDepositsEnabled": true,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPayments": false,
+    "liveGames": false,
+    "anyGamePlayable": false,
+    "productionReady": false
+  },
+  "readOnlyProviderProbes": [
+    {
+      "path": "/providers/megah5/games",
+      "http": 200,
+      "games": 166,
+      "error": null,
+      "upstreamStatus": 200
+    },
+    {
+      "path": "/providers/jili/games?account=1to1",
+      "http": 200,
+      "games": 297,
+      "error": null,
+      "upstreamStatus": null
+    },
+    {
+      "path": "/providers/jili/games?account=1to100",
+      "http": 200,
+      "games": 297,
+      "error": null,
+      "upstreamStatus": null
+    },
+    {
+      "path": "/providers/918kissh5/games?account=normal",
+      "http": 200,
+      "games": 92,
+      "error": null,
+      "upstreamStatus": null
+    },
+    {
+      "path": "/providers/918kissh5/games?account=my1",
+      "http": 200,
+      "games": 92,
+      "error": null,
+      "upstreamStatus": null
+    },
+    {
+      "path": "/providers/918kissh5/games?account=free",
+      "http": 200,
+      "games": 88,
+      "error": null,
+      "upstreamStatus": null
+    },
+    {
+      "path": "/providers/jdb/games",
+      "http": 502,
+      "games": 0,
+      "error": "jdb_provider_rejected_9001",
+      "upstreamStatus": null
+    }
+  ],
+  "sideEffects": {
+    "actualGameLaunches": 0,
+    "realMoneyTransfers": 0,
+    "newPlayers": 0,
+    "paymentProviderCalls": 0
+  },
+  "remaining": "No claim that all 37 brands can be played. Production merchant contracts/adapters and supplier authorization remain outstanding."
+}
