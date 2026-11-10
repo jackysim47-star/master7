@@ -1,0 +1,69 @@
+{
+  "release": "17.0.0-selfbuilt.152-918kiss-catalogue-safety",
+  "preparedAt": "2026-11-10T07:07:30.669040+00:00",
+  "sourceCommit": "c59c6ba83c6d651d6dbb294f3d6f8fe056293fb2",
+  "baselineSourceCommit": "e8446275f33252a0e1c3c3d8421a485e6e5ab7df",
+  "baselineRelease": "17.0.0-selfbuilt.151-megah5-safety",
+  "archive": {
+    "sha256": "941240970673ac478ef2bac7ff74eea8b65c10e2263264428cb6baf44e92ee15",
+    "bytes": 7124745,
+    "files": 680,
+    "entries": 741,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/MASTER7_918KISS_CATALOGUE_SAFETY_152.md"
+    ],
+    "changed": [
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "lib/backend.ts",
+      "lib/game-catalogue.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/service-worker.js",
+      "tests/game-catalogue.test.mjs",
+      "tests/game-launch.test.mjs",
+      "tests/official-entries-probe.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1319,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "focused918Kiss": 94,
+    "renderDatabase": 3,
+    "gatewayTests": 135,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "supplierTests": "read-only 918KISS catalogue probes only; no launch, player, balance, transfer, settlement or recovery acceptance"
+  },
+  "kissh5": {
+    "profiles": {
+      "normal_myr": 92,
+      "normal_my1": 92,
+      "free_myr": 88
+    },
+    "strictGatewayProjection": true,
+    "malformedRefreshPolicy": "blocked_keep_last_complete_snapshot",
+    "unknownAvailabilityPolicy": "maintenance_true",
+    "my1RatioProviderVerified": false,
+    "implementedAdapter": false,
+    "productionAcceptedProfiles": 0
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false
+}

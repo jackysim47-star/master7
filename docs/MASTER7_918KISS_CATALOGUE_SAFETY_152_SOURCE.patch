@@ -1,0 +1,270 @@
+diff --git a/app/portal.html b/app/portal.html
+index 10373d9..a3502c7 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.151-megah5-safety">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.151-megah5-safety">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.151-megah5-safety">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.151-megah5-safety">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.151-megah5-safety">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.151-megah5-safety">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.151-megah5-safety">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.151-megah5-safety">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.151-megah5-safety">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.151-megah5-safety">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.151-megah5-safety">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.151-megah5-safety">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.151-megah5-safety">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.151-megah5-safety">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index a8609d9..a948c05 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,10 +1,19 @@
+ # MASTER7 deployment handover
+ 
+-Candidate source: `17.0.0-selfbuilt.151-megah5-safety`.
+-
+-Baseline: live `17.0.0-selfbuilt.150-jili-safety`, deployment
+-`dep-dbpbei8m7kps73aejtrg`, publication commit
+-`6aed6a0eb0ba7b9af4893c1712310313be2a61c9`.
++Candidate source: `17.0.0-selfbuilt.152-918kiss-catalogue-safety`.
++
++Baseline: live `17.0.0-selfbuilt.151-megah5-safety`, deployment
++`dep-dbpbqv3rjlhs73fg1l20`, publication commit
++`76b24566dff7105d6742412e58d51cbc3adc6710`.
++
++918KISS H5 has three isolated, read-only catalogue profiles: Normal MYR,
++Normal MY1 and Free MYR. The gateway and portal now reject malformed or
++duplicate catalogue entries instead of publishing a partial snapshot. Because
++the supplied catalogue contract does not prove per-game availability, missing
++availability fields remain maintenance/suspended. This release does not enable
++918KISS player creation, Play, wallet transfer, settlement or recovery. The
++internal `unitScale=100` setting is not supplier acceptance of a 1:100 money
++contract.
+ 
+ Legacy MegaH5 is now treated as a MegaH5 brand feed through the META GAMING
+ opgateway while its historic account remains isolated from the newer META
+diff --git a/docs/MASTER7_918KISS_CATALOGUE_SAFETY_152.md b/docs/MASTER7_918KISS_CATALOGUE_SAFETY_152.md
+new file mode 100644
+index 0000000..764f238
+--- /dev/null
++++ b/docs/MASTER7_918KISS_CATALOGUE_SAFETY_152.md
+@@ -0,0 +1,22 @@
++# MASTER7 v152 918KISS catalogue safety release
++
++Release: `17.0.0-selfbuilt.152-918kiss-catalogue-safety`
++
++This release hardens the three isolated 918KISS H5 catalogue profiles:
++
++- Normal MYR
++- Normal MY1
++- Free MYR
++
++The portal rejects a profile refresh when normalization removes a malformed or
++duplicate row, retaining the last complete snapshot. A missing supplier
++availability field is treated as maintenance and is shown as suspended rather
++than active.
++
++The release keeps all 918KISS games non-playable. The supplier-specific player,
++launch, wallet, transfer-status, exit, settlement and recovery contracts have
++not been supplied or accepted. MY1 1:100 remains an internal candidate setting,
++not a verified supplier money contract.
++
++Payment providers, payment switches, production game switches, credentials,
++service plans and DNS are unchanged.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 2610993..3642e5d 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -38,7 +38,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.151-megah5-safety';
++export const RELEASE = '17.0.0-selfbuilt.152-918kiss-catalogue-safety';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff --git a/lib/game-catalogue.ts b/lib/game-catalogue.ts
+index 9ba57a4..95f2173 100644
+--- a/lib/game-catalogue.ts
++++ b/lib/game-catalogue.ts
+@@ -80,7 +80,11 @@ function normalize(source:Source,rows:any[]){
+   const artwork=approvedArtworkUrl(source,mega?g.ImageUrl:evo?g.thumbnail:g.imageUrl);
+   const profileQuery=source.profileId?`&profileId=${encodeURIComponent(source.profileId)}`:'';
+   const imageUrl=artwork?`/api/game-art?provider=${source.id}${profileQuery}&gameCode=${encodeURIComponent(gameCode)}`:source.id==='jili'?'/assets/providers/jili.webp':source.id==='jdb'?'/assets/providers/jdb.webp':source.id==='pragmaticplay'?'/assets/providers/pragmaticplay.webp':source.id==='metagaming'?'/assets/providers/metagaming.webp':source.id==='evo888h5'?'/assets/providers/evo888h5.webp':source.id==='rectangle'?'/assets/providers/rectangle.webp':source.id==='atg'?'/assets/providers/atg.webp':null;
+-  return {provider:source.id,providerName:source.id==='godeezone'?text(g.providerName)||source.name:source.name,gameCode,...(source.id==='godeezone'?{originalProviderId:text(g.originalProviderId,40),originalGameCode:text(g.originalGameCode,100)}:{}),...(source.profileId?{profileId:source.profileId}:{}),...(source.expectedAccount?{catalogueAccount:source.expectedAccount}:{}),...(source.expectedCurrency?{providerCurrency:source.expectedCurrency}:{}),name:text(mega?g.GameName??g.OtherName:evo?g.title??g.name:g.name)||gameCode,nameZh:text(g.nameZh??(mega?g.OtherName:'')),category:evo?'SLOT':text(mega?g.GameType:source.id==='metagaming'?g.gameType:g.category,40),imageUrl,maintenance:mega?g.Maintenance===true||g.Maintenance===1||g.Maintenance==='true'||g.Maintenance==='1':g.maintenance===true,playable:false,...(source.id==='evo888h5'&&artwork?{artworkSource:artwork}:{})};
++  // The 918KISS catalogue contract currently has no provider availability
++  // field. Never turn that absence into an "active" customer-facing game.
++  // A future reviewed gateway contract may explicitly supply a boolean false.
++  const maintenance=mega?g.Maintenance===true||g.Maintenance===1||g.Maintenance==='true'||g.Maintenance==='1':source.id==='918kissh5'&&source.profileId?typeof g.maintenance==='boolean'?g.maintenance:true:g.maintenance===true;
++  return {provider:source.id,providerName:source.id==='godeezone'?text(g.providerName)||source.name:source.name,gameCode,...(source.id==='godeezone'?{originalProviderId:text(g.originalProviderId,40),originalGameCode:text(g.originalGameCode,100)}:{}),...(source.profileId?{profileId:source.profileId}:{}),...(source.expectedAccount?{catalogueAccount:source.expectedAccount}:{}),...(source.expectedCurrency?{providerCurrency:source.expectedCurrency}:{}),name:text(mega?g.GameName??g.OtherName:evo?g.title??g.name:g.name)||gameCode,nameZh:text(g.nameZh??(mega?g.OtherName:'')),category:evo?'SLOT':text(mega?g.GameType:source.id==='metagaming'?g.gameType:g.category,40),imageUrl,maintenance,playable:false,...(source.id==='evo888h5'&&artwork?{artworkSource:artwork}:{})};
+  }).filter((g):g is Game=>g!==null);
+ }
+ async function boundedJson(response:Response){
+@@ -109,7 +113,12 @@ async function synchronizeSource(c:SyncContext,source:Source,force:boolean,time:
+   if(source.shape==='mega'&&Number(data.result?.Status)!==200||source.shape==='evo'&&Number(data.result?.code)!==0){status='blocked';return;}
+   if(source.expectedAccount&&(data.provider!==source.id||data.account!==source.expectedAccount||data.currency!==source.expectedCurrency)){status='blocked';return;}
+   if(source.expectedRatio&&data.ratio!==source.expectedRatio){status='blocked';return;}
+-  const games=normalize(source,rows);complete=data.complete!==false&&rows.length<=maxGames&&!(source.id==='clotplay'&&Number(data.pagination?.last_page)>1);
++  const games=normalize(source,rows);
++  // Profile-bound 918KISS catalogues are account and wallet-unit boundaries.
++  // Reject the refresh if normalization discarded malformed or duplicate rows
++  // so a partial response cannot replace the last complete profile snapshot.
++  if(source.id==='918kissh5'&&source.profileId&&games.length!==rows.length){status='blocked';return;}
++  complete=data.complete!==false&&rows.length<=maxGames&&!(source.id==='clotplay'&&Number(data.pagination?.last_page)>1);
+   // An empty success replaces the previous catalogue intentionally; transport
+   // and protocol failures retain the last good snapshot for a stable lobby.
+   await c.db.prepare(`UPDATE game_catalogue_cache SET games_json=?,status=?,checked_at=?,last_success_at=?,upstream_status=?,complete=?,lease_until=0 WHERE provider_id=? AND lease_until=?`)
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index 014ad06..16ad0c9 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.151-megah5-safety' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.152-918kiss-catalogue-safety' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/package.json b/package.json
+index edd9cd6..9b9a76e 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.151-megah5-safety node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.151-megah5-safety node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.152-918kiss-catalogue-safety node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.152-918kiss-catalogue-safety node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.151-megah5-safety node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.152-918kiss-catalogue-safety node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 4f9bd6c..aa05bb0 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.151-megah5-safety';
++const CACHE='master7-shell-17.0.0-selfbuilt.152-918kiss-catalogue-safety';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/tests/game-catalogue.test.mjs b/tests/game-catalogue.test.mjs
+index 996aaef..c6d6e00 100644
+--- a/tests/game-catalogue.test.mjs
++++ b/tests/game-catalogue.test.mjs
+@@ -140,7 +140,7 @@ test('918KISS normal, MY1 and free profiles use fixed accounts and independent c
+  for(const [profileId,account,currency,count] of definitions){
+   const data=await getGameCatalogue(isolated,{providerId:'918kissh5',profileId});
+   assert.equal(data.providers.length,1);assert.equal(data.providers[0].catalogueProfileId,profileId);assert.equal(data.providers[0].catalogueAccount,account);assert.equal(data.providers[0].providerCurrency,currency);assert.equal(data.providers[0].count,count);
+-  assert.equal(data.games.length,count);assert.ok(data.games.every(game=>game.profileId===profileId&&game.catalogueAccount===account&&game.providerCurrency===currency&&game.playable===false));
++  assert.equal(data.games.length,count);assert.ok(data.games.every(game=>game.profileId===profileId&&game.catalogueAccount===account&&game.providerCurrency===currency&&game.playable===false&&game.maintenance===true&&game.providerMaintenance===true));
+   assert.ok(data.games.every(game=>game.gameCode.startsWith(account+'-')));assert.equal(data.games[0].imageUrl,`/api/game-art?provider=918kissh5&profileId=${encodeURIComponent(profileId)}&gameCode=${account}-1`);
+  }
+  assert.deepEqual(requests,definitions.map(([,account])=>`/providers/918kissh5/games?account=${account}`));
+@@ -162,6 +162,19 @@ test('918KISS profile metadata mismatch cannot overwrite or borrow another profi
+  assert.equal(sql.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').get(freeProfile).games_json,stored);assert.ok(!JSON.stringify(data).includes('normal-only'));
+ });
+ 
++test('918KISS rejects a partially malformed profile catalogue and keeps the last complete snapshot',async t=>{
++ const {sql,c,state}=fixture(t),profileId='918kiss_normal_myr';
++ const goodGames=[{gameCode:'normal-1',name:'Normal one'},{gameCode:'normal-2',name:'Normal two',maintenance:false}];
++ let data=await getGameCatalogue({...c,gameGatewayFetch:async()=>Response.json({provider:'918kissh5',account:'normal',currency:'MYR',games:goodGames})},{providerId:'918kissh5',profileId});
++ assert.equal(data.providers[0].status,'available');assert.deepEqual(data.games.map(game=>[game.gameCode,game.maintenance]),[['normal-1',true],['normal-2',false]]);
++ const stored=sql.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').get(profileId).games_json;
++ state.time+=301;
++ const malformed=[{gameCode:'foreign-1',name:'Foreign one'},{gameCode:'',name:'Missing code'},{gameCode:'foreign-1',name:'Duplicate code'}];
++ data=await getGameCatalogue({...c,gameGatewayFetch:async()=>Response.json({provider:'918kissh5',account:'normal',currency:'MYR',games:malformed})},{providerId:'918kissh5',profileId});
++ assert.equal(data.providers[0].status,'blocked');assert.equal(data.providers[0].stale,true);assert.deepEqual(data.games.map(game=>game.gameCode),['normal-1','normal-2']);assert.ok(data.games.every(game=>game.maintenance===true));
++ assert.equal(sql.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').get(profileId).games_json,stored);assert.ok(!JSON.stringify(data).includes('foreign-1'));
++});
++
+ test('META GAMING normal and free-credit catalogues use fixed paths and isolated cache keys',async t=>{
+  const {sql,c}=fixture(t),requests=[];
+  const definitions=[
+diff --git a/tests/game-launch.test.mjs b/tests/game-launch.test.mjs
+index 212e42e..cece37d 100644
+--- a/tests/game-launch.test.mjs
++++ b/tests/game-launch.test.mjs
+@@ -114,7 +114,7 @@ test('918KISS profile selection returns only its independent normal, MY1 or free
+    assert.equal(response.data.selectedProvider,'918kissh5');assert.equal(response.data.selectedProfileId,profileId);assert.equal(response.data.selectedProfile.profileId,profileId);
+    assert.equal(response.data.selectedPlatform.catalogueProfileId,profileId);assert.equal(response.data.selectedPlatform.catalogueAccount,account);assert.equal(response.data.selectedPlatform.providerCurrency,currency);assert.equal(response.data.selectedPlatform.cachedGameCount,count);
+    assert.equal(response.data.totalGameCount,count);assert.equal(response.data.games.length,count);assert.ok(response.data.games.every(game=>game.profileId===profileId&&game.catalogueAccount===account&&game.providerCurrency===currency&&game.gameCode.startsWith(account+'-')));
+-   assert.ok(response.data.games.every(game=>game.playable===false));assert.equal(response.data.liveReady,false);assert.equal(response.data.launchProvider,null);
++   assert.ok(response.data.games.every(game=>game.playable===false&&game.maintenance===true&&game.providerMaintenance===true&&game.status==='suspended'));assert.equal(response.data.liveReady,false);assert.equal(response.data.launchProvider,null);
+   }
+   assert.deepEqual(h.catalogueCalls.map(call=>[call.account,call.currency]),[['normal','MYR'],['my1','MY1'],['free','MYR']]);
+   assert.equal(h.calls.length,0);assert.deepEqual(h.sqlite.prepare("SELECT provider_id FROM game_catalogue_cache WHERE provider_id LIKE '918kiss_%' ORDER BY provider_id").all().map(row=>row.provider_id),cases.map(([profileId])=>profileId).sort());
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index 4ac9084..34de808 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.151-megah5-safety';
++const release='17.0.0-selfbuilt.152-918kiss-catalogue-safety';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
