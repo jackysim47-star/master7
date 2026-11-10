@@ -102,7 +102,10 @@ function normalizeGames(rows) {
       gameCode,
       name,
       category: category(row),
-      maintenance: false,
+      // getCasinoGames is catalogue metadata and the supplied contract does
+      // not define a per-title availability field. Do not infer that a title
+      // can launch from its presence in the list.
+      maintenance: true,
       technology,
       platforms: [...new Set(platform.split(',').map(value => value.trim().toUpperCase())
         .filter(value => value === 'MOBILE' || value === 'WEB'))],

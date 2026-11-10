@@ -59,11 +59,11 @@ test('Pragmatic Play catalogue uses only GetCasinoGames and projects bounded pub
     count: 2,
     games: [
       {
-        gameCode: 'vs20doghouse', name: 'The Dog House', category: 'SLOT', maintenance: false,
+        gameCode: 'vs20doghouse', name: 'The Dog House', category: 'SLOT', maintenance: true,
         technology: 'H5', platforms: ['MOBILE', 'WEB'], demoAvailable: true,
       },
       {
-        gameCode: '101', name: 'Live Baccarat', category: 'LIVE', maintenance: false,
+        gameCode: '101', name: 'Live Baccarat', category: 'LIVE', maintenance: true,
         technology: 'HTML5', platforms: ['WEB'], demoAvailable: false,
       },
     ],
@@ -85,7 +85,11 @@ test('Pragmatic Play catalogue uses only GetCasinoGames and projects bounded pub
   assert.equal(requests[0].options.body.includes(env.PRAGMATIC_SECRET_KEY), false);
   assert.equal(normalizeGames([{
     gameID: 'webslot', gameName: 'Web Slot', gameTypeID: 'vs', typeDescription: 'Slot', dataType: 'WEB',
+    active: true, maintenance: false,
   }])[0].category, 'SLOT');
+  assert.equal(normalizeGames([{
+    gameID: 'unknown-availability', gameName: 'Unknown Availability', active: true, maintenance: false,
+  }])[0].maintenance, true);
 });
 
 test('Pragmatic Play route, discovery and health expose no credentials', async () => {
