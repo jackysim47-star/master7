@@ -1,0 +1,497 @@
+diff --git a/app/portal.html b/app/portal.html
+index 07d9af6fbc23faf225c3978e8b1c6162f67c1393..7d528bacd9ce33393112e486ad7c6f1bdc7f1bc1 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.169-runtime-guard-monitor">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.169-runtime-guard-monitor" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index 714e9b38576ee9d89d8b0b951471afe4559b082d..1a5f04faa2ad7e2740744f794003c4cd3030bab0 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,6 +1,6 @@
+ # MASTER7 deployment handover
+ 
+-Candidate source: `17.0.0-selfbuilt.169-runtime-guard-monitor`.
++Candidate source: `17.0.0-selfbuilt.170-manual-bank-payout-atomicity`.
+ 
+ This candidate has not been deployed by the source commit. Confirm the actual
+ Render release and deployment ID from the Portal service before cutover or
+@@ -9,7 +9,30 @@ rollback. Portal service: `srv-dbl0iv7f3r2c73848ei0`.
+ The last recorded integration-gateway baseline remains release `1.17.0`,
+ deployment `dep-dbpchge417fc739h9b50`, commit
+ `c4aab70060439469f3c2e6081a57c0b40e630ff4`. Gateway service:
+-`srv-db6b7inlk1mc73ck6cmg`. The v169 candidate does not change the gateway.
++`srv-db6b7inlk1mc73ck6cmg`. The v170 candidate does not change the gateway.
++
++## Manual-bank payout atomicity
++
++v170 makes both manual-bank payout transitions depend on their exact audit
++evidence. A start audit is inserted before the provider payout can move to
++`processing`, so an audit primary-key collision leaves the withdrawal approved
++and its full reservation intact. Paid evidence is inserted before a provider
++payout can become `succeeded`; the transaction, audit, provider result,
++withdrawal state and reservation release must all match the same bank proof.
++
++Paid evidence now requires exactly one audit row for the bank transaction,
++recorder and event, with the same timestamp as the recorded bank transaction.
++An unrelated audit collision therefore cannot authorize a payout. A repeated
++confirmation with identical evidence reuses the existing transaction, while a
++different proof remains in review with the hold intact. The same restricted
++path can finish a legacy `succeeded` provider payout whose withdrawal and hold
++were left incomplete, but only when every stored bank-evidence field matches.
++
++The change adds SQLite collision, retry and legacy-state regression coverage
++plus PostgreSQL 18 concurrent-confirmation coverage. It does not call a bank,
++enable payouts, change a provider credential, or change a production flag. No
++schema migration is added; migration 0123 and the 0122/76-table backup contract
++remain current. See `V170_MANUAL_BANK_PAYOUT_ATOMICITY.md`.
+ 
+ ## Runtime database guard monitor
+ 
+@@ -112,10 +135,10 @@ gates.
+ ## Other operational boundaries
+ 
+ Payment work remains paused. VPay, GSPAY and 1MPay code, credentials, callbacks,
+-activation flags, service plans and DNS are unchanged by v169. This candidate
++activation flags, service plans and DNS are unchanged by v170. This candidate
+ does not enable any real-money payment, payout or live-game switch.
+ 
+-The verification totals for v169 must be recorded only after the complete
++The verification totals for v170 must be recorded only after the complete
+ source verification finishes. No deployment or production acceptance is
+ claimed by this handover.
+ 
+diff --git a/docs/V170_MANUAL_BANK_PAYOUT_ATOMICITY.md b/docs/V170_MANUAL_BANK_PAYOUT_ATOMICITY.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..2b3eadf9db2a547c1212d5e154a5e1defbcb1cb3
+--- /dev/null
++++ b/docs/V170_MANUAL_BANK_PAYOUT_ATOMICITY.md
+@@ -0,0 +1,56 @@
++# V170 Manual Bank Payout Atomicity
++
++Release: `17.0.0-selfbuilt.170-manual-bank-payout-atomicity`
++
++## Change
++
++Manual Company Bank payouts now require the complete bank transaction and audit
++evidence chain before a provider payout can become `succeeded`, a withdrawal can
++become `paid`, or its wallet reservation can be released.
++
++The payout-start audit is created before the provider and withdrawal move to
++`processing`. Its identifier is bound to a fresh authorization value. A primary
++key collision therefore leaves the provider `prepared`, the withdrawal
++`approved`, and the full wallet hold intact so the operation can be retried.
++
++The paid audit also uses a fresh identifier. Evidence is accepted only when
++exactly one audit row matches the bank transaction's event, target and recording
++user, and that audit timestamp equals the bank transaction timestamp. A missing,
++duplicated or conflicting receipt fails closed and never releases the hold.
++
++## Retry and recovery behavior
++
++An identical confirmation reuses the existing bank transaction. If a paid-audit
++identifier collides with an unrelated row, the first request moves the payout to
++review and keeps the withdrawal and hold unchanged. A later request with the
++same evidence can create a new audit identifier and finish exactly once.
++Different bank evidence remains a conflict and cannot debit or release funds.
++
++The confirmation route can also repair the legacy partial state where the
++provider payout is already `succeeded/accepted` but the withdrawal remains
++`processing` and its wallet reservation remains held. Repair is allowed only
++when the existing bank transaction, provider reference, amount, currency,
++account, reference, proof hash and occurrence time all match. It attaches the
++missing unique audit evidence, completes the withdrawal, and releases the hold
++once. Any mismatch remains blocked for reconciliation.
++
++## Verification
++
++- targeted SQLite manual-bank suite: 19/19 passed;
++- related regression checks: 74/74 passed;
++- full regression: 1,412/1,412 passed;
++- isolated PostgreSQL 18 manual-bank suite: 6/6 passed, including concurrent
++  confirmation, legacy deterministic audit-ID collisions, and rollback-only
++  backup/restore verification;
++- TypeScript, lint and diff checks passed;
++- independent review found no blocker.
++
++## Scope
++
++- no schema migration, table, column or backup-contract change;
++- latest migration remains `0123-guard-function-schema-binding`;
++- backup schema remains `0122-acceptance-ledger-integrity` with 76 tables;
++- no live payment-provider, game-provider, customer-money or wallet call was
++  made during validation;
++- new deposits, new payouts, new game launches, real payments, live games and
++  production readiness remain disabled pending external acceptance.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index e133d9c6496f78ef2eddc404acb884f0d6b634ee..03e30ed55287d1497dcb148e9edb902fbb52992d 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -39,7 +39,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.169-runtime-guard-monitor';
++export const RELEASE = '17.0.0-selfbuilt.170-manual-bank-payout-atomicity';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff --git a/lib/manual-bank-evidence.ts b/lib/manual-bank-evidence.ts
+index c026be33d08f39df9029e83b5689df3fc6bed5d9..94c2ec0a3e44e8ae7b23fb80707f4ad43d885ac4 100644
+--- a/lib/manual-bank-evidence.ts
++++ b/lib/manual-bank-evidence.ts
+@@ -30,4 +30,5 @@ export const manualPayoutEvidenceSql=`(p.provider_id='manual_bank' AND EXISTS (
+  WHERE b.id=p.provider_reference AND b.payout_id=p.id AND b.direction='withdrawal'
+  AND b.bank_account_id=p.manual_bank_account_id AND b.amount_minor=p.amount_minor AND b.currency=p.currency
+  AND b.proof_sha256=p.last_event_hash AND LENGTH(b.proof_sha256)=64 AND b.proof_data<>''
+- AND EXISTS(SELECT 1 FROM audit a WHERE a.id='manual_bank_payout_paid_'||p.id AND a.event='manual_bank_payout_paid' AND a.target=b.id AND a.user_id=b.recorded_by)))`;
++ AND (SELECT COUNT(*) FROM audit a WHERE a.event='manual_bank_payout_paid' AND a.target=b.id AND a.user_id=b.recorded_by)=1
++ AND EXISTS(SELECT 1 FROM audit a WHERE a.event='manual_bank_payout_paid' AND a.target=b.id AND a.user_id=b.recorded_by AND a.created_at=b.recorded_at)))`;
+diff --git a/lib/manual-bank-payouts.ts b/lib/manual-bank-payouts.ts
+index 44a1015ad6198f0e7ddab5199aec2d218b667a3b..8639fdeee26ba90ebbaf8dc03c7f59d61ade2f65 100644
+--- a/lib/manual-bank-payouts.ts
++++ b/lib/manual-bank-payouts.ts
+@@ -45,18 +45,32 @@ export async function manualBankPayoutPost(path:string,d:Record<string,unknown>,
+   if(!availability.payoutEnabled)return json({error:'New manual bank transfers are temporarily unavailable',code:'PAYOUTS_MAINTENANCE'},503);
+   const bankId=typeof d.bankAccountId==='string'&&/^[A-Za-z0-9_-]{1,100}$/.test(d.bankAccountId)?d.bankAccountId:null;if(!bankId)return json({error:'Choose the company bank used to pay'},400);
+   if(x.status==='processing'&&x.payout_status==='processing'){
+-   const row=await c.db.prepare('SELECT manual_bank_account_id FROM provider_payouts WHERE id=?').bind(x.payout_id).first<any>();
++    const row=await c.db.prepare("SELECT p.manual_bank_account_id FROM provider_payouts p WHERE p.id=? AND EXISTS(SELECT 1 FROM audit a JOIN users reviewer ON reviewer.id=a.user_id WHERE a.event='manual_bank_payout_started' AND a.target=p.withdrawal_id AND reviewer.role='owner' AND a.created_at<=p.updated_at)").bind(x.payout_id).first<any>();
+    if(row?.manual_bank_account_id!==bankId)return json({error:'This payout is already assigned to another company bank'},409);
+    return json({status:'processing',idempotent:true,withdrawalId:id,payoutId:x.payout_id,recipient:recipient(x,c.dataKey)},200);
+   }
+   if(x.status!=='approved'||x.payout_status!=='prepared'||x.payout_outcome!=='not_submitted')return json({error:'Approve this withdrawal before starting a bank transfer'},409);
+   let details;try{details=recipient(x,c.dataKey);}catch{return json({error:'Recipient data invalid'},409);}
+-  const fingerprint=approvalFingerprint(x),authorization=crypto.randomUUID(),startId=`manual_bank_payout_started_${x.payout_id}`;
++   const fingerprint=approvalFingerprint(x),authorization=crypto.randomUUID(),startId=`manual_bank_payout_started_${authorization}`;
+   const result=await c.db.batch([
+    ...walletGuardStatements(c.db,x.user_id),
+    c.db.prepare("UPDATE users SET approved=approved WHERE id=? AND role='owner' AND approved=1").bind(actor),
+    c.db.prepare("UPDATE manual_compliance_reviews SET last_authorization_id=? WHERE user_id=? AND identity_status='passed' AND aml_status='passed' AND version=?").bind(authorization,x.user_id,x.compliance_version),
+    c.db.prepare('UPDATE company_bank_accounts SET updated_at=updated_at WHERE id=? AND enabled=1 AND NOT EXISTS(SELECT 1 FROM company_bank_accounts n WHERE n.supersedes_id=company_bank_accounts.id)').bind(bankId),
++    c.db.prepare(`INSERT INTO audit(id,user_id,event,target,created_at)
++     SELECT ?,?,'manual_bank_payout_started',w.id,? FROM provider_payouts p
++     JOIN withdrawal_requests w ON w.id=p.withdrawal_id
++     JOIN wallet_reservations r ON r.reference_id=w.id AND r.kind='withdrawal' AND r.user_id=w.user_id AND r.amount_minor=w.amount_minor
++     WHERE p.id=? AND p.provider_id='manual_bank' AND p.status='prepared' AND p.create_outcome='not_submitted' AND p.provider_reference IS NULL
++     AND w.id=? AND w.user_id=? AND w.status='approved' AND w.amount_minor=p.amount_minor AND w.provider_id=p.provider_id AND w.request_key=p.request_key AND w.currency=p.currency
++     AND w.destination_type=? AND w.account_holder_encrypted=? AND w.account_number_encrypted=? AND COALESCE(w.ewallet_code,'')=COALESCE(?,'') AND COALESCE(w.ewallet_account_encrypted,'')=COALESCE(?,'')
++     AND EXISTS(SELECT 1 FROM users reviewer WHERE reviewer.id=? AND reviewer.role='owner' AND reviewer.approved=1)
++     AND EXISTS(SELECT 1 FROM company_bank_accounts b WHERE b.id=? AND b.enabled=1 AND NOT EXISTS(SELECT 1 FROM company_bank_accounts n WHERE n.supersedes_id=b.id))
++     AND EXISTS(SELECT 1 FROM manual_compliance_reviews c WHERE c.user_id=? AND c.version=? AND c.identity_status='passed' AND c.aml_status='passed' AND c.last_authorization_id=?)
++     AND EXISTS(SELECT 1 FROM audit a WHERE a.id=? AND a.event='withdrawal_approved_v1' AND a.target=w.id)
++     AND EXISTS(SELECT 1 FROM audit a WHERE a.id=? AND a.event='withdrawal_approval_binding_v1' AND a.target=w.id)
++     ON CONFLICT(id) DO NOTHING`)
++     .bind(startId,actor,at,x.payout_id,id,x.user_id,x.destination_type??'bank',x.account_holder_encrypted,x.account_number_encrypted,x.ewallet_code,x.ewallet_account_encrypted,actor,bankId,x.user_id,x.compliance_version,authorization,`withdrawal_approved_v1_${id}`,`withdrawal_approval_binding_v1_${id}_${fingerprint}`),
+    c.db.prepare(`UPDATE provider_payouts SET status='processing',create_outcome='in_flight',manual_bank_account_id=?,last_error_code='manual_bank_transfer_pending',last_event_hash=?,updated_at=? WHERE id=? AND provider_id='manual_bank' AND status='prepared' AND create_outcome='not_submitted' AND provider_reference IS NULL
+     AND EXISTS(SELECT 1 FROM users reviewer WHERE reviewer.id=? AND reviewer.role='owner' AND reviewer.approved=1)
+     AND EXISTS(SELECT 1 FROM company_bank_accounts b WHERE b.id=? AND b.enabled=1 AND NOT EXISTS(SELECT 1 FROM company_bank_accounts n WHERE n.supersedes_id=b.id))
+@@ -64,10 +78,10 @@ export async function manualBankPayoutPost(path:string,d:Record<string,unknown>,
+     AND EXISTS(SELECT 1 FROM users m WHERE m.id=? AND m.role='member' AND m.approved=1 AND ${walletRiskFreeSql} AND ${walletAvailableSql}>=0)
+     AND EXISTS(SELECT 1 FROM withdrawal_requests w JOIN wallet_reservations r ON r.reference_id=w.id AND r.kind='withdrawal' AND r.user_id=w.user_id AND r.amount_minor=w.amount_minor WHERE w.id=provider_payouts.withdrawal_id AND w.id=? AND w.user_id=? AND w.status='approved' AND w.amount_minor=provider_payouts.amount_minor AND w.provider_id=provider_payouts.provider_id AND w.request_key=provider_payouts.request_key AND w.currency=provider_payouts.currency AND w.destination_type=? AND w.account_holder_encrypted=? AND w.account_number_encrypted=? AND COALESCE(w.ewallet_code,'')=COALESCE(?,'') AND COALESCE(w.ewallet_account_encrypted,'')=COALESCE(?,'') )
+     AND EXISTS(SELECT 1 FROM audit a WHERE a.id=? AND a.event='withdrawal_approved_v1' AND a.target=provider_payouts.withdrawal_id)
+-    AND EXISTS(SELECT 1 FROM audit a WHERE a.id=? AND a.event='withdrawal_approval_binding_v1' AND a.target=provider_payouts.withdrawal_id)`)
+-    .bind(bankId,authorization,at,x.payout_id,actor,bankId,x.user_id,x.compliance_version,authorization,x.user_id,id,x.user_id,x.destination_type??'bank',x.account_holder_encrypted,x.account_number_encrypted,x.ewallet_code,x.ewallet_account_encrypted,`withdrawal_approved_v1_${id}`,`withdrawal_approval_binding_v1_${id}_${fingerprint}`),
++     AND EXISTS(SELECT 1 FROM audit a WHERE a.id=? AND a.event='withdrawal_approval_binding_v1' AND a.target=provider_payouts.withdrawal_id)
++     AND EXISTS(SELECT 1 FROM audit a WHERE a.id=? AND a.event='manual_bank_payout_started' AND a.target=provider_payouts.withdrawal_id AND a.user_id=? AND a.created_at=?)`)
++     .bind(bankId,authorization,at,x.payout_id,actor,bankId,x.user_id,x.compliance_version,authorization,x.user_id,id,x.user_id,x.destination_type??'bank',x.account_holder_encrypted,x.account_number_encrypted,x.ewallet_code,x.ewallet_account_encrypted,`withdrawal_approved_v1_${id}`,`withdrawal_approval_binding_v1_${id}_${fingerprint}`,startId,actor,at),
+    c.db.prepare("UPDATE withdrawal_requests SET status='processing',updated_at=? WHERE id=? AND status='approved' AND EXISTS(SELECT 1 FROM provider_payouts p WHERE p.withdrawal_id=withdrawal_requests.id AND p.status='processing' AND p.last_event_hash=?)").bind(at,id,authorization),
+-   c.db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,?,'manual_bank_payout_started',?,? FROM provider_payouts p WHERE p.id=? AND p.status='processing' AND p.last_event_hash=? ON CONFLICT(id) DO NOTHING").bind(startId,actor,id,at,x.payout_id,authorization),
+   ]);
+   if(result.slice(2).some(r=>changed(r)!==1))return json({error:'Withdrawal changed or needs reconciliation; refresh'},409);
+   return json({status:'processing',withdrawalId:id,payoutId:x.payout_id,companyBankId:bankId,recipient:details},202);
+@@ -83,31 +97,38 @@ export async function manualBankPayoutPost(path:string,d:Record<string,unknown>,
+   const old=await c.db.prepare('SELECT * FROM manual_bank_transactions WHERE payout_id=?').bind(x.payout_id).first<any>();
+   return old?.normalized_reference===evidence.reference.normalized&&old.proof_sha256===evidence.hash&&Number(old.bank_occurred_at)===evidence.occurred&&await paid(c,x)?json({status:'paid',idempotent:true,bankTransactionId:old.id}):json({error:'Payout confirmation conflict'},409);
+  }
+- if(x.status!=='processing'||!['processing','review'].includes(x.payout_status))return json({error:'Start this bank transfer before confirming payment'},409);
+- const proofId=crypto.randomUUID(),decision=crypto.randomUUID(),paidAudit=`manual_bank_payout_paid_${x.payout_id}`;
++  const existing=await c.db.prepare('SELECT id,bank_account_id,normalized_reference,amount_minor,currency,proof_sha256,bank_occurred_at FROM manual_bank_transactions WHERE payout_id=?').bind(x.payout_id).first<any>();
++  const existingMatches=existing?.bank_account_id===bank.id&&existing.normalized_reference===evidence.reference.normalized&&String(existing.amount_minor)===String(x.amount_minor)&&existing.currency===x.currency&&existing.proof_sha256===evidence.hash&&Number(existing.bank_occurred_at)===evidence.occurred;
++  const legacyRepair=x.status==='processing'&&x.payout_status==='succeeded'&&x.payout_outcome==='accepted'&&x.payout_reference===existing?.id&&existingMatches;
++  if(x.status!=='processing'||(!['processing','review'].includes(x.payout_status)&&!legacyRepair))return json({error:'Start this bank transfer before confirming payment'},409);
++  const proofId=existingMatches?existing.id:crypto.randomUUID(),paidAudit=crypto.randomUUID(),decision=crypto.randomUUID();
+  const result=await c.db.batch([
+   ...walletGuardStatements(c.db,x.user_id),
+-  c.db.prepare("UPDATE provider_payouts SET updated_at=updated_at WHERE id=? AND provider_id='manual_bank' AND status IN ('processing','review')").bind(x.payout_id),
++   c.db.prepare("UPDATE provider_payouts SET updated_at=updated_at WHERE id=? AND provider_id='manual_bank' AND (status IN ('processing','review') OR (status='succeeded' AND create_outcome='accepted'))").bind(x.payout_id),
+   c.db.prepare(`INSERT INTO manual_bank_transactions(id,bank_account_id,bank_account_key,bank_reference,normalized_reference,direction,amount_minor,currency,payout_id,proof_data,proof_sha256,bank_occurred_at,recorded_by,recorded_at)
+    SELECT ?,p.manual_bank_account_id,?,?,?,'withdrawal',p.amount_minor,p.currency,p.id,?,?,?,?,? FROM provider_payouts p JOIN withdrawal_requests w ON w.id=p.withdrawal_id JOIN wallet_reservations r ON r.reference_id=w.id AND r.user_id=w.user_id AND r.amount_minor=w.amount_minor AND r.kind='withdrawal'
+    WHERE p.id=? AND p.provider_id='manual_bank' AND p.status IN ('processing','review') AND p.create_outcome IN ('in_flight','unknown') AND w.status='processing' AND p.provider_id=w.provider_id AND p.amount_minor=w.amount_minor AND p.currency=w.currency AND p.request_key=w.request_key AND p.manual_bank_account_id=?
+-   AND EXISTS(SELECT 1 FROM audit a WHERE a.id=? AND a.event='manual_bank_payout_started' AND a.target=w.id) ON CONFLICT DO NOTHING`)
+-   .bind(proofId,bankAccountKey(bank.account_number),evidence.reference.original,evidence.reference.normalized,evidence.proof,evidence.hash,evidence.occurred,actor,at,x.payout_id,bank.id,`manual_bank_payout_started_${x.payout_id}`),
+-  c.db.prepare("UPDATE provider_payouts SET status='succeeded',create_outcome='accepted',provider_reference=?,last_event_hash=?,last_error_code=NULL,updated_at=?,completed_at=? WHERE id=? AND status IN ('processing','review') AND EXISTS(SELECT 1 FROM manual_bank_transactions b WHERE b.id=? AND b.payout_id=provider_payouts.id AND b.bank_account_id=provider_payouts.manual_bank_account_id AND b.amount_minor=provider_payouts.amount_minor AND b.currency=provider_payouts.currency)").bind(proofId,evidence.hash,at,at,x.payout_id,proofId),
+-  c.db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,?,'manual_bank_payout_paid',?,? WHERE EXISTS(SELECT 1 FROM provider_payouts p WHERE p.id=? AND p.status='succeeded' AND p.provider_reference=?) ON CONFLICT(id) DO NOTHING").bind(paidAudit,actor,proofId,at,x.payout_id,proofId),
++    AND EXISTS(SELECT 1 FROM audit a JOIN users reviewer ON reviewer.id=a.user_id WHERE a.event='manual_bank_payout_started' AND a.target=w.id AND reviewer.role='owner' AND a.created_at<=p.updated_at) ON CONFLICT DO NOTHING`)
++    .bind(proofId,bankAccountKey(bank.account_number),evidence.reference.original,evidence.reference.normalized,evidence.proof,evidence.hash,evidence.occurred,actor,at,x.payout_id,bank.id),
++   c.db.prepare(`INSERT INTO audit(id,user_id,event,target,created_at)
++    SELECT ?,b.recorded_by,'manual_bank_payout_paid',b.id,b.recorded_at FROM manual_bank_transactions b JOIN provider_payouts p ON p.id=b.payout_id
++    WHERE b.id=? AND b.payout_id=? AND b.bank_account_id=? AND b.normalized_reference=? AND b.amount_minor=CAST(? AS BIGINT) AND b.currency=? AND b.proof_sha256=? AND b.bank_occurred_at=?
++    AND ((p.status IN ('processing','review') AND p.create_outcome IN ('in_flight','unknown')) OR (p.status='succeeded' AND p.create_outcome='accepted' AND p.provider_reference=b.id AND p.last_event_hash=b.proof_sha256 AND COALESCE(p.last_error_code,'')=''))
++    AND NOT EXISTS(SELECT 1 FROM audit a WHERE a.event='manual_bank_payout_paid' AND a.target=b.id AND a.user_id=b.recorded_by)
++    ON CONFLICT(id) DO NOTHING`).bind(paidAudit,proofId,x.payout_id,bank.id,evidence.reference.normalized,String(x.amount_minor),x.currency,evidence.hash,evidence.occurred),
++   c.db.prepare(`UPDATE provider_payouts SET status='succeeded',create_outcome='accepted',provider_reference=?,last_event_hash=?,last_error_code=NULL,updated_at=?,completed_at=? WHERE id=? AND status IN ('processing','review')
++    AND EXISTS(SELECT 1 FROM manual_bank_transactions b WHERE b.id=? AND b.payout_id=provider_payouts.id AND b.bank_account_id=provider_payouts.manual_bank_account_id AND b.normalized_reference=? AND b.amount_minor=provider_payouts.amount_minor AND b.currency=provider_payouts.currency AND b.proof_sha256=? AND b.bank_occurred_at=?
++    AND (SELECT COUNT(*) FROM audit a WHERE a.event='manual_bank_payout_paid' AND a.target=b.id AND a.user_id=b.recorded_by)=1
++    AND EXISTS(SELECT 1 FROM audit a WHERE a.event='manual_bank_payout_paid' AND a.target=b.id AND a.user_id=b.recorded_by AND a.created_at=b.recorded_at))`).bind(proofId,evidence.hash,at,at,x.payout_id,proofId,evidence.reference.normalized,evidence.hash,evidence.occurred),
+   c.db.prepare(`UPDATE withdrawal_requests SET status='paid',updated_at=?,updated_by=? WHERE id=? AND status='processing' AND EXISTS(SELECT 1 FROM provider_payouts p WHERE p.withdrawal_id=withdrawal_requests.id AND p.status='succeeded' AND p.create_outcome='accepted' AND p.provider_reference=? AND ${manualPayoutEvidenceSql})`).bind(at,actor,id,proofId),
+   c.db.prepare(`DELETE FROM wallet_reservations WHERE kind='withdrawal' AND reference_id=? AND user_id=? AND amount_minor=CAST(? AS BIGINT) AND EXISTS(SELECT 1 FROM withdrawal_requests w JOIN provider_payouts p ON p.withdrawal_id=w.id WHERE w.id=wallet_reservations.reference_id AND w.status='paid' AND p.provider_reference=? AND ${manualPayoutEvidenceSql})`).bind(id,x.user_id,String(x.amount_minor),proofId),
+   // A duplicate reference or inconsistent evidence cannot release a hold.
+-  c.db.prepare("UPDATE provider_payouts SET status='review',create_outcome='unknown',last_error_code='manual_bank_evidence_conflict',updated_at=? WHERE id=? AND status IN ('processing','review') AND NOT EXISTS(SELECT 1 FROM manual_bank_transactions b WHERE b.id=? AND b.payout_id=provider_payouts.id)").bind(at,x.payout_id,proofId),
++   c.db.prepare(`UPDATE provider_payouts SET status='review',create_outcome='unknown',last_error_code='manual_bank_evidence_conflict',updated_at=? WHERE id=? AND status IN ('processing','review')
++    AND NOT EXISTS(SELECT 1 FROM withdrawal_requests w JOIN provider_payouts p ON p.withdrawal_id=w.id WHERE p.id=provider_payouts.id AND w.status='paid' AND NOT EXISTS(SELECT 1 FROM wallet_reservations r WHERE r.reference_id=w.id) AND ${manualPayoutEvidenceSql})`).bind(at,x.payout_id),
+   c.db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,?,'manual_bank_payout_review',?,? WHERE EXISTS(SELECT 1 FROM provider_payouts p WHERE p.id=? AND p.status='review')").bind(decision,actor,id,at,x.payout_id)
+  ]);
+- if(changed(result[3])!==1||changed(result[4])!==1||changed(result[6])!==1||changed(result[7])!==1){
+-  // A concurrent identical confirmation may have committed while this request
+-  // waited on the member lock. Report that committed outcome without reposting.
+-  const prior=await c.db.prepare('SELECT id,normalized_reference,proof_sha256,bank_occurred_at FROM manual_bank_transactions WHERE payout_id=?').bind(x.payout_id).first<any>();
+-  if(prior?.normalized_reference===evidence.reference.normalized&&prior.proof_sha256===evidence.hash&&Number(prior.bank_occurred_at)===evidence.occurred&&await paid(c,x))return json({status:'paid',idempotent:true,bankTransactionId:prior.id});
++  const committed=await c.db.prepare('SELECT id,normalized_reference,proof_sha256,bank_occurred_at FROM manual_bank_transactions WHERE payout_id=?').bind(x.payout_id).first<any>();
++  const committedMatches=committed?.normalized_reference===evidence.reference.normalized&&committed.proof_sha256===evidence.hash&&Number(committed.bank_occurred_at)===evidence.occurred;
++  if(committedMatches&&await paid(c,x))return json({status:'paid',...(existingMatches||changed(result[5])!==1?{idempotent:true}:{}),bankTransactionId:committed.id,wallet:await withdrawalWalletState(c.db,x.user_id)});
+   return json({error:'Bank evidence conflicts or payout needs reconciliation',status:'review',fundsHeld:true},409);
+- }
+- if(!await paid(c,x))return json({error:'Wallet reconciliation is required',status:'review'},409);
+- return json({status:'paid',bankTransactionId:proofId,wallet:await withdrawalWalletState(c.db,x.user_id)});
+ }
+diff --git a/lib/manual-bank.ts b/lib/manual-bank.ts
+index 8ff321d1ff920d6c6f085f0b00515a3852c081b1..979ace0360dd167611b3d577f5f10974af1dd80f 100644
+--- a/lib/manual-bank.ts
++++ b/lib/manual-bank.ts
+@@ -29,7 +29,8 @@ export async function manualBankReadiness(db:D1Database){
+  AND NOT EXISTS(SELECT 1 FROM wallet_reservations r WHERE r.reference_id=w.id)
+  AND (SELECT COUNT(*) FROM wallet_ledger l WHERE l.order_id=d.id)=2
+  AND EXISTS(SELECT 1 FROM wallet_ledger l JOIN wallet_ledger c ON c.order_id=l.order_id WHERE l.order_id=d.id AND l.user_id=d.user_id AND l.account_code='member' AND l.amount_minor=d.amount_minor AND l.currency='MYR' AND c.user_id=d.user_id AND c.account_code='provider_clearing' AND c.amount_minor=-d.amount_minor AND c.currency='MYR')
+- AND EXISTS(SELECT 1 FROM audit a WHERE a.id='manual_bank_payout_paid_'||p.id AND a.event='manual_bank_payout_paid' AND a.target=wp.id AND a.user_id=wp.recorded_by)
++ AND (SELECT COUNT(*) FROM audit a WHERE a.event='manual_bank_payout_paid' AND a.target=wp.id AND a.user_id=wp.recorded_by)=1
++ AND EXISTS(SELECT 1 FROM audit a WHERE a.event='manual_bank_payout_paid' AND a.target=wp.id AND a.user_id=wp.recorded_by AND a.created_at=wp.recorded_at)
+  AND EXISTS(SELECT 1 FROM audit a WHERE a.id=? AND a.event='manual_bank_acceptance' AND a.target=?)`).bind(accepted.withdrawalId,accepted.depositId,accepted.auditId,accepted.evidenceSha256).first<any>();
+  return !!proof&&bankHash(proof.deposit_data)===proof.deposit_sha&&bankHash(proof.payout_data)===proof.payout_sha&&accepted.evidenceSha256===bankHash(JSON.stringify([proof.id,accepted.withdrawalId,proof.deposit_proof,proof.payout_proof]))&&!(await withdrawalWalletState(db,proof.user_id)).reconciliationRequired;
+ }
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index 4fe221f13a2fa33c222c7dcaf2ce016b0502361f..dba5ae48160007281740116b007bfe9c27b2395f 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.169-runtime-guard-monitor' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.170-manual-bank-payout-atomicity' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/package.json b/package.json
+index e7c53c5291748ffe482404c37af62da28fc51ba2..001ee781104434467237277dd0d03a11fc6241f1 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.169-runtime-guard-monitor node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.169-runtime-guard-monitor node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.170-manual-bank-payout-atomicity node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.170-manual-bank-payout-atomicity node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.169-runtime-guard-monitor node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.170-manual-bank-payout-atomicity node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs",
+     "test:acceptance-integrity-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-acceptance-integrity.mjs"
+diff --git a/public/service-worker.js b/public/service-worker.js
+index e02e0a13afb1f4ca79f22b953d8b89b622b65225..0e6bf9b01f512f336ade1c048f693a172da21176 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.169-runtime-guard-monitor';
++const CACHE='master7-shell-17.0.0-selfbuilt.170-manual-bank-payout-atomicity';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/scripts/verify-isolated-postgres-manual-bank.mjs b/scripts/verify-isolated-postgres-manual-bank.mjs
+index 2685ff237826244e809d9db2426c140b10a19e68..81155c48f814820e891a5551ea6bcde8de553db0 100644
+--- a/scripts/verify-isolated-postgres-manual-bank.mjs
++++ b/scripts/verify-isolated-postgres-manual-bank.mjs
+@@ -33,7 +33,26 @@ test('manual company bank funds preserve evidence on isolated PostgreSQL',{timeo
+  const ctx=who=>({db,user:who,newDepositsEnabled:'true',newPayoutsEnabled:'true',dataKey:key});
+  const post=(path,data,who=owner)=>manualBankPost(path,data,ctx(who));
+  const json=async response=>({status:response.status,data:await response.json()});
+- async function reset(){await pool.query('TRUNCATE users CASCADE');for(const u of [owner,staff,alice,bob])await db.prepare("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES(?,?,?,1,'fixture',0)").bind(u.id,u.username,u.role).run();await pool.query("INSERT INTO manual_compliance_reviews(user_id,identity_status,aml_status,version,last_change_id,created_at,updated_at) VALUES('alice','passed','passed',1,'a',0,0),('bob','passed','passed',1,'b',0,0)");await db.prepare("DELETE FROM settings WHERE id LIKE 'manual_bank:%'").run();const result=await json(await post('/api/admin/manual-bank/account',{bankName:'Synthetic Bank',accountName:'Synthetic Company',accountNumber:'1234567890',enabled:true,imageData:image}));assert.equal(result.status,200);bankId=result.data.id;assert.equal((await post('/api/admin/manual-bank/settings',{mode:'qa',qaMemberIds:['alice','bob']})).status,200);}
++ async function reset(){
++  // Keep the immutable provider/production acceptance history created by
++  // initialization. Only test-owned manual-bank state is reset between cases.
++  await pool.query(`BEGIN;
++   DELETE FROM wallet_ledger;
++   DELETE FROM wallet_reservations;
++   DELETE FROM manual_bank_transactions;
++   DELETE FROM manual_deposit_requests;
++   DELETE FROM provider_payouts;
++   DELETE FROM withdrawal_requests;
++   DELETE FROM deposit_orders;
++   DELETE FROM company_bank_accounts;
++   DELETE FROM manual_compliance_reviews WHERE user_id IN ('alice','bob');
++   DELETE FROM audit WHERE user_id IN ('owner','staff','alice','bob');
++   DELETE FROM settings WHERE id LIKE 'manual_bank:%';
++   COMMIT;`);
++  for(const u of [owner,staff,alice,bob])await db.prepare("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES(?,?,?,1,'fixture',0) ON CONFLICT(id) DO UPDATE SET username=excluded.username,role=excluded.role,approved=1,csrf='fixture'").bind(u.id,u.username,u.role).run();
++  await pool.query("INSERT INTO manual_compliance_reviews(user_id,identity_status,aml_status,version,last_change_id,created_at,updated_at) VALUES('alice','passed','passed',1,'a',0,0),('bob','passed','passed',1,'b',0,0)");
++  const result=await json(await post('/api/admin/manual-bank/account',{bankName:'Synthetic Bank',accountName:'Synthetic Company',accountNumber:'1234567890',enabled:true,imageData:image}));assert.equal(result.status,200);bankId=result.data.id;assert.equal((await post('/api/admin/manual-bank/settings',{mode:'qa',qaMemberIds:['alice','bob']})).status,200);
++ }
+  let bankId;
+  const evidence=(reference='PG-BANK-REF',amount='50.00')=>({bankAccountId:bankId,bankReference:reference,bankAmount:amount,currency:'MYR',bankOccurredAt:Math.floor(Date.now()/1000)-10,proofData:image,bankConfirmed:true});
+  async function create(who=alice){const r=await json(await post('/api/manual-bank/deposits',{bankId,amount:'50.00',receiptData:image,requestKey:crypto.randomUUID()},who));assert.equal(r.status,201,JSON.stringify(r));return r.data.id;}
+@@ -52,9 +71,11 @@ test('manual company bank funds preserve evidence on isolated PostgreSQL',{timeo
+   const payouts={manual_bank:{enabled:true,reason:'Synthetic bank',submit:async()=>{throw Error('Manual approval must never transfer externally');}}},withdrawCtx=who=>({...ctx(who),payouts});
+   const made=await json(await submitWithdrawal({providerId:'manual_bank',bankCode:'maybank',accountHolder:'Alice Example',accountNumber:'223456789012',amount:'20.00',requestKey:crypto.randomUUID()},withdrawCtx(alice)));assert.equal(made.status,201,JSON.stringify(made));const id=made.data.withdrawal.id;
+   const list=await json(await listAdminWithdrawals(withdrawCtx(owner))),item=list.data.items.find(x=>x.id===id);assert.equal((await approveWithdrawal({id,approvalFingerprint:item.approvalFingerprint,ownerNote:'Isolated synthetic QA'},withdrawCtx(owner))).status,202);
+-  const start=await manualBankPayoutPost('/api/admin/manual-bank/payout/start',{id,bankAccountId:bankId},ctx(owner));assert.equal(start.status,202,JSON.stringify(await start.json()));
++   const payoutId=(await pool.query('SELECT id FROM provider_payouts WHERE withdrawal_id=$1',[id])).rows[0].id;
++   await pool.query("INSERT INTO audit(id,user_id,event,target,created_at) VALUES($1,'owner','unrelated_event','unrelated_target',0),($2,'owner','unrelated_event','unrelated_target',0)",[`manual_bank_payout_started_${payoutId}`,`manual_bank_payout_paid_${payoutId}`]);
++   const start=await manualBankPayoutPost('/api/admin/manual-bank/payout/start',{id,bankAccountId:bankId},ctx(owner));assert.equal(start.status,202,JSON.stringify(await start.json()));
+   const body={id,...evidence('PG-PAYOUT-REF','20.00')},results=await Promise.all([manualBankPayoutPost('/api/admin/manual-bank/payout/confirm',body,ctx(owner)),manualBankPayoutPost('/api/admin/manual-bank/payout/confirm',body,ctx(owner))]);assert.deepEqual(results.map(x=>x.status),[200,200]);
+-  assert.equal((await pool.query("SELECT COUNT(*)::int n FROM manual_bank_transactions WHERE direction='withdrawal'")).rows[0].n,1);assert.equal((await pool.query('SELECT COUNT(*)::int n FROM wallet_reservations')).rows[0].n,0);assert.equal((await withdrawalWalletState(db,'alice')).availableMinor,'3000');
++   assert.equal((await pool.query("SELECT COUNT(*)::int n FROM manual_bank_transactions WHERE direction='withdrawal'")).rows[0].n,1);assert.equal((await pool.query("SELECT COUNT(*)::int n FROM audit a JOIN manual_bank_transactions b ON b.id=a.target WHERE b.payout_id=$1 AND a.event='manual_bank_payout_paid' AND a.user_id=b.recorded_by AND a.created_at=b.recorded_at",[payoutId])).rows[0].n,1);assert.equal((await pool.query('SELECT COUNT(*)::int n FROM wallet_reservations')).rows[0].n,0);assert.equal((await withdrawalWalletState(db,'alice')).availableMinor,'3000');
+   const accepted=await post('/api/admin/manual-bank/acceptance',{depositId,withdrawalId:id,bankConfirmed:true});assert.equal(accepted.status,200,JSON.stringify(await accepted.json()));assert.equal(await manualBankReadiness(db),true);
+   await db.batch([...walletGuardStatements(db,'alice'),walletGuardedReservation(db,{userId:'alice',kind:'withdrawal',referenceId:'synthetic-next',amountMinor:'100',createdAt:0})]);assert.equal((await pool.query("SELECT COUNT(*)::int n FROM wallet_reservations WHERE reference_id='synthetic-next'")).rows[0].n,1);
+  });
+diff --git a/tests/manual-bank-funds.test.mjs b/tests/manual-bank-funds.test.mjs
+index 057ff67066c5b851fdeb7cc52d40d3258a2aaadd..e96560a5cbb566547b152669ed53da28115a3b51 100644
+--- a/tests/manual-bank-funds.test.mjs
++++ b/tests/manual-bank-funds.test.mjs
+@@ -6,6 +6,7 @@ import {handle} from '../lib/backend.ts';
+ import {withdrawalWalletState} from '../lib/withdrawals.ts';
+ import {walletGuardStatements,walletGuardedReservation} from '../lib/wallet-guard.ts';
+ import {manualBankReadiness} from '../lib/manual-bank.ts';
++import {bankAccountKey,bankHash} from '../lib/manual-bank-evidence.ts';
+ 
+ const origin='https://portal.example.test',image='data:image/png;base64,'+Buffer.from([137,80,78,71,13,10,26,10,...new Array(40).fill(1)]).toString('base64');
+ export function bankFixture(t){
+@@ -50,6 +51,50 @@ test('replacing bank identity preserves historical orders and prevents editing t
+ test('manual withdrawal reserves funds, owner approves separately, bank confirmation debits once and releases the hold',async t=>{
+  const f=bankFixture(t);await f.setup();await f.deposit();const id=await f.withdrawal();let wallet=(await f.call('/api/wallet')).data;assert.equal(wallet.balanceMinor,'5000');assert.equal(wallet.availableMinor,'3000');const proof=f.proof('PAYOUT-0001','20.00');const done=await f.post('/api/admin/manual-bank/payout/confirm',{id,...proof});assert.equal(done.status,200,JSON.stringify(done));assert.equal(done.data.status,'paid');wallet=(await f.call('/api/wallet')).data;assert.equal(wallet.balanceMinor,'3000');assert.equal(wallet.availableMinor,'3000');assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);assert.equal((await f.post('/api/admin/manual-bank/payout/confirm',{id,...proof})).data.idempotent,true);assert.equal((await f.call('/api/wallet')).data.balanceMinor,'3000');assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,2);assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM manual_bank_transactions WHERE direction='withdrawal'").get().n,1);
+ });
++test('legacy fixed start and paid audit IDs cannot block a valid manual payout',async t=>{
++ const f=bankFixture(t);await f.setup();await f.deposit();const id=await f.withdrawal({start:false}),payout=f.sql.prepare('SELECT id FROM provider_payouts WHERE withdrawal_id=?').get(id);
++ f.sql.prepare("INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,'unrelated_event','unrelated_target',0)").run(`manual_bank_payout_started_${payout.id}`,'owner');
++ const started=await f.post('/api/admin/manual-bank/payout/start',{id,bankAccountId:f.state.bank});assert.equal(started.status,202,JSON.stringify(started));
++ f.sql.prepare("INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,'unrelated_event','unrelated_target',0)").run(`manual_bank_payout_paid_${payout.id}`,'owner');
++ const proof=f.proof('LEGACY-ID-COLLISION','20.00'),done=await f.post('/api/admin/manual-bank/payout/confirm',{id,...proof});assert.equal(done.status,200,JSON.stringify(done));
++ const transaction=f.sql.prepare('SELECT * FROM manual_bank_transactions WHERE payout_id=?').get(payout.id);assert.ok(transaction);
++ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit WHERE event='manual_bank_payout_paid' AND target=? AND user_id=? AND created_at=?").get(transaction.id,transaction.recorded_by,transaction.recorded_at).n,1);
++ assert.equal(f.sql.prepare("SELECT event FROM audit WHERE id=?").get(`manual_bank_payout_paid_${payout.id}`).event,'unrelated_event');
++});
++test('a start-audit primary-key collision leaves approval and the full hold retryable',async t=>{
++ const f=bankFixture(t);await f.setup();await f.deposit();const id=await f.withdrawal({start:false}),original=crypto.randomUUID.bind(crypto),authorization='forced-start-authorization';
++ f.sql.prepare("INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,'unrelated_event','unrelated_target',0)").run(`manual_bank_payout_started_${authorization}`,'owner');
++ crypto.randomUUID=()=>authorization;let failed;try{failed=await f.post('/api/admin/manual-bank/payout/start',{id,bankAccountId:f.state.bank});}finally{crypto.randomUUID=original;}
++ assert.equal(failed.status,409,JSON.stringify(failed));assert.equal(f.sql.prepare('SELECT status FROM withdrawal_requests WHERE id=?').get(id).status,'approved');assert.equal(f.sql.prepare('SELECT status FROM provider_payouts WHERE withdrawal_id=?').get(id).status,'prepared');assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations WHERE reference_id=?').get(id).n,1);
++ const retry=await f.post('/api/admin/manual-bank/payout/start',{id,bankAccountId:f.state.bank});assert.equal(retry.status,202,JSON.stringify(retry));assert.equal(f.sql.prepare('SELECT status FROM withdrawal_requests WHERE id=?').get(id).status,'processing');
++});
++test('a paid-audit primary-key collision keeps the hold and the same evidence retries safely',async t=>{
++ const f=bankFixture(t);await f.setup();await f.deposit();const id=await f.withdrawal(),proof=f.proof('PAID-AUDIT-COLLISION','20.00'),original=crypto.randomUUID.bind(crypto);
++ f.sql.prepare("INSERT INTO audit(id,user_id,event,target,created_at) VALUES('occupied-paid-audit','owner','unrelated_event','unrelated_target',0)").run();
++ const forced=['forced-bank-proof','occupied-paid-audit','forced-review-audit'];let cursor=0;crypto.randomUUID=()=>forced[cursor++]??original();
++ let failed;try{failed=await f.post('/api/admin/manual-bank/payout/confirm',{id,...proof});}finally{crypto.randomUUID=original;}
++ assert.equal(failed.status,409,JSON.stringify(failed));assert.equal(failed.data.fundsHeld,true);
++ assert.equal(f.sql.prepare('SELECT status FROM provider_payouts WHERE withdrawal_id=?').get(id).status,'review');
++ assert.equal(f.sql.prepare('SELECT status FROM withdrawal_requests WHERE id=?').get(id).status,'processing');
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations WHERE reference_id=?').get(id).n,1);
++ assert.equal((await f.call('/api/wallet')).data.balanceMinor,'5000');
++ const retried=await f.post('/api/admin/manual-bank/payout/confirm',{id,...proof});assert.equal(retried.status,200,JSON.stringify(retried));assert.equal(retried.data.status,'paid');
++ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM manual_bank_transactions WHERE payout_id=(SELECT id FROM provider_payouts WHERE withdrawal_id=?)").get(id).n,1);
++ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit a JOIN manual_bank_transactions b ON b.id=a.target WHERE b.payout_id=(SELECT id FROM provider_payouts WHERE withdrawal_id=?) AND a.event='manual_bank_payout_paid' AND a.user_id=b.recorded_by").get(id).n,1);
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations WHERE reference_id=?').get(id).n,0);
++ assert.equal((await f.call('/api/wallet')).data.availableMinor,'3000');
++});
++test('a legacy succeeded payout with its hold intact can attach missing audit evidence and finish once',async t=>{
++ const f=bankFixture(t);await f.setup();await f.deposit();const id=await f.withdrawal(),payout=f.sql.prepare('SELECT * FROM provider_payouts WHERE withdrawal_id=?').get(id),proof=f.proof('LEGACY-SUCCEEDED-REPAIR','20.00'),transactionId='legacy-succeeded-proof',recordedAt=Math.floor(Date.now()/1000);
++ f.sql.prepare(`INSERT INTO manual_bank_transactions(id,bank_account_id,bank_account_key,bank_reference,normalized_reference,direction,amount_minor,currency,payout_id,proof_data,proof_sha256,bank_occurred_at,recorded_by,recorded_at)
++  VALUES(?,?,?,?,?,'withdrawal',2000,'MYR',?,?,?,?,?,?)`).run(transactionId,f.state.bank,bankAccountKey('1234567890'),proof.bankReference,proof.bankReference.toUpperCase().replace(/[\s-]/g,''),payout.id,proof.proofData,bankHash(proof.proofData),proof.bankOccurredAt,'owner',recordedAt);
++ f.sql.prepare("UPDATE provider_payouts SET status='succeeded',create_outcome='accepted',provider_reference=?,last_event_hash=?,last_error_code=NULL,completed_at=? WHERE id=?").run(transactionId,bankHash(proof.proofData),recordedAt,payout.id);
++ f.sql.prepare("INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,'unrelated_event','unrelated_target',0)").run(`manual_bank_payout_paid_${payout.id}`,'owner');
++ const repaired=await f.post('/api/admin/manual-bank/payout/confirm',{id,...proof});assert.equal(repaired.status,200,JSON.stringify(repaired));assert.equal(repaired.data.status,'paid');
++ assert.equal(f.sql.prepare('SELECT status FROM withdrawal_requests WHERE id=?').get(id).status,'paid');assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations WHERE reference_id=?').get(id).n,0);
++ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit WHERE event='manual_bank_payout_paid' AND target=? AND user_id='owner' AND created_at=?").get(transactionId,recordedAt).n,1);
++ assert.equal((await f.call('/api/wallet')).data.availableMinor,'3000');
++});
+ test('manual Company Bank pays an allowlisted e-wallet through the same reviewed queue',async t=>{
+  const f=bankFixture(t);f.sql.prepare("UPDATE users SET phone='+60123456789' WHERE id='alice'").run();await f.setup();await f.deposit();
+  const requested=await f.post('/api/withdrawals',{providerId:'manual_bank',destinationType:'ewallet',ewalletCode:'boost',ewalletAccountIdentifier:'012-345 6789',accountHolder:'Alice Example',amount:'20.00',requestKey:crypto.randomUUID()},'alice');assert.equal(requested.status,201,JSON.stringify(requested));const id=requested.data.withdrawal.id;
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index 258e75137db8c66fc4ad16c966e62f600d6f9743..dbe830d7010279a949e796dff6ec5bc8cb3f6e58 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.169-runtime-guard-monitor';
++const release='17.0.0-selfbuilt.170-manual-bank-payout-atomicity';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{

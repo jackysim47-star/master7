@@ -1,0 +1,129 @@
+{
+  "release": "17.0.0-selfbuilt.170-manual-bank-payout-atomicity",
+  "preparedAt": "2026-11-10T17:39:32.310122+00:00",
+  "sourceCommit": "7501bd9731a5a2beec200fa1388a0e4c27483c5c",
+  "sourceTree": "e0c71d230d83693e56bad4906f274b15c68f5b61",
+  "baselineSourceCommit": "9c39a1faea238edf411c67ab4431c42f54f4f46f",
+  "baselineRelease": "17.0.0-selfbuilt.169-runtime-guard-monitor",
+  "archive": {
+    "sha256": "23ac64feedac63e1a264c162d9a209f7357b8b165b6eafebacecc022fe06decf",
+    "bytes": 7244266,
+    "files": 720,
+    "directories": 61,
+    "entries": 781,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0,
+    "sourceManifestEntries": 720
+  },
+  "proofs": {
+    "manifestSha256": "43ebc7c79637a09d0ce0d245b8a589ae604114e58bb875ffe16bf7b248f2e2a4",
+    "manifestBytes": 78854,
+    "sourcePatchSha256": "575ac0b9690c0aa9b28344191f54047a6a32b2b6732a2ce26d48d234c2d3944a",
+    "sourcePatchBytes": 56305,
+    "sourcePatchAppliesToBaseline": true,
+    "sourcePatchReconstructedTree": "e0c71d230d83693e56bad4906f274b15c68f5b61",
+    "sha256RecordSha256": "ffef08fbbb92455aa2918e01335bdfa1292f6ac887109058f83604f29b45ec0e",
+    "sha256RecordBytes": 100
+  },
+  "changes": {
+    "added": [
+      "docs/V170_MANUAL_BANK_PAYOUT_ATOMICITY.md"
+    ],
+    "changed": [
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "lib/backend.ts",
+      "lib/manual-bank-evidence.ts",
+      "lib/manual-bank-payouts.ts",
+      "lib/manual-bank.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/service-worker.js",
+      "scripts/verify-isolated-postgres-manual-bank.mjs",
+      "tests/manual-bank-funds.test.mjs",
+      "tests/official-entries-probe.test.mjs"
+    ],
+    "deleted": [],
+    "insertions": 232,
+    "deletions": 64,
+    "files": 13
+  },
+  "validation": {
+    "fullRegression": 1412,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "renderDatabase": 3,
+    "targetedSQLiteManualBank": 19,
+    "relatedRegression": 74,
+    "isolatedPostgres18ManualBank": 6,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "diffCheck": true,
+    "independentReview": true,
+    "command": "npm run verify:render",
+    "scope": "local synthetic, fixture-only and isolated validation; no live provider, player, wallet, game launch or payment calls"
+  },
+  "manualBankPayoutAtomicity": {
+    "startAuditInsertedBeforeProcessing": true,
+    "startAuditBoundToFreshAuthorization": true,
+    "startAuditCollisionLeavesProviderPrepared": true,
+    "startAuditCollisionLeavesWithdrawalApproved": true,
+    "startAuditCollisionPreservesFullWalletHold": true,
+    "paidAuditInsertedBeforeSuccess": true,
+    "paidAuditExactEvidenceCardinality": 1,
+    "paidAuditTimestampBoundToBankTransaction": true,
+    "missingDuplicateOrConflictingEvidenceFailsClosed": true,
+    "identicalConfirmationReusesBankTransaction": true,
+    "differentEvidenceConflicts": true,
+    "auditCollisionRetryableWithFreshIdentifier": true,
+    "legacyPartialStateRepairRequiresExactEvidence": true,
+    "legacyRepairReleasesReservationExactlyOnce": true,
+    "providerCallsDuringValidation": 0,
+    "moneyOrWalletWritesDuringValidation": 0
+  },
+  "databaseChanges": {
+    "newMigration": false,
+    "latestMigration": "0123-guard-function-schema-binding",
+    "backupSchemaVersion": "0122-acceptance-ledger-integrity",
+    "backupSchemaSha256": "534b830dc4330ee48c77543500116451880b13540d5e0691ee8a09910041328b",
+    "backupTableCount": 76,
+    "sqliteSupported": true,
+    "postgres18Supported": true
+  },
+  "operationalChanges": {
+    "newDepositsUiFlagChanged": false,
+    "providerOrderSubmissionEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPaymentsEnabled": false,
+    "liveGamesEnabled": false,
+    "productionReady": false,
+    "supplierAcceptanceBypassed": false
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "renderYaml": false,
+    "environmentTemplates": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false,
+  "securityScan": {
+    "privateKeyMarkersCurrent": 0,
+    "privateKeyMarkersBaseline": 0,
+    "credentialUrlPatternMatchesCurrent": 25,
+    "credentialUrlPatternMatchesBaseline": 25,
+    "suspectLiteralCredentialAssignmentsCurrent": 0,
+    "suspectLiteralCredentialAssignmentsBaseline": 0,
+    "newCredentialUrlPatternsVersusV169": 0,
+    "newSuspectCredentialAssignmentsVersusV169": 0,
+    "newPrivateKeyMarkersVersusV169": 0
+  }
+}
