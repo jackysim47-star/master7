@@ -13,6 +13,7 @@ const {
 } = require('./gspay');
 const { jiliCatalogueBody, normalizeJiliGames } = require('./jili');
 const { parseEpicwinCatalogueResponse } = require('./epicwin');
+const { parseEvoCatalogueResponse } = require('./evo');
 const { parseKissh5CatalogueResponse } = require('./kissh5');
 const { venusCatalogue } = require('./venus');
 const { rsghubCatalogue } = require('./rsghub');
@@ -503,10 +504,31 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
       }
 
       if (req.method === 'GET' && url.pathname === '/providers/evo888h5/games') {
-        const result = await cached('evo-games', () => evo('/game/list'), value =>
-          value.ok && (value.data?.code === 0 || value.data?.code === '0'));
-        const providerOK = result.data?.code === 0 || result.data?.code === '0';
-        return send(res, result.ok && providerOK ? 200 : 502, { provider: 'evo888h5', upstreamStatus: result.status, result: result.data }, cors);
+        const result = await cached('evo-games', () => evo('/game/list'), value => {
+          if (!value.ok) return false;
+          try { return parseEvoCatalogueResponse(value.data).ok; }
+          catch { return false; }
+        });
+        if (!result.ok) return send(res, 502, {
+          error: 'evo_catalogue_failed', provider: 'evo888h5', upstreamStatus: result.status,
+          providerStatus: null,
+        }, cors);
+        let catalogue;
+        try { catalogue = parseEvoCatalogueResponse(result.data); }
+        catch {
+          return send(res, 502, {
+            error: 'evo_catalogue_invalid', provider: 'evo888h5', upstreamStatus: result.status,
+            providerStatus: null,
+          }, cors);
+        }
+        if (!catalogue.ok) return send(res, 502, {
+          error: 'evo_catalogue_failed', provider: 'evo888h5', upstreamStatus: result.status,
+          providerStatus: catalogue.status,
+        }, cors);
+        return send(res, 200, {
+          provider: 'evo888h5', upstreamStatus: result.status,
+          result: { code: 0, data: catalogue.games }, complete: true,
+        }, cors);
       }
 
       if (req.method === 'GET' && url.pathname === '/providers/megah5/games') {

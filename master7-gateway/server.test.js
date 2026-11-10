@@ -279,19 +279,51 @@ test('EVO catalog uses bearer token and hides it from response', async () => {
   let authorization;
   const fetchImpl = async (_url, options) => {
     authorization = options.headers.Authorization;
-    return new Response(JSON.stringify({ code: 0, data: [] }), { status: 200 });
+    return new Response(JSON.stringify({ code: 0, private: 'must-not-leak', data: [{
+      gameid: '2340', title: 'Lord Guan Yu',
+      thumbnail: 'https://backendapi.evo888h5.com/slots/cover-img/private.png?token=hidden',
+      weekturnover: 90000,
+    }] }), { status: 200 });
   };
   const res = await run(makeApp({ env: { EVO_API_TOKEN: 'token-value' }, fetchImpl }), '/providers/evo888h5/games');
   const data = await res.json();
   assert.equal(res.status, 200);
   assert.equal(authorization, 'Bearer token-value');
   assert.equal(JSON.stringify(data).includes('token-value'), false);
+  assert.deepEqual(data, {
+    provider: 'evo888h5', upstreamStatus: 200, complete: true,
+    result: {code: 0, data: [{gameid: '2340', title: 'Lord Guan Yu', thumbnail: null, maintenance: true}]},
+  });
+  assert.equal(JSON.stringify(data).includes('must-not-leak'), false);
+  assert.equal(JSON.stringify(data).includes('weekturnover'), false);
+  assert.equal(JSON.stringify(data).includes('hidden'), false);
 });
 
 test('EVO provider error is not reported as a successful connection', async () => {
   const fetchImpl = async () => new Response(JSON.stringify({ code: 130, message: 'IP address is not in whitelist' }), { status: 200 });
   const res = await run(makeApp({ env: { EVO_API_TOKEN: 'token-value' }, fetchImpl }), '/providers/evo888h5/games');
   assert.equal(res.status, 502);
+  assert.deepEqual(await res.json(), {
+    error: 'evo_catalogue_failed', provider: 'evo888h5', upstreamStatus: 200, providerStatus: 130,
+  });
+});
+
+test('EVO malformed success response fails closed and is not cached', async () => {
+  let calls = 0;
+  const fetchImpl = async () => {
+    calls += 1;
+    return new Response(JSON.stringify(calls === 1
+      ? {code: 0, data: [{gameid: '1', title: 'One'}, {gameid: '1', title: 'Duplicate'}]}
+      : {code: 0, data: []}), {status: 200});
+  };
+  const app = makeApp({env: {EVO_API_TOKEN: 'token-value'}, fetchImpl});
+  const invalid = await run(app, '/providers/evo888h5/games');
+  assert.equal(invalid.status, 502);
+  assert.deepEqual(await invalid.json(), {
+    error: 'evo_catalogue_invalid', provider: 'evo888h5', upstreamStatus: 200, providerStatus: null,
+  });
+  assert.equal((await run(app, '/providers/evo888h5/games')).status, 200);
+  assert.equal(calls, 2);
 });
 
 test('EVO provider rejection is not cached after an allowlist is repaired', async () => {

@@ -5,7 +5,7 @@
   "type": "commonjs",
   "scripts": {
     "start": "node server.js",
-    "test": "node --test server.test.js vpay.test.js gspay.test.js gspay-routing.test.js epicwin.test.js jili.test.js kissh5.test.js venus.test.js rsghub.test.js jdb.test.js pragmatic.test.js reliability.test.js data-quality.test.js wallet-query.test.js peer-configuration.test.js megah5-transfer.test.js metagaming.test.js",
+    "test": "node --test server.test.js vpay.test.js gspay.test.js gspay-routing.test.js epicwin.test.js evo.test.js jili.test.js kissh5.test.js venus.test.js rsghub.test.js jdb.test.js pragmatic.test.js reliability.test.js data-quality.test.js wallet-query.test.js peer-configuration.test.js megah5-transfer.test.js metagaming.test.js",
     "audit": "node audit-integrations.js"
   },
   "engines": {
