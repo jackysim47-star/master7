@@ -1,0 +1,45 @@
+Subject: MASTER7 legacy MegaH5 merchant mapping, contract and restricted UAT request
+
+Please confirm the production contract and enable restricted UAT for the MASTER7 legacy MegaH5 profile.
+
+Current verified state:
+
+- The catalogue endpoint returns 166 games with unique, non-empty game codes.
+- Platform credentials and game/wallet tokens are configured.
+- The platform has not verified that this merchant account belongs to the advertised MegaH5 brand and upstream operator.
+- Member Play, session, balance and all money actions remain closed until the items below are confirmed and tested.
+
+Please provide or confirm in writing:
+
+1. The exact legal/provider brand and upstream operator attached to this merchant account, including the approved merchant/account identifier and game catalogue entitlement. Confirm whether the legacy name “MegaH5” is the correct public brand for this account.
+2. The approved production and UAT API base endpoints, API version and exact methods for game catalogue, player registration or session, GameLogin, CheckBalance, Deposit, Withdraw and CheckTransferStatus. Identify any obsolete methods that must not be used.
+3. The full authentication and signing contract: required headers and fields, ordered signing string, hashing/encryption algorithm, timestamp/timezone rule, nonce/replay rules and response-signature verification. Credentials must be sent only through the agreed secure channel, not ordinary chat or email.
+4. The terminal, pending and retryable meaning of every response and error code for launch, balance, deposit, withdrawal and transaction status. State how an HTTP timeout or unknown result must be recovered without resubmitting a money action.
+5. The currency, unit and decimal rule for every request and response amount. Confirm whether values are MYR, cents, game credits or another unit, and whether any conversion ratio is applied by the provider.
+6. The exact meaning and allowed values of the catalogue field `Maintenance`, including the currently observed value `1|2|3|4|5|6`, its timezone and how active versus unavailable games must be determined.
+7. The approved HTTPS customer launch origins, redirect/return origins and any required URL parameters. Confirm all domain, mobile/web and iframe restrictions.
+8. The supported session-close/logout method, token invalidation behavior and the evidence that a session is fully closed.
+9. The late-wager and unsettled-round contract after logout or forced closure: finality window, void/correction/rollback behavior, pending rounds and the authoritative status or report that proves no later result can arrive.
+10. The transfer recovery contract: idempotency key, duplicate protection, transaction reference retention, authoritative query method, final statuses and escalation procedure. MASTER7 will query the original reference and will not resubmit an unknown transfer.
+11. The authoritative bet, settlement and reconciliation report: fields, signs, amount units, pagination, timezone, maximum query window, corrections, retention and recommended polling schedule.
+12. Any callback/webhook requirements: event types, source IPs, signature headers, replay protection, retry policy, acknowledgement and test procedure. If report polling is authoritative and no callback is required, please confirm that in writing.
+13. Launch, balance, transfer, status, report and catalogue rate limits, concurrency limits and maintenance-window rules.
+
+Please allowlist both current Render Singapore outbound CIDR ranges for this merchant account:
+
+- 74.220.52.0/24
+- 74.220.60.0/24
+
+Requests may originate from any address in either range, so registering one observed IP is insufficient. Please also provide the supplier source IP ranges that MASTER7 should allow for any callback.
+
+Requested acceptance sequence:
+
+1. Confirm merchant-to-brand mapping, endpoints, permissions and maintenance semantics.
+2. Read-only catalogue and account-permission check.
+3. Restricted UAT player creation, launch and return.
+4. Small-value balance, deposit, withdrawal and exact original-reference query.
+5. Logout/session closure, late-round finality and report reconciliation.
+6. Controlled timeout/unknown recovery without a duplicate money action.
+7. Separate durable production acceptance only after every UAT result is confirmed.
+
+MASTER7 will keep member Play and all cash operations closed until this contract is confirmed and the controlled checks pass.
