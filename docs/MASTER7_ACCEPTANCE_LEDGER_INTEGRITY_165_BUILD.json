@@ -1,0 +1,118 @@
+{
+  "release": "17.0.0-selfbuilt.165-acceptance-ledger-integrity",
+  "preparedAt": "2026-11-10T14:38:10.649950+00:00",
+  "sourceCommit": "091507b3d7f53a7547549410379d4d1c561fb307",
+  "sourceTree": "6d4d01a75cbf21cf18199815acf657ce213f558b",
+  "baselineSourceCommit": "14fc4fe22d4f96a210274fe2beffdf706ceb5e1a",
+  "baselineRelease": "17.0.0-selfbuilt.164-jdb-wager-coverage-staging",
+  "archive": {
+    "sha256": "848adb35754a5d6c8e7671b2324465afbd44ebae0b4b083a017df9e21264ec15",
+    "bytes": 7219748,
+    "files": 711,
+    "entries": 772,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/V165_ACCEPTANCE_LEDGER_INTEGRITY.md",
+      "drizzle/0122_acceptance_ledger_integrity.sql",
+      "scripts/verify-isolated-postgres-acceptance-integrity.mjs"
+    ],
+    "changed": [
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "lib/backend.ts",
+      "lib/encrypted-backup.ts",
+      "lib/game-provider-acceptance.ts",
+      "lib/production-acceptance.ts",
+      "lib/render-migrations.mjs",
+      "package.json",
+      "public/service-worker.js",
+      "scripts/postgres-readiness-gate.mjs",
+      "scripts/postgres-restore-dry-run.mjs",
+      "scripts/verify-encrypted-backup.mjs",
+      "tests/api.test.mjs",
+      "tests/backup-restore-rehearsal.test.mjs",
+      "tests/encrypted-backup-pagination.test.mjs",
+      "tests/encrypted-backup.test.mjs",
+      "tests/game-provider-acceptance.test.mjs",
+      "tests/official-entries-probe.test.mjs",
+      "tests/postgres-readiness-gate.test.mjs",
+      "tests/postgres-restore-safety.test.mjs",
+      "tests/production-acceptance.test.mjs",
+      "tests/render-migrations.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1387,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "renderDatabase": 3,
+    "isolatedPostgres18": 1,
+    "securityReviewFocused": 57,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "command": "npm run verify:render",
+    "scope": "local synthetic, fixture-only and isolated validation; no live provider, player, wallet, game launch or payment calls"
+  },
+  "acceptanceLedgerIntegrity": {
+    "gameProviderEventHistoryImmutable": true,
+    "productionEventHistoryImmutable": true,
+    "contiguousRevisionsRequired": true,
+    "currentProjectionMonotonic": true,
+    "fourProtectedTablesRejectTruncate": true,
+    "runtimeLatestHistoryDerived": true,
+    "damagedProjectionFailsClosed": true,
+    "optimisticConcurrencyUsesTrueLatestEvent": true,
+    "concurrentLoser": "409 STALE_ACCEPTANCE",
+    "healthBlocker": "acceptance_integrity_failed",
+    "requiredPostgresTriggers": 9,
+    "providerCallsDuringValidation": 0,
+    "moneyOrWalletWritesDuringValidation": 0
+  },
+  "databaseChanges": {
+    "migration": "0122_acceptance_ledger_integrity.sql",
+    "additive": true,
+    "sqliteSupported": true,
+    "postgres18Supported": true,
+    "backupSchemaVersion": "0122-acceptance-ledger-integrity",
+    "exact0121ArchiveRecoverable": true,
+    "reverseRevisionRestoreVerified": true
+  },
+  "recoveryValidation": {
+    "current0122": true,
+    "exactLegacy0121": true,
+    "tables": 76,
+    "fixtureRecords": 146,
+    "rollbackOnly": true,
+    "persistentWrites": false
+  },
+  "operationalChanges": {
+    "newDepositsUiFlagChanged": false,
+    "providerOrderSubmissionEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPaymentsEnabled": false,
+    "liveGamesEnabled": false,
+    "supplierAcceptanceBypassed": false
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "renderYaml": false,
+    "environmentTemplates": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": [
+      "0122_acceptance_ledger_integrity.sql"
+    ]
+  },
+  "candidateLive": false
+}

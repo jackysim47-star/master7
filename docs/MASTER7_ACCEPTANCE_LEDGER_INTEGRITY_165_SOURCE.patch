@@ -1,0 +1,1457 @@
+diff --git a/app/portal.html b/app/portal.html
+index 5618ac69c8ed3d3641e5c7c6fe52bd6ecee22349..40582302cfc8c7b484d91147ce726a751d2b7866 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.164-jdb-wager-coverage-staging" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.165-acceptance-ledger-integrity" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index 28cdfd01fb4396fa21d058eb105da1ec0eede5ee..4a5f631d234d9cd074c6ce4c3b3a9ed7eea8ccf9 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,6 +1,6 @@
+ # MASTER7 deployment handover
+ 
+-Candidate source: `17.0.0-selfbuilt.164-jdb-wager-coverage-staging`.
++Candidate source: `17.0.0-selfbuilt.165-acceptance-ledger-integrity`.
+ 
+ This candidate has not been deployed by the source commit. Confirm the actual
+ Render release and deployment ID from the Portal service before cutover or
+@@ -9,7 +9,16 @@ rollback. Portal service: `srv-dbl0iv7f3r2c73848ei0`.
+ The last recorded integration-gateway baseline remains release `1.17.0`,
+ deployment `dep-dbpchge417fc739h9b50`, commit
+ `c4aab70060439469f3c2e6081a57c0b40e630ff4`. Gateway service:
+-`srv-db6b7inlk1mc73ck6cmg`. The v164 candidate does not change the gateway.
++`srv-db6b7inlk1mc73ck6cmg`. The v165 candidate does not change the gateway.
++
++## Acceptance evidence integrity
++
++v165 makes game-provider and production-acceptance event history immutable and
++only permits each current projection to advance to the next latest revision.
++Runtime reads derive the latest event from history and fail closed if the
++projection disagrees. The PostgreSQL readiness gate requires migration 0122
++and all acceptance-integrity triggers. See
++`V165_ACCEPTANCE_LEDGER_INTEGRITY.md`.
+ 
+ ## Current game registry
+ 
+@@ -45,10 +54,10 @@ gates.
+ ## Other operational boundaries
+ 
+ Payment work remains paused. VPay, GSPAY and 1MPay code, credentials, callbacks,
+-activation flags, service plans and DNS are unchanged by v164. This candidate
++activation flags, service plans and DNS are unchanged by v165. This candidate
+ does not enable any real-money payment, payout or live-game switch.
+ 
+-The verification totals for v164 must be recorded only after the complete
++The verification totals for v165 must be recorded only after the complete
+ source verification finishes. No deployment or production acceptance is
+ claimed by this handover.
+ 
+diff --git a/docs/V165_ACCEPTANCE_LEDGER_INTEGRITY.md b/docs/V165_ACCEPTANCE_LEDGER_INTEGRITY.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..3206a62f12192ffc98c8fe0e02ea6deb3ad51f3d
+--- /dev/null
++++ b/docs/V165_ACCEPTANCE_LEDGER_INTEGRITY.md
+@@ -0,0 +1,40 @@
++# MASTER7 v165 acceptance ledger integrity
++
++Release: `17.0.0-selfbuilt.165-acceptance-ledger-integrity`
++
++## Scope
++
++v165 hardens the durable evidence used to decide whether game-provider and
++production capabilities have passed acceptance. It does not contact a provider,
++enable a payment channel, launch a game, change DNS, or open any production
++feature flag.
++
++## Durable behavior
++
++- Migration 0122 requires every acceptance history to start at revision 1 and
++  remain contiguous, and rejects updates and deletes of acceptance events.
++- PostgreSQL statement triggers reject `TRUNCATE` on both event tables and both
++  current-projection tables; readiness requires all four guards to be enabled.
++- Each current projection can only be inserted at the latest event or advanced
++  exactly one revision to the latest event; projection deletion is rejected.
++- Acceptance reads independently derive the true latest event from history and
++  fail closed when a projection is missing, stale, or points elsewhere.
++- Acceptance writes compare optimistic concurrency tokens with the true latest
++  event and refuse to write through a damaged projection.
++- PostgreSQL startup readiness requires migration 0122 and the enabled wallet
++  and acceptance-integrity triggers.
++
++## Backup and recovery
++
++The encrypted-backup schema version is `0122-acceptance-ledger-integrity`.
++The table manifest remains unchanged. An archive with the exact v164
++`0121-jdb-wager-coverage-staging` manifest remains recoverable with complete
++table coverage; altered manifests are rejected. A current production backup and
++isolated restore rehearsal are still required before readiness can pass.
++
++## Release state
++
++This document describes source code and local or isolated-database validation.
++Production acceptance, provider certification, real-money payment evidence,
++DNS cutover, activation flags, and owner sign-off remain separate fail-closed
++requirements.
+diff --git a/drizzle/0122_acceptance_ledger_integrity.sql b/drizzle/0122_acceptance_ledger_integrity.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..e2c1fe1f5970847e117c814561e4cae8b573a716
+--- /dev/null
++++ b/drizzle/0122_acceptance_ledger_integrity.sql
+@@ -0,0 +1,148 @@
++-- Acceptance evidence is authoritative safety data.  Event rows are append-only
++-- and the current projection may only move to the next, latest revision.
++
++CREATE TRIGGER IF NOT EXISTS game_provider_acceptance_events_no_update
++BEFORE UPDATE ON game_provider_acceptance_events
++BEGIN
++  SELECT RAISE(ABORT,'game provider acceptance history is immutable');
++END;
++
++CREATE TRIGGER IF NOT EXISTS game_provider_acceptance_events_contiguous_insert
++BEFORE INSERT ON game_provider_acceptance_events
++WHEN NEW.revision<>COALESCE((
++  SELECT MAX(previous.revision) FROM game_provider_acceptance_events previous
++  WHERE previous.profile_id=NEW.profile_id AND previous.capability=NEW.capability
++    AND previous.environment=NEW.environment
++),0)+1
++BEGIN
++  SELECT RAISE(ABORT,'game provider acceptance history revisions must be contiguous');
++END;
++
++CREATE TRIGGER IF NOT EXISTS game_provider_acceptance_events_no_delete
++BEFORE DELETE ON game_provider_acceptance_events
++BEGIN
++  SELECT RAISE(ABORT,'game provider acceptance history is immutable');
++END;
++
++CREATE TRIGGER IF NOT EXISTS production_acceptance_events_no_update
++BEFORE UPDATE ON production_acceptance_events
++BEGIN
++  SELECT RAISE(ABORT,'production acceptance history is immutable');
++END;
++
++CREATE TRIGGER IF NOT EXISTS production_acceptance_events_contiguous_insert
++BEFORE INSERT ON production_acceptance_events
++WHEN NEW.revision<>COALESCE((
++  SELECT MAX(previous.revision) FROM production_acceptance_events previous
++  WHERE previous.category=NEW.category AND previous.subject_id=NEW.subject_id
++    AND previous.capability=NEW.capability AND previous.environment=NEW.environment
++),0)+1
++BEGIN
++  SELECT RAISE(ABORT,'production acceptance history revisions must be contiguous');
++END;
++
++CREATE TRIGGER IF NOT EXISTS production_acceptance_events_no_delete
++BEFORE DELETE ON production_acceptance_events
++BEGIN
++  SELECT RAISE(ABORT,'production acceptance history is immutable');
++END;
++
++CREATE TRIGGER IF NOT EXISTS game_provider_acceptance_current_insert_latest
++BEFORE INSERT ON game_provider_acceptance_current
++WHEN NOT EXISTS (
++  SELECT 1 FROM game_provider_acceptance_events e
++  WHERE e.id=NEW.event_id AND e.profile_id=NEW.profile_id
++    AND e.capability=NEW.capability AND e.environment=NEW.environment
++    AND e.revision=(
++      SELECT MAX(latest.revision) FROM game_provider_acceptance_events latest
++      WHERE latest.profile_id=NEW.profile_id AND latest.capability=NEW.capability
++        AND latest.environment=NEW.environment
++    )
++    AND (SELECT MIN(history.revision) FROM game_provider_acceptance_events history
++      WHERE history.profile_id=NEW.profile_id AND history.capability=NEW.capability AND history.environment=NEW.environment)=1
++    AND (SELECT COUNT(*) FROM game_provider_acceptance_events history
++      WHERE history.profile_id=NEW.profile_id AND history.capability=NEW.capability AND history.environment=NEW.environment)=e.revision
++)
++BEGIN
++  SELECT RAISE(ABORT,'game provider acceptance projection must reference the latest revision');
++END;
++
++CREATE TRIGGER IF NOT EXISTS game_provider_acceptance_current_update_next
++BEFORE UPDATE ON game_provider_acceptance_current
++WHEN NEW.profile_id<>OLD.profile_id OR NEW.capability<>OLD.capability OR NEW.environment<>OLD.environment OR NOT EXISTS (
++  SELECT 1 FROM game_provider_acceptance_events next
++  JOIN game_provider_acceptance_events previous ON previous.id=OLD.event_id
++  WHERE next.id=NEW.event_id AND next.profile_id=OLD.profile_id
++    AND next.capability=OLD.capability AND next.environment=OLD.environment
++    AND next.revision=previous.revision+1
++    AND next.revision=(
++      SELECT MAX(latest.revision) FROM game_provider_acceptance_events latest
++      WHERE latest.profile_id=OLD.profile_id AND latest.capability=OLD.capability
++        AND latest.environment=OLD.environment
++    )
++    AND (SELECT MIN(history.revision) FROM game_provider_acceptance_events history
++      WHERE history.profile_id=OLD.profile_id AND history.capability=OLD.capability AND history.environment=OLD.environment)=1
++    AND (SELECT COUNT(*) FROM game_provider_acceptance_events history
++      WHERE history.profile_id=OLD.profile_id AND history.capability=OLD.capability AND history.environment=OLD.environment)=next.revision
++)
++BEGIN
++  SELECT RAISE(ABORT,'game provider acceptance projection must advance exactly one revision');
++END;
++
++CREATE TRIGGER IF NOT EXISTS game_provider_acceptance_current_no_delete
++BEFORE DELETE ON game_provider_acceptance_current
++BEGIN
++  SELECT RAISE(ABORT,'game provider acceptance projection cannot be deleted');
++END;
++
++CREATE TRIGGER IF NOT EXISTS production_acceptance_current_insert_latest
++BEFORE INSERT ON production_acceptance_current
++WHEN NOT EXISTS (
++  SELECT 1 FROM production_acceptance_events e
++  WHERE e.id=NEW.event_id AND e.category=NEW.category AND e.subject_id=NEW.subject_id
++    AND e.capability=NEW.capability AND e.environment=NEW.environment
++    AND e.revision=(
++      SELECT MAX(latest.revision) FROM production_acceptance_events latest
++      WHERE latest.category=NEW.category AND latest.subject_id=NEW.subject_id
++        AND latest.capability=NEW.capability AND latest.environment=NEW.environment
++    )
++    AND (SELECT MIN(history.revision) FROM production_acceptance_events history
++      WHERE history.category=NEW.category AND history.subject_id=NEW.subject_id
++        AND history.capability=NEW.capability AND history.environment=NEW.environment)=1
++    AND (SELECT COUNT(*) FROM production_acceptance_events history
++      WHERE history.category=NEW.category AND history.subject_id=NEW.subject_id
++        AND history.capability=NEW.capability AND history.environment=NEW.environment)=e.revision
++)
++BEGIN
++  SELECT RAISE(ABORT,'production acceptance projection must reference the latest revision');
++END;
++
++CREATE TRIGGER IF NOT EXISTS production_acceptance_current_update_next
++BEFORE UPDATE ON production_acceptance_current
++WHEN NEW.category<>OLD.category OR NEW.subject_id<>OLD.subject_id OR NEW.capability<>OLD.capability OR NEW.environment<>OLD.environment OR NOT EXISTS (
++  SELECT 1 FROM production_acceptance_events next
++  JOIN production_acceptance_events previous ON previous.id=OLD.event_id
++  WHERE next.id=NEW.event_id AND next.category=OLD.category AND next.subject_id=OLD.subject_id
++    AND next.capability=OLD.capability AND next.environment=OLD.environment
++    AND next.revision=previous.revision+1
++    AND next.revision=(
++      SELECT MAX(latest.revision) FROM production_acceptance_events latest
++      WHERE latest.category=OLD.category AND latest.subject_id=OLD.subject_id
++        AND latest.capability=OLD.capability AND latest.environment=OLD.environment
++    )
++    AND (SELECT MIN(history.revision) FROM production_acceptance_events history
++      WHERE history.category=OLD.category AND history.subject_id=OLD.subject_id
++        AND history.capability=OLD.capability AND history.environment=OLD.environment)=1
++    AND (SELECT COUNT(*) FROM production_acceptance_events history
++      WHERE history.category=OLD.category AND history.subject_id=OLD.subject_id
++        AND history.capability=OLD.capability AND history.environment=OLD.environment)=next.revision
++)
++BEGIN
++  SELECT RAISE(ABORT,'production acceptance projection must advance exactly one revision');
++END;
++
++CREATE TRIGGER IF NOT EXISTS production_acceptance_current_no_delete
++BEFORE DELETE ON production_acceptance_current
++BEGIN
++  SELECT RAISE(ABORT,'production acceptance projection cannot be deleted');
++END;
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 36b21a69a47290225054ef20668d30ab22994872..d84ccb9885b2fc3dda9f3a8f7b908dbd1ab9e131 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -39,7 +39,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.164-jdb-wager-coverage-staging';
++export const RELEASE = '17.0.0-selfbuilt.165-acceptance-ledger-integrity';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+@@ -222,7 +222,7 @@ async function canonicalOperationsReadiness(c:Context){
+  // capability for every listed profile.
+  const allGamesVerified=gameAcceptance.allGamesVerified,gamesReady=gameAcceptance.liveGames;
+  const productionAcceptance=payments.productionAcceptance;
+- return {payments,readiness:{productionReady:payments.realPayments===true&&payments.payoutsEnabled===true&&settlementVerified&&gamesReady&&recovery.backupReady&&recovery.restoreReady&&productionAcceptance.domainReady&&productionAcceptance.credentialRotationReady&&productionAcceptance.signoffReady,paymentsReady:payments.realPayments===true&&productionAcceptance.paymentReady,payoutsReady:payments.payoutsEnabled===true,settlementVerified,gamesReady,backupReady:recovery.backupReady,restoreReady:recovery.restoreReady,backupCreatedAt:recovery.backupCreatedAt,restoreVerifiedAt:recovery.restoreVerifiedAt,megaAvailable,allGamesVerified,gameAcceptance,productionAcceptance,whatsappReady:whatsappCampaignStatus(whatsappCampaignSettings(c)).ready===true,supportAiProviderReady:supportAiProviderStatus(supportAiSettings(c)).externalProviderReady===true,expectedCatalogueIds:configuredGameCatalogueCacheKeys(c)}};
++ return {payments,readiness:{productionReady:gameAcceptance.integrityReady===true&&productionAcceptance.integrityReady===true&&payments.realPayments===true&&payments.payoutsEnabled===true&&settlementVerified&&gamesReady&&recovery.backupReady&&recovery.restoreReady&&productionAcceptance.domainReady&&productionAcceptance.credentialRotationReady&&productionAcceptance.signoffReady,paymentsReady:productionAcceptance.integrityReady===true&&payments.realPayments===true&&productionAcceptance.paymentReady,payoutsReady:payments.payoutsEnabled===true,settlementVerified,gamesReady,backupReady:recovery.backupReady,restoreReady:recovery.restoreReady,backupCreatedAt:recovery.backupCreatedAt,restoreVerifiedAt:recovery.restoreVerifiedAt,megaAvailable,allGamesVerified,gameAcceptance,productionAcceptance,whatsappReady:whatsappCampaignStatus(whatsappCampaignSettings(c)).ready===true,supportAiProviderReady:supportAiProviderStatus(supportAiSettings(c)).externalProviderReady===true,expectedCatalogueIds:configuredGameCatalogueCacheKeys(c)}};
+ }
+ 
+ async function gameRuntimeReadyProfileIds(c:Context){
+@@ -574,7 +574,7 @@ export async function handle(req:Request,c:Context):Promise<Response>{
+ async function route(req:Request,c:Context){
+  const p=new URL(req.url).pathname,db=c.db;
+  if(req.method==='GET'&&p==='/health/live'){await db.prepare('SELECT id FROM users LIMIT 1').all();return json({status:'ok',release:RELEASE,database:'ready',scope:'portal-liveness'});}
+- if(req.method==='GET'&&(p==='/health'||p==='/api/version')){await db.prepare('SELECT id FROM users LIMIT 1').all();const megaWalletCredentialsConfigured=c.gameGatewayUrl==='https://master7-integration-gateway.onrender.com'&&!!c.gameGatewayToken&&!!c.gameGatewayWalletToken&&c.gameGatewayToken!==c.gameGatewayWalletToken&&Buffer.byteLength(c.gameGatewayToken)>=32&&Buffer.byteLength(c.gameGatewayWalletToken)>=32,{payments,readiness}=await canonicalOperationsReadiness(c),megaAcceptance=readiness.gameAcceptance.profiles.find(profile=>profile.profileId==='megah5_myr'),megaLiveReady=megaAcceptance?.effectiveReady===true,smsOtpReady=!!(c.anchorApiBaseUrl&&c.anchorUsername&&c.anchorPassword&&c.anchorSenderId&&c.otpHashSecret&&c.otpHashSecret.length>=32),productionReady=readiness.productionReady,readinessBlockers=[...(!payments.realPayments?['deposit_provider_not_ready']:[]),...(!payments.payoutsEnabled?['payout_provider_not_ready']:[]),...(!payments.settlementVerified?['payment_settlement_not_verified']:[]),...(!readiness.gamesReady?['game_launch_or_settlement_not_ready']:[]),...(!readiness.backupReady?['encrypted_backup_not_ready']:[]),...(!readiness.restoreReady?['restore_rehearsal_not_verified']:[]),...(!readiness.productionAcceptance.domainReady?['official_domain_tls_not_verified']:[]),...(!readiness.productionAcceptance.credentialRotationReady?['credential_rotation_not_verified']:[]),...(!readiness.productionAcceptance.signoffReady?['production_signoff_not_verified']:[])];return json({status:'ok',release:RELEASE,sourceRelease:SOURCE_RELEASE,database:'ready',smsOtpReady,mode:'selfbuilt-service-portal',...payments,providerAcceptance:{requiredProfileCount:readiness.gameAcceptance.requiredProfileCount,acceptedProfileCount:readiness.gameAcceptance.acceptedProfileCount,liveProfileCount:readiness.gameAcceptance.liveProfileCount,allAcceptanceEvidencePassed:readiness.gameAcceptance.allAcceptanceEvidencePassed,allGamesVerified:readiness.allGamesVerified},externalAcceptance:{domainReady:readiness.productionAcceptance.domainReady,credentialRotationReady:readiness.productionAcceptance.credentialRotationReady,paymentReady:readiness.productionAcceptance.paymentReady,signoffReady:readiness.productionAcceptance.signoffReady},backupReady:readiness.backupReady,restoreReady:readiness.restoreReady,backupCreatedAt:readiness.backupCreatedAt,restoreVerifiedAt:readiness.restoreVerifiedAt,megaWallet:{configured:megaWalletCredentialsConfigured,...automaticAvailability,enabled:megaLiveReady,liveGamesEnabled:megaLiveReady,launchReady:readiness.megaAvailable,launchVerified:megaAcceptance?.capabilities.launch===true,walletVerified:megaAcceptance?.capabilities.wallet===true,settlementVerified:megaAcceptance?.capabilities.settlement===true,recoveryVerified:megaAcceptance?.capabilities.recovery===true,liveReady:megaLiveReady},liveGames:readiness.gamesReady,anyGamePlayable:readiness.gameAcceptance.anyGamePlayable,productionReady,readinessBlockers,scope:'portal-database-health'});}
++ if(req.method==='GET'&&(p==='/health'||p==='/api/version')){await db.prepare('SELECT id FROM users LIMIT 1').all();const megaWalletCredentialsConfigured=c.gameGatewayUrl==='https://master7-integration-gateway.onrender.com'&&!!c.gameGatewayToken&&!!c.gameGatewayWalletToken&&c.gameGatewayToken!==c.gameGatewayWalletToken&&Buffer.byteLength(c.gameGatewayToken)>=32&&Buffer.byteLength(c.gameGatewayWalletToken)>=32,{payments,readiness}=await canonicalOperationsReadiness(c),megaAcceptance=readiness.gameAcceptance.profiles.find(profile=>profile.profileId==='megah5_myr'),megaLiveReady=megaAcceptance?.effectiveReady===true,smsOtpReady=!!(c.anchorApiBaseUrl&&c.anchorUsername&&c.anchorPassword&&c.anchorSenderId&&c.otpHashSecret&&c.otpHashSecret.length>=32),productionReady=readiness.productionReady,acceptanceIntegrityReady=readiness.gameAcceptance.integrityReady===true&&readiness.productionAcceptance.integrityReady===true,readinessBlockers=[...(!acceptanceIntegrityReady?['acceptance_integrity_failed']:[]),...(!payments.realPayments?['deposit_provider_not_ready']:[]),...(!payments.payoutsEnabled?['payout_provider_not_ready']:[]),...(!payments.settlementVerified?['payment_settlement_not_verified']:[]),...(!readiness.gamesReady?['game_launch_or_settlement_not_ready']:[]),...(!readiness.backupReady?['encrypted_backup_not_ready']:[]),...(!readiness.restoreReady?['restore_rehearsal_not_verified']:[]),...(!readiness.productionAcceptance.domainReady?['official_domain_tls_not_verified']:[]),...(!readiness.productionAcceptance.credentialRotationReady?['credential_rotation_not_verified']:[]),...(!readiness.productionAcceptance.signoffReady?['production_signoff_not_verified']:[])];return json({status:'ok',release:RELEASE,sourceRelease:SOURCE_RELEASE,database:'ready',smsOtpReady,mode:'selfbuilt-service-portal',...payments,providerAcceptance:{integrityReady:readiness.gameAcceptance.integrityReady,requiredProfileCount:readiness.gameAcceptance.requiredProfileCount,acceptedProfileCount:readiness.gameAcceptance.acceptedProfileCount,liveProfileCount:readiness.gameAcceptance.liveProfileCount,allAcceptanceEvidencePassed:readiness.gameAcceptance.allAcceptanceEvidencePassed,allGamesVerified:readiness.allGamesVerified},externalAcceptance:{integrityReady:readiness.productionAcceptance.integrityReady,domainReady:readiness.productionAcceptance.domainReady,credentialRotationReady:readiness.productionAcceptance.credentialRotationReady,paymentReady:readiness.productionAcceptance.paymentReady,signoffReady:readiness.productionAcceptance.signoffReady},acceptanceIntegrityReady,backupReady:readiness.backupReady,restoreReady:readiness.restoreReady,backupCreatedAt:readiness.backupCreatedAt,restoreVerifiedAt:readiness.restoreVerifiedAt,megaWallet:{configured:megaWalletCredentialsConfigured,...automaticAvailability,enabled:megaLiveReady,liveGamesEnabled:megaLiveReady,launchReady:readiness.megaAvailable,launchVerified:megaAcceptance?.capabilities.launch===true,walletVerified:megaAcceptance?.capabilities.wallet===true,settlementVerified:megaAcceptance?.capabilities.settlement===true,recoveryVerified:megaAcceptance?.capabilities.recovery===true,liveReady:megaLiveReady},liveGames:readiness.gamesReady,anyGamePlayable:readiness.gameAcceptance.anyGamePlayable,productionReady,readinessBlockers,scope:'portal-database-health'});}
+  if(p==='/api/jobs/backup'){
+   if(req.method!=='POST')return json({error:'Method not allowed'},405);
+   if(!authorizedBearer(req,c.backupJobToken))return json({error:'Access denied'},401);
+diff --git a/lib/encrypted-backup.ts b/lib/encrypted-backup.ts
+index 42eced63111f9ffc3751b653280d1479eb1ceb1d..c8055285ac006c101421056457f6b257bb9dd2e2 100644
+--- a/lib/encrypted-backup.ts
++++ b/lib/encrypted-backup.ts
+@@ -3,7 +3,7 @@ import {gzipSync} from 'node:zlib';
+ import {BACKUP_PUBLIC_KEY,BACKUP_PUBLIC_KEY_SHA256} from './backup-public-key.ts';
+ 
+ export const BACKUP_FORMAT='MASTER7-ENCRYPTED-BACKUP-1';
+-export const BACKUP_SCHEMA_VERSION='0121-jdb-wager-coverage-staging';
++export const BACKUP_SCHEMA_VERSION='0122-acceptance-ledger-integrity';
+ export const BACKUP_PAGE_SIZE=1000;
+ 
+ export type BackupReader={
+@@ -51,10 +51,14 @@ const JDB_WAGER_COVERAGE_BACKUP_TABLES=[
+ ] as const;
+ export const BACKUP_TABLES=[...LEGACY_0120_BACKUP_TABLES,...JDB_WAGER_COVERAGE_BACKUP_TABLES] as const;
+ type BackupTable=(typeof BACKUP_TABLES)[number];
++export const ACCEPTANCE_PROTECTED_TABLES=[
++ 'game_provider_acceptance_events','game_provider_acceptance_current',
++ 'production_acceptance_events','production_acceptance_current',
++] as const;
+ // These keys are checked against the release migrations by the pagination
+ // regression. A prefix of a composite key does not define stable page bounds.
+ const BACKUP_PRIMARY_KEYS:Record<BackupTable,readonly string[]>={
+- production_acceptance_events:['id'],production_acceptance_current:['category','subject_id','capability','environment'],public_contact_revisions:['id'],provider_wallet_operations:['session_id'],manual_bank_transactions:['id'],users:['id'],password_credentials:['username'],referral_codes:['code'],referral_relationships:['member_id'],
++ production_acceptance_events:['category','subject_id','capability','environment','revision'],production_acceptance_current:['category','subject_id','capability','environment'],public_contact_revisions:['id'],provider_wallet_operations:['session_id'],manual_bank_transactions:['id'],users:['id'],password_credentials:['username'],referral_codes:['code'],referral_relationships:['member_id'],
+  marketing_contacts:['id'],marketing_campaigns:['id'],marketing_deliveries:['campaign_id','contact_id'],
+  deposit_orders:['id'],wallet_ledger:['id'],wallet_reservations:['user_id'],game_wallet_sessions:['id'],game_wallet_ledger:['id'],
+  company_bank_accounts:['id'],manual_deposit_requests:['deposit_order_id'],announcements:['id'],audit:['id'],
+@@ -71,7 +75,7 @@ const BACKUP_PRIMARY_KEYS:Record<BackupTable,readonly string[]>={
+  game_rounds:['id'],game_transactions:['id'],game_wallet_postings:['id'],game_callback_receipts:['profile_id','event_key'],
+  game_wager_sync_cursors:['profile_id'],game_recovery_leases:['profile_id','resource_type','resource_id'],
+  megah5_launch_operations:['id'],
+- game_provider_acceptance_events:['id'],game_provider_acceptance_current:['profile_id','capability','environment'],
++ game_provider_acceptance_events:['profile_id','capability','environment','revision'],game_provider_acceptance_current:['profile_id','capability','environment'],
+  jdb_wager_sync_windows:['window_id'],jdb_wager_receipts:['id'],jdb_wager_identities:['identity_sha256'],
+  jdb_wager_event_versions:['identity_sha256','payload_sha256'],jdb_wager_observations:['receipt_id','identity_sha256','payload_sha256'],
+ };
+@@ -84,6 +88,7 @@ export const BACKUP_SCHEMA_SHA256=sha256(JSON.stringify({format:BACKUP_FORMAT,sc
+ 
+ export function backupRestoreContract(schemaVersion:unknown,schemaSha256:unknown){
+  if(schemaVersion===BACKUP_SCHEMA_VERSION&&schemaSha256===BACKUP_SCHEMA_SHA256)return {tables:BACKUP_TABLES,missingTables:[] as string[]};
++ if(schemaVersion==='0121-jdb-wager-coverage-staging'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0121-jdb-wager-coverage-staging',tables:BACKUP_TABLES})))return {tables:BACKUP_TABLES,missingTables:[] as string[]};
+  if(schemaVersion==='0120-provider-wallet-sweeps'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0120-provider-wallet-sweeps',tables:LEGACY_0120_BACKUP_TABLES})))return {tables:LEGACY_0120_BACKUP_TABLES,missingTables:[...JDB_WAGER_COVERAGE_BACKUP_TABLES]};
+  if(schemaVersion==='0119-withdrawal-destination-methods'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0119-withdrawal-destination-methods',tables:LEGACY_0120_BACKUP_TABLES})))return {tables:LEGACY_0120_BACKUP_TABLES,missingTables:[...JDB_WAGER_COVERAGE_BACKUP_TABLES]};
+  if(schemaVersion==='0118-production-acceptance-evidence'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0118-production-acceptance-evidence',tables:LEGACY_0120_BACKUP_TABLES})))return {tables:LEGACY_0120_BACKUP_TABLES,missingTables:[...JDB_WAGER_COVERAGE_BACKUP_TABLES]};
+@@ -103,6 +108,25 @@ export function backupRestoreContract(schemaVersion:unknown,schemaSha256:unknown
+  throw new Error('Backup schema version does not match this release');
+ }
+ 
++const ACCEPTANCE_EVENT_RESTORE_KEYS:Readonly<Record<string,readonly string[]>>=Object.freeze({
++ game_provider_acceptance_events:Object.freeze(['profile_id','capability','environment','revision']),
++ production_acceptance_events:Object.freeze(['category','subject_id','capability','environment','revision']),
++});
++
++// Historical archives ordered acceptance events by their random ids.  Restore
++// them in stream/revision order so the immutable contiguous-history triggers
++// remain active throughout both current and legacy recovery rehearsals.
++export function orderBackupRestoreRows(table:string,rows:Record<string,unknown>[]){
++ const keys=ACCEPTANCE_EVENT_RESTORE_KEYS[table];if(!keys)return rows;
++ return [...rows].sort((left,right)=>{
++  for(const key of keys){
++   if(key==='revision'){const difference=Number(left[key])-Number(right[key]);if(difference)return difference;continue;}
++   const a=String(left[key]??''),b=String(right[key]??'');if(a<b)return -1;if(a>b)return 1;
++  }
++  return 0;
++ });
++}
++
+ async function tableRows(db:BackupReader,table:BackupTable){
+  const items:Record<string,unknown>[]=[];
+  // Use the full unique key, including every composite-key column, so the
+diff --git a/lib/game-provider-acceptance.ts b/lib/game-provider-acceptance.ts
+index c0493dc8924e8467ef586706796e3673c5b52217..ae7e24939ff54927b8a8063c00fb2c5a1c6130b9 100644
+--- a/lib/game-provider-acceptance.ts
++++ b/lib/game-provider-acceptance.ts
+@@ -13,10 +13,12 @@ export type GameProviderAcceptanceActor = {id:string;role:string};
+ 
+ type CurrentRow={
+  profile_id:string;capability:GameProviderAcceptanceCapability;environment:GameProviderAcceptanceEnvironment;
+- event_id:string;revision:number;result:GameProviderAcceptanceResult;evidence_sha256:string;evidence_reference:string;
++ event_id:string;current_event_id:string|null;projection_integrity:number;revision:number;result:GameProviderAcceptanceResult;evidence_sha256:string;evidence_reference:string;
+  verified_by:string;observed_at:number;recorded_at:number;
+ };
+ 
++type LatestRow={latest_event_id:string|null;latest_revision:number|null;current_event_id:string|null;history_min_revision:number|null;history_count:number|string};
++
+ export class GameProviderAcceptanceError extends Error {
+  status:number;code:string;
+  constructor(status:number,code:string,message:string){super(message);this.status=status;this.code=code;}
+@@ -40,10 +42,17 @@ function requireOwner(actor:GameProviderAcceptanceActor){
+ }
+ 
+ async function currentRows(db:D1Database,environment?:GameProviderAcceptanceEnvironment){
+- const where=environment?'WHERE c.environment=?':'',statement=db.prepare(`SELECT c.profile_id,c.capability,c.environment,c.event_id,
++ const where=environment?'AND e.environment=?':'',statement=db.prepare(`SELECT e.profile_id,e.capability,e.environment,e.id AS event_id,
++   c.event_id AS current_event_id,CASE WHEN c.event_id=e.id
++    AND (SELECT MIN(history.revision) FROM game_provider_acceptance_events history WHERE history.profile_id=e.profile_id AND history.capability=e.capability AND history.environment=e.environment)=1
++    AND (SELECT COUNT(*) FROM game_provider_acceptance_events history WHERE history.profile_id=e.profile_id AND history.capability=e.capability AND history.environment=e.environment)=e.revision
++    THEN 1 ELSE 0 END AS projection_integrity,
+    e.revision,e.result,e.evidence_sha256,e.evidence_reference,e.verified_by,e.observed_at,e.recorded_at
+-   FROM game_provider_acceptance_current c JOIN game_provider_acceptance_events e ON e.id=c.event_id
+-   ${where} ORDER BY c.profile_id,c.environment,c.capability`);
++   FROM game_provider_acceptance_events e LEFT JOIN game_provider_acceptance_current c
++    ON c.profile_id=e.profile_id AND c.capability=e.capability AND c.environment=e.environment
++   WHERE NOT EXISTS(SELECT 1 FROM game_provider_acceptance_events newer
++    WHERE newer.profile_id=e.profile_id AND newer.capability=e.capability AND newer.environment=e.environment AND newer.revision>e.revision)
++   ${where} ORDER BY e.profile_id,e.environment,e.capability`);
+  const result=environment?await statement.bind(environment).all<CurrentRow>():await statement.all<CurrentRow>();
+  return (result.results??[]) as CurrentRow[];
+ }
+@@ -54,13 +63,15 @@ function profileStatuses(rows:CurrentRow[],environment:GameProviderAcceptanceEnv
+   const capabilities=Object.fromEntries(GAME_PROVIDER_ACCEPTANCE_CAPABILITIES.map(capability=>{
+    const row=byKey.get(`${profile.profileId}:${capability}`);
+    return [capability,row?{
+-    passed:row.result==='passed',result:row.result,eventId:row.event_id,revision:Number(row.revision),evidenceSha256:row.evidence_sha256,
++    passed:row.result==='passed'&&Number(row.projection_integrity)===1,integrityValid:Number(row.projection_integrity)===1,
++    result:row.result,eventId:row.event_id,currentEventId:row.current_event_id,revision:Number(row.revision),evidenceSha256:row.evidence_sha256,
+     evidenceReference:row.evidence_reference,verifiedBy:row.verified_by,observedAt:Number(row.observed_at),recordedAt:Number(row.recorded_at),
+-   }:{passed:false,result:'not_recorded',eventId:null,revision:0,evidenceSha256:null,evidenceReference:null,verifiedBy:null,observedAt:null,recordedAt:null}];
++   }:{passed:false,integrityValid:true,result:'not_recorded',eventId:null,currentEventId:null,revision:0,evidenceSha256:null,evidenceReference:null,verifiedBy:null,observedAt:null,recordedAt:null}];
+   }));
+   const accepted=GAME_PROVIDER_ACCEPTANCE_CAPABILITIES.every(capability=>capabilities[capability].passed===true);
++  const integrityReady=GAME_PROVIDER_ACCEPTANCE_CAPABILITIES.every(capability=>capabilities[capability].integrityValid===true);
+   return {profileId:profile.profileId,providerId:profile.providerId,displayName:profile.displayName,listedInLobby:profile.listedInLobby,
+-   adapterStatus:profile.adapterStatus,implemented:profile.implemented,environment,capabilities,accepted};
++   adapterStatus:profile.adapterStatus,implemented:profile.implemented,environment,capabilities,accepted,integrityReady};
+  });
+ }
+ 
+@@ -72,22 +83,24 @@ function contractDiagnostic(profileId:string){
+ 
+ export async function getGameProviderAcceptanceReadiness(db:D1Database,runtimeReadyProfileIds:readonly string[]=[]){
+  const rows=await currentRows(db,'production'),profiles=profileStatuses(rows,'production'),required=profiles.filter(profile=>profile.listedInLobby),runtimeReady=new Set(runtimeReadyProfileIds);
++ const integrityBlockers=rows.filter(row=>Number(row.projection_integrity)!==1).map(row=>`${row.profile_id}:${row.capability}:${row.environment}`),integrityReady=integrityBlockers.length===0;
+  const profileReadiness=required.map(profile=>({profileId:profile.profileId,providerId:profile.providerId,
+-  evidenceAccepted:profile.accepted,adapterImplemented:profile.implemented,runtimeReady:runtimeReady.has(profile.profileId),
+-  effectiveReady:profile.accepted&&profile.implemented&&runtimeReady.has(profile.profileId),
++  evidenceAccepted:profile.accepted,integrityReady:profile.integrityReady,adapterImplemented:profile.implemented,runtimeReady:runtimeReady.has(profile.profileId),
++  effectiveReady:profile.accepted&&profile.integrityReady&&profile.implemented&&runtimeReady.has(profile.profileId),
+   capabilities:Object.fromEntries(GAME_PROVIDER_ACCEPTANCE_CAPABILITIES.map(capability=>[capability,profile.capabilities[capability].passed===true])),
+   contractDiagnostic:contractDiagnostic(profile.profileId),
+  }));
+  const acceptedProfiles=profileReadiness.filter(profile=>profile.evidenceAccepted),liveProfiles=profileReadiness.filter(profile=>profile.effectiveReady);
+- const allAcceptanceEvidencePassed=required.length>0&&acceptedProfiles.length===required.length;
+- const liveGames=required.length>0&&liveProfiles.length===required.length;
++ const allAcceptanceEvidencePassed=integrityReady&&required.length>0&&acceptedProfiles.length===required.length;
++ const liveGames=integrityReady&&required.length>0&&liveProfiles.length===required.length;
+  const allGamesVerified=liveGames;
+  return {
+   requiredProfileCount:required.length,acceptedProfileCount:acceptedProfiles.length,liveProfileCount:liveProfiles.length,
+-  allAcceptanceEvidencePassed,allGamesVerified,liveGames,anyGamePlayable:liveProfiles.length>0,profiles:profileReadiness,
+-  blockers:required.filter(profile=>!profile.accepted||!profile.implemented||!runtimeReady.has(profile.profileId)).map(profile=>({
++  allAcceptanceEvidencePassed,integrityReady,integrityBlockers,allGamesVerified,liveGames,anyGamePlayable:integrityReady&&liveProfiles.length>0,profiles:profileReadiness,
++  blockers:required.filter(profile=>!profile.accepted||!profile.integrityReady||!profile.implemented||!runtimeReady.has(profile.profileId)).map(profile=>({
+    profileId:profile.profileId,
+    missingEvidence:GAME_PROVIDER_ACCEPTANCE_CAPABILITIES.filter(capability=>!profile.capabilities[capability].passed),
++   integrityFailures:GAME_PROVIDER_ACCEPTANCE_CAPABILITIES.filter(capability=>!profile.capabilities[capability].integrityValid),
+    adapterImplemented:profile.implemented,runtimeReady:runtimeReady.has(profile.profileId),
+    contractDiagnostic:contractDiagnostic(profile.profileId),
+   })),
+@@ -108,7 +121,8 @@ export async function getGameProviderAcceptance(db:D1Database,actor:GameProvider
+     FROM game_provider_acceptance_events WHERE environment=? ORDER BY recorded_at DESC,id DESC LIMIT ?`).bind(environment,eventLimit).all();
+   events=result.results??[];
+  }
+- return {environment,capabilities:[...GAME_PROVIDER_ACCEPTANCE_CAPABILITIES],profiles,events};
++ const integrityBlockers=rows.filter(row=>Number(row.projection_integrity)!==1).map(row=>`${row.profile_id}:${row.capability}:${row.environment}`);
++ return {environment,capabilities:[...GAME_PROVIDER_ACCEPTANCE_CAPABILITIES],integrityReady:integrityBlockers.length===0,integrityBlockers,profiles,events};
+ }
+ 
+ export async function recordGameProviderAcceptance(db:D1Database,actor:GameProviderAcceptanceActor,input:Record<string,unknown>,at=Math.floor(Date.now()/1000)){
+@@ -124,29 +138,50 @@ export async function recordGameProviderAcceptance(db:D1Database,actor:GameProvi
+  if(!safeEvidenceReference(evidenceReference))fail(400,'INVALID_EVIDENCE_REFERENCE','Evidence reference must be a non-secret identifier');
+  if(!Number.isSafeInteger(observedAt)||observedAt<0||observedAt>at+300)fail(400,'INVALID_OBSERVED_AT','Observed time is invalid');
+  if(!Object.hasOwn(input,'expectedEventId')||expectedEventId!==null&&(typeof expectedEventId!=='string'||!/^[a-f0-9-]{36}$/.test(expectedEventId)))fail(400,'INVALID_EXPECTED_EVENT','Current event id or null is required');
++ const latest=await db.prepare(`SELECT
++  (SELECT id FROM game_provider_acceptance_events WHERE profile_id=? AND capability=? AND environment=? ORDER BY revision DESC LIMIT 1) AS latest_event_id,
++  (SELECT revision FROM game_provider_acceptance_events WHERE profile_id=? AND capability=? AND environment=? ORDER BY revision DESC LIMIT 1) AS latest_revision,
++  (SELECT event_id FROM game_provider_acceptance_current WHERE profile_id=? AND capability=? AND environment=?) AS current_event_id,
++  (SELECT MIN(revision) FROM game_provider_acceptance_events WHERE profile_id=? AND capability=? AND environment=?) AS history_min_revision,
++  (SELECT COUNT(*) FROM game_provider_acceptance_events WHERE profile_id=? AND capability=? AND environment=?) AS history_count`)
++  .bind(profileId,capability,environment,profileId,capability,environment,profileId,capability,environment,profileId,capability,environment,profileId,capability,environment).first<LatestRow>();
++ const latestEventId=latest?.latest_event_id??null,currentEventId=latest?.current_event_id??null;
++ const latestRevision=latest?.latest_revision===null||latest?.latest_revision===undefined?null:Number(latest.latest_revision),historyCount=Number(latest?.history_count??0),historyMin=latest?.history_min_revision===null||latest?.history_min_revision===undefined?null:Number(latest.history_min_revision);
++ if(latestEventId!==currentEventId||(latestEventId!==null&&(historyMin!==1||historyCount!==latestRevision)))fail(409,'ACCEPTANCE_INTEGRITY_ERROR','Acceptance projection does not match immutable history');
++ if(expectedEventId!==latestEventId)fail(409,'STALE_ACCEPTANCE','Acceptance changed; refresh and try again');
+  const id=randomUUID(),target=`${profileId}:${capability}:${environment}:${result}:${id}`;
+  try{await db.batch([
+   db.prepare(`INSERT INTO game_provider_acceptance_events
+    (id,profile_id,revision,capability,environment,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at)
+-   SELECT ?,?,COALESCE((SELECT e.revision FROM game_provider_acceptance_current c JOIN game_provider_acceptance_events e ON e.id=c.event_id
+-    WHERE c.profile_id=? AND c.capability=? AND c.environment=?),0)+1,?,?,?,?,?,?,?,? WHERE
+-    (? IS NULL AND NOT EXISTS(SELECT 1 FROM game_provider_acceptance_current WHERE profile_id=? AND capability=? AND environment=?)) OR
+-    (? IS NOT NULL AND EXISTS(SELECT 1 FROM game_provider_acceptance_current WHERE profile_id=? AND capability=? AND environment=? AND event_id=?))`)
++   SELECT ?,?,COALESCE((SELECT MAX(e.revision) FROM game_provider_acceptance_events e
++    WHERE e.profile_id=? AND e.capability=? AND e.environment=?),0)+1,?,?,?,?,?,?,?,? WHERE
++    (CAST(? AS TEXT) IS NULL AND NOT EXISTS(SELECT 1 FROM game_provider_acceptance_current WHERE profile_id=? AND capability=? AND environment=?)) OR
++    (CAST(? AS TEXT) IS NOT NULL AND EXISTS(SELECT 1 FROM game_provider_acceptance_current WHERE profile_id=? AND capability=? AND environment=? AND event_id=?))`)
+    .bind(id,profileId,profileId,capability,environment,capability,environment,result,evidenceSha256,evidenceReference,actor.id,observedAt,at,
+     expectedEventId,profileId,capability,environment,expectedEventId,profileId,capability,environment,expectedEventId),
+   db.prepare(`INSERT INTO game_provider_acceptance_current(profile_id,capability,environment,event_id)
+    SELECT ?,?,?,id FROM game_provider_acceptance_events WHERE id=?
+    ON CONFLICT(profile_id,capability,environment) DO UPDATE SET event_id=excluded.event_id
+-   WHERE ? IS NOT NULL AND game_provider_acceptance_current.event_id=?`).bind(profileId,capability,environment,id,expectedEventId,expectedEventId),
++   WHERE CAST(? AS TEXT) IS NOT NULL AND game_provider_acceptance_current.event_id=?`).bind(profileId,capability,environment,id,expectedEventId,expectedEventId),
+   db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,?,'game_provider_acceptance_recorded',?,? FROM game_provider_acceptance_events WHERE id=?").bind(randomUUID(),actor.id,target,at,id),
+  ]);}catch(error){
+-  const detail=String(error instanceof Error?error.message:error),revisionConflict=/(?:unique|duplicate key)/i.test(detail)&&/game_provider_acceptance_events/i.test(detail)&&/(?:revision|profile_id)/i.test(detail);
++  const detail=String(error instanceof Error?error.message:error),sqlState=error&&typeof error==='object'&&'code' in error?String(error.code):'';
++  if(/acceptance (?:projection|history)/i.test(detail))fail(409,'ACCEPTANCE_INTEGRITY_ERROR','Acceptance projection does not match immutable history');
++  const revisionConflict=sqlState==='23505'||/(?:unique|duplicate key)/i.test(detail)&&/game_provider_acceptance_events/i.test(detail)&&/(?:revision|profile_id)/i.test(detail);
+   if(revisionConflict){
+-   const current=await db.prepare('SELECT event_id FROM game_provider_acceptance_current WHERE profile_id=? AND capability=? AND environment=?').bind(profileId,capability,environment).first<{event_id:string}>();
+-   if(current&&(expectedEventId===null||current.event_id!==expectedEventId))fail(409,'STALE_ACCEPTANCE','Acceptance changed; refresh and try again');
++   const state=await db.prepare(`SELECT
++    (SELECT id FROM game_provider_acceptance_events WHERE profile_id=? AND capability=? AND environment=? ORDER BY revision DESC LIMIT 1) AS latest_event_id,
++    (SELECT event_id FROM game_provider_acceptance_current WHERE profile_id=? AND capability=? AND environment=?) AS current_event_id`)
++    .bind(profileId,capability,environment,profileId,capability,environment).first<{latest_event_id:string|null;current_event_id:string|null}>();
++   if((state?.latest_event_id??null)!==(state?.current_event_id??null))fail(409,'ACCEPTANCE_INTEGRITY_ERROR','Acceptance projection does not match immutable history');
++   fail(409,'STALE_ACCEPTANCE','Acceptance changed; refresh and try again');
+   }
+   throw error;
+  }
+- if(!await db.prepare('SELECT id FROM game_provider_acceptance_events WHERE id=?').bind(id).first())fail(409,'STALE_ACCEPTANCE','Acceptance changed; refresh and try again');
++ const recorded=await db.prepare(`SELECT e.id,c.event_id AS current_event_id FROM game_provider_acceptance_events e
++  LEFT JOIN game_provider_acceptance_current c ON c.profile_id=e.profile_id AND c.capability=e.capability AND c.environment=e.environment
++  WHERE e.id=?`).bind(id).first<{id:string;current_event_id:string|null}>();
++ if(!recorded)fail(409,'STALE_ACCEPTANCE','Acceptance changed; refresh and try again');
++ if(recorded!.current_event_id!==id)fail(409,'ACCEPTANCE_INTEGRITY_ERROR','Acceptance projection does not match immutable history');
+  return {status:'recorded',id,profileId,capability,environment,result,accepted:result==='passed'};
+ }
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index a530342b0a45a2fc178136dba845180825ca1be2..97aa684b785d211fcf135f889ba4d771f293db46 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.164-jdb-wager-coverage-staging' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.165-acceptance-ledger-integrity' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+@@ -32,10 +32,12 @@ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+ 
+ type CurrentRow={
+  category:ProductionAcceptanceCategory;subject_id:string;capability:string;environment:ProductionAcceptanceEnvironment;
+- event_id:string;revision:number;result:ProductionAcceptanceResult;evidence_sha256:string;evidence_reference:string;
++ event_id:string;current_event_id:string|null;projection_integrity:number;revision:number;result:ProductionAcceptanceResult;evidence_sha256:string;evidence_reference:string;
+  verified_by:string;observed_at:number;recorded_at:number;
+ };
+ 
++type LatestRow={latest_event_id:string|null;latest_revision:number|null;current_event_id:string|null;history_min_revision:number|null;history_count:number|string};
++
+ export class ProductionAcceptanceError extends Error{
+  status:number;code:string;
+  constructor(status:number,code:string,message:string){super(message);this.status=status;this.code=code;}
+@@ -67,10 +69,18 @@ function validCombination(kind:ProductionAcceptanceCategory,subjectId:string,cap
+ }
+ 
+ async function currentRows(db:D1Database,selectedEnvironment?:ProductionAcceptanceEnvironment){
+- const where=selectedEnvironment?'WHERE c.environment=?':'',statement=db.prepare(`SELECT c.category,c.subject_id,c.capability,c.environment,c.event_id,
++ const where=selectedEnvironment?'AND e.environment=?':'',statement=db.prepare(`SELECT e.category,e.subject_id,e.capability,e.environment,e.id AS event_id,
++  c.event_id AS current_event_id,CASE WHEN c.event_id=e.id
++   AND (SELECT MIN(history.revision) FROM production_acceptance_events history WHERE history.category=e.category AND history.subject_id=e.subject_id AND history.capability=e.capability AND history.environment=e.environment)=1
++   AND (SELECT COUNT(*) FROM production_acceptance_events history WHERE history.category=e.category AND history.subject_id=e.subject_id AND history.capability=e.capability AND history.environment=e.environment)=e.revision
++   THEN 1 ELSE 0 END AS projection_integrity,
+   e.revision,e.result,e.evidence_sha256,e.evidence_reference,e.verified_by,e.observed_at,e.recorded_at
+-  FROM production_acceptance_current c JOIN production_acceptance_events e ON e.id=c.event_id
+-  ${where} ORDER BY c.category,c.subject_id,c.capability`);
++  FROM production_acceptance_events e LEFT JOIN production_acceptance_current c
++   ON c.category=e.category AND c.subject_id=e.subject_id AND c.capability=e.capability AND c.environment=e.environment
++  WHERE NOT EXISTS(SELECT 1 FROM production_acceptance_events newer
++   WHERE newer.category=e.category AND newer.subject_id=e.subject_id AND newer.capability=e.capability
++    AND newer.environment=e.environment AND newer.revision>e.revision)
++  ${where} ORDER BY e.category,e.subject_id,e.capability`);
+  const rows=selectedEnvironment?await statement.bind(selectedEnvironment).all<CurrentRow>():await statement.all<CurrentRow>();
+  return (rows.results??[]) as CurrentRow[];
+ }
+@@ -81,20 +91,23 @@ function requirementState(rows:CurrentRow[],selectedEnvironment:ProductionAccept
+   category:requirement.category,subjectId:requirement.subjectId,
+   capabilities:Object.fromEntries(requirement.capabilities.map(capabilityId=>{
+    const row=map.get(`${requirement.category}:${requirement.subjectId}:${capabilityId}`);
+-   return [capabilityId,row?{passed:row.result==='passed',result:row.result,eventId:row.event_id,revision:Number(row.revision),
++   return [capabilityId,row?{passed:row.result==='passed'&&Number(row.projection_integrity)===1,integrityValid:Number(row.projection_integrity)===1,
++    result:row.result,eventId:row.event_id,currentEventId:row.current_event_id,revision:Number(row.revision),
+     evidenceSha256:row.evidence_sha256,evidenceReference:row.evidence_reference,verifiedBy:row.verified_by,
+     observedAt:Number(row.observed_at),recordedAt:Number(row.recorded_at)}:
+-    {passed:false,result:'not_recorded',eventId:null,revision:0,evidenceSha256:null,evidenceReference:null,verifiedBy:null,observedAt:null,recordedAt:null}];
++    {passed:false,integrityValid:true,result:'not_recorded',eventId:null,currentEventId:null,revision:0,evidenceSha256:null,evidenceReference:null,verifiedBy:null,observedAt:null,recordedAt:null}];
+   })),
+  }));
+ }
+ 
+ export async function getProductionAcceptanceReadiness(db:D1Database){
+- const requirements=requirementState(await currentRows(db,'production'),'production');
++ const rows=await currentRows(db,'production'),requirements=requirementState(rows,'production');
+  const ready=(categoryId:ProductionAcceptanceCategory)=>requirements.filter(item=>item.category===categoryId).every(item=>Object.values(item.capabilities).every((state:any)=>state.passed===true));
+  const paymentProfiles=Object.fromEntries(requirements.filter(item=>item.category==='payment').map(item=>[item.subjectId,Object.values(item.capabilities).every((state:any)=>state.passed===true)]));
++ const integrityBlockers=rows.filter(row=>Number(row.projection_integrity)!==1).map(row=>`${row.category}:${row.subject_id}:${row.capability}`),integrityReady=integrityBlockers.length===0;
+  const domainReady=ready('domain'),credentialRotationReady=ready('credential'),paymentReady=ready('payment'),signoffReady=ready('signoff');
+- return {domainReady,credentialRotationReady,paymentReady,signoffReady,externalAcceptanceReady:domainReady&&credentialRotationReady&&paymentReady&&signoffReady,paymentProfiles,requirements,
++ return {domainReady,credentialRotationReady,paymentReady,signoffReady,integrityReady,externalAcceptanceReady:integrityReady&&domainReady&&credentialRotationReady&&paymentReady&&signoffReady,paymentProfiles,requirements,
++  integrityBlockers,
+   blockers:requirements.flatMap(item=>Object.entries(item.capabilities).filter(([,state]:any)=>state.passed!==true).map(([capabilityId])=>`${item.category}:${item.subjectId}:${capabilityId}`))};
+ }
+ 
+@@ -107,7 +120,8 @@ export async function getProductionAcceptance(db:D1Database,actor:ProductionAcce
+  const rows=await currentRows(db,selected),requirements=requirementState(rows,selected);let events:unknown[]=[];
+  if(eventLimit>0){const result=await db.prepare(`SELECT id,category,subject_id,capability,environment,revision,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at
+    FROM production_acceptance_events WHERE environment=? ORDER BY recorded_at DESC,id DESC LIMIT ?`).bind(selected,eventLimit).all();events=result.results??[];}
+- return {environment:selected,categories:[...PRODUCTION_ACCEPTANCE_CATEGORIES],paymentCapabilities:[...PAYMENT_ACCEPTANCE_CAPABILITIES],requirements,events};
++ const integrityBlockers=rows.filter(row=>Number(row.projection_integrity)!==1).map(row=>`${row.category}:${row.subject_id}:${row.capability}`);
++ return {environment:selected,categories:[...PRODUCTION_ACCEPTANCE_CATEGORIES],paymentCapabilities:[...PAYMENT_ACCEPTANCE_CAPABILITIES],integrityReady:integrityBlockers.length===0,integrityBlockers,requirements,events};
+ }
+ 
+ export async function recordProductionAcceptance(db:D1Database,actor:ProductionAcceptanceActor,input:Record<string,unknown>,at=Math.floor(Date.now()/1000)){
+@@ -127,26 +141,46 @@ export async function recordProductionAcceptance(db:D1Database,actor:ProductionA
+  if(!reference(evidenceReference))fail(400,'INVALID_EVIDENCE_REFERENCE','Evidence reference must be a non-secret identifier');
+  if(!Number.isSafeInteger(observedAt)||observedAt<0||observedAt>at+300)fail(400,'INVALID_OBSERVED_AT','Observed time is invalid');
+  if(!Object.hasOwn(input,'expectedEventId')||expectedEventId!==null&&(typeof expectedEventId!=='string'||!/^[a-f0-9-]{36}$/.test(expectedEventId)))fail(400,'INVALID_EXPECTED_EVENT','Current event id or null is required');
++ const latest=await db.prepare(`SELECT
++  (SELECT id FROM production_acceptance_events WHERE category=? AND subject_id=? AND capability=? AND environment=? ORDER BY revision DESC LIMIT 1) AS latest_event_id,
++  (SELECT revision FROM production_acceptance_events WHERE category=? AND subject_id=? AND capability=? AND environment=? ORDER BY revision DESC LIMIT 1) AS latest_revision,
++  (SELECT event_id FROM production_acceptance_current WHERE category=? AND subject_id=? AND capability=? AND environment=?) AS current_event_id,
++  (SELECT MIN(revision) FROM production_acceptance_events WHERE category=? AND subject_id=? AND capability=? AND environment=?) AS history_min_revision,
++  (SELECT COUNT(*) FROM production_acceptance_events WHERE category=? AND subject_id=? AND capability=? AND environment=?) AS history_count`)
++  .bind(kind,subjectId,capabilityId,selectedEnvironment,kind,subjectId,capabilityId,selectedEnvironment,kind,subjectId,capabilityId,selectedEnvironment,kind,subjectId,capabilityId,selectedEnvironment,kind,subjectId,capabilityId,selectedEnvironment).first<LatestRow>();
++ const latestEventId=latest?.latest_event_id??null,currentEventId=latest?.current_event_id??null;
++ const latestRevision=latest?.latest_revision===null||latest?.latest_revision===undefined?null:Number(latest.latest_revision),historyCount=Number(latest?.history_count??0),historyMin=latest?.history_min_revision===null||latest?.history_min_revision===undefined?null:Number(latest.history_min_revision);
++ if(latestEventId!==currentEventId||(latestEventId!==null&&(historyMin!==1||historyCount!==latestRevision)))fail(409,'ACCEPTANCE_INTEGRITY_ERROR','Acceptance projection does not match immutable history');
++ if(expectedEventId!==latestEventId)fail(409,'STALE_ACCEPTANCE','Acceptance changed; refresh and try again');
+  const id=randomUUID(),target=`${kind}:${subjectId}:${capabilityId}:${selectedEnvironment}:${selectedResult}:${id}`;
+  try{await db.batch([
+   db.prepare(`INSERT INTO production_acceptance_events
+    (id,category,subject_id,capability,environment,revision,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at)
+-   SELECT ?,?,?,?, ?,COALESCE((SELECT e.revision FROM production_acceptance_current c JOIN production_acceptance_events e ON e.id=c.event_id
+-    WHERE c.category=? AND c.subject_id=? AND c.capability=? AND c.environment=?),0)+1, ?,?,?,?,?,? WHERE
+-    (? IS NULL AND NOT EXISTS(SELECT 1 FROM production_acceptance_current WHERE category=? AND subject_id=? AND capability=? AND environment=?)) OR
+-    (? IS NOT NULL AND EXISTS(SELECT 1 FROM production_acceptance_current WHERE category=? AND subject_id=? AND capability=? AND environment=? AND event_id=?))`)
++   SELECT ?,?,?,?, ?,COALESCE((SELECT MAX(e.revision) FROM production_acceptance_events e
++    WHERE e.category=? AND e.subject_id=? AND e.capability=? AND e.environment=?),0)+1, ?,?,?,?,?,? WHERE
++    (CAST(? AS TEXT) IS NULL AND NOT EXISTS(SELECT 1 FROM production_acceptance_current WHERE category=? AND subject_id=? AND capability=? AND environment=?)) OR
++    (CAST(? AS TEXT) IS NOT NULL AND EXISTS(SELECT 1 FROM production_acceptance_current WHERE category=? AND subject_id=? AND capability=? AND environment=? AND event_id=?))`)
+    .bind(id,kind,subjectId,capabilityId,selectedEnvironment,kind,subjectId,capabilityId,selectedEnvironment,selectedResult,evidenceSha256,evidenceReference,actor.id,observedAt,at,
+     expectedEventId,kind,subjectId,capabilityId,selectedEnvironment,expectedEventId,kind,subjectId,capabilityId,selectedEnvironment,expectedEventId),
+   db.prepare(`INSERT INTO production_acceptance_current(category,subject_id,capability,environment,event_id)
+    SELECT ?,?,?,?,id FROM production_acceptance_events WHERE id=?
+    ON CONFLICT(category,subject_id,capability,environment) DO UPDATE SET event_id=excluded.event_id
+-   WHERE ? IS NOT NULL AND production_acceptance_current.event_id=?`).bind(kind,subjectId,capabilityId,selectedEnvironment,id,expectedEventId,expectedEventId),
++   WHERE CAST(? AS TEXT) IS NOT NULL AND production_acceptance_current.event_id=?`).bind(kind,subjectId,capabilityId,selectedEnvironment,id,expectedEventId,expectedEventId),
+   db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,?,'production_acceptance_recorded',?,? FROM production_acceptance_events WHERE id=?").bind(randomUUID(),actor.id,target,at,id),
+  ]);}catch(error){
+-  const detail=String(error instanceof Error?error.message:error),conflict=/(?:unique|duplicate key)/i.test(detail)&&/production_acceptance_events/i.test(detail);
+-  if(conflict){const current=await db.prepare('SELECT event_id FROM production_acceptance_current WHERE category=? AND subject_id=? AND capability=? AND environment=?').bind(kind,subjectId,capabilityId,selectedEnvironment).first<{event_id:string}>();if(current&&(expectedEventId===null||current.event_id!==expectedEventId))fail(409,'STALE_ACCEPTANCE','Acceptance changed; refresh and try again');}
++  const detail=String(error instanceof Error?error.message:error),sqlState=error&&typeof error==='object'&&'code' in error?String(error.code):'';
++  if(/acceptance (?:projection|history)/i.test(detail))fail(409,'ACCEPTANCE_INTEGRITY_ERROR','Acceptance projection does not match immutable history');
++  const conflict=sqlState==='23505'||/(?:unique|duplicate key)/i.test(detail)&&/production_acceptance_events/i.test(detail);
++  if(conflict){const state=await db.prepare(`SELECT
++   (SELECT id FROM production_acceptance_events WHERE category=? AND subject_id=? AND capability=? AND environment=? ORDER BY revision DESC LIMIT 1) AS latest_event_id,
++   (SELECT event_id FROM production_acceptance_current WHERE category=? AND subject_id=? AND capability=? AND environment=?) AS current_event_id`)
++   .bind(kind,subjectId,capabilityId,selectedEnvironment,kind,subjectId,capabilityId,selectedEnvironment).first<{latest_event_id:string|null;current_event_id:string|null}>();if((state?.latest_event_id??null)!==(state?.current_event_id??null))fail(409,'ACCEPTANCE_INTEGRITY_ERROR','Acceptance projection does not match immutable history');fail(409,'STALE_ACCEPTANCE','Acceptance changed; refresh and try again');}
+   throw error;
+  }
+- if(!await db.prepare('SELECT id FROM production_acceptance_events WHERE id=?').bind(id).first())fail(409,'STALE_ACCEPTANCE','Acceptance changed; refresh and try again');
++ const recorded=await db.prepare(`SELECT e.id,c.event_id AS current_event_id FROM production_acceptance_events e
++  LEFT JOIN production_acceptance_current c ON c.category=e.category AND c.subject_id=e.subject_id AND c.capability=e.capability AND c.environment=e.environment
++  WHERE e.id=?`).bind(id).first<{id:string;current_event_id:string|null}>();
++ if(!recorded)fail(409,'STALE_ACCEPTANCE','Acceptance changed; refresh and try again');
++ if(recorded!.current_event_id!==id)fail(409,'ACCEPTANCE_INTEGRITY_ERROR','Acceptance projection does not match immutable history');
+  return {status:'recorded',id,category:kind,subjectId,capability:capabilityId,environment:selectedEnvironment,result:selectedResult,accepted:selectedResult==='passed'};
+ }
+diff --git a/lib/render-migrations.mjs b/lib/render-migrations.mjs
+index b4fb6a8331992df0f17c8c9a4b5d1b5ac71e29a8..45d6f8484b06fdc9c660cfed493669896a654bc4 100644
+--- a/lib/render-migrations.mjs
++++ b/lib/render-migrations.mjs
+@@ -821,6 +821,127 @@ CREATE INDEX IF NOT EXISTS jdb_wager_observations_receipt
+  await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[JDB_WAGER_COVERAGE_STAGING_MIGRATION]);return true;
+ }
+ 
++export const ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION='0122-acceptance-ledger-integrity';
++async function applyAcceptanceLedgerIntegrityMigration(client){
++ const applied=await client.query('SELECT version FROM portal_schema_migrations WHERE version=$1',[ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION]);if(applied.rows.length)return false;
++ await client.query(`DO $$
++ BEGIN
++  IF EXISTS (
++   SELECT 1 FROM (
++    SELECT profile_id,capability,environment,MIN(revision) minimum_revision,MAX(revision) maximum_revision,COUNT(*) history_count
++    FROM game_provider_acceptance_events GROUP BY profile_id,capability,environment
++   ) history
++   LEFT JOIN game_provider_acceptance_current c ON c.profile_id=history.profile_id AND c.capability=history.capability AND c.environment=history.environment
++   LEFT JOIN game_provider_acceptance_events selected ON selected.id=c.event_id
++    AND selected.profile_id=history.profile_id AND selected.capability=history.capability AND selected.environment=history.environment
++   WHERE history.minimum_revision<>1 OR history.history_count<>history.maximum_revision
++    OR selected.id IS NULL OR selected.revision<>history.maximum_revision
++  ) THEN RAISE EXCEPTION 'game provider acceptance projection is not current'; END IF;
++  IF EXISTS (
++   SELECT 1 FROM (
++    SELECT category,subject_id,capability,environment,MIN(revision) minimum_revision,MAX(revision) maximum_revision,COUNT(*) history_count
++    FROM production_acceptance_events GROUP BY category,subject_id,capability,environment
++   ) history
++   LEFT JOIN production_acceptance_current c ON c.category=history.category AND c.subject_id=history.subject_id
++    AND c.capability=history.capability AND c.environment=history.environment
++   LEFT JOIN production_acceptance_events selected ON selected.id=c.event_id
++    AND selected.category=history.category AND selected.subject_id=history.subject_id
++    AND selected.capability=history.capability AND selected.environment=history.environment
++   WHERE history.minimum_revision<>1 OR history.history_count<>history.maximum_revision
++    OR selected.id IS NULL OR selected.revision<>history.maximum_revision
++  ) THEN RAISE EXCEPTION 'production acceptance projection is not current'; END IF;
++ END $$;`);
++ await client.query(`CREATE OR REPLACE FUNCTION guard_game_provider_acceptance_event() RETURNS trigger LANGUAGE plpgsql AS $$
++ DECLARE latest_revision INTEGER;
++ BEGIN
++  IF TG_OP IN ('UPDATE','DELETE','TRUNCATE') THEN RAISE EXCEPTION 'game provider acceptance history is immutable' USING ERRCODE='55000'; END IF;
++  SELECT MAX(revision) INTO latest_revision FROM game_provider_acceptance_events
++   WHERE profile_id=NEW.profile_id AND capability=NEW.capability AND environment=NEW.environment;
++  IF NEW.revision<>COALESCE(latest_revision,0)+1 THEN RAISE EXCEPTION 'game provider acceptance history revisions must be contiguous' USING ERRCODE='55000'; END IF;
++  RETURN NEW;
++ END $$;
++ DROP TRIGGER IF EXISTS game_provider_acceptance_events_immutable ON game_provider_acceptance_events;
++ CREATE TRIGGER game_provider_acceptance_events_immutable BEFORE INSERT OR UPDATE OR DELETE ON game_provider_acceptance_events
++  FOR EACH ROW EXECUTE FUNCTION guard_game_provider_acceptance_event();
++ DROP TRIGGER IF EXISTS game_provider_acceptance_events_no_truncate ON game_provider_acceptance_events;
++ CREATE TRIGGER game_provider_acceptance_events_no_truncate BEFORE TRUNCATE ON game_provider_acceptance_events
++  FOR EACH STATEMENT EXECUTE FUNCTION guard_game_provider_acceptance_event();
++ CREATE OR REPLACE FUNCTION guard_production_acceptance_event() RETURNS trigger LANGUAGE plpgsql AS $$
++ DECLARE latest_revision INTEGER;
++ BEGIN
++  IF TG_OP IN ('UPDATE','DELETE','TRUNCATE') THEN RAISE EXCEPTION 'production acceptance history is immutable' USING ERRCODE='55000'; END IF;
++  SELECT MAX(revision) INTO latest_revision FROM production_acceptance_events
++   WHERE category=NEW.category AND subject_id=NEW.subject_id AND capability=NEW.capability AND environment=NEW.environment;
++  IF NEW.revision<>COALESCE(latest_revision,0)+1 THEN RAISE EXCEPTION 'production acceptance history revisions must be contiguous' USING ERRCODE='55000'; END IF;
++  RETURN NEW;
++ END $$;
++ DROP TRIGGER IF EXISTS production_acceptance_events_immutable ON production_acceptance_events;
++ CREATE TRIGGER production_acceptance_events_immutable BEFORE INSERT OR UPDATE OR DELETE ON production_acceptance_events
++  FOR EACH ROW EXECUTE FUNCTION guard_production_acceptance_event();
++ DROP TRIGGER IF EXISTS production_acceptance_events_no_truncate ON production_acceptance_events;
++ CREATE TRIGGER production_acceptance_events_no_truncate BEFORE TRUNCATE ON production_acceptance_events
++  FOR EACH STATEMENT EXECUTE FUNCTION guard_production_acceptance_event();`);
++ await client.query(`CREATE OR REPLACE FUNCTION guard_game_provider_acceptance_current() RETURNS trigger LANGUAGE plpgsql AS $$
++ DECLARE previous_revision INTEGER; next_revision INTEGER; latest_revision INTEGER; minimum_revision INTEGER; history_count BIGINT;
++ BEGIN
++  IF TG_OP IN ('DELETE','TRUNCATE') THEN RAISE EXCEPTION 'game provider acceptance projection cannot be deleted or truncated' USING ERRCODE='55000'; END IF;
++  SELECT revision INTO next_revision FROM game_provider_acceptance_events
++   WHERE id=NEW.event_id AND profile_id=NEW.profile_id AND capability=NEW.capability AND environment=NEW.environment;
++  SELECT MIN(revision),MAX(revision),COUNT(*) INTO minimum_revision,latest_revision,history_count FROM game_provider_acceptance_events
++   WHERE profile_id=NEW.profile_id AND capability=NEW.capability AND environment=NEW.environment;
++  IF next_revision IS NULL OR minimum_revision<>1 OR history_count<>latest_revision OR next_revision<>latest_revision THEN
++   RAISE EXCEPTION 'game provider acceptance projection must reference the latest revision' USING ERRCODE='55000';
++  END IF;
++  IF TG_OP='UPDATE' THEN
++   IF NEW.profile_id<>OLD.profile_id OR NEW.capability<>OLD.capability OR NEW.environment<>OLD.environment THEN
++    RAISE EXCEPTION 'game provider acceptance projection key is immutable' USING ERRCODE='55000';
++   END IF;
++   SELECT revision INTO previous_revision FROM game_provider_acceptance_events WHERE id=OLD.event_id;
++   IF previous_revision IS NULL OR next_revision<>previous_revision+1 THEN
++    RAISE EXCEPTION 'game provider acceptance projection must advance exactly one revision' USING ERRCODE='55000';
++   END IF;
++  END IF;
++  RETURN NEW;
++ END $$;
++ DROP TRIGGER IF EXISTS game_provider_acceptance_current_monotonic ON game_provider_acceptance_current;
++ CREATE TRIGGER game_provider_acceptance_current_monotonic BEFORE INSERT OR UPDATE OR DELETE ON game_provider_acceptance_current
++  FOR EACH ROW EXECUTE FUNCTION guard_game_provider_acceptance_current();
++ DROP TRIGGER IF EXISTS game_provider_acceptance_current_no_truncate ON game_provider_acceptance_current;
++ CREATE TRIGGER game_provider_acceptance_current_no_truncate BEFORE TRUNCATE ON game_provider_acceptance_current
++  FOR EACH STATEMENT EXECUTE FUNCTION guard_game_provider_acceptance_current();`);
++ await client.query(`CREATE OR REPLACE FUNCTION guard_production_acceptance_current() RETURNS trigger LANGUAGE plpgsql AS $$
++ DECLARE previous_revision INTEGER; next_revision INTEGER; latest_revision INTEGER; minimum_revision INTEGER; history_count BIGINT;
++ BEGIN
++  IF TG_OP IN ('DELETE','TRUNCATE') THEN RAISE EXCEPTION 'production acceptance projection cannot be deleted or truncated' USING ERRCODE='55000'; END IF;
++  SELECT revision INTO next_revision FROM production_acceptance_events
++   WHERE id=NEW.event_id AND category=NEW.category AND subject_id=NEW.subject_id
++    AND capability=NEW.capability AND environment=NEW.environment;
++  SELECT MIN(revision),MAX(revision),COUNT(*) INTO minimum_revision,latest_revision,history_count FROM production_acceptance_events
++   WHERE category=NEW.category AND subject_id=NEW.subject_id
++    AND capability=NEW.capability AND environment=NEW.environment;
++  IF next_revision IS NULL OR minimum_revision<>1 OR history_count<>latest_revision OR next_revision<>latest_revision THEN
++   RAISE EXCEPTION 'production acceptance projection must reference the latest revision' USING ERRCODE='55000';
++  END IF;
++  IF TG_OP='UPDATE' THEN
++   IF NEW.category<>OLD.category OR NEW.subject_id<>OLD.subject_id OR NEW.capability<>OLD.capability OR NEW.environment<>OLD.environment THEN
++    RAISE EXCEPTION 'production acceptance projection key is immutable' USING ERRCODE='55000';
++   END IF;
++   SELECT revision INTO previous_revision FROM production_acceptance_events WHERE id=OLD.event_id;
++   IF previous_revision IS NULL OR next_revision<>previous_revision+1 THEN
++    RAISE EXCEPTION 'production acceptance projection must advance exactly one revision' USING ERRCODE='55000';
++   END IF;
++  END IF;
++  RETURN NEW;
++ END $$;
++ DROP TRIGGER IF EXISTS production_acceptance_current_monotonic ON production_acceptance_current;
++ CREATE TRIGGER production_acceptance_current_monotonic BEFORE INSERT OR UPDATE OR DELETE ON production_acceptance_current
++  FOR EACH ROW EXECUTE FUNCTION guard_production_acceptance_current();
++ DROP TRIGGER IF EXISTS production_acceptance_current_no_truncate ON production_acceptance_current;
++ CREATE TRIGGER production_acceptance_current_no_truncate BEFORE TRUNCATE ON production_acceptance_current
++  FOR EACH STATEMENT EXECUTE FUNCTION guard_production_acceptance_current();`);
++ await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION]);return true;
++}
++
+ export const FLEXIBLE_PUBLIC_CONTACTS_MIGRATION='0117-flexible-public-contacts';
+ async function applyFlexiblePublicContactsMigration(client){
+  const applied=await client.query('SELECT version FROM portal_schema_migrations WHERE version=$1',[FLEXIBLE_PUBLIC_CONTACTS_MIGRATION]);if(applied.rows.length)return false;
+@@ -925,6 +1046,7 @@ export async function initializePortalDatabase(pool, schema, directoryEntries, o
+     await applyWithdrawalDestinationMethodsMigration(client);
+     await applyProviderWalletSweepsMigration(client);
+     await applyJdbWagerCoverageStagingMigration(client);
++    await applyAcceptanceLedgerIntegrityMigration(client);
+     const rows = seedRows(directoryEntries);
+     await client.query(
+       `INSERT INTO brand_directory_entries(id,category,display_name,position,marked,status,image_data,updated_at)
+diff --git a/package.json b/package.json
+index 2f38c170d0ca24935e5d01d30ec32d5df1e5cc81..8512855902ead11f5bbd4482f47ad25c1065e21f 100644
+--- a/package.json
++++ b/package.json
+@@ -20,16 +20,17 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.164-jdb-wager-coverage-staging node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.164-jdb-wager-coverage-staging node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.165-acceptance-ledger-integrity node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.165-acceptance-ledger-integrity node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.164-jdb-wager-coverage-staging node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.165-acceptance-ledger-integrity node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+-    "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
++    "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs",
++    "test:acceptance-integrity-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-acceptance-integrity.mjs"
+   },
+   "dependencies": {
+     "@base-ui/react": "^1.7.0",
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 02ba04fd9c60a98908b50fcbb448f9384c1b7c64..f92f41cfc6671cfad2c9704fa80104ebed2b162e 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.164-jdb-wager-coverage-staging';
++const CACHE='master7-shell-17.0.0-selfbuilt.165-acceptance-ledger-integrity';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/scripts/postgres-readiness-gate.mjs b/scripts/postgres-readiness-gate.mjs
+index 10e1805531d1004e97655be43d529a28bb7787bf..4b992794ec73cddc379b8a3cab328d490bd41651 100644
+--- a/scripts/postgres-readiness-gate.mjs
++++ b/scripts/postgres-readiness-gate.mjs
+@@ -7,7 +7,7 @@ import {
+  PRODUCTION_ACCEPTANCE_EVIDENCE_MIGRATION,FLEXIBLE_PUBLIC_CONTACTS_MIGRATION,PROVIDER_WALLET_OPERATIONS_MIGRATION,MANUAL_BANK_FUNDS_MIGRATION,API_SUPPLIER_STATUS_MIGRATION,BENEFIT_CLAIM_REVIEW_MIGRATION,COMPANY_BANK_ARTWORK_MIGRATION,
+  CONNECTED_SERVICES_MIGRATION,FIXED_VOUCHER_RETIREMENT_MIGRATION,GAME_ACCESS_ZONE_MIGRATION,
+  GAME_PROVIDER_ADAPTER_CORE_MIGRATION,MEGAH5_LAUNCH_OPERATIONS_MIGRATION,GAME_PROVIDER_ACCEPTANCE_MIGRATION,GENERIC_GAME_WALLET_RISK_MIGRATION,
+- WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,
++ WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,
+  GSPAY_PAYOUT_ACTIVATION_MIGRATION,GSPAY_USDT_PROFILE_MIGRATION,MANUAL_BANK_MIGRATION,MANUAL_COMPLIANCE_MIGRATION,
+  MARKETING_CONTACT_SCALE_MIGRATION,NEW_MEMBER_VOUCHER_MIGRATION,ONE_MPAY_CHANNEL_MIGRATION,
+  OPERATIONS_AUTOMATION_MIGRATION,PAYMENT_ACCEPTANCE_GUARD_MIGRATION,PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS,
+@@ -25,7 +25,7 @@ export const REQUIRED_MIGRATIONS=Object.freeze([
+  RESPONSIBLE_PLAY_MIGRATION,COMPANY_BANK_ARTWORK_MIGRATION,NEW_MEMBER_VOUCHER_MIGRATION,
+  VOUCHER_MANUAL_WORKFLOW_MIGRATION,FIXED_VOUCHER_RETIREMENT_MIGRATION,BENEFIT_CLAIM_REVIEW_MIGRATION,
+  MANUAL_COMPLIANCE_MIGRATION,GSPAY_USDT_PROFILE_MIGRATION,GAME_PROVIDER_ADAPTER_CORE_MIGRATION,MEGAH5_LAUNCH_OPERATIONS_MIGRATION,GAME_PROVIDER_ACCEPTANCE_MIGRATION,GENERIC_GAME_WALLET_RISK_MIGRATION,
+- WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,
++ WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,
+ ].sort());
+ export const OPTIONAL_MIGRATIONS=Object.freeze([
+  ONE_MPAY_CHANNEL_MIGRATION,...Object.values(PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS),GSPAY_PAYOUT_ACTIVATION_MIGRATION,
+@@ -34,7 +34,17 @@ export const REQUIRED_COLUMNS=Object.freeze({
+  withdrawal_requests:Object.freeze(['destination_type','ewallet_code','ewallet_name','ewallet_account_encrypted','ewallet_account_last4']),
+  provider_wallet_operations:Object.freeze(['withdrawal_mode','adapter_contract_sha256']),
+ });
+-export const REQUIRED_TRIGGERS=Object.freeze([{tableName:'provider_wallet_operations',triggerName:'provider_wallet_contract_immutable'}]);
++export const REQUIRED_TRIGGERS=Object.freeze([
++ Object.freeze({tableName:'provider_wallet_operations',triggerName:'provider_wallet_contract_immutable'}),
++ Object.freeze({tableName:'game_provider_acceptance_events',triggerName:'game_provider_acceptance_events_immutable'}),
++ Object.freeze({tableName:'game_provider_acceptance_events',triggerName:'game_provider_acceptance_events_no_truncate'}),
++ Object.freeze({tableName:'production_acceptance_events',triggerName:'production_acceptance_events_immutable'}),
++ Object.freeze({tableName:'production_acceptance_events',triggerName:'production_acceptance_events_no_truncate'}),
++ Object.freeze({tableName:'game_provider_acceptance_current',triggerName:'game_provider_acceptance_current_monotonic'}),
++ Object.freeze({tableName:'game_provider_acceptance_current',triggerName:'game_provider_acceptance_current_no_truncate'}),
++ Object.freeze({tableName:'production_acceptance_current',triggerName:'production_acceptance_current_monotonic'}),
++ Object.freeze({tableName:'production_acceptance_current',triggerName:'production_acceptance_current_no_truncate'}),
++]);
+ 
+ const sha256=value=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
+ const parse=value=>{try{return typeof value==='string'?JSON.parse(value):null;}catch{return null;}};
+@@ -52,9 +62,9 @@ export function evaluatePostgresReadinessEvidence(input,{expectedRelease,nowMs=D
+  check(checks,'required_migrations',REQUIRED_MIGRATIONS.every(version=>versions.includes(version)));
+  check(checks,'no_unknown_migrations',versions.every(version=>knownMigrations.has(version)));
+  check(checks,'migration_timestamps',migrations.every(row=>Number.isSafeInteger(Number(row.applied_at))&&Number(row.applied_at)>0&&Number(row.applied_at)<=Math.floor(nowMs/1000)+300));
+- check(checks,'migration_dependency_order',[WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION].every(version=>migrationTimes.has(version))&&migrationTimes.get(WITHDRAWAL_DESTINATION_METHODS_MIGRATION)<=migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)&&migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)<=migrationTimes.get(JDB_WAGER_COVERAGE_STAGING_MIGRATION));
++ check(checks,'migration_dependency_order',[WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION].every(version=>migrationTimes.has(version))&&migrationTimes.get(WITHDRAWAL_DESTINATION_METHODS_MIGRATION)<=migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)&&migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)<=migrationTimes.get(JDB_WAGER_COVERAGE_STAGING_MIGRATION)&&migrationTimes.get(JDB_WAGER_COVERAGE_STAGING_MIGRATION)<=migrationTimes.get(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION));
+  check(checks,'required_schema_columns',Object.entries(REQUIRED_COLUMNS).every(([table,names])=>names.every(name=>columns.has(`${table}.${name}`))));
+- check(checks,'provider_wallet_contract_immutable_trigger',REQUIRED_TRIGGERS.every(required=>triggers.some(row=>String(row.table_name)===required.tableName&&String(row.trigger_name)===required.triggerName&&String(row.enabled)==='O')));
++ check(checks,'required_schema_triggers',REQUIRED_TRIGGERS.every(required=>triggers.some(row=>String(row.table_name)===required.tableName&&String(row.trigger_name)===required.triggerName&&String(row.enabled)==='O')));
+ 
+  const backup=parse(input.backupAudit?.target),backupAuditAt=Number(input.backupAudit?.created_at),backupReady=!!backup&&backup.format===BACKUP_FORMAT&&backup.release===expectedRelease&&backup.schemaVersion===BACKUP_SCHEMA_VERSION&&backup.schemaSha256===BACKUP_SCHEMA_SHA256&&backup.publicKeySha256===BACKUP_PUBLIC_KEY_SHA256&&backup.readConsistency==='transaction_snapshot'&&backup.tableCount===BACKUP_TABLES.length&&Number.isSafeInteger(backup.totalRecords)&&backup.totalRecords>=0&&sha256(backup.backupSha256)&&sha256(backup.plaintextSha256)&&sha256(backup.ciphertextSha256)&&fresh(backup.createdAt,7*86400,nowMs)&&Number.isSafeInteger(backupAuditAt)&&backupAuditAt>=Math.floor(nowMs/1000)-7*86400&&backupAuditAt<=Math.floor(nowMs/1000)+300;
+  check(checks,'current_encrypted_backup',backupReady);
+@@ -82,7 +92,7 @@ export async function runPostgresReadinessGate(client,options){
+       has_table_privilege(current_user,format('%I.%I','public',table_name),'TRIGGER')) can_write_tables`,[REQUIRED_TABLES])).rows[0];
+   const tables=(await client.query("SELECT c.relname name FROM pg_catalog.pg_class c JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND c.relkind IN ('r','p') ORDER BY c.relname")).rows;
+   const columns=(await client.query("SELECT table_name,column_name FROM information_schema.columns WHERE table_schema='public' AND table_name=ANY($1::text[]) ORDER BY table_name,column_name",[Object.keys(REQUIRED_COLUMNS)])).rows;
+-  const triggers=(await client.query("SELECT c.relname table_name,t.tgname trigger_name,t.tgenabled enabled FROM pg_catalog.pg_trigger t JOIN pg_catalog.pg_class c ON c.oid=t.tgrelid JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND NOT t.tgisinternal AND c.relname='provider_wallet_operations' AND t.tgname='provider_wallet_contract_immutable'")).rows;
++  const triggers=(await client.query("SELECT c.relname table_name,t.tgname trigger_name,t.tgenabled enabled FROM pg_catalog.pg_trigger t JOIN pg_catalog.pg_class c ON c.oid=t.tgrelid JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND NOT t.tgisinternal AND c.relname=ANY($1::text[]) AND t.tgname=ANY($2::text[]) ORDER BY c.relname,t.tgname",[[...new Set(REQUIRED_TRIGGERS.map(item=>item.tableName))],[...new Set(REQUIRED_TRIGGERS.map(item=>item.triggerName))]])).rows;
+   const migrations=(await client.query('SELECT version,applied_at FROM portal_schema_migrations ORDER BY version')).rows;
+   const backupCandidates=(await client.query("SELECT target,created_at FROM audit WHERE event='encrypted_backup_created' AND created_at=(SELECT MAX(created_at) FROM audit WHERE event='encrypted_backup_created')")).rows;
+   const backupAudit=backupCandidates.map(row=>({row,metadata:parse(row.target)})).filter(item=>item.metadata&&fresh(item.metadata.createdAt,30*86400,options?.nowMs??Date.now())).sort((a,b)=>Date.parse(b.metadata.createdAt)-Date.parse(a.metadata.createdAt))[0]?.row??null;
+diff --git a/scripts/postgres-restore-dry-run.mjs b/scripts/postgres-restore-dry-run.mjs
+index a315deca306840eb17c314eb2d62e005c376de00..cd510cdb1d6b988ac95348956b42876598f104d9 100644
+--- a/scripts/postgres-restore-dry-run.mjs
++++ b/scripts/postgres-restore-dry-run.mjs
+@@ -3,7 +3,7 @@ import {readFileSync,writeFileSync} from 'node:fs';
+ import {basename} from 'node:path';
+ import {gunzipSync} from 'node:zlib';
+ import pg from 'pg';
+-import {BACKUP_EXCLUDED_TABLES,BACKUP_FORMAT,BACKUP_TABLES,backupRestoreContract} from '../lib/encrypted-backup.ts';
++import {ACCEPTANCE_PROTECTED_TABLES,BACKUP_EXCLUDED_TABLES,BACKUP_FORMAT,BACKUP_TABLES,backupRestoreContract,orderBackupRestoreRows} from '../lib/encrypted-backup.ts';
+ import {assertIsolatedRestoreTarget} from '../lib/restore-safety.mjs';
+ import {initializeRehearsalSchema,withRollbackOnlyTransaction} from './restore-postgres-schema.mjs';
+ 
+@@ -33,9 +33,14 @@ const receipt=await withRollbackOnlyTransaction(client,async()=>{
+  await client.query(`CREATE SCHEMA "${rehearsalSchema}"`);
+  await client.query(`SET LOCAL search_path TO "${rehearsalSchema}", pg_catalog`);
+  await initializeRehearsalSchema(client,readFileSync(new URL('../db/render-schema.sql',import.meta.url),'utf8'),JSON.parse(readFileSync(new URL('../db/vendor-directory.json',import.meta.url),'utf8')));
+- const quoted=BACKUP_TABLES.map(name=>`"${name}"`).join(',');await client.query(`TRUNCATE ${quoted} CASCADE`);
++ for(const table of ACCEPTANCE_PROTECTED_TABLES){const result=await client.query(`SELECT COUNT(*)::bigint count FROM "${table}"`);if(Number(result.rows[0].count)!==0)throw new Error(`Fresh restore schema unexpectedly contains protected acceptance rows in ${table}`);}
++ // The acceptance tables retain their no-TRUNCATE triggers. They are empty in
++ // this fresh random schema, and users can be cleared safely after every other
++ // durable table has been reset.
++ const resetTables=BACKUP_TABLES.filter(name=>name!=='users'&&!ACCEPTANCE_PROTECTED_TABLES.includes(name));
++ const quoted=resetTables.map(name=>`"${name}"`).join(',');await client.query(`TRUNCATE ${quoted} CASCADE`);await client.query('DELETE FROM users');
+  for(const table of contract.tables){
+-  for(const row of payload.tables[table]){
++  for(const row of orderBackupRestoreRows(table,payload.tables[table])){
+    const columns=Object.keys(row);if(!columns.length)continue;
+    for(const column of columns)if(!/^[a-z][a-z0-9_]*$/.test(column))throw new Error(`Unsafe column name in ${table}`);
+    const values=columns.map(column=>{const value=row[column];return value&&typeof value==='object'?JSON.stringify(value):value??null;}),marks=values.map((_,index)=>`$${index+1}`).join(','),columnSql=columns.map(column=>`"${column}"`).join(',');
+diff --git a/scripts/verify-encrypted-backup.mjs b/scripts/verify-encrypted-backup.mjs
+index c3d9ed2e733eff67ed64f22217e59ff0199b671e..bb77e4f26985aa9792a325241652a5f86bd4b7ea 100644
+--- a/scripts/verify-encrypted-backup.mjs
++++ b/scripts/verify-encrypted-backup.mjs
+@@ -3,7 +3,7 @@ import {readFileSync,readdirSync,writeFileSync} from 'node:fs';
+ import {DatabaseSync} from 'node:sqlite';
+ import {basename,join} from 'node:path';
+ import {gunzipSync} from 'node:zlib';
+-import {BACKUP_EXCLUDED_TABLES,BACKUP_FORMAT,BACKUP_TABLES,backupRestoreContract} from '../lib/encrypted-backup.ts';
++import {ACCEPTANCE_PROTECTED_TABLES,BACKUP_EXCLUDED_TABLES,BACKUP_FORMAT,BACKUP_TABLES,backupRestoreContract,orderBackupRestoreRows} from '../lib/encrypted-backup.ts';
+ 
+ const [backupPath,privateKeyPath,passphrasePath,receiptPath]=process.argv.slice(2);
+ if(!backupPath||!privateKeyPath||!passphrasePath)throw new Error('Usage: node scripts/verify-encrypted-backup.mjs BACKUP PRIVATE_KEY PASSPHRASE [RECEIPT]');
+@@ -29,9 +29,10 @@ for(const migration of migrations)db.exec(readFileSync(join(root,'drizzle',migra
+ const tableNames=payload.manifest.tables.map(item=>item.name);for(const table of tableNames)if(!/^[a-z][a-z0-9_]*$/.test(table))throw new Error('Unsafe table name');
+ db.exec('PRAGMA foreign_keys=OFF; BEGIN');
+ try{
+- for(const table of [...BACKUP_TABLES].reverse())db.exec(`DELETE FROM ${table}`);
++ for(const table of ACCEPTANCE_PROTECTED_TABLES)if(Number(db.prepare(`SELECT COUNT(*) count FROM ${table}`).get().count)!==0)throw new Error(`Fresh restore schema unexpectedly contains protected acceptance rows in ${table}`);
++ for(const table of [...BACKUP_TABLES].reverse())if(!ACCEPTANCE_PROTECTED_TABLES.includes(table))db.exec(`DELETE FROM ${table}`);
+  for(const table of tableNames){
+-  const available=new Set(db.prepare(`PRAGMA table_info(${table})`).all().map(item=>item.name)),rows=payload.tables[table];
++  const available=new Set(db.prepare(`PRAGMA table_info(${table})`).all().map(item=>item.name)),rows=orderBackupRestoreRows(table,payload.tables[table]);
+   for(const row of rows){const columns=Object.keys(row);for(const column of columns)if(!available.has(column))throw new Error(`Restore schema missing ${table}.${column}`);const marks=columns.map(()=>'?').join(','),sql=`INSERT INTO ${table}(${columns.join(',')}) VALUES(${marks})`,values=columns.map(column=>{const value=row[column];if(typeof value==='boolean')return value?1:0;if(value&&typeof value==='object')return JSON.stringify(value);return value??null;});db.prepare(sql).run(...values);}
+  }
+  db.exec('COMMIT; PRAGMA foreign_keys=ON');
+diff --git a/scripts/verify-isolated-postgres-acceptance-integrity.mjs b/scripts/verify-isolated-postgres-acceptance-integrity.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..ca0857906336c10e9cbe02b93811d56e73552a74
+--- /dev/null
++++ b/scripts/verify-isolated-postgres-acceptance-integrity.mjs
+@@ -0,0 +1,59 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {readFile} from 'node:fs/promises';
++import {mkdtempSync,readFileSync,rmSync,writeFileSync} from 'node:fs';
++import {tmpdir} from 'node:os';
++import {join} from 'node:path';
++import {fileURLToPath} from 'node:url';
++import {createHash,createPublicKey,generateKeyPairSync,randomBytes} from 'node:crypto';
++import {spawn} from 'node:child_process';
++import pg from 'pg';
++import {initializePortalDatabase,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION} from '../lib/render-migrations.mjs';
++import {RenderD1Compat,closeRenderPool} from '../lib/render-d1.ts';
++import {GameProviderAcceptanceError,getGameProviderAcceptanceReadiness,recordGameProviderAcceptance} from '../lib/game-provider-acceptance.ts';
++import {ProductionAcceptanceError,getProductionAcceptanceReadiness,recordProductionAcceptance} from '../lib/production-acceptance.ts';
++import {BACKUP_TABLES,createEncryptedPortalBackup} from '../lib/encrypted-backup.ts';
++
++const connection=process.env.MASTER7_ISOLATED_ACCEPTANCE_DATABASE_URL??'';let target;
++try{target=new URL(connection);}catch{throw Error('A fresh loopback-only acceptance database is required');}
++if(!['postgres:','postgresql:'].includes(target.protocol)||target.hostname!=='127.0.0.1'||target.username!=='postgres'||target.password||target.pathname!=='/master7_v165_acceptance_test'||target.search||target.hash||!target.port||process.env.MASTER7_ISOLATED_ACCEPTANCE_CONFIRM!=='master7_v165_acceptance_test')throw Error('A fresh loopback-only acceptance database is required');
++
++test('acceptance ledgers are immutable, contiguous and fail closed on PostgreSQL 18',{timeout:90000},async t=>{
++ const pool=new pg.Pool({connectionString:connection,ssl:false,max:6}),oldUrl=process.env.PORTAL_POSTGRES_URL,oldSsl=process.env.PGSSLMODE,oldFetch=globalThis.fetch;
++ t.after(async()=>{await closeRenderPool();await pool.end();globalThis.fetch=oldFetch;if(oldUrl===undefined)delete process.env.PORTAL_POSTGRES_URL;else process.env.PORTAL_POSTGRES_URL=oldUrl;if(oldSsl===undefined)delete process.env.PGSSLMODE;else process.env.PGSSLMODE=oldSsl;});
++ const identity=(await pool.query("SELECT current_database() name,current_setting('server_version_num')::int version,(SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='public')::int tables")).rows[0];
++ assert.equal(identity.name,'master7_v165_acceptance_test');assert.ok(identity.version>=180000,`PostgreSQL 18 required, got ${identity.version}`);assert.equal(identity.tables,0,'Refuse nonempty database');
++ const schema=await readFile(new URL('../db/render-schema.sql',import.meta.url),'utf8'),directory=JSON.parse(await readFile(new URL('../db/vendor-directory.json',import.meta.url),'utf8'));
++ await initializePortalDatabase(pool,schema,directory);await initializePortalDatabase(pool,schema,directory);
++ assert.equal((await pool.query('SELECT COUNT(*)::int n FROM portal_schema_migrations WHERE version=$1',[ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION])).rows[0].n,1);
++ const requiredTriggers=['game_provider_acceptance_events_immutable','game_provider_acceptance_events_no_truncate','production_acceptance_events_immutable','production_acceptance_events_no_truncate','game_provider_acceptance_current_monotonic','game_provider_acceptance_current_no_truncate','production_acceptance_current_monotonic','production_acceptance_current_no_truncate'];
++ const triggers=(await pool.query(`SELECT t.tgname name,t.tgenabled enabled FROM pg_catalog.pg_trigger t WHERE NOT t.tgisinternal AND t.tgname=ANY($1::text[]) ORDER BY t.tgname`,[requiredTriggers])).rows;
++ assert.deepEqual(triggers.map(row=>row.name),[...requiredTriggers].sort());assert.ok(triggers.every(row=>row.enabled==='O'));
++ await pool.query("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES('owner','owner','owner',1,'fixture',0)");
++ process.env.PORTAL_POSTGRES_URL=connection;process.env.PGSSLMODE='disable';globalThis.fetch=async()=>{throw Error('Unexpected external request');};const db=new RenderD1Compat(),owner={id:'owner',role:'owner'};
++
++ const game={profileId:'megah5_myr',capability:'catalogue',environment:'production',result:'passed',evidenceSha256:'a'.repeat(64),evidenceReference:'pg18:game-race',observedAt:100,expectedEventId:null};
++ const gameRace=await Promise.allSettled([recordGameProviderAcceptance(db,owner,game,101),recordGameProviderAcceptance(db,owner,{...game,evidenceSha256:'b'.repeat(64)},101)]);
++ assert.equal(gameRace.filter(item=>item.status==='fulfilled').length,1);const gameLoser=gameRace.find(item=>item.status==='rejected');assert.ok(gameLoser?.reason instanceof GameProviderAcceptanceError);assert.equal(gameLoser.reason.code,'STALE_ACCEPTANCE');
++ const gameFirst=gameRace.find(item=>item.status==='fulfilled').value,gameSecond=await recordGameProviderAcceptance(db,owner,{...game,result:'revoked',evidenceSha256:'c'.repeat(64),evidenceReference:'pg18:game-2',expectedEventId:gameFirst.id},102);assert.ok(gameSecond.id);
++ await assert.rejects(()=>pool.query(`INSERT INTO game_provider_acceptance_events(id,profile_id,revision,capability,environment,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at) VALUES('gap-game','megah5_myr',3,'launch','production','passed',$1,'pg18:gap','owner',103,103)`,['d'.repeat(64)]),/contiguous/);
++ await assert.rejects(()=>pool.query('UPDATE game_provider_acceptance_events SET result=$1 WHERE id=$2',['passed',gameFirst.id]),/immutable/);await assert.rejects(()=>pool.query('TRUNCATE game_provider_acceptance_current'),/truncated/);await assert.rejects(()=>pool.query('TRUNCATE game_provider_acceptance_current,game_provider_acceptance_events CASCADE'),/immutable|truncated/);
++ const gameOrphan='55555555-5555-4555-8555-555555555555';await pool.query(`INSERT INTO game_provider_acceptance_events(id,profile_id,revision,capability,environment,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at) VALUES($1,'megah5_myr',3,'catalogue','production','passed',$2,'pg18:orphan','owner',103,103)`,[gameOrphan,'e'.repeat(64)]);
++ assert.equal((await getGameProviderAcceptanceReadiness(db)).integrityReady,false);await assert.rejects(()=>recordGameProviderAcceptance(db,owner,{...game,expectedEventId:gameOrphan},104),error=>error instanceof GameProviderAcceptanceError&&error.code==='ACCEPTANCE_INTEGRITY_ERROR');await pool.query("UPDATE game_provider_acceptance_current SET event_id=$1 WHERE profile_id='megah5_myr' AND capability='catalogue' AND environment='production'",[gameOrphan]);assert.equal((await getGameProviderAcceptanceReadiness(db)).integrityReady,true);
++
++ const production={category:'domain',subjectId:'www.master7.best',capability:'dns_tls_routing',environment:'production',result:'passed',evidenceSha256:'1'.repeat(64),evidenceReference:'pg18:production-race',observedAt:100,expectedEventId:null};
++ const productionRace=await Promise.allSettled([recordProductionAcceptance(db,owner,production,101),recordProductionAcceptance(db,owner,{...production,evidenceSha256:'2'.repeat(64)},101)]);
++ assert.equal(productionRace.filter(item=>item.status==='fulfilled').length,1);const productionLoser=productionRace.find(item=>item.status==='rejected');assert.ok(productionLoser?.reason instanceof ProductionAcceptanceError);assert.equal(productionLoser.reason.code,'STALE_ACCEPTANCE');
++ await assert.rejects(()=>pool.query(`INSERT INTO production_acceptance_events(id,category,subject_id,capability,environment,revision,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at) VALUES('gap-production','domain','www.master7.site','dns_tls_routing','production',3,'passed',$1,'pg18:gap','owner',103,103)`,['3'.repeat(64)]),/contiguous/);
++ await assert.rejects(()=>pool.query('TRUNCATE production_acceptance_current'),/truncated/);await assert.rejects(()=>pool.query('TRUNCATE production_acceptance_current,production_acceptance_events CASCADE'),/immutable|truncated/);assert.equal((await getProductionAcceptanceReadiness(db)).integrityReady,true);
++
++ const restoreDirectory=mkdtempSync(join(tmpdir(),'master7-v165-acceptance-restore-')),passphrase=randomBytes(24).toString('hex'),{publicKey,privateKey}=generateKeyPairSync('rsa',{modulusLength:2048,publicKeyEncoding:{type:'spki',format:'pem'},privateKeyEncoding:{type:'pkcs8',format:'pem',cipher:'aes-256-cbc',passphrase}}),fingerprint=createHash('sha256').update(createPublicKey(publicKey).export({type:'spki',format:'der'})).digest('hex');
++ try{
++  const {envelope}=await createEncryptedPortalBackup(db,'synthetic-v165-acceptance',{publicKey,publicKeySha256:fingerprint});for(const [name,value] of [['backup.json',JSON.stringify(envelope)],['private.pem',privateKey],['passphrase',passphrase]])writeFileSync(join(restoreDirectory,name),value,{mode:0o600});
++  await pool.query('DROP DATABASE IF EXISTS master7_v165_acceptance_restore WITH (FORCE)');await pool.query('CREATE DATABASE master7_v165_acceptance_restore');const restoreUrl=new URL(connection);restoreUrl.pathname='/master7_v165_acceptance_restore';let output='';
++  const status=await new Promise((resolve,reject)=>{const child=spawn(process.execPath,[fileURLToPath(new URL('./postgres-restore-dry-run.mjs',import.meta.url)),join(restoreDirectory,'backup.json'),join(restoreDirectory,'private.pem'),join(restoreDirectory,'passphrase'),join(restoreDirectory,'receipt.json'),'--confirm-isolated'],{env:{...process.env,MASTER7_RESTORE_DATABASE_URL:restoreUrl.href,PORTAL_POSTGRES_URL:connection,PGSSLMODE:'disable'}});child.stdout.on('data',value=>output+=value);child.stderr.on('data',value=>output+=value);child.on('error',reject);child.on('exit',resolve);});
++  assert.equal(status,0,output);const receipt=JSON.parse(readFileSync(join(restoreDirectory,'receipt.json'),'utf8'));assert.equal(receipt.coverageComplete,true);assert.equal(receipt.tableCount,BACKUP_TABLES.length);assert.equal(receipt.persistentWrites,false);assert.equal(receipt.tables.find(item=>item.name==='game_provider_acceptance_events').rows,3);assert.equal(receipt.tables.find(item=>item.name==='production_acceptance_events').rows,1);
++  const restored=new pg.Client({connectionString:restoreUrl.href,ssl:false});await restored.connect();try{assert.equal((await restored.query("SELECT COUNT(*)::int n FROM information_schema.tables WHERE table_schema NOT IN ('pg_catalog','information_schema')")).rows[0].n,0);}finally{await restored.end();}
++  await pool.query('DROP DATABASE master7_v165_acceptance_restore WITH (FORCE)');
++ }finally{rmSync(restoreDirectory,{recursive:true,force:true});}
++});
+diff --git a/tests/api.test.mjs b/tests/api.test.mjs
+index f1bdc2462b070d7ad48c2f1f39a922d1163e958d..9e6374c25579a5f708aaeb12ad7ab1ae86796f56 100644
+--- a/tests/api.test.mjs
++++ b/tests/api.test.mjs
+@@ -13,7 +13,7 @@ import { gameSources } from '../lib/game-catalogue.ts';
+ // Execute the real migration and backend queries against SQLite, not query mocks.
+ const dir=mkdtempSync(join(tmpdir(),'master7-api-'));
+ const file=join(dir,'test.sqlite');
+-let sqlite=new DatabaseSync(file);for(const migration of ['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql','0014_withdrawal_requests.sql','0019_game_catalogue_sync.sql','0020_manual_bank_deposits.sql','0021_api_supplier_status.sql','0022_referrals.sql','0023_marketing_campaigns.sql','0024_megah5_transfer_wallet.sql','0025_game_access_zones.sql','0027_marketing_contact_scale.sql','0090_security_wallet_reservations.sql','0091_operations_automation.sql','0092_support_marketing_notifications.sql','0093_reward_state_machines.sql','0094_payment_recovery_and_payout_state.sql','0100_whatsapp_campaign_delivery.sql','0101_rewards_hub.sql','0102_responsible_play.sql','0103_company_bank_artwork.sql','0105_voucher_manual_workflow.sql','0107_benefit_claim_reviews.sql','0108_manual_compliance_review.sql','0110_game_provider_adapter_core.sql','0111_member_wallet_guards.sql','0112_megah5_launch_operations.sql','0113_game_provider_acceptance_evidence.sql','0115_manual_bank_funds.sql','0116_provider_wallet_operations.sql','0120_provider_wallet_sweeps.sql','0117_flexible_public_contacts.sql','0118_production_acceptance_evidence.sql','0119_withdrawal_destination_methods.sql','0121_jdb_wager_coverage_staging.sql'])sqlite.exec(readFileSync(new URL(`../drizzle/${migration}`,import.meta.url),'utf8'));
++let sqlite=new DatabaseSync(file);for(const migration of ['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql','0014_withdrawal_requests.sql','0019_game_catalogue_sync.sql','0020_manual_bank_deposits.sql','0021_api_supplier_status.sql','0022_referrals.sql','0023_marketing_campaigns.sql','0024_megah5_transfer_wallet.sql','0025_game_access_zones.sql','0027_marketing_contact_scale.sql','0090_security_wallet_reservations.sql','0091_operations_automation.sql','0092_support_marketing_notifications.sql','0093_reward_state_machines.sql','0094_payment_recovery_and_payout_state.sql','0100_whatsapp_campaign_delivery.sql','0101_rewards_hub.sql','0102_responsible_play.sql','0103_company_bank_artwork.sql','0105_voucher_manual_workflow.sql','0107_benefit_claim_reviews.sql','0108_manual_compliance_review.sql','0110_game_provider_adapter_core.sql','0111_member_wallet_guards.sql','0112_megah5_launch_operations.sql','0113_game_provider_acceptance_evidence.sql','0115_manual_bank_funds.sql','0116_provider_wallet_operations.sql','0120_provider_wallet_sweeps.sql','0117_flexible_public_contacts.sql','0118_production_acceptance_evidence.sql','0119_withdrawal_destination_methods.sql','0121_jdb_wager_coverage_staging.sql','0122_acceptance_ledger_integrity.sql'])sqlite.exec(readFileSync(new URL(`../drizzle/${migration}`,import.meta.url),'utf8'));
+ class Statement{
+  constructor(sql,args=[]){this.sql=sql;this.args=args;}
+  bind(...args){return new Statement(this.sql,args);}
+@@ -83,6 +83,17 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+   const revoked=await call('owner','/api/admin/game-acceptance','POST',{...input,result:'revoked',evidenceSha256:'c'.repeat(64),evidenceReference:'case:api-acceptance-2',expectedEventId:saved.data.id});assert.equal(revoked.status,201);
+   const staffView=await call('employee','/api/admin/game-acceptance?environment=production&limit=10'),mega=staffView.data.profiles.find(profile=>profile.profileId==='megah5_myr');assert.equal(staffView.status,200);assert.equal(mega.capabilities.catalogue.result,'revoked');assert.equal(mega.capabilities.catalogue.passed,false);assert.equal(staffView.data.events.length,2);assert.equal(sqlite.prepare("SELECT COUNT(*) n FROM audit WHERE event='game_provider_acceptance_recorded'").get().n,2);
+  });
++ await t.test('health exposes stale acceptance projections and remains fail closed',async()=>{
++  const current=sqlite.prepare(`SELECT c.event_id,e.revision FROM game_provider_acceptance_current c JOIN game_provider_acceptance_events e ON e.id=c.event_id
++   WHERE c.profile_id='megah5_myr' AND c.capability='catalogue' AND c.environment='production'`).get(),orphan='44444444-4444-4444-8444-444444444444',at=Math.floor(Date.now()/1000);
++  sqlite.prepare(`INSERT INTO game_provider_acceptance_events
++   (id,profile_id,revision,capability,environment,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at)
++   VALUES(?,'megah5_myr',?,'catalogue','production','passed',?,'case:integrity-orphan','owner',?,?)`).run(orphan,Number(current.revision)+1,'d'.repeat(64),at,at);
++  const blocked=await call(null,'/health');assert.equal(blocked.status,200);assert.equal(blocked.data.acceptanceIntegrityReady,false);assert.equal(blocked.data.providerAcceptance.integrityReady,false);assert.equal(blocked.data.productionReady,false);assert.ok(blocked.data.readinessBlockers.includes('acceptance_integrity_failed'));
++  sqlite.prepare("UPDATE game_provider_acceptance_current SET event_id=? WHERE profile_id='megah5_myr' AND capability='catalogue' AND environment='production'").run(orphan);
++  const repaired=await call(null,'/health');assert.equal(repaired.data.acceptanceIntegrityReady,true);assert.equal(repaired.data.readinessBlockers.includes('acceptance_integrity_failed'),false);
++  const revoked=await call('owner','/api/admin/game-acceptance','POST',{profileId:'megah5_myr',capability:'catalogue',environment:'production',result:'revoked',evidenceSha256:'e'.repeat(64),evidenceReference:'case:integrity-restored',observedAt:at,expectedEventId:orphan});assert.equal(revoked.status,201);
++ });
+  await t.test('JDB wager coverage diagnostics are aggregate, read-only and fail closed',async()=>{
+   const report=await call('employee','/api/admin/jdb-wager-coverage?timeBasis=lastModifyTime');assert.equal(report.status,200);assert.equal(report.data.readOnly,true);assert.equal(report.data.fixtureStagingOnly,true);for(const field of ['launchReady','walletReady','settlementReady','recoveryReady','playable','providerCoverageComplete','sourceFinalityVerified','closureVerified','merchantAuthorizationVerified','turnoverConnected','rewardConnected','accountingConnected','productionReady'])assert.equal(report.data[field],false,field);assert.deepEqual(report.data.windowSummaries,[]);assert.equal((await call('alice','/api/admin/jdb-wager-coverage')).status,403);assert.equal((await call('employee','/api/admin/jdb-wager-coverage','POST',{})).status,405);
+   const serialized=JSON.stringify(report.data);for(const forbidden of ['claim_token','provider_player','provider_bet','source_details'])assert.equal(serialized.includes(forbidden),false,forbidden);
+diff --git a/tests/backup-restore-rehearsal.test.mjs b/tests/backup-restore-rehearsal.test.mjs
+index 4d44f0bd73356678fa5ed5771f7e37f2406a9f3d..a41fc07603dbf6ee68779241126144f23a4f9a67 100644
+--- a/tests/backup-restore-rehearsal.test.mjs
++++ b/tests/backup-restore-rehearsal.test.mjs
+@@ -77,9 +77,15 @@ async function fixture(t){
+    VALUES('restore-bank-credit','restore-bank','aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa','RESTORE-REF-1','RESTOREREF1','deposit',1000,'MYR','restore-manual-deposit',NULL,'synthetic-bank-proof','bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',1700000000,'restore-owner',2),
+    ('restore-bank-paid','restore-bank','aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa','RESTORE-REF-2','RESTOREREF2','withdrawal',500,'MYR',NULL,'restore-manual-payout','synthetic-bank-proof','bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',1700000001,'restore-owner',3);
+   INSERT INTO game_provider_acceptance_events(id,profile_id,revision,capability,environment,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at)
+-   VALUES('restore-acceptance','megah5_myr',1,'catalogue','production','passed','aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa','restore:acceptance','restore-owner',2,3);
++   VALUES('z-restore-acceptance-r1','megah5_myr',1,'catalogue','production','passed','aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa','restore:acceptance-1','restore-owner',2,3),
++   ('a-restore-acceptance-r2','megah5_myr',2,'catalogue','production','revoked','bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb','restore:acceptance-2','restore-owner',3,4);
+   INSERT INTO game_provider_acceptance_current(profile_id,capability,environment,event_id)
+-   VALUES('megah5_myr','catalogue','production','restore-acceptance');
++   VALUES('megah5_myr','catalogue','production','a-restore-acceptance-r2');
++  INSERT INTO production_acceptance_events(id,category,subject_id,capability,environment,revision,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at)
++   VALUES('z-restore-production-acceptance-r1','domain','www.master7.best','dns_tls_routing','production',1,'passed','cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc','restore:production-acceptance-1','restore-owner',2,3),
++   ('a-restore-production-acceptance-r2','domain','www.master7.best','dns_tls_routing','production',2,'revoked','dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd','restore:production-acceptance-2','restore-owner',3,4);
++  INSERT INTO production_acceptance_current(category,subject_id,capability,environment,event_id)
++   VALUES('domain','www.master7.best','dns_tls_routing','production','a-restore-production-acceptance-r2');
+  `);
+  assert.deepEqual(sqlite.prepare('PRAGMA foreign_key_check').all(),[]);
+  const schemaTables=sqlite.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name").all().map(row=>row.name);
+@@ -120,13 +126,16 @@ function verify(f){return spawnSync(process.execPath,[join(root,'scripts/verify-
+ 
+ test('current release backup restores acceptance evidence and reviewed benefit columns in isolation',async t=>{
+  const f=await fixture(t);
+- assert.equal(BACKUP_SCHEMA_VERSION,'0121-jdb-wager-coverage-staging');
++ assert.equal(BACKUP_SCHEMA_VERSION,'0122-acceptance-ledger-integrity');
+  assert.equal(f.envelope.manifest.tableCount,BACKUP_TABLES.length);
+  assert.equal(f.envelope.manifest.tables.find(item=>item.name==='manual_bank_transactions').rows,2);
+  for(const table of ['benefit_claims','voucher_manual_reviews','voucher_manual_play_events','marketing_webhook_events','responsible_play_profiles','responsible_play_deposit_reservations'])assert.equal(f.envelope.manifest.tables.find(item=>item.name===table).rows,1);
+  for(const table of gameAdapterTables)assert.equal(f.envelope.manifest.tables.find(item=>item.name===table).rows,0);
+  assert.equal(f.envelope.manifest.tables.find(item=>item.name==='megah5_launch_operations').rows,1);
+- for(const table of acceptanceTables)assert.equal(f.envelope.manifest.tables.find(item=>item.name===table).rows,1);
++ assert.equal(f.envelope.manifest.tables.find(item=>item.name==='game_provider_acceptance_events').rows,2);
++ assert.equal(f.envelope.manifest.tables.find(item=>item.name==='game_provider_acceptance_current').rows,1);
++ assert.equal(f.envelope.manifest.tables.find(item=>item.name==='production_acceptance_events').rows,2);
++ assert.equal(f.envelope.manifest.tables.find(item=>item.name==='production_acceptance_current').rows,1);
+  // The launch uncertainty is financial recovery evidence, not an ephemeral
+  // lock.  Ensure it is actually present in the encrypted payload being restored.
+  repack(f,payload=>{
+@@ -135,6 +144,8 @@ test('current release backup restores acceptance evidence and reviewed benefit c
+   assert.equal(payload.tables.manual_bank_transactions.length,2);
+   assert.equal(payload.tables.manual_bank_transactions.find(row=>row.direction==='withdrawal').payout_id,'restore-manual-payout');
+   assert.deepEqual(payload.tables.megah5_launch_operations.map(row=>({id:row.id,state:row.state,wallet_session_id:row.wallet_session_id})),[{id:'restore-launch',state:'unknown',wallet_session_id:'restore-wallet-session'}]);
++  payload.tables.game_provider_acceptance_events.reverse();
++  payload.tables.production_acceptance_events.reverse();
+  });
+  const result=verify(f);
+  assert.equal(result.status,0,result.stderr);
+@@ -151,6 +162,22 @@ test('current release backup restores acceptance evidence and reviewed benefit c
+  assert.deepEqual(receipt.excludedTables,{password_sessions:0,otp_challenges:0,rate_limits:0,responsible_play_locks:0,member_wallet_guards:0});
+ });
+ 
++test('exact 0121 archive restores complete acceptance coverage under the 0122 verifier',async t=>{
++ const f=await fixture(t);
++ repack(f,payload=>{
++  payload.tables.game_provider_acceptance_events.reverse();
++  payload.tables.production_acceptance_events.reverse();
++  payload.schemaVersion='0121-jdb-wager-coverage-staging';
++  payload.schemaSha256=createHash('sha256').update(JSON.stringify({format:payload.format,schemaVersion:payload.schemaVersion,tables:payload.manifest.tables.map(table=>table.name)})).digest('hex');
++ });
++ const result=verify(f);assert.equal(result.status,0,result.stderr);
++ const receipt=JSON.parse(readFileSync(f.receipt,'utf8'));
++ assert.equal(receipt.status,'verified');assert.equal(receipt.coverageComplete,true);assert.deepEqual(receipt.missingTables,[]);
++ assert.equal(receipt.tables.find(item=>item.name==='game_provider_acceptance_events').rows,2);
++ assert.equal(receipt.tables.find(item=>item.name==='production_acceptance_events').rows,2);
++ for(const table of ['game_provider_acceptance_current','production_acceptance_current'])assert.equal(receipt.tables.find(item=>item.name===table).rows,1);
++});
++
+ test('restore refuses a backup from a different schema instead of dropping its fields',async t=>{
+  const f=await fixture(t);
+  writeFileSync(f.backup,JSON.stringify({...f.envelope,schemaVersion:'incompatible-schema'}),{mode:0o600});
+diff --git a/tests/encrypted-backup-pagination.test.mjs b/tests/encrypted-backup-pagination.test.mjs
+index 0ad4f6365c337c1bd7654e5cfe0d80286d83fc11..0c988e81fefaa9306a922414a9b80cad98ad6847 100644
+--- a/tests/encrypted-backup-pagination.test.mjs
++++ b/tests/encrypted-backup-pagination.test.mjs
+@@ -27,7 +27,7 @@ function decrypt(envelope,privateKey){
+ 
+ const selectPattern=/^SELECT \* FROM ([a-z0-9_]+) ORDER BY ([a-z0-9_, ]+) LIMIT \? OFFSET \?$/;
+ 
+-test('every backup table orders pages by its complete release primary key',async()=>{
++test('every backup table orders pages by a complete release unique key',async()=>{
+  const schema=releaseTables(),queries=[];
+  const db={prepare(sql){queries.push(sql);return {bind(){return {all:async()=>({results:[]})};}};}};
+  await createEncryptedPortalBackup(db,'synthetic-pagination-release',syntheticKeyPair());
+@@ -37,7 +37,11 @@ test('every backup table orders pages by its complete release primary key',async
+   const {columns,keys}=schema[match[1]];
+   assert.ok(keys.length>0,`${match[1]} must have a stable key`);
+   const ordered=match[2].split(',').map(value=>value.trim()).map(value=>/^\d+$/.test(value)?columns[Number(value)-1]:value);
+-  assert.deepEqual(ordered,keys,`${match[1]} must include every primary-key column`);
++  const acceptanceOrder={
++   game_provider_acceptance_events:['profile_id','capability','environment','revision'],
++   production_acceptance_events:['category','subject_id','capability','environment','revision'],
++  }[match[1]];
++  assert.deepEqual(ordered,acceptanceOrder??keys,`${match[1]} must use its complete stable key`);
+  }
+ });
+ 
+diff --git a/tests/encrypted-backup.test.mjs b/tests/encrypted-backup.test.mjs
+index 2ca5d6c51317e2f06b901a70597ec3d2e3e9d6aa..d4d487f2fe195cc977bc62130f288485f666510e 100644
+--- a/tests/encrypted-backup.test.mjs
++++ b/tests/encrypted-backup.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {constants,createDecipheriv,createHash,createPublicKey,generateKeyPairSync,privateDecrypt} from 'node:crypto';
+ import {gunzipSync} from 'node:zlib';
+-import {BACKUP_EXCLUDED_TABLES,BACKUP_FORMAT,BACKUP_PAGE_SIZE,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES,createEncryptedPortalBackup} from '../lib/encrypted-backup.ts';
++import {BACKUP_EXCLUDED_TABLES,BACKUP_FORMAT,BACKUP_PAGE_SIZE,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES,backupRestoreContract,createEncryptedPortalBackup,orderBackupRestoreRows} from '../lib/encrypted-backup.ts';
+ 
+ test('portal backup encrypts every recovery table and excludes authentication sessions',async()=>{
+  const username='backup-test-owner',passwordHash='sensitive-password-hash',users=Array.from({length:10005},(_,index)=>({id:`owner-${String(index).padStart(5,'0')}`,username:index?`member-${index}`:username,role:index?'member':'owner',approved:1,csrf:index?'': 'private-csrf',created_at:index+1})),fixtures={users,password_credentials:[{user_id:'owner-00000',password_hash:passwordHash,salt:'private-salt',credential_version:1,updated_at:1}]},queries=[];
+@@ -20,3 +20,27 @@ test('portal backup encrypts every recovery table and excludes authentication se
+  assert.equal(payload.tables.users[0].username,username);assert.equal(payload.tables.users.length,10005);assert.equal(payload.tables.password_credentials[0].password_hash,passwordHash);assert.deepEqual(payload.restorePolicy.excludedTables,[...BACKUP_EXCLUDED_TABLES]);assert.equal(payload.manifest.totalRecords,10006);assert.equal(payload.schemaVersion,BACKUP_SCHEMA_VERSION);assert.equal(payload.schemaSha256,BACKUP_SCHEMA_SHA256);
+  assert.equal(payload.readConsistency,'unverified');
+ });
++
++test('exact 0121 backup manifest remains recoverable with complete table coverage',()=>{
++ const schemaVersion='0121-jdb-wager-coverage-staging';
++ const schemaSha256=createHash('sha256').update(JSON.stringify({format:BACKUP_FORMAT,schemaVersion,tables:BACKUP_TABLES})).digest('hex');
++ const contract=backupRestoreContract(schemaVersion,schemaSha256);
++ assert.deepEqual(contract.tables,[...BACKUP_TABLES]);
++ assert.deepEqual(contract.missingTables,[]);
++ assert.throws(()=>backupRestoreContract(schemaVersion,'0'.repeat(64)),/Backup schema version does not match this release/);
++});
++
++test('acceptance restore rows are ordered by stream and revision instead of random event id',()=>{
++ const gameRows=[
++  {id:'a-revision-2',profile_id:'profile-b',capability:'launch',environment:'production',revision:2},
++  {id:'z-revision-1',profile_id:'profile-b',capability:'launch',environment:'production',revision:1},
++  {id:'m-other-stream',profile_id:'profile-a',capability:'wallet',environment:'uat',revision:1},
++ ];
++ assert.deepEqual(orderBackupRestoreRows('game_provider_acceptance_events',gameRows).map(row=>row.id),['m-other-stream','z-revision-1','a-revision-2']);
++ const productionRows=[
++  {id:'a-revision-2',category:'domain',subject_id:'www.master7.best',capability:'dns_tls_routing',environment:'production',revision:2},
++  {id:'z-revision-1',category:'domain',subject_id:'www.master7.best',capability:'dns_tls_routing',environment:'production',revision:1},
++ ];
++ assert.deepEqual(orderBackupRestoreRows('production_acceptance_events',productionRows).map(row=>row.id),['z-revision-1','a-revision-2']);
++ assert.equal(orderBackupRestoreRows('users',gameRows),gameRows);
++});
+diff --git a/tests/game-provider-acceptance.test.mjs b/tests/game-provider-acceptance.test.mjs
+index 8e6adf998ffaf46916b97d4fc2a9870cabf08db1..80b256f2aeb67455a1ede2daa9905835ff0f27ab 100644
+--- a/tests/game-provider-acceptance.test.mjs
++++ b/tests/game-provider-acceptance.test.mjs
+@@ -24,6 +24,8 @@ function fixture(t){
+  const sqlite=new DatabaseSync(':memory:');t.after(()=>sqlite.close());sqlite.exec('PRAGMA foreign_keys=ON');
+  sqlite.exec(readFileSync(new URL('../drizzle/0000_broken_bloodscream.sql',import.meta.url),'utf8'));
+  sqlite.exec(readFileSync(new URL('../drizzle/0113_game_provider_acceptance_evidence.sql',import.meta.url),'utf8'));
++ sqlite.exec(readFileSync(new URL('../drizzle/0118_production_acceptance_evidence.sql',import.meta.url),'utf8'));
++ sqlite.exec(readFileSync(new URL('../drizzle/0122_acceptance_ledger_integrity.sql',import.meta.url),'utf8'));
+  sqlite.exec("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES('owner','owner','owner',1,'o',1),('staff','staff','staff',1,'s',1),('member','member','member',1,'m',1)");
+  return {sqlite,db:d1(sqlite)};
+ }
+@@ -39,7 +41,7 @@ test('acceptance defaults every registered profile and capability to false',asyn
+  for(const profile of report.profiles){
+   assert.equal(profile.accepted,false,profile.profileId);
+   for(const capability of GAME_PROVIDER_ACCEPTANCE_CAPABILITIES){
+-   assert.deepEqual(profile.capabilities[capability],{passed:false,result:'not_recorded',eventId:null,revision:0,evidenceSha256:null,evidenceReference:null,verifiedBy:null,observedAt:null,recordedAt:null});
++   assert.deepEqual(profile.capabilities[capability],{passed:false,integrityValid:true,result:'not_recorded',eventId:null,currentEventId:null,revision:0,evidenceSha256:null,evidenceReference:null,verifiedBy:null,observedAt:null,recordedAt:null});
+   }
+  }
+  const readiness=await getGameProviderAcceptanceReadiness(f.db,['megah5_myr']);
+@@ -65,7 +67,7 @@ test('only an owner can append evidence while staff can read the immutable histo
+  assert.equal(f.sqlite.prepare("SELECT COUNT(*) n FROM audit WHERE event='game_provider_acceptance_recorded'").get().n,1);
+  assert.throws(()=>f.sqlite.prepare(`INSERT INTO game_provider_acceptance_events
+   (id,profile_id,revision,capability,environment,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at)
+-  VALUES('concurrent-loser','megah5_myr',1,'catalogue','production','failed',?,'case:concurrent','owner',100,101)`).run('d'.repeat(64)),/UNIQUE/,'same-revision concurrent writers cannot both commit');
++  VALUES('concurrent-loser','megah5_myr',1,'catalogue','production','failed',?,'case:concurrent','owner',100,101)`).run('d'.repeat(64)),/revisions must be contiguous/,'same-revision concurrent writers cannot both commit');
+ 
+  await assert.rejects(recordGameProviderAcceptance(f.db,owner,evidence({result:'failed',expectedEventId:null,evidenceSha256:'b'.repeat(64)}),102),error=>error instanceof GameProviderAcceptanceError&&error.status===409&&error.code==='STALE_ACCEPTANCE');
+  assert.equal(f.sqlite.prepare('SELECT COUNT(*) n FROM game_provider_acceptance_events').get().n,1);
+@@ -119,6 +121,32 @@ test('write validation rejects unregistered profiles, ambiguous evidence and ext
+ 
+ test('a concurrent same-revision database conflict is returned as stale acceptance',async()=>{
+  const bound={bind(){return this;},async first(){return {event_id:'11111111-1111-1111-1111-111111111111'};}};
+- const db={prepare(){return bound;},async batch(){throw new Error('UNIQUE constraint failed: game_provider_acceptance_events.profile_id, game_provider_acceptance_events.capability, game_provider_acceptance_events.environment, game_provider_acceptance_events.revision');}};
++ const db={prepare(){return bound;},async batch(){throw Object.assign(new Error('duplicate key value violates unique constraint game_provider_acceptance_even_profile_id_capability_environ_key'),{code:'23505'});}};
+  await assert.rejects(recordGameProviderAcceptance(db,owner,evidence(),101),error=>error instanceof GameProviderAcceptanceError&&error.status===409&&error.code==='STALE_ACCEPTANCE');
+ });
++
++test('latest immutable game evidence is authoritative when the projection is stale',async t=>{
++ const f=fixture(t),first=await recordGameProviderAcceptance(f.db,owner,evidence(),101),orphan='22222222-2222-4222-8222-222222222222';
++ f.sqlite.prepare(`INSERT INTO game_provider_acceptance_events
++  (id,profile_id,revision,capability,environment,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at)
++  VALUES(?,'megah5_myr',2,'catalogue','production','revoked',?,'incident:orphan','owner',102,102)`).run(orphan,'f'.repeat(64));
++ const report=await getGameProviderAcceptance(f.db,staff,{environment:'production'}),state=report.profiles.find(item=>item.profileId==='megah5_myr').capabilities.catalogue;
++ assert.deepEqual({eventId:state.eventId,currentEventId:state.currentEventId,result:state.result,passed:state.passed,integrityValid:state.integrityValid},{eventId:orphan,currentEventId:first.id,result:'revoked',passed:false,integrityValid:false});
++ const readiness=await getGameProviderAcceptanceReadiness(f.db,['megah5_myr']);
++ assert.equal(readiness.integrityReady,false);
++ assert.deepEqual(readiness.blockers.find(item=>item.profileId==='megah5_myr').integrityFailures,['catalogue']);
++ await assert.rejects(recordGameProviderAcceptance(f.db,owner,evidence({expectedEventId:orphan,evidenceSha256:'e'.repeat(64)}),103),error=>error instanceof GameProviderAcceptanceError&&error.code==='ACCEPTANCE_INTEGRITY_ERROR');
++});
++
++test('game acceptance events are immutable and the projection only advances one latest revision',async t=>{
++ const f=fixture(t),first=await recordGameProviderAcceptance(f.db,owner,evidence(),101);
++ assert.throws(()=>f.sqlite.prepare(`INSERT INTO game_provider_acceptance_events
++  (id,profile_id,revision,capability,environment,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at)
++  VALUES('gap-game','megah5_myr',3,'launch','production','passed',?,'case:gap','owner',100,101)`).run('9'.repeat(64)),/revisions must be contiguous/);
++ assert.throws(()=>f.sqlite.prepare('UPDATE game_provider_acceptance_events SET result=? WHERE id=?').run('revoked',first.id),/history is immutable/);
++ assert.throws(()=>f.sqlite.prepare('DELETE FROM game_provider_acceptance_events WHERE id=?').run(first.id),/history is immutable/);
++ const second=await recordGameProviderAcceptance(f.db,owner,evidence({expectedEventId:first.id,result:'revoked',evidenceSha256:'c'.repeat(64)}),102);
++ assert.throws(()=>f.sqlite.prepare('UPDATE game_provider_acceptance_current SET event_id=? WHERE profile_id=? AND capability=? AND environment=?').run(first.id,'megah5_myr','catalogue','production'),/advance exactly one revision/);
++ assert.throws(()=>f.sqlite.prepare('DELETE FROM game_provider_acceptance_current WHERE profile_id=? AND capability=? AND environment=?').run('megah5_myr','catalogue','production'),/cannot be deleted/);
++ assert.equal(f.sqlite.prepare('SELECT event_id FROM game_provider_acceptance_current WHERE profile_id=? AND capability=? AND environment=?').get('megah5_myr','catalogue','production').event_id,second.id);
++});
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index 265db305d3c48d4870d08f143a9c8076a020fe5b..df3447433cd3793f9f180f24ab35f2085b3cf885 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.164-jdb-wager-coverage-staging';
++const release='17.0.0-selfbuilt.165-acceptance-ledger-integrity';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+diff --git a/tests/postgres-readiness-gate.test.mjs b/tests/postgres-readiness-gate.test.mjs
+index 1de2d9bbfc7c082428c66e69a77867de78ad34cf..b901383e5f94d37e18fec0c553415e5792594669 100644
+--- a/tests/postgres-readiness-gate.test.mjs
++++ b/tests/postgres-readiness-gate.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {BACKUP_EXCLUDED_TABLES,BACKUP_FORMAT,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES} from '../lib/encrypted-backup.ts';
+ import {BACKUP_PUBLIC_KEY_SHA256} from '../lib/backup-public-key.ts';
+-import {JDB_WAGER_COVERAGE_STAGING_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,WITHDRAWAL_DESTINATION_METHODS_MIGRATION} from '../lib/render-migrations.mjs';
++import {ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,WITHDRAWAL_DESTINATION_METHODS_MIGRATION} from '../lib/render-migrations.mjs';
+ import {OPTIONAL_MIGRATIONS,REQUIRED_COLUMNS,REQUIRED_MIGRATIONS,REQUIRED_TABLES,REQUIRED_TRIGGERS,evaluatePostgresReadinessEvidence,runPostgresReadinessGate} from '../scripts/postgres-readiness-gate.mjs';
+ 
+ const release='17.0.0-readiness-fixture',nowMs=Date.parse('2026-11-08T12:00:00.000Z'),createdAt='2026-11-08T10:00:00.000Z',verifiedAt='2026-11-08T11:00:00.000Z';
+@@ -21,10 +21,10 @@ const fixture=()=>({
+ 
+ test('evidence gate accepts only the current schema, migration, backup and bound restore contract',()=>{
+  const result=evaluatePostgresReadinessEvidence(fixture(),{expectedRelease:release,nowMs});
+- assert.equal(result.ok,true);assert.equal(result.schema.requiredTables,76+5);assert.equal(result.schema.requiredTables,BACKUP_TABLES.length+BACKUP_EXCLUDED_TABLES.length);assert.ok(BACKUP_EXCLUDED_TABLES.includes('member_wallet_guards'));assert.ok(!BACKUP_TABLES.includes('member_wallet_guards'));assert.ok(BACKUP_TABLES.includes('megah5_launch_operations'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_events'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_current'));assert.ok(BACKUP_TABLES.includes('production_acceptance_events'));assert.ok(BACKUP_TABLES.includes('production_acceptance_current'));assert.ok(BACKUP_TABLES.includes('public_contact_revisions'));assert.ok(BACKUP_TABLES.includes('jdb_wager_receipts'));assert.ok(BACKUP_TABLES.includes('jdb_wager_observations'));assert.ok(REQUIRED_TABLES.includes('member_wallet_guards'));assert.equal(result.schema.requiredMigrations,32);assert.equal(result.schema.requiredColumns,7);assert.equal(result.schema.requiredTriggers,1);assert.equal(new Set(REQUIRED_MIGRATIONS).size,32);assert.ok(REQUIRED_MIGRATIONS.indexOf(WITHDRAWAL_DESTINATION_METHODS_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(PROVIDER_WALLET_SWEEPS_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(PROVIDER_WALLET_SWEEPS_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(JDB_WAGER_COVERAGE_STAGING_MIGRATION));assert.ok(result.checks.every(item=>item.pass));
++ assert.equal(result.ok,true);assert.equal(result.schema.requiredTables,76+5);assert.equal(result.schema.requiredTables,BACKUP_TABLES.length+BACKUP_EXCLUDED_TABLES.length);assert.ok(BACKUP_EXCLUDED_TABLES.includes('member_wallet_guards'));assert.ok(!BACKUP_TABLES.includes('member_wallet_guards'));assert.ok(BACKUP_TABLES.includes('megah5_launch_operations'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_events'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_current'));assert.ok(BACKUP_TABLES.includes('production_acceptance_events'));assert.ok(BACKUP_TABLES.includes('production_acceptance_current'));assert.ok(BACKUP_TABLES.includes('public_contact_revisions'));assert.ok(BACKUP_TABLES.includes('jdb_wager_receipts'));assert.ok(BACKUP_TABLES.includes('jdb_wager_observations'));assert.ok(REQUIRED_TABLES.includes('member_wallet_guards'));assert.equal(result.schema.requiredMigrations,33);assert.equal(result.schema.requiredColumns,7);assert.equal(result.schema.requiredTriggers,9);assert.equal(new Set(REQUIRED_MIGRATIONS).size,33);assert.ok(REQUIRED_MIGRATIONS.indexOf(WITHDRAWAL_DESTINATION_METHODS_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(PROVIDER_WALLET_SWEEPS_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(PROVIDER_WALLET_SWEEPS_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(JDB_WAGER_COVERAGE_STAGING_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(JDB_WAGER_COVERAGE_STAGING_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION));assert.ok(result.checks.every(item=>item.pass));
+ });
+ 
+-for(const migration of [WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION])test(`evidence gate fails when required schema marker ${migration} is missing`,()=>{
++for(const migration of [WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION])test(`evidence gate fails when required schema marker ${migration} is missing`,()=>{
+  const missing=fixture();missing.migrations=missing.migrations.filter(item=>item.version!==migration);
+  const result=evaluatePostgresReadinessEvidence(missing,{expectedRelease:release,nowMs});
+  assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='required_migrations').pass,false);
+@@ -36,16 +36,20 @@ for(const [migration,table,column] of [[WITHDRAWAL_DESTINATION_METHODS_MIGRATION
+  assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='required_migrations').pass,true);assert.equal(result.checks.find(item=>item.id==='required_schema_columns').pass,false);
+ });
+ 
+-test('evidence gate rejects a missing or disabled provider wallet immutability trigger',()=>{
+- for(const triggers of [[],[{table_name:'provider_wallet_operations',trigger_name:'provider_wallet_contract_immutable',enabled:'D'}]]){
+-  const missing=fixture();missing.triggers=triggers;const result=evaluatePostgresReadinessEvidence(missing,{expectedRelease:release,nowMs});
+-  assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='provider_wallet_contract_immutable_trigger').pass,false);
++test('evidence gate rejects every missing or disabled required integrity trigger',()=>{
++ for(const required of REQUIRED_TRIGGERS){
++  for(const disabled of [false,true]){
++   const missing=fixture();
++   missing.triggers=disabled?missing.triggers.map(row=>row.table_name===required.tableName&&row.trigger_name===required.triggerName?{...row,enabled:'D'}:row):missing.triggers.filter(row=>row.table_name!==required.tableName||row.trigger_name!==required.triggerName);
++   const result=evaluatePostgresReadinessEvidence(missing,{expectedRelease:release,nowMs});
++   assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='required_schema_triggers').pass,false);
++  }
+  }
+ });
+ 
+ test('evidence gate rejects dependency markers applied after their consumers',()=>{
+  const outOfOrder=fixture(),epoch=Math.floor(nowMs/1000)-100;
+- for(const row of outOfOrder.migrations){if(row.version===WITHDRAWAL_DESTINATION_METHODS_MIGRATION)row.applied_at=epoch+2;if(row.version===PROVIDER_WALLET_SWEEPS_MIGRATION)row.applied_at=epoch+1;if(row.version===JDB_WAGER_COVERAGE_STAGING_MIGRATION)row.applied_at=epoch;}
++ for(const row of outOfOrder.migrations){if(row.version===WITHDRAWAL_DESTINATION_METHODS_MIGRATION)row.applied_at=epoch+3;if(row.version===PROVIDER_WALLET_SWEEPS_MIGRATION)row.applied_at=epoch+2;if(row.version===JDB_WAGER_COVERAGE_STAGING_MIGRATION)row.applied_at=epoch+1;if(row.version===ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION)row.applied_at=epoch;}
+  const result=evaluatePostgresReadinessEvidence(outOfOrder,{expectedRelease:release,nowMs});assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='migration_dependency_order').pass,false);
+ });
+ 
+diff --git a/tests/postgres-restore-safety.test.mjs b/tests/postgres-restore-safety.test.mjs
+index 60e0e8cb04624ef896d2a91d99ae75356ebb5a2c..c6ec735fc0070af5ab039002a7478dadc61a4219 100644
+--- a/tests/postgres-restore-safety.test.mjs
++++ b/tests/postgres-restore-safety.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {readFileSync} from 'node:fs';
+ import {assertIsolatedRestoreTarget} from '../lib/restore-safety.mjs';
+-import {BACKUP_EXCLUDED_TABLES,BACKUP_TABLES} from '../lib/encrypted-backup.ts';
++import {ACCEPTANCE_PROTECTED_TABLES,BACKUP_EXCLUDED_TABLES,BACKUP_TABLES} from '../lib/encrypted-backup.ts';
+ import {initializeRehearsalSchema,withRollbackOnlyTransaction} from '../scripts/restore-postgres-schema.mjs';
+ 
+ test('PostgreSQL restore rehearsal only accepts an explicitly isolated database',()=>{
+@@ -22,6 +22,17 @@ test('restore rehearsal always rolls back and never contains a commit statement'
+  assert.match(source,/--confirm-isolated/);
+ });
+ 
++test('PostgreSQL restore keeps acceptance triggers active and clears only a fresh empty protected ledger',()=>{
++ const source=readFileSync(new URL('../scripts/postgres-restore-dry-run.mjs',import.meta.url),'utf8');
++ assert.equal(ACCEPTANCE_PROTECTED_TABLES.length,4);
++ assert.match(source,/for\(const table of ACCEPTANCE_PROTECTED_TABLES\).*COUNT\(\*\)::bigint count FROM \"\$\{table\}\"/);
++ assert.match(source,/name!==['"]users['"]&&!ACCEPTANCE_PROTECTED_TABLES\.includes\(name\)/);
++ assert.match(source,/TRUNCATE \$\{quoted\} CASCADE/);
++ assert.match(source,/DELETE FROM users/);
++ assert.doesNotMatch(source,/DISABLE TRIGGER|session_replication_role/i);
++ assert.match(source,/orderBackupRestoreRows\(table,payload\.tables\[table\]\)/);
++});
++
+ test('PostgreSQL outer transaction always rolls back and closes on success or restore failure',async()=>{
+  for(const fail of [false,true]){
+   const events=[],client={connect:async()=>events.push('connect'),query:async sql=>events.push(sql),end:async()=>events.push('end')};
+diff --git a/tests/production-acceptance.test.mjs b/tests/production-acceptance.test.mjs
+index dec21cf9cd1c64dcfed47d702d8506caa91ea0f1..31f549595deebb7a4b077e3ab567f0ddd081f36c 100644
+--- a/tests/production-acceptance.test.mjs
++++ b/tests/production-acceptance.test.mjs
+@@ -6,7 +6,7 @@ import {PRODUCTION_ACCEPTANCE_REQUIREMENTS,PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJEC
+ 
+ const owner={id:'owner',role:'owner'},staff={id:'staff',role:'staff'};
+ function d1(sqlite){const statement=(sql,values=[])=>({bind(...next){return statement(sql,next);},async all(){return {results:sqlite.prepare(sql).all(...values).map(row=>({...row}))};},async first(){const row=sqlite.prepare(sql).get(...values);return row?{...row}:null;},async run(){const result=sqlite.prepare(sql).run(...values);return {success:true,meta:{changes:Number(result.changes)}};}});return {prepare:sql=>statement(sql),async batch(items){sqlite.exec('BEGIN');try{for(const item of items)await item.run();sqlite.exec('COMMIT');}catch(error){sqlite.exec('ROLLBACK');throw error;}}};}
+-function fixture(t){const sqlite=new DatabaseSync(':memory:');t.after(()=>sqlite.close());sqlite.exec(readFileSync(new URL('../drizzle/0000_broken_bloodscream.sql',import.meta.url),'utf8'));sqlite.exec(readFileSync(new URL('../drizzle/0118_production_acceptance_evidence.sql',import.meta.url),'utf8'));sqlite.exec("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES('owner','owner','owner',1,'o',1),('staff','staff','staff',1,'s',1)");return {sqlite,db:d1(sqlite)};}
++function fixture(t){const sqlite=new DatabaseSync(':memory:');t.after(()=>sqlite.close());sqlite.exec(readFileSync(new URL('../drizzle/0000_broken_bloodscream.sql',import.meta.url),'utf8'));sqlite.exec(readFileSync(new URL('../drizzle/0113_game_provider_acceptance_evidence.sql',import.meta.url),'utf8'));sqlite.exec(readFileSync(new URL('../drizzle/0118_production_acceptance_evidence.sql',import.meta.url),'utf8'));sqlite.exec(readFileSync(new URL('../drizzle/0122_acceptance_ledger_integrity.sql',import.meta.url),'utf8'));sqlite.exec("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES('owner','owner','owner',1,'o',1),('staff','staff','staff',1,'s',1)");return {sqlite,db:d1(sqlite)};}
+ const evidence=(overrides={})=>({category:'domain',subjectId:'www.master7.best',capability:'dns_tls_routing',environment:'production',result:'passed',evidenceSha256:'a'.repeat(64),evidenceReference:'dns-check:case-1',observedAt:100,expectedEventId:null,...overrides});
+ 
+ test('production acceptance is fail-closed and readable by staff',async t=>{const f=fixture(t),readiness=await getProductionAcceptanceReadiness(f.db),report=await getProductionAcceptance(f.db,staff);assert.equal(readiness.externalAcceptanceReady,false);assert.equal(readiness.domainReady,false);assert.equal(readiness.paymentReady,false);assert.equal(readiness.paymentProfiles.gspay_usdt,false);assert.equal(report.requirements.length,PRODUCTION_ACCEPTANCE_REQUIREMENTS.length);assert.ok(readiness.blockers.includes('domain:www.master7.best:dns_tls_routing'));assert.ok(readiness.blockers.includes('payment:gspay_usdt:order'));assert.ok(readiness.blockers.includes('signoff:monitoring:approved'));assert.ok(readiness.blockers.includes(`signoff:${PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT}:approved`));});
+@@ -16,3 +16,13 @@ test('rollback evidence is bound to this release and legacy evidence stays block
+ test('only owner evidence changes readiness and revisions are optimistic',async t=>{const f=fixture(t);await assert.rejects(recordProductionAcceptance(f.db,staff,evidence(),101),error=>error instanceof ProductionAcceptanceError&&error.code==='OWNER_REQUIRED');const first=await recordProductionAcceptance(f.db,owner,evidence(),101);await assert.rejects(recordProductionAcceptance(f.db,owner,evidence({result:'failed',evidenceSha256:'b'.repeat(64)}),102),error=>error instanceof ProductionAcceptanceError&&error.code==='STALE_ACCEPTANCE');await recordProductionAcceptance(f.db,owner,evidence({result:'revoked',evidenceSha256:'c'.repeat(64),evidenceReference:'dns-check:revoked',expectedEventId:first.id}),103);const report=await getProductionAcceptance(f.db,staff);assert.equal(report.events.length,2);assert.equal(report.requirements[0].capabilities.dns_tls_routing.result,'revoked');assert.equal(f.sqlite.prepare("SELECT COUNT(*) n FROM audit WHERE event='production_acceptance_recorded'").get().n,2);});
+ 
+ test('all canonical evidence is required before external acceptance is ready',async t=>{const f=fixture(t);let stamp=200,index=0;for(const requirement of PRODUCTION_ACCEPTANCE_REQUIREMENTS)for(const capability of requirement.capabilities)await recordProductionAcceptance(f.db,owner,evidence({category:requirement.category,subjectId:requirement.subjectId,capability,evidenceSha256:(++index).toString(16).padStart(64,'0'),evidenceReference:`case:${requirement.category}-${index}`,observedAt:stamp}),stamp++);const readiness=await getProductionAcceptanceReadiness(f.db);assert.deepEqual({domains:readiness.domainReady,credentials:readiness.credentialRotationReady,payments:readiness.paymentReady,signoff:readiness.signoffReady,all:readiness.externalAcceptanceReady},{domains:true,credentials:true,payments:true,signoff:true,all:true});assert.deepEqual(readiness.blockers,[]);});
++
++test('latest immutable production evidence is authoritative when the projection is stale',async t=>{const f=fixture(t),first=await recordProductionAcceptance(f.db,owner,evidence(),101),orphan='33333333-3333-4333-8333-333333333333';f.sqlite.prepare(`INSERT INTO production_acceptance_events
++ (id,category,subject_id,capability,environment,revision,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at)
++ VALUES(?,'domain','www.master7.best','dns_tls_routing','production',2,'revoked',?,'incident:orphan','owner',102,102)`).run(orphan,'f'.repeat(64));const report=await getProductionAcceptance(f.db,staff),state=report.requirements.find(item=>item.category==='domain'&&item.subjectId==='www.master7.best').capabilities.dns_tls_routing;assert.deepEqual({eventId:state.eventId,currentEventId:state.currentEventId,result:state.result,passed:state.passed,integrityValid:state.integrityValid},{eventId:orphan,currentEventId:first.id,result:'revoked',passed:false,integrityValid:false});const readiness=await getProductionAcceptanceReadiness(f.db);assert.equal(readiness.integrityReady,false);assert.ok(readiness.integrityBlockers.includes('domain:www.master7.best:dns_tls_routing'));await assert.rejects(recordProductionAcceptance(f.db,owner,evidence({expectedEventId:orphan,evidenceSha256:'e'.repeat(64)}),103),error=>error instanceof ProductionAcceptanceError&&error.code==='ACCEPTANCE_INTEGRITY_ERROR');});
++
++test('production acceptance events are immutable and the projection only advances one latest revision',async t=>{const f=fixture(t),first=await recordProductionAcceptance(f.db,owner,evidence(),101);assert.throws(()=>f.sqlite.prepare('UPDATE production_acceptance_events SET result=? WHERE id=?').run('revoked',first.id),/history is immutable/);assert.throws(()=>f.sqlite.prepare('DELETE FROM production_acceptance_events WHERE id=?').run(first.id),/history is immutable/);const second=await recordProductionAcceptance(f.db,owner,evidence({expectedEventId:first.id,result:'revoked',evidenceSha256:'c'.repeat(64)}),102);assert.throws(()=>f.sqlite.prepare('UPDATE production_acceptance_current SET event_id=? WHERE category=? AND subject_id=? AND capability=? AND environment=?').run(first.id,'domain','www.master7.best','dns_tls_routing','production'),/advance exactly one revision/);assert.throws(()=>f.sqlite.prepare('DELETE FROM production_acceptance_current WHERE category=? AND subject_id=? AND capability=? AND environment=?').run('domain','www.master7.best','dns_tls_routing','production'),/cannot be deleted/);assert.equal(f.sqlite.prepare('SELECT event_id FROM production_acceptance_current WHERE category=? AND subject_id=? AND capability=? AND environment=?').get('domain','www.master7.best','dns_tls_routing','production').event_id,second.id);});
++
++test('production acceptance rejects non-contiguous first revisions and maps PostgreSQL conflicts to stale',async t=>{const f=fixture(t);assert.throws(()=>f.sqlite.prepare(`INSERT INTO production_acceptance_events
++ (id,category,subject_id,capability,environment,revision,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at)
++ VALUES('gap-production','domain','www.master7.site','dns_tls_routing','production',3,'passed',?,'case:gap','owner',100,101)`).run('9'.repeat(64)),/revisions must be contiguous/);const bound={bind(){return this;},async first(){return null;}};const db={prepare(){return bound;},async batch(){throw Object.assign(new Error('duplicate key value violates unique constraint production_acceptance_events_category_subject_id_capability_environ_key'),{code:'23505'});}};await assert.rejects(recordProductionAcceptance(db,owner,evidence(),101),error=>error instanceof ProductionAcceptanceError&&error.status===409&&error.code==='STALE_ACCEPTANCE');});
+diff --git a/tests/render-migrations.test.mjs b/tests/render-migrations.test.mjs
+index efef8df154c4e461495624f51fc6e7a998640eaf..82ced4039d2cfa8d34bfbce3d3f4e29374a9b24e 100644
+--- a/tests/render-migrations.test.mjs
++++ b/tests/render-migrations.test.mjs
+@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
+ import { DatabaseSync } from 'node:sqlite';
+ import { readFileSync } from 'node:fs';
+ import { join } from 'node:path';
+-import { initializePortalDatabase, PORTAL_STATUS_MIGRATION, PAYMENT_PROVIDERS_MIGRATION, ONE_MPAY_CHANNEL_MIGRATION, GAME_ACCESS_ZONE_MIGRATION, PAYMENT_ACCEPTANCE_GUARD_MIGRATION, MARKETING_CONTACT_SCALE_MIGRATION, OPERATIONS_AUTOMATION_MIGRATION, SUPPORT_MARKETING_MIGRATION, WHATSAPP_CAMPAIGN_DELIVERY_MIGRATION, REWARDS_HUB_MIGRATION, RESPONSIBLE_PLAY_MIGRATION, COMPANY_BANK_ARTWORK_MIGRATION, NEW_MEMBER_VOUCHER_MIGRATION, VOUCHER_MANUAL_WORKFLOW_MIGRATION, FIXED_VOUCHER_RETIREMENT_MIGRATION, BENEFIT_CLAIM_REVIEW_MIGRATION, MANUAL_COMPLIANCE_MIGRATION, GSPAY_USDT_PROFILE_MIGRATION, GAME_PROVIDER_ADAPTER_CORE_MIGRATION, MEGAH5_LAUNCH_OPERATIONS_MIGRATION, GAME_PROVIDER_ACCEPTANCE_MIGRATION, GENERIC_GAME_WALLET_RISK_MIGRATION, JDB_WAGER_COVERAGE_STAGING_MIGRATION, PAYOUT_CONTROL_MIGRATION, GSPAY_PAYOUT_ACTIVATION_MIGRATION, PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS, PORTAL_MIGRATION_ADVISORY_LOCK } from '../lib/render-migrations.mjs';
++import { initializePortalDatabase, PORTAL_STATUS_MIGRATION, PAYMENT_PROVIDERS_MIGRATION, ONE_MPAY_CHANNEL_MIGRATION, GAME_ACCESS_ZONE_MIGRATION, PAYMENT_ACCEPTANCE_GUARD_MIGRATION, MARKETING_CONTACT_SCALE_MIGRATION, OPERATIONS_AUTOMATION_MIGRATION, SUPPORT_MARKETING_MIGRATION, WHATSAPP_CAMPAIGN_DELIVERY_MIGRATION, REWARDS_HUB_MIGRATION, RESPONSIBLE_PLAY_MIGRATION, COMPANY_BANK_ARTWORK_MIGRATION, NEW_MEMBER_VOUCHER_MIGRATION, VOUCHER_MANUAL_WORKFLOW_MIGRATION, FIXED_VOUCHER_RETIREMENT_MIGRATION, BENEFIT_CLAIM_REVIEW_MIGRATION, MANUAL_COMPLIANCE_MIGRATION, GSPAY_USDT_PROFILE_MIGRATION, GAME_PROVIDER_ADAPTER_CORE_MIGRATION, MEGAH5_LAUNCH_OPERATIONS_MIGRATION, GAME_PROVIDER_ACCEPTANCE_MIGRATION, GENERIC_GAME_WALLET_RISK_MIGRATION, JDB_WAGER_COVERAGE_STAGING_MIGRATION, ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION, PAYOUT_CONTROL_MIGRATION, GSPAY_PAYOUT_ACTIVATION_MIGRATION, PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS, PORTAL_MIGRATION_ADVISORY_LOCK } from '../lib/render-migrations.mjs';
+ 
+ const beforeFinalMigration = [
+   '0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql',
+@@ -89,6 +89,13 @@ test('Render startup status migration is transactional, idempotent and rolls bac
+   assert.ok(client.applied.has(GAME_PROVIDER_ACCEPTANCE_MIGRATION));
+   assert.ok(client.applied.has(GENERIC_GAME_WALLET_RISK_MIGRATION));
+   assert.ok(client.applied.has(JDB_WAGER_COVERAGE_STAGING_MIGRATION));
++  assert.ok(client.applied.has(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION));
++  const acceptanceIntegritySql=client.events.map(event=>event.sql).join('\n');
++  for(const trigger of ['game_provider_acceptance_events_immutable','game_provider_acceptance_events_no_truncate','production_acceptance_events_immutable','production_acceptance_events_no_truncate','game_provider_acceptance_current_monotonic','game_provider_acceptance_current_no_truncate','production_acceptance_current_monotonic','production_acceptance_current_no_truncate'])assert.match(acceptanceIntegritySql,new RegExp(`CREATE TRIGGER ${trigger}\\b`));
++  assert.match(acceptanceIntegritySql,/game provider acceptance projection is not current/);
++  assert.match(acceptanceIntegritySql,/production acceptance projection is not current/);
++  assert.match(acceptanceIntegritySql,/history revisions must be contiguous/);
++  assert.match(acceptanceIntegritySql,/MIN\(revision\).*MAX\(revision\).*COUNT\(\*\)/s);
+   assert.ok(!client.events.some(event=>event.sql.startsWith('INSERT INTO game_provider_profiles')&&event.sql.includes("'jdb_myr'")),'0121 never creates or mutates a provider profile');
+   const jdbCoverageSql=client.events.find(event=>event.sql.startsWith('CREATE TABLE IF NOT EXISTS jdb_wager_sync_windows'))?.sql??'';
+   for(const table of ['jdb_wager_sync_windows','jdb_wager_receipts','jdb_wager_identities','jdb_wager_event_versions','jdb_wager_observations'])assert.match(jdbCoverageSql,new RegExp(`CREATE TABLE IF NOT EXISTS ${table}\\b`));
