@@ -1,0 +1,203 @@
+{
+  "release": "17.0.0-selfbuilt.171-manual-bank-audit-index",
+  "environment": "Render staging",
+  "observedAt": "2026-11-10T18:16:00Z",
+  "candidateLive": false,
+  "deployment": {
+    "status": "live",
+    "deployId": "dep-dbpltb3l550s73do1h3g",
+    "serviceId": "srv-dbl0iv7f3r2c73848ei0",
+    "publicationCommit": "7a2fb1836e9eec66906d0dcc99d600d00508a9ae",
+    "sourceCommit": "9a827f618ce4a346592d830e9280589fd4979408",
+    "sourceTree": "cdd1127111f311aefbee3fb6a25167bf8b4fe0d8",
+    "finishedAt": "2026-11-10T18:14:35.988265Z",
+    "renderDatabaseTests": {
+      "passed": 3,
+      "failed": 0
+    },
+    "startupLogLevel": "info",
+    "runtimeGuardLogLevel": "info",
+    "startupMessage": "database guards 9/9 ready; guard functions 5/5 attested",
+    "runtimeGuardMessage": "runtime database guard monitor ready; database guards 9/9 ready; guard functions 5/5 attested",
+    "runtimeCritical": 0,
+    "runtimeErrors": 0,
+    "runtimeWarnings": 0,
+    "request5xx": 0
+  },
+  "predeploymentValidation": {
+    "status": "PASS",
+    "fullRegression": {
+      "passed": 1414,
+      "total": 1414
+    },
+    "maintenance": {
+      "passed": 12,
+      "total": 12
+    },
+    "releaseProbe": {
+      "passed": 27,
+      "total": 27
+    },
+    "targetedMigrationReadinessIndex": {
+      "passed": 23,
+      "total": 23
+    },
+    "sqliteManualBank": {
+      "passed": 19,
+      "total": 19
+    },
+    "isolatedPostgres18ManualBank": {
+      "passed": 6,
+      "total": 6
+    },
+    "backupAndReport": {
+      "passed": 19,
+      "total": 19
+    },
+    "renderDatabase": {
+      "passed": 3,
+      "total": 3
+    },
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "diffCheck": true
+  },
+  "manualBankAuditEvidenceIndex": {
+    "status": "PASS",
+    "migration": "0124-manual-bank-audit-evidence-index",
+    "name": "audit_manual_bank_payout_paid_evidence",
+    "columns": [
+      "target",
+      "user_id",
+      "created_at"
+    ],
+    "predicate": "event='manual_bank_payout_paid'",
+    "partial": true,
+    "unique": false,
+    "duplicateEvidenceRemainsDetectable": true,
+    "failClosedEvidenceSemanticsUnchanged": true,
+    "sqliteCoveringIndexVerified": true,
+    "postgres18CatalogVerified": true,
+    "migrationIdempotent": true,
+    "runtimeMigrationEvidence": {
+      "orderedStartupMigrationCompleted": true,
+      "databaseReadyAfterStartup": true,
+      "releaseMatched": true,
+      "guardAttestationAfterMigration": true,
+      "directLiveCatalogReadPerformed": false,
+      "basis": "The ordered startup transaction completed before the 9/9 trigger and 5/5 function attestation, and the release then reported database ready."
+    },
+    "newTables": 0,
+    "newColumns": 0,
+    "businessRowsChangedByIndex": 0
+  },
+  "runtime": {
+    "status": "ok",
+    "database": "ready",
+    "releaseMatchesSourceRelease": true,
+    "backupReady": true,
+    "restoreReady": true,
+    "manualBankMode": "closed",
+    "manualBankConfigured": false,
+    "productionReady": false
+  },
+  "databaseGuardMonitor": {
+    "status": "PASS",
+    "startupTriggersPassed": 9,
+    "startupTriggersRequired": 9,
+    "startupFunctionsPassed": 5,
+    "startupFunctionsRequired": 5,
+    "runtimeTriggersPassed": 9,
+    "runtimeTriggersRequired": 9,
+    "runtimeFunctionsPassed": 5,
+    "runtimeFunctionsRequired": 5,
+    "runtimeReceiptObserved": true,
+    "runtimeReceiptSeverity": "info",
+    "latestMigration": "0124-manual-bank-audit-evidence-index",
+    "backupSchemaVersion": "0122-acceptance-ledger-integrity"
+  },
+  "maintenanceSafety": {
+    "status": "PASS",
+    "checksPassed": 49,
+    "checksTotal": 49,
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "transactionsEnabled": false,
+    "realPayments": false,
+    "payoutsEnabled": false,
+    "liveGames": false,
+    "anyGamePlayable": false,
+    "providerOrderSubmissionsEnabled": false,
+    "providerPayoutSubmissionsEnabled": false
+  },
+  "gameCatalogue": {
+    "providerBrands": 38,
+    "profiles": 43,
+    "implementedProfiles": 6,
+    "launchReadyProfiles": 0,
+    "verifiedProfiles": 0,
+    "liveProfiles": 0,
+    "totalGameCount": 0,
+    "playButtons": 0,
+    "allGamesVerified": false
+  },
+  "mobileAudit": {
+    "status": "PASS",
+    "viewportWidth": 393,
+    "viewportHeight": 852,
+    "horizontalOverflow": false,
+    "providerTiles": 38,
+    "jdbTiles": 1,
+    "jdbStatus": "Coming soon",
+    "jdbPlayButtons": 0,
+    "homeCurrentStateVerified": true,
+    "gamesCurrentStateVerified": true,
+    "promotionsCurrentStateVerified": true,
+    "supportCurrentStateVerified": true,
+    "brokenImages": 0,
+    "writeRequests": 0
+  },
+  "recovery": {
+    "status": "PASS",
+    "format": "MASTER7-ENCRYPTED-BACKUP-1",
+    "backupSha256": "2af64c270b2aa89a52d9bf1cc0919127351b60263f53bf9176c5356a18824b00",
+    "schemaVersion": "0122-acceptance-ledger-integrity",
+    "schemaSha256": "534b830dc4330ee48c77543500116451880b13540d5e0691ee8a09910041328b",
+    "readConsistency": "transaction_snapshot",
+    "tables": 76,
+    "records": 521,
+    "sqliteRestoreVerified": true,
+    "postgres18RollbackRestoreVerified": true,
+    "coverageComplete": true,
+    "missingTables": 0,
+    "foreignKeyViolations": 0,
+    "persistentWrites": false,
+    "backupArtifactPublished": false
+  },
+  "officialDomains": {
+    "status": "BLOCKED",
+    "networkReady": false,
+    "customerEntry": {
+      "host": "www.master7.best",
+      "verified": false,
+      "blocker": "DNS does not resolve."
+    },
+    "staffEntry": {
+      "host": "www.master7.site",
+      "address": "15.197.162.184",
+      "verified": false,
+      "blocker": "Registrar URL forwarding redirects to https://master7-v17-staging.onrender.com/admin instead of serving the Render origin directly."
+    }
+  },
+  "externalAcceptance": {
+    "providerCalls": 0,
+    "paymentCalls": 0,
+    "walletWrites": 0,
+    "realMoneyAcceptanceCompleted": false,
+    "gameProviderAcceptanceCompleted": false,
+    "productionSignoffCompleted": false
+  },
+  "classification": "staging deployment verified; production go-live blocked"
+}
