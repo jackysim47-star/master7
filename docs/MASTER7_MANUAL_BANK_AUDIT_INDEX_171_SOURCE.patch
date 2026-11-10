@@ -1,0 +1,516 @@
+diff --git a/app/portal.html b/app/portal.html
+index 7d528bacd9ce33393112e486ad7c6f1bdc7f1bc1..c16c082f43258ffc1652a321959402c8614ce8a7 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.170-manual-bank-payout-atomicity" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.171-manual-bank-audit-index">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.171-manual-bank-audit-index">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.171-manual-bank-audit-index">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.171-manual-bank-audit-index">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.171-manual-bank-audit-index">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.171-manual-bank-audit-index">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.171-manual-bank-audit-index">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.171-manual-bank-audit-index">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.171-manual-bank-audit-index">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.171-manual-bank-audit-index">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.171-manual-bank-audit-index">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.171-manual-bank-audit-index">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.171-manual-bank-audit-index">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.171-manual-bank-audit-index">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.171-manual-bank-audit-index" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.171-manual-bank-audit-index" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.171-manual-bank-audit-index" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.171-manual-bank-audit-index" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.171-manual-bank-audit-index" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.171-manual-bank-audit-index" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.171-manual-bank-audit-index" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.171-manual-bank-audit-index" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.171-manual-bank-audit-index" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.171-manual-bank-audit-index" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.171-manual-bank-audit-index" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.171-manual-bank-audit-index" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.171-manual-bank-audit-index" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+diff --git a/db/render-schema.sql b/db/render-schema.sql
+index 0174de508dc7e11b6657d63a0d988ee769db5002..fae25f03a919e3f74fbc4c8a929e3dc0e17e7250 100644
+--- a/db/render-schema.sql
++++ b/db/render-schema.sql
+@@ -198,6 +198,9 @@ CREATE TABLE IF NOT EXISTS audit (
+   target TEXT NOT NULL,
+   created_at BIGINT NOT NULL
+ );
++CREATE INDEX IF NOT EXISTS audit_manual_bank_payout_paid_evidence
++  ON audit(target,user_id,created_at)
++  WHERE event='manual_bank_payout_paid';
+ CREATE TABLE IF NOT EXISTS providers (
+   id TEXT PRIMARY KEY NOT NULL,
+   name TEXT NOT NULL,
+diff --git a/db/schema.ts b/db/schema.ts
+index 0629719066cb6b78805d831f684713a2b64e2403..4850800e1acd47a2695d84ba6e02858d189117ff 100644
+--- a/db/schema.ts
++++ b/db/schema.ts
+@@ -1,4 +1,5 @@
+ import { sqliteTable, text, integer, index, uniqueIndex } from 'drizzle-orm/sqlite-core';
++import { sql } from 'drizzle-orm';
+ export const users = sqliteTable('users', {
+  id:text('id').primaryKey(), username:text('username').notNull(), phone:text('phone'), role:text('role').notNull().default('member'), approved:integer('approved').notNull().default(0), csrf:text('csrf').notNull(), created_at:integer('created_at').notNull()
+ });
+@@ -40,7 +41,9 @@ export const brandDirectoryEntries = sqliteTable('brand_directory_entries', { id
+ export const portalSchemaMigrations = sqliteTable('portal_schema_migrations', { version:text('version').primaryKey(),applied_at:integer('applied_at').notNull() });
+ export const portalStatusSnapshots = sqliteTable('portal_status_snapshots', { migration_version:text('migration_version').notNull(),entity_type:text('entity_type').notNull(),entity_key:text('entity_key').notNull(),row_data:text('row_data').notNull(),captured_at:integer('captured_at').notNull() },t=>[index('portal_status_snapshot_key').on(t.migration_version,t.entity_type,t.entity_key)]);
+ export const settings = sqliteTable('settings', { id:text('id').primaryKey(), value:text('value').notNull() });
+-export const audit = sqliteTable('audit', { id:text('id').primaryKey(), user_id:text('user_id').notNull(), event:text('event').notNull(), target:text('target').notNull(), created_at:integer('created_at').notNull() });
++export const audit = sqliteTable('audit', { id:text('id').primaryKey(), user_id:text('user_id').notNull(), event:text('event').notNull(), target:text('target').notNull(), created_at:integer('created_at').notNull() },t=>[
++ index('audit_manual_bank_payout_paid_evidence').on(t.target,t.user_id,t.created_at).where(sql`${t.event} = 'manual_bank_payout_paid'`),
++]);
+ export const rateLimits = sqliteTable('rate_limits', { id:text('id').primaryKey(), count:integer('count').notNull(), expires_at:integer('expires_at').notNull() });
+ export const otpChallenges = sqliteTable('otp_challenges', { id:text('id').primaryKey(),phone:text('phone').notNull(),code_hash:text('code_hash').notNull(),attempts:integer('attempts').notNull().default(0),expires_at:integer('expires_at').notNull(),created_at:integer('created_at').notNull(),consumed_at:integer('consumed_at') },t=>[index('otp_challenges_phone_created').on(t.phone,t.created_at)]);
+ export const passwordCredentials = sqliteTable('password_credentials', {
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index 1a5f04faa2ad7e2740744f794003c4cd3030bab0..1374c8fe8cafd7d874ceef6f7c34d0d5674db28c 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,6 +1,6 @@
+ # MASTER7 deployment handover
+ 
+-Candidate source: `17.0.0-selfbuilt.170-manual-bank-payout-atomicity`.
++Candidate source: `17.0.0-selfbuilt.171-manual-bank-audit-index`.
+ 
+ This candidate has not been deployed by the source commit. Confirm the actual
+ Render release and deployment ID from the Portal service before cutover or
+@@ -9,7 +9,24 @@ rollback. Portal service: `srv-dbl0iv7f3r2c73848ei0`.
+ The last recorded integration-gateway baseline remains release `1.17.0`,
+ deployment `dep-dbpchge417fc739h9b50`, commit
+ `c4aab70060439469f3c2e6081a57c0b40e630ff4`. Gateway service:
+-`srv-db6b7inlk1mc73ck6cmg`. The v170 candidate does not change the gateway.
++`srv-db6b7inlk1mc73ck6cmg`. The v171 candidate does not change the gateway.
++
++## Manual-bank audit evidence index
++
++v171 adds one non-unique partial index for the exact paid-evidence checks used by
++the manual-bank payout path. Migration 0124 indexes
++`audit(target,user_id,created_at)` only where
++`event='manual_bank_payout_paid'`. The evidence count and timestamp checks can
++therefore use a covering index instead of scanning the entire audit table as
++the operational history grows.
++
++The index is deliberately not unique. Duplicate paid evidence must remain
++representable so the v170 integrity checks can detect it and fail closed for
++review. This is a query-performance migration only: it does not change an
++audit record, payout state, wallet reservation, provider credential, runtime
++control or production-acceptance result. Runtime migration 0124 becomes the
++latest migration; the encrypted-backup data contract remains 0122 with 76
++tables, and the nine trigger plus five function guards are unchanged.
+ 
+ ## Manual-bank payout atomicity
+ 
+@@ -30,9 +47,10 @@ were left incomplete, but only when every stored bank-evidence field matches.
+ 
+ The change adds SQLite collision, retry and legacy-state regression coverage
+ plus PostgreSQL 18 concurrent-confirmation coverage. It does not call a bank,
+-enable payouts, change a provider credential, or change a production flag. No
+-schema migration is added; migration 0123 and the 0122/76-table backup contract
+-remain current. See `V170_MANUAL_BANK_PAYOUT_ATOMICITY.md`.
++enable payouts, change a provider credential, or change a production flag. The
++v170 release added no schema migration; migration 0123 and the 0122/76-table
++backup contract were current for that release. See
++`V170_MANUAL_BANK_PAYOUT_ATOMICITY.md`.
+ 
+ ## Runtime database guard monitor
+ 
+@@ -135,12 +153,16 @@ gates.
+ ## Other operational boundaries
+ 
+ Payment work remains paused. VPay, GSPAY and 1MPay code, credentials, callbacks,
+-activation flags, service plans and DNS are unchanged by v170. This candidate
++activation flags, service plans and DNS are unchanged by v171. This candidate
+ does not enable any real-money payment, payout or live-game switch.
+ 
+-The verification totals for v170 must be recorded only after the complete
+-source verification finishes. No deployment or production acceptance is
+-claimed by this handover.
++V171 source verification passed: maintenance 12/12, release probe 27/27,
++full regression 1,414/1,414, targeted migration/readiness/index 23/23,
++SQLite manual-bank 19/19, isolated PostgreSQL 18 manual-bank 6/6,
++backup/report 19/19 and Render database compatibility 3/3. TypeScript,
++lint, diff checks and the Render build also passed. Verification made no live
++provider, customer-money or wallet call. No deployment or production
++acceptance is claimed by this handover.
+ 
+ Workspace: `tea-dakfo2h594qs73du231g`.
+ Publication branch: `codex/v17-render-staging-20261104`.
+diff --git a/docs/V171_MANUAL_BANK_AUDIT_INDEX.md b/docs/V171_MANUAL_BANK_AUDIT_INDEX.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..44d4c57b3b05a5f5bcce4e092a1e6ea79d128695
+--- /dev/null
++++ b/docs/V171_MANUAL_BANK_AUDIT_INDEX.md
+@@ -0,0 +1,63 @@
++# V171 Manual Bank Audit Evidence Index
++
++Release: `17.0.0-selfbuilt.171-manual-bank-audit-index`
++
++## Change
++
++Migration `0124-manual-bank-audit-evidence-index` adds the non-unique partial
++index `audit_manual_bank_payout_paid_evidence` to the audit table:
++
++```sql
++CREATE INDEX IF NOT EXISTS audit_manual_bank_payout_paid_evidence
++  ON audit(target,user_id,created_at)
++  WHERE event='manual_bank_payout_paid';
++```
++
++Manual-bank payout verification always filters on the literal
++`manual_bank_payout_paid` event before it matches the transaction target,
++recording user and timestamp. The partial index therefore covers the evidence
++count and exact-timestamp lookups while excluding unrelated audit events. This
++avoids full audit-table scans as the operational history grows and limits the
++write cost to the relevant paid-evidence rows.
++
++## Integrity behavior
++
++The index is deliberately non-unique. The payout evidence logic treats a
++duplicate paid audit as conflicting evidence and fails closed for review.
++Enforcing uniqueness at the database layer would change that behavior into a
++constraint error, could prevent migration on a database that already contains
++duplicate evidence, and would remove the application's ability to report the
++corruption explicitly. The index improves lookup performance without weakening
++or replacing the existing exact-cardinality checks.
++
++## Verification
++
++- SQLite query-plan checks confirm that both paid-evidence queries use the
++  covering partial index instead of scanning the audit table;
++- isolated PostgreSQL 18 catalog checks confirm the index is non-unique,
++  partial, and ordered as `target,user_id,created_at`;
++- the Render startup migration creates the index and records migration `0124`
++  exactly once, with a second startup remaining idempotent;
++- readiness validation requires the new migration marker after migration
++  `0123-guard-function-schema-binding`;
++- targeted migration, readiness and query-plan checks passed 23/23;
++- SQLite manual-bank checks passed 19/19 and isolated PostgreSQL 18
++  manual-bank checks passed 6/6;
++- backup/report checks passed 19/19, Render database checks passed 3/3,
++  maintenance checks passed 12/12 and release probes passed 27/27;
++- TypeScript, lint and diff checks passed.
++
++## Scope
++
++- no application business state, payment status, wallet balance, reservation
++  or ledger row is changed;
++- no deposit, payout, game-launch, real-payment, live-game or production-ready
++  flag is changed;
++- no table or column is added, removed or rebuilt, and the database table count
++  remains 76;
++- backup schema remains `0122-acceptance-ledger-integrity`; the encrypted
++  backup format and backup table inventory are unchanged;
++- critical database guard attestation remains 9/9 triggers and 5/5 functions;
++- validation made no live payment-provider, game-provider, customer-money or
++  wallet call;
++- this release is a staging candidate and is not production live.
+diff --git a/drizzle/0124_manual_bank_audit_evidence_index.sql b/drizzle/0124_manual_bank_audit_evidence_index.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..b042424746b5051977d73d34c4a5326e212263eb
+--- /dev/null
++++ b/drizzle/0124_manual_bank_audit_evidence_index.sql
+@@ -0,0 +1,3 @@
++CREATE INDEX IF NOT EXISTS audit_manual_bank_payout_paid_evidence
++  ON audit(target,user_id,created_at)
++  WHERE event='manual_bank_payout_paid';
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 03e30ed55287d1497dcb148e9edb902fbb52992d..d6d620251f378e2193ae691d2d0d815712b5d0cb 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -39,7 +39,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.170-manual-bank-payout-atomicity';
++export const RELEASE = '17.0.0-selfbuilt.171-manual-bank-audit-index';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index dba5ae48160007281740116b007bfe9c27b2395f..819bf23c7a7d6512a9fe58f5dcf100ba0d3bc2d2 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.170-manual-bank-payout-atomicity' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.171-manual-bank-audit-index' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/lib/render-migrations.mjs b/lib/render-migrations.mjs
+index 472206a84687ae2f762170961179fddc9390623b..95151bce2b5bfd1c98441e13240de5a981fdf20d 100644
+--- a/lib/render-migrations.mjs
++++ b/lib/render-migrations.mjs
+@@ -958,6 +958,13 @@ $$`);
+  await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION]);return true;
+ }
+ 
++export const MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION='0124-manual-bank-audit-evidence-index';
++async function applyManualBankAuditEvidenceIndexMigration(client){
++ const applied=await client.query('SELECT version FROM portal_schema_migrations WHERE version=$1',[MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION]);if(applied.rows.length)return false;
++ await client.query("CREATE INDEX IF NOT EXISTS audit_manual_bank_payout_paid_evidence ON audit(target,user_id,created_at) WHERE event='manual_bank_payout_paid'");
++ await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION]);return true;
++}
++
+ export const canonicalizeCriticalDatabaseGuardFunctionSource=value=>String(value??'').replace(/\r\n/g,'\n').trim();
+ export const criticalDatabaseGuardFunctionSourceSha256=value=>createHash('sha256').update(canonicalizeCriticalDatabaseGuardFunctionSource(value)).digest('hex');
+ export const CRITICAL_DATABASE_GUARD_FUNCTION_CONFIG=Object.freeze(['search_path=pg_catalog, pg_temp']);
+@@ -1253,6 +1260,7 @@ export async function initializePortalDatabase(pool, schema, directoryEntries, o
+     await applyJdbWagerCoverageStagingMigration(client);
+     await applyAcceptanceLedgerIntegrityMigration(client);
+     await applyGuardFunctionSchemaBindingMigration(client,expectedSchema);
++    await applyManualBankAuditEvidenceIndexMigration(client);
+     const criticalDatabaseGuards = await assertCriticalDatabaseGuards(client,{schemaName:expectedSchema});
+     const rows = seedRows(directoryEntries);
+     await client.query(
+diff --git a/package.json b/package.json
+index 001ee781104434467237277dd0d03a11fc6241f1..635b004fcbf2f19ef24041ee5057326b349fd3be 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.170-manual-bank-payout-atomicity node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.170-manual-bank-payout-atomicity node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.171-manual-bank-audit-index node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.171-manual-bank-audit-index node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.170-manual-bank-payout-atomicity node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.171-manual-bank-audit-index node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs",
+     "test:acceptance-integrity-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-acceptance-integrity.mjs"
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 0e6bf9b01f512f336ade1c048f693a172da21176..20229c36988d829c6cacde1b133f7ec9850952cb 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.170-manual-bank-payout-atomicity';
++const CACHE='master7-shell-17.0.0-selfbuilt.171-manual-bank-audit-index';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/scripts/postgres-readiness-gate.mjs b/scripts/postgres-readiness-gate.mjs
+index 3880721c0ac55a0b95993a1b27b3741e012eca49..8674cb3c02e395065bce6b4e77b6a3b4ab39c05f 100644
+--- a/scripts/postgres-readiness-gate.mjs
++++ b/scripts/postgres-readiness-gate.mjs
+@@ -7,7 +7,7 @@ import {
+  PRODUCTION_ACCEPTANCE_EVIDENCE_MIGRATION,FLEXIBLE_PUBLIC_CONTACTS_MIGRATION,PROVIDER_WALLET_OPERATIONS_MIGRATION,MANUAL_BANK_FUNDS_MIGRATION,API_SUPPLIER_STATUS_MIGRATION,BENEFIT_CLAIM_REVIEW_MIGRATION,COMPANY_BANK_ARTWORK_MIGRATION,
+  CONNECTED_SERVICES_MIGRATION,FIXED_VOUCHER_RETIREMENT_MIGRATION,GAME_ACCESS_ZONE_MIGRATION,
+  GAME_PROVIDER_ADAPTER_CORE_MIGRATION,MEGAH5_LAUNCH_OPERATIONS_MIGRATION,GAME_PROVIDER_ACCEPTANCE_MIGRATION,GENERIC_GAME_WALLET_RISK_MIGRATION,
+- WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION,
++ WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION,MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION,
+  CRITICAL_DATABASE_GUARDS,CRITICAL_DATABASE_GUARD_FUNCTIONS,evaluateCriticalDatabaseGuardRows,
+  GSPAY_PAYOUT_ACTIVATION_MIGRATION,GSPAY_USDT_PROFILE_MIGRATION,MANUAL_BANK_MIGRATION,MANUAL_COMPLIANCE_MIGRATION,
+  MARKETING_CONTACT_SCALE_MIGRATION,NEW_MEMBER_VOUCHER_MIGRATION,ONE_MPAY_CHANNEL_MIGRATION,
+@@ -26,7 +26,7 @@ export const REQUIRED_MIGRATIONS=Object.freeze([
+  RESPONSIBLE_PLAY_MIGRATION,COMPANY_BANK_ARTWORK_MIGRATION,NEW_MEMBER_VOUCHER_MIGRATION,
+  VOUCHER_MANUAL_WORKFLOW_MIGRATION,FIXED_VOUCHER_RETIREMENT_MIGRATION,BENEFIT_CLAIM_REVIEW_MIGRATION,
+  MANUAL_COMPLIANCE_MIGRATION,GSPAY_USDT_PROFILE_MIGRATION,GAME_PROVIDER_ADAPTER_CORE_MIGRATION,MEGAH5_LAUNCH_OPERATIONS_MIGRATION,GAME_PROVIDER_ACCEPTANCE_MIGRATION,GENERIC_GAME_WALLET_RISK_MIGRATION,
+- WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION,
++ WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION,MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION,
+ ].sort());
+ export const OPTIONAL_MIGRATIONS=Object.freeze([
+  ONE_MPAY_CHANNEL_MIGRATION,...Object.values(PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS),GSPAY_PAYOUT_ACTIVATION_MIGRATION,
+@@ -53,7 +53,7 @@ export function evaluatePostgresReadinessEvidence(input,{expectedRelease,nowMs=D
+  check(checks,'required_migrations',REQUIRED_MIGRATIONS.every(version=>versions.includes(version)));
+  check(checks,'no_unknown_migrations',versions.every(version=>knownMigrations.has(version)));
+  check(checks,'migration_timestamps',migrations.every(row=>Number.isSafeInteger(Number(row.applied_at))&&Number(row.applied_at)>0&&Number(row.applied_at)<=Math.floor(nowMs/1000)+300));
+- check(checks,'migration_dependency_order',[WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION].every(version=>migrationTimes.has(version))&&migrationTimes.get(WITHDRAWAL_DESTINATION_METHODS_MIGRATION)<=migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)&&migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)<=migrationTimes.get(JDB_WAGER_COVERAGE_STAGING_MIGRATION)&&migrationTimes.get(JDB_WAGER_COVERAGE_STAGING_MIGRATION)<=migrationTimes.get(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION)&&migrationTimes.get(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION)<=migrationTimes.get(GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION));
++ check(checks,'migration_dependency_order',[WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION,MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION].every(version=>migrationTimes.has(version))&&migrationTimes.get(WITHDRAWAL_DESTINATION_METHODS_MIGRATION)<=migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)&&migrationTimes.get(PROVIDER_WALLET_SWEEPS_MIGRATION)<=migrationTimes.get(JDB_WAGER_COVERAGE_STAGING_MIGRATION)&&migrationTimes.get(JDB_WAGER_COVERAGE_STAGING_MIGRATION)<=migrationTimes.get(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION)&&migrationTimes.get(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION)<=migrationTimes.get(GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION)&&migrationTimes.get(GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION)<=migrationTimes.get(MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION));
+  check(checks,'required_schema_columns',Object.entries(REQUIRED_COLUMNS).every(([table,names])=>names.every(name=>columns.has(`${table}.${name}`))));
+  check(checks,'required_schema_triggers',evaluateCriticalDatabaseGuardRows(triggers,{schemaName:'public'}).ready);
+ 
+diff --git a/scripts/verify-isolated-postgres-manual-bank.mjs b/scripts/verify-isolated-postgres-manual-bank.mjs
+index 81155c48f814820e891a5551ea6bcde8de553db0..10876d68e38a461cd15c83caed70396f9d699d7f 100644
+--- a/scripts/verify-isolated-postgres-manual-bank.mjs
++++ b/scripts/verify-isolated-postgres-manual-bank.mjs
+@@ -9,7 +9,7 @@ import {generateKeyPairSync,createPublicKey,createHash,randomBytes} from 'node:c
+ import {spawn} from 'node:child_process';
+ import {createEncryptedPortalBackup,BACKUP_TABLES} from '../lib/encrypted-backup.ts';
+ import pg from 'pg';
+-import {initializePortalDatabase,MANUAL_BANK_FUNDS_MIGRATION} from '../lib/render-migrations.mjs';
++import {initializePortalDatabase,MANUAL_BANK_FUNDS_MIGRATION,MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION} from '../lib/render-migrations.mjs';
+ import {RenderD1Compat,closeRenderPool} from '../lib/render-d1.ts';
+ import {manualBankPost,manualBankReadiness} from '../lib/manual-bank.ts';
+ import {manualBankPayoutPost} from '../lib/manual-bank-payouts.ts';
+@@ -27,6 +27,12 @@ test('manual company bank funds preserve evidence on isolated PostgreSQL',{timeo
+  const schema=await readFile(new URL('../db/render-schema.sql',import.meta.url),'utf8'),directory=JSON.parse(await readFile(new URL('../db/vendor-directory.json',import.meta.url),'utf8'));
+  await initializePortalDatabase(pool,schema,directory);await initializePortalDatabase(pool,schema,directory);
+  assert.equal((await pool.query('SELECT COUNT(*)::int n FROM portal_schema_migrations WHERE version=$1',[MANUAL_BANK_FUNDS_MIGRATION])).rows[0].n,1);
++ assert.equal((await pool.query('SELECT COUNT(*)::int n FROM portal_schema_migrations WHERE version=$1',[MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION])).rows[0].n,1);
++ const evidenceIndex=(await pool.query(`SELECT i.indisunique,i.indisvalid,i.indisready,pg_get_indexdef(i.indexrelid) definition,pg_get_expr(i.indpred,i.indrelid) predicate
++  FROM pg_index i JOIN pg_class index_class ON index_class.oid=i.indexrelid JOIN pg_namespace n ON n.oid=index_class.relnamespace
++  WHERE n.nspname='public' AND index_class.relname='audit_manual_bank_payout_paid_evidence'`)).rows;
++ assert.equal(evidenceIndex.length,1);assert.equal(evidenceIndex[0].indisunique,false);assert.equal(evidenceIndex[0].indisvalid,true);assert.equal(evidenceIndex[0].indisready,true);
++ assert.match(evidenceIndex[0].definition,/\(target, user_id, created_at\)/);assert.match(evidenceIndex[0].predicate,/event = 'manual_bank_payout_paid'/);
+  process.env.PORTAL_POSTGRES_URL=connection;process.env.PGSSLMODE='disable';globalThis.fetch=async()=>{throw Error('Unexpected external request');};const db=new RenderD1Compat(),key='synthetic-bank-data-key-'+ 'x'.repeat(40);
+  const user=(id,role)=>({id,username:id,role,approved:1});
+  const owner=user('owner','owner'),staff=user('staff','staff'),alice=user('alice','member'),bob=user('bob','member');
+diff --git a/tests/manual-bank-audit-evidence-index.test.mjs b/tests/manual-bank-audit-evidence-index.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..34372b0b62733090d1f085202b1ab9b66997c2a3
+--- /dev/null
++++ b/tests/manual-bank-audit-evidence-index.test.mjs
+@@ -0,0 +1,32 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {DatabaseSync} from 'node:sqlite';
++import {readFileSync} from 'node:fs';
++
++const migration=readFileSync(new URL('../drizzle/0124_manual_bank_audit_evidence_index.sql',import.meta.url),'utf8');
++
++test('manual-bank paid evidence index is partial, non-unique, covering and idempotent',()=>{
++ const db=new DatabaseSync(':memory:');
++ try{
++  db.exec('CREATE TABLE audit(id TEXT PRIMARY KEY,user_id TEXT NOT NULL,event TEXT NOT NULL,target TEXT NOT NULL,created_at INTEGER NOT NULL)');
++  db.exec(migration);db.exec(migration);
++  const listed=db.prepare("PRAGMA index_list('audit')").all().find(row=>row.name==='audit_manual_bank_payout_paid_evidence');
++  assert.deepEqual({unique:listed?.unique,partial:listed?.partial},{unique:0,partial:1});
++  assert.deepEqual(db.prepare("PRAGMA index_info('audit_manual_bank_payout_paid_evidence')").all().map(row=>row.name),['target','user_id','created_at']);
++  const definition=db.prepare("SELECT sql FROM sqlite_master WHERE type='index' AND name='audit_manual_bank_payout_paid_evidence'").get().sql;
++  assert.match(definition,/WHERE event='manual_bank_payout_paid'$/);
++  const insert=db.prepare('INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,?,?,?)');
++  for(let i=0;i<200;i++)insert.run(`other-${i}`,'owner','other_event',`target-${i}`,i);
++  insert.run('paid-1','owner','manual_bank_payout_paid','bank-transaction',123);
++  insert.run('paid-2','owner','manual_bank_payout_paid','bank-transaction',123);
++  assert.equal(db.prepare("SELECT COUNT(*) n FROM audit a WHERE a.event='manual_bank_payout_paid' AND a.target=? AND a.user_id=?").get('bank-transaction','owner').n,2,'duplicates remain detectable for fail-closed review');
++  for(const query of [
++   "EXPLAIN QUERY PLAN SELECT COUNT(*) FROM audit a WHERE a.event='manual_bank_payout_paid' AND a.target=? AND a.user_id=?",
++   "EXPLAIN QUERY PLAN SELECT 1 FROM audit a WHERE a.event='manual_bank_payout_paid' AND a.target=? AND a.user_id=? AND a.created_at=? LIMIT 1",
++  ]){
++   const args=query.includes('created_at')?['bank-transaction','owner',123]:['bank-transaction','owner'];
++   const plan=db.prepare(query).all(...args).map(row=>row.detail).join('\n');
++   assert.match(plan,/USING COVERING INDEX audit_manual_bank_payout_paid_evidence/);
++  }
++ }finally{db.close();}
++});
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index dbe830d7010279a949e796dff6ec5bc8cb3f6e58..22df26a46da6fca5f8b8fd78b7a463bfd874cddb 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.170-manual-bank-payout-atomicity';
++const release='17.0.0-selfbuilt.171-manual-bank-audit-index';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+diff --git a/tests/postgres-readiness-gate.test.mjs b/tests/postgres-readiness-gate.test.mjs
+index f22adc04de26f8c2a3dbdf78a8d81746c6c048c7..60625c943d92eb74bcc29fb4b4929535a1dc1f0a 100644
+--- a/tests/postgres-readiness-gate.test.mjs
++++ b/tests/postgres-readiness-gate.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {BACKUP_EXCLUDED_TABLES,BACKUP_FORMAT,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES} from '../lib/encrypted-backup.ts';
+ import {BACKUP_PUBLIC_KEY_SHA256} from '../lib/backup-public-key.ts';
+-import {ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,WITHDRAWAL_DESTINATION_METHODS_MIGRATION} from '../lib/render-migrations.mjs';
++import {ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,WITHDRAWAL_DESTINATION_METHODS_MIGRATION} from '../lib/render-migrations.mjs';
+ import {OPTIONAL_MIGRATIONS,REQUIRED_COLUMNS,REQUIRED_MIGRATIONS,REQUIRED_TABLES,REQUIRED_TRIGGERS,evaluatePostgresReadinessEvidence,runPostgresReadinessGate} from '../scripts/postgres-readiness-gate.mjs';
+ import {criticalDatabaseGuardRows} from './critical-database-guard-fixture.mjs';
+ 
+@@ -22,10 +22,10 @@ const fixture=()=>({
+ 
+ test('evidence gate accepts only the current schema, migration, backup and bound restore contract',()=>{
+  const result=evaluatePostgresReadinessEvidence(fixture(),{expectedRelease:release,nowMs});
+- assert.equal(result.ok,true);assert.equal(result.schema.requiredTables,76+5);assert.equal(result.schema.requiredTables,BACKUP_TABLES.length+BACKUP_EXCLUDED_TABLES.length);assert.ok(BACKUP_EXCLUDED_TABLES.includes('member_wallet_guards'));assert.ok(!BACKUP_TABLES.includes('member_wallet_guards'));assert.ok(BACKUP_TABLES.includes('megah5_launch_operations'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_events'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_current'));assert.ok(BACKUP_TABLES.includes('production_acceptance_events'));assert.ok(BACKUP_TABLES.includes('production_acceptance_current'));assert.ok(BACKUP_TABLES.includes('public_contact_revisions'));assert.ok(BACKUP_TABLES.includes('jdb_wager_receipts'));assert.ok(BACKUP_TABLES.includes('jdb_wager_observations'));assert.ok(REQUIRED_TABLES.includes('member_wallet_guards'));assert.equal(result.schema.requiredMigrations,34);assert.equal(result.schema.requiredColumns,7);assert.equal(result.schema.requiredTriggers,9);assert.equal(result.schema.requiredGuardFunctions,5);assert.equal(new Set(REQUIRED_MIGRATIONS).size,34);assert.ok(REQUIRED_MIGRATIONS.indexOf(WITHDRAWAL_DESTINATION_METHODS_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(PROVIDER_WALLET_SWEEPS_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(PROVIDER_WALLET_SWEEPS_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(JDB_WAGER_COVERAGE_STAGING_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(JDB_WAGER_COVERAGE_STAGING_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION));assert.ok(result.checks.every(item=>item.pass));
++ assert.equal(result.ok,true);assert.equal(result.schema.requiredTables,76+5);assert.equal(result.schema.requiredTables,BACKUP_TABLES.length+BACKUP_EXCLUDED_TABLES.length);assert.ok(BACKUP_EXCLUDED_TABLES.includes('member_wallet_guards'));assert.ok(!BACKUP_TABLES.includes('member_wallet_guards'));assert.ok(BACKUP_TABLES.includes('megah5_launch_operations'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_events'));assert.ok(BACKUP_TABLES.includes('game_provider_acceptance_current'));assert.ok(BACKUP_TABLES.includes('production_acceptance_events'));assert.ok(BACKUP_TABLES.includes('production_acceptance_current'));assert.ok(BACKUP_TABLES.includes('public_contact_revisions'));assert.ok(BACKUP_TABLES.includes('jdb_wager_receipts'));assert.ok(BACKUP_TABLES.includes('jdb_wager_observations'));assert.ok(REQUIRED_TABLES.includes('member_wallet_guards'));assert.equal(result.schema.requiredMigrations,35);assert.equal(result.schema.requiredColumns,7);assert.equal(result.schema.requiredTriggers,9);assert.equal(result.schema.requiredGuardFunctions,5);assert.equal(new Set(REQUIRED_MIGRATIONS).size,35);assert.ok(REQUIRED_MIGRATIONS.indexOf(WITHDRAWAL_DESTINATION_METHODS_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(PROVIDER_WALLET_SWEEPS_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(PROVIDER_WALLET_SWEEPS_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(JDB_WAGER_COVERAGE_STAGING_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(JDB_WAGER_COVERAGE_STAGING_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION));assert.ok(REQUIRED_MIGRATIONS.indexOf(GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION)<REQUIRED_MIGRATIONS.indexOf(MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION));assert.ok(result.checks.every(item=>item.pass));
+ });
+ 
+-for(const migration of [WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION])test(`evidence gate fails when required schema marker ${migration} is missing`,()=>{
++for(const migration of [WITHDRAWAL_DESTINATION_METHODS_MIGRATION,PROVIDER_WALLET_SWEEPS_MIGRATION,JDB_WAGER_COVERAGE_STAGING_MIGRATION,ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION,GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION,MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION])test(`evidence gate fails when required schema marker ${migration} is missing`,()=>{
+  const missing=fixture();missing.migrations=missing.migrations.filter(item=>item.version!==migration);
+  const result=evaluatePostgresReadinessEvidence(missing,{expectedRelease:release,nowMs});
+  assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='required_migrations').pass,false);
+@@ -93,7 +93,7 @@ test('evidence gate rejects wrong trigger binding, function, type, schema or dup
+ 
+ test('evidence gate rejects dependency markers applied after their consumers',()=>{
+  const outOfOrder=fixture(),epoch=Math.floor(nowMs/1000)-100;
+- for(const row of outOfOrder.migrations){if(row.version===WITHDRAWAL_DESTINATION_METHODS_MIGRATION)row.applied_at=epoch+3;if(row.version===PROVIDER_WALLET_SWEEPS_MIGRATION)row.applied_at=epoch+2;if(row.version===JDB_WAGER_COVERAGE_STAGING_MIGRATION)row.applied_at=epoch+1;if(row.version===ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION)row.applied_at=epoch+1;if(row.version===GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION)row.applied_at=epoch;}
++ for(const row of outOfOrder.migrations){if(row.version===WITHDRAWAL_DESTINATION_METHODS_MIGRATION)row.applied_at=epoch;if(row.version===PROVIDER_WALLET_SWEEPS_MIGRATION)row.applied_at=epoch;if(row.version===JDB_WAGER_COVERAGE_STAGING_MIGRATION)row.applied_at=epoch;if(row.version===ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION)row.applied_at=epoch;if(row.version===GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION)row.applied_at=epoch+1;if(row.version===MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION)row.applied_at=epoch;}
+  const result=evaluatePostgresReadinessEvidence(outOfOrder,{expectedRelease:release,nowMs});assert.equal(result.ok,false);assert.equal(result.checks.find(item=>item.id==='migration_dependency_order').pass,false);
+ });
+ 
+diff --git a/tests/render-migrations.test.mjs b/tests/render-migrations.test.mjs
+index 8b8b162cf22ad62e06203e220b321c6e43a559a4..c203e9674da09cdb5949d62e0173074f6e9fdd0c 100644
+--- a/tests/render-migrations.test.mjs
++++ b/tests/render-migrations.test.mjs
+@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
+ import { DatabaseSync } from 'node:sqlite';
+ import { readFileSync } from 'node:fs';
+ import { join } from 'node:path';
+-import { initializePortalDatabase, assertCriticalDatabaseGuards, CRITICAL_DATABASE_GUARDS, CRITICAL_DATABASE_GUARD_FUNCTIONS, criticalDatabaseGuardFunctionSourceSha256, PORTAL_STATUS_MIGRATION, PAYMENT_PROVIDERS_MIGRATION, ONE_MPAY_CHANNEL_MIGRATION, GAME_ACCESS_ZONE_MIGRATION, PAYMENT_ACCEPTANCE_GUARD_MIGRATION, MARKETING_CONTACT_SCALE_MIGRATION, OPERATIONS_AUTOMATION_MIGRATION, SUPPORT_MARKETING_MIGRATION, WHATSAPP_CAMPAIGN_DELIVERY_MIGRATION, REWARDS_HUB_MIGRATION, RESPONSIBLE_PLAY_MIGRATION, COMPANY_BANK_ARTWORK_MIGRATION, NEW_MEMBER_VOUCHER_MIGRATION, VOUCHER_MANUAL_WORKFLOW_MIGRATION, FIXED_VOUCHER_RETIREMENT_MIGRATION, BENEFIT_CLAIM_REVIEW_MIGRATION, MANUAL_COMPLIANCE_MIGRATION, GSPAY_USDT_PROFILE_MIGRATION, GAME_PROVIDER_ADAPTER_CORE_MIGRATION, MEGAH5_LAUNCH_OPERATIONS_MIGRATION, GAME_PROVIDER_ACCEPTANCE_MIGRATION, GENERIC_GAME_WALLET_RISK_MIGRATION, JDB_WAGER_COVERAGE_STAGING_MIGRATION, ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION, GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION, PAYOUT_CONTROL_MIGRATION, GSPAY_PAYOUT_ACTIVATION_MIGRATION, PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS, PORTAL_MIGRATION_ADVISORY_LOCK } from '../lib/render-migrations.mjs';
++import { initializePortalDatabase, assertCriticalDatabaseGuards, CRITICAL_DATABASE_GUARDS, CRITICAL_DATABASE_GUARD_FUNCTIONS, criticalDatabaseGuardFunctionSourceSha256, PORTAL_STATUS_MIGRATION, PAYMENT_PROVIDERS_MIGRATION, ONE_MPAY_CHANNEL_MIGRATION, GAME_ACCESS_ZONE_MIGRATION, PAYMENT_ACCEPTANCE_GUARD_MIGRATION, MARKETING_CONTACT_SCALE_MIGRATION, OPERATIONS_AUTOMATION_MIGRATION, SUPPORT_MARKETING_MIGRATION, WHATSAPP_CAMPAIGN_DELIVERY_MIGRATION, REWARDS_HUB_MIGRATION, RESPONSIBLE_PLAY_MIGRATION, COMPANY_BANK_ARTWORK_MIGRATION, NEW_MEMBER_VOUCHER_MIGRATION, VOUCHER_MANUAL_WORKFLOW_MIGRATION, FIXED_VOUCHER_RETIREMENT_MIGRATION, BENEFIT_CLAIM_REVIEW_MIGRATION, MANUAL_COMPLIANCE_MIGRATION, GSPAY_USDT_PROFILE_MIGRATION, GAME_PROVIDER_ADAPTER_CORE_MIGRATION, MEGAH5_LAUNCH_OPERATIONS_MIGRATION, GAME_PROVIDER_ACCEPTANCE_MIGRATION, GENERIC_GAME_WALLET_RISK_MIGRATION, JDB_WAGER_COVERAGE_STAGING_MIGRATION, ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION, GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION, MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION, PAYOUT_CONTROL_MIGRATION, GSPAY_PAYOUT_ACTIVATION_MIGRATION, PAYMENT_CHANNEL_ACTIVATION_MIGRATIONS, PORTAL_MIGRATION_ADVISORY_LOCK } from '../lib/render-migrations.mjs';
+ import {criticalDatabaseGuardRows} from './critical-database-guard-fixture.mjs';
+ 
+ const beforeFinalMigration = [
+@@ -97,6 +97,8 @@ test('Render startup status migration is transactional, idempotent and rolls bac
+   assert.ok(client.applied.has(JDB_WAGER_COVERAGE_STAGING_MIGRATION));
+   assert.ok(client.applied.has(ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION));
+   assert.ok(client.applied.has(GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION));
++  assert.ok(client.applied.has(MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION));
++  assert.equal(client.events.filter(event=>event.sql.startsWith('CREATE INDEX IF NOT EXISTS audit_manual_bank_payout_paid_evidence')).length,1);
+   assert.equal(client.events.filter(event=>event.sql.startsWith('CREATE OR REPLACE FUNCTION \"public\".')).length,5);
+   const acceptanceIntegritySql=client.events.map(event=>event.sql).join('\n');
+   for(const trigger of ['game_provider_acceptance_events_immutable','game_provider_acceptance_events_no_truncate','production_acceptance_events_immutable','production_acceptance_events_no_truncate','game_provider_acceptance_current_monotonic','game_provider_acceptance_current_no_truncate','production_acceptance_current_monotonic','production_acceptance_current_no_truncate'])assert.match(acceptanceIntegritySql,new RegExp(`CREATE TRIGGER ${trigger}\\b`));
+@@ -151,6 +153,7 @@ test('Render startup status migration is transactional, idempotent and rolls bac
+   const guardReadEvent=client.events[guardRead];assert.equal(guardReadEvent.params[0],'public');assert.deepEqual([...guardReadEvent.params[1]].sort(),[...new Set(CRITICAL_DATABASE_GUARDS.map(item=>item.tableName))].sort());
+   assert.ok(guardRead>client.events.findIndex(event=>event.sql.includes('INSERT INTO portal_schema_migrations')&&event.params[0]===ACCEPTANCE_LEDGER_INTEGRITY_MIGRATION));
+   assert.ok(guardRead>client.events.findIndex(event=>event.sql.includes('INSERT INTO portal_schema_migrations')&&event.params[0]===GUARD_FUNCTION_SCHEMA_BINDING_MIGRATION));
++  assert.ok(guardRead>client.events.findIndex(event=>event.sql.includes('INSERT INTO portal_schema_migrations')&&event.params[0]===MANUAL_BANK_AUDIT_EVIDENCE_INDEX_MIGRATION));
+   assert.ok(guardRead<client.events.findIndex(event=>event.sql.startsWith('INSERT INTO brand_directory_entries')));
+   assert.equal(client.released, true);
+ 
+@@ -159,6 +162,7 @@ test('Render startup status migration is transactional, idempotent and rolls bac
+   assert.equal(client.events.filter(event => event.sql.startsWith('UPDATE game_visibility')).length, 2);
+   assert.equal(client.events.filter(event => event.sql.startsWith('INSERT INTO portal_status_snapshots')).length, 8);
+   assert.equal(client.events.filter(event=>event.sql.startsWith('CREATE OR REPLACE FUNCTION "public".')).length,5);
++  assert.equal(client.events.filter(event=>event.sql.startsWith('CREATE INDEX IF NOT EXISTS audit_manual_bank_payout_paid_evidence')).length,1);
+   assert.equal(usdtProfileWrites(),1);
+ 
+   await t.test('seed errors roll back the staged snapshot and status transition', async () => {

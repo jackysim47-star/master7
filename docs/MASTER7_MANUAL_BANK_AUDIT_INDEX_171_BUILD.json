@@ -1,0 +1,139 @@
+{
+  "release": "17.0.0-selfbuilt.171-manual-bank-audit-index",
+  "preparedAt": "2026-11-10T18:09:39.670735+00:00",
+  "sourceCommit": "9a827f618ce4a346592d830e9280589fd4979408",
+  "sourceTree": "cdd1127111f311aefbee3fb6a25167bf8b4fe0d8",
+  "baselineSourceCommit": "7501bd9731a5a2beec200fa1388a0e4c27483c5c",
+  "baselineRelease": "17.0.0-selfbuilt.170-manual-bank-payout-atomicity",
+  "archive": {
+    "sha256": "754a9a4161dbc6a2e3cd3f5d8c65a22f626b09c1b906d8c40fc19c74d31a19ed",
+    "bytes": 7247011,
+    "files": 723,
+    "directories": 61,
+    "entries": 784,
+    "byteIdenticalIndependentArchives": true,
+    "independentArchiveBuildCount": 3,
+    "cleanExtractionMatchesSource": true,
+    "links": 0,
+    "sourceManifestEntries": 723
+  },
+  "proofs": {
+    "manifestSha256": "dae3fe5e1ca6f7a9f7b9b0d4badb9dbbab1592e35099ef92165aa9e62068882b",
+    "manifestBytes": 79209,
+    "sourcePatchSha256": "84afda1eeeb478ef2d9632b9e6e823ce35758a01467a06ebb5b7340133c48f53",
+    "sourcePatchBytes": 49453,
+    "sourcePatchAppliesToBaseline": true,
+    "sourcePatchReconstructedTree": "cdd1127111f311aefbee3fb6a25167bf8b4fe0d8",
+    "sha256RecordSha256": "1f299cad8edeca54f81b1ee7e293ade464a5bd73acc11975dda2428f392a933d",
+    "sha256RecordBytes": 100
+  },
+  "changes": {
+    "added": [
+      "docs/V171_MANUAL_BANK_AUDIT_INDEX.md",
+      "drizzle/0124_manual_bank_audit_evidence_index.sql",
+      "tests/manual-bank-audit-evidence-index.test.mjs"
+    ],
+    "changed": [
+      "app/portal.html",
+      "db/render-schema.sql",
+      "db/schema.ts",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "lib/backend.ts",
+      "lib/production-acceptance.ts",
+      "lib/render-migrations.mjs",
+      "package.json",
+      "public/service-worker.js",
+      "scripts/postgres-readiness-gate.mjs",
+      "scripts/verify-isolated-postgres-manual-bank.mjs",
+      "tests/official-entries-probe.test.mjs",
+      "tests/postgres-readiness-gate.test.mjs",
+      "tests/render-migrations.test.mjs"
+    ],
+    "deleted": [],
+    "insertions": 197,
+    "deletions": 53,
+    "files": 17
+  },
+  "validation": {
+    "fullRegression": 1414,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "targetedMigrationReadinessIndex": 23,
+    "targetedSQLiteManualBank": 19,
+    "isolatedPostgres18ManualBank": 6,
+    "backupAndReport": 19,
+    "renderDatabase": 3,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "diffCheck": true,
+    "independentReview": true,
+    "command": "npm run verify:render",
+    "scope": "local synthetic, fixture-only and isolated validation; no live provider, player, wallet, game launch or payment calls"
+  },
+  "manualBankAuditEvidenceIndex": {
+    "migration": "0124-manual-bank-audit-evidence-index",
+    "name": "audit_manual_bank_payout_paid_evidence",
+    "columns": [
+      "target",
+      "user_id",
+      "created_at"
+    ],
+    "predicate": "event='manual_bank_payout_paid'",
+    "partial": true,
+    "unique": false,
+    "duplicateEvidenceRemainsDetectable": true,
+    "sqliteCoveringIndexVerified": true,
+    "postgres18CatalogVerified": true,
+    "migrationIdempotent": true,
+    "providerCallsDuringValidation": 0,
+    "moneyOrWalletWritesDuringValidation": 0
+  },
+  "databaseChanges": {
+    "newMigration": true,
+    "latestMigration": "0124-manual-bank-audit-evidence-index",
+    "newTables": 0,
+    "newColumns": 0,
+    "backupSchemaVersion": "0122-acceptance-ledger-integrity",
+    "backupSchemaSha256": "534b830dc4330ee48c77543500116451880b13540d5e0691ee8a09910041328b",
+    "backupTableCount": 76,
+    "sqliteSupported": true,
+    "postgres18Supported": true
+  },
+  "operationalChanges": {
+    "newDepositsUiFlagChanged": false,
+    "providerOrderSubmissionEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPaymentsEnabled": false,
+    "liveGamesEnabled": false,
+    "productionReady": false,
+    "supplierAcceptanceBypassed": false
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "renderYaml": false,
+    "environmentTemplates": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": [
+      "0124-manual-bank-audit-evidence-index"
+    ]
+  },
+  "candidateLive": false,
+  "securityScan": {
+    "privateKeyMarkersCurrent": 0,
+    "privateKeyMarkersBaseline": 0,
+    "credentialUrlPatternMatchesCurrent": 25,
+    "credentialUrlPatternMatchesBaseline": 25,
+    "suspectLiteralCredentialAssignmentsCurrent": 0,
+    "suspectLiteralCredentialAssignmentsBaseline": 0,
+    "newCredentialUrlPatternsVersusV170": 0,
+    "newSuspectCredentialAssignmentsVersusV170": 0,
+    "newPrivateKeyMarkersVersusV170": 0
+  }
+}
