@@ -1,0 +1,99 @@
+{
+  "observedAt": "2026-11-10T01:36:55.323112Z",
+  "observedAtMYT": "2026-11-10T09:36:55.323112+08:00",
+  "release": "17.0.0-selfbuilt.145-payment-callback-evidence",
+  "method": "read_only_gateway_catalogue_probe",
+  "sideEffects": {
+    "gameLaunches": 0,
+    "walletTransfers": 0,
+    "settlements": 0
+  },
+  "profilesProbed": 14,
+  "catalogueReachable": [
+    {
+      "profile": "megah5",
+      "http": 200,
+      "games": 166
+    },
+    {
+      "profile": "jili_1to1",
+      "http": 200,
+      "games": 297
+    },
+    {
+      "profile": "jili_1to100",
+      "http": 200,
+      "games": 297
+    },
+    {
+      "profile": "918kissh5_normal",
+      "http": 200,
+      "games": 92
+    },
+    {
+      "profile": "918kissh5_my1",
+      "http": 200,
+      "games": 92
+    },
+    {
+      "profile": "918kissh5_free",
+      "http": 200,
+      "games": 88
+    }
+  ],
+  "catalogueRejected": [
+    {
+      "profile": "evo888h5",
+      "http": 502,
+      "upstreamStatus": 200,
+      "reason": "provider_response_not_accepted"
+    },
+    {
+      "profile": "venus",
+      "http": 502,
+      "reason": "provider_response_signature_missing"
+    },
+    {
+      "profile": "rsghub",
+      "http": 502,
+      "upstreamStatus": 403,
+      "reason": "upstream_rejected"
+    },
+    {
+      "profile": "jdb",
+      "http": 502,
+      "reason": "provider_rejected_9001"
+    },
+    {
+      "profile": "pragmaticplay",
+      "http": 502,
+      "upstreamStatus": 435,
+      "reason": "upstream_rejected"
+    },
+    {
+      "profile": "epicwin_normal",
+      "http": 502,
+      "upstreamStatus": 403,
+      "reason": "upstream_rejected"
+    },
+    {
+      "profile": "epicwin_free",
+      "http": 502,
+      "upstreamStatus": 403,
+      "reason": "upstream_rejected"
+    },
+    {
+      "profile": "clotplay",
+      "http": 502,
+      "upstreamStatus": 403,
+      "reason": "upstream_rejected"
+    }
+  ],
+  "productionAcceptance": {
+    "registeredProfiles": 41,
+    "acceptedProfiles": 0,
+    "liveProfiles": 0,
+    "allGamesVerified": false
+  },
+  "interpretation": "Catalogue HTTP 200 proves read-only catalogue access only. It does not prove authenticated member launch, wallet transfer, settlement, recovery or production acceptance."
+}
