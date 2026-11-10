@@ -14,6 +14,7 @@ const {
   parseMetaKickResponse,
   parseMetaTransferStatusResponse,
   publicMetaAccountStatus,
+  MAX_META_GAMES,
 } = require('./metagaming');
 const { metaGamingPeerCredential, metaGamingReadiness } = require('./readiness');
 
@@ -114,12 +115,25 @@ test('META catalogue parser projects only documented public game fields', () => 
   });
   assert.deepEqual(parsed.games, [{
     gameCode: '10001', name: 'Example Slot', gameType: 1,
-    imageUrl: 'https://cdn.example.test/10001.png', hasDemo: true,
+    imageUrl: 'https://cdn.example.test/10001.png', hasDemo: true, maintenance: true,
   }]);
   assert.equal(JSON.stringify(parsed).includes('must-not-leak'), false);
   assert.throws(() => parseMetaCatalogueResponse({
     Status: 200, Description: 'Success', ResponseDateTime: '2026-11-10 03:04:06',
     Game: [{ GameCode: '1', GameName: 'Bad', GameType: 1, ImageUrl: 'http://bad.test/a.png', HasDemo: true }],
+  }), /invalid_meta_response/);
+  assert.throws(() => parseMetaCatalogueResponse({
+    Status: 200, Description: 'Success', ResponseDateTime: '2026-11-10 03:04:06',
+    Game: [
+      { GameCode: '1', GameName: 'One', GameType: 1, ImageUrl: '', HasDemo: true },
+      { GameCode: '1', GameName: 'Duplicate', GameType: 1, ImageUrl: '', HasDemo: false },
+    ],
+  }), /invalid_meta_response/);
+  assert.throws(() => parseMetaCatalogueResponse({
+    Status: 200, Description: 'Success', ResponseDateTime: '2026-11-10 03:04:06',
+    Game: Array.from({ length: MAX_META_GAMES + 1 }, (_, index) => ({
+      GameCode: String(index), GameName: `Game ${index}`, GameType: 1, ImageUrl: '', HasDemo: false,
+    })),
   }), /invalid_meta_response/);
 });
 
@@ -164,6 +178,7 @@ test('read-only META catalogue route selects normal/free credentials and returns
     assert.equal(response.data.apiVersion, '3.4.8');
     assert.equal(response.data.account, name);
     assert.equal(response.data.games[0].gameCode, '10001');
+    assert.equal(response.data.games[0].maintenance, true);
     assert.equal(JSON.stringify(response.data).includes('hidden'), false);
     const outbound = sent.at(-1);
     assert.equal(outbound.url, 'https://smapi.xystem138.com/api/opgateway/v1/op/GetGameList');
@@ -172,6 +187,17 @@ test('read-only META catalogue route selects normal/free credentials and returns
     assert.equal(outbound.body.Signature,
       md5(`GetGameList2026-11-10 03:04:05${id}${secret}`));
   }
+});
+
+test('META HTTP rejection is classified without parsing or exposing its body', async () => {
+  const app = makeApp({ env: baseEnv, fetchImpl: async () => new Response('<html>allowlist denied secret</html>', {
+    status: 403, headers: { 'content-type': 'text/html' },
+  }) });
+  const response = await request(app, '/providers/metagaming/games?account=normal');
+  assert.deepEqual(response, { status: 502, data: {
+    error: 'metagaming_catalogue_failed', account: 'normal', upstreamStatus: 403, providerStatus: null,
+  } });
+  assert.equal(JSON.stringify(response.data).includes('secret'), false);
 });
 
 test('META catalogue rejects unknown or unconfigured accounts before provider traffic', async () => {

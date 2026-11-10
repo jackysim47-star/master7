@@ -550,6 +550,13 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           try { return value.ok && parseMetaCatalogueResponse(value.data).ok; }
           catch { return false; }
         });
+        if (!result.ok) {
+          let providerStatus = null;
+          try { providerStatus = parseMetaCatalogueResponse(result.data).status; }
+          catch { /* HTTP failure bodies are not trusted provider envelopes. */ }
+          return send(res, 502, { error: 'metagaming_catalogue_failed', account: accountName,
+            upstreamStatus: result.status, providerStatus }, cors);
+        }
         let parsed;
         try { parsed = parseMetaCatalogueResponse(result.data); }
         catch {

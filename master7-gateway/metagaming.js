@@ -3,6 +3,7 @@
 const crypto = require('node:crypto');
 
 const ACCOUNT_NAMES = Object.freeze(['normal', 'free']);
+const MAX_META_GAMES = 2000;
 const PLAYER_ID = /^[A-Za-z0-9._$?-]{1,50}$/;
 const REFERENCE_ID = /^[A-Za-z0-9][A-Za-z0-9._:-]{0,49}$/;
 const UTC_DATE_TIME = /^\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01]) (?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/;
@@ -175,19 +176,25 @@ function responseEnvelope(value) {
 function parseMetaCatalogueResponse(value) {
   const envelope = responseEnvelope(value);
   if (!envelope.ok) return { ...envelope, games: [] };
-  if (!Array.isArray(value.Game) || value.Game.length > 100000) throw new TypeError('invalid_meta_response');
+  if (!Array.isArray(value.Game) || value.Game.length > MAX_META_GAMES) throw new TypeError('invalid_meta_response');
+  const codes = new Set();
   const games = value.Game.map(game => {
     if (!isObject(game) || !printable(game.GameCode, 50) || !printable(game.GameName, 100)
         || !Number.isSafeInteger(game.GameType) || typeof game.HasDemo !== 'boolean'
         || (game.ImageUrl !== '' && game.ImageUrl != null && !validHttps(game.ImageUrl))) {
       throw new TypeError('invalid_meta_response');
     }
+    if (codes.has(game.GameCode)) throw new TypeError('invalid_meta_response');
+    codes.add(game.GameCode);
     return {
       gameCode: game.GameCode,
       name: game.GameName,
       gameType: game.GameType,
       imageUrl: game.ImageUrl || null,
       hasDemo: game.HasDemo,
+      // GetGameList v3.4.8 has no title-availability field. Keep every title
+      // closed until a separately reviewed supplier contract proves one.
+      maintenance: true,
     };
   });
   return { ...envelope, games };
@@ -273,6 +280,7 @@ function parseMetaLogsResponse(value) {
 }
 
 module.exports = {
+  MAX_META_GAMES,
   ACCOUNT_NAMES,
   METHOD_SPECS,
   buildMetaRequest,
