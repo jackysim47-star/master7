@@ -182,7 +182,7 @@ async function jdbCatalogue({ env, fetchImpl = global.fetch, now = () => new Dat
   if (!/^\d{4}$/.test(String(envelope.status || ''))) fail('jdb_invalid_response');
   if (envelope.status !== '0000') fail(`jdb_provider_rejected_${envelope.status}`);
   const games = normalizeGames(envelope.data);
-  return { provider: 'jdb', count: games.length, games };
+  return { provider: 'jdb', count: games.length, games, complete: true };
 }
 
 module.exports = { decrypt, encrypt, jdbCatalogue, normalizeGames };

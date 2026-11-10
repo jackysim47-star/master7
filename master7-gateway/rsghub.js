@@ -4,6 +4,7 @@ const crypto = require('node:crypto');
 
 const MAX_RESPONSE_BYTES = 2 * 1024 * 1024;
 const MAX_GAMES = 10000;
+const MAX_CLOCK_SKEW_SECONDS = 300;
 
 function fail(code, status = 502) {
   throw Object.assign(new Error(code), { status });
@@ -95,14 +96,6 @@ async function boundedText(response) {
   return Buffer.concat(chunks).toString('utf8');
 }
 
-function imageUrl(value) {
-  if (typeof value !== 'string' || !value) return null;
-  try {
-    const url = new URL(value);
-    return url.protocol === 'https:' && !url.username && !url.password && !url.hash ? url.href : null;
-  } catch { return null; }
-}
-
 function normalizeGames(rows) {
   if (!Array.isArray(rows) || rows.length > MAX_GAMES) fail('rsghub_invalid_response');
   const seen = new Set();
@@ -116,14 +109,22 @@ function normalizeGames(rows) {
     const gameCode = String(row.GameId);
     if (seen.has(gameCode)) fail('rsghub_duplicate_game');
     seen.add(gameCode);
+    const name = typeof row.GameName.en_US === 'string' ? row.GameName.en_US.trim() : '';
+    const nameZh = typeof row.GameName.zh_CN === 'string' ? row.GameName.zh_CN.trim() : '';
+    if (!name || name.length > 512 || /[\u0000-\u001f\u007f-\u009f]/u.test(name)
+        || nameZh.length > 512 || /[\u0000-\u001f\u007f-\u009f]/u.test(nameZh)) {
+      fail('rsghub_invalid_game');
+    }
     const category = row.GameType === 1 ? 'SLOT' : row.GameType === 2 ? 'FISH' : 'FAST GAME';
     return {
       gameCode,
-      name: typeof row.GameName.en_US === 'string' ? row.GameName.en_US : '',
-      nameZh: typeof row.GameName.zh_CN === 'string' ? row.GameName.zh_CN : '',
+      name,
+      nameZh,
       category,
       maintenance: row.GameStatus === 2,
-      imageUrl: imageUrl(row.GamePicUrl),
+      // The supplied contract does not pin an approved artwork origin.
+      // Keep remote supplier URLs out of the public projection.
+      imageUrl: null,
     };
   });
 }
@@ -155,8 +156,12 @@ async function rsghubCatalogue({ env, fetchImpl = global.fetch, now = () => new 
   const envelope = decryptJson(await boundedText(response), config.key, config.iv);
   if (!Number.isSafeInteger(envelope.ErrorCode)) fail('rsghub_invalid_response');
   if (envelope.ErrorCode !== 0) fail(`rsghub_provider_rejected_${envelope.ErrorCode}`);
+  if (!Number.isSafeInteger(envelope.Timestamp)
+      || Math.abs(envelope.Timestamp - Number(timestamp)) > MAX_CLOCK_SKEW_SECONDS) {
+    fail('rsghub_invalid_timestamp');
+  }
   const games = normalizeGames(envelope.Data?.GameList);
-  return { provider: 'rsghub', currency: config.currency, count: games.length, games };
+  return { provider: 'rsghub', currency: config.currency, count: games.length, games, complete: true };
 }
 
 module.exports = { decryptJson, encryptJson, rsghubCatalogue, signature };

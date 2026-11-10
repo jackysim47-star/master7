@@ -70,10 +70,11 @@ test('RSGHub route requests the currency catalogue and projects only public game
   assert.equal(response.status, 200);
   assert.deepEqual({ provider: data.provider, currency: data.currency, count: data.count },
     { provider: 'rsghub', currency: 'KRW', count: 2 });
+  assert.equal(data.complete, true);
   assert.equal(Object.prototype.hasOwnProperty.call(data, 'wallet'), false);
   assert.deepEqual(data.games[0], {
     gameCode: '36', name: 'Fortune Thai', nameZh: '泰有钱', category: 'SLOT', maintenance: false,
-    imageUrl: 'https://images.example/game36.png',
+    imageUrl: null,
   });
   assert.equal(data.games[1].category, 'FISH');
   assert.equal(data.games[1].maintenance, true);
@@ -121,11 +122,11 @@ test('RSGHub rejects provider errors, malformed encryption and invalid catalogue
     [async () => new Response('not-base64-private-body'), /rsghub_invalid_response/],
     [async () => new Response(encryptJson({ ErrorCode: 3011, ErrorMessage: 'private-provider-message', Data: null },
       publicCredentials.key, publicCredentials.iv)), /rsghub_provider_rejected_3011/],
-    [async () => new Response(encryptJson({ ErrorCode: 0, ErrorMessage: 'OK', Data: { GameList: 'private-value' } },
+    [async () => new Response(encryptJson({ ErrorCode: 0, ErrorMessage: 'OK', Timestamp: Number(publicCredentials.timestamp), Data: { GameList: 'private-value' } },
       publicCredentials.key, publicCredentials.iv)), /rsghub_invalid_response/],
-    [async () => new Response(encryptJson({ ErrorCode: 0, ErrorMessage: 'OK', Data: { GameList: [
-      { GameId: 1, GameType: 1, GameStatus: 1, GameName: {} },
-      { GameId: 1, GameType: 1, GameStatus: 1, GameName: {} },
+    [async () => new Response(encryptJson({ ErrorCode: 0, ErrorMessage: 'OK', Timestamp: Number(publicCredentials.timestamp), Data: { GameList: [
+      { GameId: 1, GameType: 1, GameStatus: 1, GameName: { en_US: 'One' } },
+      { GameId: 1, GameType: 1, GameStatus: 1, GameName: { en_US: 'Two' } },
     ] } }, publicCredentials.key, publicCredentials.iv)), /rsghub_duplicate_game/],
   ];
   for (const [fetchImpl, expected] of cases) {
@@ -138,9 +139,29 @@ test('RSGHub rejects provider errors, malformed encryption and invalid catalogue
 });
 
 test('RSGHub direct adapter rejects malformed game records', async () => {
-  const reply = { ErrorCode: 0, ErrorMessage: 'OK', Data: { GameList: [
+  const reply = { ErrorCode: 0, ErrorMessage: 'OK', Timestamp: Number(publicCredentials.timestamp), Data: { GameList: [
     { GameId: 1, GameType: 99, GameStatus: 1, GameName: {} },
   ] } };
   await assert.rejects(rsghubCatalogue({ env, now, fetchImpl: async () =>
     new Response(encryptJson(reply, publicCredentials.key, publicCredentials.iv)) }), /rsghub_invalid_game/);
+});
+
+test('RSGHub rejects stale envelopes and unsafe public names before publishing a catalogue', async () => {
+  const game = { GameId: 1, GameType: 1, GameStatus: 1, GameName: { en_US: 'Safe title' },
+    GamePicUrl: 'https://unapproved.example/private.png?token=secret' };
+  for (const reply of [
+    { ErrorCode: 0, Timestamp: Number(publicCredentials.timestamp) - 301, Data: { GameList: [game] } },
+    { ErrorCode: 0, Timestamp: Number(publicCredentials.timestamp), Data: { GameList: [{ ...game, GameName: { en_US: '' } }] } },
+    { ErrorCode: 0, Timestamp: Number(publicCredentials.timestamp), Data: { GameList: [{ ...game, GameName: { en_US: 'Unsafe name', zh_CN: 'Bad\nname' } }] } },
+  ]) {
+    const expected = reply.Timestamp === Number(publicCredentials.timestamp) ? /rsghub_invalid_game/ : /rsghub_invalid_timestamp/;
+    await assert.rejects(rsghubCatalogue({ env, now, fetchImpl: async () =>
+      new Response(encryptJson(reply, publicCredentials.key, publicCredentials.iv)) }), expected);
+  }
+  const accepted = await rsghubCatalogue({ env, now, fetchImpl: async () => new Response(encryptJson({
+    ErrorCode: 0, Timestamp: Number(publicCredentials.timestamp), Data: { GameList: [game] },
+  }, publicCredentials.key, publicCredentials.iv)) });
+  assert.equal(accepted.games[0].imageUrl, null);
+  assert.equal(JSON.stringify(accepted).includes('unapproved.example'), false);
+  assert.equal(JSON.stringify(accepted).includes('token=secret'), false);
 });

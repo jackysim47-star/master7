@@ -57,6 +57,7 @@ test('JDB catalogue sends only Action 49 and projects public catalogue fields', 
 
   const result = await jdbCatalogue({ env, fetchImpl, now });
   assert.deepEqual({ provider: result.provider, count: result.count }, { provider: 'jdb', count: 3 });
+  assert.equal(result.complete, true);
   assert.deepEqual(result.games[0], {
     gameCode: '0:14093', name: 'Dragon Soar', category: 'SLOT', gameType: 0, machineType: 14093,
     maintenance: false, imageUrl: null,
