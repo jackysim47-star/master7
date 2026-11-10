@@ -1,0 +1,1233 @@
+diff --git a/app/portal.html b/app/portal.html
+index 1f2c806..391fa6b 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.162-duitnow-qr-fail-closed" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.163-coba8-front-end-registered">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.163-coba8-front-end-registered" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+@@ -292,9 +292,9 @@
+         </div>
+       </section>
+       <div class="section-header lobby-hero lobby-overview">
+-        <div class="lobby-hero-copy"><p class="eyebrow" data-i18n="lobbyEyebrow">GAME LOBBY</p><h1 data-i18n="lobbyTitle">MASTER7 Game Lobby</h1><p class="muted" data-i18n="lobbyNotice">Browse 37 independent provider platforms by category.</p><div class="casino-trust-row" aria-label="Platform highlights"><span>MYR</span><span>EN · 中文 · BM</span><span>37 PROVIDERS</span><span>MEMBER ACCESS</span></div></div>
++        <div class="lobby-hero-copy"><p class="eyebrow" data-i18n="lobbyEyebrow">GAME LOBBY</p><h1 data-i18n="lobbyTitle">MASTER7 Game Lobby</h1><p class="muted" data-i18n="lobbyNotice">Browse 38 independent provider platforms by category.</p><div class="casino-trust-row" aria-label="Platform highlights"><span>MYR</span><span>EN · 中文 · BM</span><span>38 PROVIDERS</span><span>MEMBER ACCESS</span></div></div>
+         <div class="casino-hero-stage" aria-hidden="true"><div class="casino-symbols"><span>♠</span><span>♦</span><span>♣</span><span>♥</span></div><img src="/assets/seven-emblem.png" alt=""><b>MASTER7</b><small>PREMIUM GAME LOBBY</small></div>
+-        <div class="lobby-live-summary" aria-label="Game catalogue summary"><span><strong id="lobbyGameCount">42</strong><small>ENTRIES</small></span><span><strong id="lobbyBrandCount">37</strong><small>BRANDS</small></span><span><strong>3</strong><small>FEATURED</small></span></div>
++        <div class="lobby-live-summary" aria-label="Game catalogue summary"><span><strong id="lobbyGameCount">43</strong><small>ENTRIES</small></span><span><strong id="lobbyBrandCount">38</strong><small>BRANDS</small></span><span><strong>3</strong><small>FEATURED</small></span></div>
+       </div>
+       <section id="lobbyAdCarousel" class="lobby-ad-carousel" aria-label="Lobby advertisements" hidden>
+         <a id="lobbyAdLink" class="lobby-ad-link" href="#" target="_blank" rel="noopener noreferrer" hidden>
+@@ -343,10 +343,10 @@
+       </div>
+       <div class="filters platform-search"><input id="search" placeholder="Search platform name" autocomplete="off"></div>
+       <section class="api-supplier-lobby" id="apiSupplierLobby" aria-labelledby="apiSupplierTitle">
+-        <div class="provider-directory-heading"><div><p class="eyebrow">PREMIUM GAME COLLECTION</p><h2 id="apiSupplierTitle">37 Game Providers</h2><p class="muted">Choose a provider to browse its game catalogue.</p></div><span id="apiSupplierCountLabel" class="tiny-label">37 PROVIDERS</span></div>
++        <div class="provider-directory-heading"><div><p class="eyebrow">PREMIUM GAME COLLECTION</p><h2 id="apiSupplierTitle">38 Game Providers</h2><p class="muted">Choose a provider to browse its game catalogue.</p></div><span id="apiSupplierCountLabel" class="tiny-label">38 PROVIDERS</span></div>
+         <div id="apiSupplierButtons" class="api-supplier-grid" aria-live="polite"></div>
+       </section>
+-      <button id="clearProviderFilter" class="button button-ghost small" type="button" hidden>Back to 37 game platforms</button>
++      <button id="clearProviderFilter" class="button button-ghost small" type="button" hidden>Back to 38 game platforms</button>
+       <p id="gamesStatus" class="notice member-catalogue-status" role="status" aria-live="polite">Choose a provider to browse available titles.</p>
+       <div id="providers" class="catalog-providers"></div>
+       <section id="gameWalletPanel" class="game-wallet-panel surface" hidden aria-labelledby="gameWalletTitle">
+@@ -469,8 +469,8 @@
+             <a href="#benefitManager">🎁 福利规则</a>
+             <a href="#referralAdminPanel" data-owner-only>🤝 介绍与佣金</a>
+             <a href="#rewardsManager" data-owner-only>✦ Rewards Hub</a>
+-            <p class="admin-sidebar-heading">GAMES · 37 家游戏</p>
+-            <a href="#apiSupplierManager">🎮 37 家厂家大厅</a>
++            <p class="admin-sidebar-heading">GAMES · 38 家游戏</p>
++            <a href="#apiSupplierManager">🎮 38 家厂家大厅</a>
+             <a href="#gameCatalogManager">🎛 游戏分类与控制</a>
+             <a href="#gameRankingPanel" data-owner-only>🏆 游戏排行榜</a>
+             <a href="#gameWalletAdminPanel">💰 游戏钱包记录</a>
+@@ -509,12 +509,12 @@
+         </div>
+         <section class="surface stack ops-ai-panel" id="operationsAiPanel" hidden data-owner-only aria-labelledby="operationsAiTitle">
+           <header class="ops-ai-hero">
+-            <div><p class="eyebrow">AI PLATFORM MANAGER · ADMIN CONTROL</p><h2 id="operationsAiTitle">AI 整个平台管理中心</h2><p>集中进行确定性检查：会员 CRM、留存、钱与对账、37 家厂家、福利代理、KYC 风险及客服。AI 负责监察、整理、提醒和建议；资金批准及营业开关保留管理员确认。</p></div>
++            <div><p class="eyebrow">AI PLATFORM MANAGER · ADMIN CONTROL</p><h2 id="operationsAiTitle">AI 整个平台管理中心</h2><p>集中进行确定性检查：会员 CRM、留存、钱与对账、38 家厂家、福利代理、KYC 风险及客服。AI 负责监察、整理、提醒和建议；资金批准及营业开关保留管理员确认。</p></div>
+             <div class="ops-ai-controls" aria-label="Operations report period"><button type="button" class="button button-outline active" data-ops-period="day" aria-pressed="true">今日</button><button type="button" class="button button-outline" data-ops-period="week" aria-pressed="false">本周</button><button type="button" class="button button-outline" data-ops-period="month" aria-pressed="false">本月</button><button id="refreshOperationsAi" type="button" class="button button-outline">刷新</button></div>
+           </header>
+           <p id="operationsAiStatus" class="verification-note pending" role="status" aria-live="polite">等待读取真实运营记录；所有建议必须人工批准。</p>
+           <nav class="ops-ai-capability-grid" aria-label="White label platform modules">
+-            <a href="#pendingPanel" data-admin-shortcut="pendingPanel"><strong>会员 CRM</strong><span>会员、标签与留存</span></a><a href="#financeCenterPanel" data-admin-shortcut="financeCenterPanel"><strong>支付对账</strong><span>银行、通道、钱包</span></a><a href="#gameSyncPanel" data-admin-shortcut="gameSyncPanel"><strong>厂家健康</strong><span>37 家状态与同步</span></a><a href="#bonusHunterPanel" data-admin-shortcut="bonusHunterPanel"><strong>KYC 与风险</strong><span>异常与套利检查</span></a><a href="#benefitManager" data-admin-shortcut="benefitManager"><strong>优惠规则</strong><span>Bonus 与 Turnover</span></a><a href="#referralAdminPanel" data-admin-shortcut="referralAdminPanel"><strong>代理联盟</strong><span>介绍与佣金账本</span></a>
++            <a href="#pendingPanel" data-admin-shortcut="pendingPanel"><strong>会员 CRM</strong><span>会员、标签与留存</span></a><a href="#financeCenterPanel" data-admin-shortcut="financeCenterPanel"><strong>支付对账</strong><span>银行、通道、钱包</span></a><a href="#gameSyncPanel" data-admin-shortcut="gameSyncPanel"><strong>厂家健康</strong><span>38 家状态与同步</span></a><a href="#bonusHunterPanel" data-admin-shortcut="bonusHunterPanel"><strong>KYC 与风险</strong><span>异常与套利检查</span></a><a href="#benefitManager" data-admin-shortcut="benefitManager"><strong>优惠规则</strong><span>Bonus 与 Turnover</span></a><a href="#referralAdminPanel" data-admin-shortcut="referralAdminPanel"><strong>代理联盟</strong><span>介绍与佣金账本</span></a>
+           </nav>
+           <div id="operationsAiSummary" class="ops-ai-summary" aria-label="AI operations summary"></div>
+           <div><div class="wallet-records-heading"><div><h3>真实记录汇总</h3><p class="muted">金额只来自已保存的账本状态；缺少的外部资料保持未连接。</p></div><span class="tiny-label">MYT</span></div><div id="operationsAiMetrics" class="ops-ai-metrics"></div></div>
+@@ -625,15 +625,15 @@
+         </div>
+         <div class="two-col">
+           <div id="announcementPanel" class="surface stack"><form class="stack" id="announcementForm"><h2 data-i18n="publishAnnouncement">发布公告</h2><p class="muted">公告时间使用马来西亚时间（MYT）。草稿不会在前台出现。</p><label for="announcementTitle" data-i18n="subject">主题</label><input id="announcementTitle" maxlength="100" minlength="3" required><label for="announcementBody" data-i18n="message">内容</label><textarea id="announcementBody" maxlength="1000" minlength="5" rows="4" required></textarea><div class="commission-fields two"><label>开始时间（MYT，可选）<input id="announcementStartsAt" type="datetime-local"></label><label>结束时间（MYT，可选）<input id="announcementEndsAt" type="datetime-local"></label></div><label>状态<select id="announcementStatus"><option value="draft">草稿</option><option value="published">发布</option></select></label><div class="ad-form-actions"><button type="submit" class="button button-primary">保存公告</button><button id="announcementCancel" type="button" class="button button-outline" hidden>取消编辑</button></div><small id="announcementFormStatus" class="muted" role="status"></small></form><h3>已保存公告</h3><div id="announcementAdminList" class="ad-admin-list"><p class="muted">Loading…</p></div></div>
+-          <div class="surface stack" id="providerPanel"><h2 data-i18n="providerManager">3 个免费赞助厂家位</h2><p class="muted" data-i18n="providerManagerHint">管理三个免费赞助位的图片；37 家游戏平台的封面与连接记录在下方查看。</p><div id="providerManager"></div></div>
++          <div class="surface stack" id="providerPanel"><h2 data-i18n="providerManager">3 个免费赞助厂家位</h2><p class="muted" data-i18n="providerManagerHint">管理三个免费赞助位的图片；38 家游戏平台的封面与连接记录在下方查看。</p><div id="providerManager"></div></div>
+         </div>
+         <section class="surface stack" id="apiSupplierManager" aria-labelledby="apiSupplierManagerTitle">
+-          <h2 id="apiSupplierManagerTitle">37 game suppliers</h2>
++          <h2 id="apiSupplierManagerTitle">38 game suppliers</h2>
+           <p class="muted">查看厂家 API 连接及游戏记录；可编辑平台封面。游戏可用性由实际 API 状态决定，连接凭证保存在服务器端。</p>
+           <div id="apiSupplierAdminButtons" class="api-supplier-admin-grid"></div>
+         </section>
+         <section class="surface stack game-ranking-panel" id="gameRankingPanel" hidden data-owner-only aria-labelledby="gameRankingTitle">
+-          <div class="wallet-records-heading"><div><p class="eyebrow">ADMIN CURATED · 37 PLATFORM CARDS</p><h2 id="gameRankingTitle">Game platform ranking</h2><p class="muted">Arrange all 37 provider platforms by lobby category. This is an administrator-managed display order; it does not alter provider game IDs, odds or settlement.</p></div><button id="reloadGameRanking" type="button" class="button button-outline">Reload</button></div>
++          <div class="wallet-records-heading"><div><p class="eyebrow">ADMIN CURATED · 38 PLATFORM CARDS</p><h2 id="gameRankingTitle">Game platform ranking</h2><p class="muted">Arrange all 38 provider platforms by lobby category. This is an administrator-managed display order; it does not alter provider game IDs, odds or settlement.</p></div><button id="reloadGameRanking" type="button" class="button button-outline">Reload</button></div>
+           <div class="game-ranking-toolbar"><label for="gameRankingCategory">Lobby category</label><select id="gameRankingCategory"><option>HOT</option><option>SLOT</option><option>LIVE</option><option>FISH</option><option>COCK</option><option>SPORT</option></select><span class="tiny-label">Each category keeps its own order</span></div>
+           <p id="gameRankingNotice" class="verification-note pending">Admin curated · internal games are not ranked</p>
+           <div id="gameRankingList" class="game-ranking-list"><p class="muted">Open this panel to load the ranking.</p></div>
+@@ -641,7 +641,7 @@
+         </section>
+         <section class="surface stack game-sync-panel" id="gameSyncPanel" aria-labelledby="gameSyncTitle">
+           <div class="wallet-heading"><h2 id="gameSyncTitle">游戏检查</h2><button id="syncGamesNow" class="button button-outline" type="button">立即同步</button></div>
+-          <p class="muted" id="gameSyncNotice" role="status" aria-live="polite">正在读取 37 家厂家状态…</p>
++          <p class="muted" id="gameSyncNotice" role="status" aria-live="polite">正在读取 38 家厂家状态…</p>
+           <div id="gameSyncResults"></div>
+           <div id="acceptanceBlockerMatrix" class="acceptance-blockers" aria-live="polite"><p class="muted">打开本页后读取游戏与支付验收阻塞项。</p></div>
+         </section>
+@@ -763,7 +763,7 @@
+           <p class="benefit-scope-note" data-ui-key="benefitScope">普通活动福利在这里管理；VIP 等级、Cashback 和分红请使用独立 VIP Manager。钱包入账与 Turnover 执行须通过各自验收。</p>
+           <form id="benefitForm" class="stack">
+             <input id="benefitId" type="hidden">
+-            <label for="benefitProvider">Game provider</label><select id="benefitProvider"><option value="all">All 37 game platforms</option><option value="megah5">MegaH5</option><option value="jili">JILI</option><option value="918kissh5">918KISS H5</option><option value="gameplay">GAMEPLAY INTERACTIVE</option><option value="lionking">LION KING</option><option value="suncity">SUNCITY</option><option value="pgsoft">PGSOFT</option><option value="gfg">GFG / G4</option><option value="sagaming">SA GAMING</option><option value="ps9">PS9</option><option value="dragoonsoft">DRAGOONSOFT</option><option value="jdb">JDB</option><option value="bg">BG</option><option value="allbet">ALLBET</option><option value="quickspin">QUICKSPIN</option><option value="astar">ASTAR</option><option value="metagaming">META GAMING</option><option value="fuma">FUMA</option><option value="yl">YL</option><option value="funky">FUNKY</option><option value="gamitech">GAMITECH</option><option value="spadegaming">SPADE GAMING</option><option value="turbo">TURBO</option><option value="ct855">CT855</option><option value="pragmaticplay">PRAGMATIC PLAY</option><option value="joker">JOKER</option><option value="cg">CG</option><option value="atg">ATG</option><option value="rectangle">RECTANGLE</option><option value="m8bet">M8BET</option><option value="awc">AWC</option><option value="evo888h5">EVO888H5</option><option value="cosmoplay">COSMOPLAY</option><option value="geminiupdown">GEMINI UPDOWN</option><option value="epicwin">EPICWIN</option><option value="venus">VENUS GAMING</option><option value="clotplay">CLOTPLAY</option></select>
++            <label for="benefitProvider">Game provider</label><select id="benefitProvider"><option value="all">All 38 game platforms</option><option value="megah5">MegaH5</option><option value="jili">JILI</option><option value="918kissh5">918KISS H5</option><option value="gameplay">GAMEPLAY INTERACTIVE</option><option value="lionking">LION KING</option><option value="suncity">SUNCITY</option><option value="pgsoft">PGSOFT</option><option value="gfg">GFG / G4</option><option value="sagaming">SA GAMING</option><option value="ps9">PS9</option><option value="dragoonsoft">DRAGOONSOFT</option><option value="jdb">JDB</option><option value="bg">BG</option><option value="allbet">ALLBET</option><option value="quickspin">QUICKSPIN</option><option value="astar">ASTAR</option><option value="metagaming">META GAMING</option><option value="fuma">FUMA</option><option value="yl">YL</option><option value="funky">FUNKY</option><option value="gamitech">GAMITECH</option><option value="spadegaming">SPADE GAMING</option><option value="turbo">TURBO</option><option value="ct855">CT855</option><option value="pragmaticplay">PRAGMATIC PLAY</option><option value="joker">JOKER</option><option value="cg">CG</option><option value="atg">ATG</option><option value="rectangle">RECTANGLE</option><option value="m8bet">M8BET</option><option value="awc">AWC</option><option value="evo888h5">EVO888H5</option><option value="cosmoplay">COSMOPLAY</option><option value="geminiupdown">GEMINI UPDOWN</option><option value="epicwin">EPICWIN</option><option value="venus">VENUS GAMING</option><option value="clotplay">CLOTPLAY</option><option value="coba8">COBA8</option></select>
+             <label for="benefitTitle">Benefit name</label><input id="benefitTitle" maxlength="100" minlength="2" required>
+             <label for="benefitType">Benefit type</label><select id="benefitType"><option value="deposit_bonus">Deposit bonus</option><option value="cashback">Cashback</option><option value="free_credit">Free credit</option><option value="referral">Referral</option><option value="turnover">Turnover reward</option><option value="other">Other</option></select>
+             <label for="benefitDescription">Customer-facing details and conditions</label><textarea id="benefitDescription" maxlength="2000" rows="4" required></textarea>
+diff --git a/docs/ASSETS_MANIFEST.csv b/docs/ASSETS_MANIFEST.csv
+index 8478f57..f60d5af 100644
+--- a/docs/ASSETS_MANIFEST.csv
++++ b/docs/ASSETS_MANIFEST.csv
+@@ -27,6 +27,7 @@ public/assets/providers/atg.webp,Supplier button artwork,Existing repository sup
+ public/assets/providers/awc.webp,Supplier button artwork,Existing repository supplier artwork; owner must confirm usage rights before formal launch,image/webp,live .66 bundle,704150036d1d1891af3d93c84aaab58a9ec554a7cc06dd3dd990f4f9c24e094c,https://master7-v17-staging.onrender.com/assets/providers/awc.webp
+ public/assets/providers/bg.webp,Supplier button artwork,Existing repository supplier artwork; owner must confirm usage rights before formal launch,image/webp,live .66 bundle,e5365ae220ff9b8c0311b3114a5e219b9b763f82366271289067cde7bcebda1d,https://master7-v17-staging.onrender.com/assets/providers/bg.webp
+ public/assets/providers/cg.webp,Supplier button artwork,Existing repository supplier artwork; owner must confirm usage rights before formal launch,image/webp,live .66 bundle,b70b8528e93a763cfcedcea78fd934265a371c4cd61358ead9ce884c5df398c1,https://master7-v17-staging.onrender.com/assets/providers/cg.webp
++public/assets/providers/coba8.webp,Neutral COBA8 provider button artwork,Derived from the existing MASTER7 premium lobby asset; no supplier logo or external artwork,image/webp,17.0.0-selfbuilt.163-coba8-front-end-registered,3d94e16cc81db2c83c71067e023e537d386ffcf3974c7b91dd09ca6faa9a51ed,https://master7-v17-staging.onrender.com/assets/providers/coba8.webp
+ public/assets/providers/cosmoplay.webp,Supplier button artwork,Existing repository supplier artwork; owner must confirm usage rights before formal launch,image/webp,live .66 bundle,0d0e1827351cffee5601170a29d654647e2e282e6214226f7e6b8ac273c85f93,https://master7-v17-staging.onrender.com/assets/providers/cosmoplay.webp
+ public/assets/providers/ct855.webp,Supplier button artwork,Existing repository supplier artwork; owner must confirm usage rights before formal launch,image/webp,live .66 bundle,b267cbfc73eeaf59fd2ecb17792f6070407a13c3eec74f359b3c5ef0b3188e48,https://master7-v17-staging.onrender.com/assets/providers/ct855.webp
+ public/assets/providers/dragoonsoft.webp,Supplier button artwork,Existing repository supplier artwork; owner must confirm usage rights before formal launch,image/webp,live .66 bundle,e44c19a8573387b7a037bd79edb62c5f058cf9bb86a961490eaadf03a09ccd8c,https://master7-v17-staging.onrender.com/assets/providers/dragoonsoft.webp
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index 28a2a68..587a8fb 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,48 +1,52 @@
+ # MASTER7 deployment handover
+ 
+-Candidate source: `17.0.0-selfbuilt.154-provider-boundary-safety`.
++Candidate source: `17.0.0-selfbuilt.163-coba8-front-end-registered`.
+ 
+-Baseline live: `17.0.0-selfbuilt.153-provider-catalogue-safety`, deployment
+-`dep-dbpcipbm8hqs73dhl2bg`, publication commit
+-`593a90c87386ca11337ecd23aada65083843117b`, source commit
+-`aeaaeaceb2897911fd7934693f55840ee29fd99c`, source archive SHA-256
+-`38c762a1b209f6a7eafb6d9165c7b4bb951af98e022fc303f5ec01b3639c5ac6`.
++This candidate has not been deployed by the source commit. Confirm the actual
++Render release and deployment ID from the Portal service before cutover or
++rollback. Portal service: `srv-dbl0iv7f3r2c73848ei0`.
+ 
+-Gateway baseline: release `1.17.0`, deployment `dep-dbpchge417fc739h9b50`,
+-commit `c4aab70060439469f3c2e6081a57c0b40e630ff4`.
++The last recorded integration-gateway baseline remains release `1.17.0`,
++deployment `dep-dbpchge417fc739h9b50`, commit
++`c4aab70060439469f3c2e6081a57c0b40e630ff4`. Gateway service:
++`srv-db6b7inlk1mc73ck6cmg`. The v163 candidate does not change the gateway.
+ 
+-The candidate strictly validates and projects the EVO888H5, CLOTPLAY,
+-Pragmatic Play and Venus Gaming catalogue boundaries. Malformed, duplicate,
+-oversized or partial catalogue results fail closed. Unapproved remote artwork
+-and private supplier fields are withheld from the public gateway response.
++## Current game registry
+ 
+-Catalogue presence does not establish launch availability. EVO888H5,
+-Pragmatic Play and Venus Gaming titles remain maintenance because their
+-reviewed catalogue evidence contains no accepted per-title availability
+-signal. CLOTPLAY requires consistent pagination and treats missing maintenance
+-as unavailable.
++- The member lobby contains 38 distinct provider brands and 43 listed provider
++  profiles.
++- Implemented adapter profiles: 6.
++- Launch-ready profiles: 0.
++- Production-verified profiles: 0.
++- Playable profiles: 0.
+ 
+-Current supplier evidence remains externally blocked:
++COBA8 is registered as the 38th member-facing provider and as the independent
++`coba8_myr` profile. It uses neutral MASTER7-owned artwork. Its official API
++contract is unavailable, so it remains `contract_missing` with no catalogue,
++player, Play, launch, wallet, settlement or recovery capability. A merchant
++login or API token cannot enable those capabilities and is not stored in this
++release.
+ 
+-- EVO888H5 returns provider code `130`: Render egress IP not in whitelist.
+-- Pragmatic Play returns HTTP `435` before a JSON business response.
+-- CLOTPLAY returns HTTP `403`.
+-- Venus Gaming returns a catalogue body without the response-signature headers
+-  required by its official contract.
++Existing owner-curated 37-provider rankings are migration input only: their
++order is preserved and COBA8 is appended once. They do not describe the current
++38-provider lobby.
+ 
+-The Portal retains the last complete EVO snapshot, marks it stale and
+-maintenance, and exposes no Play action.
++Catalogue presence, credentials, HTTP success and an implemented adapter do
++not establish launch availability. Production acceptance, runtime readiness,
++exact launch-origin review, wallet handling, settlement and recovery remain
++independent fail-closed gates.
+ 
+-There are 37 lobby brands and 42 listed profiles. Production-accepted profiles,
+-launch-ready profiles and playable profiles remain zero. This release adds no
+-player, Play, wallet, transfer, settlement or recovery route and does not
+-enable any real-money game switch.
++## Other operational boundaries
+ 
+ Payment work remains paused. VPay, GSPAY and 1MPay code, credentials, callbacks,
+-activation flags, service plans and DNS are unchanged.
++activation flags, service plans and DNS are unchanged by v163. This candidate
++does not enable any real-money payment, payout or live-game switch.
++
++The source verification for v163 passed maintenance tests 12/12, release probes
++27/27, full regression 1357/1357 and database compatibility 3/3. TypeScript,
++lint and the Render build also passed.
+ 
+-Portal service: `srv-dbl0iv7f3r2c73848ei0`.
+-Gateway service: `srv-db6b7inlk1mc73ck6cmg`.
+ Workspace: `tea-dakfo2h594qs73du231g`.
+ Publication branch: `codex/v17-render-staging-20261104`.
+-Portal automatic deployment is off; gateway automatic deployment is on.
++Portal automatic deployment is off; the recorded gateway automatic deployment
++setting is on.
+diff --git a/docs/MASTER7_COBA8_FRONTEND_163.md b/docs/MASTER7_COBA8_FRONTEND_163.md
+new file mode 100644
+index 0000000..cbeefea
+--- /dev/null
++++ b/docs/MASTER7_COBA8_FRONTEND_163.md
+@@ -0,0 +1,33 @@
++# MASTER7 v163 COBA8 front-end registration
++
++Release: `17.0.0-selfbuilt.163-coba8-front-end-registered`
++
++## Member front end
++
++- COBA8 is registered as one distinct game-provider brand and one independent
++  `coba8_myr` profile in the member Game Lobby.
++- The lobby uses a neutral MASTER7-owned provider card derived from the existing
++  premium lobby artwork. It contains no third-party logo or copied supplier art.
++- Existing owner-curated 37-provider rankings migrate without changing their
++  order; COBA8 is appended once as the 38th provider.
++
++## Contract boundary
++
++The supplied merchant login and API token are credentials, not an API contract.
++The available environment could not retrieve official COBA8 documentation
++through the supplier's Cloudflare challenge. The following remain unverified:
++authentication and signature rules, base URLs, IP allowlists, catalogue, player,
++launch, wallet, transfer/query, report/settlement, callback, session closure,
++recovery, limits, errors and UAT acceptance.
++
++`lib/coba8-contract-readiness.ts` reports the exact missing documentation fields
++without reflecting any supplied credential value. A complete documentation
++manifest remains documentation-only and still cannot enable an adapter.
++
++## Safety state
++
++COBA8 remains `contract_missing` and `adapter_unimplemented` in operational
++terms. Catalogue, player, launch, Play, wallet, settlement and recovery are all
++false. The release contains no COBA8 network request, player creation, game
++launch or wallet movement, does not persist the supplied login or token, and
++changes no real-money or live-game switch.
+diff --git a/docs/MASTER7_OWNER_OPERATIONS_MANUAL_ZH.md b/docs/MASTER7_OWNER_OPERATIONS_MANUAL_ZH.md
+index 593c1d6..9b42521 100644
+--- a/docs/MASTER7_OWNER_OPERATIONS_MANUAL_ZH.md
++++ b/docs/MASTER7_OWNER_OPERATIONS_MANUAL_ZH.md
+@@ -1,6 +1,6 @@
+ # MASTER7 老板操作手册
+ 
+-版本日期：2026-11-07（MYT）
++版本日期：2026-11-10（MYT）
+ 适用范围：MASTER7 会员前台与 Owner／Staff 后台
+ 
+ 这份手册说明系统怎样操作、哪些资料由程序自动处理、哪些动作必须由老板或员工核实。页面上的实际状态与验收证据优先于本手册；任何显示为“等待连接”“仅预览”或“未验收”的项目，都不能当作已经可以派钱或营业。
+@@ -123,19 +123,19 @@
+ - 不确定结果不可自动重试转账；先查单，避免重复付款。
+ - AI、Stephanie 或 Bonus Hunter 都不能自动批准提款。
+ 
+-## 6. 37 家游戏平台大厅
++## 6. 38 家游戏平台大厅
+ 
+-- 前台大厅以 37 家平台卡片呈现，不一次展开厂家内部所有小游戏。
++- 前台大厅以 38 家平台卡片呈现，不一次展开厂家内部所有小游戏。
+ - 顾客按 `HOT`、`SLOT`、`LIVE`、`FISH`、`COCK` 或 `SPORT` 后，只显示该分类的平台。
+ - 每家平台保留厂家自己的游戏 ID；系统不会替厂家重新编造 ID。
+ - `platformLaunchReady=true` 表示已有启动、钱包协议及当前目录满足使用条件；`launchVerified`、`walletVerified`、`settlementVerified` 独立表示真实验收。
+ - “目录已有”不等于“顾客可玩”。
+ 
+-37 家厂家品牌入口全部保留；尚无匹配启动或钱包协议的平台显示具体缺口。不得把目录同步、HTTP 200 或后台品牌按钮当作成功启动与结算证据。
++38 家厂家品牌入口全部保留；尚无匹配启动或钱包协议的平台显示具体缺口。不得把目录同步、HTTP 200 或后台品牌按钮当作成功启动与结算证据。
+ 
+ ## 7. Game Ranking System
+ 
+-游戏排名是独立系统，只改变 37 家平台在大厅中的排列，不改变厂家游戏 ID、钱包、API 或连接状态。
++游戏排名是独立系统，只改变 38 家平台在大厅中的排列，不改变厂家游戏 ID、钱包、API 或连接状态。
+ 
+ ### 设置方法
+ 
+@@ -180,7 +180,7 @@
+ 
+ ### Cashback 与所有游戏
+ 
+-- VIP 范围覆盖大厅 37 家平台。
++- VIP 范围覆盖大厅 38 家平台。
+ - 比例按 Slot、Live、Fish、Sport、Fast Game 分类设置。
+ - 只有厂家提供并验收有效投注数据后，系统才可自动计算 Cashback 与 Turnover。
+ - 当前 `wagerSource/turnoverSource` 未连接时，页面必须显示等待连接。
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 06fe886..0b4607e 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -38,7 +38,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.162-duitnow-qr-fail-closed';
++export const RELEASE = '17.0.0-selfbuilt.163-coba8-front-end-registered';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+@@ -791,7 +791,7 @@ async function route(req:Request,c:Context){
+      ]);
+      const accountingReady=Number(accountingClose?.period_start)===expectedAccountingPeriod&&Number(accountingClose?.period_end)===expectedAccountingPeriod+86400&&Number(accountingClose?.closed_at)>=expectedAccountingPeriod+86400&&typeof accountingClose?.checksum==='string'&&accountingClose.checksum.length===64;
+      const gameLiveReady=gameAcceptance.liveGames,gameSettlementVerified=gameAcceptance.allGamesVerified,freeGameCount=Number(freeZoneRow?.n??0),whatsapp=whatsappCampaignStatus(whatsappCampaignSettings(c));
+-     return json({release:RELEASE,databaseReady:true,exportReady:true,rolesReady:true,backupReady:recovery.backupReady,restoreReady:recovery.restoreReady,otpConfigured:!!(c.anchorApiBaseUrl&&c.anchorUsername&&c.anchorPassword&&c.anchorSenderId&&c.otpHashSecret&&c.otpHashSecret.length>=32),counts:{...counts,free_game_overrides:freeGameCount},accounting:{expectedPeriodStart:expectedAccountingPeriod,lastClose:accountingClose??null},productionEntryVerification:{status:'not_verified',scope:'external_dns_tls_and_routing',officialOrigins:['https://www.master7.best','https://www.master7.site'],probeCommand:'pnpm run probe:entries',callbackDeliveryVerified:false,realPaymentVerified:false},items:[{id:'portal_www',label:'Customer primary domain · www.master7.best · external DNS/TLS verification required',status:'pending_verification'},{id:'backoffice_domain',label:'Owner and staff domain · www.master7.site · external DNS/TLS verification required',status:'pending_verification'},{id:'backoffice',label:'Staff application route · /admin · domain acceptance separate',status:'ready'},{id:'android_app',label:'MASTER7 Android APK · v17.0.52',status:'ready'},{id:'ios_app',label:'MASTER7 iPhone Safari Web App entry',status:'ready'},{id:'roles',label:'Admin / staff / member roles',status:'ready'},{id:'otp',label:'Malaysia registration SMS OTP',status:!!(c.anchorApiBaseUrl&&c.anchorUsername&&c.anchorPassword&&c.anchorSenderId&&c.otpHashSecret&&c.otpHashSecret.length>=32)?'ready':'pending_verification'},{id:'languages',label:'Chinese / English / Bahasa Melayu',status:'ready'},{id:'supplier_controls',label:'Supplier API capability, logos and records',status:'ready'},{id:'free_paid_zones',label:`Free / paid game zone controls and display ready · ${freeGameCount} free game(s) selected`,status:'ready'},{id:'orders',label:'Wallet ledger, company-bank deposit and withdrawal review workflows',status:'ready'},{id:'reports',label:'MYT settled-cashflow close snapshot (daily / month / half-year / year)',status:accountingReady?'ready':'pending_verification'},{id:'benefit_claims',label:'Admin-configured benefits and manual eligibility review ready · automatic wallet credit disabled',status:'ready'},{id:'turnover',label:'Benefit turnover preview available · automated wager source and withdrawal enforcement not connected',status:'pending_verification'},{id:'vip_engine',label:'Eight-tier VIP engine, editor and member display',status:'ready'},{id:'vip',label:vipState.configured?`Dedicated VIP business rules · ${vipState.activeTiers} tier(s) configured`:'Dedicated VIP business rules not configured · admin rates required',status:vipState.enabled?'ready':'pending_verification'},{id:'referral',label:'Admin referral ownership and deposit-basis commission preview',status:'ready'},{id:'commission_wallet',label:'Commission settlement, claiming and wallet credit',status:'pending_verification'},{id:'support',label:'Customer tickets and staff replies',status:'ready'},{id:'export',label:'Portal CSV export',status:'ready'},{id:'security',label:'Role protection and audit trail',status:'ready'},{id:'backup_engine',label:'RSA + AES-256-GCM independent backup generator',status:'ready'},{id:'encrypted_backup',label:'Latest encrypted independent backup evidence',status:recovery.backupReady?'ready':'pending_verification'},{id:'restore_engine',label:'Isolated recovery-rehearsal validator',status:'ready'},{id:'restore_rehearsal',label:'Latest isolated recovery rehearsal evidence',status:recovery.restoreReady?'ready':'pending_verification'},{id:'payment_connectors',label:'VPay / GSPAY+ / 1MPAY deposit connector controls',status:'ready'},{id:'payments',label:'VPay / GSPAY+ / 1MPAY real-payment settlement acceptance',status:'maintenance'},{id:'game_controls',label:'37-provider lobby and automatic API capability',status:'ready'},{id:'game_capability',label:'Provider game launch and wallet API capability',status:gameLiveReady?'ready':'maintenance'},{id:'games',label:'Provider game launch and wallet settlement acceptance',status:gameLiveReady&&gameSettlementVerified?'ready':'pending_verification'},{id:'whatsapp_module',label:'WhatsApp Business consent, queue, callback and opt-out controls',status:'ready'},{id:'whatsapp_marketing',label:'Meta-approved marketing template and sender · +601166336686',status:whatsapp.ready?'ready':'pending_verification'},{id:'ai_support',label:'Built-in customer reply assistant',status:support.providerReady?'ready':'pending_verification'}]});
++     return json({release:RELEASE,databaseReady:true,exportReady:true,rolesReady:true,backupReady:recovery.backupReady,restoreReady:recovery.restoreReady,otpConfigured:!!(c.anchorApiBaseUrl&&c.anchorUsername&&c.anchorPassword&&c.anchorSenderId&&c.otpHashSecret&&c.otpHashSecret.length>=32),counts:{...counts,free_game_overrides:freeGameCount},accounting:{expectedPeriodStart:expectedAccountingPeriod,lastClose:accountingClose??null},productionEntryVerification:{status:'not_verified',scope:'external_dns_tls_and_routing',officialOrigins:['https://www.master7.best','https://www.master7.site'],probeCommand:'pnpm run probe:entries',callbackDeliveryVerified:false,realPaymentVerified:false},items:[{id:'portal_www',label:'Customer primary domain · www.master7.best · external DNS/TLS verification required',status:'pending_verification'},{id:'backoffice_domain',label:'Owner and staff domain · www.master7.site · external DNS/TLS verification required',status:'pending_verification'},{id:'backoffice',label:'Staff application route · /admin · domain acceptance separate',status:'ready'},{id:'android_app',label:'MASTER7 Android APK · v17.0.52',status:'ready'},{id:'ios_app',label:'MASTER7 iPhone Safari Web App entry',status:'ready'},{id:'roles',label:'Admin / staff / member roles',status:'ready'},{id:'otp',label:'Malaysia registration SMS OTP',status:!!(c.anchorApiBaseUrl&&c.anchorUsername&&c.anchorPassword&&c.anchorSenderId&&c.otpHashSecret&&c.otpHashSecret.length>=32)?'ready':'pending_verification'},{id:'languages',label:'Chinese / English / Bahasa Melayu',status:'ready'},{id:'supplier_controls',label:'Supplier API capability, logos and records',status:'ready'},{id:'free_paid_zones',label:`Free / paid game zone controls and display ready · ${freeGameCount} free game(s) selected`,status:'ready'},{id:'orders',label:'Wallet ledger, company-bank deposit and withdrawal review workflows',status:'ready'},{id:'reports',label:'MYT settled-cashflow close snapshot (daily / month / half-year / year)',status:accountingReady?'ready':'pending_verification'},{id:'benefit_claims',label:'Admin-configured benefits and manual eligibility review ready · automatic wallet credit disabled',status:'ready'},{id:'turnover',label:'Benefit turnover preview available · automated wager source and withdrawal enforcement not connected',status:'pending_verification'},{id:'vip_engine',label:'Eight-tier VIP engine, editor and member display',status:'ready'},{id:'vip',label:vipState.configured?`Dedicated VIP business rules · ${vipState.activeTiers} tier(s) configured`:'Dedicated VIP business rules not configured · admin rates required',status:vipState.enabled?'ready':'pending_verification'},{id:'referral',label:'Admin referral ownership and deposit-basis commission preview',status:'ready'},{id:'commission_wallet',label:'Commission settlement, claiming and wallet credit',status:'pending_verification'},{id:'support',label:'Customer tickets and staff replies',status:'ready'},{id:'export',label:'Portal CSV export',status:'ready'},{id:'security',label:'Role protection and audit trail',status:'ready'},{id:'backup_engine',label:'RSA + AES-256-GCM independent backup generator',status:'ready'},{id:'encrypted_backup',label:'Latest encrypted independent backup evidence',status:recovery.backupReady?'ready':'pending_verification'},{id:'restore_engine',label:'Isolated recovery-rehearsal validator',status:'ready'},{id:'restore_rehearsal',label:'Latest isolated recovery rehearsal evidence',status:recovery.restoreReady?'ready':'pending_verification'},{id:'payment_connectors',label:'VPay / GSPAY+ / 1MPAY deposit connector controls',status:'ready'},{id:'payments',label:'VPay / GSPAY+ / 1MPAY real-payment settlement acceptance',status:'maintenance'},{id:'game_controls',label:'38-provider lobby and automatic API capability',status:'ready'},{id:'game_capability',label:'Provider game launch and wallet API capability',status:gameLiveReady?'ready':'maintenance'},{id:'games',label:'Provider game launch and wallet settlement acceptance',status:gameLiveReady&&gameSettlementVerified?'ready':'pending_verification'},{id:'whatsapp_module',label:'WhatsApp Business consent, queue, callback and opt-out controls',status:'ready'},{id:'whatsapp_marketing',label:'Meta-approved marketing template and sender · +601166336686',status:whatsapp.ready?'ready':'pending_verification'},{id:'ai_support',label:'Built-in customer reply assistant',status:support.providerReady?'ready':'pending_verification'}]});
+    }
+ 	   if(p==='/api/admin/marketing'){
+ 	    role(u,['owner']);const url=new URL(req.url),format=url.searchParams.get('format'),campaignId=url.searchParams.get('campaign')??'';
+diff --git a/lib/coba8-contract-readiness.ts b/lib/coba8-contract-readiness.ts
+new file mode 100644
+index 0000000..d7e01fd
+--- /dev/null
++++ b/lib/coba8-contract-readiness.ts
+@@ -0,0 +1,165 @@
++export const COBA8_PROFILE_ID = 'coba8_myr' as const;
++
++/**
++ * Field names describe the evidence needed from the supplier. They never hold
++ * credential values and are safe to expose in an internal readiness report.
++ */
++export const COBA8_REQUIRED_CONTRACT_FIELDS = Object.freeze([
++  'document.document_id',
++  'document.api_version',
++  'document.environment',
++  'document.merchant_scope',
++  'document.base_urls',
++  'document.sha256',
++  'authentication.scheme',
++  'authentication.credential_header_names',
++  'authentication.signature_algorithm',
++  'authentication.canonical_request_rule',
++  'authentication.signed_fields',
++  'authentication.timestamp_rule',
++  'authentication.replay_protection_rule',
++  'authentication.official_test_vectors',
++  'network.outbound_ip_allowlist_rule',
++  'network.callback_source_ips',
++  'catalogue.endpoint',
++  'catalogue.method',
++  'catalogue.required_fields',
++  'catalogue.game_id_field',
++  'catalogue.category_field',
++  'catalogue.availability_field',
++  'catalogue.pagination_rule',
++  'player.create.endpoint',
++  'player.create.method',
++  'player.create.required_fields',
++  'player.create.idempotency_rule',
++  'player.lookup.endpoint',
++  'player.lookup.method',
++  'player.namespace_rule',
++  'launch.endpoint',
++  'launch.method',
++  'launch.required_fields',
++  'launch.game_id_field',
++  'launch.url_field',
++  'launch.session_id_field',
++  'launch.url_ttl_rule',
++  'launch.return_url_rule',
++  'launch.delivery_modes',
++  'wallet.mode',
++  'wallet.balance.endpoint',
++  'wallet.balance.method',
++  'wallet.balance.amount_field',
++  'wallet.balance.currency_field',
++  'wallet.deposit.endpoint',
++  'wallet.deposit.method',
++  'wallet.withdraw.endpoint',
++  'wallet.withdraw.method',
++  'wallet.transfer.required_fields',
++  'wallet.transfer.idempotency_field',
++  'wallet.transfer.transaction_id_field',
++  'wallet.transfer.duplicate_rule',
++  'wallet.transfer_query.endpoint',
++  'wallet.transfer_query.method',
++  'wallet.transfer_query.binding_fields',
++  'wallet.transfer_query.pending_statuses',
++  'wallet.transfer_query.terminal_statuses',
++  'reports.endpoint',
++  'reports.method',
++  'reports.required_fields',
++  'reports.bet_id_field',
++  'reports.round_id_field',
++  'reports.player_id_field',
++  'reports.amount_fields',
++  'reports.currency_field',
++  'reports.settled_at_field',
++  'reports.pagination_rule',
++  'reports.finality_rule',
++  'callbacks.endpoint',
++  'callbacks.signature_rule',
++  'callbacks.source_ip_rule',
++  'callbacks.deduplication_field',
++  'callbacks.retry_policy',
++  'callbacks.ack_schema',
++  'session.exit.endpoint',
++  'session.exit.method',
++  'session.kick.endpoint',
++  'session.kick.method',
++  'session.offline_status.endpoint',
++  'session.unfinished_rounds.endpoint',
++  'session.issued_token_invalidation_rule',
++  'session.late_result_finality_rule',
++  'settlement.reversal_rule',
++  'recovery.timeout_rule',
++  'recovery.retry_policy',
++  'recovery.polling_policy',
++  'maintenance.status_endpoint',
++  'maintenance.behavior',
++  'limits.request_rate_rule',
++  'limits.amount_bounds_rule',
++  'errors.success_codes',
++  'errors.pending_codes',
++  'errors.terminal_failure_codes',
++  'acceptance.uat_account_scope',
++  'acceptance.uat_test_cases',
++  'profile.profile_id',
++  'profile.provider_currency',
++  'profile.settlement_currency',
++  'profile.amount_unit',
++  'profile.amount_precision',
++  'profile.conversion_ratio',
++] as const);
++
++function readPath(input: unknown, path: string): unknown {
++  let current: unknown = input;
++  for (const segment of path.split('.')) {
++    if (!current || typeof current !== 'object' || Array.isArray(current)) return undefined;
++    current = (current as Record<string, unknown>)[segment];
++  }
++  return current;
++}
++
++function documented(value: unknown): boolean {
++  if (typeof value === 'string') return value.trim().length > 0;
++  if (Array.isArray(value)) return value.length > 0 && value.every(item => typeof item === 'string' && item.trim().length > 0);
++  return Number.isSafeInteger(value) && Number(value) >= 0;
++}
++
++export type Coba8ContractDiagnostic = Readonly<{
++  profileId: typeof COBA8_PROFILE_ID;
++  manifestComplete: boolean;
++  missingContractFields: readonly string[];
++  documentationOnly: true;
++  credentialsPresent: boolean;
++  adapterImplemented: false;
++  catalogueAllowed: false;
++  launchAllowed: false;
++  walletAllowed: false;
++  settlementAllowed: false;
++  recoveryAllowed: false;
++  playAllowed: false;
++}>;
++
++/**
++ * This validator reports documentation gaps only. Credential-shaped input is
++ * intentionally ignored: a login, password or API token is not an API contract
++ * and can never enable a catalogue, adapter, wallet or Play button.
++ */
++export function inspectCoba8ContractManifest(manifest: unknown = {}): Coba8ContractDiagnostic {
++  const missingContractFields = COBA8_REQUIRED_CONTRACT_FIELDS.filter(path => !documented(readPath(manifest, path)));
++  const record = manifest && typeof manifest === 'object' && !Array.isArray(manifest) ? manifest as Record<string, unknown> : {};
++  const credentialsPresent = ['apiToken', 'api_key', 'token', 'username', 'password', 'merchantId']
++    .some(key => typeof record[key] === 'string' && String(record[key]).trim().length > 0);
++  return Object.freeze({
++    profileId: COBA8_PROFILE_ID,
++    manifestComplete: missingContractFields.length === 0,
++    missingContractFields: Object.freeze([...missingContractFields]),
++    documentationOnly: true,
++    credentialsPresent,
++    adapterImplemented: false,
++    catalogueAllowed: false,
++    launchAllowed: false,
++    walletAllowed: false,
++    settlementAllowed: false,
++    recoveryAllowed: false,
++    playAllowed: false,
++  });
++}
+diff --git a/lib/game-catalogue.ts b/lib/game-catalogue.ts
+index 75bd440..e1faaa1 100644
+--- a/lib/game-catalogue.ts
++++ b/lib/game-catalogue.ts
+@@ -50,7 +50,7 @@ const epicProfileSources:Readonly<Record<string,Source>>=Object.freeze({
+ // launch contract are verified. Never reuse ATG's account or cached catalogue.
+ const directSources:readonly Source[]=[{id:'rectangle',name:'RECTANGLE',path:'',shape:'normalized',direct:true},{id:'godeezone',name:'GodeeZone',path:'',shape:'normalized',direct:true}];
+ // Per-game owner controls use the same fixed catalogue source inventory. Keep
+-// this list separate from the 37 supplier artwork buttons: accepting an
++// this list separate from the 38 supplier artwork buttons: accepting an
+ // arbitrary supplier id here would allow records that can never appear in a
+ // trusted game catalogue.
+ export const gameControlSourceIds:readonly string[]=Object.freeze([...gameSources,...directSources].map(source=>source.id));
+diff --git a/lib/game-provider-acceptance.ts b/lib/game-provider-acceptance.ts
+index 1271917..c0493dc 100644
+--- a/lib/game-provider-acceptance.ts
++++ b/lib/game-provider-acceptance.ts
+@@ -1,5 +1,6 @@
+ import {randomUUID} from 'node:crypto';
+ import {GAME_PROVIDER_PROFILES,getGameProviderProfile} from './game-provider-registry.ts';
++import {COBA8_PROFILE_ID,inspectCoba8ContractManifest} from './coba8-contract-readiness.ts';
+ import {inspectKissH5ContractManifest,KISS_H5_PROFILE_IDS} from './kissh5-contract-readiness.ts';
+ 
+ export const GAME_PROVIDER_ACCEPTANCE_CAPABILITIES = Object.freeze([
+@@ -63,13 +64,19 @@ function profileStatuses(rows:CurrentRow[],environment:GameProviderAcceptanceEnv
+  });
+ }
+ 
++function contractDiagnostic(profileId:string){
++ if((KISS_H5_PROFILE_IDS as readonly string[]).includes(profileId))return inspectKissH5ContractManifest(profileId);
++ if(profileId===COBA8_PROFILE_ID)return inspectCoba8ContractManifest();
++ return null;
++}
++
+ export async function getGameProviderAcceptanceReadiness(db:D1Database,runtimeReadyProfileIds:readonly string[]=[]){
+  const rows=await currentRows(db,'production'),profiles=profileStatuses(rows,'production'),required=profiles.filter(profile=>profile.listedInLobby),runtimeReady=new Set(runtimeReadyProfileIds);
+- const kissProfiles=new Set<string>(KISS_H5_PROFILE_IDS),profileReadiness=required.map(profile=>({profileId:profile.profileId,providerId:profile.providerId,
++ const profileReadiness=required.map(profile=>({profileId:profile.profileId,providerId:profile.providerId,
+   evidenceAccepted:profile.accepted,adapterImplemented:profile.implemented,runtimeReady:runtimeReady.has(profile.profileId),
+   effectiveReady:profile.accepted&&profile.implemented&&runtimeReady.has(profile.profileId),
+   capabilities:Object.fromEntries(GAME_PROVIDER_ACCEPTANCE_CAPABILITIES.map(capability=>[capability,profile.capabilities[capability].passed===true])),
+-  contractDiagnostic:kissProfiles.has(profile.profileId)?inspectKissH5ContractManifest(profile.profileId):null,
++  contractDiagnostic:contractDiagnostic(profile.profileId),
+  }));
+  const acceptedProfiles=profileReadiness.filter(profile=>profile.evidenceAccepted),liveProfiles=profileReadiness.filter(profile=>profile.effectiveReady);
+  const allAcceptanceEvidencePassed=required.length>0&&acceptedProfiles.length===required.length;
+@@ -82,7 +89,7 @@ export async function getGameProviderAcceptanceReadiness(db:D1Database,runtimeRe
+    profileId:profile.profileId,
+    missingEvidence:GAME_PROVIDER_ACCEPTANCE_CAPABILITIES.filter(capability=>!profile.capabilities[capability].passed),
+    adapterImplemented:profile.implemented,runtimeReady:runtimeReady.has(profile.profileId),
+-   contractDiagnostic:kissProfiles.has(profile.profileId)?inspectKissH5ContractManifest(profile.profileId):null,
++   contractDiagnostic:contractDiagnostic(profile.profileId),
+   })),
+  };
+ }
+diff --git a/lib/game-ranking.ts b/lib/game-ranking.ts
+index 0a550cd..419cbf4 100644
+--- a/lib/game-ranking.ts
++++ b/lib/game-ranking.ts
+@@ -3,8 +3,8 @@ export class GameRankingError extends Error{
+  constructor(status:number,message:string){super(message);this.status=status;}
+ }
+ 
+-export const GAME_PROVIDER_IDS=['megah5','jili','918kissh5','gameplay','lionking','suncity','pgsoft','gfg','sagaming','ps9','dragoonsoft','jdb','bg','allbet','quickspin','astar','metagaming','fuma','yl','funky','gamitech','spadegaming','turbo','ct855','pragmaticplay','joker','cg','atg','rectangle','m8bet','awc','evo888h5','cosmoplay','geminiupdown','epicwin','venus','clotplay'] as const;
+-export const GAME_PROVIDER_NAMES:Record<string,string>={megah5:'MegaH5',jili:'JILI','918kissh5':'918KISS H5',gameplay:'GAMEPLAY INTERACTIVE',lionking:'LION KING',suncity:'SUNCITY',pgsoft:'PGSOFT',gfg:'GFG / G4',sagaming:'SA GAMING',ps9:'PS9',dragoonsoft:'DRAGOONSOFT',jdb:'JDB',bg:'BG',allbet:'ALLBET',quickspin:'QUICKSPIN',astar:'ASTAR',metagaming:'META GAMING',fuma:'FUMA',yl:'YL',funky:'FUNKY',gamitech:'GAMITECH',spadegaming:'SPADE GAMING',turbo:'TURBO',ct855:'CT855',pragmaticplay:'PRAGMATIC PLAY',joker:'JOKER',cg:'CG',atg:'ATG',rectangle:'RECTANGLE',m8bet:'M8BET',awc:'AWC',evo888h5:'EVO888H5',cosmoplay:'COSMOPLAY',geminiupdown:'GEMINI UPDOWN',epicwin:'EPICWIN',venus:'VENUS GAMING',clotplay:'CLOTPLAY'};
++export const GAME_PROVIDER_IDS=['megah5','jili','918kissh5','gameplay','lionking','suncity','pgsoft','gfg','sagaming','ps9','dragoonsoft','jdb','bg','allbet','quickspin','astar','metagaming','fuma','yl','funky','gamitech','spadegaming','turbo','ct855','pragmaticplay','joker','cg','atg','rectangle','m8bet','awc','evo888h5','cosmoplay','geminiupdown','epicwin','venus','clotplay','coba8'] as const;
++export const GAME_PROVIDER_NAMES:Record<string,string>={megah5:'MegaH5',jili:'JILI','918kissh5':'918KISS H5',gameplay:'GAMEPLAY INTERACTIVE',lionking:'LION KING',suncity:'SUNCITY',pgsoft:'PGSOFT',gfg:'GFG / G4',sagaming:'SA GAMING',ps9:'PS9',dragoonsoft:'DRAGOONSOFT',jdb:'JDB',bg:'BG',allbet:'ALLBET',quickspin:'QUICKSPIN',astar:'ASTAR',metagaming:'META GAMING',fuma:'FUMA',yl:'YL',funky:'FUNKY',gamitech:'GAMITECH',spadegaming:'SPADE GAMING',turbo:'TURBO',ct855:'CT855',pragmaticplay:'PRAGMATIC PLAY',joker:'JOKER',cg:'CG',atg:'ATG',rectangle:'RECTANGLE',m8bet:'M8BET',awc:'AWC',evo888h5:'EVO888H5',cosmoplay:'COSMOPLAY',geminiupdown:'GEMINI UPDOWN',epicwin:'EPICWIN',venus:'VENUS GAMING',clotplay:'CLOTPLAY',coba8:'COBA8'};
+ export const GAME_RANKING_CATEGORIES=['HOT','SLOT','LIVE','FISH','COCK','SPORT'] as const;
+ export type GameRankingCategory=typeof GAME_RANKING_CATEGORIES[number];
+ export const GAME_PROVIDER_CATEGORY_IDS:Record<GameRankingCategory,readonly string[]>={
+@@ -23,6 +23,16 @@ const LEGACY_GAME_PROVIDER_CATEGORY_IDS:Record<GameRankingCategory,readonly stri
+  COCK:GAME_PROVIDER_CATEGORY_IDS.COCK,
+  SPORT:GAME_PROVIDER_CATEGORY_IDS.SPORT,
+ };
++// A stored owner ranking from v162 contains the 37 pre-COBA8 brands. Keep its
++// order and append the new, fail-closed front-end registration exactly once.
++const PREVIOUS_GAME_PROVIDER_CATEGORY_IDS:Record<GameRankingCategory,readonly string[]>={
++ HOT:GAME_PROVIDER_IDS.filter(id=>id!=='coba8'),
++ SLOT:GAME_PROVIDER_CATEGORY_IDS.SLOT,
++ LIVE:GAME_PROVIDER_CATEGORY_IDS.LIVE,
++ FISH:GAME_PROVIDER_CATEGORY_IDS.FISH,
++ COCK:GAME_PROVIDER_CATEGORY_IDS.COCK,
++ SPORT:GAME_PROVIDER_CATEGORY_IDS.SPORT,
++};
+ 
+ export type GameRanking={version:1;mode:'owner_curated';categories:Record<GameRankingCategory,string[]>};
+ type StoredGameRanking=GameRanking&{updatedAt:number;updatedBy:string};
+@@ -40,8 +50,10 @@ function validateOrder(value:unknown,category:GameRankingCategory){
+ function loadStoredOrder(value:unknown,category:GameRankingCategory){
+  try{return validateOrder(value,category);}catch(error){
+   if(!Array.isArray(value)||value.some(item=>typeof item!=='string'))throw error;
+-  const received=value as string[],legacy=LEGACY_GAME_PROVIDER_CATEGORY_IDS[category],legacySet=new Set(legacy);
+-  if(received.length!==legacy.length||new Set(received).size!==received.length||received.some(id=>!legacySet.has(id)))throw error;
++  const received=value as string[],candidates=[PREVIOUS_GAME_PROVIDER_CATEGORY_IDS[category],LEGACY_GAME_PROVIDER_CATEGORY_IDS[category]],matched=candidates.find(candidate=>{
++   const expected=new Set(candidate);return received.length===candidate.length&&new Set(received).size===received.length&&received.every(id=>expected.has(id));
++  });
++  if(!matched)throw error;
+   const receivedSet=new Set(received);return [...received,...GAME_PROVIDER_CATEGORY_IDS[category].filter(id=>!receivedSet.has(id))];
+  }
+ }
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index b356360..364f57b 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.162-duitnow-qr-fail-closed' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.163-coba8-front-end-registered' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/lib/vip.ts b/lib/vip.ts
+index 78abff1..ee8275a 100644
+--- a/lib/vip.ts
++++ b/lib/vip.ts
+@@ -152,7 +152,7 @@ export function vipCommissionCapabilities(settings:ReferralSettings={}){
+  };
+ }
+ 
+-function capabilities(){return {gameScope:'all_37_platforms',cashbackCategories:['slot','live','fish','sport','fastGame'],providerExclusionsSupported:false,creditedDepositTiering:true,turnoverTiering:false,wagerSource:'not_connected',turnoverSource:'not_connected',rewardCalculation:'configuration_only',...AUTOMATION};}
++function capabilities(){return {gameScope:'all_38_platforms',cashbackCategories:['slot','live','fish','sport','fastGame'],providerExclusionsSupported:false,creditedDepositTiering:true,turnoverTiering:false,wagerSource:'not_connected',turnoverSource:'not_connected',rewardCalculation:'configuration_only',...AUTOMATION};}
+ function baseResponse(loaded:Awaited<ReturnType<typeof loadVipProgram>>,referral:ReferralSettings){const commissions=vipCommissionCapabilities(referral);return {configured:loaded.configured,program:loaded.program,member:null,capabilities:capabilities(),commissionCapabilities:commissions,referral:{depositCommission:commissions.depositCommission},turnoverSource:'not_connected',...AUTOMATION};}
+ export async function getAdminVip(db:D1Database,referral:ReferralSettings={}){const loaded=await loadVipProgram(db);return {...baseResponse(loaded,referral),updatedAt:loaded.updatedAt,updatedBy:loaded.updatedBy,storage:SETTING_ID};}
+ 
+diff --git a/package.json b/package.json
+index 94aa441..014a726 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.162-duitnow-qr-fail-closed node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.162-duitnow-qr-fail-closed node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.163-coba8-front-end-registered node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.163-coba8-front-end-registered node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.162-duitnow-qr-fail-closed node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.163-coba8-front-end-registered node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/assets/app.js b/public/assets/app.js
+index e6a3138..0f4eada 100644
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -4,15 +4,15 @@ const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login
+ const translations = {
+  zh: {
+   requestTimeout:"连接超时，操作结果未确认。请检查连接和记录后再试。",networkError:"无法连接服务。请检查网络后重试。",serviceUnavailable:"服务暂时不可用。请稍后重试。",otpNotConfigured:"短信 OTP 尚未在服务器配置。请联系平台负责人。",
+-  demoWarning:"MASTER7 · 热门游戏、专属优惠与会员服务",navHome:"首页",lobbyEyebrow:"游戏大厅",gamesLoading:"正在读取游戏平台…",catalogSummary:"大厅共有 {count} 家游戏平台。选择类别或厂家查看独立入口。",catalogUnavailable:"目前没有可展示的游戏平台入口。",providerAvailable:"已开放",providerBlocked:"维护中",providerUnavailable:"暂不可用",providerEmpty:"即将推出",providerNotConfigured:"即将推出",uatNotPlayable:"即将开放",maintenanceGame:"维护中",gameActivePreview:"已开放",navLobby:"游戏大厅",navDeposit:"充值",navWithdraw:"提款",withdrawTitle:"提款",withdrawIntro:"选择马来西亚银行及出款公司，再提交提款申请。",depositTitle:"充值",depositIntro:"充值选项及记录集中在此页面。",navSupport:"客服",navAdmin:"后台",language:"语言",login:"登录",logout:"退出",eyebrow:"MASTER7 · PREMIUM EXPERIENCE",heroTitle:"精彩游戏",heroAccent:"尽在 MASTER7。",heroDescription:"热门老虎机、真人、捕鱼与体育专区，尊享会员优惠与服务。",explore:"立即探索游戏",viewStatus:"查看平台状态",previewLabel:"尊贵会员平台",featureLang:"三种语言",featureLangDesc:"中文、英文、马来文切换",featureOtp:"两步验证",featureOtpDesc:"MASTER7 ID、马来西亚手机号与短信 OTP",featureStaff:"员工权限",featureStaffDesc:"管理员、员工和会员分级",featureAudit:"操作记录",featureAuditDesc:"审批和更改可追踪",announcements:"系统公告",loading:"读取中…",lobbyTitle:"游戏大厅",lobbyNotice:"37 家游戏平台按类别独立展示；内部游戏由各厂家平台提供。",searchPlaceholder:"搜索游戏平台名称",allCategories:"全部类别",slots:"老虎机",arcade:"街机",tableGames:"桌面游戏",live:"真人类",sports:"体育类",supportTitle:"客户服务中心",supportIntro:"Stephanie AI 客服会先回复，后台人员可在同一工单继续处理。",newTicket:"创建工单",subject:"主题",message:"内容",submitTicket:"提交客服请求",ticketLogin:"请先登录。",myTickets:"工单记录",loginFirst:"请先登录。",adminTitle:"运营管理后台",adminIntro:"管理会员、充值、提款、游戏平台、福利、广告与客服。",staffOnly:"员工权限保护",publishAnnouncement:"发布公告",publish:"发布",providerManager:"3 个免费赞助厂家位",providerManagerHint:"管理三个免费赞助位的图片；37 家游戏平台的封面与连接记录在下方查看。",memberApproval:"会员审批",auditTrail:"操作审计",adminDenied:"需要员工或管理员账号登录后才可进入。",footerDisclaimer:"会员可在一个平台查看游戏、钱包、福利、充值、提款与客服记录。",sandbox:"MASTER7 · SECURE MEMBER PORTAL",signInTitle:"会员登录",signIn:"登录",register:"注册",username:"用户名",password:"密码（最少6位）",otp:"短信验证",otpNote:"新会员注册需要短信 OTP，并在管理员批准后启用。",demoOnly:"平台入口待接通",hidden:"已隐藏",visible:"可展示",loginRequired:"请先登录。",success:"操作成功",error:"操作未完成",registerSaved:"账号已注册，等待管理员批准。",neverShare:"不要将 OTP 密钥发送给任何人。",authError:"登录失败。请检查账号、手机号、密码或审批状态。",role_owner:"管理员",role_staff:"员工",role_member:"会员",users:"账号总数",pending:"待审批",openTickets:"待处理工单",visibleProviders:"展示项目",demoFunds:"真实资金数据未连接",approve:"批准",approved:"已批准",open:"处理中",closed:"已关闭",closeTicket:"关闭",reopenTicket:"重开",itemSearchNoResults:"没有匹配的游戏平台。",noTickets:"暂无工单。",noAnnouncements:"暂无公告。",credentials:"通过会员登录安全访问本平台。",statusTitle:"V17 连接检查",statusMessage:"数据库及已配置的连接会按当前状态实时检查。",badResponse:"服务异常",noUsers:"暂无注册会员。",notReady:"未接通",save:"保存",identity:"MASTER7 ID 与手机号码"
++  demoWarning:"MASTER7 · 热门游戏、专属优惠与会员服务",navHome:"首页",lobbyEyebrow:"游戏大厅",gamesLoading:"正在读取游戏平台…",catalogSummary:"大厅共有 {count} 家游戏平台。选择类别或厂家查看独立入口。",catalogUnavailable:"目前没有可展示的游戏平台入口。",providerAvailable:"已开放",providerBlocked:"维护中",providerUnavailable:"暂不可用",providerEmpty:"即将推出",providerNotConfigured:"即将推出",uatNotPlayable:"即将开放",maintenanceGame:"维护中",gameActivePreview:"已开放",navLobby:"游戏大厅",navDeposit:"充值",navWithdraw:"提款",withdrawTitle:"提款",withdrawIntro:"选择马来西亚银行及出款公司，再提交提款申请。",depositTitle:"充值",depositIntro:"充值选项及记录集中在此页面。",navSupport:"客服",navAdmin:"后台",language:"语言",login:"登录",logout:"退出",eyebrow:"MASTER7 · PREMIUM EXPERIENCE",heroTitle:"精彩游戏",heroAccent:"尽在 MASTER7。",heroDescription:"热门老虎机、真人、捕鱼与体育专区，尊享会员优惠与服务。",explore:"立即探索游戏",viewStatus:"查看平台状态",previewLabel:"尊贵会员平台",featureLang:"三种语言",featureLangDesc:"中文、英文、马来文切换",featureOtp:"两步验证",featureOtpDesc:"MASTER7 ID、马来西亚手机号与短信 OTP",featureStaff:"员工权限",featureStaffDesc:"管理员、员工和会员分级",featureAudit:"操作记录",featureAuditDesc:"审批和更改可追踪",announcements:"系统公告",loading:"读取中…",lobbyTitle:"游戏大厅",lobbyNotice:"38 家游戏平台按类别独立展示；内部游戏由各厂家平台提供。",searchPlaceholder:"搜索游戏平台名称",allCategories:"全部类别",slots:"老虎机",arcade:"街机",tableGames:"桌面游戏",live:"真人类",sports:"体育类",supportTitle:"客户服务中心",supportIntro:"Stephanie AI 客服会先回复，后台人员可在同一工单继续处理。",newTicket:"创建工单",subject:"主题",message:"内容",submitTicket:"提交客服请求",ticketLogin:"请先登录。",myTickets:"工单记录",loginFirst:"请先登录。",adminTitle:"运营管理后台",adminIntro:"管理会员、充值、提款、游戏平台、福利、广告与客服。",staffOnly:"员工权限保护",publishAnnouncement:"发布公告",publish:"发布",providerManager:"3 个免费赞助厂家位",providerManagerHint:"管理三个免费赞助位的图片；38 家游戏平台的封面与连接记录在下方查看。",memberApproval:"会员审批",auditTrail:"操作审计",adminDenied:"需要员工或管理员账号登录后才可进入。",footerDisclaimer:"会员可在一个平台查看游戏、钱包、福利、充值、提款与客服记录。",sandbox:"MASTER7 · SECURE MEMBER PORTAL",signInTitle:"会员登录",signIn:"登录",register:"注册",username:"用户名",password:"密码（最少6位）",otp:"短信验证",otpNote:"新会员注册需要短信 OTP，并在管理员批准后启用。",demoOnly:"平台入口待接通",hidden:"已隐藏",visible:"可展示",loginRequired:"请先登录。",success:"操作成功",error:"操作未完成",registerSaved:"账号已注册，等待管理员批准。",neverShare:"不要将 OTP 密钥发送给任何人。",authError:"登录失败。请检查账号、手机号、密码或审批状态。",role_owner:"管理员",role_staff:"员工",role_member:"会员",users:"账号总数",pending:"待审批",openTickets:"待处理工单",visibleProviders:"展示项目",demoFunds:"真实资金数据未连接",approve:"批准",approved:"已批准",open:"处理中",closed:"已关闭",closeTicket:"关闭",reopenTicket:"重开",itemSearchNoResults:"没有匹配的游戏平台。",noTickets:"暂无工单。",noAnnouncements:"暂无公告。",credentials:"通过会员登录安全访问本平台。",statusTitle:"V17 连接检查",statusMessage:"数据库及已配置的连接会按当前状态实时检查。",badResponse:"服务异常",noUsers:"暂无注册会员。",notReady:"未接通",save:"保存",identity:"MASTER7 ID 与手机号码"
+  },
+  en: {
+   requestTimeout:"Request timed out; the outcome is unconfirmed. Check your connection and records before retrying.",networkError:"Cannot reach the service. Check your connection and retry.",serviceUnavailable:"Service temporarily unavailable. Please try again later.",otpNotConfigured:"SMS OTP is not configured on the server. Contact the platform owner.",
+-  demoWarning:"MASTER7 · Premium games, member rewards and service",navHome:"Home",lobbyEyebrow:"GAME LOBBY",gamesLoading:"Loading game platforms…",catalogSummary:"{count} game platforms are listed in the lobby. Choose a category or provider entry.",catalogUnavailable:"No game-platform entry is currently available.",providerAvailable:"Available",providerBlocked:"Maintenance",providerUnavailable:"Temporarily unavailable",providerEmpty:"Coming soon",providerNotConfigured:"Coming soon",uatNotPlayable:"Coming soon",maintenanceGame:"Maintenance",gameActivePreview:"Active",navLobby:"Game lobby",navDeposit:"Deposit",navWithdraw:"Withdraw",withdrawTitle:"Withdraw",withdrawIntro:"Choose a Malaysian bank and an available payout company, then submit your withdrawal request.",depositTitle:"Deposit",depositIntro:"Payment options and deposit records are collected on this page.",navSupport:"Support",navAdmin:"Admin",language:"Language",login:"Sign in",logout:"Log out",eyebrow:"MASTER7 · PREMIUM EXPERIENCE",heroTitle:"Premium games",heroAccent:"One MASTER7 experience.",heroDescription:"Explore slots, live casino, fishing and sports with member rewards and service in one place.",explore:"Explore games",viewStatus:"Platform status",previewLabel:"Premium member platform",featureLang:"Three languages",featureLangDesc:"Chinese, English and Malay",featureOtp:"Two-step login",featureOtpDesc:"MASTER7 ID, Malaysian mobile and SMS OTP",featureStaff:"Staff permissions",featureStaffDesc:"Admin, staff and member roles",featureAudit:"Audit history",featureAuditDesc:"Traceable approvals and changes",announcements:"System notices",loading:"Loading…",lobbyTitle:"Game lobby",lobbyNotice:"Browse 37 independent provider platforms by category; internal games remain within each provider platform.",searchPlaceholder:"Search game platform",allCategories:"All categories",slots:"Slots",arcade:"Arcade",tableGames:"Table",live:"Live",sports:"Sports",supportTitle:"Support center",supportIntro:"Stephanie AI support replies first; backoffice staff can continue in the same ticket.",newTicket:"New ticket",subject:"Subject",message:"Message",submitTicket:"Send request",ticketLogin:"Sign in to submit a support ticket.",myTickets:"Ticket history",loginFirst:"Please sign in.",adminTitle:"Operations backoffice",adminIntro:"Manage members, deposits, withdrawals, game platforms, benefits, advertising and support.",staffOnly:"Staff access only",publishAnnouncement:"Publish announcement",publish:"Publish",providerManager:"Three free sponsored provider slots",providerManagerHint:"Manage artwork for the three free sponsored slots. View all 37 platform covers and connection records below.",memberApproval:"Member approvals",auditTrail:"Audit log",adminDenied:"Sign in with an administrator or staff account.",footerDisclaimer:"Games, wallet, benefits, deposits, withdrawals and support are available from one member platform.",sandbox:"MASTER7 · SECURE MEMBER PORTAL",signInTitle:"Member sign-in",signIn:"Sign in",register:"Register",username:"Username",password:"Password (min 6 characters)",otp:"SMS verification",otpNote:"New member registration requires SMS verification and administrator approval.",demoOnly:"Platform entry pending",hidden:"Hidden",visible:"Visible",loginRequired:"Please sign in first.",success:"Saved",error:"Action not completed",registerSaved:"Account registered, pending administrator approval.",neverShare:"Never share the OTP secret.",authError:"Sign-in failed. Check ID, mobile number, password or approval status.",role_owner:"Admin",role_staff:"Staff",role_member:"Member",users:"Total accounts",pending:"Pending approval",openTickets:"Open tickets",visibleProviders:"Catalog items",demoFunds:"Real financial data not connected",approve:"Approve",approved:"Approved",open:"Open",closed:"Closed",closeTicket:"Close",reopenTicket:"Reopen",itemSearchNoResults:"No matching game platforms.",noTickets:"No tickets yet.",noAnnouncements:"No notices yet.",credentials:"Secure member access for this platform.",statusTitle:"V17 connectivity",statusMessage:"The database and configured integrations are checked against their current state.",badResponse:"Service unavailable",noUsers:"No registered members.",notReady:"Not connected",save:"Save",identity:"MASTER7 ID and mobile number"
++  demoWarning:"MASTER7 · Premium games, member rewards and service",navHome:"Home",lobbyEyebrow:"GAME LOBBY",gamesLoading:"Loading game platforms…",catalogSummary:"{count} game platforms are listed in the lobby. Choose a category or provider entry.",catalogUnavailable:"No game-platform entry is currently available.",providerAvailable:"Available",providerBlocked:"Maintenance",providerUnavailable:"Temporarily unavailable",providerEmpty:"Coming soon",providerNotConfigured:"Coming soon",uatNotPlayable:"Coming soon",maintenanceGame:"Maintenance",gameActivePreview:"Active",navLobby:"Game lobby",navDeposit:"Deposit",navWithdraw:"Withdraw",withdrawTitle:"Withdraw",withdrawIntro:"Choose a Malaysian bank and an available payout company, then submit your withdrawal request.",depositTitle:"Deposit",depositIntro:"Payment options and deposit records are collected on this page.",navSupport:"Support",navAdmin:"Admin",language:"Language",login:"Sign in",logout:"Log out",eyebrow:"MASTER7 · PREMIUM EXPERIENCE",heroTitle:"Premium games",heroAccent:"One MASTER7 experience.",heroDescription:"Explore slots, live casino, fishing and sports with member rewards and service in one place.",explore:"Explore games",viewStatus:"Platform status",previewLabel:"Premium member platform",featureLang:"Three languages",featureLangDesc:"Chinese, English and Malay",featureOtp:"Two-step login",featureOtpDesc:"MASTER7 ID, Malaysian mobile and SMS OTP",featureStaff:"Staff permissions",featureStaffDesc:"Admin, staff and member roles",featureAudit:"Audit history",featureAuditDesc:"Traceable approvals and changes",announcements:"System notices",loading:"Loading…",lobbyTitle:"Game lobby",lobbyNotice:"Browse 38 independent provider platforms by category; internal games remain within each provider platform.",searchPlaceholder:"Search game platform",allCategories:"All categories",slots:"Slots",arcade:"Arcade",tableGames:"Table",live:"Live",sports:"Sports",supportTitle:"Support center",supportIntro:"Stephanie AI support replies first; backoffice staff can continue in the same ticket.",newTicket:"New ticket",subject:"Subject",message:"Message",submitTicket:"Send request",ticketLogin:"Sign in to submit a support ticket.",myTickets:"Ticket history",loginFirst:"Please sign in.",adminTitle:"Operations backoffice",adminIntro:"Manage members, deposits, withdrawals, game platforms, benefits, advertising and support.",staffOnly:"Staff access only",publishAnnouncement:"Publish announcement",publish:"Publish",providerManager:"Three free sponsored provider slots",providerManagerHint:"Manage artwork for the three free sponsored slots. View all 38 platform covers and connection records below.",memberApproval:"Member approvals",auditTrail:"Audit log",adminDenied:"Sign in with an administrator or staff account.",footerDisclaimer:"Games, wallet, benefits, deposits, withdrawals and support are available from one member platform.",sandbox:"MASTER7 · SECURE MEMBER PORTAL",signInTitle:"Member sign-in",signIn:"Sign in",register:"Register",username:"Username",password:"Password (min 6 characters)",otp:"SMS verification",otpNote:"New member registration requires SMS verification and administrator approval.",demoOnly:"Platform entry pending",hidden:"Hidden",visible:"Visible",loginRequired:"Please sign in first.",success:"Saved",error:"Action not completed",registerSaved:"Account registered, pending administrator approval.",neverShare:"Never share the OTP secret.",authError:"Sign-in failed. Check ID, mobile number, password or approval status.",role_owner:"Admin",role_staff:"Staff",role_member:"Member",users:"Total accounts",pending:"Pending approval",openTickets:"Open tickets",visibleProviders:"Catalog items",demoFunds:"Real financial data not connected",approve:"Approve",approved:"Approved",open:"Open",closed:"Closed",closeTicket:"Close",reopenTicket:"Reopen",itemSearchNoResults:"No matching game platforms.",noTickets:"No tickets yet.",noAnnouncements:"No notices yet.",credentials:"Secure member access for this platform.",statusTitle:"V17 connectivity",statusMessage:"The database and configured integrations are checked against their current state.",badResponse:"Service unavailable",noUsers:"No registered members.",notReady:"Not connected",save:"Save",identity:"MASTER7 ID and mobile number"
+  },
+  ms: {
+   requestTimeout:"Permintaan tamat masa; hasil belum disahkan. Semak sambungan dan rekod sebelum mencuba lagi.",networkError:"Tidak dapat menghubungi perkhidmatan. Semak sambungan dan cuba lagi.",serviceUnavailable:"Perkhidmatan tidak tersedia buat sementara waktu. Sila cuba lagi kemudian.",otpNotConfigured:"OTP SMS belum dikonfigurasikan pada pelayan. Hubungi pentadbir platform.",
+-  demoWarning:"MASTER7 · Permainan premium, ganjaran ahli dan perkhidmatan",navHome:"Utama",lobbyEyebrow:"LOBI PERMAINAN",gamesLoading:"Memuatkan platform permainan…",catalogSummary:"{count} platform permainan disenaraikan. Pilih kategori atau pintu pembekal.",catalogUnavailable:"Pintu platform permainan belum tersedia.",providerAvailable:"Tersedia",providerBlocked:"Penyelenggaraan",providerUnavailable:"Tidak tersedia sementara",providerEmpty:"Akan datang",providerNotConfigured:"Akan datang",uatNotPlayable:"Akan datang",maintenanceGame:"Maintenance",gameActivePreview:"Aktif",navLobby:"Lobi permainan",navDeposit:"Deposit",navWithdraw:"Pengeluaran",withdrawTitle:"Pengeluaran",withdrawIntro:"Pilih bank Malaysia dan syarikat pembayaran yang tersedia, kemudian hantar permintaan pengeluaran.",depositTitle:"Deposit",depositIntro:"Pilihan pembayaran dan rekod deposit dikumpulkan di halaman ini.",navSupport:"Bantuan",navAdmin:"Pentadbir",language:"Bahasa",login:"Log masuk",logout:"Log keluar",eyebrow:"MASTER7 · PENGALAMAN PREMIUM",heroTitle:"Permainan premium",heroAccent:"Satu pengalaman MASTER7.",heroDescription:"Terokai slot, kasino langsung, memancing dan sukan bersama ganjaran serta khidmat ahli.",explore:"Terokai permainan",viewStatus:"Status platform",previewLabel:"Platform ahli premium",featureLang:"Tiga bahasa",featureLangDesc:"Cina, Inggeris dan Melayu",featureOtp:"Pengesahan dua langkah",featureOtpDesc:"ID MASTER7, telefon Malaysia dan OTP SMS",featureStaff:"Akses kakitangan",featureStaffDesc:"Peranan pentadbir, staf dan ahli",featureAudit:"Rekod audit",featureAuditDesc:"Kelulusan dan perubahan boleh dijejak",announcements:"Pengumuman",loading:"Memuatkan…",lobbyTitle:"Lobi permainan",lobbyNotice:"Terokai 37 platform pembekal mengikut kategori; permainan dalaman kekal dalam setiap platform pembekal.",searchPlaceholder:"Cari platform permainan",allCategories:"Semua kategori",slots:"Slot",arcade:"Arked",tableGames:"Meja",live:"Langsung",sports:"Sukan",supportTitle:"Pusat bantuan",supportIntro:"Khidmat AI Stephanie membalas dahulu; kakitangan boleh meneruskan dalam tiket yang sama.",newTicket:"Tiket baharu",subject:"Tajuk",message:"Mesej",submitTicket:"Hantar permintaan",ticketLogin:"Log masuk untuk menghantar tiket.",myTickets:"Sejarah tiket",loginFirst:"Sila log masuk dahulu.",adminTitle:"Panel pentadbiran",adminIntro:"Urus ahli, deposit, pengeluaran, platform permainan, manfaat, iklan dan bantuan.",staffOnly:"Akses staf sahaja",publishAnnouncement:"Terbit pengumuman",publish:"Terbit",providerManager:"Tiga slot pembekal tajaan percuma",providerManagerHint:"Urus imej tiga slot tajaan percuma. Lihat 37 muka depan dan rekod sambungan platform di bawah.",memberApproval:"Kelulusan ahli",auditTrail:"Log audit",adminDenied:"Log masuk sebagai pentadbir atau staf.",footerDisclaimer:"Permainan, dompet, manfaat, deposit, pengeluaran dan bantuan tersedia dalam satu platform ahli.",sandbox:"MASTER7 · PORTAL AHLI SELAMAT",signInTitle:"Log masuk ahli",signIn:"Log masuk",register:"Daftar",username:"Nama pengguna",password:"Kata laluan (minimum 6 aksara)",otp:"Pengesahan SMS",otpNote:"Pendaftaran ahli baharu memerlukan OTP SMS dan kelulusan pentadbir.",demoOnly:"Pintu platform menunggu sambungan",hidden:"Disembunyikan",visible:"Dipaparkan",loginRequired:"Sila log masuk dahulu.",success:"Berjaya disimpan",error:"Tindakan tidak selesai",registerSaved:"Akaun didaftarkan; menunggu kelulusan pentadbir.",neverShare:"Jangan kongsi rahsia OTP.",authError:"Log masuk gagal. Semak ID, nombor telefon, kata laluan atau kelulusan.",role_owner:"Pemilik",role_staff:"Staf",role_member:"Ahli",users:"Jumlah akaun",pending:"Menunggu kelulusan",openTickets:"Tiket terbuka",visibleProviders:"Item katalog",demoFunds:"Data kewangan sebenar tidak disambungkan",approve:"Lulus",approved:"Diluluskan",open:"Terbuka",closed:"Ditutup",closeTicket:"Tutup",reopenTicket:"Buka semula",itemSearchNoResults:"Tiada platform permainan yang sepadan.",noTickets:"Belum ada tiket.",noAnnouncements:"Belum ada pengumuman.",credentials:"Akses ahli selamat untuk platform ini.",statusTitle:"Sambungan V17",statusMessage:"Pangkalan data dan integrasi yang dikonfigurasikan diperiksa mengikut status semasa.",badResponse:"Perkhidmatan tidak tersedia",noUsers:"Belum ada ahli.",notReady:"Belum disambungkan",save:"Simpan",identity:"ID MASTER7 dan nombor telefon"
++  demoWarning:"MASTER7 · Permainan premium, ganjaran ahli dan perkhidmatan",navHome:"Utama",lobbyEyebrow:"LOBI PERMAINAN",gamesLoading:"Memuatkan platform permainan…",catalogSummary:"{count} platform permainan disenaraikan. Pilih kategori atau pintu pembekal.",catalogUnavailable:"Pintu platform permainan belum tersedia.",providerAvailable:"Tersedia",providerBlocked:"Penyelenggaraan",providerUnavailable:"Tidak tersedia sementara",providerEmpty:"Akan datang",providerNotConfigured:"Akan datang",uatNotPlayable:"Akan datang",maintenanceGame:"Maintenance",gameActivePreview:"Aktif",navLobby:"Lobi permainan",navDeposit:"Deposit",navWithdraw:"Pengeluaran",withdrawTitle:"Pengeluaran",withdrawIntro:"Pilih bank Malaysia dan syarikat pembayaran yang tersedia, kemudian hantar permintaan pengeluaran.",depositTitle:"Deposit",depositIntro:"Pilihan pembayaran dan rekod deposit dikumpulkan di halaman ini.",navSupport:"Bantuan",navAdmin:"Pentadbir",language:"Bahasa",login:"Log masuk",logout:"Log keluar",eyebrow:"MASTER7 · PENGALAMAN PREMIUM",heroTitle:"Permainan premium",heroAccent:"Satu pengalaman MASTER7.",heroDescription:"Terokai slot, kasino langsung, memancing dan sukan bersama ganjaran serta khidmat ahli.",explore:"Terokai permainan",viewStatus:"Status platform",previewLabel:"Platform ahli premium",featureLang:"Tiga bahasa",featureLangDesc:"Cina, Inggeris dan Melayu",featureOtp:"Pengesahan dua langkah",featureOtpDesc:"ID MASTER7, telefon Malaysia dan OTP SMS",featureStaff:"Akses kakitangan",featureStaffDesc:"Peranan pentadbir, staf dan ahli",featureAudit:"Rekod audit",featureAuditDesc:"Kelulusan dan perubahan boleh dijejak",announcements:"Pengumuman",loading:"Memuatkan…",lobbyTitle:"Lobi permainan",lobbyNotice:"Terokai 38 platform pembekal mengikut kategori; permainan dalaman kekal dalam setiap platform pembekal.",searchPlaceholder:"Cari platform permainan",allCategories:"Semua kategori",slots:"Slot",arcade:"Arked",tableGames:"Meja",live:"Langsung",sports:"Sukan",supportTitle:"Pusat bantuan",supportIntro:"Khidmat AI Stephanie membalas dahulu; kakitangan boleh meneruskan dalam tiket yang sama.",newTicket:"Tiket baharu",subject:"Tajuk",message:"Mesej",submitTicket:"Hantar permintaan",ticketLogin:"Log masuk untuk menghantar tiket.",myTickets:"Sejarah tiket",loginFirst:"Sila log masuk dahulu.",adminTitle:"Panel pentadbiran",adminIntro:"Urus ahli, deposit, pengeluaran, platform permainan, manfaat, iklan dan bantuan.",staffOnly:"Akses staf sahaja",publishAnnouncement:"Terbit pengumuman",publish:"Terbit",providerManager:"Tiga slot pembekal tajaan percuma",providerManagerHint:"Urus imej tiga slot tajaan percuma. Lihat 38 muka depan dan rekod sambungan platform di bawah.",memberApproval:"Kelulusan ahli",auditTrail:"Log audit",adminDenied:"Log masuk sebagai pentadbir atau staf.",footerDisclaimer:"Permainan, dompet, manfaat, deposit, pengeluaran dan bantuan tersedia dalam satu platform ahli.",sandbox:"MASTER7 · PORTAL AHLI SELAMAT",signInTitle:"Log masuk ahli",signIn:"Log masuk",register:"Daftar",username:"Nama pengguna",password:"Kata laluan (minimum 6 aksara)",otp:"Pengesahan SMS",otpNote:"Pendaftaran ahli baharu memerlukan OTP SMS dan kelulusan pentadbir.",demoOnly:"Pintu platform menunggu sambungan",hidden:"Disembunyikan",visible:"Dipaparkan",loginRequired:"Sila log masuk dahulu.",success:"Berjaya disimpan",error:"Tindakan tidak selesai",registerSaved:"Akaun didaftarkan; menunggu kelulusan pentadbir.",neverShare:"Jangan kongsi rahsia OTP.",authError:"Log masuk gagal. Semak ID, nombor telefon, kata laluan atau kelulusan.",role_owner:"Pemilik",role_staff:"Staf",role_member:"Ahli",users:"Jumlah akaun",pending:"Menunggu kelulusan",openTickets:"Tiket terbuka",visibleProviders:"Item katalog",demoFunds:"Data kewangan sebenar tidak disambungkan",approve:"Lulus",approved:"Diluluskan",open:"Terbuka",closed:"Ditutup",closeTicket:"Tutup",reopenTicket:"Buka semula",itemSearchNoResults:"Tiada platform permainan yang sepadan.",noTickets:"Belum ada tiket.",noAnnouncements:"Belum ada pengumuman.",credentials:"Akses ahli selamat untuk platform ini.",statusTitle:"Sambungan V17",statusMessage:"Pangkalan data dan integrasi yang dikonfigurasikan diperiksa mengikut status semasa.",badResponse:"Perkhidmatan tidak tersedia",noUsers:"Belum ada ahli.",notReady:"Belum disambungkan",save:"Simpan",identity:"ID MASTER7 dan nombor telefon"
+  }
+ };
+ 
+@@ -147,10 +147,10 @@ function bindBonusBrandPreview(){
+ 
+ const apiSupplierEntries=Object.freeze([
+  {id:"megah5",name:"MegaH5"},{id:"jili",name:"JILI"},{id:"918kissh5",name:"918KISS H5"},
+- {id:"gameplay",name:"GAMEPLAY INTERACTIVE"},{id:"lionking",name:"LION KING"},{id:"suncity",name:"SUNCITY"},{id:"pgsoft",name:"PGSOFT"},{id:"gfg",name:"GFG / G4"},{id:"sagaming",name:"SA GAMING"},{id:"ps9",name:"PS9"},{id:"dragoonsoft",name:"DRAGOONSOFT"},{id:"jdb",name:"JDB"},{id:"bg",name:"BG"},{id:"allbet",name:"ALLBET"},{id:"quickspin",name:"QUICKSPIN"},{id:"astar",name:"ASTAR"},{id:"metagaming",name:"META GAMING"},{id:"fuma",name:"FUMA"},{id:"yl",name:"YL"},{id:"funky",name:"FUNKY"},{id:"gamitech",name:"GAMITECH"},{id:"spadegaming",name:"SPADE GAMING"},{id:"turbo",name:"TURBO"},{id:"ct855",name:"CT855"},{id:"pragmaticplay",name:"PRAGMATIC PLAY"},{id:"joker",name:"JOKER"},{id:"cg",name:"CG"},{id:"atg",name:"ATG"},{id:"rectangle",name:"RECTANGLE"},{id:"m8bet",name:"M8BET"},{id:"awc",name:"AWC"},{id:"evo888h5",name:"EVO888H5"},{id:"cosmoplay",name:"COSMOPLAY"},{id:"geminiupdown",name:"GEMINI UPDOWN"},{id:"epicwin",name:"EPICWIN"},{id:"venus",name:"VENUS GAMING"},{id:"clotplay",name:"CLOTPLAY"}
++ {id:"gameplay",name:"GAMEPLAY INTERACTIVE"},{id:"lionking",name:"LION KING"},{id:"suncity",name:"SUNCITY"},{id:"pgsoft",name:"PGSOFT"},{id:"gfg",name:"GFG / G4"},{id:"sagaming",name:"SA GAMING"},{id:"ps9",name:"PS9"},{id:"dragoonsoft",name:"DRAGOONSOFT"},{id:"jdb",name:"JDB"},{id:"bg",name:"BG"},{id:"allbet",name:"ALLBET"},{id:"quickspin",name:"QUICKSPIN"},{id:"astar",name:"ASTAR"},{id:"metagaming",name:"META GAMING"},{id:"fuma",name:"FUMA"},{id:"yl",name:"YL"},{id:"funky",name:"FUNKY"},{id:"gamitech",name:"GAMITECH"},{id:"spadegaming",name:"SPADE GAMING"},{id:"turbo",name:"TURBO"},{id:"ct855",name:"CT855"},{id:"pragmaticplay",name:"PRAGMATIC PLAY"},{id:"joker",name:"JOKER"},{id:"cg",name:"CG"},{id:"atg",name:"ATG"},{id:"rectangle",name:"RECTANGLE"},{id:"m8bet",name:"M8BET"},{id:"awc",name:"AWC"},{id:"evo888h5",name:"EVO888H5"},{id:"cosmoplay",name:"COSMOPLAY"},{id:"geminiupdown",name:"GEMINI UPDOWN"},{id:"epicwin",name:"EPICWIN"},{id:"venus",name:"VENUS GAMING"},{id:"clotplay",name:"CLOTPLAY"},{id:"coba8",name:"COBA8"}
+ ]);
+ const GAME_PLATFORM_COUNT=apiSupplierEntries.length;
+-// Categories apply to the 37 provider platforms themselves. HOT is the complete
++// Categories apply to the provider platforms themselves. HOT is the complete
+ // platform chooser; the other groups use only categories confirmed in the
+ // supplied handover, and a provider may appear in more than one group.
+ const apiSupplierCategoryIds=Object.freeze({
+diff --git a/public/assets/operations-intelligence.js b/public/assets/operations-intelligence.js
+index 858bf28..1012598 100644
+--- a/public/assets/operations-intelligence.js
++++ b/public/assets/operations-intelligence.js
+@@ -6,7 +6,7 @@
+  let period='day',requestId=0;
+  function metric(host,label,value,detail=''){const card=node('article','ops-ai-metric');card.append(node('span','',label),node('strong','',value));if(detail)card.append(node('small','',detail));host.append(card);}
+  function renderSummary(data){const host=byId('operationsAiSummary');if(!host)return;host.replaceChildren();const external=data.assistant?.externalModelStatus==='available_not_used_for_actions'?'外部 AI 可用但无执行权':'外部 AI 未连接';metric(host,'检查引擎',data.assistant?.mode==='deterministic_rules'?'确定性规则可用':'检查中',`${external} · 只读`);metric(host,'立即复核',data.summary?.critical??0,'管理员人工处理');metric(host,'高优先',data.summary?.high??0,'按证据逐项处理');metric(host,'全部建议',data.summary?.openRecommendations??0,'所有动作均需批准');}
+- function renderMetrics(data){const host=byId('operationsAiMetrics');if(!host)return;host.replaceChildren();const metrics=data.metrics||{},reconcile=metrics.reconciliation||{},recovery=metrics.paymentRecovery||{},accounting=metrics.accountingJob||{},reconcileText=reconcile.status==='matched'?'一致':reconcile.status==='no_activity'?'本期无入账活动':'有逐单差异';metric(host,'会员 CRM 活跃',metrics.members?.activeInWindow??0,`会员 ${metrics.members?.total??0} · 新增 ${metrics.members?.newInWindow??0} · 复充 ${metrics.members?.repeatDepositMembers??0}`);metric(host,'本期已入账充值',money(metrics.deposits?.creditedMinor),`${metrics.deposits?.creditedOrders??0} 笔 · unknown ${metrics.deposits?.unknown??0}`);metric(host,'支付恢复待人工',recovery.excessiveAttemptLeases??0,`未入账 ${recovery.nonCredited??0} · 最高尝试 ${recovery.maxAttempts??0}`);metric(host,'作账任务',accounting.status==='completed'?'正常':accounting.status==='not_run'?'尚未执行':'需检查',`状态 ${accounting.status||'unknown'} · 自动重跑关闭`);metric(host,'本期已付款提款',money(metrics.withdrawals?.paidMinor),`${metrics.withdrawals?.paidOrders??0} 笔 · 待处理 ${metrics.withdrawals?.pending??0}`);metric(host,'待核对银行单',metrics.companyBank?.pendingReceipts??0,metrics.companyBank?.status==='configured'?`${metrics.companyBank?.enabled??0} 个收款户口启用`:'公司银行尚未配置');metric(host,'开放客服工单',metrics.support?.open??0,`本期新增 ${metrics.support?.newOpenInWindow??0}`);metric(host,'游戏钱包待复核',metrics.gameWallet?.reviewRequired??0,metrics.gameWallet?.status==='verified'?'已验收':'结算未验证');metric(host,'37 家厂家健康',`${metrics.catalogue?.freshAvailableCatalogues??0}/${metrics.catalogue?.expectedCatalogues??0}`,`${metrics.catalogue?.missingCatalogues??0} 缺少 · ${metrics.catalogue?.staleOrEmptyCatalogues??0} 过期或不完整`);metric(host,'福利／代理待处理',metrics.rewards?.benefitClaimsAwaitingAcceptance??0,`佣金预览期 ${metrics.rewards?.commissionPreviewPeriods??0}`);metric(host,'已同意推广联系人',metrics.marketing?.contacts?.optedIn??0,'只有已同意名单可发送');metric(host,'钱包逐单对账',reconcileText,`入账 ${reconcile.creditedOrders??0} 笔 · 差异 ${reconcile.mismatchOrders??0} 笔`);}
++ function renderMetrics(data){const host=byId('operationsAiMetrics');if(!host)return;host.replaceChildren();const metrics=data.metrics||{},reconcile=metrics.reconciliation||{},recovery=metrics.paymentRecovery||{},accounting=metrics.accountingJob||{},reconcileText=reconcile.status==='matched'?'一致':reconcile.status==='no_activity'?'本期无入账活动':'有逐单差异';metric(host,'会员 CRM 活跃',metrics.members?.activeInWindow??0,`会员 ${metrics.members?.total??0} · 新增 ${metrics.members?.newInWindow??0} · 复充 ${metrics.members?.repeatDepositMembers??0}`);metric(host,'本期已入账充值',money(metrics.deposits?.creditedMinor),`${metrics.deposits?.creditedOrders??0} 笔 · unknown ${metrics.deposits?.unknown??0}`);metric(host,'支付恢复待人工',recovery.excessiveAttemptLeases??0,`未入账 ${recovery.nonCredited??0} · 最高尝试 ${recovery.maxAttempts??0}`);metric(host,'作账任务',accounting.status==='completed'?'正常':accounting.status==='not_run'?'尚未执行':'需检查',`状态 ${accounting.status||'unknown'} · 自动重跑关闭`);metric(host,'本期已付款提款',money(metrics.withdrawals?.paidMinor),`${metrics.withdrawals?.paidOrders??0} 笔 · 待处理 ${metrics.withdrawals?.pending??0}`);metric(host,'待核对银行单',metrics.companyBank?.pendingReceipts??0,metrics.companyBank?.status==='configured'?`${metrics.companyBank?.enabled??0} 个收款户口启用`:'公司银行尚未配置');metric(host,'开放客服工单',metrics.support?.open??0,`本期新增 ${metrics.support?.newOpenInWindow??0}`);metric(host,'游戏钱包待复核',metrics.gameWallet?.reviewRequired??0,metrics.gameWallet?.status==='verified'?'已验收':'结算未验证');metric(host,'38 家厂家健康',`${metrics.catalogue?.freshAvailableCatalogues??0}/${metrics.catalogue?.expectedCatalogues??0}`,`${metrics.catalogue?.missingCatalogues??0} 缺少 · ${metrics.catalogue?.staleOrEmptyCatalogues??0} 过期或不完整`);metric(host,'福利／代理待处理',metrics.rewards?.benefitClaimsAwaitingAcceptance??0,`佣金预览期 ${metrics.rewards?.commissionPreviewPeriods??0}`);metric(host,'已同意推广联系人',metrics.marketing?.contacts?.optedIn??0,'只有已同意名单可发送');metric(host,'钱包逐单对账',reconcileText,`入账 ${reconcile.creditedOrders??0} 笔 · 差异 ${reconcile.mismatchOrders??0} 笔`);}
+  function renderRecommendations(data){const host=byId('operationsAiRecommendations');if(!host)return;host.replaceChildren();const items=data.recommendations||[];if(!items.length){host.append(node('p','ops-ai-empty','目前没有高优先级建议。系统仍会保持只读并等待人工检查。'));return;}for(const item of items){const card=node('article',`ops-ai-recommendation severity-${item.severity}`),head=node('div','ops-ai-recommendation-head'),copy=node('div');copy.append(node('h3','',item.title),node('p','',item.reason));head.append(copy,node('span',`ops-ai-severity ${item.severity}`,severityLabel[item.severity]||item.severity));const evidence=node('dl','ops-ai-evidence');for(const [key,value] of Object.entries(item.evidence||{})){evidence.append(node('dt','',key),node('dd','',value));}card.append(head,evidence,node('p','ops-ai-action',item.recommendedAction),node('small','ops-ai-boundary','需人工批准 · 系统没有执行动作'));host.append(card);}}
+  function render(data){renderSummary(data);renderMetrics(data);renderRecommendations(data);const status=byId('operationsAiStatus');if(status){status.className=`verification-note ${data.summary?.status==='ready'?'ready':'pending'}`;status.textContent=`${data.summary?.statement||''} · ${new Date((data.generatedAt||0)*1000).toLocaleString()} · 所有动作保持人工批准`;};const policy=byId('operationsAiSourcePolicy');if(policy)policy.textContent=data.sourcePolicy||'';document.querySelectorAll('[data-ops-period]').forEach(button=>{const selected=button.dataset.opsPeriod===period;button.classList.toggle('active',selected);button.setAttribute('aria-pressed',String(selected));});}
+  async function load(nextPeriod=period){
+diff --git a/public/assets/owner-manual.js b/public/assets/owner-manual.js
+index 8eca3bb..65075d7 100644
+--- a/public/assets/owner-manual.js
++++ b/public/assets/owner-manual.js
+@@ -8,14 +8,14 @@
+   {id:"gameWalletAdminPanel",title:"游戏钱包记录说明",how:["查看启动和钱包接口能力，以及转入、回收、余额与错误。","残留余额先向厂家查单。"],does:"追踪游戏钱包会话和结算状态；顾客入口同时受服务器维护开关及 API 能力限制。",approve:"不确定的转账不得重复执行；已有会话仍可结算或恢复。",source:"接口可用与真实结算验收分别显示；只有真实厂家回执可以确认结算。"},
+   {id:"socialPanel",title:"联系方式与 Pixel 说明",how:["填写官方 Hotline 与社交链接。","Meta Pixel 需独立开启并保存。"],does:"在顾客前台显示已启用联系方式。",approve:"广告投放和预算仍在官方平台批准。",source:"未启用的链接与 Pixel 不会加载。"},
+   {id:"announcementPanel",title:"公告管理说明",how:["填写标题与内容。","设置有效期并发布，再检查前台。"],does:"只展示已发布且处于有效期内的公告。",approve:"发布和下架由后台人员执行。",source:"草稿不会显示给顾客。"},
+-  {id:"providerPanel",title:"三家赞助展示说明",how:["分别上传三张赞助图片。","检查手机与电脑的品牌入口布局。"],does:"管理三家赞助展示位。",approve:"赞助展示不代表游戏 API 已连接。",source:"37 家厂家目录在独立页面管理。"},
++  {id:"providerPanel",title:"三家赞助展示说明",how:["分别上传三张赞助图片。","检查手机与电脑的品牌入口布局。"],does:"管理三家赞助展示位。",approve:"赞助展示不代表游戏 API 已连接。",source:"38 家厂家目录在独立页面管理。"},
+   {id:"telegramBotPanel",title:"Telegram Bot 说明",how:["服务器配置 Bot Token 与管理员 Chat ID。","使用测试按钮确认送达。"],does:"发送后台运营告警。",approve:"Bot 不会批准资金或修改平台。",source:"Token 只保存在服务器环境变量。"},
+   {id:"auditPanel",title:"操作记录说明",how:["按时间核对批准、设置和资金事件。","异常操作记录证据后交给管理员复核。"],does:"保留敏感后台操作轨迹。",approve:"审计记录不提供快捷删除。",source:"只显示平台已保存事件。"},
+   {id:"manualBankAdminPanel",title:"Bank & Deposit 使用说明",how:["Admin 先录入并复核公司银行名称、户名与收款号码。","顾客转账并上传银行单后，员工必须核对银行实际到账。","批准后才写入会员钱包与财务双分录。"],does:"显示收款户口、待审核银行单、审批状态和入账记录。",approve:"银行单批准或拒绝必须由获授权人员完成；截图不能代替银行到账。",source:"公司银行流水仍需人工核对；平台不会保存网银密码或 OTP。"},
+   {id:"paymentChannelManager",title:"Payment Channels 使用说明",how:["逐家检查建单、查单、Callback、Payout、余额和钱包状态。","老板可独立暂停新充值或恢复自动模式；员工可查看状态。已开始的申请、回调和补查可能继续处理。"],does:"集中显示 VPay、1MPay 与 GSPAY+ 的无密钥状态。",approve:"充值建单由会员发起；平台核验支付结果后自动入账，后台不能代替顾客充值。",source:"settlementVerified=false 时不可标记资金闭环完成。"},
+   {id:"adminWithdrawalPanel",title:"提款记录使用说明",how:["查看会员提交的提款请求、银行资料和厂家处理状态。","不确定的 Payout 先查单，不能直接重复转账。"],does:"显示提款请求及实际处理结果。",approve:"老板只能批准系统标记可处理的待审请求；批准后如厂家出款已启用，可能立即提交真实出款。",source:"未配置或未实现出款接口时，保留相应不可用状态。"},
+-  {id:"apiSupplierManager",title:"37 家游戏厂家使用说明",how:["查看各厂家连接状态，可分别编辑品牌图片。","厂家 API、目录、Launch、钱包和结算须逐项验收。"],does:"管理 37 家平台卡片，不公开厂家内部游戏 ID 清单。",approve:"可用性跟随已有启动及钱包 API；验收状态与接口能力分别显示。",source:"目录同步不等于顾客可玩。"},
+-  {id:"gameRankingPanel",title:"Game Ranking 使用说明",how:["选择 HOT、SLOT、LIVE、FISH、COCK 或 SPORT。","用上下按钮调整顺序并保存，再到前台核对。"],does:"只调整 37 家平台卡片的 Admin curated 排列。",approve:"Admin 决定展示顺序；系统不伪装自动热榜。",source:"排名不会改变厂家 ID、连接状态或 playable。"},
++  {id:"apiSupplierManager",title:"38 家游戏厂家使用说明",how:["查看各厂家连接状态，可分别编辑品牌图片。","厂家 API、目录、Launch、钱包和结算须逐项验收。"],does:"管理 38 家平台卡片，不公开厂家内部游戏 ID 清单。",approve:"可用性跟随已有启动及钱包 API；验收状态与接口能力分别显示。",source:"目录同步不等于顾客可玩。"},
++  {id:"gameRankingPanel",title:"Game Ranking 使用说明",how:["选择 HOT、SLOT、LIVE、FISH、COCK 或 SPORT。","用上下按钮调整顺序并保存，再到前台核对。"],does:"只调整 38 家平台卡片的 Admin curated 排列。",approve:"Admin 决定展示顺序；系统不伪装自动热榜。",source:"排名不会改变厂家 ID、连接状态或 playable。"},
+   {id:"gameSyncPanel",title:"Game Connection Check 使用说明",how:["逐家查看连接、新鲜目录数量、启动与钱包接口能力，并另看真实验收状态。","接口可用、等待接入、目录过期、厂家错误与结算待验收分别显示；以具体状态文字为准。"],does:"检查真实目录、连接及启动能力；顾客通过原厂品牌入口使用，保存目录不代表可启动。",approve:"后台可刷新目录并查看记录；技术人员按签收结果配置服务器维护开关。",source:"launchReady／walletReady 表示当前接口能力；launchVerified／walletVerified／settlementVerified 只记录真实验收。"},
+   {id:"vipManager",title:"VIP & Commission 使用说明",how:["先配置八级名称、门槛和权益；等级顺序与品牌配色固定，只读显示。","逐级检查门槛、领取次数、有效期与 Cashback 分类。","最后才决定是否开启显示。"],does:"集中管理 VIP、分类 Cashback 与三级推荐佣金状态。",approve:"礼金、Cashback、佣金和分红的真钱派发须另行验收。",source:"Turnover/Wager 未连接时只显示资格与等待状态。"},
+   {id:"rewardsManager",title:"Rewards Hub 使用说明",how:["设置 7 天签到积分、积分名称和显示规则。","保存后核对每日一次签到、积分余额和历史记录。"],does:"管理每日签到及独立的非现金积分账本。",approve:"Admin 保存签到规则；修改设置不会重写已有积分记录。",source:"Lucky Points 没有现金价值，不可提款或转入真钱钱包。"},
+diff --git a/public/assets/providers/coba8.webp b/public/assets/providers/coba8.webp
+new file mode 100644
+index 0000000..8edd3cd
+Binary files /dev/null and b/public/assets/providers/coba8.webp differ
+diff --git a/public/assets/vip.js b/public/assets/vip.js
+index 08a8d7c..a16e5bf 100644
+--- a/public/assets/vip.js
++++ b/public/assets/vip.js
+@@ -20,7 +20,7 @@
+  function tiersFrom(program){const incoming=Array.isArray(program?.tiers)?program.tiers:[];return tierNames.map((_,index)=>normalizedTier(incoming[index]||{},index));}
+  function capability(program,data,key){const caps=program?.capabilities||data?.capabilities||{};const aliases={walletCredit:["walletCredit","walletCreditEnabled"],cashbackAutomation:["cashbackAutomation","cashbackAutomationEnabled"],dividendAutomation:["dividendAutomation","dividendAutomationEnabled"],turnoverEnforcement:["turnoverEnforcement","turnoverConnected"],wagerSource:["wagerSource","turnoverSource"]};const value=first(caps,aliases[key]||[key],first(data,aliases[key]||[key],false));return value===true||value==="connected"||value==="ready";}
+  function statusChip(label,ready){const chip=text("span",`vip-status-chip ${ready?"ready":"pending"}`,`${ready?"●":"○"} ${label}`);return chip;}
+- function renderProgramBadges(data){const program=programFrom(data),host=byId("vipProgramBadges");if(!host)return;host.replaceChildren(statusChip("SCOPE · ALL 37 PLATFORMS",true),statusChip(program.enabled?"VIP DISPLAY ON":"VIP DISPLAY OFF",program.enabled),statusChip("WALLET CREDIT",capability(program,data,"walletCredit")),statusChip("CASHBACK AUTO",capability(program,data,"cashbackAutomation")),statusChip("DIVIDEND AUTO",capability(program,data,"dividendAutomation")),statusChip("TURNOVER SOURCE",capability(program,data,"turnoverEnforcement")));const notice=byId("vipProgramNotice"),moneyReady=capability(program,data,"walletCredit");notice.className=`verification-note ${moneyReady?"ready":"pending"}`;notice.textContent=program.enabled?(moneyReady?copy("VIP benefits are displayed. Only items that meet accepted rules can enter the wallet.","VIP 配套已显示；只有符合已验收规则的项目才会进入钱包。"):copy("VIP tiers are available to view. Wallet credit, cashback, dividends and turnover settlement are not fully enabled, so no real money is credited automatically.","VIP 等级配套可查看。钱包入账、Cashback、分红及 Turnover 自动结算尚未全部启用，当前不会自动派真钱。")):copy("The VIP program is being prepared. Tiers and conditions are available to preview; disabled items are not calculated or credited.","VIP 配套由管理员准备中。等级与条件可预览，未启用的项目不会计算或派发。");}
++ function renderProgramBadges(data){const program=programFrom(data),host=byId("vipProgramBadges");if(!host)return;host.replaceChildren(statusChip("SCOPE · ALL 38 PLATFORMS",true),statusChip(program.enabled?"VIP DISPLAY ON":"VIP DISPLAY OFF",program.enabled),statusChip("WALLET CREDIT",capability(program,data,"walletCredit")),statusChip("CASHBACK AUTO",capability(program,data,"cashbackAutomation")),statusChip("DIVIDEND AUTO",capability(program,data,"dividendAutomation")),statusChip("TURNOVER SOURCE",capability(program,data,"turnoverEnforcement")));const notice=byId("vipProgramNotice"),moneyReady=capability(program,data,"walletCredit");notice.className=`verification-note ${moneyReady?"ready":"pending"}`;notice.textContent=program.enabled?(moneyReady?copy("VIP benefits are displayed. Only items that meet accepted rules can enter the wallet.","VIP 配套已显示；只有符合已验收规则的项目才会进入钱包。"):copy("VIP tiers are available to view. Wallet credit, cashback, dividends and turnover settlement are not fully enabled, so no real money is credited automatically.","VIP 等级配套可查看。钱包入账、Cashback、分红及 Turnover 自动结算尚未全部启用，当前不会自动派真钱。")):copy("The VIP program is being prepared. Tiers and conditions are available to preview; disabled items are not calculated or credited.","VIP 配套由管理员准备中。等级与条件可预览，未启用的项目不会计算或派发。");}
+  function renderMember(data,tiers){const member=data?.member||data?.memberStatus||null,panel=byId("vipMemberPanel");if(!panel)return;const isMember=typeof state!=="undefined"&&state.user?.role==="member";panel.hidden=!isMember;if(!isMember)return;const assigned=member?.currentTier&&typeof member.currentTier==="object"?member.currentTier:null,preview=member?.previewCurrentTier&&typeof member.previewCurrentTier==="object"?member.previewCurrentTier:null,currentRaw=assigned||preview,currentLevel=Math.max(1,Math.min(8,number(currentRaw?.level,1))),current=currentRaw?normalizedTier(currentRaw,currentLevel-1):(tiers.find(t=>t.level===currentLevel)||tiers[0]),nextRaw=member?.nextTier&&typeof member.nextTier==="object"?member.nextTier:null,next=nextRaw?normalizedTier(nextRaw,Math.max(0,number(nextRaw.level,2)-1)):tiers.find(t=>t.level>currentLevel&&t.active);byId("vipCurrentTier").textContent=`${assigned?"":copy("Preview · ","预览 · ")}${current?.name||"Bronze"}`;byId("vipCurrentTier").style.setProperty("--vip-tier-color",current?.color||tierColors[0]);const deposit=number(member?.creditedDeposits?.amountMYR??first(member,["creditedDepositMYR","cumulativeDepositMYR","depositMYR"],0)),turnover=number(first(member,["verifiedTurnoverMYR","turnoverMYR"],0)),stats=byId("vipMemberStats");stats.replaceChildren();[[money(deposit),copy("Credited deposits","累计已入账存款")],[capability(programFrom(data),data,"turnoverEnforcement")?money(turnover):copy("Awaiting connection","等待连接"),copy("Verified turnover","有效 Turnover")],[current?.name||"Bronze",assigned?copy("Current tier","当前等级"):copy("Preview tier","预览等级")],[next?.name||copy("Highest tier","最高等级"),copy("Next tier","下一个等级")]].forEach(([value,label])=>{const item=text("div","stat");item.append(text("strong","",value),text("span","",label));stats.append(item);});const threshold=number(member?.nextTierProgress?.requiredDepositMYR??next?.cumulativeDepositMYR,0),provided=Number(member?.nextTierProgress?.percent??first(member,["progressPercent","depositProgressPercent"],-1)),progress=Math.max(0,Math.min(100,Number.isFinite(provided)&&provided>=0?provided:(threshold>0?deposit/threshold*100:(next?0:100))));byId("vipProgressLabel").textContent=next?(threshold>0?`${current.name} → ${next.name} · ${copy("Deposit threshold","存款门槛")} ${money(threshold)}`:`${next.name} ${copy("threshold is not configured","门槛尚未配置")}`):copy("Highest VIP tier reached","已达到最高 VIP 等级");byId("vipProgressPercent").textContent=`${progress.toFixed(0)}%`;byId("vipProgressBar").style.width=`${progress}%`;byId("vipProgressBar").style.background=`linear-gradient(90deg,${current?.color||tierColors[0]},${next?.color||current?.color||tierColors[0]})`;byId("vipProgressBar").parentElement.setAttribute("aria-valuenow",String(progress.toFixed(0)));}
+  function renderTierGrid(tiers){const host=byId("vipTierGrid");if(!host)return;host.replaceChildren();for(const tier of tiers){const card=text("article",`vip-tier-card${tier.active?"":" inactive"}`);card.style.setProperty("--vip-tier-color",tier.color);const top=text("div","vip-tier-card-top");top.append(text("span","vip-tier-number",`VIP ${tier.level}`),text("span",`vip-status-chip ${tier.active?"ready":"pending"}`,tier.active?"ACTIVE":"DRAFT"));const crown=text("div","vip-tier-symbol","♛"),title=text("h3","",tier.name),requirements=text("div","vip-tier-requirements");requirements.append(text("span","",`${copy("Cumulative deposits","累计存款")} ${tier.cumulativeDepositMYR?money(tier.cumulativeDepositMYR):copy("Not set","待设置")}`),text("span","",`Turnover ${tier.turnoverThresholdMYR?money(tier.turnoverThresholdMYR):copy("Awaiting connection","待连接")}`),text("span","",tier.retentionPeriodDays?`${copy("Retention","保级")} ${tier.retentionPeriodDays} ${copy("day cycle","天周期")}`:copy("Retention rule not set","保级规则待设置")));card.append(top,crown,title,requirements);host.append(card);}}
+  function renderBenefitMatrix(tiers){const host=byId("vipBenefitMatrix");if(!host)return;host.replaceChildren();const table=text("table","vip-benefit-table"),head=document.createElement("thead"),headRow=document.createElement("tr");[copy("Tier","等级"),copy("Upgrade bonus","升级礼"),copy("Birthday bonus","生日礼"),copy("Daily / weekly / monthly","日 / 周 / 月礼"),copy("Dividend","分红"),"Cashback · Slot / Live / Fish / Sport / Fast",copy("Reward turnover","奖励 Turnover"),copy("Withdrawal limit","提款上限"),copy("Claims / validity","领取 / 有效期")].forEach(label=>headRow.append(text("th","",label)));head.append(headRow);const body=document.createElement("tbody");for(const tier of tiers){const row=document.createElement("tr"),cb=tier.cashbackPercent;const tierCell=document.createElement("td"),mark=text("span","vip-table-tier",tier.name);mark.style.setProperty("--vip-tier-color",tier.color);tierCell.append(mark);row.append(tierCell,text("td","",money(tier.upgradeBonusMYR)),text("td","",money(tier.birthdayBonusMYR)),text("td","",`${money(tier.dailyBonusMYR)} / ${money(tier.weeklyBonusMYR)} / ${money(tier.monthlyBonusMYR)}`),text("td","",percent(tier.dividendPercent)),text("td","",`${percent(cb.slot)} / ${percent(cb.live)} / ${percent(cb.fish)} / ${percent(cb.sport)} / ${percent(cb.fastGame)}`),text("td","",tier.rewardTurnoverMultiplier?`${tier.rewardTurnoverMultiplier}×`:"—"),text("td","",tier.withdrawalLimitMYR?money(tier.withdrawalLimitMYR):"—"),text("td","",`${tier.claimLimit||"—"} / ${tier.validityDays?tier.validityDays+" days":"—"}`));body.append(row);}table.append(head,body);host.append(table);}
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 4ba2eb8..4432350 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.162-duitnow-qr-fail-closed';
++const CACHE='master7-shell-17.0.0-selfbuilt.163-coba8-front-end-registered';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/scripts/production-readiness-probe.mjs b/scripts/production-readiness-probe.mjs
+index ce0c948..c8e3aaa 100644
+--- a/scripts/production-readiness-probe.mjs
++++ b/scripts/production-readiness-probe.mjs
+@@ -10,7 +10,7 @@ const CLOSED_HEALTH_FLAGS=['productionReady','settlementVerified','transactionsE
+ const PAYMENT_PROVIDERS=['vpay','gspay','1mpay'];
+ const PAYMENT_PROFILES=['vpay','gspay','gspay_usdt','1mpay'];
+ const REQUIRED_READINESS_BLOCKERS=['deposit_provider_not_ready','payout_provider_not_ready','payment_settlement_not_verified','game_launch_or_settlement_not_ready','official_domain_tls_not_verified','credential_rotation_not_verified','production_signoff_not_verified'];
+-const GAME_PROVIDER_IDS=['megah5','jili','918kissh5','gameplay','lionking','suncity','pgsoft','gfg','sagaming','ps9','dragoonsoft','jdb','bg','allbet','quickspin','astar','metagaming','fuma','yl','funky','gamitech','spadegaming','turbo','ct855','pragmaticplay','joker','cg','atg','rectangle','m8bet','awc','evo888h5','cosmoplay','geminiupdown','epicwin','venus','clotplay'];
++const GAME_PROVIDER_IDS=['megah5','jili','918kissh5','gameplay','lionking','suncity','pgsoft','gfg','sagaming','ps9','dragoonsoft','jdb','bg','allbet','quickspin','astar','metagaming','fuma','yl','funky','gamitech','spadegaming','turbo','ct855','pragmaticplay','joker','cg','atg','rectangle','m8bet','awc','evo888h5','cosmoplay','geminiupdown','epicwin','venus','clotplay','coba8'];
+ 
+ export function validateBaseUrl(value){
+  const raw=String(value??'').trim();if(!raw)throw new Error('A base URL is required');
+@@ -71,11 +71,11 @@ export function evaluateProductionReadiness({liveness,health,version,channels,pr
+  check(checks,'games.readOnlyAvailability',games?.readOnlyAvailability===true);
+  const providers=Array.isArray(games?.providers)?games.providers:[];
+  const providerPositions=providers.length||Number(games?.platformCount??games?.providerPositions??0);
+- check(checks,'games.providerPositions',providerPositions===37);
++ check(checks,'games.providerPositions',providerPositions===38);
+  const ids=providers.map(item=>String(item?.id??'')),positions=providers.map(item=>Number(item?.position)).sort((a,b)=>a-b);
+  check(checks,'games.providerIds',ids.length===GAME_PROVIDER_IDS.length&&new Set(ids).size===GAME_PROVIDER_IDS.length&&GAME_PROVIDER_IDS.every(id=>ids.includes(id))&&!ids.includes('godeezone'));
+- check(checks,'games.positions',positions.length===37&&positions.every((position,index)=>position===index+1));
+- check(checks,'games.newProviders',['epicwin','venus','clotplay'].every(id=>ids.includes(id)));
++ check(checks,'games.positions',positions.length===38&&positions.every((position,index)=>position===index+1));
++ check(checks,'games.newProviders',['epicwin','venus','clotplay','coba8'].every(id=>ids.includes(id)));
+  check(checks,'games.liveReady',games?.liveReady===false);
+  check(checks,'games.playable',games?.playable===false);
+  const verifiedProviders=new Set(providers.filter(item=>item?.launchVerified===true&&item?.walletVerified===true).map(item=>String(item.id??item.provider??'')));
+diff --git a/tests/api.test.mjs b/tests/api.test.mjs
+index f67178c..4eb1dee 100644
+--- a/tests/api.test.mjs
++++ b/tests/api.test.mjs
+@@ -36,7 +36,7 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+   const calls=[];const gameGatewayFetch=async(url,options)=>{calls.push({url:String(url),method:options.method,redirect:options.redirect});const parsed=new URL(url),path=parsed.pathname,provider=path.split('/')[2];if(path.endsWith('/megah5/games'))return new Response(JSON.stringify({provider:'megah5',result:{Status:200,Game:[{GameCode:'55021',GameName:'Ocean Quest',GameType:'2',ImageUrl:'https://gth.megah5.com/thumbs/web/55021.png',apiKey:'must-not-leak'}]}}),{headers:{'content-type':'application/json'}});if(path.endsWith('/jili/games'))return new Response(JSON.stringify({provider:'jili',games:[{gameCode:'1',name:'Royal Fishing',nameZh:'钱龙捕鱼',category:'5',jackpot:true,secret:'must-not-leak'}]}),{headers:{'content-type':'application/json'}});if(path.endsWith('/evo888h5/games'))return Response.json({provider:'evo888h5',result:{code:0,data:[{gameid:'2340',title:'Lord Guan Yu',thumbnail:'https://backendapi.evo888h5.com/slots/cover-img/cover_fixture.png'}]}});if(path.endsWith('/918kissh5/games'))return new Response(JSON.stringify({provider:'918kissh5',account:parsed.searchParams.get('account'),currency:'MYR',games:[{gameCode:'265022',name:'Supreme Zeus',category:'1',imageUrl:'https://gth.kissh5.com/thumbs/web/265022.png'}]}),{headers:{'content-type':'application/json'}});if(path.endsWith('/epicwin/games'))return Response.json({provider:'epicwin',account:parsed.searchParams.get('account'),currency:'MYR',games:[{gameCode:'EXTRA-1',name:'Excluded extra source',category:'1',maintenance:true}]});return Response.json({provider,games:[]});};
+   const options={gameGatewayUrl:'https://master7-integration-gateway.onrender.com',gameGatewayFetch};
+   const summary=await call(null,'/api/games','GET',undefined,{},options);
+-  assert.equal(summary.status,200);assert.equal(summary.data.providersOnly,true);assert.equal(summary.data.platformsOnly,false);assert.equal(summary.data.gamesOmittedUntilProviderSelected,true);assert.equal(summary.data.gameCountScope,'current_response');assert.equal(summary.data.selectedProvider,null);assert.equal(summary.data.selectedPlatform,null);assert.deepEqual(summary.data.games,[]);assert.equal(summary.data.totalGameCount,0);assert.equal(summary.data.cachedGameCount,0);assert.equal(summary.data.catalogueCacheSummary.source,'database_cache');assert.equal(summary.data.platformCount,37);assert.equal(summary.data.providers.length,37);assert.deepEqual(summary.data.providers.slice(-3).map(provider=>provider.id),['epicwin','venus','clotplay']);assert.ok(summary.data.providers.every(provider=>provider.id!=='godeezone'&&provider.platformLaunchReady===false&&!('count' in provider)&&!('upstreamStatus' in provider)));
++  assert.equal(summary.status,200);assert.equal(summary.data.providersOnly,true);assert.equal(summary.data.platformsOnly,false);assert.equal(summary.data.gamesOmittedUntilProviderSelected,true);assert.equal(summary.data.gameCountScope,'current_response');assert.equal(summary.data.selectedProvider,null);assert.equal(summary.data.selectedPlatform,null);assert.deepEqual(summary.data.games,[]);assert.equal(summary.data.totalGameCount,0);assert.equal(summary.data.cachedGameCount,0);assert.equal(summary.data.catalogueCacheSummary.source,'database_cache');assert.equal(summary.data.platformCount,38);assert.equal(summary.data.providers.length,38);assert.deepEqual(summary.data.providers.slice(-3).map(provider=>provider.id),['venus','clotplay','coba8']);assert.ok(summary.data.providers.every(provider=>provider.id!=='godeezone'&&provider.platformLaunchReady===false&&!('count' in provider)&&!('upstreamStatus' in provider)));
+   const jili=await call(null,'/api/games?provider=jili','GET',undefined,{},options),mega=await call(null,'/api/games?provider=megah5','GET',undefined,{},options),kiss=await call(null,'/api/games?provider=918kissh5','GET',undefined,{},options);
+   for(const selected of [jili,mega,kiss]){assert.equal(selected.status,200);assert.equal(selected.data.platformsOnly,false);assert.equal(selected.data.games.length,1);assert.ok(selected.data.games.every(game=>game.provider===selected.data.selectedProvider&&game.playable===false));assert.equal(selected.data.playable,false);assert.equal(selected.data.launchProvider,null);assert.equal(selected.data.selectedPlatform.id,selected.data.selectedProvider);assert.equal(selected.data.selectedPlatform.platformLaunchReady,false);}assert.equal(calls.length,3);const admin=await call('owner','/api/admin/games','GET',undefined,{},options);assert.equal(admin.status,200);assert.equal(admin.data.games.length,5);assert.equal(admin.data.games.find(game=>game.provider==='jili').nameZh,'钱龙捕鱼');assert.equal(admin.data.games.find(game=>game.provider==='jili').imageUrl,'/assets/providers/jili.webp');assert.equal(admin.data.games.find(game=>game.provider==='megah5').imageUrl,'/api/game-art?provider=megah5&gameCode=55021');assert.equal(admin.data.games.find(game=>game.provider==='918kissh5').imageUrl,'/api/game-art?provider=918kissh5&gameCode=265022');assert.equal(admin.data.games.find(game=>game.provider==='epicwin').playable,false);assert.ok(!JSON.stringify({summary:summary.data,jili:jili.data,mega:mega.data,kiss:kiss.data,admin:admin.data}).includes('must-not-leak'));const venus=await call(null,'/api/games?provider=venus','GET',undefined,{},options);assert.equal(venus.status,200);assert.equal(venus.data.selectedPlatform.id,'venus');assert.equal(venus.data.selectedPlatform.platformLaunchReady,false);assert.equal(calls.length,gameSources.length);assert.ok(calls.every(x=>x.method==='GET'&&x.redirect==='error'));for(const id of ['epicwin','venus','clotplay'])sqlite.prepare("INSERT INTO providers(id,name,category,symbol,visible) VALUES(?,?,'supplier','M7',1) ON CONFLICT(id) DO NOTHING").run(id,id);const publicProviders=await call(null,'/api/providers'),ownerProviders=await call('owner','/api/providers');for(const result of [publicProviders,ownerProviders])assert.deepEqual(result.data.items.filter(item=>['epicwin','venus','clotplay'].includes(item.id)).map(item=>item.id).sort(),['clotplay','epicwin','venus']);sqlite.prepare("DELETE FROM providers WHERE id IN ('epicwin','venus','clotplay')").run();sqlite.prepare('DELETE FROM game_visibility').run();
+  });
+@@ -57,7 +57,7 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+   const gameGatewayFetch=async()=>{calls++;return new Response(JSON.stringify({error:'private detail'}),{status:502,headers:{'content-type':'application/json'}});};
+   const gatewayOptions={gameGatewayUrl:'https://master7-integration-gateway.onrender.com',gameGatewayToken:'g'.repeat(32),gameGatewayWalletToken:'w'.repeat(32),gameGatewayFetch,gameSyncNow:()=>1_700_000_000};
+   const denied=await call(null,'/api/games','GET',undefined,{}, {...gatewayOptions,gameGatewayUrl:'https://attacker.test'});assert.equal(denied.data.games.length,0);assert.equal(calls,0);
+-  const empty=await call(null,'/api/games','GET',undefined,{},gatewayOptions);assert.equal(empty.status,200);assert.equal(empty.data.providers.length,37);assert.deepEqual(empty.data.games,[]);assert.equal(empty.data.totalGameCount,0);assert.equal(empty.data.cachedGameCount,0);assert.deepEqual(empty.data.catalogueCacheSummary,{source:'database_cache',cachedGameCount:0,cachedProviderCount:0,providersWithCachedGames:0,freshCacheProviderCount:0,completeCacheProviderCount:0,missingCacheProviderCount:37});assert.ok(empty.data.providers.every(p=>p.catalogueCacheStatus==='missing'&&p.catalogueCacheFresh===false&&p.cachedGameCount===0&&p.platformStatus==='awaiting_api'&&p.platformLaunchReady===false));assert.equal(calls,0);
++  const empty=await call(null,'/api/games','GET',undefined,{},gatewayOptions);assert.equal(empty.status,200);assert.equal(empty.data.providers.length,38);assert.deepEqual(empty.data.games,[]);assert.equal(empty.data.totalGameCount,0);assert.equal(empty.data.cachedGameCount,0);assert.deepEqual(empty.data.catalogueCacheSummary,{source:'database_cache',cachedGameCount:0,cachedProviderCount:0,providersWithCachedGames:0,freshCacheProviderCount:0,completeCacheProviderCount:0,missingCacheProviderCount:38});assert.ok(empty.data.providers.every(p=>p.catalogueCacheStatus==='missing'&&p.catalogueCacheFresh===false&&p.cachedGameCount===0&&p.platformStatus==='awaiting_api'&&p.platformLaunchReady===false));assert.equal(calls,0);
+   const insert=sqlite.prepare('INSERT INTO game_catalogue_cache(provider_id,status,games_json,checked_at,last_success_at,lease_until,upstream_status,complete) VALUES(?,?,?,?,?,0,NULL,?)');
+   insert.run('jili','available',JSON.stringify([{provider:'jili',gameCode:'J-COUNT-1',secret:'cache-secret-must-not-leak'},{provider:'jili',gameCode:'J-COUNT-2'},{provider:'megah5',gameCode:'WRONG-PROVIDER'},{provider:'jili',name:'missing-code'}]),1_700_000_000,1_700_000_000,1);
+   insert.run('megah5','blocked',JSON.stringify([{provider:'megah5',gameCode:'M-COUNT-1',apiKey:'cache-api-key-must-not-leak'}]),1_699_999_000,1_699_999_000,1);
+@@ -65,7 +65,7 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+   insert.run('metagaming_normal_myr','available',JSON.stringify([{provider:'metagaming',profileId:'metagaming_normal_myr',gameCode:'META-NORMAL-1'},{provider:'metagaming',profileId:'metagaming_normal_myr',gameCode:'META-NORMAL-2'}]),1_700_000_000,1_700_000_000,1);
+   insert.run('metagaming_free_myr','available',JSON.stringify([{provider:'metagaming',profileId:'metagaming_free_myr',gameCode:'META-FREE-1',secret:'free-cache-must-not-leak'},{provider:'metagaming',profileId:'metagaming_free_myr',gameCode:'META-FREE-2'},{provider:'metagaming',profileId:'metagaming_free_myr',gameCode:'META-FREE-3'}]),1_700_000_000,1_700_000_000,1);
+   const cached=await call(null,'/api/games','GET',undefined,{},gatewayOptions),jili=cached.data.providers.find(p=>p.id==='jili'),mega=cached.data.providers.find(p=>p.id==='megah5'),kiss=cached.data.providers.find(p=>p.id==='918kissh5'),meta=cached.data.providers.find(p=>p.id==='metagaming');
+-  assert.equal(cached.status,200);assert.deepEqual(cached.data.games,[]);assert.equal(cached.data.totalGameCount,0);assert.equal(cached.data.gameCountScope,'current_response');assert.equal(cached.data.gamesOmittedUntilProviderSelected,true);assert.equal(cached.data.cachedGameCount,5);assert.deepEqual(cached.data.catalogueCacheSummary,{source:'database_cache',cachedGameCount:5,cachedProviderCount:4,providersWithCachedGames:3,freshCacheProviderCount:3,completeCacheProviderCount:4,missingCacheProviderCount:33});
++  assert.equal(cached.status,200);assert.deepEqual(cached.data.games,[]);assert.equal(cached.data.totalGameCount,0);assert.equal(cached.data.gameCountScope,'current_response');assert.equal(cached.data.gamesOmittedUntilProviderSelected,true);assert.equal(cached.data.cachedGameCount,5);assert.deepEqual(cached.data.catalogueCacheSummary,{source:'database_cache',cachedGameCount:5,cachedProviderCount:4,providersWithCachedGames:3,freshCacheProviderCount:3,completeCacheProviderCount:4,missingCacheProviderCount:34});
+   assert.deepEqual([jili.catalogueCacheStatus,jili.catalogueCacheFresh,jili.cachedGameCount],['available',true,2]);assert.deepEqual([mega.catalogueCacheStatus,mega.catalogueCacheFresh,mega.cachedGameCount],['blocked',false,1]);assert.deepEqual([kiss.catalogueCacheStatus,kiss.catalogueCacheFresh,kiss.cachedGameCount],['empty',true,0]);assert.deepEqual([meta.catalogueCacheStatus,meta.catalogueCacheFresh,meta.cachedGameCount],['available',true,2],'free-credit cache must not replace or aggregate the normal supplier summary');assert.equal(calls,0);
+   const serialized=JSON.stringify(cached.data);for(const value of ['J-COUNT-1','J-COUNT-2','M-COUNT-1','META-NORMAL-1','META-FREE-1','cache-secret-must-not-leak','cache-api-key-must-not-leak','free-cache-must-not-leak','private detail'])assert.ok(!serialized.includes(value),value);
+   sqlite.exec('DELETE FROM game_catalogue_cache');
+@@ -75,7 +75,7 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+  await t.test('CSRF, foreign origins and privilege escalation rejected',async()=>{assert.equal((await call('owner','/api/admin/approve','POST',{userId:'alice'},{'x-csrf-token':'bad'})).status,403);assert.equal((await call('owner','/api/admin/approve','POST',{userId:'alice'},{origin:'https://evil.test'})).status,403);assert.equal((await call('owner','/api/admin/role','POST',{userId:'alice',role:'owner'})).status,400);assert.equal((await call('owner','/api/admin/role','POST',{userId:'owner',role:'member'})).status,403);});
+  await t.test('owner approval and staff assignment persist',async()=>{assert.equal((await call('owner','/api/admin/approve','POST',{userId:'alice'})).status,200);assert.equal((await call('owner','/api/admin/approve','POST',{userId:'bob'})).status,200);assert.equal((await call('owner','/api/admin/role','POST',{userId:'employee',role:'staff'})).status,200);assert.equal((await call('employee','/api/admin/users')).status,403);assert.equal((await call('alice','/api/admin/summary')).status,403);assert.equal((await call('employee','/api/admin/approve','POST',{userId:'bob'})).status,403);});
+  await t.test('owner appends provider acceptance while staff has read-only evidence access',async()=>{
+-  const initial=await call('employee','/api/admin/game-acceptance?environment=production');assert.equal(initial.status,200);assert.equal(initial.data.profiles.length,43);assert.ok(initial.data.profiles.every(profile=>profile.accepted===false));assert.equal((await call('alice','/api/admin/game-acceptance')).status,403);
++  const initial=await call('employee','/api/admin/game-acceptance?environment=production');assert.equal(initial.status,200);assert.equal(initial.data.profiles.length,44);assert.ok(initial.data.profiles.every(profile=>profile.accepted===false));assert.equal((await call('alice','/api/admin/game-acceptance')).status,403);
+   const at=Math.floor(Date.now()/1000),input={profileId:'megah5_myr',capability:'catalogue',environment:'production',result:'passed',evidenceSha256:'a'.repeat(64),evidenceReference:'case:api-acceptance-1',observedAt:at,expectedEventId:null};
+   assert.equal((await call('employee','/api/admin/game-acceptance','POST',input)).status,403);
+   const saved=await call('owner','/api/admin/game-acceptance','POST',input);assert.equal(saved.status,201);assert.equal(saved.data.accepted,true);
+@@ -86,7 +86,7 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+  await t.test('dedicated VIP suite is owner-controlled, deposit-based, audited, and never credits rewards automatically',async()=>{
+   const creditedId='vip-credited-alice',pendingId='vip-pending-alice',priorReferral=sqlite.prepare("SELECT value FROM settings WHERE id='referral_program'").get();
+   try{
+-   const publicDraft=await call(null,'/api/vip');assert.equal(publicDraft.status,200);assert.equal(publicDraft.data.configured,false);assert.equal(publicDraft.data.program.enabled,false);assert.deepEqual(publicDraft.data.program.tiers.map(tier=>tier.name),['Bronze','Silver','Gold','Platinum','Diamond','Royal','Crown','Master']);assert.equal(publicDraft.data.program.tiers[0].active,true);assert.ok(publicDraft.data.program.tiers.slice(1).every(tier=>tier.active===false&&tier.cumulativeDepositMYR===0));assert.equal(publicDraft.data.member,null);assert.equal(publicDraft.data.walletCredit,false);assert.equal(publicDraft.data.cashbackAutomation,false);assert.equal(publicDraft.data.dividendAutomation,false);assert.equal(publicDraft.data.turnoverEnforcement,false);assert.equal(publicDraft.data.turnoverSource,'not_connected');assert.equal(publicDraft.data.capabilities.gameScope,'all_37_platforms');assert.deepEqual(publicDraft.data.capabilities.cashbackCategories,['slot','live','fish','sport','fastGame']);assert.equal(publicDraft.data.capabilities.providerExclusionsSupported,false);assert.equal(publicDraft.data.capabilities.wagerSource,'not_connected');assert.equal(publicDraft.data.capabilities.turnoverSource,'not_connected');assert.equal(publicDraft.data.commissionCapabilities.depositCommission.enabled,false);assert.equal(publicDraft.data.commissionCapabilities.depositCommission.basis,'credited_deposit');assert.deepEqual(publicDraft.data.commissionCapabilities.depositCommission.ratesPercent,{L1:0,L2:0,L3:0});assert.equal(publicDraft.data.commissionCapabilities.turnoverCommission.source,'not_connected');assert.equal(publicDraft.data.commissionCapabilities.companyProfitDividend.source,'not_connected');
++   const publicDraft=await call(null,'/api/vip');assert.equal(publicDraft.status,200);assert.equal(publicDraft.data.configured,false);assert.equal(publicDraft.data.program.enabled,false);assert.deepEqual(publicDraft.data.program.tiers.map(tier=>tier.name),['Bronze','Silver','Gold','Platinum','Diamond','Royal','Crown','Master']);assert.equal(publicDraft.data.program.tiers[0].active,true);assert.ok(publicDraft.data.program.tiers.slice(1).every(tier=>tier.active===false&&tier.cumulativeDepositMYR===0));assert.equal(publicDraft.data.member,null);assert.equal(publicDraft.data.walletCredit,false);assert.equal(publicDraft.data.cashbackAutomation,false);assert.equal(publicDraft.data.dividendAutomation,false);assert.equal(publicDraft.data.turnoverEnforcement,false);assert.equal(publicDraft.data.turnoverSource,'not_connected');assert.equal(publicDraft.data.capabilities.gameScope,'all_38_platforms');assert.deepEqual(publicDraft.data.capabilities.cashbackCategories,['slot','live','fish','sport','fastGame']);assert.equal(publicDraft.data.capabilities.providerExclusionsSupported,false);assert.equal(publicDraft.data.capabilities.wagerSource,'not_connected');assert.equal(publicDraft.data.capabilities.turnoverSource,'not_connected');assert.equal(publicDraft.data.commissionCapabilities.depositCommission.enabled,false);assert.equal(publicDraft.data.commissionCapabilities.depositCommission.basis,'credited_deposit');assert.deepEqual(publicDraft.data.commissionCapabilities.depositCommission.ratesPercent,{L1:0,L2:0,L3:0});assert.equal(publicDraft.data.commissionCapabilities.turnoverCommission.source,'not_connected');assert.equal(publicDraft.data.commissionCapabilities.companyProfitDividend.source,'not_connected');
+    assert.equal((await call('employee','/api/admin/vip')).status,403);assert.equal((await call('alice','/api/admin/vip')).status,403);const adminDraft=await call('owner','/api/admin/vip');assert.equal(adminDraft.status,200);assert.equal(adminDraft.data.storage,'vip_program_v1');
+    const invalid=structuredClone(adminDraft.data.program);invalid.tiers[0].color='bronze';assert.equal((await call('owner','/api/admin/vip','POST',invalid)).status,400);assert.equal(sqlite.prepare("SELECT COUNT(*) n FROM settings WHERE id='vip_program_v1'").get().n,0);assert.equal((await call('owner','/api/admin/vip','POST',{program:adminDraft.data.program,walletCredit:true})).status,400);
+    sqlite.prepare("INSERT INTO settings(id,value) VALUES('referral_program',?) ON CONFLICT(id) DO UPDATE SET value=excluded.value").run(JSON.stringify({enabled:true,basis:'deposit',maxLevels:3,claimMode:'manual',tierRatesPercent:[3,1.5,.5],minQualifyingMYR:20,holdDays:2,dailyCapMYR:300,monthlyCapMYR:3000}));
+@@ -264,9 +264,9 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+   assert.equal((await call('employee','/api/admin/game-sync')).status,200);
+   assert.equal((await call('owner','/api/admin/game-sync','POST',{}, {'x-csrf-token':'bad'})).status,403);
+   assert.equal((await call('alice','/api/admin/game-sync','POST',{})).status,403);
+-  const result=await call('owner','/api/admin/game-sync','POST',{});assert.equal(result.status,200);assert.equal(result.data.playable,false);assert.equal(result.data.providers.length,37);
++  const result=await call('owner','/api/admin/game-sync','POST',{});assert.equal(result.status,200);assert.equal(result.data.playable,false);assert.equal(result.data.providers.length,38);
+   assert.equal((await call(null,'/api/internal/catalogue-sync')).status,401);
+-  const token='fixture-internal-catalogue-token-123456789';const internal=await call(null,'/api/internal/catalogue-sync','GET',undefined,{authorization:'Bearer '+token},{gameSyncToken:token});assert.equal(internal.status,200);assert.equal(internal.data.playable,false);assert.equal(internal.data.providers.length,37);assert.ok(!JSON.stringify(internal.data).includes(token));
++  const token='fixture-internal-catalogue-token-123456789';const internal=await call(null,'/api/internal/catalogue-sync','GET',undefined,{authorization:'Bearer '+token},{gameSyncToken:token});assert.equal(internal.status,200);assert.equal(internal.data.playable,false);assert.equal(internal.data.providers.length,38);assert.ok(!JSON.stringify(internal.data).includes(token));
+  });
+  await t.test('VPay wallet endpoints remain readonly and a closed profile never calls its gateway',async()=>{
+   const status=await call(null,'/api/payments/vpay/status');assert.equal(status.status,200);assert.equal(status.data.enabled,false);assert.equal(status.data.tradeCodes.length,0);assert.equal(status.data.realPayments,false);assert.equal(status.data.recoveryReady,false);assert.equal(status.data.payoutReady,false);assert.equal(status.data.balanceReady,false);assert.equal(status.data.capabilities.deposit.enabled,false);assert.equal(status.data.capabilities.payout.submissionEnabled,false);assert.equal(status.data.capabilities.balance.implemented,false);
+@@ -387,7 +387,7 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+  await t.test('owner edits allowlisted supplier artwork while availability is automatic',async()=>{
+   const imageData='data:image/png;base64,iVBORw0KGgoAAAAAAAAAAAAAAAA=';assert.equal((await call('alice','/api/admin/supplier-art','POST',{providerId:'gameplay',imageData})).status,403);
+   const saved=await call('owner','/api/admin/supplier-art','POST',{providerId:'gameplay',imageData});assert.equal(saved.status,200);assert.equal(saved.data.providerId,'gameplay');
+-  assert.equal((await call('owner','/api/admin/supplier-art','POST',{providerId:'gameplay',status:'suspended'})).status,410);let list=await call(null,'/api/supplier-art-list');assert.equal(list.data.items.length,37);let gameplay=list.data.items.find(item=>item.provider_id==='gameplay');assert.equal(gameplay.availabilityMode,'automatic');assert.ok(gameplay.image_updated_at);
++  assert.equal((await call('owner','/api/admin/supplier-art','POST',{providerId:'gameplay',status:'suspended'})).status,410);let list=await call(null,'/api/supplier-art-list');assert.equal(list.data.items.length,38);let gameplay=list.data.items.find(item=>item.provider_id==='gameplay');assert.equal(gameplay.availabilityMode,'automatic');assert.ok(gameplay.image_updated_at);
+   assert.equal((await call('owner','/api/admin/supplier-art','POST',{providerId:'gameplay',status:'closed'})).status,410);list=await call(null,'/api/supplier-art-list');gameplay=list.data.items.find(item=>item.provider_id==='gameplay');assert.equal(gameplay.readOnlyAvailability,true);
+   const art=await handle(new Request('https://portal.example.test/api/supplier-art?provider=gameplay'),{db,identity:null,ownerEmail:'owner@example.test'});assert.equal(art.status,200);assert.equal(art.headers.get('content-type'),'image/png');assert.equal((await art.arrayBuffer()).byteLength,20);
+   assert.equal((await call('owner','/api/admin/supplier-art','POST',{providerId:'not-a-supplier',imageData})).status,400);assert.equal((await call('owner','/api/admin/supplier-art','POST',{providerId:'gameplay',imageData:'data:image/png;base64,not-an-image'})).status,400);sqlite.prepare('DELETE FROM rate_limits').run();
+diff --git a/tests/coba8-contract-readiness.test.mjs b/tests/coba8-contract-readiness.test.mjs
+new file mode 100644
+index 0000000..da8e684
+--- /dev/null
++++ b/tests/coba8-contract-readiness.test.mjs
+@@ -0,0 +1,26 @@
++import assert from 'node:assert/strict';
++import test from 'node:test';
++import {COBA8_PROFILE_ID,COBA8_REQUIRED_CONTRACT_FIELDS,inspectCoba8ContractManifest} from '../lib/coba8-contract-readiness.ts';
++import {getGameProviderProfile,resolveGameProviderAdapter} from '../lib/game-provider-registry.ts';
++import {GAME_PROVIDER_ADAPTER_METHODS,GameProviderUnavailableError} from '../lib/game-provider-adapter.ts';
++
++test('COBA8 is registered in the member lobby but remains contract-missing and unimplemented',async()=>{
++ const profile=getGameProviderProfile(COBA8_PROFILE_ID);assert.ok(profile);assert.equal(profile.providerId,'coba8');assert.equal(profile.displayName,'COBA8 · MYR');
++ assert.equal(profile.listedInLobby,true);assert.equal(profile.contractStatus,'missing');assert.equal(profile.adapterStatus,'contract_missing');assert.equal(profile.implemented,false);assert.equal(profile.enabled,false);
++ const adapter=resolveGameProviderAdapter(COBA8_PROFILE_ID);assert.equal(adapter.executable,false);
++ for(const operation of GAME_PROVIDER_ADAPTER_METHODS)await assert.rejects(adapter[operation](),error=>error instanceof GameProviderUnavailableError&&error.profileId===COBA8_PROFILE_ID&&error.reason==='contract_missing'&&error.operation===operation);
++});
++
++test('a login and API token alone disclose no value and cannot enable any COBA8 capability',()=>{
++ const diagnostic=inspectCoba8ContractManifest({username:'synthetic-user',password:'synthetic-password',apiToken:'synthetic-token'});
++ assert.equal(diagnostic.credentialsPresent,true);assert.equal(diagnostic.manifestComplete,false);assert.deepEqual(diagnostic.missingContractFields,[...COBA8_REQUIRED_CONTRACT_FIELDS]);
++ assert.equal(JSON.stringify(diagnostic).includes('synthetic'),false);
++ for(const field of ['adapterImplemented','catalogueAllowed','launchAllowed','walletAllowed','settlementAllowed','recoveryAllowed','playAllowed'])assert.equal(diagnostic[field],false,field);
++});
++
++test('even a syntactically complete documentation manifest cannot enable Play without an adapter and acceptance',()=>{
++ const manifest={};
++ for(const path of COBA8_REQUIRED_CONTRACT_FIELDS){const parts=path.split('.');let current=manifest;for(const part of parts.slice(0,-1))current=current[part]??={};current[parts.at(-1)]='documented';}
++ const diagnostic=inspectCoba8ContractManifest(manifest);assert.equal(diagnostic.manifestComplete,true);assert.deepEqual(diagnostic.missingContractFields,[]);
++ assert.equal(diagnostic.adapterImplemented,false);assert.equal(diagnostic.launchAllowed,false);assert.equal(diagnostic.walletAllowed,false);assert.equal(diagnostic.settlementAllowed,false);assert.equal(diagnostic.recoveryAllowed,false);assert.equal(diagnostic.playAllowed,false);
++});
+diff --git a/tests/engagement-api.test.mjs b/tests/engagement-api.test.mjs
+index 72d0f14..e0e1c4e 100644
+--- a/tests/engagement-api.test.mjs
++++ b/tests/engagement-api.test.mjs
+@@ -25,7 +25,7 @@ function fixture(){
+ 
+ test('engagement routes expose a safe public view and reserve settings for the owner',async()=>{
+  const {sqlite,call}=fixture(),publicDefault=await call(null,'/api/engagement');assert.equal(publicDefault.status,200);assert.equal(publicDefault.data.configured,false);assert.equal(publicDefault.data.program.enabled,false);assert.deepEqual(publicDefault.data.readiness.tournament.leaderboard,[]);assert.equal(publicDefault.data.readiness.jackpot.poolAmount,null);assert.equal(publicDefault.data.readiness.jackpot.drawEnabled,false);assert.equal(publicDefault.data.automaticRewards,false);assert.equal(Object.hasOwn(publicDefault.data,'storage'),false);assert.equal(Object.hasOwn(publicDefault.data,'updatedBy'),false);
+- assert.equal((await call(null,'/api/admin/engagement')).status,401);assert.equal((await call('staff','/api/admin/engagement')).status,403);const admin=await call('owner','/api/admin/engagement');assert.equal(admin.status,200);assert.equal(admin.data.providers.length,37);
++ assert.equal((await call(null,'/api/admin/engagement')).status,401);assert.equal((await call('staff','/api/admin/engagement')).status,403);const admin=await call('owner','/api/admin/engagement');assert.equal(admin.status,200);assert.equal(admin.data.providers.length,38);
+  const program=structuredClone(admin.data.program);program.enabled=true;program.tournament.enabled=true;program.depositSpin={enabled:true,title:'Deposit Lucky Wheel',minDepositMYR:50,spinsPerDeposit:1,dailySpinCap:3,turnoverMultiplier:20,prizeNote:'Display only until audited draw connection.'};program.jackpot.enabled=true;program.personalizedLobby={enabled:true,ownerCuratedProviders:['jili','bg'],maxItems:10};program.notificationCenter={enabled:true,tickets:true,financial:true,systemStatus:true,sound:true};
+  assert.equal((await call('owner','/api/admin/engagement','POST',{program},'bad-csrf')).status,403);assert.equal((await call('staff','/api/admin/engagement','POST',{program})).status,403);const attempt=structuredClone(program);attempt.jackpot.drawEnabled=true;assert.equal((await call('owner','/api/admin/engagement','POST',{program:attempt})).status,400);
+  const saved=await call('owner','/api/admin/engagement','POST',{program});assert.equal(saved.status,200);assert.equal(saved.data.readiness.tournament.published,true);assert.equal(saved.data.readiness.tournament.awardsEnabled,false);assert.deepEqual(saved.data.readiness.tournament.leaderboard,[]);assert.equal(saved.data.readiness.depositSpin.published,true);assert.equal(saved.data.readiness.depositSpin.qualificationSource,'credited_deposit_orders');assert.equal(saved.data.readiness.depositSpin.spinLedger,'not_connected');assert.equal(saved.data.readiness.depositSpin.randomDrawSource,'not_connected');assert.equal(saved.data.readiness.depositSpin.awardsEnabled,false);assert.equal(saved.data.readiness.jackpot.drawEnabled,false);assert.equal(saved.data.readiness.jackpot.poolAmount,null);assert.equal(saved.data.walletCredit,false);assert.equal(saved.data.moneyMovement,false);assert.equal(sqlite.prepare("SELECT COUNT(*) n FROM audit WHERE event='engagement_program_updated'").get().n,1);
+diff --git a/tests/engagement.test.mjs b/tests/engagement.test.mjs
+index b99c5e3..fc6d59e 100644
+--- a/tests/engagement.test.mjs
++++ b/tests/engagement.test.mjs
+@@ -18,7 +18,7 @@ const clone=value=>structuredClone(value);
+ 
+ test('engagement defaults are truthful, disabled, and contain no invented competition or money data',async()=>{
+  const {db}=fixture(),admin=await getAdminEngagement(db),publicView=await getPublicEngagement(db);
+- assert.equal(admin.configured,false);assert.equal(admin.storage,'engagement_program_v1');assert.equal(admin.program.enabled,false);assert.equal(admin.providers.length,37);assert.deepEqual(admin.providers[0],{id:'megah5',name:'MegaH5'});
++ assert.equal(admin.configured,false);assert.equal(admin.storage,'engagement_program_v1');assert.equal(admin.program.enabled,false);assert.equal(admin.providers.length,38);assert.deepEqual(admin.providers[0],{id:'megah5',name:'MegaH5'});
+  assert.deepEqual([admin.program.tournament.enabled,admin.program.depositSpin.enabled,admin.program.jackpot.enabled,admin.program.luckyDraw.enabled,admin.program.personalizedLobby.enabled,admin.program.notificationCenter.enabled],[false,false,false,false,false,false]);
+  assert.equal(admin.readiness.tournament.scoreSource,'not_connected');assert.equal(admin.readiness.tournament.wagerSource,'not_connected');assert.deepEqual(admin.readiness.tournament.leaderboard,[]);assert.equal(admin.readiness.tournament.awardsEnabled,false);
+  assert.equal(admin.readiness.depositSpin.qualificationSource,'credited_deposit_orders');assert.equal(admin.readiness.depositSpin.spinLedger,'not_connected');assert.equal(admin.readiness.depositSpin.randomDrawSource,'not_connected');assert.equal(admin.readiness.depositSpin.awardsEnabled,false);assert.equal(admin.readiness.depositSpin.walletCredit,false);
+diff --git a/tests/game-launch.test.mjs b/tests/game-launch.test.mjs
+index b853da1..c302262 100644
+--- a/tests/game-launch.test.mjs
++++ b/tests/game-launch.test.mjs
+@@ -93,15 +93,17 @@ test('cached capability and game directory stay unplayable without verified acce
+  }finally{h.close();}
+ });
+ 
+-test('public game responses expose 37 brands and isolated fail-closed profile metadata',async()=>{
++test('public game responses expose 38 brands and isolated fail-closed profile metadata',async()=>{
+  const h=harness();try{
+   const summary=await h.request('/api/games');assert.equal(summary.status,200);
+-  assert.equal(summary.data.platformCount,37);assert.equal(summary.data.profileBrandCount,37);
+-  assert.ok(summary.data.profileCount>37);assert.equal(summary.data.profiles.length,summary.data.profileCount);
++  assert.equal(summary.data.platformCount,38);assert.equal(summary.data.profileBrandCount,38);
++  assert.ok(summary.data.profileCount>38);assert.equal(summary.data.profiles.length,summary.data.profileCount);
+   assert.equal(summary.data.implementedProfileCount,6);assert.equal(summary.data.verifiedProfileCount,0);
+   const mega=summary.data.profiles.find(profile=>profile.profileId==='megah5_myr');assert.equal(mega.providerId,'megah5');assert.equal(mega.walletMode,'transfer');assert.equal(mega.launchVerified,false);
+   const jili=summary.data.providers.find(provider=>provider.id==='jili');assert.deepEqual(jili.profiles.map(profile=>profile.profileId),['jili_myr_1to1','jili_my1_1to100']);
+   assert.ok(jili.profiles.every(profile=>profile.launchReady===false&&profile.walletReady===false&&profile.enabled===false));
++  const coba=summary.data.profiles.find(profile=>profile.profileId==='coba8_myr');assert.equal(coba.providerId,'coba8');assert.equal(coba.capabilityReason,'contract_missing');assert.equal(coba.implemented,false);assert.equal(coba.launchReady,false);assert.equal(coba.walletReady,false);assert.equal(coba.recoveryReady,false);assert.equal(coba.status,'unavailable');
++  const cobaSelected=await h.request('/api/games?profileId=coba8_myr');assert.equal(cobaSelected.status,200);assert.equal(cobaSelected.data.selectedProvider,'coba8');assert.equal(cobaSelected.data.selectedProfileId,'coba8_myr');assert.deepEqual(cobaSelected.data.games,[]);assert.equal(cobaSelected.data.selectedPlatform.platformLaunchReady,false);assert.equal(cobaSelected.data.playable,false);assert.equal(cobaSelected.data.liveReady,false);assert.equal(cobaSelected.data.launchProvider,null);
+   const selected=await h.request('/api/games?provider=megah5&profileId=megah5_myr');assert.equal(selected.status,200);assert.equal(selected.data.selectedProvider,'megah5');assert.equal(selected.data.selectedProfileId,'megah5_myr');
+   const alias=await h.request('/api/games?profile=megah5_myr');assert.equal(alias.status,200);assert.equal(alias.data.selectedProvider,'megah5');assert.equal(alias.data.selectedProfile.profileId,'megah5_myr');
+   assert.equal((await h.request('/api/games?provider=megah5&profile=jili_myr_1to1')).status,400);
+diff --git a/tests/game-provider-acceptance.test.mjs b/tests/game-provider-acceptance.test.mjs
+index 94d59c1..8e6adf9 100644
+--- a/tests/game-provider-acceptance.test.mjs
++++ b/tests/game-provider-acceptance.test.mjs
+@@ -34,7 +34,7 @@ const evidence=(overrides={})=>({profileId:'megah5_myr',capability:'catalogue',e
+ test('acceptance defaults every registered profile and capability to false',async t=>{
+  const f=fixture(t),report=await getGameProviderAcceptance(f.db,staff,{environment:'production'});
+  assert.equal(report.profiles.length,GAME_PROVIDER_PROFILES.length);
+- assert.equal(report.profiles.filter(item=>item.listedInLobby).length,42);
++ assert.equal(report.profiles.filter(item=>item.listedInLobby).length,43);
+  assert.deepEqual(report.events,[]);
+  for(const profile of report.profiles){
+   assert.equal(profile.accepted,false,profile.profileId);
+@@ -43,7 +43,14 @@ test('acceptance defaults every registered profile and capability to false',asyn
+   }
+  }
+  const readiness=await getGameProviderAcceptanceReadiness(f.db,['megah5_myr']);
+- assert.deepEqual({required:readiness.requiredProfileCount,accepted:readiness.acceptedProfileCount,live:readiness.liveProfileCount,verified:readiness.allGamesVerified,liveGames:readiness.liveGames},{required:42,accepted:0,live:0,verified:false,liveGames:false});
++ assert.deepEqual({required:readiness.requiredProfileCount,accepted:readiness.acceptedProfileCount,live:readiness.liveProfileCount,verified:readiness.allGamesVerified,liveGames:readiness.liveGames},{required:43,accepted:0,live:0,verified:false,liveGames:false});
++ const coba8=readiness.blockers.find(item=>item.profileId==='coba8_myr');
++ assert.equal(coba8.contractDiagnostic.manifestComplete,false);
++ assert.equal(coba8.contractDiagnostic.adapterImplemented,false);
++ assert.equal(coba8.contractDiagnostic.playAllowed,false);
++ assert.ok(coba8.contractDiagnostic.missingContractFields.includes('authentication.signature_algorithm'));
++ assert.ok(coba8.contractDiagnostic.missingContractFields.includes('launch.endpoint'));
++ assert.ok(coba8.contractDiagnostic.missingContractFields.includes('wallet.transfer_query.terminal_statuses'));
+ });
+ 
+ test('only an owner can append evidence while staff can read the immutable history',async t=>{
+diff --git a/tests/game-provider-registry.test.mjs b/tests/game-provider-registry.test.mjs
+index 01e3965..733033c 100644
+--- a/tests/game-provider-registry.test.mjs
++++ b/tests/game-provider-registry.test.mjs
+@@ -9,9 +9,9 @@ import {
+   resolveGameProviderAdapter,
+ } from '../lib/game-provider-registry.ts';
+ 
+-test('registry retains 37 lobby brands and gives every brand a lobby profile', () => {
+-  assert.equal(GAME_PROVIDER_BRANDS.length, 37);
+-  assert.equal(new Set(GAME_PROVIDER_BRANDS.map(item => item.providerId)).size, 37);
++test('registry retains 38 lobby brands and gives every brand a lobby profile', () => {
++  assert.equal(GAME_PROVIDER_BRANDS.length, 38);
++  assert.equal(new Set(GAME_PROVIDER_BRANDS.map(item => item.providerId)).size, 38);
+   for (const brand of GAME_PROVIDER_BRANDS) {
+     assert.ok(getGameProviderProfiles(brand.providerId).some(item => item.listedInLobby), brand.providerId);
+   }
+@@ -46,7 +46,7 @@ test('known multi-account suppliers keep exact independent profiles and scales',
+   assert.notEqual(metaNormal.playerNamespace,metaFree.playerNamespace);assert.notEqual(metaNormal.ledgerNamespace,metaFree.ledgerNamespace);
+ });
+ 
+-test('SPRIBE is independent from JDB while remaining outside the current 37 lobby brands', () => {
++test('SPRIBE is independent from JDB while remaining outside the current 38 lobby brands', () => {
+   const spribe = getGameProviderProfile('spribe_myr');
+   const jdb = getGameProviderProfile('jdb_myr');
+   assert.equal(jdb.walletMode, 'transfer');
+diff --git a/tests/game-ranking-api.test.mjs b/tests/game-ranking-api.test.mjs
+index 4c4a846..b972d2f 100644
+--- a/tests/game-ranking-api.test.mjs
++++ b/tests/game-ranking-api.test.mjs
+@@ -23,12 +23,12 @@ function fixture(t){
+  return {sqlite,call};
+ }
+ 
+-test('game ranking routes are owner controlled and reorder only the 37 platform cards',async t=>{
+- const {sqlite,call}=fixture(t),publicDefault=await call(null,'/api/game-ranking');assert.equal(publicDefault.status,200);assert.equal(publicDefault.data.platformCount,37);assert.equal(publicDefault.data.automaticRanking,false);assert.equal(publicDefault.data.internalGamesRanked,false);assert.equal(publicDefault.data.ranking.categories.HOT[0],'megah5');assert.equal(Object.hasOwn(publicDefault.data,'updatedBy'),false);assert.equal(Object.hasOwn(publicDefault.data,'storage'),false);
++test('game ranking routes are owner controlled and reorder only the 38 platform cards',async t=>{
++ const {sqlite,call}=fixture(t),publicDefault=await call(null,'/api/game-ranking');assert.equal(publicDefault.status,200);assert.equal(publicDefault.data.platformCount,38);assert.equal(publicDefault.data.automaticRanking,false);assert.equal(publicDefault.data.internalGamesRanked,false);assert.equal(publicDefault.data.ranking.categories.HOT[0],'megah5');assert.equal(Object.hasOwn(publicDefault.data,'updatedBy'),false);assert.equal(Object.hasOwn(publicDefault.data,'storage'),false);
+  assert.equal((await call('staff','/api/admin/game-ranking')).status,403);const owner=await call('owner','/api/admin/game-ranking');assert.equal(owner.status,200);const ranking=structuredClone(owner.data.ranking);ranking.categories.HOT=[ranking.categories.HOT[1],ranking.categories.HOT[0],...ranking.categories.HOT.slice(2)];
+  ranking.categories.LIVE=[...ranking.categories.LIVE].reverse();ranking.categories.SLOT=[ranking.categories.SLOT.at(-1),...ranking.categories.SLOT.slice(0,-1)];
+  const duplicate=structuredClone(ranking);duplicate.categories.HOT[1]=duplicate.categories.HOT[0];assert.equal((await call('owner','/api/admin/game-ranking','POST',{ranking:duplicate})).status,400);
+  const saved=await call('owner','/api/admin/game-ranking','POST',{ranking});assert.equal(saved.status,200);assert.equal(saved.data.ranking.categories.HOT[0],'jili');assert.equal(saved.data.ranking.categories.LIVE[0],'awc');assert.equal(saved.data.ranking.categories.SLOT[0],'clotplay');assert.equal(sqlite.prepare("SELECT COUNT(*) n FROM audit WHERE event='game_provider_ranking_updated'").get().n,1);
+  const publicSaved=await call(null,'/api/game-ranking');assert.equal(publicSaved.data.ranking.categories.LIVE[0],'awc');assert.equal(Object.hasOwn(publicSaved.data,'updatedBy'),false);assert.equal(Object.hasOwn(publicSaved.data,'storage'),false);
+- const games=await call(null,'/api/games');assert.equal(games.status,200);assert.equal(games.data.providers.length,37);assert.equal(games.data.providers[0].id,'jili');assert.equal(games.data.providers[0].position,1);assert.equal(games.data.providers[0].rankingSource,'owner_curated');assert.equal(games.data.games.length,0);assert.equal(games.data.playable,false);assert.equal(games.data.liveReady,false);assert.equal(games.data.ranking.automaticRanking,false);
++ const games=await call(null,'/api/games');assert.equal(games.status,200);assert.equal(games.data.providers.length,38);assert.equal(games.data.providers[0].id,'jili');assert.equal(games.data.providers[0].position,1);assert.equal(games.data.providers[0].rankingSource,'owner_curated');assert.equal(games.data.games.length,0);assert.equal(games.data.playable,false);assert.equal(games.data.liveReady,false);assert.equal(games.data.ranking.automaticRanking,false);
+ });
+diff --git a/tests/game-ranking.test.mjs b/tests/game-ranking.test.mjs
+index 88156d4..f9e6fb0 100644
+--- a/tests/game-ranking.test.mjs
++++ b/tests/game-ranking.test.mjs
+@@ -14,13 +14,13 @@ function fixture(){
+  const db={prepare:sql=>new Statement(sqlite,sql),async batch(list){sqlite.exec('BEGIN');try{const results=[];for(const item of list)results.push(await item.run());sqlite.exec('COMMIT');return results;}catch(error){sqlite.exec('ROLLBACK');throw error;}}};return {sqlite,db};
+ }
+ 
+-test('default game ranking covers each of the 37 platform cards without inventing games',async()=>{
+- const {db}=fixture(),result=await getGameRanking(db);assert.equal(result.configured,false);assert.equal(result.source,'owner_curated');assert.equal(result.automaticRanking,false);assert.equal(result.internalGamesRanked,false);assert.equal(result.platformCount,37);assert.deepEqual(result.ranking.categories.HOT,[...GAME_PROVIDER_IDS]);assert.equal(new Set(result.ranking.categories.HOT).size,37);assert.deepEqual(result.categoryCounts,{HOT:37,SLOT:14,LIVE:7,FISH:5,COCK:0,SPORT:1});
+- const ranked=rankPlatforms(GAME_PROVIDER_IDS.map(id=>({id,playable:false})),result.ranking);assert.equal(ranked.length,37);assert.equal(ranked[0].position,1);assert.ok(ranked.every(item=>item.playable===false&&item.rankingSource==='owner_curated'));
++test('default game ranking covers each of the 38 platform cards without inventing games',async()=>{
++ const {db}=fixture(),result=await getGameRanking(db);assert.equal(result.configured,false);assert.equal(result.source,'owner_curated');assert.equal(result.automaticRanking,false);assert.equal(result.internalGamesRanked,false);assert.equal(result.platformCount,38);assert.deepEqual(result.ranking.categories.HOT,[...GAME_PROVIDER_IDS]);assert.equal(new Set(result.ranking.categories.HOT).size,38);assert.deepEqual(result.categoryCounts,{HOT:38,SLOT:14,LIVE:7,FISH:5,COCK:0,SPORT:1});
++ const ranked=rankPlatforms(GAME_PROVIDER_IDS.map(id=>({id,playable:false})),result.ranking);assert.equal(ranked.length,38);assert.equal(ranked[0].position,1);assert.ok(ranked.every(item=>item.playable===false&&item.rankingSource==='owner_curated'));
+ });
+ 
+ test('game ranking validation allows ordering only and rejects missing, duplicate, invented, or reclassified platforms',()=>{
+- const valid=defaultGameRanking();valid.categories.HOT=[...valid.categories.HOT].reverse();valid.categories.LIVE=[...valid.categories.LIVE].reverse();assert.equal(validateGameRanking(valid).categories.HOT[0],'clotplay');
++ const valid=defaultGameRanking();valid.categories.HOT=[...valid.categories.HOT].reverse();valid.categories.LIVE=[...valid.categories.LIVE].reverse();assert.equal(validateGameRanking(valid).categories.HOT[0],'coba8');
+  for(const broken of [
+   {...defaultGameRanking(),categories:{...defaultGameRanking().categories,HOT:defaultGameRanking().categories.HOT.slice(1)}},
+   {...defaultGameRanking(),categories:{...defaultGameRanking().categories,SLOT:[...GAME_PROVIDER_CATEGORY_IDS.SLOT.slice(0,-1),GAME_PROVIDER_CATEGORY_IDS.SLOT[0]]}},
+@@ -31,12 +31,18 @@ test('game ranking validation allows ordering only and rejects missing, duplicat
+ 
+ test('owner curated ranking persists with an audit receipt and reloads exactly',async()=>{
+  const {sqlite,db}=fixture(),ranking=defaultGameRanking();ranking.categories.HOT=[ranking.categories.HOT[1],ranking.categories.HOT[0],...ranking.categories.HOT.slice(2)];ranking.categories.FISH=[...ranking.categories.FISH].reverse();
+- const saved=await saveGameRanking(db,'owner',ranking,1234);assert.equal(saved.status,'ok');assert.equal(saved.configured,true);assert.equal(saved.ranking.categories.HOT[0],'jili');assert.equal(saved.updatedAt,1234);const loaded=await getGameRanking(db);assert.deepEqual(loaded.ranking,ranking);assert.equal(loaded.updatedBy,'owner');const audit=sqlite.prepare("SELECT user_id,event,target,created_at FROM audit WHERE event='game_provider_ranking_updated'").get();assert.equal(audit.user_id,'owner');assert.equal(audit.created_at,1234);assert.deepEqual(JSON.parse(audit.target),{version:1,mode:'owner_curated',categories:{HOT:37,SLOT:14,LIVE:7,FISH:5,COCK:0,SPORT:1}});
++ const saved=await saveGameRanking(db,'owner',ranking,1234);assert.equal(saved.status,'ok');assert.equal(saved.configured,true);assert.equal(saved.ranking.categories.HOT[0],'jili');assert.equal(saved.updatedAt,1234);const loaded=await getGameRanking(db);assert.deepEqual(loaded.ranking,ranking);assert.equal(loaded.updatedBy,'owner');const audit=sqlite.prepare("SELECT user_id,event,target,created_at FROM audit WHERE event='game_provider_ranking_updated'").get();assert.equal(audit.user_id,'owner');assert.equal(audit.created_at,1234);assert.deepEqual(JSON.parse(audit.target),{version:1,mode:'owner_curated',categories:{HOT:38,SLOT:14,LIVE:7,FISH:5,COCK:0,SPORT:1}});
+ });
+ 
+-test('stored 34-platform ranking expands safely to the three new independent entries',async()=>{
++test('stored 34-platform ranking expands safely to the four new independent entries',async()=>{
+  const {sqlite,db}=fixture(),legacy=defaultGameRanking();
+  legacy.categories.HOT=legacy.categories.HOT.slice(0,34).reverse();legacy.categories.SLOT=legacy.categories.SLOT.slice(0,12).reverse();
+  sqlite.prepare('INSERT INTO settings(id,value) VALUES(?,?)').run('game_provider_ranking_v1',JSON.stringify({...legacy,updatedAt:123,updatedBy:'owner'}));
+- const loaded=await getGameRanking(db);assert.equal(loaded.configured,true);assert.equal(loaded.platformCount,37);assert.deepEqual(loaded.ranking.categories.HOT.slice(0,34),legacy.categories.HOT);assert.deepEqual(loaded.ranking.categories.HOT.slice(34),['epicwin','venus','clotplay']);assert.deepEqual(loaded.ranking.categories.SLOT.slice(-2),['epicwin','clotplay']);
++ const loaded=await getGameRanking(db);assert.equal(loaded.configured,true);assert.equal(loaded.platformCount,38);assert.deepEqual(loaded.ranking.categories.HOT.slice(0,34),legacy.categories.HOT);assert.deepEqual(loaded.ranking.categories.HOT.slice(34),['epicwin','venus','clotplay','coba8']);assert.deepEqual(loaded.ranking.categories.SLOT.slice(-2),['epicwin','clotplay']);
++});
++
++test('stored v162 37-platform ranking preserves owner order and appends COBA8 once',async()=>{
++ const {sqlite,db}=fixture(),previous=defaultGameRanking();previous.categories.HOT=previous.categories.HOT.filter(id=>id!=='coba8').reverse();
++ sqlite.prepare('INSERT INTO settings(id,value) VALUES(?,?)').run('game_provider_ranking_v1',JSON.stringify({...previous,updatedAt:124,updatedBy:'owner'}));
++ const loaded=await getGameRanking(db);assert.equal(loaded.configured,true);assert.equal(loaded.platformCount,38);assert.deepEqual(loaded.ranking.categories.HOT.slice(0,37),previous.categories.HOT);assert.equal(loaded.ranking.categories.HOT.at(-1),'coba8');assert.equal(loaded.ranking.categories.HOT.filter(id=>id==='coba8').length,1);
+ });
+diff --git a/tests/jili-wallet-api.test.mjs b/tests/jili-wallet-api.test.mjs
+index d62e0c8..c573255 100644
+--- a/tests/jili-wallet-api.test.mjs
++++ b/tests/jili-wallet-api.test.mjs
+@@ -75,7 +75,7 @@ test('a JILI return-origin misconfiguration cannot advertise Play, reserve a wal
+   const result=await h.launch();assert.equal(result.status,503,JSON.stringify(result));assert.equal(h.state.calls.length,0);assert.equal(h.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);assert.equal(h.sql.prepare('SELECT COUNT(*) n FROM game_wallet_sessions').get().n,0);
+  }finally{h.close();}
+ });
+-test('JILI production readiness is per profile and does not certify its other account or 37 brands',async()=>{
++test('JILI production readiness is per profile and does not certify its other account or 38 brands',async()=>{
+  const h=fixture();try{h.slot.mode='production';const before=await h.launch();assert.equal(before.status,503);assert.equal(h.state.calls.length,0);await h.accept();const catalogue=await h.request('alice',`/api/games?provider=jili&profileId=${h.profile.profileId}`);assert.equal(catalogue.body.selectedProfile.launchReady,true,JSON.stringify(catalogue));const health=await h.request(null,'/health');assert.equal(health.body.anyGamePlayable,true);assert.equal(health.body.providerAcceptance.liveProfileCount,1);assert.equal(health.body.liveGames,false);const other=await h.launch('alice','jili_my1_1to100');assert.equal(other.status,503);assert.equal(h.state.calls.filter(x=>x.method==='ExchangeTransferByAgentId').length,0);}finally{h.close();}
+ });
+ test('JILI summary readiness uses the exact profile cache instead of borrowing the other account',async()=>{
+diff --git a/tests/lobby-render.test.mjs b/tests/lobby-render.test.mjs
+index 3868d8d..b6daea9 100644
+--- a/tests/lobby-render.test.mjs
++++ b/tests/lobby-render.test.mjs
+@@ -27,9 +27,9 @@ function renderPlatformStatus(providerId='jili',control='active',connected=true,
+  vm.runInNewContext(`${source.slice(start,end)}\nrenderCatalog();`,context);return ids;
+ }
+ 
+-test('the customer chooser contains exactly 37 independent platform entries and keeps GodeeZone internal',()=>{
++test('the customer chooser contains exactly 38 independent platform entries and keeps GodeeZone internal',()=>{
+  const {entries,categories}=supplierConstants(),ids=entries.map(entry=>entry.id);
+- assert.equal(entries.length,37);assert.equal(new Set(ids).size,37);assert.deepEqual(ids.filter(id=>['epicwin','venus','clotplay','godeezone'].includes(id)),['epicwin','venus','clotplay']);
++ assert.equal(entries.length,38);assert.equal(new Set(ids).size,38);assert.deepEqual(ids.filter(id=>['epicwin','venus','clotplay','godeezone'].includes(id)),['epicwin','venus','clotplay']);
+  assert.deepEqual(categories.HOT,ids);
+  for(const [category,list] of Object.entries(categories)){assert.equal(new Set(list).size,list.length,`${category} duplicates a platform`);assert.ok(list.every(id=>ids.includes(id)),`${category} contains an unknown platform`);}
+  for(const entry of entries)assert.equal(existsSync(new URL(`../public/assets/providers/${entry.id}.webp`,import.meta.url)),true,`${entry.name} artwork fallback is missing`);assert.equal(existsSync(new URL('../public/assets/master7-casino-lobby-premium.webp',import.meta.url)),true);
+@@ -84,7 +84,7 @@ test('platform favourites are separate from internal game favourites and drive t
+  assert.match(source,/master7-favorite-providers/);assert.match(source,/favoriteProviders:\[\]/);assert.match(source,/category==="FAV"/);assert.match(source,/toggleFavoriteProvider\(entry\.id\)/);
+ });
+ 
+-test('three featured supplier slots remain separate above the 37-platform chooser',()=>{
++test('three featured supplier slots remain separate above the 38-platform chooser',()=>{
+  const featured=html.indexOf('id="bonusBrandLobby"'),chooser=html.indexOf('id="apiSupplierLobby"');assert.ok(featured>=0&&featured<chooser);
+  assert.equal((html.match(/data-provider-bonus=/g)||[]).length,3);assert.equal((html.match(/data-bonus-brand=/g)||[]).length,3);assert.equal((html.match(/data-provider-art=/g)||[]).length,3);
+ });
+@@ -236,14 +236,14 @@ test('template navigation opens existing pages and admin links point to real bac
+  assert.match(html,/class="admin-internal-sidebar"/);
+ });
+ 
+-test('37 supplied API providers have independent customer and backoffice button hosts',()=>{
++test('38 supplied API providers have independent customer and backoffice button hosts',()=>{
+  const html=readFileSync(new URL('../app/portal.html',import.meta.url),'utf8');
+  const source=readFileSync(new URL('../public/assets/app.js',import.meta.url),'utf8');
+  const block=source.match(/const apiSupplierEntries=Object\.freeze\(\[([\s\S]*?)\]\);/);
+  assert.ok(block);
+  const ids=[...block[1].matchAll(/\{id:"([^"]+)",name:"([^"]+)"\}/g)];
+- assert.equal(ids.length,37);
+- assert.equal(new Set(ids.map(match=>match[1])).size,37);
++ assert.equal(ids.length,38);
++ assert.equal(new Set(ids.map(match=>match[1])).size,38);
+  assert.deepEqual(ids.map(match=>match[1]).filter(id=>['epicwin','venus','clotplay','godeezone'].includes(id)),['epicwin','venus','clotplay']);
+  for(const match of ids){const path=`../public/assets/providers/${match[1]}.webp`;assert.equal(existsSync(new URL(path,import.meta.url)),true,`${match[2]} artwork fallback is missing`);}
+  assert.match(html,/id="apiSupplierButtons"/);
+diff --git a/tests/luxury-backoffice-ui.test.mjs b/tests/luxury-backoffice-ui.test.mjs
+index dc950bc..ba0fbc1 100644
+--- a/tests/luxury-backoffice-ui.test.mjs
++++ b/tests/luxury-backoffice-ui.test.mjs
+@@ -82,11 +82,11 @@ test('three sponsor cards, live hosts, cartoons and VIP artwork use independent
+  assert.match(style,/master7-vip-commission\.webp/);
+ });
+ 
+-test('all 37 provider fallbacks are valid and visually independent',()=>{
++test('all 38 provider fallbacks are valid and visually independent',()=>{
+  const root=new URL('../public/assets/providers/',import.meta.url),files=readdirSync(root).filter(name=>name.endsWith('.webp')).sort();
+- assert.equal(files.length,37);
++ assert.equal(files.length,38);
+  const payloads=[];for(const name of files){const file=new URL(name,root),bytes=readFileSync(file);assert.equal(bytes.subarray(0,4).toString(),'RIFF',name);assert.equal(bytes.subarray(8,12).toString(),'WEBP',name);assert.ok(statSync(file).size<350_000,name);payloads.push(bytes.toString('base64'));}
+- assert.equal(new Set(payloads).size,37,'every provider must have a distinct fallback image');
++ assert.equal(new Set(payloads).size,38,'every provider must have a distinct fallback image');
+  assert.match(app,/liveSupplierPortraits=Object\.freeze\(\{gameplay:0/);
+  assert.match(app,/cartoonSupplierPortraits=Object\.freeze\(\{astar:0/);
+ });
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index 7907b49..cb62e8e 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.162-duitnow-qr-fail-closed';
++const release='17.0.0-selfbuilt.163-coba8-front-end-registered';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+diff --git a/tests/production-readiness-probe.test.mjs b/tests/production-readiness-probe.test.mjs
+index 6296234..b909de8 100644
+--- a/tests/production-readiness-probe.test.mjs
++++ b/tests/production-readiness-probe.test.mjs
+@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
+ import {createServer} from 'node:http';
+ import {probeProductionReadiness,validateBaseUrl} from '../scripts/production-readiness-probe.mjs';
+ 
+-const providerIds=['megah5','jili','918kissh5','gameplay','lionking','suncity','pgsoft','gfg','sagaming','ps9','dragoonsoft','jdb','bg','allbet','quickspin','astar','metagaming','fuma','yl','funky','gamitech','spadegaming','turbo','ct855','pragmaticplay','joker','cg','atg','rectangle','m8bet','awc','evo888h5','cosmoplay','geminiupdown','epicwin','venus','clotplay'];
++const providerIds=['megah5','jili','918kissh5','gameplay','lionking','suncity','pgsoft','gfg','sagaming','ps9','dragoonsoft','jdb','bg','allbet','quickspin','astar','metagaming','fuma','yl','funky','gamitech','spadegaming','turbo','ct855','pragmaticplay','joker','cg','atg','rectangle','m8bet','awc','evo888h5','cosmoplay','geminiupdown','epicwin','venus','clotplay','coba8'];
+ const providers=providerIds.map((id,index)=>({id,position:index+1,platformLaunchReady:false,launchReady:false,launchVerified:false,walletVerified:false,settlementVerified:false,playable:false,platformStatus:'awaiting_api',operationalStatus:'awaiting_api'}));
+ const sourceRelease='17.0.0-v8-fixture';
+ const closedCapabilities={...Object.fromEntries(['vpay','gspay','1mpay'].map(provider=>[provider,{deposit:{enabled:false,blockers:['new_deposits_paused']}}])),gspay_usdt:{deposit:{implemented:false,enabled:false,blockers:['provider_contract_unverified','deposit_adapter_not_implemented']}}};
+@@ -19,7 +19,7 @@ const payloads={
+  '/api/payments/gspay/usdt/status':closedUsdtStatus,
+  '/api/payments/1mpay/status':closedStatus('1mpay'),
+  '/api/withdrawal-banks':{currency:'MYR',enabled:false,banks:[],providers:[{id:'vpay',enabled:false},{id:'gspay',enabled:false},{id:'1mpay',enabled:false}]},
+- '/api/games':{readOnlyAvailability:true,providers,games:[],platformCount:37,liveReady:false,playable:false},
++ '/api/games':{readOnlyAvailability:true,providers,games:[],platformCount:38,liveReady:false,playable:false},
+  '/api/games?provider=__probe_invalid__':{error:'Invalid game provider'},
+ };
+ 
+@@ -28,10 +28,10 @@ async function serve(t,handler){
+  const address=server.address();return `http://127.0.0.1:${address.port}`;
+ }
+ 
+-test('read-only probe accepts a closed 37-provider release and sends no credentials',async t=>{
++test('read-only probe accepts a closed 38-provider release and sends no credentials',async t=>{
+  const calls=[],baseUrl=await serve(t,(req,res)=>{calls.push({method:req.method,url:req.url,authorization:req.headers.authorization,cookie:req.headers.cookie});res.statusCode=req.url.includes('__probe_invalid__')?400:200;res.setHeader('content-type','application/json');res.setHeader('cache-control','no-store');res.end(JSON.stringify(payloads[req.url]));});
+  const result=await probeProductionReadiness({baseUrl,expectedReleasePrefix:'17.0.0-v8'});
+- assert.equal(result.ok,true);assert.equal(result.scope,'maintenance_safety_only');assert.equal(result.maintenanceVerified,true);assert.equal(result.productionReady,false);assert.equal(result.providerPositions,37);assert.equal(result.channelCount,4);
++ assert.equal(result.ok,true);assert.equal(result.scope,'maintenance_safety_only');assert.equal(result.maintenanceVerified,true);assert.equal(result.productionReady,false);assert.equal(result.providerPositions,38);assert.equal(result.channelCount,4);
+  assert.deepEqual(new Set(calls.map(item=>item.url)),new Set(Object.keys(payloads)));assert.ok(calls.every(item=>item.method==='GET'));
+  assert.ok(calls.every(item=>item.authorization===undefined&&item.cookie===undefined));
+ });
+diff --git a/tests/sponsor-branding-ui.test.mjs b/tests/sponsor-branding-ui.test.mjs
+index cefeb94..7bbdd2f 100644
+--- a/tests/sponsor-branding-ui.test.mjs
++++ b/tests/sponsor-branding-ui.test.mjs
+@@ -52,11 +52,11 @@ test('three independent 16:9 sponsor artworks are present and wired to their pro
+  assert.doesNotMatch(`${featured}\n${app.slice(app.indexOf('const bonusBrandTranslations'),app.indexOf('function bonusText'))}`,/vendor[- ]approved|provider[- ]approved|official partner|licensed by|certified by|authori[sz]ed partner|guaranteed/i);
+ });
+ 
+-test('all 37 provider entries have individual art and retain the safe lobby fallback',()=>{
++test('all 38 provider entries have individual art and retain the safe lobby fallback',()=>{
+  const catalog=app.slice(app.indexOf('const apiSupplierEntries=Object.freeze(['),app.indexOf('const GAME_PLATFORM_COUNT'));
+  const providerIds=[...catalog.matchAll(/\{id:"([^"]+)"/g)].map(match=>match[1]);
+- assert.equal(providerIds.length,37);
+- assert.equal(new Set(providerIds).size,37);
++ assert.equal(providerIds.length,38);
++ assert.equal(new Set(providerIds).size,38);
+  const generic=new URL('../public/assets/master7-casino-lobby-premium.webp',import.meta.url);
+  assert.ok(existsSync(generic)&&statSync(generic).size>50_000);
+  assert.match(app,/image\.onerror=\(\)=>\{image\.onerror=null;image\.src="\/assets\/master7-casino-lobby-premium\.webp";\}/);
+diff --git a/tests/vip-ui.test.mjs b/tests/vip-ui.test.mjs
+index 9d539a0..b6fdffb 100644
+--- a/tests/vip-ui.test.mjs
++++ b/tests/vip-ui.test.mjs
+@@ -32,7 +32,7 @@ test('VIP UI consumes the backend member and three-ledger capability contract',(
+  assert.match(vip,/rates\.L1,rates\.L2,rates\.L3/);
+  assert.match(vip,/settlement==="preview_only"/);
+  assert.match(vip,/NO WALLET CREDIT/);
+- assert.match(vip,/SCOPE · ALL 37 PLATFORMS/);
++ assert.match(vip,/SCOPE · ALL 38 PLATFORMS/);
+ });
+ 
+ test('owner editor saves exactly eight tiers and preserves nullable withdrawal limits',()=>{
