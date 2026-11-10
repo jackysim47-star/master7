@@ -1,0 +1,109 @@
+{
+  "release": "17.0.0-selfbuilt.153-provider-catalogue-safety",
+  "preparedAt": "2026-11-10T07:34:58.768697+00:00",
+  "sourceCommit": "aeaaeaceb2897911fd7934693f55840ee29fd99c",
+  "baselineSourceCommit": "c59c6ba83c6d651d6dbb294f3d6f8fe056293fb2",
+  "baselineRelease": "17.0.0-selfbuilt.152-918kiss-catalogue-safety",
+  "archive": {
+    "sha256": "38c762a1b209f6a7eafb6d9165c7b4bb951af98e022fc303f5ec01b3639c5ac6",
+    "bytes": 7125315,
+    "files": 681,
+    "entries": 742,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/MASTER7_PROVIDER_CATALOGUE_SAFETY_153.md"
+    ],
+    "changed": [
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "lib/backend.ts",
+      "lib/game-catalogue.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/service-worker.js",
+      "tests/api.test.mjs",
+      "tests/game-catalogue.test.mjs",
+      "tests/game-launch.test.mjs",
+      "tests/official-entries-probe.test.mjs",
+      "tests/operations-intelligence-api.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1323,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "focusedProviderSafety": 104,
+    "renderDatabase": 3,
+    "gatewayTests": 141,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "supplierTests": "read-only catalogue probes only; no launch, player, balance, transfer, settlement, recovery or payment acceptance"
+  },
+  "providerCatalogueSafety": {
+    "epicwin": {
+      "profiles": [
+        "epicwin_normal_myr",
+        "epicwin_free_myr"
+      ],
+      "profileIsolation": true,
+      "strictGatewayProjection": true,
+      "malformedRefreshPolicy": "blocked_keep_last_complete_snapshot",
+      "unknownAvailabilityPolicy": "maintenance_true",
+      "remoteArtworkPublished": false,
+      "currentSupplierOutcome": "http_403",
+      "implementedAdapter": false
+    },
+    "metagaming": {
+      "profiles": [
+        "metagaming_normal_myr",
+        "metagaming_free_myr"
+      ],
+      "profileIsolation": true,
+      "strictGatewayProjection": true,
+      "malformedRefreshPolicy": "blocked_keep_last_complete_snapshot",
+      "unknownAvailabilityPolicy": "maintenance_true",
+      "remoteArtworkPublished": false,
+      "currentSupplierOutcome": "http_403",
+      "implementedAdapter": false
+    },
+    "jdb": {
+      "profiles": [
+        "jdb_myr"
+      ],
+      "missingAvailabilityPolicy": "maintenance_true",
+      "remoteArtworkPublished": false,
+      "currentSupplierOutcome": "provider_status_9001",
+      "implementedAdapter": true
+    },
+    "jili": {
+      "profiles": [
+        "jili_myr_1to1",
+        "jili_my1_1to100"
+      ],
+      "implementedAdapters": 2,
+      "contractStatus": "incomplete",
+      "publicStatus": "awaiting_acceptance",
+      "capabilityReason": "provider_contract_and_acceptance_pending"
+    },
+    "productionAcceptedProfiles": 0,
+    "launchReadyProfiles": 0,
+    "playableProfiles": 0
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false
+}

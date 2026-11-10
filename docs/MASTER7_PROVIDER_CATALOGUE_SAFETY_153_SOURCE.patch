@@ -1,0 +1,520 @@
+diff --git a/app/portal.html b/app/portal.html
+index a3502c7..b645196 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.152-918kiss-catalogue-safety" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.153-provider-catalogue-safety">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.153-provider-catalogue-safety" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index a948c05..44f8fb1 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,60 +1,43 @@
+ # MASTER7 deployment handover
+ 
+-Candidate source: `17.0.0-selfbuilt.152-918kiss-catalogue-safety`.
+-
+-Baseline: live `17.0.0-selfbuilt.151-megah5-safety`, deployment
+-`dep-dbpbqv3rjlhs73fg1l20`, publication commit
+-`76b24566dff7105d6742412e58d51cbc3adc6710`.
+-
+-918KISS H5 has three isolated, read-only catalogue profiles: Normal MYR,
+-Normal MY1 and Free MYR. The gateway and portal now reject malformed or
+-duplicate catalogue entries instead of publishing a partial snapshot. Because
+-the supplied catalogue contract does not prove per-game availability, missing
+-availability fields remain maintenance/suspended. This release does not enable
+-918KISS player creation, Play, wallet transfer, settlement or recovery. The
+-internal `unitScale=100` setting is not supplier acceptance of a 1:100 money
+-contract.
+-
+-Legacy MegaH5 is now treated as a MegaH5 brand feed through the META GAMING
+-opgateway while its historic account remains isolated from the newer META
+-normal and free-credit profiles. The gateway strictly validates and projects
+-the 166-game catalogue, GameLogin, balance and transfer response boundaries.
+-Malformed success bodies, duplicate games, unsafe URLs, wrong currencies and
+-invalid transaction records fail closed. Raw supplier fields are no longer
+-returned to the portal.
+-
+-The live feed currently supplies an unconfirmed schedule-shaped `Maintenance`
+-value. Version 151 marks every such title unavailable instead of guessing its
+-meaning. Portal GameLogin also requires a server-only list of exact
+-supplier-approved HTTPS launch origins; an empty or invalid list blocks before
+-wallet reservation or supplier traffic. These controls do not enable Play,
+-transfers, settlement or recovery.
+-
+-META GAMING now has two isolated, read-only catalogue profiles for the Normal
+-MYR and Free Credit MYR accounts. Their gateway paths, cache keys, catalogue
+-account labels and player/ledger namespaces are separate. Both profiles remain
+-`adapter_unimplemented` and `playable=false`; this release does not enable a
+-launch, balance, transfer, settlement or recovery route. Remote META artwork is
+-not trusted until the supplier confirms an official image host, so the portal
+-uses the local provider artwork.
+-
+-JILI now has a legacy transfer protocol, executable adapter, per-account runtime factory and the universal game-wallet API. Its 1:1 and 1:100 catalogues have separate cache keys and check the account, currency and ratio. Deposits are confirmed by querying the original account, transaction, direction and normalized amount. Returns use the supplier's all-funds transfer rather than a delayed balance. A zero return still needs a real supplier receipt. Every unverified nonzero submit result remains unknown and reserved; recovery queries the original transaction and never resubmits it. Launch authorization now also requires the exact customer return origin before any reservation or supplier call.
+-
+-Migration `0120-provider-wallet-sweeps` adds immutable withdrawal-mode and adapter-contract fingerprints to operation rows. Existing operations default to their previous exact-amount protocol. Platform cash remains MYR sen; supplier units convert once at the adapter boundary. The backup schema is now 0120 and explicitly accepts 0119 archives. Restores include the new snapshots.
+-
+-The executable protocol inventory is MegaH5, JDB and JILI (four listed account
+-profiles). Implementation counts are not playable-game counts. MegaH5 still
+-lacks an accepted production merchant binding, approved launch origins,
+-PullLog/FlagLog wager ingestion and a complete round-closure/finality process.
+-JILI's account units and closure finality remain unconfirmed. 918KISS and the
+-other merchant protocols remain unimplemented. JDB's last supplier response
+-was 9001.
+-
+-There are 37 brand entries and 42 separate listed account profiles; production accepted profiles remain zero. No real game launch or real-money transfer occurred in this work. Payment work is paused; activation flags, credentials, pricing, instances and DNS are unchanged.
+-
+-Deployment requires pre/post encrypted backups and isolated restore checks. Reverting to 147 is safe for this unactivated release only while no 148 sweep operation exists. Once sweeps exist, retain the 148-compatible recovery engine: an old engine does not understand them.
++Candidate source: `17.0.0-selfbuilt.153-provider-catalogue-safety`.
++
++Baseline live: `17.0.0-selfbuilt.152-918kiss-catalogue-safety`, deployment
++`dep-dbpc5og8v5cc73drg1r0`, publication commit
++`0d818b1dc829a82c251715f3f62a4d88c498916c`, source commit
++`c59c6ba83c6d651d6dbb294f3d6f8fe056293fb2`, source archive SHA-256
++`941240970673ac478ef2bac7ff74eea8b65c10e2263264428cb6baf44e92ee15`.
++
++Gateway baseline: release `1.16.0`, deployment `dep-dbpc4du7bikc73ck6cmg`,
++commit `1a682dfa9de3013ff44c7fd9364103134f95a44c`.
++
++The candidate isolates EPICWIN Normal MYR and Free MYR catalogue paths,
++profiles, cache keys, account labels and currency checks. Gateway catalogue
++rows are bounded and strictly projected. Malformed, duplicate or oversized
++responses fail closed, remote artwork is not published, and the portal retains
++the last complete snapshot instead of accepting a partial refresh.
++
++META GAMING Normal and Free Credit MYR remain isolated. Unknown title
++availability is always suspended, and unapproved remote artwork is withheld.
++The provider currently rejects both production catalogue accounts with HTTP
++403, so no META title is treated as connected or playable.
++
++JDB catalogue rows without an explicit availability signal now default to
++maintenance. The provider currently rejects Action 49 with status `9001`, so
++JDB remains disconnected and non-playable. JILI's implemented adapter is now
++reported truthfully as awaiting both its incomplete provider contract and
++production acceptance, rather than as an unimplemented adapter.
++
++There are 37 lobby brands and 42 listed profiles. Production-accepted profiles,
++launch-ready profiles and playable profiles remain zero. This release adds no
++player, Play, wallet, transfer, settlement or recovery route for EPICWIN, META
++or JDB and does not enable any real-money game switch.
++
++Payment work remains paused. VPay, GSPAY and 1MPay code, credentials, callbacks,
++activation flags, service plans and DNS are unchanged.
+ 
+ Portal service: `srv-dbl0iv7f3r2c73848ei0`.
++Gateway service: `srv-db6b7inlk1mc73ck6cmg`.
+ Workspace: `tea-dakfo2h594qs73du231g`.
+ Publication branch: `codex/v17-render-staging-20261104`.
+-Automatic deployment is off.
++Portal automatic deployment is off; gateway automatic deployment is on.
+diff --git a/docs/MASTER7_PROVIDER_CATALOGUE_SAFETY_153.md b/docs/MASTER7_PROVIDER_CATALOGUE_SAFETY_153.md
+new file mode 100644
+index 0000000..b432bfb
+--- /dev/null
++++ b/docs/MASTER7_PROVIDER_CATALOGUE_SAFETY_153.md
+@@ -0,0 +1,26 @@
++# MASTER7 v153 provider catalogue safety release
++
++Release: `17.0.0-selfbuilt.153-provider-catalogue-safety`
++
++This release closes catalogue-boundary and reporting gaps across EPICWIN,
++META GAMING, JDB and JILI.
++
++- EPICWIN Normal MYR and Free MYR use independent request paths, cache keys,
++  profile identities, account checks and currency checks.
++- EPICWIN rejects malformed, duplicate and oversized catalogues as one unit.
++  Unknown per-title availability remains maintenance and remote artwork is not
++  exposed.
++- META GAMING retains isolated Normal and Free Credit profiles. Unknown title
++  availability remains suspended and unapproved artwork is withheld.
++- JDB defaults a missing availability field to maintenance and withholds
++  unapproved artwork.
++- JILI's two implemented adapters are reported as awaiting their incomplete
++  provider contract and production acceptance, rather than unimplemented.
++
++Current supplier evidence remains blocked: META GAMING and EPICWIN return HTTP
++403, while JDB returns provider status `9001`. The portal therefore exposes no
++Play action for these profiles. No player, launch, wallet, transfer, settlement
++or recovery request was added or enabled.
++
++VPay, GSPAY, 1MPay, payment switches, credentials, service plans and DNS are
++unchanged.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 3642e5d..936d88e 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -38,7 +38,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.152-918kiss-catalogue-safety';
++export const RELEASE = '17.0.0-selfbuilt.153-provider-catalogue-safety';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+@@ -369,14 +369,15 @@ async function publicSupplierControls(db:D1Database){
+ }
+ function catalogueReady(c:Context,provider:any){return provider?.connectionVerified===true&&provider?.catalogueSynced===true&&provider?.complete===true&&provider?.stale!==true&&gameCatalogueCacheFresh(c,Number(provider?.checkedAt));}
+ function providerCapability(c:Context,provider:any,games:any[],mega:MegaWalletCapability){
+- const id=String(provider.id),connected=catalogueReady(c,provider),anyGame=games.some(game=>game.provider===id&&game.maintenance!==true),walletReady=id==='megah5'&&mega.walletReady;
++ const id=String(provider.id),connected=catalogueReady(c,provider),anyGame=games.some(game=>game.provider===id&&game.maintenance!==true),walletReady=id==='megah5'&&mega.walletReady,profiles=getGameProviderProfiles(id),adapterImplemented=profiles.some(profile=>profile.implemented),providerContractIncomplete=profiles.some(profile=>profile.implemented&&profile.contractStatus!=='documented');
+  // A configured connection and a catalogue are not production acceptance.
+  // Runtime capabilities carry independently recorded profile acceptance.
+  const verified=id==='megah5'&&mega.catalogueVerified&&mega.launchVerified&&mega.walletVerified&&mega.settlementVerified&&mega.recoveryVerified;
+  const launchReady=id==='megah5'&&mega.launchReady&&walletReady&&connected&&anyGame&&verified;
+  const pendingAcceptance=id==='megah5'&&mega.launchReady&&walletReady&&connected&&anyGame&&!verified;
+- const platformStatus=launchReady?'ready':pendingAcceptance?'awaiting_acceptance':games.length&&(!connected||!anyGame)?'maintenance':connected?(id==='megah5'?'catalogue_ready':'awaiting_platform_adapter'):'awaiting_api';
+- return {...provider,...automaticAvailability,operationalStatus:platformStatus,platformStatus,platformLaunchReady:launchReady,launchReady,walletReady,launchVerified:id==='megah5'&&mega.launchVerified,walletVerified:id==='megah5'&&mega.walletVerified,settlementVerified:id==='megah5'&&mega.settlementVerified,capabilitySource:id==='megah5'?mega.capabilitySource:'adapter_inventory',capabilityReason:id==='jdb'?'transfer_connection_or_acceptance_pending':id!=='megah5'?'launch_wallet_adapter_not_implemented':!connected?'catalogue_not_ready':!anyGame?'provider_maintenance':pendingAcceptance&&mega.capabilityReason==='ready'?'acceptance_pending':mega.capabilityReason};
++ const platformStatus=launchReady?'ready':pendingAcceptance?'awaiting_acceptance':games.length&&(!connected||!anyGame)?'maintenance':connected?(id==='megah5'?'catalogue_ready':adapterImplemented?'awaiting_acceptance':'awaiting_platform_adapter'):'awaiting_api';
++ const capabilityReason=id==='megah5'?!connected?'catalogue_not_ready':!anyGame?'provider_maintenance':pendingAcceptance&&mega.capabilityReason==='ready'?'acceptance_pending':mega.capabilityReason:!adapterImplemented?'launch_wallet_adapter_not_implemented':!connected?'catalogue_or_provider_connection_pending':!anyGame?'provider_maintenance':providerContractIncomplete?'provider_contract_and_acceptance_pending':'profile_acceptance_pending';
++ return {...provider,...automaticAvailability,operationalStatus:platformStatus,platformStatus,platformLaunchReady:launchReady,launchReady,walletReady,launchVerified:id==='megah5'&&mega.launchVerified,walletVerified:id==='megah5'&&mega.walletVerified,settlementVerified:id==='megah5'&&mega.settlementVerified,capabilitySource:id==='megah5'?mega.capabilitySource:'adapter_inventory',capabilityReason};
+ }
+ async function publicSupplierPlatforms(c:Context,capability?:MegaWalletCapability){
+  const [cached,rankingState]=await Promise.all([rows(c.db,'SELECT provider_id,status,complete,checked_at,games_json FROM game_catalogue_cache'),loadGameRanking(c.db)]),mega=capability??cachedCatalogueCapability(c),cacheById=new Map((cached as any[]).map(item=>[String(item.provider_id),item])),configuredSources=new Set(configuredGameCatalogueSourceIds(c)),platforms=apiSupplierIds.map((id,index)=>{
+diff --git a/lib/game-catalogue.ts b/lib/game-catalogue.ts
+index 95f2173..3c68778 100644
+--- a/lib/game-catalogue.ts
++++ b/lib/game-catalogue.ts
+@@ -21,7 +21,7 @@ export const gameSources:readonly Source[]=[
+  {id:'918kissh5',name:'918KISS H5',path:'/providers/918kissh5/games?account=normal',shape:'normalized',imageHost:'gth.kissh5.com',expectedAccount:'normal',expectedCurrency:'MYR'},
+  {id:'metagaming',name:'META GAMING',path:'/providers/metagaming/games?account=normal',shape:'normalized',cacheKey:'metagaming_normal_myr',profileId:'metagaming_normal_myr',expectedAccount:'normal',expectedCurrency:'MYR'},
+  {id:'evo888h5',name:'EVO888H5',path:'/providers/evo888h5/games',shape:'evo',imageHost:'backendapi.evo888h5.com'},
+- {id:'epicwin',name:'EPICWIN',path:'/providers/epicwin/games?account=normal',shape:'normalized'},
++ {id:'epicwin',name:'EPICWIN',path:'/providers/epicwin/games?account=normal',shape:'normalized',cacheKey:'epicwin_normal_myr',profileId:'epicwin_normal_myr',expectedAccount:'normal',expectedCurrency:'MYR'},
+  {id:'venus',name:'VENUS GAMING',path:'/providers/venus/games',shape:'normalized'},
+  {id:'clotplay',name:'CLOTPLAY',path:'/providers/clotplay/games',shape:'normalized'},
+ ];
+@@ -41,6 +41,11 @@ const metaProfileSources:Readonly<Record<string,Source>>=Object.freeze({
+  'metagaming_normal_myr':metaSource,
+  'metagaming_free_myr':Object.freeze({...metaSource,path:'/providers/metagaming/games?account=free',cacheKey:'metagaming_free_myr',profileId:'metagaming_free_myr',expectedAccount:'free'}),
+ });
++const epicSource=gameSources.find(source=>source.id==='epicwin')!;
++const epicProfileSources:Readonly<Record<string,Source>>=Object.freeze({
++ 'epicwin_normal_myr':epicSource,
++ 'epicwin_free_myr':Object.freeze({...epicSource,path:'/providers/epicwin/games?account=free',cacheKey:'epicwin_free_myr',profileId:'epicwin_free_myr',expectedAccount:'free'}),
++});
+ // GodeeZone is a separate, internal-only profile until its brand, wallet and
+ // launch contract are verified. Never reuse ATG's account or cached catalogue.
+ const directSources:readonly Source[]=[{id:'rectangle',name:'RECTANGLE',path:'',shape:'normalized',direct:true},{id:'godeezone',name:'GodeeZone',path:'',shape:'normalized',direct:true}];
+@@ -54,6 +59,7 @@ const sourceCacheKey=(source:Source)=>source.cacheKey??source.id;
+ function selectProfileSource(providerId:string|undefined,profileId:string|undefined){
+  if(providerId==='jili'&&profileId)return jiliProfileSources[profileId]??null;
+  if(providerId==='metagaming'&&profileId)return metaProfileSources[profileId]??null;
++ if(providerId==='epicwin'&&profileId)return epicProfileSources[profileId]??null;
+  if(providerId!=='918kissh5'||!profileId)return null;
+  return kissProfileSources[profileId]??null;
+ }
+@@ -79,11 +85,13 @@ function normalize(source:Source,rows:any[]){
+   if(!gameCode||/[\u0000-\u001f\u007f]/.test(gameCode)||seen.has(gameCode))return null;seen.add(gameCode);
+   const artwork=approvedArtworkUrl(source,mega?g.ImageUrl:evo?g.thumbnail:g.imageUrl);
+   const profileQuery=source.profileId?`&profileId=${encodeURIComponent(source.profileId)}`:'';
+-  const imageUrl=artwork?`/api/game-art?provider=${source.id}${profileQuery}&gameCode=${encodeURIComponent(gameCode)}`:source.id==='jili'?'/assets/providers/jili.webp':source.id==='jdb'?'/assets/providers/jdb.webp':source.id==='pragmaticplay'?'/assets/providers/pragmaticplay.webp':source.id==='metagaming'?'/assets/providers/metagaming.webp':source.id==='evo888h5'?'/assets/providers/evo888h5.webp':source.id==='rectangle'?'/assets/providers/rectangle.webp':source.id==='atg'?'/assets/providers/atg.webp':null;
+-  // The 918KISS catalogue contract currently has no provider availability
+-  // field. Never turn that absence into an "active" customer-facing game.
+-  // A future reviewed gateway contract may explicitly supply a boolean false.
+-  const maintenance=mega?g.Maintenance===true||g.Maintenance===1||g.Maintenance==='true'||g.Maintenance==='1':source.id==='918kissh5'&&source.profileId?typeof g.maintenance==='boolean'?g.maintenance:true:g.maintenance===true;
++  const imageUrl=artwork?`/api/game-art?provider=${source.id}${profileQuery}&gameCode=${encodeURIComponent(gameCode)}`:source.id==='jili'?'/assets/providers/jili.webp':source.id==='jdb'?'/assets/providers/jdb.webp':source.id==='pragmaticplay'?'/assets/providers/pragmaticplay.webp':source.id==='metagaming'?'/assets/providers/metagaming.webp':source.id==='epicwin'?'/assets/providers/epicwin.webp':source.id==='evo888h5'?'/assets/providers/evo888h5.webp':source.id==='rectangle'?'/assets/providers/rectangle.webp':source.id==='atg'?'/assets/providers/atg.webp':null;
++  // These profile contracts currently have no accepted per-title availability.
++  // Never turn that absence into an active customer game. 918KISS may carry
++  // the gateway's explicit fail-closed boolean; META and EPICWIN stay closed
++  // until separately reviewed supplier contracts add availability.
++  const unknownAvailabilityProfile=!!source.profileId&&['918kissh5','metagaming','epicwin'].includes(source.id);
++  const maintenance=mega?g.Maintenance===true||g.Maintenance===1||g.Maintenance==='true'||g.Maintenance==='1':unknownAvailabilityProfile?source.id==='918kissh5'&&typeof g.maintenance==='boolean'?g.maintenance:true:g.maintenance===true;
+   return {provider:source.id,providerName:source.id==='godeezone'?text(g.providerName)||source.name:source.name,gameCode,...(source.id==='godeezone'?{originalProviderId:text(g.originalProviderId,40),originalGameCode:text(g.originalGameCode,100)}:{}),...(source.profileId?{profileId:source.profileId}:{}),...(source.expectedAccount?{catalogueAccount:source.expectedAccount}:{}),...(source.expectedCurrency?{providerCurrency:source.expectedCurrency}:{}),name:text(mega?g.GameName??g.OtherName:evo?g.title??g.name:g.name)||gameCode,nameZh:text(g.nameZh??(mega?g.OtherName:'')),category:evo?'SLOT':text(mega?g.GameType:source.id==='metagaming'?g.gameType:g.category,40),imageUrl,maintenance,playable:false,...(source.id==='evo888h5'&&artwork?{artworkSource:artwork}:{})};
+  }).filter((g):g is Game=>g!==null);
+ }
+@@ -114,10 +122,10 @@ async function synchronizeSource(c:SyncContext,source:Source,force:boolean,time:
+   if(source.expectedAccount&&(data.provider!==source.id||data.account!==source.expectedAccount||data.currency!==source.expectedCurrency)){status='blocked';return;}
+   if(source.expectedRatio&&data.ratio!==source.expectedRatio){status='blocked';return;}
+   const games=normalize(source,rows);
+-  // Profile-bound 918KISS catalogues are account and wallet-unit boundaries.
++  // Profile-bound 918KISS and META catalogues are account boundaries.
+   // Reject the refresh if normalization discarded malformed or duplicate rows
+   // so a partial response cannot replace the last complete profile snapshot.
+-  if(source.id==='918kissh5'&&source.profileId&&games.length!==rows.length){status='blocked';return;}
++  if(['918kissh5','metagaming','epicwin'].includes(source.id)&&source.profileId&&games.length!==rows.length){status='blocked';return;}
+   complete=data.complete!==false&&rows.length<=maxGames&&!(source.id==='clotplay'&&Number(data.pagination?.last_page)>1);
+   // An empty success replaces the previous catalogue intentionally; transport
+   // and protocol failures retain the last good snapshot for a stable lobby.
+@@ -134,7 +142,7 @@ export async function getGameCatalogue(c:SyncContext,options:{force?:boolean;pro
+  const direct=directSources.filter(source=>directCatalogueConfigured(c,source.id));
+  if(!configured(c.gameGatewayUrl)&&!direct.length)return {mode:'catalogue-only',playable:false,providers:gameSources.map(s=>({id:s.id,name:s.name,status:'not_configured',count:0,catalogueSynced:false,launchVerified:false,walletVerified:false})),games:[]};
+  const available=[...(configured(c.gameGatewayUrl)?gameSources:[]),...direct];
+- const selectedProfileSource=configured(c.gameGatewayUrl)?selectProfileSource(options.providerId,options.profileId):null,sources=selectedProfileSource?[selectedProfileSource]:options.profileId&&['918kissh5','jili','metagaming'].includes(options.providerId??'')?[]:options.providerId?available.filter(source=>source.id===options.providerId):available;
++ const selectedProfileSource=configured(c.gameGatewayUrl)?selectProfileSource(options.providerId,options.profileId):null,sources=selectedProfileSource?[selectedProfileSource]:options.profileId&&['918kissh5','jili','metagaming','epicwin'].includes(options.providerId??'')?[]:options.providerId?available.filter(source=>source.id===options.providerId):available;
+  const time=Math.floor(c.gameSyncNow?.()??Date.now()/1000);
+  await Promise.all(sources.map(source=>synchronizeSource(c,source,!!options.force,time)));
+  const rows=(await c.db.prepare('SELECT * FROM game_catalogue_cache').all<Cache>()).results??[];
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index 16ad0c9..f66c2e7 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.152-918kiss-catalogue-safety' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.153-provider-catalogue-safety' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/package.json b/package.json
+index 9b9a76e..f85ad93 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.152-918kiss-catalogue-safety node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.152-918kiss-catalogue-safety node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.153-provider-catalogue-safety node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.153-provider-catalogue-safety node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.152-918kiss-catalogue-safety node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.153-provider-catalogue-safety node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/service-worker.js b/public/service-worker.js
+index aa05bb0..cf229d8 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.152-918kiss-catalogue-safety';
++const CACHE='master7-shell-17.0.0-selfbuilt.153-provider-catalogue-safety';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/tests/api.test.mjs b/tests/api.test.mjs
+index 683c7a7..517207d 100644
+--- a/tests/api.test.mjs
++++ b/tests/api.test.mjs
+@@ -33,7 +33,7 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+  await t.test('public provider catalog expands only the selected supplier and remains fail closed for launch',async()=>{
+   sqlite.prepare("INSERT OR IGNORE INTO users(id,username,role,approved,csrf,created_at) VALUES('owner','owner@example.test','owner',1,'test-csrf',0)").run();
+   const seed=sqlite.prepare("INSERT INTO game_visibility(provider_id,game_code,visible,status,image_data,category_override,updated_by,updated_at) VALUES(?,?,1,'active','','','owner',0)");for(const [provider,code] of [['jili','1'],['megah5','55021'],['918kissh5','265022']])seed.run(provider,code);
+-  const calls=[];const gameGatewayFetch=async(url,options)=>{calls.push({url:String(url),method:options.method,redirect:options.redirect});const parsed=new URL(url),path=parsed.pathname;if(path.endsWith('/megah5/games'))return new Response(JSON.stringify({provider:'megah5',result:{Status:200,Game:[{GameCode:'55021',GameName:'Ocean Quest',GameType:'2',ImageUrl:'https://gth.megah5.com/thumbs/web/55021.png',apiKey:'must-not-leak'}]}}),{headers:{'content-type':'application/json'}});if(path.endsWith('/jili/games'))return new Response(JSON.stringify({games:[{gameCode:'1',name:'Royal Fishing',nameZh:'钱龙捕鱼',category:'5',jackpot:true,secret:'must-not-leak'}]}),{headers:{'content-type':'application/json'}});if(path.endsWith('/evo888h5/games'))return Response.json({result:{code:0,data:[{gameid:'2340',title:'Lord Guan Yu',thumbnail:'https://backendapi.evo888h5.com/slots/cover-img/cover_fixture.png'}]}});if(path.endsWith('/918kissh5/games'))return new Response(JSON.stringify({provider:'918kissh5',account:parsed.searchParams.get('account'),currency:'MYR',games:[{gameCode:'265022',name:'Supreme Zeus',category:'1',imageUrl:'https://gth.kissh5.com/thumbs/web/265022.png'}]}),{headers:{'content-type':'application/json'}});if(path.endsWith('/epicwin/games'))return Response.json({games:[{gameCode:'EXTRA-1',name:'Excluded extra source',category:'1'}]});return Response.json({games:[]});};
++  const calls=[];const gameGatewayFetch=async(url,options)=>{calls.push({url:String(url),method:options.method,redirect:options.redirect});const parsed=new URL(url),path=parsed.pathname;if(path.endsWith('/megah5/games'))return new Response(JSON.stringify({provider:'megah5',result:{Status:200,Game:[{GameCode:'55021',GameName:'Ocean Quest',GameType:'2',ImageUrl:'https://gth.megah5.com/thumbs/web/55021.png',apiKey:'must-not-leak'}]}}),{headers:{'content-type':'application/json'}});if(path.endsWith('/jili/games'))return new Response(JSON.stringify({games:[{gameCode:'1',name:'Royal Fishing',nameZh:'钱龙捕鱼',category:'5',jackpot:true,secret:'must-not-leak'}]}),{headers:{'content-type':'application/json'}});if(path.endsWith('/evo888h5/games'))return Response.json({result:{code:0,data:[{gameid:'2340',title:'Lord Guan Yu',thumbnail:'https://backendapi.evo888h5.com/slots/cover-img/cover_fixture.png'}]}});if(path.endsWith('/918kissh5/games'))return new Response(JSON.stringify({provider:'918kissh5',account:parsed.searchParams.get('account'),currency:'MYR',games:[{gameCode:'265022',name:'Supreme Zeus',category:'1',imageUrl:'https://gth.kissh5.com/thumbs/web/265022.png'}]}),{headers:{'content-type':'application/json'}});if(path.endsWith('/epicwin/games'))return Response.json({provider:'epicwin',account:parsed.searchParams.get('account'),currency:'MYR',games:[{gameCode:'EXTRA-1',name:'Excluded extra source',category:'1',maintenance:true}]});return Response.json({games:[]});};
+   const options={gameGatewayUrl:'https://master7-integration-gateway.onrender.com',gameGatewayFetch};
+   const summary=await call(null,'/api/games','GET',undefined,{},options);
+   assert.equal(summary.status,200);assert.equal(summary.data.providersOnly,true);assert.equal(summary.data.platformsOnly,false);assert.equal(summary.data.gamesOmittedUntilProviderSelected,true);assert.equal(summary.data.gameCountScope,'current_response');assert.equal(summary.data.selectedProvider,null);assert.equal(summary.data.selectedPlatform,null);assert.deepEqual(summary.data.games,[]);assert.equal(summary.data.totalGameCount,0);assert.equal(summary.data.cachedGameCount,0);assert.equal(summary.data.catalogueCacheSummary.source,'database_cache');assert.equal(summary.data.platformCount,37);assert.equal(summary.data.providers.length,37);assert.deepEqual(summary.data.providers.slice(-3).map(provider=>provider.id),['epicwin','venus','clotplay']);assert.ok(summary.data.providers.every(provider=>provider.id!=='godeezone'&&provider.platformLaunchReady===false&&!('count' in provider)&&!('upstreamStatus' in provider)));
+@@ -360,7 +360,7 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+   assert.equal((await call('owner','/api/admin/game-visibility','POST',{providerId:'unknown-direct',gameCode:'DIRECT-1',category:'LIVE'})).status,400);
+   for(const [path,data] of [['/api/admin/supplier-art',{providerId:'jili',status:'suspended'}],['/api/admin/supplier-art',{providerId:'jili',status:'closed'}],['/api/admin/provider',{id:'jili',visible:false}],['/api/admin/provider',{id:'jili',visible:true}]])assert.equal((await call('owner',path,'POST',data)).status,410);
+   sqlite.prepare("UPDATE providers SET visible=0 WHERE id='jili'").run();sqlite.prepare("INSERT INTO api_supplier_artwork(provider_id,image_data,status,updated_by,updated_at) VALUES('jili','','closed','owner',0) ON CONFLICT(provider_id) DO UPDATE SET status='closed'").run();
+-  const selected=(await call(null,'/api/games?provider=jili','GET',undefined,{},extra)).data;assert.equal(selected.selectedPlatform.connectionVerified,true);assert.equal(selected.selectedPlatform.platformStatus,'awaiting_platform_adapter');assert.deepEqual(selected.games.map(game=>game.gameCode),['J-1','J-2','J-3']);assert.ok(selected.games.every(game=>game.playable===false));
++  const selected=(await call(null,'/api/games?provider=jili','GET',undefined,{},extra)).data;assert.equal(selected.selectedPlatform.connectionVerified,true);assert.equal(selected.selectedPlatform.platformStatus,'awaiting_acceptance');assert.equal(selected.selectedPlatform.capabilityReason,'provider_contract_and_acceptance_pending');assert.deepEqual(selected.games.map(game=>game.gameCode),['J-1','J-2','J-3']);assert.ok(selected.games.every(game=>game.playable===false));
+   const publicProviders=(await call(null,'/api/providers','GET',undefined,{},extra)).data.items;assert.ok(publicProviders.some(item=>item.id==='jili'));const supplierList=(await call(null,'/api/supplier-art-list')).data.items;assert.equal(supplierList.find(item=>item.provider_id==='jili').readOnlyAvailability,true);
+   sqlite.prepare('DELETE FROM rate_limits').run();
+  });
+diff --git a/tests/game-catalogue.test.mjs b/tests/game-catalogue.test.mjs
+index c6d6e00..c3ae612 100644
+--- a/tests/game-catalogue.test.mjs
++++ b/tests/game-catalogue.test.mjs
+@@ -23,6 +23,7 @@ function fixture(t){
+   if(provider==='evo888h5')return Response.json({result:{code:0,data:state.empty?[]:[{gameid:'1',title:'EVO title',thumbnail:state.image,privateToken:'must-not-leak',weekturnover:90000}]}});
+   if(provider==='918kissh5')return Response.json({provider,account:u.searchParams.get('account'),currency:u.searchParams.get('account')==='my1'?'MY1':'MYR',games:rows});
+   if(provider==='metagaming')return Response.json({provider,account:u.searchParams.get('account'),currency:'MYR',games:rows});
++  if(provider==='epicwin')return Response.json({provider,account:u.searchParams.get('account'),currency:'MYR',games:rows});
+   return Response.json({games:rows});
+  }};return {sql,c,state};
+ }
+@@ -175,6 +176,40 @@ test('918KISS rejects a partially malformed profile catalogue and keeps the last
+  assert.equal(sql.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').get(profileId).games_json,stored);assert.ok(!JSON.stringify(data).includes('foreign-1'));
+ });
+ 
++test('EPICWIN normal and free profiles use fixed accounts and independent catalogue snapshots',async t=>{
++ const {sql,c}=fixture(t),requests=[];
++ const definitions=[['epicwin_normal_myr','normal'],['epicwin_free_myr','free']];
++ const isolated={...c,gameGatewayFetch:async(url,init)=>{
++  const parsed=new URL(url),account=parsed.searchParams.get('account');
++  assert.equal(parsed.origin,c.gameGatewayUrl);assert.equal(parsed.pathname,'/providers/epicwin/games');assert.equal(init.method,'GET');assert.ok(definitions.some(([,value])=>value===account));
++  requests.push(parsed.pathname+parsed.search);
++  return Response.json({provider:'epicwin',account,currency:'MYR',games:[{gameCode:`${account}-1`,name:`${account} title`,category:'SLOT'}]});
++ }};
++ for(const [profileId,account] of definitions){
++  const data=await getGameCatalogue(isolated,{providerId:'epicwin',profileId});
++  assert.equal(data.providers[0].catalogueProfileId,profileId);assert.equal(data.providers[0].catalogueAccount,account);assert.equal(data.providers[0].providerCurrency,'MYR');assert.equal(data.providers[0].count,1);
++  assert.deepEqual(data.games.map(game=>({profileId:game.profileId,account:game.catalogueAccount,currency:game.providerCurrency,code:game.gameCode,maintenance:game.maintenance,playable:game.playable,imageUrl:game.imageUrl})),[{profileId,account,currency:'MYR',code:`${account}-1`,maintenance:true,playable:false,imageUrl:'/assets/providers/epicwin.webp'}]);
++ }
++ assert.deepEqual(requests,definitions.map(([,account])=>`/providers/epicwin/games?account=${account}`));
++ assert.deepEqual(sql.prepare("SELECT provider_id FROM game_catalogue_cache WHERE provider_id LIKE 'epicwin_%' ORDER BY provider_id").all().map(row=>row.provider_id),definitions.map(([profileId])=>profileId).sort());
++ const noNetwork={...isolated,gameGatewayFetch:async()=>{throw Error('fresh EPICWIN profile snapshots must not contact the gateway');}};
++ for(const [profileId,account] of definitions){const data=await getGameCatalogue(noNetwork,{providerId:'epicwin',profileId});assert.equal(data.games[0].gameCode,`${account}-1`);}
++});
++
++test('EPICWIN profile metadata mismatch or malformed rows cannot cross account snapshots',async t=>{
++ const {sql,c,state}=fixture(t),profileId='epicwin_free_myr',goodGames=[{gameCode:'free-1',name:'Free title'}];
++ let data=await getGameCatalogue({...c,gameGatewayFetch:async()=>Response.json({provider:'epicwin',account:'free',currency:'MYR',games:goodGames})},{providerId:'epicwin',profileId});
++ assert.equal(data.games.length,1);const stored=sql.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').get(profileId).games_json;
++ for(const response of [
++  {provider:'epicwin',account:'normal',currency:'MYR',games:[{gameCode:'normal-1',name:'Normal title'}]},
++  {provider:'epicwin',account:'free',currency:'MYR',games:[{gameCode:'duplicate',name:'One'},{gameCode:'duplicate',name:'Two'}]},
++ ]){
++  state.time+=301;data=await getGameCatalogue({...c,gameGatewayFetch:async()=>Response.json(response)},{providerId:'epicwin',profileId});
++  assert.equal(data.providers[0].status,'blocked');assert.equal(data.providers[0].stale,true);assert.equal(data.games[0].gameCode,'free-1');assert.equal(data.games[0].maintenance,true);
++  assert.equal(sql.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').get(profileId).games_json,stored);
++ }
++});
++
+ test('META GAMING normal and free-credit catalogues use fixed paths and isolated cache keys',async t=>{
+  const {sql,c}=fixture(t),requests=[];
+  const definitions=[
+@@ -190,7 +225,7 @@ test('META GAMING normal and free-credit catalogues use fixed paths and isolated
+  for(const [profileId,account] of definitions){
+   const data=await getGameCatalogue(isolated,{providerId:'metagaming',profileId});
+   assert.equal(data.providers.length,1);assert.equal(data.providers[0].catalogueProfileId,profileId);assert.equal(data.providers[0].catalogueAccount,account);assert.equal(data.providers[0].providerCurrency,'MYR');assert.equal(data.providers[0].count,1);
+-  assert.deepEqual(data.games.map(game=>({profileId:game.profileId,account:game.catalogueAccount,currency:game.providerCurrency,code:game.gameCode,category:game.category,playable:game.playable,imageUrl:game.imageUrl})),[{profileId,account,currency:'MYR',code:`${account}-1`,category:'1',playable:false,imageUrl:'/assets/providers/metagaming.webp'}]);
++  assert.deepEqual(data.games.map(game=>({profileId:game.profileId,account:game.catalogueAccount,currency:game.providerCurrency,code:game.gameCode,category:game.category,maintenance:game.maintenance,providerMaintenance:game.providerMaintenance,playable:game.playable,imageUrl:game.imageUrl})),[{profileId,account,currency:'MYR',code:`${account}-1`,category:'1',maintenance:true,providerMaintenance:true,playable:false,imageUrl:'/assets/providers/metagaming.webp'}]);
+   assert.equal(await cachedGameArtwork(isolated,'metagaming',`${account}-1`,profileId),null,'the official document supplies no concrete thumbnail host');
+  }
+  assert.deepEqual(requests,definitions.map(([,account])=>`/providers/metagaming/games?account=${account}`));
+@@ -214,3 +249,14 @@ test('META GAMING rejects provider, account or currency metadata mismatches with
+   assert.equal(sql.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').get(profileId).games_json,stored);
+  }
+ });
++
++test('META GAMING rejects a partially malformed catalogue and preserves the complete profile snapshot',async t=>{
++ const {sql,c,state}=fixture(t),profileId='metagaming_normal_myr';
++ let data=await getGameCatalogue({...c,gameGatewayFetch:async()=>Response.json({provider:'metagaming',account:'normal',currency:'MYR',games:[{gameCode:'normal-1',name:'Normal one'},{gameCode:'normal-2',name:'Normal two'}]})},{providerId:'metagaming',profileId});
++ assert.equal(data.providers[0].status,'available');assert.equal(data.games.length,2);assert.ok(data.games.every(game=>game.maintenance===true));
++ const stored=sql.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').get(profileId).games_json;
++ state.time+=301;
++ data=await getGameCatalogue({...c,gameGatewayFetch:async()=>Response.json({provider:'metagaming',account:'normal',currency:'MYR',games:[{gameCode:'foreign-1',name:'Foreign one'},{gameCode:'',name:'Missing code'},{gameCode:'foreign-1',name:'Duplicate'}]})},{providerId:'metagaming',profileId});
++ assert.equal(data.providers[0].status,'blocked');assert.equal(data.providers[0].stale,true);assert.deepEqual(data.games.map(game=>game.gameCode),['normal-1','normal-2']);assert.ok(data.games.every(game=>game.maintenance===true));
++ assert.equal(sql.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').get(profileId).games_json,stored);assert.ok(!JSON.stringify(data).includes('foreign-1'));
++});
+diff --git a/tests/game-launch.test.mjs b/tests/game-launch.test.mjs
+index cece37d..01bef95 100644
+--- a/tests/game-launch.test.mjs
++++ b/tests/game-launch.test.mjs
+@@ -50,6 +50,12 @@ function harness(){
+    catalogueCalls.push({path,account,currency});
+    return Response.json({apiVersion:'3.4.8',provider:'metagaming',account,currency,games:Array.from({length:count},(_,index)=>({gameCode:`meta-${account}-${index+1}`,name:`META ${account} ${index+1}`,gameType:1,imageUrl:'https://unverified.example.test/thumbs/Web/10000.png',hasDemo:true}))});
+   }
++  if(path==='/providers/epicwin/games'){
++   const account=parsed.searchParams.get('account'),currency='MYR',count=account==='free'?1:2;
++   if(!['normal','free'].includes(account))throw Error('Unexpected EPICWIN account: '+account);
++   catalogueCalls.push({path,account,currency});
++   return Response.json({provider:'epicwin',account,currency,games:Array.from({length:count},(_,index)=>({gameCode:`epic-${account}-${index+1}`,name:`EPICWIN ${account} ${index+1}`,category:'SLOT',maintenance:true}))});
++  }
+   calls.push({path,method:init.method,authorization:new Headers(init.headers).get('authorization'),body:init.body?JSON.parse(init.body):null});
+   if(path==='/providers/megah5/games')return Response.json({provider:'megah5',result:{Status:200,Game:[{GameCode:'55021',GameName:'Ocean Quest',GameType:'2'}]}});
+   if(path==='/platform/megah5/session')return Response.json({provider:'megah5',upstreamStatus:200,result:{Status:fixture.sessionStatus,Url:fixture.sessionUrl}});
+@@ -138,10 +144,27 @@ test('META GAMING profile selection keeps normal and free-credit catalogues isol
+  }finally{h.close();}
+ });
+ 
++test('EPICWIN profile selection keeps normal and free catalogues isolated and fail-closed',async()=>{
++ const h=harness();try{
++  const cases=[['epicwin_free_myr','free',1],['epicwin_normal_myr','normal',2]];
++  for(const [profileId,account,count] of cases){
++   const response=await h.request(`/api/games?profileId=${encodeURIComponent(profileId)}`);assert.equal(response.status,200);
++   assert.equal(response.data.selectedProvider,'epicwin');assert.equal(response.data.selectedProfileId,profileId);assert.equal(response.data.selectedProfile.profileId,profileId);
++   assert.equal(response.data.selectedPlatform.catalogueProfileId,profileId);assert.equal(response.data.selectedPlatform.catalogueAccount,account);assert.equal(response.data.selectedPlatform.providerCurrency,'MYR');assert.equal(response.data.selectedPlatform.cachedGameCount,count);
++   assert.equal(response.data.games.length,count);assert.ok(response.data.games.every(game=>game.profileId===profileId&&game.catalogueAccount===account&&game.providerCurrency==='MYR'&&game.gameCode.startsWith(`epic-${account}-`)&&game.imageUrl==='/assets/providers/epicwin.webp'&&game.maintenance===true&&game.playable===false&&game.status==='suspended'));
++   assert.equal(response.data.playable,false);assert.equal(response.data.liveReady,false);assert.equal(response.data.launchProvider,null);
++  }
++  assert.deepEqual(h.catalogueCalls.map(call=>[call.account,call.currency]),[['free','MYR'],['normal','MYR']]);
++  assert.deepEqual(h.sqlite.prepare("SELECT provider_id FROM game_catalogue_cache WHERE provider_id LIKE 'epicwin_%' ORDER BY provider_id").all().map(row=>row.provider_id),cases.map(([profileId])=>profileId).sort());
++  assert.equal(h.sqlite.prepare("SELECT COUNT(*) count FROM game_catalogue_cache WHERE provider_id='epicwin'").get().count,0,'free profile must never borrow a provider-level normal cache');
++ }finally{h.close();}
++});
++
+ test('non-executable and mismatched launch profiles fail before any game state or supplier request',async()=>{
+  const h=harness();try{
+   const cases=[
+    [{providerId:'918kissh5',profileId:'918kiss_normal_myr',gameCode:'fixture'},503,'GAME_PROVIDER_UNAVAILABLE','adapter_unimplemented'],
++   [{providerId:'epicwin',profileId:'epicwin_free_myr',gameCode:'fixture'},503,'GAME_PROVIDER_UNAVAILABLE','adapter_unimplemented'],
+    [{providerId:'fuma',profileId:'fuma_myr',gameCode:'fixture'},503,'GAME_PROVIDER_UNAVAILABLE','contract_missing'],
+    [{providerId:'megah5',profileId:'jili_myr_1to1',gameCode:'55021'},400,'GAME_PROFILE_PROVIDER_MISMATCH','profile_provider_mismatch'],
+    [{providerId:'jili',gameCode:'fixture'},400,'GAME_PROFILE_REQUIRED','multiple_profiles'],
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index 34de808..024d222 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.152-918kiss-catalogue-safety';
++const release='17.0.0-selfbuilt.153-provider-catalogue-safety';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+diff --git a/tests/operations-intelligence-api.test.mjs b/tests/operations-intelligence-api.test.mjs
+index 92278be..b286477 100644
+--- a/tests/operations-intelligence-api.test.mjs
++++ b/tests/operations-intelligence-api.test.mjs
+@@ -57,7 +57,7 @@ function fixture(t){
+   INSERT INTO accounting_job_runs VALUES('close-1',${stamp-86400},${stamp-1200},NULL,'running','','private-accounting-error');
+   INSERT INTO audit VALUES('audit-seed','owner','seed','private-audit-target',${stamp});
+  `);
+- const expectedGateway=['megah5','jili','jdb','pragmaticplay','918kissh5','metagaming_normal_myr','evo888h5','epicwin','venus','clotplay'];
++ const expectedGateway=['megah5','jili','jdb','pragmaticplay','918kissh5','metagaming_normal_myr','evo888h5','epicwin_normal_myr','venus','clotplay'];
+  const insertCache=sqlite.prepare('INSERT INTO game_catalogue_cache VALUES(?,?,?,?,?)');
+  for(const id of [...expectedGateway,'rectangle'])insertCache.run(id,'available',stamp,stamp,1);
+  insertCache.run('atg','unavailable',stamp,0,0);
