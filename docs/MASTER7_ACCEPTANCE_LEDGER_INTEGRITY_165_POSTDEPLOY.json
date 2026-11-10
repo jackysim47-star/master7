@@ -1,0 +1,114 @@
+{
+  "release": "17.0.0-selfbuilt.165-acceptance-ledger-integrity",
+  "environment": "Render staging",
+  "observedAt": "2026-11-10T14:45:29Z",
+  "deployment": {
+    "status": "live",
+    "deployId": "dep-dbpiqkgm7kps73b2i5h0",
+    "serviceId": "srv-dbl0iv7f3r2c73848ei0",
+    "publicationCommit": "f79e45301478d87a127fbc416c993642a803f06b",
+    "sourceCommit": "091507b3d7f53a7547549410379d4d1c561fb307",
+    "renderDatabaseTests": {
+      "passed": 3,
+      "failed": 0
+    },
+    "runtimeErrors": 0,
+    "runtimeWarnings": 0,
+    "request5xx": 0
+  },
+  "runtime": {
+    "status": "ok",
+    "database": "ready",
+    "releaseMatchesSourceRelease": true,
+    "acceptanceIntegrityReady": true,
+    "providerAcceptanceIntegrityReady": true,
+    "externalAcceptanceIntegrityReady": true,
+    "backupReady": true,
+    "restoreReady": true,
+    "productionReady": false
+  },
+  "maintenanceSafety": {
+    "status": "PASS",
+    "checksPassed": 49,
+    "checksTotal": 49,
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "transactionsEnabled": false,
+    "realPayments": false,
+    "payoutsEnabled": false,
+    "liveGames": false,
+    "anyGamePlayable": false,
+    "providerOrderSubmissionsEnabled": false,
+    "providerPayoutSubmissionsEnabled": false
+  },
+  "gameCatalogue": {
+    "providerBrands": 38,
+    "profiles": 43,
+    "implementedProfiles": 6,
+    "acceptedProfiles": 0,
+    "liveProfiles": 0,
+    "playButtons": 0,
+    "allGamesVerified": false
+  },
+  "mobileAudit": {
+    "status": "PASS",
+    "viewportWidth": 393,
+    "horizontalOverflow": false,
+    "providerTiles": 38,
+    "jdbTiles": 1,
+    "jdbStatus": "Coming soon",
+    "consoleErrors": 0,
+    "pageErrors": 0,
+    "httpErrors": 0,
+    "brokenImages": 0,
+    "writeRequests": 0
+  },
+  "acceptanceLedgerIntegrity": {
+    "status": "PASS",
+    "schemaVersion": "0122-acceptance-ledger-integrity",
+    "migrationMarker": "0122-acceptance-ledger-integrity",
+    "migrationAppliedAt": "2026-11-10T14:43:49Z",
+    "expectedTriggers": 9,
+    "directProductionTriggerQuery": false,
+    "triggerEvidence": "The 0122 marker is present in the transaction-snapshot backup. The migration creates all nine triggers and records its marker in one PostgreSQL transaction.",
+    "integrityHealthPassed": true
+  },
+  "recovery": {
+    "status": "PASS",
+    "format": "MASTER7-ENCRYPTED-BACKUP-1",
+    "schemaSha256": "534b830dc4330ee48c77543500116451880b13540d5e0691ee8a09910041328b",
+    "backupSha256": "bb9c9c2785543af755f82db7e49445769d6f46e76ba51f521a36081cbb7ef119",
+    "readConsistency": "transaction_snapshot",
+    "tables": 76,
+    "records": 505,
+    "sqliteRestoreVerified": true,
+    "postgres18RollbackRestoreVerified": true,
+    "coverageComplete": true,
+    "missingTables": 0,
+    "foreignKeyViolations": 0,
+    "persistentWrites": false
+  },
+  "officialDomains": {
+    "status": "BLOCKED",
+    "networkReady": false,
+    "customerEntry": {
+      "host": "www.master7.best",
+      "verified": false,
+      "blocker": "DNS does not resolve."
+    },
+    "staffEntry": {
+      "host": "www.master7.site",
+      "verified": false,
+      "blocker": "Registrar URL forwarding still redirects to the Render staging admin path and rewrites health paths incorrectly."
+    }
+  },
+  "externalAcceptance": {
+    "providerCalls": 0,
+    "paymentCalls": 0,
+    "realMoneyAcceptanceCompleted": false,
+    "gameProviderAcceptanceCompleted": false,
+    "productionSignoffCompleted": false
+  },
+  "classification": "staging deployment verified; production go-live blocked"
+}
