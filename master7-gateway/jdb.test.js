@@ -66,6 +66,7 @@ test('JDB catalogue sends only Action 49 and projects public catalogue fields', 
   assert.equal(result.games[1].maintenance, true);
   assert.equal(result.games[1].imageUrl, null);
   assert.equal(result.games[2].category, 'OTHER');
+  assert.equal(result.games[2].maintenance, true);
   assert.equal(JSON.stringify(result).includes('do-not-return'), false);
 
   assert.equal(requests.length, 1);
@@ -84,6 +85,27 @@ test('JDB catalogue sends only Action 49 and projects public catalogue fields', 
   });
   assert.equal(request.options.body.includes(env.JDB_AES_KEY), false);
   assert.equal(request.options.body.includes(env.JDB_AES_IV), false);
+});
+
+test('JDB catalogue availability and names fail closed', async () => {
+  const fetchImpl = async () => new Response(JSON.stringify({
+    status: '0000', data: [{ gType: 0, list: [
+      { mType: 1, name: 'Explicit false', maintenance: false },
+      { mType: 2, name: 'Explicit zero', maintenance: 0 },
+      { mType: 3, name: 'Missing field' },
+      { mType: 4, name: 'Explicit true', maintenance: true },
+      { mType: 5, name: 'Explicit one', maintenance: 1 },
+    ] }],
+  }), { headers: { 'Content-Type': 'application/json' } });
+  const result = await jdbCatalogue({ env, fetchImpl, now });
+  assert.deepEqual(result.games.map(game => game.maintenance), [false, false, true, true, true]);
+
+  for (const name of ['', '   ', 'unsafe\nname']) {
+    const invalidFetch = async () => Response.json({
+      status: '0000', data: [{ gType: 0, list: [{ mType: 1, name }] }],
+    });
+    await assert.rejects(jdbCatalogue({ env, fetchImpl: invalidFetch, now }), /jdb_invalid_game/);
+  }
 });
 
 test('JDB route and health expose no credentials', async () => {

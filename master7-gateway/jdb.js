@@ -137,8 +137,10 @@ function normalizeGames(groups) {
         ? Number(rawMachineType) : rawMachineType;
       const validMaintenance = row.maintenance === undefined || typeof row.maintenance === 'boolean'
         || row.maintenance === 0 || row.maintenance === 1;
+      const name = typeof row.name === 'string' ? row.name.trim() : '';
       if (!Number.isSafeInteger(machineType) || machineType < 0 || machineType > Number.MAX_SAFE_INTEGER
-          || typeof row.name !== 'string' || row.name.length > 512 || !validMaintenance) {
+          || !name || name.length > 512 || /[\u0000-\u001f\u007f-\u009f]/u.test(name)
+          || !validMaintenance) {
         fail('jdb_invalid_game');
       }
       const gameCode = `${group.gType}:${machineType}`;
@@ -146,11 +148,14 @@ function normalizeGames(groups) {
       seen.add(gameCode);
       games.push({
         gameCode,
-        name: row.name,
+        name,
         category: CATEGORY_BY_GAME_TYPE.get(group.gType) || 'OTHER',
         gameType: group.gType,
         machineType,
-        maintenance: row.maintenance === true || row.maintenance === 1,
+        // The supplier contract permits the field to be absent, but absence
+        // does not prove the title is available. Only an explicit false/0 can
+        // open a catalogue title; every unknown value remains fail-closed.
+        maintenance: row.maintenance !== false && row.maintenance !== 0,
         imageUrl: imageUrl(row.image),
       });
     }
