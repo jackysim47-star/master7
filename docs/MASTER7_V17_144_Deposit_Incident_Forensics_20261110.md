@@ -1,5 +1,7 @@
 # MASTER7 V17.144 Deposit Incident Forensics
 
+> Review correction (2026-11-10): snapshot rows below are preserved as historical evidence. Missing provider references do not prove provider order creation failed. Callback receipt events introduced in `.145` were not present in the `.144` archive, so their absence cannot prove no callback arrived. The failure-node labels and wallet `FAIL` below must not be read as proven implementation root causes. See `MASTER7_V17_Deposit_Incident_Report.md` for the reviewed conclusions.
+
 **Evidence captured:** 2026-11-10 08:04:44 MYT
 **Source:** Encrypted transaction-snapshot backup from the live `.144` PostgreSQL database
 **Scope:** `deposit_orders`, payment audit events, `payment_recovery_leases`, `wallet_ledger`, and `wallet_posting_intents`

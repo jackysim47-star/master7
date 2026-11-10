@@ -1,0 +1,88 @@
+{
+  "release": "17.0.0-selfbuilt.146-member-front-clarity",
+  "preparedAt": "2026-11-10T01:57:20.984636+00:00",
+  "archive": {
+    "sha256": "4ebe5b1cad4eb9b927ea237d8e7e460dc374db86227b91f8df59f64c156c1096",
+    "bytes": 7087456,
+    "files": 666,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "public/assets/member-refresh.css"
+    ],
+    "changed": [
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "docs/MASTER7_V17_144_Deposit_Incident_Forensics_20261110.md",
+      "docs/MASTER7_V17_Deposit_Incident_Report.md",
+      "lib/backend.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/assets/app.js",
+      "public/service-worker.js",
+      "tests/official-entries-probe.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "maintenance": "12/12",
+    "releaseProbes": "27/27",
+    "regression": "1258/1258",
+    "renderDatabase": "3/3",
+    "finalFocusedTests": "40/40",
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "browser": {
+      "testType": "isolated layout fixture; no real login, payment, game launch or wallet mutation",
+      "results": [
+        {
+          "viewport": 360,
+          "heroHeight": 397,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        },
+        {
+          "viewport": 390,
+          "heroHeight": 377,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        },
+        {
+          "viewport": 430,
+          "heroHeight": 371,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        },
+        {
+          "viewport": 1280,
+          "heroHeight": 314,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        }
+      ],
+      "mutatingRequests": []
+    }
+  },
+  "behavior": "Presentation and audit-evidence corrections only. No payment, game or payout activation; no balance change.",
+  "candidateLive": false
+}

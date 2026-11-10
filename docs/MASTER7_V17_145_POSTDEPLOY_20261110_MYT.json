@@ -35,10 +35,11 @@
     "vpayReadOnlyOrderGet": {
       "httpStatus": 200,
       "providerCode": -1,
-      "classification": "invalid_signature",
+      "classification": "provider_rejection_message_not_captured",
       "providerRecordPresent": false,
       "orderCreated": false,
-      "moneyMoved": false
+      "moneyMoved": false,
+      "reviewCorrection": "The original helper inferred invalid_signature from -1 alone. Reviewed fresh query from the execution workspace returned This deposit is not exist.; see the reviewed incident report. This historical probe does not prove a signature error."
     },
     "vpayCallbackSourceIps": {
       "source": "user_provided_not_provider_verified",
