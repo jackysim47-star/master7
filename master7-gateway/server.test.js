@@ -161,9 +161,29 @@ test('MegaH5 catalogue validates every row and returns only public game fields',
   const data = await response.json();
   assert.equal(response.status, 200);
   assert.deepEqual(Object.keys(data.result.Game[0]).sort(), [
-    'Brand', 'GameCode', 'GameName', 'GameType', 'HasDemo', 'ImageUrl',
+    'Brand', 'GameCode', 'GameName', 'GameType', 'HasDemo', 'ImageUrl', 'Maintenance',
   ].sort());
+  assert.equal(data.result.Game[0].Maintenance, true);
   assert.equal(JSON.stringify(data).includes('must-never-leave-gateway'), false);
+});
+
+test('MegaH5 catalogue availability is fail-closed without explicit active H5 evidence', async () => {
+  const rows = [
+    megaGame({ GameCode: '55021' }),
+    megaGame({ GameCode: '55022', IsActive: true, IsH5Support: true, Maintenance: '1|2|3|4|5|6' }),
+    megaGame({ GameCode: '55023', IsActive: false, IsH5Support: true, Maintenance: false }),
+    megaGame({ GameCode: '55024', IsActive: true, IsH5Support: false, Maintenance: false }),
+    megaGame({ GameCode: '55025', IsActive: true, IsH5Support: true, Maintenance: false }),
+  ];
+  const response = await run(makeApp({
+    env: { MEGA_OPERATOR_ID: 'master7', MEGA_SECRET_KEY: 'secret', CURRENCY: 'MYR' },
+    fetchImpl: async () => Response.json({ Status: 200, Description: 'Success',
+      ResponseDateTime: '2026-11-10T06:00:00Z', Game: rows }),
+  }), '/providers/megah5/games');
+  const data = await response.json();
+  assert.equal(response.status, 200);
+  assert.deepEqual(data.result.Game.map(game => game.Maintenance), [true, true, true, true, false]);
+  assert.ok(data.result.Game.every(game => typeof game.Maintenance === 'boolean'));
 });
 
 test('malformed or duplicate MegaH5 catalogue rows fail closed and are not cached', async () => {

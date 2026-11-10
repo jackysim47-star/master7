@@ -109,6 +109,14 @@ function publicGame(value) {
       || (value.Brand != null && value.Brand !== '' && !printable(value.Brand, 100))) {
     throw new TypeError('invalid_megah5_catalogue');
   }
+  // The legacy feed's IsActive, IsH5Support and Maintenance fields are not in
+  // the available generic contract.  The portal treats boolean true as
+  // unavailable, so keep a title closed unless all three values explicitly
+  // prove the narrow state that is safe to consume.  In particular, do not
+  // guess what a maintenance schedule string means.
+  const maintenance = value.IsActive !== true
+    || value.IsH5Support !== true
+    || value.Maintenance !== false;
   return {
     GameCode: value.GameCode,
     GameName: value.GameName,
@@ -116,6 +124,7 @@ function publicGame(value) {
     HasDemo: value.HasDemo,
     ImageUrl: value.ImageUrl || '',
     ...(value.Brand ? { Brand: value.Brand } : {}),
+    Maintenance: maintenance,
   };
 }
 
