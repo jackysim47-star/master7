@@ -240,16 +240,16 @@ Render secrets while all three transaction switches remain `false`. The
 transaction routes remain deliberately inactive until supplier QA, callback
 acknowledgement/retry and wallet settlement acceptance are complete.
 
-## Version 1.6.0: three website origins
+## Current website origins
 
 Set `ALLOWED_ORIGINS` to a comma-separated exact-origin list in Render:
 
 ```text
-https://www.master7.vip,https://www.master7.best,https://admin.master7.best
+https://master7.best,https://www.master7.best,https://master7.site,https://www.master7.site,https://master7-v17-staging.onrender.com
 ```
 
 The plural setting takes precedence over the legacy `ALLOWED_ORIGIN`. Omitting
-both retains the previous `https://www.master7.vip` default. An explicit empty
+both retains the direct Render portal origin as the default. An explicit empty
 list disables browser CORS access. Wildcards, URL paths and embedded credentials
 are rejected. Configuration changes require a new deployment.
 

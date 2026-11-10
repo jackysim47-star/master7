@@ -25,7 +25,13 @@ test('health exposes readiness without secrets', async () => {
 });
 
 const DIRECT_PORTAL_ORIGIN = 'https://master7-v17-staging.onrender.com';
-const PLATFORM_ORIGINS = ['https://master7.best', 'https://master7.site', DIRECT_PORTAL_ORIGIN];
+const PLATFORM_ORIGINS = [
+  'https://master7.best',
+  'https://www.master7.best',
+  'https://master7.site',
+  'https://www.master7.site',
+  DIRECT_PORTAL_ORIGIN,
+];
 
 test('default browser origin is the current direct portal and excludes retired domains', async () => {
   const app = makeApp({ env: {} });
@@ -38,7 +44,7 @@ test('default browser origin is the current direct portal and excludes retired d
   }
 });
 
-test('three current platform origins work for GET and browser preflight', async () => {
+test('all current platform origins work for GET and browser preflight', async () => {
   const app = makeApp({ env: { ALLOWED_ORIGINS: PLATFORM_ORIGINS.join(',') } });
   for (const origin of PLATFORM_ORIGINS) {
     const health = await run(app, '/health', { headers: { Origin: origin } });
