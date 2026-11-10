@@ -1,0 +1,124 @@
+{
+  "release": "17.0.0-selfbuilt.168-guard-function-attestation",
+  "environment": "Render staging",
+  "observedAt": "2026-11-10T16:36:00Z",
+  "deployment": {
+    "status": "live",
+    "deployId": "dep-dbpkclu7bikc73cmkh1g",
+    "serviceId": "srv-dbl0iv7f3r2c73848ei0",
+    "publicationCommit": "cbfb89614bbca1a0ed5d951639258516c8cd2d64",
+    "sourceCommit": "0a1e172c70e373a6355a7dc01ff3ac9e0f65db73",
+    "renderDatabaseTests": {
+      "passed": 3,
+      "failed": 0
+    },
+    "startupLogLevel": "info",
+    "startupMessage": "database guards 9/9 ready; guard functions 5/5 attested",
+    "runtimeCritical": 0,
+    "runtimeErrors": 0,
+    "runtimeWarnings": 0,
+    "request5xx": 0
+  },
+  "runtime": {
+    "status": "ok",
+    "database": "ready",
+    "releaseMatchesSourceRelease": true,
+    "acceptanceIntegrityReady": true,
+    "providerAcceptanceIntegrityReady": true,
+    "externalAcceptanceIntegrityReady": true,
+    "backupReady": true,
+    "restoreReady": true,
+    "productionReady": false
+  },
+  "databaseGuardAttestation": {
+    "status": "PASS",
+    "triggersPassed": 9,
+    "triggersRequired": 9,
+    "functionsPassed": 5,
+    "functionsRequired": 5,
+    "functionDefinitionsAttested": true,
+    "functionMetadataAttested": true,
+    "fixedSearchPathAttested": true,
+    "schemaRelativeBindingAttested": true,
+    "startupReceiptObserved": true,
+    "startupReceiptSeverity": "info",
+    "failClosedOnDrift": true,
+    "migrationVersion": "0123-guard-function-schema-binding",
+    "backupSchemaVersion": "0122-acceptance-ledger-integrity"
+  },
+  "maintenanceSafety": {
+    "status": "PASS",
+    "checksPassed": 49,
+    "checksTotal": 49,
+    "newDepositsEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "transactionsEnabled": false,
+    "realPayments": false,
+    "payoutsEnabled": false,
+    "liveGames": false,
+    "anyGamePlayable": false,
+    "providerOrderSubmissionsEnabled": false,
+    "providerPayoutSubmissionsEnabled": false
+  },
+  "gameCatalogue": {
+    "providerBrands": 38,
+    "profiles": 43,
+    "acceptedProfiles": 0,
+    "liveProfiles": 0,
+    "playButtons": 0,
+    "allGamesVerified": false
+  },
+  "mobileAudit": {
+    "status": "PASS",
+    "viewportWidth": 393,
+    "horizontalOverflow": false,
+    "providerTiles": 38,
+    "jdbTiles": 1,
+    "jdbStatus": "Coming soon",
+    "consoleErrors": 0,
+    "pageErrors": 0,
+    "httpErrors": 0,
+    "brokenImages": 0,
+    "writeRequests": 0
+  },
+  "recovery": {
+    "status": "PASS",
+    "format": "MASTER7-ENCRYPTED-BACKUP-1",
+    "backupSha256": "7771a20b95f813731365f0cc13d5350b6a76481552747507fbcba6b23a5503a6",
+    "schemaVersion": "0122-acceptance-ledger-integrity",
+    "schemaSha256": "534b830dc4330ee48c77543500116451880b13540d5e0691ee8a09910041328b",
+    "readConsistency": "transaction_snapshot",
+    "tables": 76,
+    "records": 514,
+    "sqliteRestoreVerified": true,
+    "postgres18RollbackRestoreVerified": true,
+    "coverageComplete": true,
+    "missingTables": 0,
+    "foreignKeyViolations": 0,
+    "persistentWrites": false,
+    "backupArtifactPublished": false
+  },
+  "officialDomains": {
+    "status": "BLOCKED",
+    "networkReady": false,
+    "customerEntry": {
+      "host": "www.master7.best",
+      "verified": false,
+      "blocker": "DNS does not resolve."
+    },
+    "staffEntry": {
+      "host": "www.master7.site",
+      "verified": false,
+      "blocker": "Registrar URL forwarding resolves to 15.197.162.184 and redirects to the Render staging admin path instead of serving the Render origin directly."
+    }
+  },
+  "externalAcceptance": {
+    "providerCalls": 0,
+    "paymentCalls": 0,
+    "realMoneyAcceptanceCompleted": false,
+    "gameProviderAcceptanceCompleted": false,
+    "productionSignoffCompleted": false
+  },
+  "classification": "staging deployment verified; production go-live blocked"
+}
