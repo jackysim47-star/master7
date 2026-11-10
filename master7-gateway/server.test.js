@@ -374,6 +374,7 @@ test('CLOTPLAY catalogue uses documented auth, pagination and excludes private f
   assert.match(request.options.headers['User-Agent'], /^MASTER7-Integration-Gateway\//);
   assert.equal(request.options.body,undefined);
   assert.equal(data.games[0].maintenance,true);
+  assert.equal(data.games[0].thumbnails.en.square,null);
   assert.equal(data.games[0].thumbnails.en.portrait,null);
   assert.equal(data.pagination.total,201);
   assert.ok(!JSON.stringify(data).includes('hidden'));
@@ -393,6 +394,20 @@ test('CLOTPLAY upstream failure does not leak response credentials', async () =>
   const res=await run(makeApp({env:{CLOTPLAY_OPERATOR_TOKEN:'token'},fetchImpl}),'/providers/clotplay/games');
   assert.equal(res.status,502);
   assert.deepEqual(await res.json(),{error:'clotplay_catalogue_failed',upstreamStatus:403});
+});
+
+test('CLOTPLAY malformed success fails closed instead of publishing a partial page', async () => {
+  const cases = [
+    {data:[{slug:'ok',name:'One'},{slug:'',name:'Bad'}],pagination:{current_page:1,last_page:1,per_page:100,total:2}},
+    {data:[{slug:'same',name:'One'},{slug:'same',name:'Two'}],pagination:{current_page:1,last_page:1,per_page:100,total:2}},
+    {data:[{slug:'ok',name:'One'}],pagination:{current_page:2,last_page:2,per_page:100,total:101}},
+  ];
+  for (const body of cases) {
+    const fetchImpl=async()=>new Response(JSON.stringify(body),{status:200});
+    const res=await run(makeApp({env:{CLOTPLAY_OPERATOR_TOKEN:'token'},fetchImpl}),'/providers/clotplay/games');
+    assert.equal(res.status,502);
+    assert.deepEqual(await res.json(),{error:'clotplay_catalogue_failed',upstreamStatus:200});
+  }
 });
 
 test('EPICWIN and KISSH5 catalogue profiles keep credentials and currencies separate', async () => {

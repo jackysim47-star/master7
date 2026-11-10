@@ -15,6 +15,7 @@ const { jiliCatalogueBody, normalizeJiliGames } = require('./jili');
 const { parseEpicwinCatalogueResponse } = require('./epicwin');
 const { parseEvoCatalogueResponse } = require('./evo');
 const { parseKissh5CatalogueResponse } = require('./kissh5');
+const { parseClotplayCatalogueResponse } = require('./clotplay');
 const { venusCatalogue } = require('./venus');
 const { rsghubCatalogue } = require('./rsghub');
 const { jdbCatalogue } = require('./jdb');
@@ -704,30 +705,18 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         const result = await upstream(`${clotplayBase}/get-game-list?per_page=100&page=${page}`, {
           headers: { Accept: 'application/json', Authorization: clotplayToken, 'User-Agent': PROVIDER_USER_AGENT },
         });
-        if (!result.ok || !Array.isArray(result.data && result.data.data)) {
+        let catalogue = null;
+        if (result.ok) {
+          try { catalogue = parseClotplayCatalogueResponse(result.data, Number(page)); }
+          catch { /* A malformed success response cannot publish a partial catalogue. */ }
+        }
+        if (!result.ok || !catalogue) {
           return send(res, 502, { error: 'clotplay_catalogue_failed', upstreamStatus: result.status }, cors);
         }
-        // Project public catalogue fields only; never forward authentication or member data.
-        const games = result.data.data.map(game => ({
-          gameCode: String(game.slug || ''),
-          name: String(game.name || ''),
-          nameZh: String(game.name_cn || ''),
-          category: String(game.category || ''),
-          maintenance: Number(game.is_maintenance) === 1,
-          thumbnails: Object.fromEntries(['en', 'cn', 'th'].map(lang => [
-            lang, Object.fromEntries(['square', 'portrait'].map(shape => {
-              const value = game.thumbnails?.[lang]?.[shape];
-              return [shape, typeof value === 'string' && value.startsWith('https://') ? value : null];
-            })),
-          ])),
-        }));
-        const pagination = result.data.pagination || {};
         return send(res, 200, {
           provider: 'clotplay',
-          games,
-          pagination: Object.fromEntries(['current_page', 'last_page', 'per_page', 'total'].map(key => [
-            key, Number.isSafeInteger(pagination[key]) && pagination[key] >= 0 ? pagination[key] : null,
-          ])),
+          games: catalogue.games,
+          pagination: catalogue.pagination,
         }, cors);
       }
 
