@@ -1,10 +1,29 @@
 # MASTER7 deployment handover
 
-Candidate source: `17.0.0-selfbuilt.172-privileged-role-boundary`.
+Candidate source: `17.0.0-selfbuilt.173-staff-setup-route`.
 
 This candidate has not been deployed by the source commit. Confirm the actual
 Render release and deployment ID from the Portal service before cutover or
 rollback. Portal service: `srv-dbl0iv7f3r2c73848ei0`.
+
+The live baseline observed while preparing this candidate was v172 deployment
+`dep-dbpn29k9v7es73f3ljdg`. Its health endpoint and database were ready, but an
+external GET to `/staff-setup` returned 404 because Vinext had no explicit file
+route for that path.
+
+## Staff setup route
+
+v173 adds `app/staff-setup/route.ts`, exporting the root portal GET, HEAD and
+dynamic handlers. Staff setup links can therefore reach the fragment-only
+credential consumer introduced in v172. The backend release, portal asset
+queries, service-worker cache and release probes advance together so browsers
+do not retain the incomplete v172 shell. A regression test requires the route
+file and all three exports.
+
+This routing repair does not change a role, password, session, payment, payout,
+game, wallet, provider credential, DNS record or production-acceptance result.
+It adds no schema migration. Runtime migration 0125 and the encrypted-backup
+0122/76-table contract remain current. See `V173_STAFF_SETUP_ROUTE.md`.
 
 ## Privileged staff role boundary
 
@@ -36,7 +55,7 @@ latest required startup marker. See `V172_PRIVILEGED_ROLE_BOUNDARY.md`.
 The last recorded integration-gateway baseline remains release `1.17.0`,
 deployment `dep-dbpchge417fc739h9b50`, commit
 `c4aab70060439469f3c2e6081a57c0b40e630ff4`. Gateway service:
-`srv-db6b7inlk1mc73ck6cmg`. The v172 candidate does not change the gateway.
+`srv-db6b7inlk1mc73ck6cmg`. Neither v172 nor v173 changes the gateway.
 
 ## Manual-bank audit evidence index
 

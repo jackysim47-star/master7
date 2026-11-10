@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
 
-const release='17.0.0-selfbuilt.172-privileged-role-boundary';
+const release='17.0.0-selfbuilt.173-staff-setup-route';
 function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
 
 test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{

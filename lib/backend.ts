@@ -39,7 +39,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
 import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
 import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
 import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
-export const RELEASE = '17.0.0-selfbuilt.172-privileged-role-boundary';
+export const RELEASE = '17.0.0-selfbuilt.173-staff-setup-route';
 export const SOURCE_RELEASE = RELEASE;
 const CUSTOMER_ORIGIN='https://www.master7.best';
 const MARKETING_CONTACT_LIMIT=1_000_000;

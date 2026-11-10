@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 
 const read=path=>readFileSync(new URL(`../${path}`,import.meta.url),'utf8');
-const app=read('public/assets/app.js'),portal=read('app/portal.html');
+const app=read('public/assets/app.js'),portal=read('app/portal.html'),route=read('app/staff-setup/route.ts');
 const definitions=app.slice(0,app.indexOf('(async function start(){'));
 
 function evaluate(hash='',pathname='/staff-setup'){
@@ -47,4 +47,8 @@ test('staff setup UI submits only the in-memory one-time credential and supports
  assert.match(app,/resetStaffPassword/);
  assert.ok(app.includes('url.origin!==location.origin||url.pathname!=="/staff-setup"||url.search'));
  assert.doesNotMatch(app,/localStorage\.setItem\([^\n]*staffSetup|sessionStorage[^\n]*staffSetup/);
+});
+
+test('staff setup has an explicit Vinext route with GET and HEAD handlers',()=>{
+ assert.match(route,/export\s*\{\s*GET\s*,\s*HEAD\s*,\s*dynamic\s*\}\s*from\s*['"]\.\.\/route['"]/);
 });

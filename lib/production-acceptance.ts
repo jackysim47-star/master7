@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
 ] as const);
 
-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.172-privileged-role-boundary' as const;
+export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.173-staff-setup-route' as const;
 
 export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
