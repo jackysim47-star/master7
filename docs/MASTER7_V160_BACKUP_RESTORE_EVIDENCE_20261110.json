@@ -1,0 +1,58 @@
+{
+  "evidenceVersion": 1,
+  "release": "17.0.0-selfbuilt.160-meta-gaming-adapter",
+  "capturedAt": "2026-11-10T10:01:49.629Z",
+  "verifiedAt": "2026-11-10T10:05:18.022Z",
+  "backup": {
+    "filename": "master7-encrypted-backup-v160-20261110100149Z.json",
+    "sha256": "1dd6e6f95ddc457b0816e300e6bc1fc144f03dde703fcabc3e517b0c5cf3fc14",
+    "format": "MASTER7-ENCRYPTED-BACKUP-1",
+    "readConsistency": "transaction_snapshot",
+    "schemaVersion": "0120-provider-wallet-sweeps",
+    "schemaSha256": "5cbc5cd93db13ecf862ffac30bcbb38d9a2f2f90d75e2ae1550299b22bc7e3eb",
+    "publicKeySha256": "922c18278bcd0521b73eb40166e3a111765157e4f0179fa18b07bb53cb151359",
+    "tableCount": 71,
+    "totalRecords": 492
+  },
+  "sqlite": {
+    "filename": "v160-20261110100149Z.sqlite-receipt.json",
+    "sha256": "a50c1b408f08a4414cb5b6940df8844909427e495f3bc353e7206befab8162ae",
+    "status": "verified",
+    "coverageComplete": true,
+    "foreignKeyViolations": 0,
+    "tableCount": 71,
+    "totalRecords": 492
+  },
+  "postgres": {
+    "filename": "v160-20261110100149Z.postgres-receipt.json",
+    "sha256": "5d36c8b2cd67ee3e4091465be4cc364c831e74587227ed0dd4114b6f63a200c5",
+    "status": "verified",
+    "coverageComplete": true,
+    "readConsistency": "transaction_snapshot",
+    "persistentWrites": false,
+    "foreignKeyViolations": 0,
+    "tableCount": 71,
+    "totalRecords": 492,
+    "restoreTarget": "isolated PostgreSQL rollback-only transaction"
+  },
+  "liveReadinessAfterRecording": {
+    "backupReady": true,
+    "restoreReady": true,
+    "backupCreatedAt": "2026-11-10T10:01:49.629Z",
+    "restoreVerifiedAt": "2026-11-10T10:05:18.022Z",
+    "productionReady": false
+  },
+  "regression": {
+    "command": "node --test tests/backup-restore-rehearsal.test.mjs tests/postgres-restore-safety.test.mjs tests/backup-job-api.test.mjs",
+    "passed": 23,
+    "failed": 0
+  },
+  "safety": {
+    "productionDataWrites": "backup audit + recovery evidence only",
+    "restorePersistentWrites": false,
+    "postRestoreUserTables": 0,
+    "paymentCalls": 0,
+    "gameLaunchCalls": 0,
+    "providerCalls": 0
+  }
+}
