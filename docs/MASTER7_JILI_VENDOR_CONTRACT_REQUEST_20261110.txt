@@ -1,0 +1,48 @@
+Subject: MASTER7 JILI merchant contract confirmation and UAT enablement
+
+Please confirm the production contract and enable restricted UAT for the following two independent MASTER7 JILI profiles:
+
+- jili_myr_1to1 — MYR, ratio 1:1
+- jili_my1_1to100 — MYR, ratio 1:100
+
+Current verified state:
+
+- Each profile returns a separate 297-game catalogue.
+- The two account mappings remain isolated.
+- The platform-side transfer-wallet, query and recovery workflow is implemented.
+- No production game launch, wallet transfer, settlement or recovery acceptance has been recorded. The profiles remain unavailable to members until the items below are confirmed and tested.
+
+Please provide or confirm in writing:
+
+1. The exact merchant-approved production and UAT API base endpoints, protocol version, ordered signing fields, timezone/date rule, request methods and response/error definitions for these accounts.
+2. Separate live and UAT merchant/account identifiers for both profiles, with the enabled currencies, game catalogue permissions and transfer-wallet permissions. Please send credentials through the agreed secure channel, not ordinary chat or email.
+3. For each profile, the exact unit and decimal rule for every field below. Please state whether each amount is MYR currency or game points and whether the 1:100 ratio is already applied by JILI:
+   - transfer request amount
+   - transfer query result amount
+   - member balance
+   - bet/report amount, win/loss and settlement amount
+4. The approved HTTPS game-launch origins and redirect/return origins, including any required HomeUrl, mobile/web platform values and URL parameters.
+5. The supported session-close procedure and the exact effect of KickMember: whether all issued launch tokens are invalidated, how an offline/closed session is proven, and how long closure may take.
+6. The late-round policy after logout or forced closure: finality window, unsettled-round handling, void/correction behavior, and the authoritative report/status used to prove that no later result can arrive.
+7. The recovery contract for an unknown or timed-out transfer: authoritative transaction-query method, final statuses, duplicate/idempotency behavior, retention period and escalation procedure. The platform will query the original reference and will not resubmit an unknown transfer.
+8. The authoritative bet/settlement report method, pagination rules, timezone, maximum query window, correction/rollback behavior and recommended reconciliation schedule.
+9. Any callback/webhook requirements, including event types, source IPs, signature headers, replay protection, retry policy, acknowledgement format and test procedure. If these accounts use report polling only, please confirm that no callback is required.
+10. Any launch, transfer, balance, query, report and reconciliation rate limits, concurrency limits and maintenance-window rules.
+
+Please allowlist both current Render Singapore outbound CIDR ranges for these merchant accounts:
+
+- 74.220.52.0/24
+- 74.220.60.0/24
+
+Requests can originate from any address in either range, so registering a single observed IP is insufficient. Please confirm when both CIDRs and all required catalogue, member, launch, wallet, query and report permissions are active in UAT and production.
+
+Requested acceptance sequence:
+
+1. Read-only catalogue and account-permission check.
+2. Restricted UAT member creation and launch.
+3. Small-value transfer, balance and exact transaction query.
+4. Logout/session closure, late-round and report reconciliation.
+5. Recovery of a controlled timeout/unknown response without a duplicate transfer.
+6. Separate durable acceptance evidence for jili_myr_1to1 and jili_my1_1to100.
+
+MASTER7 will keep member Play and cash operations closed until the merchant contract is confirmed and the relevant profile completes these checks.

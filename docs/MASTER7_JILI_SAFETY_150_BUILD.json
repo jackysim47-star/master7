@@ -1,0 +1,69 @@
+{
+  "release": "17.0.0-selfbuilt.150-jili-safety",
+  "preparedAt": "2026-11-10T06:18:16.947533+00:00",
+  "sourceCommit": "52b60da36b33b5900b7f82c5514d1d8a2c18fd85",
+  "baselineSourceCommit": "bad7477fa39dc072849fe266b7f89eddc769350f",
+  "baselineRelease": "17.0.0-selfbuilt.149-meta-catalogue-isolation",
+  "archive": {
+    "sha256": "36c5a4c56bea00dc42b125eaf19b5e30057a0a06378e73b14e7884851fe47edf",
+    "bytes": 7121110,
+    "files": 678,
+    "entries": 739,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/MASTER7_JILI_SAFETY_150.md"
+    ],
+    "changed": [
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "docs/MASTER7_JILI_TRANSFER_WALLET_148.md",
+      "lib/backend.ts",
+      "lib/jili-profile-runtime.ts",
+      "lib/jili-transfer-protocol.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/service-worker.js",
+      "tests/game-catalogue.test.mjs",
+      "tests/jili-transfer-protocol.test.mjs",
+      "tests/jili-wallet-api.test.mjs",
+      "tests/official-entries-probe.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1314,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "focusedJili": 23,
+    "renderDatabase": 3,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "supplierTests": "read-only JILI catalogue probes only; no launch, balance, transfer or settlement acceptance"
+  },
+  "jili": {
+    "profiles": [
+      "jili_myr_1to1",
+      "jili_my1_1to100"
+    ],
+    "liveCatalogueCountPerProfile": 297,
+    "returnOriginPreflightGuard": true,
+    "nonzeroTransferSubmitPolicy": "unknown_query_original_transaction_only",
+    "signedReportAmountPolicy": "fail_closed_pending_merchant_contract",
+    "productionAcceptedProfiles": 0
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false
+}
