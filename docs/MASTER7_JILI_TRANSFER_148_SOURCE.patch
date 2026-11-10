@@ -1,0 +1,1224 @@
+diff --git a/.env.example b/.env.example
+index 286c8afd2cda0bac411afb30ebcb2d44a8e5dc37..ccff8d20672b46fd04b2a574d88aafcb87d0eccb 100644
+--- a/.env.example
++++ b/.env.example
+@@ -72,6 +72,8 @@ GAME_GATEWAY_URL=https://master7-integration-gateway.onrender.com
+ GAME_GATEWAY_TOKEN=
+ GAME_GATEWAY_WALLET_TOKEN=
+ # Server-only compiled adapter configuration. Never expose this JSON to browsers.
++# JILI account units, closure finality and merchant evidence need independent
++# confirmation. See docs/MASTER7_JILI_TRANSFER_WALLET_148.md.
+ GAME_TRANSFER_PROFILES_JSON=
+ # Existing JDB configuration remains supported when its slot is absent above.
+ JDB_TRANSFER_PROFILES_JSON=
+diff --git a/app/portal.html b/app/portal.html
+index 8191d4f4925db08dfff8c9e36ce7dc8d9542d4a4..be27915d5aeefda90b20db7211ee11998e51d42d 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.148-jili-transfer-wallet">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.148-jili-transfer-wallet" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index 1a9d09d11c3612c8f1ae66ca57f7ecb9a7d60bf8..cab7e5c94e9bfc039b363cf748e4b416d3db5be5 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,16 +1,18 @@
+ # MASTER7 deployment handover
+ 
+-Candidate source: `17.0.0-selfbuilt.147-game-runtime-repair`.
++Candidate source: `17.0.0-selfbuilt.148-jili-transfer-wallet`.
+ 
+-Baseline at preparation: `17.0.0-selfbuilt.146-member-front-clarity`, deploy `dep-dbp7pf8m7kps73a3oabg`.
++Baseline: live `17.0.0-selfbuilt.147-game-runtime-repair`, deployment `dep-dbp92tutlv9c73et00lg`, publication commit `7220347815b6c167d3495a9bc56f8ad90d050133`.
+ 
+-This release repairs the shared game runtime: normalized MYR accounting supports registered 1:100 cash profiles; startup, wallet reads and recovery resolve compiled per-profile adapters; accepted JDB runtime observations reach health without requiring every other provider. MegaH5 verification reads durable evidence and a provider-bound closure interface can record closure receipts before one return and a zero-balance check. No production closure implementation is installed without the account-specific supplier contract.
++JILI now has a legacy transfer protocol, executable adapter, per-account runtime factory and the universal game-wallet API. Its 1:1 and 1:100 catalogues have separate cache keys and check the account, currency and ratio. Deposits are confirmed by querying the original account, transaction, direction and normalized amount. Returns use the supplier's all-funds transfer rather than a delayed balance. A zero return still needs a real supplier receipt. Unknown transfers remain reserved; recovery never resubmits them.
+ 
+-The customer directory has one card for each of the 37 brands. Multiple account profiles remain separate in that brand's selector, player mapping and ledger. There are still 41 listed account profiles. Selecting a ready account never silently changes a member's ratio or account.
++Migration `0120-provider-wallet-sweeps` adds immutable withdrawal-mode and adapter-contract fingerprints to operation rows. Existing operations default to their previous exact-amount protocol. Platform cash remains MYR sen; supplier units convert once at the adapter boundary. The backup schema is now 0120 and explicitly accepts 0119 archives. Restores include the new snapshots.
+ 
+-Current executable protocol inventory remains MegaH5 and JDB. JILI, 918KISS and other incomplete merchant integrations remain blocked; a readable catalogue is not game acceptance. JDB's latest server query was rejected with provider code 9001. New game, payment and payout switches remain unchanged. There is no schema, capacity, DNS, secret or customer balance change in this candidate.
++The executable protocol inventory is MegaH5, JDB and the new JILI implementation (four listed account profiles). JILI's merchant contract remains incomplete: the legacy specification is secondary, account amount units and closure finality are unconfirmed, no runtime secret was installed and no production acceptance was recorded. Implementation counts are not playable-game counts. 918KISS and the other merchant protocols remain unimplemented. MegaH5 has no production closure implementation. JDB's last supplier response was 9001.
+ 
+-Validation and live deployment evidence are recorded in the publication repository. Synthetic supplier tests are distinguished from actual merchant acceptance.
++There are 37 brand entries and 41 separate listed account profiles; production accepted profiles remain zero. No real game launch or real-money transfer occurred in this work. Payment work is paused; activation flags, credentials, pricing, instances and DNS are unchanged.
++
++Deployment requires pre/post encrypted backups and isolated restore checks. Reverting to 147 is safe for this unactivated release only while no 148 sweep operation exists. Once sweeps exist, retain the 148-compatible recovery engine: an old engine does not understand them.
+ 
+ Portal service: `srv-dbl0iv7f3r2c73848ei0`.
+ Workspace: `tea-dakfo2h594qs73du231g`.
+diff --git a/docs/MASTER7_JILI_TRANSFER_WALLET_148.md b/docs/MASTER7_JILI_TRANSFER_WALLET_148.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..de38d331eef4de76a5f218c8034823e851fdb5e0
+--- /dev/null
++++ b/docs/MASTER7_JILI_TRANSFER_WALLET_148.md
+@@ -0,0 +1,28 @@
++# JILI transfer wallet implementation and acceptance boundary
++
++This is an implementation handover, not a production acceptance certificate.
++
++The candidate legacy protocol is described in the secondary reference https://www.scribd.com/document/957889365/JiLi-zh-cn . The primary SSS manual at https://wbgame.tadagaming.com/sss-doc/SSS_Seamless_API_Manual_TW.html describes a different GC/SC contract. It does not establish that these MYR/MY1 accounts use that SSS wallet. Other suppliers' session-close methods are not substituted into these accounts.
++
++Implemented legacy methods: GetGameList, CreateMember, GetMemberInfo, LoginWithoutRedirect, KickMember, ExchangeTransferByAgentId, CheckTransferByTransactionId and paginated GetBetRecordByTime. Signing uses ordered parameters ending in AgentId, MD5 with fixed UTC-4 `yyMMd`, and independent six-character padding. Launch HomeUrl/platform fields are not signed. Launch URLs require HTTPS and explicitly approved origins. Submitted transfers are never automatically retried.
++
++The reference warns that GetMemberInfo.Balance is delayed and should not determine withdrawals. The engine snapshots withdrawal_mode=all, creates an immutable return reference and submits TransferType=1 with Amount=0. Confirmation requires CheckTransferByTransactionId with the original account, transaction and direction. Only its actual normalized amount becomes expected_return_minor. A timed-out return is queried with that reference, without an invented amount or second submission. A zero sweep retains its supplier reference and one submission attempt.
++
++Cash ledgers use MYR sen. Configure transferAmountUnit, queryAmountUnit, balanceAmountUnit and reportAmountUnit independently as platform_currency or game_points, only after the account contract confirms each field. An exchange endpoint may already apply the 1:100 agent ratio; assuming its Amount uses game points could multiply a debit or divide a return twice. There are deliberately no inferred unit defaults.
++
++The adapter fingerprints its profile, API endpoint, agent ID and four unit settings. The engine snapshots that fingerprint when reserving the wallet. Database triggers prohibit changing an operation's mode or fingerprint. A different runtime account or unit mapping cannot reinterpret its receipt. Key rotation alone does not change this account/unit fingerprint.
++
++Use server-only GAME_TRANSFER_PROFILES_JSON with independent profiles jili_myr_1to1 and jili_my1_1to100. Each slot requires:
++
++- mode: closed, qa or production; environment: production.
++- connection: exact profile, HTTPS /api1 endpoint, merchant agent ID/key, all four explicit unit choices and approved launchOrigins.
++- approvedApiEndpoints and allowedReturnOrigins. Browser fields cannot select a supplier endpoint.
++- qaMemberIds, at most 50 exact member IDs. QA membership never bypasses production acceptance.
++- recoveryEnabled and merchantContractVerified, plus merchantContractEvidenceSha256 for independently reviewed account evidence.
++- sessionClosureVerified, allIssuedLaunchesInvalidated and lateResultsFinal. Kick acknowledgement or a point-in-time offline status alone does not prove those properties.
++
++These are deployment inputs for reviewed evidence, not evidence generators. Do not set them just to display Play. Cash/recovery methods stay disabled when the account or closure contract is unverified. Production also requires that profile's five durable catalogue, launch, wallet, settlement and recovery acceptance capabilities. Unknown launch tokens remain blocked from settlement until closure is proven.
++
++The additive schema preserves existing JDB operations with exact mode and an empty fingerprint. SQLite and PostgreSQL tests cover actual amounts, zero receipts, concurrent returns, unknown outcomes, changed contracts and encrypted backup/rollback-only restores. HTTP tests use synthetic suppliers and balances. They are not real play, wager-settlement or real-money acceptance evidence.
++
++Current production activation: no JILI runtime secret installed, no acceptance event recorded, no real game launch and no real-money transfer. Report JILI, 918KISS, MegaH5 and other supplier blockers independently. Do not claim all 37 brands are playable.
+diff --git a/drizzle/0120_provider_wallet_sweeps.sql b/drizzle/0120_provider_wallet_sweeps.sql
+new file mode 100644
+index 0000000000000000000000000000000000000000..0d378577b7f50a8546e3ea038e275f2de0d87b27
+--- /dev/null
++++ b/drizzle/0120_provider_wallet_sweeps.sql
+@@ -0,0 +1,7 @@
++-- Existing sessions retain their exact-amount protocol. New sweep sessions
++-- snapshot the mode before a supplier deposit can be submitted.
++ALTER TABLE provider_wallet_operations ADD COLUMN withdrawal_mode TEXT NOT NULL DEFAULT 'exact' CHECK(withdrawal_mode IN ('exact','all'));
++ALTER TABLE provider_wallet_operations ADD COLUMN adapter_contract_sha256 TEXT NOT NULL DEFAULT '' CHECK(adapter_contract_sha256='' OR (length(adapter_contract_sha256)=64 AND adapter_contract_sha256 NOT GLOB '*[^a-f0-9]*'));
++CREATE TRIGGER provider_wallet_contract_immutable BEFORE UPDATE OF withdrawal_mode,adapter_contract_sha256 ON provider_wallet_operations
++ WHEN NEW.withdrawal_mode<>OLD.withdrawal_mode OR NEW.adapter_contract_sha256<>OLD.adapter_contract_sha256
++ BEGIN SELECT RAISE(ABORT,'provider wallet contract is immutable'); END;
+diff --git a/lib/backend.ts b/lib/backend.ts
+index ad455c3cca152190748070ccf44b6fe6afb99f6d..7dfaf63f11d938ae6ad195d81fc9576fcbe116e3 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -38,7 +38,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.147-game-runtime-repair';
++export const RELEASE = '17.0.0-selfbuilt.148-jili-transfer-wallet';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+@@ -877,13 +877,13 @@ async function route(req:Request,c:Context){
+  if(p==='/api/game-wallet/settle'){
+   role(u,['member']);const resolution=resolveWalletProfile(d);if(resolution.error)return resolution.error;
+   const expectedSessionId=d.sessionId===undefined||d.sessionId===''?undefined:idField(d.sessionId);
+-  if(resolution.profile!.profileId==='jdb_myr'){if(!expectedSessionId)throw new ProviderTransferError(400,'GAME_SESSION_INVALID');return json({profileId:resolution.profile!.profileId,...await settleTransferWallet(await transferSettings(c,u,resolution.profile!),expectedSessionId)});}
++  if(transferProfileSupported(resolution.profile!)){if(!expectedSessionId)throw new ProviderTransferError(400,'GAME_SESSION_INVALID');return json({profileId:resolution.profile!.profileId,...await settleTransferWallet(await transferSettings(c,u,resolution.profile!),expectedSessionId)});}
+   return json({profileId:resolution.profile!.profileId,...await settleMegaWallet(megaWalletSettings(c,u),expectedSessionId)});
+  }
+  if(p==='/api/game-wallet/recover'){
+   role(u,['member']);const resolution=resolveWalletProfile(d);if(resolution.error)return resolution.error;
+   const expectedSessionId=d.sessionId===undefined||d.sessionId===''?undefined:idField(d.sessionId);
+-  if(resolution.profile!.profileId==='jdb_myr'){if(!expectedSessionId)throw new ProviderTransferError(400,'GAME_SESSION_INVALID');return json({profileId:resolution.profile!.profileId,...await recoverTransferWallet(await transferSettings(c,u,resolution.profile!),expectedSessionId)});}
++  if(transferProfileSupported(resolution.profile!)){if(!expectedSessionId)throw new ProviderTransferError(400,'GAME_SESSION_INVALID');return json({profileId:resolution.profile!.profileId,...await recoverTransferWallet(await transferSettings(c,u,resolution.profile!),expectedSessionId)});}
+   return json({profileId:resolution.profile!.profileId,...await recoverMegaWallet(megaWalletSettings(c,u),expectedSessionId)});
+  }
+  if(p==='/api/manual-bank/deposits')return createResponsiblePlayGuardedDeposit(db,u,'manual_bank',d,async()=>{const response=await manualBankPost(p,d,{db,user:u,newDepositsEnabled:c.newDepositsEnabled,newPayoutsEnabled:c.newPayoutsEnabled});if(!response)throw new ApiError(404,'Not found');return response;},c.manualComplianceEnforced,c.newDepositsEnabled);
+diff --git a/lib/encrypted-backup.ts b/lib/encrypted-backup.ts
+index 91a89bc0582ebbfdce1b402826df0ce9db916667..1df77e27eae12972c7fc186f2108a13e4a352d41 100644
+--- a/lib/encrypted-backup.ts
++++ b/lib/encrypted-backup.ts
+@@ -3,7 +3,7 @@ import {gzipSync} from 'node:zlib';
+ import {BACKUP_PUBLIC_KEY,BACKUP_PUBLIC_KEY_SHA256} from './backup-public-key.ts';
+ 
+ export const BACKUP_FORMAT='MASTER7-ENCRYPTED-BACKUP-1';
+-export const BACKUP_SCHEMA_VERSION='0119-withdrawal-destination-methods';
++export const BACKUP_SCHEMA_VERSION='0120-provider-wallet-sweeps';
+ export const BACKUP_PAGE_SIZE=1000;
+ 
+ export type BackupReader={
+@@ -78,6 +78,7 @@ export const BACKUP_SCHEMA_SHA256=sha256(JSON.stringify({format:BACKUP_FORMAT,sc
+ 
+ export function backupRestoreContract(schemaVersion:unknown,schemaSha256:unknown){
+  if(schemaVersion===BACKUP_SCHEMA_VERSION&&schemaSha256===BACKUP_SCHEMA_SHA256)return {tables:BACKUP_TABLES,missingTables:[] as string[]};
++ if(schemaVersion==='0119-withdrawal-destination-methods'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0119-withdrawal-destination-methods',tables:BACKUP_TABLES})))return {tables:BACKUP_TABLES,missingTables:[] as string[]};
+  if(schemaVersion==='0118-production-acceptance-evidence'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0118-production-acceptance-evidence',tables:BACKUP_TABLES})))return {tables:BACKUP_TABLES,missingTables:[] as string[]};
+  if(schemaVersion==='0117-flexible-public-contacts'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0117-flexible-public-contacts',tables:LEGACY_0117_BACKUP_TABLES})))return {tables:LEGACY_0117_BACKUP_TABLES,missingTables:[...PRODUCTION_ACCEPTANCE_BACKUP_TABLES]};
+  if(schemaVersion==='0116-provider-wallet-operations'&&schemaSha256===sha256(JSON.stringify({format:BACKUP_FORMAT,schemaVersion:'0116-provider-wallet-operations',tables:LEGACY_0116_BACKUP_TABLES})))return {tables:LEGACY_0116_BACKUP_TABLES,missingTables:['public_contact_revisions',...PRODUCTION_ACCEPTANCE_BACKUP_TABLES]};
+diff --git a/lib/game-catalogue.ts b/lib/game-catalogue.ts
+index e9540af97c65ccae60d4cec06c5cbdadccc316e6..6d61cc9e5d1b3bcaa0f514b2de9c36f5e01d71ef 100644
+--- a/lib/game-catalogue.ts
++++ b/lib/game-catalogue.ts
+@@ -1,7 +1,7 @@
+ import {directCatalogueConfigured,readDirectCatalogue,CatalogueReadError,type DirectCatalogueConfig} from './direct-game-catalogues.ts';
+ import {GAME_PROVIDER_IDS} from './game-ranking.ts';
+ type SyncContext=DirectCatalogueConfig&{db:D1Database;gameGatewayUrl?:string;gameGatewayFetch?:typeof fetch;gameSyncNow?:()=>number};
+-type Source={direct?:boolean;id:string;name:string;path:string;shape:'mega'|'normalized'|'evo';imageHost?:string;cacheKey?:string;profileId?:string;expectedAccount?:string;expectedCurrency?:string};
++type Source={direct?:boolean;id:string;name:string;path:string;shape:'mega'|'normalized'|'evo';imageHost?:string;cacheKey?:string;profileId?:string;expectedAccount?:string;expectedCurrency?:string;expectedRatio?:string};
+ type Game={provider:string;providerName:string;gameCode:string;originalProviderId?:string;originalGameCode?:string;profileId?:string;catalogueAccount?:string;providerCurrency?:string;name:string;nameZh:string;category:string;imageUrl:string|null;maintenance:boolean;playable:false;artworkSource?:string};
+ type Cache={provider_id:string;status:string;games_json:string;checked_at:number;last_success_at:number;lease_until:number;upstream_status:number|null;complete:number};
+ const gateway='https://master7-integration-gateway.onrender.com';
+@@ -30,6 +30,11 @@ const kissProfileSources:Readonly<Record<string,Source>>=Object.freeze({
+  '918kiss_normal_my1_1to100':Object.freeze({...kissSource,path:'/providers/918kissh5/games?account=my1',cacheKey:'918kiss_normal_my1_1to100',profileId:'918kiss_normal_my1_1to100',expectedAccount:'my1',expectedCurrency:'MY1'}),
+  '918kiss_free_myr':Object.freeze({...kissSource,path:'/providers/918kissh5/games?account=free',cacheKey:'918kiss_free_myr',profileId:'918kiss_free_myr',expectedAccount:'free',expectedCurrency:'MYR'}),
+ });
++const jiliSource=gameSources.find(source=>source.id==='jili')!;
++const jiliProfileSources:Readonly<Record<string,Source>>=Object.freeze({
++ 'jili_myr_1to1':Object.freeze({...jiliSource,cacheKey:'jili_myr_1to1',profileId:'jili_myr_1to1',expectedAccount:'1to1',expectedCurrency:'MYR',expectedRatio:'1:1'}),
++ 'jili_my1_1to100':Object.freeze({...jiliSource,path:'/providers/jili/games?account=1to100',cacheKey:'jili_my1_1to100',profileId:'jili_my1_1to100',expectedAccount:'1to100',expectedCurrency:'MYR',expectedRatio:'1:100'}),
++});
+ // GodeeZone is a separate, internal-only profile until its brand, wallet and
+ // launch contract are verified. Never reuse ATG's account or cached catalogue.
+ const directSources:readonly Source[]=[{id:'rectangle',name:'RECTANGLE',path:'',shape:'normalized',direct:true},{id:'godeezone',name:'GodeeZone',path:'',shape:'normalized',direct:true}];
+@@ -41,6 +46,7 @@ export const gameControlSourceIds:readonly string[]=Object.freeze([...gameSource
+ const text=(value:unknown,max=160)=>typeof value==='string'?value.trim().slice(0,max):typeof value==='number'&&Number.isFinite(value)?String(value).slice(0,max):'';
+ const sourceCacheKey=(source:Source)=>source.cacheKey??source.id;
+ function selectProfileSource(providerId:string|undefined,profileId:string|undefined){
++ if(providerId==='jili'&&profileId)return jiliProfileSources[profileId]??null;
+  if(providerId!=='918kissh5'||!profileId)return null;
+  return kissProfileSources[profileId]??null;
+ }
+@@ -90,6 +96,7 @@ async function synchronizeSource(c:SyncContext,source:Source,force:boolean,time:
+   if(!Array.isArray(rows)){status='unavailable';return;}
+   if(source.shape==='mega'&&Number(data.result?.Status)!==200||source.shape==='evo'&&Number(data.result?.code)!==0){status='blocked';return;}
+   if(source.expectedAccount&&(data.provider!==source.id||data.account!==source.expectedAccount||data.currency!==source.expectedCurrency)){status='blocked';return;}
++  if(source.expectedRatio&&data.ratio!==source.expectedRatio){status='blocked';return;}
+   const games=normalize(source,rows);complete=data.complete!==false&&rows.length<=maxGames&&!(source.id==='clotplay'&&Number(data.pagination?.last_page)>1);
+   // An empty success replaces the previous catalogue intentionally; transport
+   // and protocol failures retain the last good snapshot for a stable lobby.
+@@ -106,7 +113,7 @@ export async function getGameCatalogue(c:SyncContext,options:{force?:boolean;pro
+  const direct=directSources.filter(source=>directCatalogueConfigured(c,source.id));
+  if(!configured(c.gameGatewayUrl)&&!direct.length)return {mode:'catalogue-only',playable:false,providers:gameSources.map(s=>({id:s.id,name:s.name,status:'not_configured',count:0,catalogueSynced:false,launchVerified:false,walletVerified:false})),games:[]};
+  const available=[...(configured(c.gameGatewayUrl)?gameSources:[]),...direct];
+- const selectedProfileSource=configured(c.gameGatewayUrl)?selectProfileSource(options.providerId,options.profileId):null,sources=selectedProfileSource?[selectedProfileSource]:options.profileId&&options.providerId==='918kissh5'?[]:options.providerId?available.filter(source=>source.id===options.providerId):available;
++ const selectedProfileSource=configured(c.gameGatewayUrl)?selectProfileSource(options.providerId,options.profileId):null,sources=selectedProfileSource?[selectedProfileSource]:options.profileId&&['918kissh5','jili'].includes(options.providerId??'')?[]:options.providerId?available.filter(source=>source.id===options.providerId):available;
+  const time=Math.floor(c.gameSyncNow?.()??Date.now()/1000);
+  await Promise.all(sources.map(source=>synchronizeSource(c,source,!!options.force,time)));
+  const rows=(await c.db.prepare('SELECT * FROM game_catalogue_cache').all<Cache>()).results??[];
+diff --git a/lib/game-provider-adapter.ts b/lib/game-provider-adapter.ts
+index ea7579ba448e5798beb1f33d0fc642031e6c238b..ef4b1dfbbab25a7111134b4e311945ec5d4865ea 100644
+--- a/lib/game-provider-adapter.ts
++++ b/lib/game-provider-adapter.ts
+@@ -61,6 +61,12 @@ export type GameProviderTransferResult = {
+   requiresLedgerReconciliation?: boolean;
+ };
+ 
++// A sweep has no caller-selected amount: only a receipt for the original
++// transaction can establish how much the supplier actually returned.
++export type GameProviderSweepInput = Omit<GameProviderTransferInput, 'amountMinor'>;
++export type GameProviderSweepQuery = GameProviderSweepInput & {providerTransactionId?: string};
++export type GameProviderSweepResult = GameProviderTransferResult & {amountMinor?: string};
++
+ export type GameProviderLaunchInput = {
+   userId: string;
+   providerPlayerId: string;
+@@ -104,6 +110,8 @@ export type GameProviderCallbackResult = {accepted: boolean; duplicate: boolean;
+ export interface GameProviderAdapter {
+   readonly key: string;
+   readonly executable: boolean;
++  readonly withdrawalMode?: 'exact' | 'all';
++  readonly transferContractFingerprint?: string;
+   listGames(context: GameProviderContext): Promise<readonly GameProviderGame[]>;
+   createOrVerifyPlayer(context: GameProviderContext, member: GameProviderMember): Promise<GameProviderPlayer>;
+   depositToGame(context: GameProviderContext, input: GameProviderTransferInput): Promise<GameProviderTransferResult>;
+@@ -111,6 +119,8 @@ export interface GameProviderAdapter {
+   queryBalance(context: GameProviderContext, input: Pick<GameProviderTransferInput, 'userId' | 'providerPlayerId'>): Promise<GameProviderBalance>;
+   withdrawFromGame(context: GameProviderContext, input: GameProviderTransferInput): Promise<GameProviderTransferResult>;
+   queryTransfer(context: GameProviderContext, input: GameProviderTransferQuery): Promise<GameProviderTransferResult>;
++  withdrawAllFromGame?(context: GameProviderContext, input: GameProviderSweepInput): Promise<GameProviderSweepResult>;
++  queryWithdrawAll?(context: GameProviderContext, input: GameProviderSweepQuery): Promise<GameProviderSweepResult>;
+   fetchWagers(context: GameProviderContext, cursor: GameProviderWagerCursor): Promise<GameProviderWagerPage>;
+   closeGame?(context: GameProviderContext, input: {userId:string;providerPlayerId:string;requestClosure:boolean}): Promise<{state:'closed'|'playing'|'unknown';evidenceCode?:string}>;
+   handleCallback(context: GameProviderContext, request: Request): Promise<GameProviderCallbackResult>;
+diff --git a/lib/game-provider-registry.ts b/lib/game-provider-registry.ts
+index 4a2fa1550be5c592d38cc933ba623a83341726a1..f24bbf7bac025b9cfac85df114d96d8a9fbe3ab9 100644
+--- a/lib/game-provider-registry.ts
++++ b/lib/game-provider-registry.ts
+@@ -37,11 +37,12 @@ type ProfileInput = {
+   envPrefix?: string;
+   listedInLobby?: boolean;
+   adapterStatus?: GameProviderAdapterStatus;
++  contractStatus?: GameProviderContractStatus;
+ };
+ 
+ const profile = (input: ProfileInput): RegisteredGameProviderProfile => {
+   const adapterStatus = input.adapterStatus ?? 'contract_missing';
+-  const contractStatus: GameProviderContractStatus = adapterStatus === 'implemented' ? 'documented' : adapterStatus === 'adapter_unimplemented' ? 'incomplete' : 'missing';
++  const contractStatus: GameProviderContractStatus = input.contractStatus ?? (adapterStatus === 'implemented' ? 'documented' : adapterStatus === 'adapter_unimplemented' ? 'incomplete' : 'missing');
+   return Object.freeze({
+     profileId: input.profileId,
+     providerId: input.providerId,
+@@ -80,8 +81,8 @@ const baselineProfiles = GAME_PROVIDER_IDS
+ 
+ const independentProfiles = [
+   profile({profileId: 'megah5_myr', providerId: 'megah5', displayName: 'MegaH5 · MYR', walletMode: 'transfer', adapterStatus: 'implemented'}),
+-  profile({profileId: 'jili_myr_1to1', providerId: 'jili', displayName: 'JILI · MYR 1:1', adapterStatus: 'adapter_unimplemented'}),
+-  profile({profileId: 'jili_my1_1to100', providerId: 'jili', displayName: 'JILI · MY1 1:100', unitScale: 100, adapterStatus: 'adapter_unimplemented'}),
++  profile({profileId: 'jili_myr_1to1', providerId: 'jili', displayName: 'JILI · MYR 1:1', walletMode:'transfer', adapterStatus: 'implemented', contractStatus:'incomplete'}),
++  profile({profileId: 'jili_my1_1to100', providerId: 'jili', displayName: 'JILI · MY1 1:100', walletMode:'transfer', unitScale: 100, adapterStatus: 'implemented', contractStatus:'incomplete'}),
+   profile({profileId: '918kiss_normal_myr', providerId: '918kissh5', displayName: '918KISS H5 · Normal MYR', adapterStatus: 'adapter_unimplemented'}),
+   profile({profileId: '918kiss_normal_my1_1to100', providerId: '918kissh5', displayName: '918KISS H5 · Normal MY1 1:100', unitScale: 100, adapterStatus: 'adapter_unimplemented'}),
+   profile({profileId: '918kiss_free_myr', providerId: '918kissh5', displayName: '918KISS H5 · Free Credit MYR', adapterStatus: 'adapter_unimplemented'}),
+@@ -134,7 +135,7 @@ export function resolveGameProviderAdapter(
+     return createFailClosedGameProviderAdapter(entry, reason);
+   }
+   const adapter = adapters[entry.adapterKey];
+-  return adapter?.executable === true
++  return adapter?.executable === true && adapter.key === entry.adapterKey
+     ? adapter
+     : createFailClosedGameProviderAdapter(entry, 'adapter_unimplemented');
+ }
+diff --git a/lib/game-provider-runtime.ts b/lib/game-provider-runtime.ts
+index a0b05c3458b54fea615a56b72f4e2c42009e783f..65197aebe13b9189a87dfdec77b4721ce43c14e1 100644
+--- a/lib/game-provider-runtime.ts
++++ b/lib/game-provider-runtime.ts
+@@ -1,4 +1,5 @@
+ import {jdbProfileRuntime} from './jdb-profile-runtime.ts';
++import {jiliProfileRuntime} from './jili-profile-runtime.ts';
+ import {getGameProviderProfile,type RegisteredGameProviderProfile} from './game-provider-registry.ts';
+ import {registeredCashProfileUnits} from './game-profile-units.ts';
+ import type {GameProviderAdapter} from './game-provider-adapter.ts';
+@@ -21,6 +22,7 @@ function profileDocument(settings:TransferRuntimeSettings,profileId:string){
+ // install executable adapters or select an arbitrary provider protocol.
+ const factories:Readonly<Record<string,Factory>>=Object.freeze({
+  jdb:(settings,profileId,userId,productionAccepted)=>jdbProfileRuntime(profileDocument(settings,profileId),profileId,userId,{fetchImpl:settings.providerTransferFetch,productionAccepted}),
++ jili:(settings,profileId,userId,productionAccepted)=>jiliProfileRuntime(profileDocument(settings,profileId),profileId,userId,{fetchImpl:settings.providerTransferFetch,productionAccepted}),
+ });
+ 
+ export function transferProfileSupported(profile:RegisteredGameProviderProfile){
+diff --git a/lib/jili-profile-runtime.ts b/lib/jili-profile-runtime.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..6aafa25537c3483647504a88158d16906eb5a3be
+--- /dev/null
++++ b/lib/jili-profile-runtime.ts
+@@ -0,0 +1,24 @@
++import {getGameProviderProfile} from './game-provider-registry.ts';
++import {createJiliGameProviderAdapter} from './jili-provider-adapter.ts';
++import type {JiliConfig} from './jili-transfer-protocol.ts';
++
++function apiEndpoint(raw:unknown){
++ if(typeof raw!=='string')return null;try{const u=new URL(raw);return u.protocol==='https:'&&!u.username&&!u.password&&!u.search&&!u.hash&&!u.port&&/^\/api1\/?$/.test(u.pathname)?u.href.replace(/\/$/,''):null;}catch{return null;}
++}
++export function jiliProfileRuntime(raw:string|undefined,profileId:string,userId:string,options:{fetchImpl?:typeof fetch;productionAccepted?:boolean}={}){
++ if(!raw||Buffer.byteLength(raw)>32_768||!['jili_myr_1to1','jili_my1_1to100'].includes(profileId))return null;
++ try{
++  const root=JSON.parse(raw),v=root?.profiles?.[profileId],profile=getGameProviderProfile(profileId);
++  if(!profile||!v||!['closed','qa','production'].includes(v.mode)||v.environment!=='production'||typeof v.recoveryEnabled!=='boolean')return null;
++  const cfg=v.connection as JiliConfig,endpoint=apiEndpoint(cfg?.baseUrl),approved=Array.isArray(v.approvedApiEndpoints)?v.approvedApiEndpoints.map(apiEndpoint):[];
++  if(!cfg||cfg.profile!==profileId||!endpoint||approved.length===0||approved.length>20||approved.some((x:unknown)=>x===null)||!approved.includes(endpoint)||!Array.isArray(v.qaMemberIds)||v.qaMemberIds.length>50||v.qaMemberIds.some((x:unknown)=>typeof x!=='string'||!/^[A-Za-z0-9_.:-]{1,200}$/.test(x)))return null;
++  // A secondary legacy manual does not confirm this merchant's amount units,
++  // issued-token invalidation or late-round finality. Keep those explicit.
++  const contractVerified=v.merchantContractVerified===true&&typeof v.merchantContractEvidenceSha256==='string'&&/^[a-f0-9]{64}$/.test(v.merchantContractEvidenceSha256);
++  const closureVerified=contractVerified&&v.sessionClosureVerified===true&&v.allIssuedLaunchesInvalidated===true&&v.lateResultsFinal===true;
++  const recoveryEnabled=v.recoveryEnabled===true&&closureVerified;
++  const launchAuthorized=recoveryEnabled&&cfg.launchOrigins?.length>0&&(v.mode==='qa'?v.qaMemberIds.includes(userId):v.mode==='production'&&options.productionAccepted===true);
++  const adapter=createJiliGameProviderAdapter(cfg,{fetchImpl:options.fetchImpl??fetch,allowedReturnOrigins:v.allowedReturnOrigins??['https://www.master7.best','https://master7-v17-staging.onrender.com'],playerCreationEnabled:launchAuthorized,depositEnabled:launchAuthorized,launchEnabled:launchAuthorized,recoveryEnabled,merchantContractVerified:contractVerified,sessionClosureVerified:closureVerified});
++  return {profile,adapter,launchAuthorized:!!launchAuthorized,recoveryEnabled,mode:v.mode as 'closed'|'qa'|'production',environment:'production' as const};
++ }catch{return null;}
++}
+diff --git a/lib/jili-provider-adapter.ts b/lib/jili-provider-adapter.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..c0f27c981132a13ac2350efa6560fca79d1bc7ee
+--- /dev/null
++++ b/lib/jili-provider-adapter.ts
+@@ -0,0 +1,62 @@
++import {createJiliProtocolClient,jiliPlayerId,jiliTransactionId,type JiliConfig,type JiliProfile} from './jili-transfer-protocol.ts';
++import {createHash} from 'node:crypto';
++import type {GameProviderAdapter,GameProviderContext,GameProviderSweepInput,GameProviderTransferInput} from './game-provider-adapter.ts';
++
++export type JiliAdapterOptions={fetchImpl:typeof fetch;now?:()=>number;allowedReturnOrigins:readonly string[];playerCreationEnabled?:boolean;depositEnabled?:boolean;launchEnabled?:boolean;recoveryEnabled?:boolean;merchantContractVerified?:boolean;sessionClosureVerified?:boolean};
++export class JiliAdapterError extends Error{readonly code:string;constructor(code:string){super(code);this.name='JiliAdapterError';this.code=code;}}
++const fail=(code:string):never=>{throw new JiliAdapterError(code);};
++
++/** Constructing an adapter does not activate a profile or certify a supplier
++ * account. Cash methods additionally require its verified merchant contract. */
++export function createJiliGameProviderAdapter(config:JiliConfig,options:JiliAdapterOptions):GameProviderAdapter&{readonly profileId:JiliProfile}{
++ if(!options||!Array.isArray(options.allowedReturnOrigins))return fail('JILI_CONFIGURATION_INVALID');
++ const snapshot={...config,launchOrigins:[...config.launchOrigins]},client=createJiliProtocolClient(snapshot,options.fetchImpl,options.now),profileId=config.profile;
++ const returns=new Set(options.allowedReturnOrigins.map(raw=>{try{const u=new URL(raw);if(u.origin!==raw||u.protocol!=='https:'||u.port)return fail('JILI_RETURN_ORIGIN_INVALID');return u.origin;}catch{return fail('JILI_RETURN_ORIGIN_INVALID');}}));
++ const flags=Object.freeze({contract:options.merchantContractVerified===true,closure:options.sessionClosureVerified===true,player:options.playerCreationEnabled===true,deposit:options.depositEnabled===true,launch:options.launchEnabled===true,recovery:options.recoveryEnabled===true});
++ function context(c:GameProviderContext){
++  const p=c?.profile,scale=profileId==='jili_my1_1to100'?100:1;
++  if(!p||p.profileId!==profileId||p.providerId!=='jili'||p.adapterKey!=='jili'||p.walletMode!=='transfer'||p.currency!=='MYR'||p.balanceClass==='free_credit'||p.unitScale!==scale||p.playerNamespace!==profileId||p.ledgerNamespace!==profileId)return fail('JILI_PROFILE_MISMATCH');
++ }
++ function player(userId:string,supplied:string){const expected=jiliPlayerId(profileId,userId);if(supplied!==expected)return fail('JILI_PLAYER_MISMATCH');return expected;}
++ function binding(input:GameProviderSweepInput,direction:'deposit'|'withdrawal'){
++  if(!input||input.currency!=='MYR')return fail('JILI_TRANSFER_INPUT_INVALID');
++  return {playerId:player(input.userId,input.providerPlayerId),transactionId:jiliTransactionId(profileId,input.platformTransactionId,direction),direction};
++ }
++ function cashEnabled(enabled:boolean){if(!enabled||!flags.contract||!flags.closure)return fail('JILI_MERCHANT_CONTRACT_UNVERIFIED');}
++ const adapter:GameProviderAdapter&{readonly profileId:JiliProfile}={
++  key:'jili',profileId,executable:true,withdrawalMode:'all',
++  transferContractFingerprint:createHash('sha256').update(JSON.stringify([profileId,new URL(snapshot.baseUrl).href.replace(/\/$/,''),snapshot.agentId,snapshot.transferAmountUnit,snapshot.queryAmountUnit,snapshot.balanceAmountUnit,snapshot.reportAmountUnit])).digest('hex'),
++  async listGames(c){context(c);return client.listGames();},
++  async createOrVerifyPlayer(c,m){
++   context(c);const id=jiliPlayerId(profileId,m.userId);let created=false;
++   if(flags.player){cashEnabled(true);try{created=(await client.createPlayer(id)).created;}catch{/* Verify once; never retry a timed-out create. */}}
++   const found=await client.player(id);if(!found.exists||found.residual)return fail('JILI_PLAYER_UNVERIFIED');return {providerPlayerId:id,created};
++  },
++  async depositToGame(c,input:GameProviderTransferInput){
++   context(c);const value=binding(input,'deposit');cashEnabled(flags.deposit);const found=await client.player(value.playerId);
++   if(!found.exists||found.residual)return {state:'unknown',errorCode:'JILI_PLAYER_UNVERIFIED',requiresLedgerReconciliation:true};
++   return client.transfer({...value,amountMinor:input.amountMinor});
++  },
++  async queryBalance(c,input){context(c);const found=await client.player(player(input.userId,input.providerPlayerId));if(!found.exists)return fail('JILI_PLAYER_UNVERIFIED');return {amountMinor:found.amountMinor,currency:'MYR',residual:found.residual,providerAmount:found.providerAmount};},
++  async launchGame(c,input){
++   context(c);const id=player(input.userId,input.providerPlayerId);cashEnabled(flags.launch);
++   let url:URL;try{url=new URL(input.returnUrl);}catch{return fail('JILI_RETURN_URL_INVALID');}
++   if(!returns.has(url.origin)||url.protocol!=='https:'||url.username||url.password||url.hash||url.href.length>500)return fail('JILI_RETURN_URL_INVALID');
++   return client.launch(id,input.providerGameId,input.language,url.href);
++  },
++  async withdrawFromGame(c){context(c);return fail('JILI_EXACT_WITHDRAWAL_UNSUPPORTED');},
++  async withdrawAllFromGame(c,input){context(c);const value=binding(input,'withdrawal');cashEnabled(flags.recovery);return client.transfer(value);},
++  async queryWithdrawAll(c,input){context(c);const value=binding(input,'withdrawal');cashEnabled(flags.recovery);return client.queryTransfer({...value,providerTransactionId:input.providerTransactionId});},
++  async queryTransfer(c,input){
++   context(c);if(input.direction!=='deposit')return fail('JILI_EXACT_WITHDRAWAL_UNSUPPORTED');const value=binding(input,'deposit');cashEnabled(flags.recovery);return client.queryTransfer({...value,amountMinor:input.amountMinor,providerTransactionId:input.providerTransactionId});
++  },
++  async closeGame(c,input){
++   context(c);const id=player(input.userId,input.providerPlayerId);
++   if(input.requestClosure){cashEnabled(flags.recovery);try{await client.kick(id);}catch{return {state:'unknown'};}}
++   try{const found=await client.player(id);if(!found.exists)return {state:'unknown'};return found.online?{state:'playing'}:{state:'closed',evidenceCode:input.requestClosure?'JILI_VERIFIED_KICK_OFFLINE':'JILI_MEMBER_OFFLINE'};}catch{return {state:'unknown'};}
++  },
++  async fetchWagers(c,cursor){context(c);if(!cursor)return fail('JILI_REPORT_WINDOW_INVALID');return client.wagers(cursor.from,cursor.to,cursor.cursor);},
++  async handleCallback(c){context(c);return {accepted:false,duplicate:false,responseBody:'UNSUPPORTED_TRANSFER_CALLBACK',responseStatus:403};},
++ };
++ return Object.freeze(adapter);
++}
+diff --git a/lib/jili-transfer-protocol.ts b/lib/jili-transfer-protocol.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..c1b57b8efb7306b136abd008bb52370066f8c0fb
+--- /dev/null
++++ b/lib/jili-transfer-protocol.ts
+@@ -0,0 +1,147 @@
++import {createHash,randomBytes} from 'node:crypto';
++import {gameAmountToWalletMinor,walletMinorToGameAmount} from './game-unit-conversion.ts';
++
++// Legacy transfer-wallet protocol, isolated from platform ledger writes.
++// Unit choices must come from this merchant's accepted account contract.
++export type JiliProfile='jili_myr_1to1'|'jili_my1_1to100';
++export type JiliAmountUnit='platform_currency'|'game_points';
++export type JiliConfig={
++ profile:JiliProfile;baseUrl:string;agentId:string;agentKey:string;
++ transferAmountUnit:JiliAmountUnit;queryAmountUnit:JiliAmountUnit;
++ balanceAmountUnit:JiliAmountUnit;reportAmountUnit:JiliAmountUnit;
++ launchOrigins:readonly string[];
++};
++export type JiliTransfer={playerId:string;transactionId:string;direction:'deposit'|'withdrawal';amountMinor?:string;providerTransactionId?:string};
++export type JiliReceipt={state:'confirmed'|'rejected'|'unknown';providerTransactionId?:string;amountMinor?:string;errorCode?:string;requiresLedgerReconciliation:true};
++export class JiliProtocolError extends Error{readonly code:string;constructor(code:string){super(code);this.name='JiliProtocolError';this.code=code;}}
++const fail=(code:string):never=>{throw new JiliProtocolError(code);};
++const md5=(text:string)=>createHash('md5').update(text,'utf8').digest('hex');
++const object=(v:unknown):v is Record<string,unknown>=>!!v&&typeof v==='object'&&!Array.isArray(v);
++const safeText=(v:unknown,re:RegExp,code='JILI_INPUT_INVALID')=>typeof v==='string'&&re.test(v)?v:fail(code);
++const member=(v:unknown)=>safeText(v,/^[A-Za-z0-9_]{1,32}$/);
++const serial=(v:unknown)=>safeText(v,/^[A-Za-z0-9]{1,50}$/);
++const integer=(v:unknown,max=1_000_000)=>typeof v==='string'&&/^(0|[1-9]\d{0,9})$/.test(v)&&Number(v)<=max?Number(v):fail('JILI_RESPONSE_INVALID');
++const decimal=(v:unknown)=>typeof v==='string'&&/^(0|[1-9]\d{0,11})(?:\.\d{1,4})?$/.test(v)?v:fail('JILI_AMOUNT_INVALID');
++const units=(v:unknown):v is JiliAmountUnit=>v==='platform_currency'||v==='game_points';
++const unknown=(code='JILI_TRANSFER_UNKNOWN'):JiliReceipt=>({state:'unknown',errorCode:code,requiresLedgerReconciliation:true});
++function origin(raw:string){
++ try{const u=new URL(raw);if(u.origin!==raw||u.protocol!=='https:'||u.username||u.password||u.port) return fail('JILI_ORIGIN_INVALID');return u.origin;}catch{return fail('JILI_ORIGIN_INVALID');}
++}
++export function jiliDate(epoch:number){
++ if(!Number.isSafeInteger(epoch)||epoch<=0)return fail('JILI_CLOCK_INVALID');
++ const d=new Date(epoch-4*60*60_000);return `${String(d.getUTCFullYear()).slice(-2)}${String(d.getUTCMonth()+1).padStart(2,'0')}${d.getUTCDate()}`;
++}
++export function jiliSignature(query:string,agentId:string,agentKey:string,epoch:number,prefix=randomBytes(3).toString('hex'),suffix=randomBytes(3).toString('hex')){
++ safeText(prefix,/^[A-Za-z0-9]{6}$/);safeText(suffix,/^[A-Za-z0-9]{6}$/);
++ return prefix+md5(query+md5(jiliDate(epoch)+agentId+agentKey))+suffix;
++}
++export function jiliPlayerId(profile:JiliProfile,userId:string){
++ if(!['jili_myr_1to1','jili_my1_1to100'].includes(profile))return fail('JILI_PROFILE_INVALID');
++ safeText(userId,/^[A-Za-z0-9_.:-]{1,200}$/);return 'm7'+createHash('sha256').update(`${profile}\0${userId}`).digest('hex').slice(0,28);
++}
++export function jiliTransactionId(profile:JiliProfile,reference:string,direction:'deposit'|'withdrawal'){
++ if(!['jili_myr_1to1','jili_my1_1to100'].includes(profile)||!['deposit','withdrawal'].includes(direction))return fail('JILI_PROFILE_INVALID');
++ safeText(reference,/^[A-Za-z0-9_.:-]{1,200}$/);return 'm7'+createHash('sha256').update(`${profile}\0${direction}\0${reference}`).digest('hex').slice(0,44);
++}
++
++async function responseObject(response:Response,maximum:number){
++ if(!response.ok||response.redirected||!/^application\/json(?:\s*;|\s*$)/i.test(response.headers.get('content-type')??'')||!response.body)return fail('JILI_PROVIDER_UNAVAILABLE');
++ const declared=response.headers.get('content-length');if(declared&&(!/^\d+$/.test(declared)||Number(declared)>maximum))return fail('JILI_RESPONSE_INVALID');
++ const reader=response.body.getReader(),chunks:Uint8Array[]=[];let size=0;
++ try{while(true){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>maximum){await reader.cancel().catch(()=>{});return fail('JILI_RESPONSE_INVALID');}chunks.push(value);}}finally{reader.releaseLock();}
++ // Preserve Decimal(16,4) and 64-bit wager IDs before JSON.parse can round
++ // them. Quoted strings (including escaped quotes) remain untouched.
++ const raw=Buffer.concat(chunks).toString('utf8').replace(/("(?:[^"\\]|\\.)*")|(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g,(token,quoted)=>quoted??JSON.stringify(token));
++ let value:unknown;try{value=JSON.parse(raw);}catch{return fail('JILI_RESPONSE_INVALID');}
++ if(!object(value))return fail('JILI_RESPONSE_INVALID');
++ const code=typeof value.ErrorCode==='string'&&/^\d{1,4}$/.test(value.ErrorCode)?Number(value.ErrorCode):fail('JILI_RESPONSE_INVALID');
++ return {code,data:value.Data};
++}
++
++export function createJiliProtocolClient(config:JiliConfig,transport:typeof fetch,clock:()=>number=Date.now){
++ if(!config||!['jili_myr_1to1','jili_my1_1to100'].includes(config.profile)||typeof transport!=='function')return fail('JILI_CONFIGURATION_INVALID');
++ let base:URL;try{base=new URL(config.baseUrl);}catch{return fail('JILI_CONFIGURATION_INVALID');}
++ if(base.protocol!=='https:'||base.username||base.password||base.search||base.hash||base.port||!/^\/api1\/?$/.test(base.pathname))return fail('JILI_CONFIGURATION_INVALID');
++ const endpoint=base.href.replace(/\/$/,''),profile=config.profile,scale=profile==='jili_my1_1to100'?100:1;
++ const agentId=safeText(config.agentId,/^[A-Za-z0-9_]{1,100}$/,'JILI_CONFIGURATION_INVALID'),agentKey=safeText(config.agentKey,/^[A-Za-z0-9]{16,128}$/,'JILI_CONFIGURATION_INVALID');
++ if(![config.transferAmountUnit,config.queryAmountUnit,config.balanceAmountUnit,config.reportAmountUnit].every(units)||!Array.isArray(config.launchOrigins)||config.launchOrigins.length>50)return fail('JILI_CONFIGURATION_INVALID');
++ const launchOrigins=new Set(config.launchOrigins.map(origin)),unitConfig=Object.freeze({transfer:config.transferAmountUnit,query:config.queryAmountUnit,balance:config.balanceAmountUnit,report:config.reportAmountUnit});
++ function cash(raw:unknown,unit:JiliAmountUnit){const converted=gameAmountToWalletMinor(decimal(raw),unit==='game_points'?scale:1);if(BigInt(converted.amountMinor)>99_999_999_900n)return fail('JILI_AMOUNT_INVALID');return converted;}
++ function outgoing(raw:unknown){safeText(raw,/^[1-9]\d{0,10}$/);if(BigInt(raw as string)>99_999_999_900n)return fail('JILI_AMOUNT_INVALID');return walletMinorToGameAmount(raw as string,unitConfig.transfer==='game_points'?scale:1);}
++ async function request(method:string,fields:readonly (readonly [string,string])[],optional:readonly (readonly [string,string])[]=[],maximum=64*1024){
++  const signed=[...fields,['AgentId',agentId] as const],query=signed.map(([key,value])=>`${key}=${value}`).join('&');
++  const body=new URLSearchParams([...signed,...optional,['Key',jiliSignature(query,agentId,agentKey,clock())] as const].map(([key,value])=>[key,value])).toString();
++  try{return await responseObject(await transport(`${endpoint}/${method}`,{method:'POST',redirect:'error',cache:'no-store',signal:AbortSignal.timeout(12_000),headers:{Accept:'application/json','Content-Type':'application/x-www-form-urlencoded'},body}),maximum);}catch(e){if(e instanceof JiliProtocolError)throw e;return fail('JILI_PROVIDER_UNAVAILABLE');}
++ }
++ async function player(playerId:string){
++  member(playerId);const r=await request('GetMemberInfo',[['Accounts',playerId]]);
++  if(r.code!==0||!Array.isArray(r.data)||r.data.length!==1||!object(r.data[0])||r.data[0].Account!==playerId)return fail('JILI_PLAYER_UNVERIFIED');
++  const status=integer(r.data[0].Status,3);if(status!==1&&status!==2&&status!==3)return fail('JILI_PLAYER_UNVERIFIED');
++  const converted=cash(r.data[0].Balance,unitConfig.balance);return {exists:status!==3,online:status===1,...converted};
++ }
++ function transferBinding(input:JiliTransfer){
++  if(!input||!['deposit','withdrawal'].includes(input.direction))return fail('JILI_TRANSFER_INPUT_INVALID');
++  member(input.playerId);serial(input.transactionId);if(input.providerTransactionId!==undefined&&input.providerTransactionId!==input.transactionId)return fail('JILI_TRANSFER_REFERENCE_MISMATCH');
++  if(input.amountMinor!==undefined)outgoing(input.amountMinor);
++  if(input.direction==='deposit'&&input.amountMinor===undefined)return fail('JILI_TRANSFER_INPUT_INVALID');
++ }
++ async function queryTransfer(input:JiliTransfer):Promise<JiliReceipt>{
++  transferBinding(input);
++  let r;try{r=await request('CheckTransferByTransactionId',[['TransactionId',input.transactionId]]);}catch{return unknown();}
++  if(r.code!==0||!object(r.data))return unknown();
++  const data=r.data;
++  if(data.Account!==input.playerId||data.TransactionId!==input.transactionId||data.TransferType!==(input.direction==='deposit'?'2':'1')||data.Status!=='1')return unknown('JILI_TRANSFER_BINDING_MISMATCH');
++  let result;try{result=cash(data.Amount,unitConfig.query);}catch{return unknown('JILI_TRANSFER_AMOUNT_REVIEW');}
++  if(result.residual||(input.amountMinor!==undefined&&result.amountMinor!==input.amountMinor))return unknown('JILI_TRANSFER_AMOUNT_REVIEW');
++  return {state:'confirmed',providerTransactionId:input.transactionId,amountMinor:result.amountMinor,requiresLedgerReconciliation:true};
++ }
++ async function transfer(input:JiliTransfer):Promise<JiliReceipt>{
++  transferBinding(input);
++  if(input.direction==='withdrawal'&&input.amountMinor!==undefined)return fail('JILI_SWEEP_AMOUNT_NOT_ALLOWED');
++  let r;try{r=await request('ExchangeTransferByAgentId',[['Account',input.playerId],['TransactionId',input.transactionId],['Amount',input.direction==='deposit'?outgoing(input.amountMinor):'0'],['TransferType',input.direction==='deposit'?'2':'1']]);}catch{return unknown();}
++  if(r.code===0){if(!object(r.data)||r.data.TransactionId!==input.transactionId||r.data.Status!=='1')return unknown('JILI_TRANSFER_RECEIPT_INVALID');return queryTransfer(input);}
++  // Definitive new-submit rejection is distinct from an ambiguous timeout,
++  // duplicate, game still settling, processing or throttled transaction.
++  if([1,2,9,10,101,103,104].includes(r.code))return {state:'rejected',errorCode:`JILI_${r.code}`,requiresLedgerReconciliation:true};
++  return unknown();
++ }
++ async function listGames(){
++  const r=await request('GetGameList',[],[],2*1024*1024);if(r.code!==0||!Array.isArray(r.data)||r.data.length>5000)return fail('JILI_CATALOGUE_UNAVAILABLE');
++  const seen=new Set<string>();return r.data.map(row=>{
++   if(!object(row)||!object(row.name))return fail('JILI_RESPONSE_INVALID');const id=String(integer(row.GameId)),category=String(integer(row.GameCategoryId));
++   if(id==='0'||seen.has(id)||typeof row.name['en-US']!=='string'||!row.name['en-US'].trim()||row.name['en-US'].length>200)return fail('JILI_RESPONSE_INVALID');seen.add(id);
++   return {providerGameId:id,name:row.name['en-US'],category,maintenance:false};
++  });
++ }
++ async function createPlayer(playerId:string){member(playerId);const r=await request('CreateMember',[['Account',playerId]]);if(r.code!==0&&r.code!==101)return fail('JILI_PLAYER_CREATE_UNCONFIRMED');return {created:r.code===0};}
++ async function kick(playerId:string){member(playerId);const r=await request('KickMember',[['Account',playerId]]);if(r.code!==0&&r.code!==102)return fail('JILI_SESSION_CLOSURE_UNKNOWN');}
++ async function launch(playerId:string,gameId:string,language:'en'|'zh'|'ms',returnUrl:string){
++  member(playerId);safeText(gameId,/^[1-9]\d{0,6}$/);const lang={en:'en-US',zh:'zh-CN',ms:'en-US'}[language];if(!lang)return fail('JILI_LANGUAGE_INVALID');
++  const r=await request('LoginWithoutRedirect',[['Account',playerId],['GameId',gameId],['Lang',lang]],[['HomeUrl',returnUrl],['platform','web']]);
++  if(r.code!==0||typeof r.data!=='string'||r.data.length>4096)return fail('JILI_LAUNCH_UNCONFIRMED');
++  let url:URL;try{url=new URL(r.data);}catch{return fail('JILI_LAUNCH_URL_INVALID');}
++  if(!launchOrigins.has(url.origin)||url.protocol!=='https:'||url.username||url.password||url.hash)return fail('JILI_LAUNCH_URL_INVALID');return {launchUrl:url.href};
++ }
++ function reportDate(epoch:number){return new Date(epoch-4*60*60_000).toISOString().slice(0,19);}
++ async function wagers(from:number,to:number,cursor?:string){
++  if(!Number.isSafeInteger(from)||!Number.isSafeInteger(to)||from%1000!==0||to%1000!==0||from<0||to<=from||to-from>30*60_000||to>clock()-10*60_000)return fail('JILI_REPORT_WINDOW_INVALID');
++  const binding=createHash('sha256').update(JSON.stringify([profile,from,to])).digest('hex').slice(0,24),pattern=new RegExp(`^jili:${binding}:([1-9]\\d{0,5})$`),match=cursor===undefined?null:pattern.exec(cursor);
++  if(cursor!==undefined&&!match)return fail('JILI_REPORT_CURSOR_INVALID');const page=match?Number(match[1]):1,limit=10000;
++  const r=await request('GetBetRecordByTime',[['StartTime',reportDate(from)],['EndTime',reportDate(to)],['Page',String(page)],['PageLimit',String(limit)]],[],8*1024*1024);
++  if(r.code!==0||!object(r.data)||!Array.isArray(r.data.Result)||!object(r.data.Pagination))return fail('JILI_REPORT_UNAVAILABLE');
++  const p=r.data.Pagination,pages=integer(p.TotalPages),total=integer(p.TotalNumber,100_000_000),current=integer(p.CurrentPage),pageLimit=integer(p.PageLimit,25000),rows=r.data.Result;
++  if(current!==page||pageLimit!==limit||pages!==Math.ceil(total/limit)||(total===0?page!==1:page>pages)||rows.length!==Math.min(limit,Math.max(0,total-(page-1)*limit)))return fail('JILI_REPORT_PAGINATION_INVALID');
++  const seen=new Set<string>(),items=rows.map(row=>{
++   if(!object(row)||row.AgentId!==agentId||!['1','2','3'].includes(String(row.Status)))return fail('JILI_REPORT_BINDING_INVALID');
++   const playerId=member(row.Account),gameId=String(integer(row.GameId)),betId=safeText(row.WagersId,/^[1-9]\d{0,19}$/),key=gameId+':'+betId;
++   if(seen.has(key))return fail('JILI_REPORT_DUPLICATE');seen.add(key);
++   const bet=cash(row.BetAmount,unitConfig.report),win=cash(row.PayoffAmount,unitConfig.report);if(bet.residual||win.residual)return fail('JILI_REPORT_AMOUNT_REVIEW');
++   const time=safeText(row.SettlementTime,/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?(?:-04:00)?$/),settledAt=Date.parse(time.endsWith('-04:00')?time:time+'-04:00');
++   if(!Number.isFinite(settledAt)||settledAt<from||settledAt>to||new Date(settledAt-4*60*60_000).toISOString().slice(0,19)!==time.slice(0,19))return fail('JILI_REPORT_TIME_REVIEW');
++   const round=row.RoundIndex===undefined||row.RoundIndex===null?null:safeText(row.RoundIndex,/^[1-9]\d{0,19}$/);
++   return {providerRoundId:round,providerBetId:betId,providerPlayerId:playerId,providerGameId:gameId,betMinor:bet.amountMinor,winMinor:win.amountMinor,currency:'MYR' as const,settledAt,sourceDetails:Object.freeze({settlementTime:time,timeBasis:'GMT-4',amountUnit:unitConfig.report,bet:decimal(row.BetAmount),win:decimal(row.PayoffAmount)})};
++  });
++  return {items,complete:page>=pages,...(page<pages?{nextCursor:`jili:${binding}:${page+1}`}:{})};
++ }
++ return Object.freeze({listGames,player,createPlayer,kick,launch,transfer,queryTransfer,wagers});
++}
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index fcb7cbc95c683443fba10d80684b0873cd6813be..99dff3a5052253239877cdab791fd06a6d4d60c5 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.147-game-runtime-repair' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.148-jili-transfer-wallet' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/lib/provider-transfer-wallet.ts b/lib/provider-transfer-wallet.ts
+index 26ed874a3f3017b814baa5c56c12c40b47d6b6bf..68ec69fec98690b44739d4a93a682ef93e93a22f 100644
+--- a/lib/provider-transfer-wallet.ts
++++ b/lib/provider-transfer-wallet.ts
+@@ -1,5 +1,5 @@
+ import {createHash,randomUUID} from 'node:crypto';
+-import type {GameProviderAdapter,GameProviderProfile,GameProviderContext,GameProviderTransferResult} from './game-provider-adapter.ts';
++import type {GameProviderAdapter,GameProviderProfile,GameProviderContext,GameProviderTransferResult,GameProviderSweepResult} from './game-provider-adapter.ts';
+ import {walletGuardStatements,walletGuardedReservation,walletRiskFreeSql} from './wallet-guard.ts';
+ import {withdrawalWalletState,clearStaleReservation} from './withdrawals.ts';
+ import {registeredCashProfileUnits} from './game-profile-units.ts';
+@@ -13,6 +13,8 @@ const changed=(result:any)=>Number(result?.meta?.changes??result?.changes??0);
+ const recordId=(value:unknown)=>typeof value==='string'&&/^[A-Za-z0-9_.:-]{1,200}$/.test(value);
+ const amount=(value:unknown)=>typeof value==='string'&&/^(0|[1-9]\d{0,10})$/.test(value)&&BigInt(value)<=99_999_999_900n;
+ const apiContext=(c:ProviderTransferContext):GameProviderContext=>({profile:c.profile});
++const withdrawalMode=(c:ProviderTransferContext)=>c.adapter.withdrawalMode??'exact';
++const contractFingerprint=(c:ProviderTransferContext)=>c.adapter.transferContractFingerprint??'';
+ function currentGameEligibilitySql(c:ProviderTransferContext){
+  const at=stamp();return `EXISTS(SELECT 1 FROM users member WHERE member.id=provider_wallet_operations.user_id AND member.role='member' AND member.approved=1)
+  AND NOT EXISTS(SELECT 1 FROM responsible_play_profiles rp WHERE rp.user_id=provider_wallet_operations.user_id AND (rp.self_excluded_until>${at} OR rp.cooling_off_until>${at}))
+@@ -23,6 +25,8 @@ function context(c:ProviderTransferContext){
+  const p=c.profile,units=p?registeredCashProfileUnits(p.profileId):null;
+  if(c.user.role!=='member'||!recordId(c.user.id))return fail(403,'GAME_MEMBER_REQUIRED');
+  if(!p||!units||units.providerId!==p.providerId||units.unitScale!==p.unitScale||p.balanceClass==='free_credit'||p.providerId==='megah5'||p.walletMode!=='transfer'||p.currency!=='MYR'||p.playerNamespace!==p.profileId||p.ledgerNamespace!==p.profileId||!c.adapter?.executable||!c.adapter.closeGame)return fail(503,'GAME_TRANSFER_PROFILE_UNAVAILABLE');
++ if(!['exact','all'].includes(withdrawalMode(c))||(withdrawalMode(c)==='all'&&(!c.adapter.withdrawAllFromGame||!c.adapter.queryWithdrawAll)))return fail(503,'GAME_TRANSFER_PROFILE_UNAVAILABLE');
++ if(contractFingerprint(c)!==''&&!/^[a-f0-9]{64}$/.test(contractFingerprint(c)))return fail(503,'GAME_TRANSFER_PROFILE_UNAVAILABLE');
+ }
+ async function profileRow(c:ProviderTransferContext,launch=false){
+  context(c);const p=await c.db.prepare('SELECT * FROM game_provider_profiles WHERE id=?').bind(c.profile.profileId).first<any>();
+@@ -31,7 +35,7 @@ async function profileRow(c:ProviderTransferContext,launch=false){
+  if(launch&&!['uat','active'].includes(p.status))return fail(503,'GAME_PROFILE_CLOSED');
+  return p;
+ }
+-const rowSelect=`SELECT s.*,o.user_id operation_user_id,o.profile_id operation_profile_id,o.request_key,o.request_fingerprint,o.deposit_state,o.deposit_attempts,o.deposit_provider_reference,o.withdrawal_state,o.withdrawal_attempts,o.withdrawal_provider_reference,o.launch_state,o.closure_state,o.closure_evidence,o.zero_balance_verified,o.last_error_code,CAST(l.amount_minor AS TEXT) result_minor FROM game_wallet_sessions s LEFT JOIN provider_wallet_operations o ON o.session_id=s.id LEFT JOIN game_wallet_ledger l ON l.session_id=s.id`;
++const rowSelect=`SELECT s.*,o.user_id operation_user_id,o.profile_id operation_profile_id,o.request_key,o.request_fingerprint,o.deposit_state,o.deposit_attempts,o.deposit_provider_reference,o.withdrawal_state,o.withdrawal_mode,o.adapter_contract_sha256,o.withdrawal_attempts,o.withdrawal_provider_reference,o.launch_state,o.closure_state,o.closure_evidence,o.zero_balance_verified,o.last_error_code,CAST(l.amount_minor AS TEXT) result_minor FROM game_wallet_sessions s LEFT JOIN provider_wallet_operations o ON o.session_id=s.id LEFT JOIN game_wallet_ledger l ON l.session_id=s.id`;
+ async function row(c:Pick<ProviderTransferContext,'db'|'profile'>&{user:{id:string}},id?:string){
+  const found=await c.db.prepare(`${rowSelect} WHERE s.user_id=? AND s.profile_id=? ${id?'AND s.id=?':''} ORDER BY CASE WHEN s.status IN (${open}) THEN 0 ELSE 1 END,s.created_at DESC,s.id DESC LIMIT 1`).bind(c.user.id,c.profile.profileId,...(id?[id]:[])).first<any>();
+  if(found&&(found.provider!==c.profile.providerId||found.operation_user_id!==c.user.id||found.operation_profile_id!==c.profile.profileId))return fail(409,'GAME_SESSION_BINDING_REVIEW');
+@@ -40,6 +44,8 @@ async function row(c:Pick<ProviderTransferContext,'db'|'profile'>&{user:{id:stri
+ function memberSession(s:any){return s?{id:s.id,profileId:s.profile_id,providerId:s.provider,gameCode:s.game_code,status:s.status,amountOutMinor:String(s.amount_out_minor),amountReturnedMinor:s.amount_returned_minor===null?null:String(s.amount_returned_minor),expectedReturnMinor:s.expected_return_minor===null?null:String(s.expected_return_minor),resultMinor:s.result_minor===null?null:String(s.result_minor),launchState:s.launch_state,settlementBlocked:['launching','unknown'].includes(s.launch_state)||s.status==='manual_review',createdAt:Number(s.created_at),updatedAt:Number(s.updated_at),settledAt:s.settled_at===null?null:Number(s.settled_at)}:null;}
+ async function boundSession(c:ProviderTransferContext,id:string){
+  await profileRow(c);if(!recordId(id))return fail(400,'GAME_SESSION_INVALID');const s=await row(c,id);if(!s)return fail(404,'GAME_SESSION_NOT_FOUND');
++ if(s.withdrawal_mode!==withdrawalMode(c))return fail(409,'GAME_TRANSFER_MODE_REVIEW');
++ if(s.adapter_contract_sha256!==contractFingerprint(c))return fail(409,'GAME_TRANSFER_CONTRACT_REVIEW');
+  const player=await c.db.prepare("SELECT provider_player_id,status FROM game_provider_players WHERE profile_id=? AND user_id=?").bind(c.profile.profileId,c.user.id).first<any>();
+  if(!player||player.status!=='verified'||player.provider_player_id!==s.player_id)return fail(409,'GAME_PLAYER_BINDING_REVIEW');return s;
+ }
+@@ -56,9 +62,21 @@ function transferInput(c:ProviderTransferContext,s:any,direction:'deposit'|'with
+  if(!amount(a)||a==='0'||!recordId(reference))return fail(409,'GAME_TRANSFER_BINDING_REVIEW');
+  return {userId:c.user.id,providerPlayerId:s.player_id,platformTransactionId:reference,amountMinor:a,currency:'MYR' as const};
+ }
+-async function transferOutcome(c:ProviderTransferContext,s:any,direction:'deposit'|'withdrawal',outcome:GameProviderTransferResult,queried=false){
++function sweepInput(c:ProviderTransferContext,s:any){
++ if(s.withdrawal_mode!=='all'||!recordId(s.withdraw_reference))return fail(409,'GAME_TRANSFER_BINDING_REVIEW');
++ return {userId:c.user.id,providerPlayerId:s.player_id,platformTransactionId:s.withdraw_reference,currency:'MYR' as const};
++}
++async function transferOutcome(c:ProviderTransferContext,s:any,direction:'deposit'|'withdrawal',outcome:GameProviderTransferResult|GameProviderSweepResult,queried=false){
+  const deposit=direction==='deposit',field=deposit?'deposit':'withdrawal',pending=deposit?'deposit_pending':'withdraw_pending',unknown=deposit?'deposit_unknown':'withdraw_unknown';
+- const confirmed=outcome?.state==='confirmed'&&recordId(outcome.providerTransactionId);
++ const sweep=!deposit&&s.withdrawal_mode==='all',returned=(outcome as GameProviderSweepResult)?.amountMinor;
++ const confirmed=outcome?.state==='confirmed'&&recordId(outcome.providerTransactionId)&&(!sweep||amount(returned));
++ if(confirmed&&sweep){
++  await write(c,[c.db.prepare("UPDATE provider_wallet_operations SET withdrawal_state='confirmed',withdrawal_provider_reference=?,last_error_code='',updated_at=? WHERE session_id=? AND user_id=? AND withdrawal_mode='all' AND withdrawal_attempts=1 AND withdrawal_state IN ('submitting','unknown','confirmed') AND (withdrawal_provider_reference IS NULL OR withdrawal_provider_reference=?) AND EXISTS(SELECT 1 FROM game_wallet_sessions s WHERE s.id=provider_wallet_operations.session_id AND s.user_id=provider_wallet_operations.user_id AND s.status IN ('withdraw_pending','withdraw_unknown') AND (s.expected_return_minor IS NULL OR s.expected_return_minor=CAST(? AS BIGINT)))").bind(outcome.providerTransactionId!,stamp(),s.id,c.user.id,outcome.providerTransactionId!,returned!),
++   c.db.prepare("UPDATE game_wallet_sessions SET expected_return_minor=?,updated_at=? WHERE id=? AND user_id=? AND status IN ('withdraw_pending','withdraw_unknown') AND (expected_return_minor IS NULL OR expected_return_minor=CAST(? AS BIGINT)) AND EXISTS(SELECT 1 FROM provider_wallet_operations o WHERE o.session_id=game_wallet_sessions.id AND o.user_id=game_wallet_sessions.user_id AND o.withdrawal_mode='all' AND o.withdrawal_state='confirmed' AND o.withdrawal_attempts=1 AND o.withdrawal_provider_reference=?)").bind(returned!,stamp(),s.id,c.user.id,returned!,outcome.providerTransactionId!),audit(c,'provider_wallet_sweep_receipt',s.id)]);
++  const matched=await row(c,s.id);
++  if(matched?.withdrawal_state!=='confirmed'||String(matched.expected_return_minor)!==returned||matched.withdrawal_provider_reference!==outcome.providerTransactionId)return fail(409,'GAME_RETURN_RECEIPT_REVIEW');
++  return matched;
++ }
+  if(confirmed){
+   await write(c,[c.db.prepare(`UPDATE provider_wallet_operations SET ${field}_state='confirmed',${field}_provider_reference=?,last_error_code='',updated_at=? WHERE session_id=? AND user_id=? AND ${field}_attempts=1 AND ${field}_state IN ('submitting','unknown','confirmed') AND (${field}_provider_reference IS NULL OR ${field}_provider_reference=?)`).bind(outcome.providerTransactionId!,stamp(),s.id,c.user.id,outcome.providerTransactionId!),
+    ...(deposit?[c.db.prepare("UPDATE game_wallet_sessions SET status='active',last_error='',updated_at=? WHERE id=? AND user_id=? AND status IN ('deposit_pending','deposit_unknown') AND EXISTS(SELECT 1 FROM provider_wallet_operations o WHERE o.session_id=game_wallet_sessions.id AND o.deposit_state='confirmed' AND o.deposit_provider_reference=?)").bind(stamp(),s.id,c.user.id,outcome.providerTransactionId!)]:[]),audit(c,`provider_wallet_${field}_receipt`,s.id)]);
+@@ -83,7 +101,7 @@ export async function memberTransferWallet(c:ProviderTransferContext){await prof
+ export async function adminTransferWalletRecords(db:D1Database){
+  const select=rowSelect.replace('s.*,','s.*,u.username,p.display_name,CAST(r.amount_minor AS TEXT) reserved_minor,');
+  const result=await db.prepare(`${select} LEFT JOIN users u ON u.id=s.user_id LEFT JOIN game_provider_profiles p ON p.id=s.profile_id LEFT JOIN wallet_reservations r ON r.user_id=s.user_id AND r.kind='game' AND r.reference_id=s.id WHERE s.provider<>'megah5' ORDER BY s.updated_at DESC,s.id DESC LIMIT 500`).all<any>();
+- return (result.results??[]).map(s=>{const withdrawal=s.withdrawal_state!=='none';return {...memberSession(s),userId:s.user_id,username:s.username??'',displayName:s.display_name??s.profile_id,reservedMinor:s.reserved_minor===null?null:String(s.reserved_minor),lastTransfer:{id:withdrawal?s.withdraw_reference:s.deposit_reference,direction:withdrawal?'withdrawal':'deposit',status:withdrawal?s.withdrawal_state:s.deposit_state,amountMinor:String(withdrawal?s.expected_return_minor??'0':s.amount_out_minor),currency:'MYR',providerReference:withdrawal?s.withdrawal_provider_reference:s.deposit_provider_reference}};});
++ return (result.results??[]).map(s=>{const withdrawal=s.withdrawal_state!=='none';return {...memberSession(s),userId:s.user_id,username:s.username??'',displayName:s.display_name??s.profile_id,reservedMinor:s.reserved_minor===null?null:String(s.reserved_minor),lastTransfer:{id:withdrawal?s.withdraw_reference:s.deposit_reference,direction:withdrawal?'withdrawal':'deposit',status:withdrawal?s.withdrawal_state:s.deposit_state,amountMinor:withdrawal&&s.expected_return_minor===null?null:String(withdrawal?s.expected_return_minor:s.amount_out_minor),currency:'MYR',providerReference:withdrawal?s.withdrawal_provider_reference:s.deposit_provider_reference}};});
+ }
+ 
+ export async function launchTransferWallet(c:ProviderTransferContext,input:{gameCode:string;requestKey:string;language:'en'|'zh'|'ms';ip:string;returnUrl:string}){
+@@ -108,7 +126,7 @@ export async function launchTransferWallet(c:ProviderTransferContext,input:{game
+  try{
+   const results=await write(c,[walletGuardedReservation(c.db,{userId:c.user.id,kind:'game',referenceId:id,amountMinor:wallet.availableMinor,createdAt:created}),
+    c.db.prepare("INSERT INTO game_wallet_sessions(id,user_id,provider,profile_id,player_id,game_code,status,amount_out_minor,deposit_reference,created_at,updated_at) SELECT ?,?,?,?,?,?,'deposit_pending',?,?,?,? WHERE EXISTS(SELECT 1 FROM wallet_reservations r WHERE r.user_id=? AND r.kind='game' AND r.reference_id=? AND r.amount_minor=CAST(? AS BIGINT))").bind(id,c.user.id,c.profile.providerId,c.profile.profileId,verified.providerPlayerId,input.gameCode,wallet.availableMinor,depositReference,created,created,c.user.id,id,wallet.availableMinor),
+-   c.db.prepare("INSERT INTO provider_wallet_operations(session_id,profile_id,user_id,request_key,request_fingerprint,deposit_state,created_at,updated_at) SELECT ?,?,?,?,?,'prepared',?,? WHERE EXISTS(SELECT 1 FROM game_wallet_sessions s WHERE s.id=? AND s.user_id=? AND s.profile_id=?)").bind(id,c.profile.profileId,c.user.id,input.requestKey,fingerprint,created,created,id,c.user.id,c.profile.profileId),audit(c,'provider_wallet_reserved',id)]);
++   c.db.prepare("INSERT INTO provider_wallet_operations(session_id,profile_id,user_id,request_key,request_fingerprint,deposit_state,withdrawal_mode,adapter_contract_sha256,created_at,updated_at) SELECT ?,?,?,?,?,'prepared',?,?,?,? WHERE EXISTS(SELECT 1 FROM game_wallet_sessions s WHERE s.id=? AND s.user_id=? AND s.profile_id=?)").bind(id,c.profile.profileId,c.user.id,input.requestKey,fingerprint,withdrawalMode(c),contractFingerprint(c),created,created,id,c.user.id,c.profile.profileId),audit(c,'provider_wallet_reserved',id)]);
+   if(changed(results[2])!==1||changed(results[3])!==1||changed(results[4])!==1)return fail(409,'GAME_WALLET_ALREADY_RESERVED');
+  }catch(error){if(error instanceof ProviderTransferError)throw error;return fail(409,'GAME_REQUEST_CONCURRENT_REVIEW');}
+  let s=(await row(c,id))!;
+@@ -147,7 +165,9 @@ export async function settleTransferWallet(c:ProviderTransferContext,id:string){
+  if(!['prepared','issued'].includes(s.launch_state))return fail(409,'GAME_LAUNCH_CLOSURE_REVIEW');
+  const closed=await c.adapter.closeGame!(apiContext(c),{userId:c.user.id,providerPlayerId:s.player_id,requestClosure:true});
+  if(closed.state!=='closed'||!recordId(closed.evidenceCode))return fail(409,'GAME_PROVIDER_STILL_OPEN');
+- const returned=await balance(c,s),withdrawReference=returned==='0'?null:`m7w_${randomUUID()}`,proof=hash(JSON.stringify([c.profile.profileId,c.user.id,s.id,closed.evidenceCode]));
++ // GetMemberInfo balances can lag. A sweep binds the original transaction
++ // first; its eventual receipt, including an actual zero return, sets amount.
++ const returned=s.withdrawal_mode==='all'?null:await balance(c,s),withdrawReference=returned==='0'?null:`m7w_${randomUUID()}`,proof=hash(JSON.stringify([c.profile.profileId,c.user.id,s.id,closed.evidenceCode]));
+  const claim=await write(c,[c.db.prepare("UPDATE provider_wallet_operations SET closure_state='confirmed',closure_evidence=?,launch_state='closed',withdrawal_state=?,updated_at=? WHERE session_id=? AND user_id=? AND deposit_state='confirmed' AND withdrawal_state='none' AND launch_state IN ('prepared','issued')").bind(proof,returned==='0'?'confirmed':'prepared',stamp(),s.id,c.user.id),
+   c.db.prepare("UPDATE game_wallet_sessions SET status='withdraw_pending',withdraw_reference=?,expected_return_minor=?,updated_at=? WHERE id=? AND user_id=? AND status='active' AND EXISTS(SELECT 1 FROM provider_wallet_operations o WHERE o.session_id=game_wallet_sessions.id AND o.closure_state='confirmed' AND o.launch_state='closed' AND o.withdrawal_state IN ('prepared','confirmed'))").bind(withdrawReference,returned,stamp(),s.id,c.user.id)]);
+  if(changed(claim[2])!==1||changed(claim[3])!==1)return fail(409,'GAME_SETTLEMENT_ALREADY_CLAIMED');
+@@ -158,7 +178,7 @@ export async function settleTransferWallet(c:ProviderTransferContext,id:string){
+ async function submitReturn(c:ProviderTransferContext,s:any){
+  const submit=await write(c,[c.db.prepare("UPDATE provider_wallet_operations SET withdrawal_state='submitting',withdrawal_attempts=1,updated_at=? WHERE session_id=? AND user_id=? AND withdrawal_state='prepared' AND withdrawal_attempts=0 AND closure_state='confirmed'").bind(stamp(),s.id,c.user.id)]);
+  if(changed(submit[2])!==1)return fail(409,'GAME_RETURN_ALREADY_CLAIMED');
+- let outcome:GameProviderTransferResult;try{outcome=await c.adapter.withdrawFromGame(apiContext(c),transferInput(c,s,'withdrawal'));}catch{outcome={state:'unknown'};}
++ let outcome:GameProviderTransferResult|GameProviderSweepResult;try{outcome=s.withdrawal_mode==='all'?await c.adapter.withdrawAllFromGame!(apiContext(c),sweepInput(c,s)):await c.adapter.withdrawFromGame(apiContext(c),transferInput(c,s,'withdrawal'));}catch{outcome={state:'unknown'};}
+  s=await transferOutcome(c,s,'withdrawal',outcome);if(s.withdrawal_state!=='confirmed')return fail(503,'GAME_WITHDRAWAL_UNKNOWN');return finalize(c,s);
+ }
+ 
+@@ -174,15 +194,16 @@ export async function recoverTransferWallet(c:ProviderTransferContext,id:string)
+   s=(await row(c,id))!;return {status:s.status,session:memberSession(s)};
+  }
+  if(direction==='withdrawal'&&s.closure_state==='confirmed'&&s.launch_state==='closed'&&Number(s.withdrawal_attempts)===0){
+-  if(s.withdrawal_state==='confirmed'&&String(s.expected_return_minor)==='0')return finalize(c,s);
+-  if(s.withdrawal_state==='prepared'&&BigInt(s.expected_return_minor)>0n)return submitReturn(c,s);
++  if(s.withdrawal_mode==='exact'&&s.withdrawal_state==='confirmed'&&String(s.expected_return_minor)==='0')return finalize(c,s);
++  if(s.withdrawal_state==='prepared'&&(s.withdrawal_mode==='all'||(s.expected_return_minor!==null&&BigInt(s.expected_return_minor)>0n)))return submitReturn(c,s);
+  }
+ 
+  // Claimed/unknown transfers are queried only with their original bindings;
+  // never infer their success from a supplier balance alone.
+  if(Number(s[`${field}_attempts`])!==1)return fail(409,'GAME_TRANSFER_NOT_SUBMITTED_REVIEW');
+- let outcome:GameProviderTransferResult;
+- try{outcome=await c.adapter.queryTransfer(apiContext(c),{...transferInput(c,s,direction),direction,...(s[`${field}_provider_reference`]?{providerTransactionId:s[`${field}_provider_reference`]}:{})});}catch{outcome={state:'unknown'};}
++ let outcome:GameProviderTransferResult|GameProviderSweepResult;
++ const reference=s[`${field}_provider_reference`]?{providerTransactionId:s[`${field}_provider_reference`]}:{};
++ try{outcome=direction==='withdrawal'&&s.withdrawal_mode==='all'?await c.adapter.queryWithdrawAll!(apiContext(c),{...sweepInput(c,s),...reference}):await c.adapter.queryTransfer(apiContext(c),{...transferInput(c,s,direction),direction,...reference});}catch{outcome={state:'unknown'};}
+  s=await transferOutcome(c,s,direction,outcome,true);
+  if(direction==='withdrawal'&&s.withdrawal_state==='confirmed')return finalize(c,s);
+  return {status:s.status,session:memberSession(s)};
+diff --git a/lib/provider-wallet-consistency.ts b/lib/provider-wallet-consistency.ts
+index 6d646369a16c7d65d425a6dd68253bbbde7d5821..bf2d2342d34a463ed0e778bcbece3180e74e5733 100644
+--- a/lib/provider-wallet-consistency.ts
++++ b/lib/provider-wallet-consistency.ts
+@@ -29,8 +29,8 @@ export const providerWalletRiskFreeSql=`
+    AND o.zero_balance_verified=1 AND o.launch_state='closed'
+    AND s.amount_returned_minor IS NOT NULL AND s.amount_returned_minor>=0
+    AND s.expected_return_minor=s.amount_returned_minor AND o.withdrawal_state='confirmed'
+-   AND ((s.amount_returned_minor=0 AND o.withdrawal_attempts=0 AND o.withdrawal_provider_reference IS NULL)
+-    OR (s.amount_returned_minor>0 AND o.withdrawal_attempts=1 AND o.withdrawal_provider_reference IS NOT NULL AND LENGTH(o.withdrawal_provider_reference)>0))
++   AND ((o.withdrawal_mode='exact' AND s.amount_returned_minor=0 AND o.withdrawal_attempts=0 AND o.withdrawal_provider_reference IS NULL)
++    OR ((o.withdrawal_mode='all' OR s.amount_returned_minor>0) AND o.withdrawal_attempts=1 AND o.withdrawal_provider_reference IS NOT NULL AND LENGTH(o.withdrawal_provider_reference)>0))
+    AND EXISTS(SELECT 1 FROM game_wallet_ledger l WHERE l.session_id=s.id AND l.user_id=s.user_id AND l.account_code='game_result' AND l.currency='MYR' AND l.amount_minor=s.amount_returned_minor-s.amount_out_minor)
+   ))
+  ))
+@@ -50,6 +50,6 @@ export const providerTerminalHoldEvidenceSql=`(g.provider='megah5' OR EXISTS(
+   OR (g.status='settled' AND o.deposit_state='confirmed' AND o.deposit_attempts=1 AND o.deposit_provider_reference IS NOT NULL
+    AND o.closure_state='confirmed' AND LENGTH(o.closure_evidence)=64 AND o.launch_state='closed' AND o.zero_balance_verified=1
+    AND o.withdrawal_state='confirmed' AND g.expected_return_minor=g.amount_returned_minor
+-   AND ((g.amount_returned_minor=0 AND o.withdrawal_attempts=0 AND o.withdrawal_provider_reference IS NULL)
+-    OR (g.amount_returned_minor>0 AND o.withdrawal_attempts=1 AND o.withdrawal_provider_reference IS NOT NULL))))
++   AND ((o.withdrawal_mode='exact' AND g.amount_returned_minor=0 AND o.withdrawal_attempts=0 AND o.withdrawal_provider_reference IS NULL)
++    OR ((o.withdrawal_mode='all' OR g.amount_returned_minor>0) AND o.withdrawal_attempts=1 AND o.withdrawal_provider_reference IS NOT NULL))))
+ ))`;
+diff --git a/lib/render-migrations.mjs b/lib/render-migrations.mjs
+index 6b3710a9c45f28b35f44b5aa7eabedb1eb3c4ca2..2d359dcbdecb309a34a6e5276c9810cd3498604d 100644
+--- a/lib/render-migrations.mjs
++++ b/lib/render-migrations.mjs
+@@ -710,6 +710,18 @@ CREATE INDEX IF NOT EXISTS provider_wallet_operations_user ON provider_wallet_op
+  await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[PROVIDER_WALLET_OPERATIONS_MIGRATION]);return true;
+ }
+ 
++export const PROVIDER_WALLET_SWEEPS_MIGRATION='0120-provider-wallet-sweeps';
++async function applyProviderWalletSweepsMigration(client){
++ const applied=await client.query('SELECT version FROM portal_schema_migrations WHERE version=$1',[PROVIDER_WALLET_SWEEPS_MIGRATION]);if(applied.rows.length)return false;
++ await client.query("ALTER TABLE provider_wallet_operations ADD COLUMN IF NOT EXISTS withdrawal_mode TEXT NOT NULL DEFAULT 'exact' CHECK(withdrawal_mode IN ('exact','all'))");
++ await client.query("ALTER TABLE provider_wallet_operations ADD COLUMN IF NOT EXISTS adapter_contract_sha256 TEXT NOT NULL DEFAULT '' CHECK(adapter_contract_sha256='' OR adapter_contract_sha256 ~ '^[a-f0-9]{64}$')");
++ await client.query(`CREATE OR REPLACE FUNCTION reject_provider_wallet_contract_mutation() RETURNS trigger LANGUAGE plpgsql AS $$
++ BEGIN IF NEW.withdrawal_mode<>OLD.withdrawal_mode OR NEW.adapter_contract_sha256<>OLD.adapter_contract_sha256 THEN RAISE EXCEPTION 'provider wallet contract is immutable'; END IF; RETURN NEW; END $$;
++ DROP TRIGGER IF EXISTS provider_wallet_contract_immutable ON provider_wallet_operations;
++ CREATE TRIGGER provider_wallet_contract_immutable BEFORE UPDATE OF withdrawal_mode,adapter_contract_sha256 ON provider_wallet_operations FOR EACH ROW EXECUTE FUNCTION reject_provider_wallet_contract_mutation();`);
++ await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[PROVIDER_WALLET_SWEEPS_MIGRATION]);return true;
++}
++
+ export const FLEXIBLE_PUBLIC_CONTACTS_MIGRATION='0117-flexible-public-contacts';
+ async function applyFlexiblePublicContactsMigration(client){
+  const applied=await client.query('SELECT version FROM portal_schema_migrations WHERE version=$1',[FLEXIBLE_PUBLIC_CONTACTS_MIGRATION]);if(applied.rows.length)return false;
+@@ -812,6 +824,7 @@ export async function initializePortalDatabase(pool, schema, directoryEntries, o
+     await applyFlexiblePublicContactsMigration(client);
+     await applyProductionAcceptanceEvidenceMigration(client);
+     await applyWithdrawalDestinationMethodsMigration(client);
++    await applyProviderWalletSweepsMigration(client);
+     const rows = seedRows(directoryEntries);
+     await client.query(
+       `INSERT INTO brand_directory_entries(id,category,display_name,position,marked,status,image_data,updated_at)
+diff --git a/package.json b/package.json
+index f6c28c446e15df99c258308bc03e7032a0f6a987..b8350ac273dd94bb9e3a7b1050b156dbef314ff0 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.147-game-runtime-repair node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.147-game-runtime-repair node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.148-jili-transfer-wallet node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.148-jili-transfer-wallet node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.147-game-runtime-repair node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.148-jili-transfer-wallet node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/assets/app.js b/public/assets/app.js
+index 82b5196dd2295f85eca2f7a8ac02f61370759388..8a52b07ed3a6d48804855150c9f52c0ea21fa477 100644
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -655,7 +655,7 @@ async function renderAdminGameWallet(){
+    amounts.append(node("span","",`转入 ${moneyMinor(item.amountOutMinor)}`),node("span","",`退回 ${item.amountReturnedMinor==null?"—":moneyMinor(item.amountReturnedMinor)}`),node("span","",`结果 ${item.resultMinor==null?"—":moneyMinor(item.resultMinor)}`));info.append(amounts);
+    if(item.depositReference)info.append(node("small","",`Deposit ref: ${item.depositReference}`));if(item.withdrawReference)info.append(node("small","",`Withdraw ref: ${item.withdrawReference}`));if(item.providerResidual)info.append(node("small","",`Provider residual: ${item.providerResidual}`));row.append(info,status);host.append(row);
+   }
+-  for(const item of profiles){const row=node("article","game-wallet-admin-row"),info=node("div","game-wallet-admin-info"),last=item.lastTransfer;info.append(node("strong","",`${item.username} · ${item.displayName||item.profileId} · ${item.gameCode}`),node("small","",`${new Date(item.createdAt*1000).toLocaleString()} · ${item.id}`),node("small","",`预留 ${item.reservedMinor==null?"—":moneyMinor(item.reservedMinor)}`));if(item.amountOutMinor!==undefined)info.append(node("small","",`转入 ${moneyMinor(item.amountOutMinor)} · 退回 ${item.amountReturnedMinor==null?"—":moneyMinor(item.amountReturnedMinor)} · 结果 ${item.resultMinor==null?"—":moneyMinor(item.resultMinor)}`));if(last){const amount=last.currency==="MYR"?moneyMinor(last.amountMinor):`${last.currency||"—"} · ${last.amountMinor} minor units`;info.append(node("small","",`${last.direction} · ${amount} · ${last.status}${last.providerReference?` · ${last.providerReference}`:""}`));}row.append(info,node("span",`wallet-record-status ${item.settlementBlocked?"manual_review":item.status}`,item.settlementBlocked?"manual_review":item.status));host.append(row);}
++  for(const item of profiles){const row=node("article","game-wallet-admin-row"),info=node("div","game-wallet-admin-info"),last=item.lastTransfer;info.append(node("strong","",`${item.username} · ${item.displayName||item.profileId} · ${item.gameCode}`),node("small","",`${new Date(item.createdAt*1000).toLocaleString()} · ${item.id}`),node("small","",`预留 ${item.reservedMinor==null?"—":moneyMinor(item.reservedMinor)}`));if(item.amountOutMinor!==undefined)info.append(node("small","",`转入 ${moneyMinor(item.amountOutMinor)} · 退回 ${item.amountReturnedMinor==null?"—":moneyMinor(item.amountReturnedMinor)} · 结果 ${item.resultMinor==null?"—":moneyMinor(item.resultMinor)}`));if(last){const amount=last.amountMinor==null?"Amount pending provider confirmation":last.currency==="MYR"?moneyMinor(last.amountMinor):`${last.currency||"—"} · ${last.amountMinor} minor units`;info.append(node("small","",`${last.direction} · ${amount} · ${last.status}${last.providerReference?` · ${last.providerReference}`:""}`));}row.append(info,node("span",`wallet-record-status ${item.settlementBlocked?"manual_review":item.status}`,item.settlementBlocked?"manual_review":item.status));host.append(row);}
+   for(const item of unmatched){const row=node("article","game-wallet-admin-row"),info=node("div","game-wallet-admin-info");info.append(node("strong","",`${item.username} · 游戏预留待核对`),node("small","",`${item.referenceId} · ${moneyMinor(item.amountMinor)}`));row.append(info,node("span","wallet-record-status manual_review","review"));host.append(row);}
+  }catch(error){clear(host);host.append(node("p","muted",error.message));}
+ }
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 14ac785bc889981b699f325b61717974b18be6dd..ab9eeb3263d72b25edc5e1689c3e099192876afa 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.147-game-runtime-repair';
++const CACHE='master7-shell-17.0.0-selfbuilt.148-jili-transfer-wallet';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/scripts/verify-isolated-postgres-provider-wallet.mjs b/scripts/verify-isolated-postgres-provider-wallet.mjs
+index 265965469d26384209aaf17b02415201d8ffbbf0..d379a408f3286bdb47f3e5d9c466072f624212ff 100644
+--- a/scripts/verify-isolated-postgres-provider-wallet.mjs
++++ b/scripts/verify-isolated-postgres-provider-wallet.mjs
+@@ -44,6 +44,15 @@ test('profile transfer wallets preserve real PostgreSQL locking and backup integ
+   assert.equal(withdrawCalls,1);assert.equal((await withdrawalWalletState(db,'alice')).availableMinor,'1575');assert.equal((await pool.query('SELECT amount_minor::text result FROM game_wallet_ledger')).rows[0].result,'-425');
+   await recoverTransferWallet(c,created.walletSessionId);assert.equal(withdrawCalls,1);
+  });
++ for(const returned of ['0','1575'])await t.test(`a concurrent ${returned}-sen sweep snapshots its contract and posts one actual return`,async()=>{
++  await reset();const profile=getGameProviderProfile('jili_my1_1to100'),receipts=new Map();let sweepCalls=0;
++  await pool.query("INSERT INTO game_provider_profiles(id,provider_id,display_name,adapter_key,wallet_mode,balance_class,currency,unit_numerator,unit_denominator,environment,status,created_at,updated_at) VALUES($1,$2,$3,$4,'transfer','cash','MYR',100,1,'production','uat',0,0) ON CONFLICT(id) DO NOTHING",[profile.profileId,profile.providerId,profile.displayName,profile.adapterKey]);
++  const sweepAdapter={...adapter,key:'jili',withdrawalMode:'all',transferContractFingerprint:'a'.repeat(64),withdrawAllFromGame:async(c,i)=>{sweepCalls++;balance='0';const receipt={state:'confirmed',providerTransactionId:'SW-PG',amountMinor:returned};receipts.set(i.platformTransactionId,receipt);if(returned==='1575')throw Error('Synthetic accepted sweep response lost');return receipt;},queryWithdrawAll:async(c,i)=>receipts.get(i.platformTransactionId)??{state:'unknown'}},c={...context(),profile,adapter:sweepAdapter};
++  const created=await launchTransferWallet(c,input());balance='0';const results=await Promise.allSettled([settleTransferWallet(c,created.walletSessionId),settleTransferWallet(c,created.walletSessionId)]);assert.equal(sweepCalls,1);if(returned==='0')assert.ok(results.some(x=>x.status==='fulfilled'));else assert.ok(results.every(x=>x.status==='rejected'));
++  await Promise.allSettled([recoverTransferWallet(c,created.walletSessionId),recoverTransferWallet(c,created.walletSessionId)]);await recoverTransferWallet(c,created.walletSessionId);
++  assert.equal(sweepCalls,1);assert.equal((await withdrawalWalletState(db,'alice')).availableMinor,returned);assert.equal((await pool.query('SELECT COUNT(*)::int n FROM game_wallet_ledger')).rows[0].n,1);assert.equal((await pool.query('SELECT withdrawal_mode,withdrawal_attempts,withdrawal_provider_reference,adapter_contract_sha256 FROM provider_wallet_operations')).rows[0].withdrawal_mode,'all');
++  await assert.rejects(()=>pool.query("UPDATE provider_wallet_operations SET withdrawal_mode='exact'"),/immutable/);await assert.rejects(()=>pool.query("UPDATE provider_wallet_operations SET adapter_contract_sha256=$1",['b'.repeat(64)]),/immutable/);
++ });
+  await t.test('profile operation evidence restores with deferred foreign keys and rolls back completely',async()=>{
+   const dir=mkdtempSync(join(tmpdir(),'master7-provider-restore-')),passphrase=randomBytes(24).toString('hex'),{publicKey,privateKey}=generateKeyPairSync('rsa',{modulusLength:2048,publicKeyEncoding:{type:'spki',format:'pem'},privateKeyEncoding:{type:'pkcs8',format:'pem',cipher:'aes-256-cbc',passphrase}}),fingerprint=createHash('sha256').update(createPublicKey(publicKey).export({type:'spki',format:'der'})).digest('hex');
+   try{
+diff --git a/tests/api.test.mjs b/tests/api.test.mjs
+index 9d239f97bb810af2fc45a3a09d7604c6f8231932..8ac9ac65d37f0d79841836ad0afac519786ad1bb 100644
+--- a/tests/api.test.mjs
++++ b/tests/api.test.mjs
+@@ -13,7 +13,7 @@ import { gameSources } from '../lib/game-catalogue.ts';
+ // Execute the real migration and backend queries against SQLite, not query mocks.
+ const dir=mkdtempSync(join(tmpdir(),'master7-api-'));
+ const file=join(dir,'test.sqlite');
+-let sqlite=new DatabaseSync(file);for(const migration of ['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql','0014_withdrawal_requests.sql','0019_game_catalogue_sync.sql','0020_manual_bank_deposits.sql','0021_api_supplier_status.sql','0022_referrals.sql','0023_marketing_campaigns.sql','0024_megah5_transfer_wallet.sql','0025_game_access_zones.sql','0027_marketing_contact_scale.sql','0090_security_wallet_reservations.sql','0091_operations_automation.sql','0092_support_marketing_notifications.sql','0093_reward_state_machines.sql','0094_payment_recovery_and_payout_state.sql','0100_whatsapp_campaign_delivery.sql','0101_rewards_hub.sql','0102_responsible_play.sql','0103_company_bank_artwork.sql','0105_voucher_manual_workflow.sql','0107_benefit_claim_reviews.sql','0108_manual_compliance_review.sql','0110_game_provider_adapter_core.sql','0111_member_wallet_guards.sql','0112_megah5_launch_operations.sql','0113_game_provider_acceptance_evidence.sql','0115_manual_bank_funds.sql','0116_provider_wallet_operations.sql','0117_flexible_public_contacts.sql','0118_production_acceptance_evidence.sql','0119_withdrawal_destination_methods.sql'])sqlite.exec(readFileSync(new URL(`../drizzle/${migration}`,import.meta.url),'utf8'));
++let sqlite=new DatabaseSync(file);for(const migration of ['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql','0014_withdrawal_requests.sql','0019_game_catalogue_sync.sql','0020_manual_bank_deposits.sql','0021_api_supplier_status.sql','0022_referrals.sql','0023_marketing_campaigns.sql','0024_megah5_transfer_wallet.sql','0025_game_access_zones.sql','0027_marketing_contact_scale.sql','0090_security_wallet_reservations.sql','0091_operations_automation.sql','0092_support_marketing_notifications.sql','0093_reward_state_machines.sql','0094_payment_recovery_and_payout_state.sql','0100_whatsapp_campaign_delivery.sql','0101_rewards_hub.sql','0102_responsible_play.sql','0103_company_bank_artwork.sql','0105_voucher_manual_workflow.sql','0107_benefit_claim_reviews.sql','0108_manual_compliance_review.sql','0110_game_provider_adapter_core.sql','0111_member_wallet_guards.sql','0112_megah5_launch_operations.sql','0113_game_provider_acceptance_evidence.sql','0115_manual_bank_funds.sql','0116_provider_wallet_operations.sql','0120_provider_wallet_sweeps.sql','0117_flexible_public_contacts.sql','0118_production_acceptance_evidence.sql','0119_withdrawal_destination_methods.sql'])sqlite.exec(readFileSync(new URL(`../drizzle/${migration}`,import.meta.url),'utf8'));
+ class Statement{
+  constructor(sql,args=[]){this.sql=sql;this.args=args;}
+  bind(...args){return new Statement(this.sql,args);}
+diff --git a/tests/backup-restore-rehearsal.test.mjs b/tests/backup-restore-rehearsal.test.mjs
+index 678d6827ce6c6e5cf0b8f1259e047c34dcdf63a9..f6b5cfd00d2906e7cda9924ae1762ff040152d66 100644
+--- a/tests/backup-restore-rehearsal.test.mjs
++++ b/tests/backup-restore-rehearsal.test.mjs
+@@ -119,7 +119,7 @@ function verify(f){return spawnSync(process.execPath,[join(root,'scripts/verify-
+ 
+ test('current release backup restores acceptance evidence and reviewed benefit columns in isolation',async t=>{
+  const f=await fixture(t);
+- assert.equal(BACKUP_SCHEMA_VERSION,'0119-withdrawal-destination-methods');
++ assert.equal(BACKUP_SCHEMA_VERSION,'0120-provider-wallet-sweeps');
+  assert.equal(f.envelope.manifest.tableCount,BACKUP_TABLES.length);
+  assert.equal(f.envelope.manifest.tables.find(item=>item.name==='manual_bank_transactions').rows,2);
+  for(const table of ['benefit_claims','voucher_manual_reviews','voucher_manual_play_events','marketing_webhook_events','responsible_play_profiles','responsible_play_deposit_reservations'])assert.equal(f.envelope.manifest.tables.find(item=>item.name===table).rows,1);
+diff --git a/tests/finance-center-api.test.mjs b/tests/finance-center-api.test.mjs
+index 888736555fbb9eec188c039ed6aac5b342fc317d..4de6fd33cc79e1d8fcd2873bac57a6146aeffe97 100644
+--- a/tests/finance-center-api.test.mjs
++++ b/tests/finance-center-api.test.mjs
+@@ -4,7 +4,7 @@ import {DatabaseSync} from 'node:sqlite';
+ import {readFileSync} from 'node:fs';
+ import {handle} from '../lib/backend.ts';
+ 
+-const migrations=['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql','0014_withdrawal_requests.sql','0019_game_catalogue_sync.sql','0020_manual_bank_deposits.sql','0021_api_supplier_status.sql','0022_referrals.sql','0023_marketing_campaigns.sql','0024_megah5_transfer_wallet.sql','0025_game_access_zones.sql','0027_marketing_contact_scale.sql','0090_security_wallet_reservations.sql','0091_operations_automation.sql','0092_support_marketing_notifications.sql','0093_reward_state_machines.sql','0094_payment_recovery_and_payout_state.sql','0100_whatsapp_campaign_delivery.sql','0115_manual_bank_funds.sql','0116_provider_wallet_operations.sql'];
++const migrations=['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql','0014_withdrawal_requests.sql','0019_game_catalogue_sync.sql','0020_manual_bank_deposits.sql','0021_api_supplier_status.sql','0022_referrals.sql','0023_marketing_campaigns.sql','0024_megah5_transfer_wallet.sql','0025_game_access_zones.sql','0027_marketing_contact_scale.sql','0090_security_wallet_reservations.sql','0091_operations_automation.sql','0092_support_marketing_notifications.sql','0093_reward_state_machines.sql','0094_payment_recovery_and_payout_state.sql','0100_whatsapp_campaign_delivery.sql','0115_manual_bank_funds.sql','0116_provider_wallet_operations.sql','0120_provider_wallet_sweeps.sql'];
+ 
+ class Statement{
+  constructor(sqlite,sql,args=[]){this.sqlite=sqlite;this.sql=sql;this.args=args;}
+diff --git a/tests/game-launch.test.mjs b/tests/game-launch.test.mjs
+index d8b98415d2dbda3157dd65605c4a1424b85ec8f0..f4f53d8bbeff22349a9f37dfb89156b8f643227e 100644
+--- a/tests/game-launch.test.mjs
++++ b/tests/game-launch.test.mjs
+@@ -77,7 +77,7 @@ test('public game responses expose 37 brands and isolated fail-closed profile me
+   const summary=await h.request('/api/games');assert.equal(summary.status,200);
+   assert.equal(summary.data.platformCount,37);assert.equal(summary.data.profileBrandCount,37);
+   assert.ok(summary.data.profileCount>37);assert.equal(summary.data.profiles.length,summary.data.profileCount);
+-  assert.equal(summary.data.implementedProfileCount,2);assert.equal(summary.data.verifiedProfileCount,0);
++  assert.equal(summary.data.implementedProfileCount,4);assert.equal(summary.data.verifiedProfileCount,0);
+   const mega=summary.data.profiles.find(profile=>profile.profileId==='megah5_myr');assert.equal(mega.providerId,'megah5');assert.equal(mega.walletMode,'transfer');assert.equal(mega.launchVerified,false);
+   const jili=summary.data.providers.find(provider=>provider.id==='jili');assert.deepEqual(jili.profiles.map(profile=>profile.profileId),['jili_myr_1to1','jili_my1_1to100']);
+   assert.ok(jili.profiles.every(profile=>profile.launchReady===false&&profile.walletReady===false&&profile.enabled===false));
+@@ -110,7 +110,7 @@ test('918KISS profile selection returns only its independent normal, MY1 or free
+ test('non-executable and mismatched launch profiles fail before any game state or supplier request',async()=>{
+  const h=harness();try{
+   const cases=[
+-   [{providerId:'jili',profileId:'jili_myr_1to1',gameCode:'fixture'},503,'GAME_PROVIDER_UNAVAILABLE','adapter_unimplemented'],
++   [{providerId:'918kissh5',profileId:'918kiss_normal_myr',gameCode:'fixture'},503,'GAME_PROVIDER_UNAVAILABLE','adapter_unimplemented'],
+    [{providerId:'fuma',profileId:'fuma_myr',gameCode:'fixture'},503,'GAME_PROVIDER_UNAVAILABLE','contract_missing'],
+    [{providerId:'megah5',profileId:'jili_myr_1to1',gameCode:'55021'},400,'GAME_PROFILE_PROVIDER_MISMATCH','profile_provider_mismatch'],
+    [{providerId:'jili',gameCode:'fixture'},400,'GAME_PROFILE_REQUIRED','multiple_profiles'],
+@@ -126,7 +126,7 @@ test('wallet profile reads preserve MegaH5 and expose unimplemented profiles wit
+  const h=harness();try{
+   const legacy=await h.request('/api/game-wallet');assert.equal(legacy.status,200);assert.equal(legacy.data.profileId,'megah5_myr');
+   const explicit=await h.request('/api/game-wallet?profileId=megah5_myr');assert.equal(explicit.status,200);assert.equal(explicit.data.profileId,'megah5_myr');
+-  const foreign=await h.request('/api/game-wallet?profileId=jili_myr_1to1');assert.equal(foreign.status,200);assert.equal(foreign.data.profileId,'jili_myr_1to1');assert.equal(foreign.data.readOnly,true);assert.equal(foreign.data.walletReady,false);assert.equal(foreign.data.supportsRecovery,false);
++  const foreign=await h.request('/api/game-wallet?profileId=918kiss_normal_myr');assert.equal(foreign.status,200);assert.equal(foreign.data.profileId,'918kiss_normal_myr');assert.equal(foreign.data.readOnly,true);assert.equal(foreign.data.walletReady,false);assert.equal(foreign.data.supportsRecovery,false);
+   const settle=await h.request('/api/game-wallet/settle',{method:'POST',data:{profileId:'megah5_myr'}});assert.equal(settle.status,200);assert.equal(settle.data.profileId,'megah5_myr');assert.equal(settle.data.status,'none');
+   const rejected=await h.request('/api/game-wallet/recover',{method:'POST',data:{profileId:'fuma_myr'}});assert.equal(rejected.status,503);assert.equal(rejected.data.reason,'contract_missing');
+   assert.equal(h.calls.length,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM game_wallet_sessions').get().n,0);
+diff --git a/tests/game-provider-acceptance.test.mjs b/tests/game-provider-acceptance.test.mjs
+index c3009c6f924753048ebb2932a9015ad6c54c8878..809173ab91171ac93498e7131ba2880adbcd0d32 100644
+--- a/tests/game-provider-acceptance.test.mjs
++++ b/tests/game-provider-acceptance.test.mjs
+@@ -78,16 +78,16 @@ test('only an owner can append evidence while staff can read the immutable histo
+ test('UAT evidence and owner evidence cannot independently make a game live',async t=>{
+  const f=fixture(t);let previous=null,stamp=200;
+  for(const capability of GAME_PROVIDER_ACCEPTANCE_CAPABILITIES){
+-  const result=await recordGameProviderAcceptance(f.db,owner,evidence({profileId:'jili_myr_1to1',capability,environment:'production',evidenceSha256:String(capability.length).padStart(64,'0'),evidenceReference:`case:jili-${capability}`,observedAt:stamp,expectedEventId:null}),stamp++);
++  const result=await recordGameProviderAcceptance(f.db,owner,evidence({profileId:'918kiss_normal_myr',capability,environment:'production',evidenceSha256:String(capability.length).padStart(64,'0'),evidenceReference:`case:jili-${capability}`,observedAt:stamp,expectedEventId:null}),stamp++);
+   previous=result.id;
+  }
+  await recordGameProviderAcceptance(f.db,owner,evidence({profileId:'megah5_myr',environment:'uat',evidenceReference:'case:megah5-uat',observedAt:stamp,expectedEventId:null}),stamp);
+- const readiness=await getGameProviderAcceptanceReadiness(f.db,['jili_myr_1to1']);
++ const readiness=await getGameProviderAcceptanceReadiness(f.db,['918kiss_normal_myr']);
+  assert.equal(readiness.acceptedProfileCount,1);
+- assert.equal(readiness.liveProfileCount,0,'JILI remains non-live because its adapter is unimplemented');
++ assert.equal(readiness.liveProfileCount,0,'918KISS remains non-live because its adapter is unimplemented');
+  assert.equal(readiness.allGamesVerified,false);
+  assert.equal(readiness.liveGames,false);
+- assert.equal(readiness.blockers.find(item=>item.profileId==='jili_myr_1to1').adapterImplemented,false);
++ assert.equal(readiness.blockers.find(item=>item.profileId==='918kiss_normal_myr').adapterImplemented,false);
+  assert.equal((await getGameProviderAcceptance(f.db,staff,{environment:'production'})).profiles.find(item=>item.profileId==='megah5_myr').capabilities.catalogue.passed,false,'UAT does not count as production evidence');
+  assert.ok(previous);
+ });
+diff --git a/tests/game-wallet-records-ui.test.mjs b/tests/game-wallet-records-ui.test.mjs
+index 749b7c747d23720fa4c102cb3e3dc3f5d77509c5..0a37057895c7e64ebdb218f3d42f5f3d4460aa1b 100644
+--- a/tests/game-wallet-records-ui.test.mjs
++++ b/tests/game-wallet-records-ui.test.mjs
+@@ -47,6 +47,8 @@ test('staff view shows generic sessions and unmatched holds without a money-chan
+  await context.renderAdminGameWallet();const body=JSON.stringify(get('gameWalletAdminRecords'));
+  assert.match(body,/JDB MYR/);assert.match(body,/ref1/);assert.match(body,/missing1/);assert.match(body,/MYR 4000/);assert.equal(get('gameWalletAdminTitle').textContent,'游戏钱包记录 · 2 待处理');
+  assert.doesNotMatch(body,/"tagName":"button"/);assert.deepEqual(calls,['/api/admin/game-wallet']);
++ context.api=async()=>({items:[],profileItems:[{id:'sweep1',profileId:'jili_my1_1to100',username:'alice',gameCode:'1',status:'withdraw_unknown',createdAt:1,reservedMinor:'2000',lastTransfer:{direction:'withdrawal',currency:'MYR',amountMinor:null,status:'unknown'}}],unmatchedReservations:[]});
++ await context.renderAdminGameWallet();const unknown=JSON.stringify(get('gameWalletAdminRecords'));assert.match(unknown,/Amount pending provider confirmation/);assert.doesNotMatch(unknown,/MYR null|MYR undefined/);
+ });
+ 
+ 
+diff --git a/tests/jili-transfer-protocol.test.mjs b/tests/jili-transfer-protocol.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..0162ada7f844fd205c9a8968839fe7f5613476a9
+--- /dev/null
++++ b/tests/jili-transfer-protocol.test.mjs
+@@ -0,0 +1,89 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {createHash} from 'node:crypto';
++import {createJiliProtocolClient,jiliDate,jiliSignature,jiliPlayerId,jiliTransactionId} from '../lib/jili-transfer-protocol.ts';
++import {createJiliGameProviderAdapter} from '../lib/jili-provider-adapter.ts';
++import {jiliProfileRuntime} from '../lib/jili-profile-runtime.ts';
++import {getGameProviderProfile} from '../lib/game-provider-registry.ts';
++import {gameTransferRuntime} from '../lib/game-provider-runtime.ts';
++
++const time=Date.parse('2026-11-10T12:00:00Z'),hash=s=>createHash('md5').update(s).digest('hex');
++const cfg=(profile='jili_myr_1to1')=>({profile,baseUrl:'https://supplier.example.test/api1',agentId:'synthetic_myr',agentKey:'syntheticKey000000000000000000000',transferAmountUnit:'platform_currency',queryAmountUnit:'platform_currency',balanceAmountUnit:'game_points',reportAmountUnit:'game_points',launchOrigins:['https://games.example.test']});
++function fake(handlers,config=cfg()){
++ const calls=[],transport=async(url,init)=>{
++  const u=new URL(url),method=u.pathname.split('/').at(-1),body=new URLSearchParams(init.body);calls.push({method,body});assert.equal(u.origin,new URL(config.baseUrl).origin);assert.equal(init.redirect,'error');assert.equal(init.method,'POST');
++  const excluded=new Set(['Key',...(method==='LoginWithoutRedirect'?['HomeUrl','platform','disableFullScreen']:[])]),query=[...body].filter(([k])=>!excluded.has(k)).map(([k,v])=>`${k}=${v}`).join('&');
++  assert.equal(body.get('Key').slice(6,-6),hash(query+hash(jiliDate(time)+config.agentId+config.agentKey)));assert.equal([...body].filter(([k])=>!excluded.has(k)).at(-1)[0],'AgentId');
++  const value=handlers[method];if(!value)throw Error('Unexpected method '+method);return typeof value==='function'?value(body):Response.json(value);
++ };
++ return{calls,transport,client:createJiliProtocolClient(config,transport,()=>time)};
++}
++const success=data=>({ErrorCode:0,Message:'success',Data:data});
++const input={playerId:'m7synthetic',transactionId:'m7original',direction:'deposit',amountMinor:'2000'};
++const receipt=(overrides={})=>success({Account:input.playerId,TransactionId:input.transactionId,Amount:20,TransferType:2,Status:1,...overrides});
++
++test('JILI signing matches the published example and the UTC-4 unpadded day boundary',()=>{
++ const epoch=Date.parse('2019-01-01T16:00:00Z'),query='Account=Test006&GameId=1&Lang=zh-CN&AgentId=abcd_RMB';
++ assert.equal(jiliSignature(query,'abcd_RMB','be8e08f95357d215921f91c6a533f74d3194de52',epoch,'123456','abcdef'),'123456589437f4a0382062dfd0fa5b76eca799abcdef');
++ assert.equal(jiliDate(Date.parse('2026-02-07T03:59:59Z')),'26026');assert.equal(jiliDate(Date.parse('2026-02-07T04:00:00Z')),'26027');
++ assert.notEqual(jiliPlayerId('jili_myr_1to1','alice'),jiliPlayerId('jili_my1_1to100','alice'));assert.notEqual(jiliTransactionId('jili_myr_1to1','same','deposit'),jiliTransactionId('jili_myr_1to1','same','withdrawal'));
++});
++test('JILI game catalogue preserves escaped names and rejects duplicate game IDs',async()=>{
++ const row={GameId:1,name:{'en-US':'A "quoted" game 123'},GameCategoryId:1},f=fake({GetGameList:success([row])});assert.equal((await f.client.listGames())[0].name,row.name['en-US']);
++ const bad=fake({GetGameList:success([row,row])});await assert.rejects(()=>bad.client.listGames(),e=>e.code==='JILI_RESPONSE_INVALID');
++});
++test('deposit confirmation requires the original account, direction, amount and transaction query',async()=>{
++ const f=fake({ExchangeTransferByAgentId:success({TransactionId:input.transactionId,Status:1}),CheckTransferByTransactionId:receipt()});
++ assert.deepEqual(await f.client.transfer(input),{state:'confirmed',providerTransactionId:input.transactionId,amountMinor:'2000',requiresLedgerReconciliation:true});
++ assert.deepEqual(f.calls.map(x=>x.method),['ExchangeTransferByAgentId','CheckTransferByTransactionId']);assert.equal(f.calls[0].body.get('Amount'),'20.00');
++ for(const patch of [{Account:'other'},{TransactionId:'other'},{TransferType:1},{Amount:19.99},{Status:2}]){
++  const b=fake({CheckTransferByTransactionId:receipt(patch)});assert.equal((await b.client.queryTransfer(input)).state,'unknown');
++ }
++});
++test('sweeps ignore a delayed member balance and record the actual zero or positive transfer',async()=>{
++ for(const amount of [0,15.75]){
++  const transfer={...input,direction:'withdrawal'};delete transfer.amountMinor;
++  const f=fake({ExchangeTransferByAgentId:success({TransactionId:input.transactionId,Status:1}),CheckTransferByTransactionId:receipt({TransferType:1,Amount:amount})});
++  const result=await f.client.transfer(transfer);assert.equal(result.state,'confirmed');assert.equal(result.amountMinor,amount===0?'0':'1575');assert.equal(result.providerTransactionId,input.transactionId);assert.equal(f.calls[0].body.get('TransferType'),'1');assert.equal(f.calls[0].body.get('Amount'),'0');assert.ok(f.calls.every(x=>x.method!=='GetMemberInfo'));
++ }
++});
++test('timeout, duplicate, processing, offline-processing and absent queries never invent a success or retry',async()=>{
++ for(const code of [3,20,102,105,106]){const f=fake({ExchangeTransferByAgentId:{ErrorCode:code,Data:null}});assert.equal((await f.client.transfer(input)).state,'unknown');assert.equal(f.calls.length,1);}
++ const f=fake({ExchangeTransferByAgentId:()=>{throw Error('Synthetic response lost');},CheckTransferByTransactionId:{ErrorCode:101,Data:null}});assert.equal((await f.client.transfer(input)).state,'unknown');assert.equal((await f.client.queryTransfer(input)).state,'unknown');assert.equal(f.calls.filter(x=>x.method==='ExchangeTransferByAgentId').length,1);
++});
++test('a definitive new-submit rejection is distinct from a failed recovery query',async()=>{
++ const f=fake({ExchangeTransferByAgentId:{ErrorCode:103,Data:null},CheckTransferByTransactionId:{ErrorCode:101,Data:null}});assert.equal((await f.client.transfer(input)).state,'rejected');assert.equal((await f.client.queryTransfer(input)).state,'unknown');
++});
++test('1:100 uses independently specified transfer and balance units exactly once',async()=>{
++ const config=cfg('jili_my1_1to100'),f=fake({GetMemberInfo:success([{Account:input.playerId,Status:2,Balance:1575}]),ExchangeTransferByAgentId:success({TransactionId:input.transactionId,Status:1}),CheckTransferByTransactionId:receipt()},config);
++ assert.equal((await f.client.player(input.playerId)).amountMinor,'1575');assert.equal((await f.client.transfer(input)).amountMinor,'2000');assert.equal(f.calls.find(x=>x.method==='ExchangeTransferByAgentId').body.get('Amount'),'20.00');
++ const points={...config,transferAmountUnit:'game_points',queryAmountUnit:'game_points'},g=fake({ExchangeTransferByAgentId:success({TransactionId:input.transactionId,Status:1}),CheckTransferByTransactionId:receipt({Amount:2000})},points);assert.equal((await g.client.transfer(input)).amountMinor,'2000');assert.equal(g.calls[0].body.get('Amount'),'2000.00');
++});
++test('sub-sen and fractional precision mismatches require reconciliation',async()=>{
++ const f=fake({CheckTransferByTransactionId:receipt({Amount:20.0001})});assert.equal((await f.client.queryTransfer(input)).state,'unknown');
++ const g=fake({GetMemberInfo:success([{Account:input.playerId,Status:2,Balance:0.001}])});assert.equal((await g.client.player(input.playerId)).residual,true);
++});
++test('login signs ordered mandatory fields and returns only an approved single-use HTTPS URL',async()=>{
++ const f=fake({LoginWithoutRedirect:success('https://games.example.test/once?session=synthetic')});assert.equal((await f.client.launch(input.playerId,'1','en','https://www.master7.best/')).launchUrl,'https://games.example.test/once?session=synthetic');assert.equal(f.calls[0].body.get('Lang'),'en-US');
++ const g=fake({LoginWithoutRedirect:success('https://unapproved.example.test/once')});await assert.rejects(()=>g.client.launch(input.playerId,'1','en','https://www.master7.best/'),e=>e.code==='JILI_LAUNCH_URL_INVALID');
++});
++test('lossless wager ingestion preserves numeric 64-bit IDs and binds report pages to their window',async()=>{
++ const from=time-30*60_000,to=time-11*60_000,when=new Date(from+60_000-4*60*60_000).toISOString().slice(0,19),raw=`{"ErrorCode":0,"Data":{"Result":[{"Account":"m7synthetic","AgentId":"synthetic_myr","WagersId":1710419268000161101,"RoundIndex":1710419268000161100,"GameId":1,"BetAmount":1.25,"PayoffAmount":2.5,"Status":1,"SettlementTime":"${when}"}],"Pagination":{"CurrentPage":1,"TotalPages":1,"PageLimit":10000,"TotalNumber":1}}}`;
++ const f=fake({GetBetRecordByTime:()=>new Response(raw,{headers:{'Content-Type':'application/json'}})}),page=await f.client.wagers(from,to);assert.equal(page.items[0].providerBetId,'1710419268000161101');assert.equal(page.items[0].providerRoundId,'1710419268000161100');assert.equal(page.items[0].betMinor,'125');assert.equal(page.complete,true);
++ await assert.rejects(()=>f.client.wagers(from,to,'jili:other:2'),e=>e.code==='JILI_REPORT_CURSOR_INVALID');await assert.rejects(()=>f.client.wagers(from,time),e=>e.code==='JILI_REPORT_WINDOW_INVALID');
++});
++test('unconfirmed account units and unsafe endpoints fail before contacting any supplier',()=>{
++ for(const patch of [{transferAmountUnit:undefined},{queryAmountUnit:'unknown'},{baseUrl:'http://supplier.example.test/api1'},{baseUrl:'https://supplier.example.test/api1?key=bad'},{baseUrl:'https://supplier.example.test/other'}])assert.throws(()=>createJiliProtocolClient({...cfg(),...patch},fetch),e=>e.code==='JILI_CONFIGURATION_INVALID');
++});
++test('JILI profile and player substitutions cannot reach a transport or create a cash transfer',async()=>{
++ const config=cfg(),f=fake({}),adapter=createJiliGameProviderAdapter(config,{fetchImpl:f.transport,allowedReturnOrigins:['https://www.master7.best'],depositEnabled:true,merchantContractVerified:true,sessionClosureVerified:true}),c={profile:getGameProviderProfile(config.profile)};
++ await assert.rejects(()=>adapter.depositToGame({profile:getGameProviderProfile('jili_my1_1to100')},{userId:'alice',providerPlayerId:jiliPlayerId(config.profile,'alice'),platformTransactionId:'same',amountMinor:'20',currency:'MYR'}),e=>e.code==='JILI_PROFILE_MISMATCH');
++ await assert.rejects(()=>adapter.depositToGame(c,{userId:'alice',providerPlayerId:jiliPlayerId(config.profile,'bob'),platformTransactionId:'same',amountMinor:'20',currency:'MYR'}),e=>e.code==='JILI_PLAYER_MISMATCH');assert.equal(f.calls.length,0);
++ const closed=createJiliGameProviderAdapter(config,{fetchImpl:f.transport,allowedReturnOrigins:[],depositEnabled:true});await assert.rejects(()=>closed.depositToGame(c,{userId:'alice',providerPlayerId:jiliPlayerId(config.profile,'alice'),platformTransactionId:'same',amountMinor:'20',currency:'MYR'}),e=>e.code==='JILI_MERCHANT_CONTRACT_UNVERIFIED');assert.equal(f.calls.length,0);
++});
++test('JILI runtime needs account evidence, closure finality and production acceptance independently',()=>{
++ const connection=cfg(),slot={mode:'production',environment:'production',recoveryEnabled:true,qaMemberIds:['alice'],approvedApiEndpoints:[connection.baseUrl],connection,merchantContractVerified:true,merchantContractEvidenceSha256:'a'.repeat(64),sessionClosureVerified:true,allIssuedLaunchesInvalidated:true,lateResultsFinal:true},document=()=>JSON.stringify({profiles:{[connection.profile]:slot}});
++ assert.equal(jiliProfileRuntime(document(),connection.profile,'alice').launchAuthorized,false);assert.equal(jiliProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true}).launchAuthorized,true);
++ slot.lateResultsFinal=false;assert.equal(jiliProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true}).recoveryEnabled,false);slot.lateResultsFinal=true;slot.merchantContractEvidenceSha256='';assert.equal(jiliProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true}).launchAuthorized,false);
++ slot.merchantContractEvidenceSha256='a'.repeat(64);slot.mode='qa';assert.equal(gameTransferRuntime({gameTransferProfilesJson:document()},connection.profile,'bob').launchAuthorized,false);assert.equal(gameTransferRuntime({gameTransferProfilesJson:document()},connection.profile,'alice').launchAuthorized,true);assert.equal(gameTransferRuntime({gameTransferProfilesJson:document()},'jili_my1_1to100','alice'),null);
++});
+diff --git a/tests/jili-wallet-api.test.mjs b/tests/jili-wallet-api.test.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..b57ef2e422bbf4ac229a38cf71f056d9b4176be2
+--- /dev/null
++++ b/tests/jili-wallet-api.test.mjs
+@@ -0,0 +1,64 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {DatabaseSync} from 'node:sqlite';
++import {readFileSync,readdirSync} from 'node:fs';
++import {handle} from '../lib/backend.ts';
++import {getGameProviderProfile} from '../lib/game-provider-registry.ts';
++import {walletMinorToGameAmount} from '../lib/game-unit-conversion.ts';
++import {GAME_PROVIDER_ACCEPTANCE_CAPABILITIES} from '../lib/game-provider-acceptance.ts';
++
++function fixture(profileId='jili_myr_1to1'){
++ const sql=new DatabaseSync(':memory:');for(const name of readdirSync(new URL('../drizzle',import.meta.url)).filter(x=>x.endsWith('.sql')).sort())sql.exec(readFileSync(new URL('../drizzle/'+name,import.meta.url),'utf8'));
++ sql.exec("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES('alice','alice','member',1,'csrf-alice',0),('bob','bob','member',1,'csrf-bob',0),('owner','owner','owner',1,'csrf-owner',0);INSERT INTO deposit_orders(id,user_id,request_key,fingerprint,provider,amount_minor,currency,trade_code,status,created_at,updated_at) VALUES('synthetic-credit','alice','synthetic-credit','fixture','manual_bank',2000,'MYR','fixture','credited',0,0);INSERT INTO wallet_ledger(id,order_id,user_id,account_code,amount_minor,currency,created_at) VALUES('synthetic-member','synthetic-credit','alice','member',2000,'MYR',0),('synthetic-clearing','synthetic-credit','alice','provider_clearing',-2000,'MYR',0)");
++ class Statement{constructor(text,args=[]){this.text=text;this.args=args;}bind(...args){return new Statement(this.text,args);}async first(){return sql.prepare(this.text).get(...this.args)??null;}async all(){return {results:sql.prepare(this.text).all(...this.args)};}async run(){return sql.prepare(this.text).run(...this.args);}}
++ let queue=Promise.resolve();const db={prepare:text=>new Statement(text),batch(statements){const result=queue.then(async()=>{sql.exec('BEGIN IMMEDIATE');try{const out=[];for(const s of statements)out.push(await s.run());sql.exec('COMMIT');return out;}catch(e){sql.exec('ROLLBACK');throw e;}});queue=result.catch(()=>{});return result;}};
++ const profile=getGameProviderProfile(profileId),account=profile.unitScale===100?'1to100':'1to1',connection={profile:profileId,baseUrl:'https://supplier.example.test/api1',agentId:'synthetic_'+account,agentKey:'syntheticAgentKey000000000000000',transferAmountUnit:'platform_currency',queryAmountUnit:'platform_currency',balanceAmountUnit:'game_points',reportAmountUnit:'game_points',launchOrigins:['https://games.example.test']},slot={mode:'qa',environment:'production',recoveryEnabled:true,qaMemberIds:['alice'],approvedApiEndpoints:[connection.baseUrl],connection,merchantContractVerified:true,merchantContractEvidenceSha256:'a'.repeat(64),sessionClosureVerified:true,allIssuedLaunchesInvalidated:true,lateResultsFinal:true};
++ const state={cash:'0',online:false,created:false,calls:[],gatewayCalls:[],transfers:new Map(),throwDeposit:false,throwSweep:false,missingQuery:false,badGatewayAccount:false};
++ const transport=async(url,init)=>{
++  const method=new URL(url).pathname.split('/').at(-1),form=new URLSearchParams(init.body);state.calls.push({method,form});assert.equal(form.get('AgentId'),connection.agentId);const ok=data=>Response.json({ErrorCode:0,Data:data});
++  if(method==='GetGameList')return ok([{GameId:1,name:{'en-US':'Synthetic JILI slot'},GameCategoryId:1}]);
++  if(method==='CreateMember'){state.created=true;return ok(null);}
++  if(method==='GetMemberInfo')return ok([{Account:form.get('Accounts'),Balance:walletMinorToGameAmount(state.cash,profile.unitScale),Status:state.created?state.online?1:2:3}]);
++  if(method==='KickMember'){state.online=false;return ok(null);}
++  if(method==='LoginWithoutRedirect'){state.online=true;return ok('https://games.example.test/single-use-jili');}
++  if(method==='ExchangeTransferByAgentId'){
++   const direction=form.get('TransferType'),id=form.get('TransactionId'),amount=direction==='2'?form.get('Amount'):(Number(state.cash)/100).toFixed(2);if(direction==='1')assert.equal(form.get('Amount'),'0');
++   state.transfers.set(id,{Account:form.get('Account'),TransactionId:id,Amount:amount,TransferType:Number(direction),Status:1});state.cash=direction==='2'?String(Math.round(Number(amount)*100)):'0';
++   if(direction==='1'?state.throwSweep:state.throwDeposit)throw Error('Synthetic accepted transfer response lost');return ok({TransactionId:id,Status:1});
++  }
++  if(method==='CheckTransferByTransactionId')return state.missingQuery?Response.json({ErrorCode:101,Data:null}):ok(state.transfers.get(form.get('TransactionId'))??null);
++  throw Error('Unexpected supplier method '+method);
++ };
++ const config={db,newGameLaunchesEnabled:'true',newDepositsEnabled:'false',newPayoutsEnabled:'false',providerTransferFetch:transport,gameGatewayUrl:'https://master7-integration-gateway.onrender.com',gameGatewayFetch:async url=>{state.gatewayCalls.push(url);const u=new URL(url),chosen=u.searchParams.get('account');assert.equal(u.pathname,'/providers/jili/games');return Response.json({provider:'jili',account:state.badGatewayAccount?'other':chosen,currency:'MYR',ratio:chosen==='1to100'?'1:100':'1:1',games:[{gameCode:'1',name:'Synthetic JILI slot',category:'SLOT',maintenance:false}],upstreamStatus:200,complete:true});}};
++ const request=async(who,path,method='GET',body)=>{const response=await handle(new Request('https://www.master7.best'+path,{method,headers:{Origin:'https://www.master7.best','Content-Type':'application/json','X-CSRF-Token':'csrf-'+who,'X-Forwarded-For':'192.0.2.8'},...(body?{body:JSON.stringify(body)}:{})}),{...config,gameTransferProfilesJson:JSON.stringify({profiles:{[profileId]:slot}}),identity:who?{userId:who,email:who+'@example.test'}:null});return {status:response.status,body:await response.json()};};
++ const launch=(who='alice',id=profileId)=>request(who,'/api/game-launch','POST',{profileId:id,providerId:'jili',gameCode:'1',idempotencyKey:crypto.randomUUID(),language:'en'});
++ const accept=async()=>{for(const capability of GAME_PROVIDER_ACCEPTANCE_CAPABILITIES){const r=await request('owner','/api/admin/game-acceptance','POST',{profileId,capability,environment:'production',result:'passed',evidenceSha256:'b'.repeat(64),evidenceReference:'synthetic-jili-'+capability,observedAt:Math.floor(Date.now()/1000),expectedEventId:null});assert.equal(r.status,201,JSON.stringify(r));}};
++ return {sql,db,profile,slot,connection,state,config,request,launch,accept,close:()=>sql.close()};
++}
++
++for(const profileId of ['jili_myr_1to1','jili_my1_1to100'])test(`${profileId}: universal API transfers, launches, returns and records MYR exactly once`,async()=>{
++ const h=fixture(profileId);try{
++  const start=await h.launch();assert.equal(start.status,200,JSON.stringify(start));assert.equal(start.body.profileId,profileId);assert.equal(start.body.launchUrl,'https://games.example.test/single-use-jili');assert.ok(h.state.gatewayCalls[0].endsWith(h.profile.unitScale===100?'account=1to100':'account=1to1'));
++  const wallet=await h.request('alice',`/api/game-wallet?profileId=${profileId}`);assert.equal(wallet.body.wallet.availableMinor,'0');assert.equal(wallet.body.session.id,start.body.walletSessionId);assert.equal(wallet.body.supportsRecovery,true);
++  h.state.cash='1575';h.config.newGameLaunchesEnabled='false';
++  const end=await h.request('alice','/api/game-wallet/settle','POST',{profileId,sessionId:start.body.walletSessionId});assert.equal(end.status,200,JSON.stringify(end));assert.equal(end.body.session.resultMinor,'-425');
++  await h.request('alice','/api/game-wallet/recover','POST',{profileId,sessionId:start.body.walletSessionId});
++  const result=await h.request('alice',`/api/game-wallet?profileId=${profileId}`);assert.equal(result.body.wallet.availableMinor,'1575');assert.equal(h.state.calls.filter(x=>x.method==='ExchangeTransferByAgentId').length,2);
++  const records=await h.request('owner','/api/admin/game-wallet'),row=records.body.profileItems.find(x=>x.id===start.body.walletSessionId);assert.equal(row.amountReturnedMinor,'1575');assert.equal(row.reservedMinor,null);assert.equal(row.lastTransfer.providerReference,h.state.calls.find(x=>x.method==='ExchangeTransferByAgentId'&&x.form.get('TransferType')==='1').form.get('TransactionId'));assert.ok(!JSON.stringify(records.body).includes(h.connection.agentKey));assert.equal(h.sql.prepare('SELECT COUNT(*) n FROM game_wallet_ledger').get().n,1);assert.deepEqual(h.sql.prepare('PRAGMA foreign_key_check').all(),[]);
++ }finally{h.close();}
++});
++test('an accepted but timed-out JILI sweep is recovered under maintenance without a second submission',async()=>{
++ const h=fixture('jili_my1_1to100');try{const start=await h.launch();assert.equal(start.status,200,JSON.stringify(start));h.state.cash='1801';h.state.throwSweep=true;const body={profileId:h.profile.profileId,sessionId:start.body.walletSessionId},end=await h.request('alice','/api/game-wallet/settle','POST',body);assert.equal(end.status,503,JSON.stringify(end));assert.equal(h.sql.prepare('SELECT expected_return_minor FROM game_wallet_sessions').get().expected_return_minor,null);h.config.newGameLaunchesEnabled='false';h.slot.mode='closed';h.slot.qaMemberIds=[];h.state.missingQuery=true;const unresolved=await h.request('alice','/api/game-wallet/recover','POST',body);assert.equal(unresolved.body.status,'withdraw_unknown');h.state.missingQuery=false;const recovered=await h.request('alice','/api/game-wallet/recover','POST',body);assert.equal(recovered.body.status,'settled',JSON.stringify(recovered));assert.equal(h.state.calls.filter(x=>x.method==='ExchangeTransferByAgentId'&&x.form.get('TransferType')==='1').length,1);assert.equal((await h.request('alice',`/api/game-wallet?profileId=${h.profile.profileId}`)).body.wallet.availableMinor,'1801');}finally{h.close();}
++});
++test('JILI credentials, accepted evidence and a QA allowlist cannot bypass an unverified merchant closure contract',async()=>{
++ const h=fixture();try{h.slot.mode='production';await h.accept();h.slot.allIssuedLaunchesInvalidated=false;const r=await h.launch();assert.equal(r.status,503);assert.equal(h.state.calls.length,0);assert.equal(h.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);assert.equal((await h.request(null,'/health')).body.anyGamePlayable,false);}finally{h.close();}
++});
++test('JILI production readiness is per profile and does not certify its other account or 37 brands',async()=>{
++ const h=fixture();try{h.slot.mode='production';const before=await h.launch();assert.equal(before.status,503);assert.equal(h.state.calls.length,0);await h.accept();const catalogue=await h.request('alice',`/api/games?provider=jili&profileId=${h.profile.profileId}`);assert.equal(catalogue.body.selectedProfile.launchReady,true,JSON.stringify(catalogue));const health=await h.request(null,'/health');assert.equal(health.body.anyGamePlayable,true);assert.equal(health.body.providerAcceptance.liveProfileCount,1);assert.equal(health.body.liveGames,false);const other=await h.launch('alice','jili_my1_1to100');assert.equal(other.status,503);assert.equal(h.state.calls.filter(x=>x.method==='ExchangeTransferByAgentId').length,0);}finally{h.close();}
++});
++test('a JILI catalogue bound to a different account cannot reserve or deposit any member funds',async()=>{
++ const h=fixture('jili_my1_1to100');try{h.state.badGatewayAccount=true;const result=await h.launch();assert.equal(result.status,409,JSON.stringify(result));assert.equal(h.state.calls.length,0);assert.equal(h.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);}finally{h.close();}
++});
++test('a changed JILI amount unit mapping cannot reinterpret a funded session during recovery',async()=>{
++ const h=fixture('jili_my1_1to100');try{const start=await h.launch();assert.equal(start.status,200,JSON.stringify(start));const calls=h.state.calls.length;h.connection.queryAmountUnit='game_points';const end=await h.request('alice','/api/game-wallet/settle','POST',{profileId:h.profile.profileId,sessionId:start.body.walletSessionId});assert.equal(end.status,409);assert.equal(end.body.code,'GAME_TRANSFER_CONTRACT_REVIEW');assert.equal(h.state.calls.length,calls);assert.equal(h.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,1);assert.equal(h.sql.prepare('SELECT COUNT(*) n FROM game_wallet_ledger').get().n,0);}finally{h.close();}
++});
+diff --git a/tests/megah5-wallet.test.mjs b/tests/megah5-wallet.test.mjs
+index 49b5ed548dc7ec4d8ad12b18571c8f18ce131f99..4e2d3ab35ac81d6d37e25ce4b42ac34a72d7daa0 100644
+--- a/tests/megah5-wallet.test.mjs
++++ b/tests/megah5-wallet.test.mjs
+@@ -19,7 +19,7 @@ import {megaCapabilityFixture} from './fixtures/megah5-capability.mjs';
+ import {withdrawalWalletState,clearStaleReservation} from '../lib/withdrawals.ts';
+ import {walletGuardStatements,walletGuardedReservation} from '../lib/wallet-guard.ts';
+ 
+-const migrations=['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql','0014_withdrawal_requests.sql','0019_game_catalogue_sync.sql','0020_manual_bank_deposits.sql','0021_api_supplier_status.sql','0022_referrals.sql','0023_marketing_campaigns.sql','0024_megah5_transfer_wallet.sql','0025_game_access_zones.sql','0090_security_wallet_reservations.sql','0094_payment_recovery_and_payout_state.sql','0110_game_provider_adapter_core.sql','0111_member_wallet_guards.sql','0112_megah5_launch_operations.sql','0113_game_provider_acceptance_evidence.sql','0115_manual_bank_funds.sql','0116_provider_wallet_operations.sql'];
++const migrations=['0000_broken_bloodscream.sql','0001_orange_owl.sql','0002_lobby_ads.sql','0003_game_visibility.sql','0004_sponsored_brands.sql','0005_custom_game_cards.sql','0006_malaysia_member_phone.sql','0007_vpay_uat_wallet.sql','0008_member_sms_otp.sql','0009_game_payment_statuses.sql','0010_game_visibility_artwork.sql','0011_provider_artwork.sql','0012_close_defaults_and_brand_directory.sql','0013_api_supplier_artwork.sql','0014_withdrawal_requests.sql','0019_game_catalogue_sync.sql','0020_manual_bank_deposits.sql','0021_api_supplier_status.sql','0022_referrals.sql','0023_marketing_campaigns.sql','0024_megah5_transfer_wallet.sql','0025_game_access_zones.sql','0090_security_wallet_reservations.sql','0094_payment_recovery_and_payout_state.sql','0110_game_provider_adapter_core.sql','0111_member_wallet_guards.sql','0112_megah5_launch_operations.sql','0113_game_provider_acceptance_evidence.sql','0115_manual_bank_funds.sql','0116_provider_wallet_operations.sql','0120_provider_wallet_sweeps.sql'];
+ const gatewayUrl='https://master7-integration-gateway.onrender.com';
+ const gameToken='g'.repeat(48),walletToken='w'.repeat(48);
+ 
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index ede4f5b75868e9cbd97d130fe0610bf1627c0d35..8b78bb47b9526a2171638389479f3816489a2dcb 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.147-game-runtime-repair';
++const release='17.0.0-selfbuilt.148-jili-transfer-wallet';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+diff --git a/tests/provider-transfer-wallet.test.mjs b/tests/provider-transfer-wallet.test.mjs
+index 425bf177cd33da75a24f3cfd8372bf81d0c764de..015c73b3e4886a6a1a588f767bf5b7910e907542 100644
+--- a/tests/provider-transfer-wallet.test.mjs
++++ b/tests/provider-transfer-wallet.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {DatabaseSync} from 'node:sqlite';
+ import {readdirSync,readFileSync} from 'node:fs';
+-import {launchTransferWallet,settleTransferWallet,recoverTransferWallet,memberTransferWallet,ProviderTransferError} from '../lib/provider-transfer-wallet.ts';
++import {launchTransferWallet,settleTransferWallet,recoverTransferWallet,memberTransferWallet,adminTransferWalletRecords,ProviderTransferError} from '../lib/provider-transfer-wallet.ts';
+ import {withdrawalWalletState,clearStaleReservation} from '../lib/withdrawals.ts';
+ import {memberMegaWalletState} from '../lib/megah5-wallet.ts';
+ import {getGameProviderProfile} from '../lib/game-provider-registry.ts';
+@@ -34,6 +34,39 @@ function harness(){
+ }
+ const rejects=code=>e=>e instanceof ProviderTransferError&&e.code===code;
+ 
++function sweepHarness(){
++ const h=harness(),base=h.ctx(),sweep={returned:'1575',mode:'confirmed',query:'confirmed',postBalance:'0',receiptAmount:undefined,receipts:new Map()};
++ const adapter={...base.adapter,withdrawalMode:'all',transferContractFingerprint:'a'.repeat(64),
++  async withdrawAllFromGame(c,i){h.state.calls.push(['sweep',c.profile.profileId,{...i}]);const value={state:'confirmed',providerTransactionId:'SW-1',amountMinor:sweep.returned};sweep.receipts.set(i.platformTransactionId,value);h.state.balances.set(i.providerPlayerId,sweep.postBalance);if(sweep.mode==='throw')throw Error('Synthetic accepted sweep response lost');return sweep.mode==='confirmed'?value:{state:'unknown'};},
++  async queryWithdrawAll(c,i){h.state.calls.push(['sweep-query',c.profile.profileId,{...i}]);return sweep.query==='confirmed'?{...sweep.receipts.get(i.platformTransactionId),...(sweep.receiptAmount===undefined?{}:{amountMinor:sweep.receiptAmount})}:{state:'unknown'};},
++ };
++ return {...h,sweep,c:{...base,adapter}};
++}
++test('a sweep returns the actual receipt amount even when the displayed supplier balance is stale zero',async()=>{
++ const h=sweepHarness();try{await launchTransferWallet(h.c,h.input());const s=h.latest();h.state.balances.set(s.player_id,'0');await settleTransferWallet(h.c,s.id);await recoverTransferWallet(h.c,s.id);assert.equal((await withdrawalWalletState(h.db,'alice')).availableMinor,'1575');assert.equal(h.state.calls.filter(x=>x[0]==='sweep').length,1);assert.equal(h.state.calls.filter(x=>x[0]==='withdrawal').length,0);assert.equal(h.sqlite.prepare('SELECT amount_minor FROM game_wallet_ledger').get().amount_minor,-425);}finally{h.close();}
++});
++test('a confirmed zero sweep requires a real original transaction and is not mistaken for a skipped exact withdrawal',async()=>{
++ const h=sweepHarness();try{h.sweep.returned='0';await launchTransferWallet(h.c,h.input());await settleTransferWallet(h.c,h.latest().id);const operation=h.sqlite.prepare('SELECT * FROM provider_wallet_operations').get();assert.equal(operation.withdrawal_mode,'all');assert.equal(operation.withdrawal_attempts,1);assert.equal(operation.withdrawal_provider_reference,'SW-1');assert.equal((await withdrawalWalletState(h.db,'alice')).availableMinor,'0');assert.equal(h.state.calls.filter(x=>x[0]==='sweep').length,1);assert.equal(h.sqlite.prepare('SELECT amount_minor FROM game_wallet_ledger').get().amount_minor,-2000);}finally{h.close();}
++});
++test('a timed-out sweep recovers its original reference with no amount guessed from a stale balance',async()=>{
++ const h=sweepHarness();try{h.sweep.mode='throw';await launchTransferWallet(h.c,h.input());const id=h.latest().id;await assert.rejects(()=>settleTransferWallet(h.c,id),rejects('GAME_WITHDRAWAL_UNKNOWN'));assert.equal(h.latest().expected_return_minor,null);assert.equal((await adminTransferWalletRecords(h.db))[0].lastTransfer.amountMinor,null);assert.equal((await withdrawalWalletState(h.db,'alice')).availableMinor,'0');h.sweep.query='unknown';await recoverTransferWallet(h.c,id);assert.equal(h.latest().expected_return_minor,null);h.sweep.query='confirmed';await recoverTransferWallet(h.c,id);const submit=h.state.calls.find(x=>x[0]==='sweep')[2],queries=h.state.calls.filter(x=>x[0]==='sweep-query');assert.ok(queries.every(x=>x[2].platformTransactionId===submit.platformTransactionId&&!('amountMinor' in x[2])));assert.equal(h.state.calls.filter(x=>x[0]==='sweep').length,1);assert.equal((await withdrawalWalletState(h.db,'alice')).availableMinor,'1575');}finally{h.close();}
++});
++test('concurrent sweep returns submit once and create one final ledger',async()=>{
++ const h=sweepHarness();try{await launchTransferWallet(h.c,h.input());const id=h.latest().id,results=await Promise.allSettled([settleTransferWallet(h.c,id),settleTransferWallet(h.c,id)]);assert.ok(results.some(x=>x.status==='fulfilled'));assert.equal(h.state.calls.filter(x=>x[0]==='sweep').length,1);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM game_wallet_ledger').get().n,1);assert.equal((await withdrawalWalletState(h.db,'alice')).availableMinor,'1575');}finally{h.close();}
++});
++test('a prepared sweep resumes the durable original reference without a balance-based amount',async()=>{
++ const h=sweepHarness();try{await launchTransferWallet(h.c,h.input());const id=h.latest().id;h.sqlite.prepare("UPDATE provider_wallet_operations SET closure_state='confirmed',closure_evidence=?,launch_state='closed',withdrawal_state='prepared' WHERE session_id=?").run('b'.repeat(64),id);h.sqlite.prepare("UPDATE game_wallet_sessions SET status='withdraw_pending',withdraw_reference='original-sweep',expected_return_minor=NULL WHERE id=?").run(id);await recoverTransferWallet(h.c,id);assert.equal(h.state.calls.find(x=>x[0]==='sweep')[2].platformTransactionId,'original-sweep');assert.equal((await withdrawalWalletState(h.db,'alice')).availableMinor,'1575');}finally{h.close();}
++});
++test('a confirmed sweep keeps funds reserved until the post-return balance is zero and rejects a changed receipt',async()=>{
++ const h=sweepHarness();try{h.sweep.postBalance='100';await launchTransferWallet(h.c,h.input());const s=h.latest();await assert.rejects(()=>settleTransferWallet(h.c,s.id),rejects('GAME_RETURN_NOT_ZERO'));assert.equal((await withdrawalWalletState(h.db,'alice')).availableMinor,'0');h.sweep.receiptAmount='9999';await assert.rejects(()=>recoverTransferWallet(h.c,s.id),rejects('GAME_RETURN_RECEIPT_REVIEW'));assert.equal(h.latest().expected_return_minor,1575);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM game_wallet_ledger').get().n,0);h.sweep.receiptAmount=undefined;h.state.balances.set(s.player_id,'0');await recoverTransferWallet(h.c,s.id);assert.equal((await withdrawalWalletState(h.db,'alice')).availableMinor,'1575');assert.equal(h.state.calls.filter(x=>x[0]==='sweep').length,1);}finally{h.close();}
++});
++test('switching the withdrawal protocol or merchant unit contract cannot alter an existing session',async()=>{
++ const h=sweepHarness();try{await launchTransferWallet(h.c,h.input());const id=h.latest().id,calls=h.state.calls.length;await assert.rejects(()=>settleTransferWallet({...h.c,adapter:{...h.c.adapter,withdrawalMode:'exact'}},id),rejects('GAME_TRANSFER_MODE_REVIEW'));await assert.rejects(()=>settleTransferWallet({...h.c,adapter:{...h.c.adapter,transferContractFingerprint:'b'.repeat(64)}},id),rejects('GAME_TRANSFER_CONTRACT_REVIEW'));assert.equal(h.state.calls.length,calls);assert.throws(()=>h.sqlite.prepare("UPDATE provider_wallet_operations SET withdrawal_mode='exact' WHERE session_id=?").run(id),/immutable/);assert.throws(()=>h.sqlite.prepare('UPDATE provider_wallet_operations SET adapter_contract_sha256=? WHERE session_id=?').run('c'.repeat(64),id),/immutable/);assert.equal((await withdrawalWalletState(h.db,'alice')).availableMinor,'0');}finally{h.close();}
++});
++test('a sweep receipt without an actual normalized amount never releases the wallet reservation',async()=>{
++ const h=sweepHarness();try{h.sweep.returned=undefined;await launchTransferWallet(h.c,h.input());const id=h.latest().id;await assert.rejects(()=>settleTransferWallet(h.c,id),rejects('GAME_WITHDRAWAL_UNKNOWN'));await recoverTransferWallet(h.c,id);assert.equal(h.latest().expected_return_minor,null);assert.equal((await withdrawalWalletState(h.db,'alice')).availableMinor,'0');assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM game_wallet_ledger').get().n,0);}finally{h.close();}
++});
++
+ for(const profileId of ['jili_my1_1to100','918kiss_normal_my1_1to100'])test(`${profileId}: game points settle into MYR once without multiplying the cash ledger`,async()=>{
+  const h=harness();try{
+   const p={...getGameProviderProfile(profileId),walletMode:'transfer'},base=h.ctx().adapter,points=new Map(),wire=[];
+diff --git a/tests/responsible-play-api.test.mjs b/tests/responsible-play-api.test.mjs
+index 9e953fd1fd3830380d3cfc6f45a580c3a4d39b28..82ad7852cd119ee5fd1fa65fc79ddd026f8a2651 100644
+--- a/tests/responsible-play-api.test.mjs
++++ b/tests/responsible-play-api.test.mjs
+@@ -13,7 +13,7 @@ const migrations=[
+  '0025_game_access_zones.sql','0027_marketing_contact_scale.sql','0090_security_wallet_reservations.sql','0091_operations_automation.sql',
+  '0092_support_marketing_notifications.sql','0093_reward_state_machines.sql','0094_payment_recovery_and_payout_state.sql',
+  '0100_whatsapp_campaign_delivery.sql','0101_rewards_hub.sql','0102_responsible_play.sql','0110_game_provider_adapter_core.sql',
+- '0111_member_wallet_guards.sql','0112_megah5_launch_operations.sql','0113_game_provider_acceptance_evidence.sql','0115_manual_bank_funds.sql','0116_provider_wallet_operations.sql',
++ '0111_member_wallet_guards.sql','0112_megah5_launch_operations.sql','0113_game_provider_acceptance_evidence.sql','0115_manual_bank_funds.sql','0116_provider_wallet_operations.sql','0120_provider_wallet_sweeps.sql',
+ ];
+ 
+ class Statement{

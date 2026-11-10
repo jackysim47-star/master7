@@ -1,0 +1,105 @@
+{
+  "release": "17.0.0-selfbuilt.148-jili-transfer-wallet",
+  "preparedAt": "2026-11-10T04:18:26.386500+00:00",
+  "sourceCommit": "dbdfb4c78cc9d3c5f4a2eea408b922ac1cce8dc2",
+  "baselineSourceCommit": "75d54b8aafa31bb2383d24c285735e0fd3a9b687",
+  "baselineRelease": "17.0.0-selfbuilt.147-game-runtime-repair",
+  "archive": {
+    "sha256": "0a1c895159be269ba9d41c6b24ebf8f21a40dfa1aee93873a44c12f61667f241",
+    "bytes": 7111588,
+    "files": 676,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/MASTER7_JILI_TRANSFER_WALLET_148.md",
+      "drizzle/0120_provider_wallet_sweeps.sql",
+      "lib/jili-profile-runtime.ts",
+      "lib/jili-provider-adapter.ts",
+      "lib/jili-transfer-protocol.ts",
+      "tests/jili-transfer-protocol.test.mjs",
+      "tests/jili-wallet-api.test.mjs"
+    ],
+    "changed": [
+      ".env.example",
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "lib/backend.ts",
+      "lib/encrypted-backup.ts",
+      "lib/game-catalogue.ts",
+      "lib/game-provider-adapter.ts",
+      "lib/game-provider-registry.ts",
+      "lib/game-provider-runtime.ts",
+      "lib/production-acceptance.ts",
+      "lib/provider-transfer-wallet.ts",
+      "lib/provider-wallet-consistency.ts",
+      "lib/render-migrations.mjs",
+      "package.json",
+      "public/assets/app.js",
+      "public/service-worker.js",
+      "scripts/verify-isolated-postgres-provider-wallet.mjs",
+      "tests/api.test.mjs",
+      "tests/backup-restore-rehearsal.test.mjs",
+      "tests/finance-center-api.test.mjs",
+      "tests/game-launch.test.mjs",
+      "tests/game-provider-acceptance.test.mjs",
+      "tests/game-wallet-records-ui.test.mjs",
+      "tests/megah5-wallet.test.mjs",
+      "tests/official-entries-probe.test.mjs",
+      "tests/provider-transfer-wallet.test.mjs",
+      "tests/responsible-play-api.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "maintenance": 12,
+    "releaseProbes": 27,
+    "regression": 1305,
+    "focusedFinalSource": 63,
+    "renderDatabase": 3,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "isolatedPostgresProviderWallet": 9,
+    "supplierTests": "synthetic only; no live acceptance"
+  },
+  "predeployBackup": {
+    "sha256": "37850f0b585d31fa2c708c0640abb303673b5f3abb6dd6b34ac3a36144a93f99",
+    "tableCount": 71,
+    "records": 477,
+    "postgresRestoreVerified": true,
+    "persistentWrites": false,
+    "foreignKeyViolations": 0
+  },
+  "implementedProtocolInventory": [
+    "megah5",
+    "jdb",
+    "jili"
+  ],
+  "implementedListedAccountProfiles": 4,
+  "remaining": {
+    "notAllPlanItemsComplete": true,
+    "productionAcceptedProfiles": 0,
+    "merchantContract": "JILI unit mapping and closure finality unconfirmed; secondary protocol reference is not merchant acceptance",
+    "productionRuntimeSecretInstalled": false,
+    "additionalProviderAdapters": "918KISS and other account protocols remain unimplemented",
+    "megaH5ProductionClosure": "no production supplier implementation",
+    "jdbMerchantAuthorization": "latest supplier response 9001",
+    "actualGameLaunchesDuringThisWork": 0,
+    "realMoneyTransfersDuringThisWork": 0
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "gameCredentials": false,
+    "activationFlags": false,
+    "billingPlans": false,
+    "dns": false,
+    "schemaMigrations": [
+      "0120-provider-wallet-sweeps"
+    ]
+  },
+  "candidateLive": false
+}
