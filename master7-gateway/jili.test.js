@@ -3,7 +3,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const http = require('node:http');
-const { jiliDate, jiliKey } = require('./jili');
+const { jiliDate, jiliKey, normalizeJiliGames } = require('./jili');
 const { makeApp } = require('./server');
 
 async function run(handler, path) {
@@ -74,5 +74,40 @@ test('JILI provider errors and malformed success bodies never become successful 
     const fetchImpl=async()=>new Response(JSON.stringify(reply));
     const res=await run(makeApp({env,fetchImpl}),'/providers/jili/games');
     assert.equal(res.status,502);assert.equal((await res.text()).includes('private-secret'),false);
+  }
+});
+
+test('JILI normalizes only contract-valid unique game rows', () => {
+  assert.deepEqual(normalizeJiliGames([{
+    GameId: 101,
+    name: { 'en-US': ' Royal Fishing ', 'zh-CN': '钱龙捕鱼', 'zh-TW': '錢龍捕魚' },
+    GameCategoryId: 5,
+    JP: false,
+  }]), [{ gameCode: '101', name: 'Royal Fishing', nameZh: '钱龙捕鱼', category: '5', jackpot: false }]);
+
+  const valid = id => ({ GameId: id, name: { 'en-US': `Game ${id}` }, GameCategoryId: 1, JP: true });
+  for (const rows of [
+    [{ name: { 'en-US': 'Missing ID' }, GameCategoryId: 1, JP: false }],
+    [{ GameId: 1, name: { 'en-US': '' }, GameCategoryId: 1, JP: false }],
+    [{ GameId: 1, name: { 'en-US': 'Game' }, GameCategoryId: '1', JP: false }],
+    [{ GameId: 1, name: { 'en-US': 'Game' }, GameCategoryId: 1, JP: 0 }],
+  ]) assert.throws(() => normalizeJiliGames(rows), /jili_invalid_game/);
+  assert.throws(() => normalizeJiliGames([valid(1), valid(1)]), /jili_duplicate_game/);
+  assert.throws(() => normalizeJiliGames(Array.from({ length: 10001 }, (_, id) => valid(id))), /jili_invalid_response/);
+});
+
+test('JILI HTTP route fails closed on malformed or duplicate catalogue rows', async () => {
+  const env = { JILI_1TO1_AGENT_ID: 'one', JILI_1TO1_AGENT_KEY: 'key' };
+  for (const Data of [
+    [{ GameId: 1, name: { 'en-US': 'Game' }, GameCategoryId: 1 }],
+    [
+      { GameId: 1, name: { 'en-US': 'First' }, GameCategoryId: 1, JP: false },
+      { GameId: 1, name: { 'en-US': 'Second' }, GameCategoryId: 1, JP: false },
+    ],
+  ]) {
+    const fetchImpl = async () => new Response(JSON.stringify({ ErrorCode: 0, Data }));
+    const res = await run(makeApp({ env, fetchImpl }), '/providers/jili/games');
+    assert.equal(res.status, 502);
+    assert.match((await res.json()).error, /^jili_(?:invalid|duplicate)_/);
   }
 });

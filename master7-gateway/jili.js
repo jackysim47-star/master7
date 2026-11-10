@@ -2,6 +2,25 @@
 
 const crypto = require('node:crypto');
 
+const MAX_GAMES = 10000;
+
+function fail(code) {
+  throw Object.assign(new Error(code), { status: 502 });
+}
+
+function gameName(value, required = false) {
+  if (value === undefined || value === null) {
+    if (required) fail('jili_invalid_game');
+    return '';
+  }
+  if (typeof value !== 'string') fail('jili_invalid_game');
+  const text = value.trim();
+  if ((required && !text) || text.length > 512 || /[\u0000-\u001f\u007f-\u009f]/u.test(text)) {
+    fail('jili_invalid_game');
+  }
+  return text;
+}
+
 // JILI API manual 1.1.2: fixed UTC-4; yyMMd (day is not zero-padded).
 function jiliDate(now = new Date()) {
   const date = new Date(now.getTime() - 4 * 60 * 60 * 1000);
@@ -24,4 +43,30 @@ function jiliCatalogueBody(agentId, agentKey, now) {
   return new URLSearchParams({ AgentId: agentId, Key: jiliKey(query, agentId, agentKey, now) }).toString();
 }
 
-module.exports = { jiliDate, jiliKey, jiliCatalogueBody };
+// Legacy GetGameList contract 3.1.6.1 requires typed identity, name, category
+// and jackpot fields. Reject ambiguous rows instead of publishing empty IDs.
+function normalizeJiliGames(rows) {
+  if (!Array.isArray(rows) || rows.length > MAX_GAMES) fail('jili_invalid_response');
+  const seen = new Set();
+  return rows.map(row => {
+    if (!row || typeof row !== 'object' || Array.isArray(row)
+        || !Number.isSafeInteger(row.GameId) || row.GameId < 0
+        || !row.name || typeof row.name !== 'object' || Array.isArray(row.name)
+        || !Number.isSafeInteger(row.GameCategoryId) || row.GameCategoryId < 0
+        || typeof row.JP !== 'boolean') {
+      fail('jili_invalid_game');
+    }
+    const gameCode = String(row.GameId);
+    if (seen.has(gameCode)) fail('jili_duplicate_game');
+    seen.add(gameCode);
+    return {
+      gameCode,
+      name: gameName(row.name['en-US'], true),
+      nameZh: gameName(row.name['zh-CN']),
+      category: String(row.GameCategoryId),
+      jackpot: row.JP,
+    };
+  });
+}
+
+module.exports = { jiliDate, jiliKey, jiliCatalogueBody, normalizeJiliGames };

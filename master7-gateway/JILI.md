@@ -13,4 +13,6 @@ Protocol source read 2026-10-13: https://wbgame.tadagaming.com/sss-doc/SSS_Seaml
 
 The signature uses fixed UTC-4, `yyMMd`, then two MD5 operations and six random characters on either side. Requests are form-encoded POSTs containing AgentId and computed Key. Redirects are rejected. Only game IDs, names, category IDs and jackpot flags are returned; provider messages and credentials are excluded.
 
+Provider success is accepted only when every game has the required integer GameId and category, an English name and a boolean jackpot flag. Duplicate IDs, malformed rows and oversized catalogues fail closed instead of producing ambiguous public game codes.
+
 `/health` only indicates that both environment fields exist for a profile. It does not verify credentials, production access, launch permission or a playable frontend. There are no launch, wallet, transfer or betting routes in this connector.

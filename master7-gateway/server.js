@@ -11,7 +11,7 @@ const {
   paymentSignature,
   paymentStatusPayload,
 } = require('./gspay');
-const { jiliCatalogueBody } = require('./jili');
+const { jiliCatalogueBody, normalizeJiliGames } = require('./jili');
 const { venusCatalogue } = require('./venus');
 const { rsghubCatalogue } = require('./rsghub');
 const { jdbCatalogue } = require('./jdb');
@@ -592,13 +592,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         }
         return send(res, 200, {
           provider: 'jili', account: accountName, currency: 'MYR', ratio: account.ratio,
-          games: result.data.Data.map(game => ({
-            gameCode: String(game?.GameId ?? ''),
-            name: typeof game?.name?.['en-US'] === 'string' ? game.name['en-US'] : '',
-            nameZh: typeof game?.name?.['zh-CN'] === 'string' ? game.name['zh-CN'] : '',
-            category: String(game?.GameCategoryId ?? ''),
-            jackpot: game?.JP === true,
-          })),
+          games: normalizeJiliGames(result.data.Data),
         }, cors);
       }
 
