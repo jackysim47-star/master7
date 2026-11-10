@@ -1,0 +1,534 @@
+diff --git a/app/portal.html b/app/portal.html
+index ef0a1ff..5ae811c 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.159-premium-mobile">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.159-premium-mobile">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.159-premium-mobile">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.159-premium-mobile">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.159-premium-mobile">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.159-premium-mobile">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.159-premium-mobile">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.159-premium-mobile">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.159-premium-mobile">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.159-premium-mobile">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.159-premium-mobile">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.159-premium-mobile">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.159-premium-mobile">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.159-premium-mobile">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.159-premium-mobile" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+diff --git a/docs/MASTER7_META_GAMING_ADAPTER_160.md b/docs/MASTER7_META_GAMING_ADAPTER_160.md
+new file mode 100644
+index 0000000..c0f120e
+--- /dev/null
++++ b/docs/MASTER7_META_GAMING_ADAPTER_160.md
+@@ -0,0 +1,7 @@
++# MASTER7 V17.160 META GAMING Adapter Candidate
++
++Release: `17.0.0-selfbuilt.160-meta-gaming-adapter`
++
++This release adds isolated, disabled-by-default META GAMING runtime support for `metagaming_normal_myr` and `metagaming_free_myr`. The portal and gateway preserve profile, account, player, ledger and peer-token isolation for player, launch, balance, transfer, status, session, unfinished-report and report-acknowledgement operations.
++
++All META runtime capabilities remain closed until their matching gateway flags, provider authorization, amount semantics, session finality, report acknowledgement and controlled UAT evidence are complete. This release does not make either profile launch-ready, verified or playable.
+diff --git a/docs/MASTER7_META_GAMING_CATALOGUE_CANDIDATE_20261110.md b/docs/MASTER7_META_GAMING_CATALOGUE_CANDIDATE_20261110.md
+index 4dea085..63119a6 100644
+--- a/docs/MASTER7_META_GAMING_CATALOGUE_CANDIDATE_20261110.md
++++ b/docs/MASTER7_META_GAMING_CATALOGUE_CANDIDATE_20261110.md
+@@ -10,8 +10,8 @@ This candidate adds two independent, read-only META GAMING catalogue profiles:
+ 
+ | Portal profile | Gateway request | Portal balance class | Runtime adapter |
+ |---|---|---|---|
+-| `metagaming_normal_myr` | `GET /providers/metagaming/games?account=normal` | `cash` | `adapter_unimplemented` |
+-| `metagaming_free_myr` | `GET /providers/metagaming/games?account=free` | `free_credit` | `adapter_unimplemented` |
++| `metagaming_normal_myr` | `GET /providers/metagaming/games?account=normal` | `cash` | `implemented · disabled pending acceptance` |
++| `metagaming_free_myr` | `GET /providers/metagaming/games?account=free` | `free_credit` | `implemented · cash-ledger closed` |
+ 
+ The profiles have separate player namespaces, ledger namespaces and catalogue
+ cache keys. A successful normalized gateway response must identify the exact
+diff --git a/docs/MASTER7_META_GAMING_RUNTIME_CANDIDATE_20261110.md b/docs/MASTER7_META_GAMING_RUNTIME_CANDIDATE_20261110.md
+new file mode 100644
+index 0000000..c97e238
+--- /dev/null
++++ b/docs/MASTER7_META_GAMING_RUNTIME_CANDIDATE_20261110.md
+@@ -0,0 +1,34 @@
++# META GAMING runtime candidate
++
++This change compiles independent server-side adapters for
++`metagaming_normal_myr` and `metagaming_free_myr`. It does not enable either
++profile, publish a Play button, or record supplier acceptance.
++
++## Safety boundary
++
++- Normal and free-credit use different profile, player and ledger namespaces.
++- The account is derived from the compiled profile and is checked again by the
++  integration gateway. A browser cannot select credentials or an API origin.
++- Player/launch, wallet, recovery and report requests use four different peer
++  tokens. Aliased or malformed tokens reject the entire secret document.
++- All submission switches are false unless a server-side profile document
++  records merchant-contract evidence, session-closure evidence and an
++  authorized QA member or production acceptance.
++- Only English is implemented. The portal sends the gateway's reviewed `en`
++  value for provider English `en-us`. Customer returns require the exact
++  `https://www.master7.best` origin, and provider launch URLs require an exact
++  configured HTTPS origin.
++- Deposit and withdrawal responses do not contain transaction IDs. Their
++  result stays `unknown` until `CheckTransferStatus` returns the original
++  account-bound reference and exact amount.
++- `PullLog` has no requested-time-window coverage receipt. Pages therefore
++  remain `complete:false`; the adapter never calls `FlagLog` automatically.
++- The free-credit profile is executable for isolated protocol testing but is
++  rejected by the existing cash-ledger seeding gate.
++
++## Remaining external blockers
++
++The supplier must clear the current HTTP 403/allowlist response and confirm
++merchant amount semantics, issued-URL invalidation, late-result finality and
++report acknowledgement. Controlled QA and production evidence are still
++required before any capability can be enabled.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 5c654c0..5297e87 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -38,7 +38,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.159-premium-mobile';
++export const RELEASE = '17.0.0-selfbuilt.160-meta-gaming-adapter';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff --git a/lib/game-provider-registry.ts b/lib/game-provider-registry.ts
+index 48bb003..441c9df 100644
+--- a/lib/game-provider-registry.ts
++++ b/lib/game-provider-registry.ts
+@@ -86,8 +86,8 @@ const independentProfiles = [
+   profile({profileId: '918kiss_normal_myr', providerId: '918kissh5', displayName: '918KISS H5 · Normal MYR', adapterStatus: 'adapter_unimplemented'}),
+   profile({profileId: '918kiss_normal_my1_1to100', providerId: '918kissh5', displayName: '918KISS H5 · Normal MY1 1:100', unitScale: 100, adapterStatus: 'adapter_unimplemented'}),
+   profile({profileId: '918kiss_free_myr', providerId: '918kissh5', displayName: '918KISS H5 · Free Credit MYR', adapterStatus: 'adapter_unimplemented'}),
+-  profile({profileId: 'metagaming_normal_myr', providerId: 'metagaming', displayName: 'META GAMING · Normal MYR', adapterStatus: 'adapter_unimplemented'}),
+-  profile({profileId: 'metagaming_free_myr', providerId: 'metagaming', displayName: 'META GAMING · Free Credit MYR', adapterStatus: 'adapter_unimplemented'}),
++  profile({profileId: 'metagaming_normal_myr', providerId: 'metagaming', displayName: 'META GAMING · Normal MYR', walletMode:'transfer', adapterStatus:'implemented', contractStatus:'incomplete'}),
++  profile({profileId: 'metagaming_free_myr', providerId: 'metagaming', displayName: 'META GAMING · Free Credit MYR', walletMode:'transfer', balanceClass:'free_credit', adapterStatus:'implemented', contractStatus:'incomplete'}),
+   profile({profileId: 'epicwin_normal_myr', providerId: 'epicwin', displayName: 'EPICWIN · Normal MYR', adapterStatus: 'adapter_unimplemented'}),
+   profile({profileId: 'epicwin_free_myr', providerId: 'epicwin', displayName: 'EPICWIN · Free Credit MYR', adapterStatus: 'adapter_unimplemented'}),
+   // SPRIBE must never reuse JDB's player or ledger namespace even if its future
+diff --git a/lib/game-provider-runtime.ts b/lib/game-provider-runtime.ts
+index 65197ae..ab78ba5 100644
+--- a/lib/game-provider-runtime.ts
++++ b/lib/game-provider-runtime.ts
+@@ -1,5 +1,6 @@
+ import {jdbProfileRuntime} from './jdb-profile-runtime.ts';
+ import {jiliProfileRuntime} from './jili-profile-runtime.ts';
++import {metaGamingProfileRuntime} from './metagaming-profile-runtime.ts';
+ import {getGameProviderProfile,type RegisteredGameProviderProfile} from './game-provider-registry.ts';
+ import {registeredCashProfileUnits} from './game-profile-units.ts';
+ import type {GameProviderAdapter} from './game-provider-adapter.ts';
+@@ -23,6 +24,7 @@ function profileDocument(settings:TransferRuntimeSettings,profileId:string){
+ const factories:Readonly<Record<string,Factory>>=Object.freeze({
+  jdb:(settings,profileId,userId,productionAccepted)=>jdbProfileRuntime(profileDocument(settings,profileId),profileId,userId,{fetchImpl:settings.providerTransferFetch,productionAccepted}),
+  jili:(settings,profileId,userId,productionAccepted)=>jiliProfileRuntime(profileDocument(settings,profileId),profileId,userId,{fetchImpl:settings.providerTransferFetch,productionAccepted}),
++ metagaming:(settings,profileId,userId,productionAccepted)=>metaGamingProfileRuntime(profileDocument(settings,profileId),profileId,userId,{fetchImpl:settings.providerTransferFetch,productionAccepted}),
+ });
+ 
+ export function transferProfileSupported(profile:RegisteredGameProviderProfile){
+diff --git a/lib/metagaming-profile-runtime.ts b/lib/metagaming-profile-runtime.ts
+new file mode 100644
+index 0000000..633144a
+--- /dev/null
++++ b/lib/metagaming-profile-runtime.ts
+@@ -0,0 +1,32 @@
++import {createMetaGamingProviderAdapter,type MetaGamingGatewayConfig} from './metagaming-provider-adapter.ts';
++import {getGameProviderProfile} from './game-provider-registry.ts';
++
++const CUSTOMER_RETURN_ORIGIN='https://www.master7.best';
++const DEFAULT_RETURN_ORIGINS=Object.freeze([CUSTOMER_RETURN_ORIGIN]);
++function exactOrigin(value:unknown){if(typeof value!=='string')return null;try{const url=new URL(value);return url.origin===value&&url.protocol==='https:'&&!url.username&&!url.password&&!url.port?url.origin:null;}catch{return null;}}
++function token(value:unknown){return typeof value==='string'&&Buffer.byteLength(value,'utf8')>=32&&Buffer.byteLength(value,'utf8')<=1024&&!/[\u0000-\u0020\u007f-\u009f]/u.test(value)?value:null;}
++function sha(value:unknown){return typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);}
++function expectedAccount(profileId:string){return profileId==='metagaming_normal_myr'?'normal':profileId==='metagaming_free_myr'?'free':null;}
++
++/** Parse one profile from the server-side GAME_TRANSFER_PROFILES_JSON secret.
++ * No browser input can select an account, gateway origin, peer token or mode. */
++export function metaGamingProfileRuntime(raw:string|undefined,profileId:string,userId:string,options:{fetchImpl?:typeof fetch;productionAccepted?:boolean}={}){
++ if(!raw||Buffer.byteLength(raw)>262_144)return null;const account=expectedAccount(profileId);if(!account)return null;
++ try{
++  const root=JSON.parse(raw),value=root?.profiles?.[profileId],profile=getGameProviderProfile(profileId);if(!profile||!value||!['closed','qa','production'].includes(value.mode)||value.environment!=='production'||typeof value.recoveryEnabled!=='boolean')return null;
++  const connection=value.connection as MetaGamingGatewayConfig,base=exactOrigin(connection?.baseUrl),approved=Array.isArray(value.approvedApiOrigins)?value.approvedApiOrigins.map(exactOrigin):[];
++  if(!connection||connection.profile!==profileId||connection.account!==account||connection.currency!=='MYR'||!base||approved.length===0||approved.length>20||approved.some((x:unknown)=>x===null)||!approved.includes(base))return null;
++  const tokens=[token(connection.playerToken),token(connection.walletToken),token(connection.recoveryToken),token(connection.reportToken)];if(tokens.some(x=>x===null)||new Set(tokens).size!==tokens.length)return null;
++  if(!Array.isArray(connection.launchOrigins)||connection.launchOrigins.length===0||connection.launchOrigins.length>20||connection.launchOrigins.map(exactOrigin).some(x=>x===null))return null;
++  if(!Array.isArray(value.qaMemberIds)||value.qaMemberIds.length>50||value.qaMemberIds.some((x:unknown)=>typeof x!=='string'||!/^[A-Za-z0-9_.:-]{1,200}$/.test(x)))return null;
++  const returnValues=value.allowedReturnOrigins===undefined?DEFAULT_RETURN_ORIGINS:value.allowedReturnOrigins;if(!Array.isArray(returnValues)||returnValues.length===0||returnValues.length>20)return null;const returns=returnValues.map(exactOrigin);if(returns.some(x=>x===null))return null;
++  const contractVerified=value.merchantContractVerified===true&&sha(value.merchantContractEvidenceSha256);
++  const closureVerified=contractVerified&&value.sessionClosureVerified===true&&value.allIssuedLaunchesInvalidated===true&&value.lateResultsFinal===true&&sha(value.sessionClosureEvidenceSha256);
++  const recoveryEnabled=value.recoveryEnabled===true&&closureVerified;
++  const memberAuthorized=value.mode==='qa'?value.qaMemberIds.includes(userId):value.mode==='production'&&options.productionAccepted===true;
++  const launchAuthorized=closureVerified&&recoveryEnabled&&returns.length===1&&returns[0]===CUSTOMER_RETURN_ORIGIN&&memberAuthorized;
++  const reportEnabled=contractVerified&&value.reportEnabled===true&&value.reportFlaggingVerified===true&&sha(value.reportEvidenceSha256);
++  const adapter=createMetaGamingProviderAdapter({...connection,baseUrl:base,launchOrigins:connection.launchOrigins.map(exactOrigin) as string[]},{fetchImpl:options.fetchImpl??fetch,allowedReturnOrigins:returns as string[],merchantContractVerified:contractVerified,sessionClosureVerified:closureVerified,playerCreationEnabled:launchAuthorized,balanceEnabled:launchAuthorized||recoveryEnabled,depositEnabled:launchAuthorized,withdrawalEnabled:recoveryEnabled,launchEnabled:launchAuthorized,transferStatusEnabled:recoveryEnabled,recoveryEnabled,reportEnabled});
++  return{profile,adapter,launchAuthorized,recoveryEnabled,reportEnabled,mode:value.mode as 'closed'|'qa'|'production',environment:'production' as const};
++ }catch{return null;}
++}
+diff --git a/lib/metagaming-provider-adapter.ts b/lib/metagaming-provider-adapter.ts
+new file mode 100644
+index 0000000..989cf13
+--- /dev/null
++++ b/lib/metagaming-provider-adapter.ts
+@@ -0,0 +1,157 @@
++import {createHash} from 'node:crypto';
++import {gameAmountToWalletMinor,walletMinorToGameAmount} from './game-unit-conversion.ts';
++import type {
++ GameProviderAdapter,GameProviderContext,GameProviderGame,GameProviderTransferInput,
++ GameProviderTransferResult,GameProviderWager,
++} from './game-provider-adapter.ts';
++
++export type MetaGamingProfile='metagaming_normal_myr'|'metagaming_free_myr';
++export type MetaGamingAccount='normal'|'free';
++export type MetaGamingGatewayConfig={
++ profile:MetaGamingProfile;
++ account:MetaGamingAccount;
++ baseUrl:string;
++ currency:'MYR';
++ playerToken:string;
++ walletToken:string;
++ recoveryToken:string;
++ reportToken:string;
++ launchOrigins:readonly string[];
++};
++export type MetaGamingAdapterOptions={
++ fetchImpl:typeof fetch;
++ allowedReturnOrigins:readonly string[];
++ playerCreationEnabled?:boolean;
++ balanceEnabled?:boolean;
++ depositEnabled?:boolean;
++ withdrawalEnabled?:boolean;
++ launchEnabled?:boolean;
++ transferStatusEnabled?:boolean;
++ recoveryEnabled?:boolean;
++ reportEnabled?:boolean;
++ merchantContractVerified?:boolean;
++ sessionClosureVerified?:boolean;
++};
++
++export class MetaGamingAdapterError extends Error{
++ readonly code:string;
++ constructor(code:string){super(code);this.name='MetaGamingAdapterError';this.code=code;}
++}
++const fail=(code:string):never=>{throw new MetaGamingAdapterError(code);};
++const profileAccount=(profile:MetaGamingProfile):MetaGamingAccount=>profile==='metagaming_normal_myr'?'normal':'free';
++const cleanText=(value:unknown,pattern:RegExp,code:string)=>typeof value==='string'&&pattern.test(value)?value:fail(code);
++const isObject=(value:unknown):value is Record<string,unknown>=>!!value&&typeof value==='object'&&!Array.isArray(value);
++const token=(value:unknown)=>typeof value==='string'&&Buffer.byteLength(value,'utf8')>=32&&Buffer.byteLength(value,'utf8')<=1024&&!/[\u0000-\u0020\u007f-\u009f]/u.test(value)?value:fail('META_TOKEN_INVALID');
++function exactOrigin(raw:unknown,code:string){
++ if(typeof raw!=='string')return fail(code);try{const u=new URL(raw);if(u.origin!==raw||u.protocol!=='https:'||u.username||u.password||u.port)return fail(code);return u.origin;}catch{return fail(code);}
++}
++function gatewayOrigin(raw:unknown){return exactOrigin(raw,'META_GATEWAY_ORIGIN_INVALID');}
++function member(value:unknown){if(typeof value!=='string'||value.length<1||value.length>200||/[\u0000-\u001f\u007f]/u.test(value))return fail('META_MEMBER_INVALID');return value;}
++function boundHash(parts:readonly string[],prefix:string,max=50){return `${prefix}${createHash('sha256').update(JSON.stringify(parts)).digest('hex').slice(0,max-prefix.length)}`;}
++export function metaGamingPlayerId(profile:MetaGamingProfile,userId:string){return boundHash([profile,member(userId)],profile==='metagaming_normal_myr'?'m7mn_':'m7mf_');}
++export function metaGamingReferenceId(profile:MetaGamingProfile,platformTransactionId:string,direction:'deposit'|'withdrawal'){
++ cleanText(platformTransactionId,/^[A-Za-z0-9_.:-]{1,200}$/,'META_TRANSACTION_ID_INVALID');
++ return boundHash([profile,platformTransactionId,direction],'m7mt_');
++}
++function readJson(text:string){if(Buffer.byteLength(text,'utf8')>2*1024*1024)return fail('META_GATEWAY_RESPONSE_INVALID');try{const value=JSON.parse(text);if(!isObject(value))return fail('META_GATEWAY_RESPONSE_INVALID');return value;}catch{return fail('META_GATEWAY_RESPONSE_INVALID');}}
++function resultEnvelope(value:Record<string,unknown>,profile:MetaGamingProfile,account:MetaGamingAccount,operation:string){
++ if(value.provider!=='metagaming'||value.profileId!==profile||value.account!==account||value.operation!==operation||!isObject(value.result))return fail('META_GATEWAY_BINDING_INVALID');
++ const result=value.result;if(result.ok!==true||result.status!==200)return fail('META_PROVIDER_REJECTED');return result;
++}
++function cents(raw:unknown){
++ if((typeof raw!=='string'&&typeof raw!=='number')||raw==='')return fail('META_AMOUNT_INVALID');
++ let converted;try{converted=gameAmountToWalletMinor(String(raw),1);}catch{return fail('META_AMOUNT_INVALID');}
++ if(converted.residual)return fail('META_AMOUNT_PRECISION_REVIEW');return converted;
++}
++function isoUtc(raw:unknown){
++ if(typeof raw!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,7})?Z$/.test(raw))return fail('META_REPORT_TIME_INVALID');
++ const value=Date.parse(raw);if(!Number.isFinite(value))return fail('META_REPORT_TIME_INVALID');return value;
++}
++function ipv4(raw:unknown){
++ if(typeof raw!=='string')return fail('META_IP_INVALID');
++ const parts=raw.split('.');
++ if(parts.length!==4||!parts.every(part=>/^(?:0|[1-9]\d{0,2})$/.test(part)&&Number.isInteger(Number(part))&&Number(part)>=0&&Number(part)<=255))return fail('META_IP_INVALID');
++ return raw;
++}
++
++/** Server-side gateway adapter only. Constructing it does not enable a profile,
++ * submit money, establish session finality, or record supplier acceptance. */
++export function createMetaGamingProviderAdapter(config:MetaGamingGatewayConfig,options:MetaGamingAdapterOptions):GameProviderAdapter&{readonly profileId:MetaGamingProfile;readonly account:MetaGamingAccount}{
++ if(!config||!options||!Array.isArray(config.launchOrigins)||!Array.isArray(options.allowedReturnOrigins))return fail('META_CONFIGURATION_INVALID');
++ const profileId=config.profile,account=profileAccount(profileId);
++ if(config.account!==account||config.currency!=='MYR')return fail('META_PROFILE_ACCOUNT_MISMATCH');
++ const baseUrl=gatewayOrigin(config.baseUrl),tokens=[token(config.playerToken),token(config.walletToken),token(config.recoveryToken),token(config.reportToken)];
++ if(new Set(tokens).size!==tokens.length)return fail('META_TOKEN_ALIAS');
++ const launchOrigins=new Set(config.launchOrigins.map(value=>exactOrigin(value,'META_LAUNCH_ORIGIN_INVALID'))),returns=new Set(options.allowedReturnOrigins.map(value=>exactOrigin(value,'META_RETURN_ORIGIN_INVALID')));
++ const flags=Object.freeze({
++  contract:options.merchantContractVerified===true,closure:options.sessionClosureVerified===true,
++  player:options.playerCreationEnabled===true,balance:options.balanceEnabled===true,
++  deposit:options.depositEnabled===true,withdrawal:options.withdrawalEnabled===true,
++  launch:options.launchEnabled===true,status:options.transferStatusEnabled===true,
++  recovery:options.recoveryEnabled===true,report:options.reportEnabled===true,
++ });
++ const transport=options.fetchImpl;
++ function context(c:GameProviderContext){
++  const p=c?.profile,expectedClass=account==='free'?'free_credit':'cash';
++  if(!p||p.profileId!==profileId||p.providerId!=='metagaming'||p.adapterKey!=='metagaming'||p.walletMode!=='transfer'||p.currency!=='MYR'||p.unitScale!==1||p.balanceClass!==expectedClass||p.playerNamespace!==profileId||p.ledgerNamespace!==profileId)return fail('META_PROFILE_MISMATCH');
++ }
++ function boundPlayer(userId:unknown,supplied:unknown){const expected=metaGamingPlayerId(profileId,member(userId));if(supplied!==expected)return fail('META_PLAYER_MISMATCH');return expected;}
++ function cashGate(enabled:boolean,code:string){if(!flags.contract||!flags.closure)return fail('META_MERCHANT_CONTRACT_UNVERIFIED');if(!enabled)return fail(code);}
++ async function call(method:string,credential:string,fields:Record<string,unknown>={}){
++  const response=await transport(`${baseUrl}/platform/metagaming/${method}`,{method:'POST',redirect:'error',headers:{Accept:'application/json','Content-Type':'application/json',Authorization:`Bearer ${credential}`},body:JSON.stringify({profileId,account,...fields})});
++  const raw=await response.text(),value=readJson(raw);if(!response.ok)return fail(response.status===503?'META_CAPABILITY_DISABLED':response.status===401?'META_GATEWAY_UNAUTHORIZED':'META_GATEWAY_REQUEST_FAILED');return resultEnvelope(value,profileId,account,method);
++ }
++ async function catalogue():Promise<readonly GameProviderGame[]>{
++  const response=await transport(`${baseUrl}/providers/metagaming/games?account=${account}`,{method:'GET',redirect:'error',headers:{Accept:'application/json'}}),value=readJson(await response.text());
++  if(!response.ok||value.provider!=='metagaming'||value.account!==account||value.currency!=='MYR'||!Array.isArray(value.games)||value.games.length>2000)return fail('META_CATALOGUE_UNAVAILABLE');
++  const seen=new Set<string>();return value.games.map(row=>{if(!isObject(row))return fail('META_CATALOGUE_INVALID');const id=cleanText(row.gameCode,/^[^\u0000-\u001f\u007f]{1,50}$/u,'META_CATALOGUE_INVALID'),name=cleanText(row.name,/^[^\u0000-\u001f\u007f]{1,200}$/u,'META_CATALOGUE_INVALID');if(seen.has(id))return fail('META_CATALOGUE_INVALID');seen.add(id);return{providerGameId:id,name,category:String(row.gameType??''),maintenance:row.maintenance!==false};});
++ }
++ function transferInput(input:GameProviderTransferInput,direction:'deposit'|'withdrawal'){
++  if(!input||input.currency!=='MYR'||typeof input.amountMinor!=='string'||!/^[1-9]\d{0,15}$/.test(input.amountMinor))return fail('META_TRANSFER_INPUT_INVALID');
++  return{playerId:boundPlayer(input.userId,input.providerPlayerId),referenceId:metaGamingReferenceId(profileId,input.platformTransactionId,direction),amount:walletMinorToGameAmount(input.amountMinor,1),amountMinor:input.amountMinor};
++ }
++ async function transfer(c:GameProviderContext,input:GameProviderTransferInput,direction:'deposit'|'withdrawal'):Promise<GameProviderTransferResult>{
++  context(c);const value=transferInput(input,direction);cashGate(direction==='deposit'?flags.deposit:flags.withdrawal,`META_${direction.toUpperCase()}_DISABLED`);
++  await call(direction==='deposit'?'deposit':'withdraw',tokens[1],{playerId:value.playerId,amount:value.amount,referenceId:value.referenceId});
++  // Deposit/Withdraw success has no transaction identifier. Only the signed
++  // CheckTransferStatus response may confirm the original reference and amount.
++  return{state:'unknown',errorCode:'META_TRANSFER_STATUS_REQUIRED',requiresLedgerReconciliation:true};
++ }
++ const adapter:GameProviderAdapter&{readonly profileId:MetaGamingProfile;readonly account:MetaGamingAccount}={
++  key:'metagaming',profileId,account,executable:true,
++  transferContractFingerprint:createHash('sha256').update(JSON.stringify([profileId,account,baseUrl,'MYR',1])).digest('hex'),
++  async listGames(c){context(c);return catalogue();},
++  async createOrVerifyPlayer(c,input){context(c);cashGate(flags.player,'META_PLAYER_SUBMISSION_DISABLED');const playerId=metaGamingPlayerId(profileId,input.userId);await call('player',tokens[0],{playerId});return{providerPlayerId:playerId,created:false};},
++  depositToGame:(c,input)=>transfer(c,input,'deposit'),
++  withdrawFromGame:(c,input)=>transfer(c,input,'withdrawal'),
++  async queryBalance(c,input){context(c);cashGate(flags.balance,'META_BALANCE_DISABLED');const playerId=boundPlayer(input.userId,input.providerPlayerId),result=await call('balance',tokens[0],{playerId});if(result.currency!=='MYR')return fail('META_CURRENCY_MISMATCH');const value=cents(result.currentBalance);return{...value,currency:'MYR'};},
++  async launchGame(c,input){
++   context(c);cashGate(flags.launch,'META_LAUNCH_DISABLED');const playerId=boundPlayer(input.userId,input.providerPlayerId);
++   if(input.language!=='en')return fail('META_LANGUAGE_UNCONFIRMED');let returnUrl:URL;try{returnUrl=new URL(input.returnUrl);}catch{return fail('META_RETURN_URL_INVALID');}
++   if(!returns.has(returnUrl.origin)||returnUrl.protocol!=='https:'||returnUrl.username||returnUrl.password||returnUrl.hash||returnUrl.href.length>100)return fail('META_RETURN_URL_INVALID');
++   const result=await call('launch',tokens[0],{playerId,gameCode:cleanText(input.providerGameId,/^[^\u0000-\u001f\u007f]{1,50}$/u,'META_GAME_INVALID'),ip:ipv4(input.ip),language:'en',returnUrl:returnUrl.href,demo:false});
++   if(typeof result.url!=='string'||result.url.length>2000)return fail('META_LAUNCH_URL_INVALID');let url:URL;try{url=new URL(result.url);}catch{return fail('META_LAUNCH_URL_INVALID');}if(url.protocol!=='https:'||url.username||url.password||url.hash||!launchOrigins.has(url.origin))return fail('META_LAUNCH_URL_INVALID');return{launchUrl:url.href};
++  },
++  async queryTransfer(c,input){
++   context(c);const direction=input?.direction;if(direction!=='deposit'&&direction!=='withdrawal')return fail('META_TRANSFER_INPUT_INVALID');const value=transferInput(input,direction);cashGate(flags.status,'META_TRANSFER_STATUS_DISABLED');
++   const result=await call('transfer-status',tokens[1],{playerId:value.playerId,referenceId:value.referenceId,transferType:direction}),transaction=result.transaction;if(!isObject(transaction))return{state:'unknown',errorCode:'META_TRANSFER_STATUS_UNCONFIRMED',requiresLedgerReconciliation:true};
++   const amount=cents(transaction.amount),providerTransactionId=String(transaction.transactionId??'');if(amount.amountMinor!==value.amountMinor||amount.residual||!/^[1-9]\d{0,30}$/.test(providerTransactionId)||(input.providerTransactionId!==undefined&&input.providerTransactionId!==providerTransactionId))return{state:'unknown',errorCode:'META_TRANSFER_RECEIPT_MISMATCH',requiresLedgerReconciliation:true};
++   return{state:'confirmed',providerTransactionId,requiresLedgerReconciliation:true};
++  },
++  async closeGame(c,input){
++   context(c);const playerId=boundPlayer(input.userId,input.providerPlayerId);if(!flags.closure)return fail('META_SESSION_CLOSURE_UNVERIFIED');
++   if(input.requestClosure===true){if(!flags.recovery)return fail('META_RECOVERY_DISABLED');try{await call('kick',tokens[2],{playerId});}catch{return{state:'unknown'};}}
++   try{const result=await call('unfinished-rounds',tokens[2],{playerId}),rounds=result.rounds;if(!Array.isArray(rounds))return{state:'unknown'};return rounds.length?{state:'playing'}:{state:'closed',evidenceCode:input.requestClosure?'META_VERIFIED_KICK_NO_UNFINISHED_ROUNDS':'META_NO_UNFINISHED_ROUNDS'};}catch{return{state:'unknown'};}
++  },
++  async fetchWagers(c,cursor){
++   context(c);if(!flags.report)return fail('META_REPORT_DISABLED');if(!cursor||cursor.cursor!==undefined||!Number.isSafeInteger(cursor.from)||!Number.isSafeInteger(cursor.to)||cursor.from<0||cursor.to<=cursor.from)return fail('META_REPORT_WINDOW_INVALID');
++   const result=await call('reports',tokens[3]),logs=result.logs;if(!Array.isArray(logs)||logs.length>1000)return fail('META_REPORT_INVALID');const seen=new Set<string>();
++   const items:GameProviderWager[]=logs.map(row=>{if(!isObject(row))return fail('META_REPORT_INVALID');const id=String(row.transactionId??'');if(!/^[1-9]\d{0,30}$/.test(id)||seen.has(id))return fail('META_REPORT_INVALID');seen.add(id);const playerId=cleanText(row.playerId,account==='normal'?/^m7mn_[a-f0-9]{45}$/:/^m7mf_[a-f0-9]{45}$/,'META_REPORT_PROFILE_MISMATCH'),bet=cents(row.turnover),win=cents(row.payout),settledAt=isoUtc(row.transactionDateTime);return{providerRoundId:null,providerBetId:id,providerPlayerId:playerId,providerGameId:cleanText(row.gameCode,/^[^\u0000-\u001f\u007f]{1,50}$/u,'META_REPORT_INVALID'),betMinor:bet.amountMinor,winMinor:win.amountMinor,currency:'MYR',settledAt,sourceDetails:Object.freeze({validTurnover:String(row.validTurnover??''),winLose:String(row.winLose??''),transactionType:String(row.transactionType??''),gameType:String(row.gameType??''),gameName:String(row.gameName??''),flagging:'not_performed'})};});
++   // PullLog has no time window and rows must only be flagged after durable
++   // ingestion. This adapter never auto-flags and never reports page coverage.
++   return{items,complete:false};
++  },
++  async handleCallback(c){context(c);return{accepted:false,duplicate:false,responseBody:'UNSUPPORTED_TRANSFER_CALLBACK',responseStatus:403};},
++ };
++ return Object.freeze(adapter);
++}
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index 1752fd7..728d3da 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.159-premium-mobile' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.160-meta-gaming-adapter' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/package.json b/package.json
+index 81847a3..53707f0 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.159-premium-mobile node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.159-premium-mobile node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.160-meta-gaming-adapter node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.160-meta-gaming-adapter node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.159-premium-mobile node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.160-meta-gaming-adapter node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 45aee1d..97ffad3 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.159-premium-mobile';
++const CACHE='master7-shell-17.0.0-selfbuilt.160-meta-gaming-adapter';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/tests/game-launch.test.mjs b/tests/game-launch.test.mjs
+index 01bef95..b853da1 100644
+--- a/tests/game-launch.test.mjs
++++ b/tests/game-launch.test.mjs
+@@ -98,7 +98,7 @@ test('public game responses expose 37 brands and isolated fail-closed profile me
+   const summary=await h.request('/api/games');assert.equal(summary.status,200);
+   assert.equal(summary.data.platformCount,37);assert.equal(summary.data.profileBrandCount,37);
+   assert.ok(summary.data.profileCount>37);assert.equal(summary.data.profiles.length,summary.data.profileCount);
+-  assert.equal(summary.data.implementedProfileCount,4);assert.equal(summary.data.verifiedProfileCount,0);
++  assert.equal(summary.data.implementedProfileCount,6);assert.equal(summary.data.verifiedProfileCount,0);
+   const mega=summary.data.profiles.find(profile=>profile.profileId==='megah5_myr');assert.equal(mega.providerId,'megah5');assert.equal(mega.walletMode,'transfer');assert.equal(mega.launchVerified,false);
+   const jili=summary.data.providers.find(provider=>provider.id==='jili');assert.deepEqual(jili.profiles.map(profile=>profile.profileId),['jili_myr_1to1','jili_my1_1to100']);
+   assert.ok(jili.profiles.every(profile=>profile.launchReady===false&&profile.walletReady===false&&profile.enabled===false));
+diff --git a/tests/game-provider-registry.test.mjs b/tests/game-provider-registry.test.mjs
+index 7da5025..01e3965 100644
+--- a/tests/game-provider-registry.test.mjs
++++ b/tests/game-provider-registry.test.mjs
+@@ -40,7 +40,8 @@ test('known multi-account suppliers keep exact independent profiles and scales',
+   assert.equal(getGameProviderProfile('jili_my1_1to100').unitScale, 100);
+   assert.equal(getGameProviderProfile('918kiss_normal_my1_1to100').unitScale, 100);
+   const metaNormal=getGameProviderProfile('metagaming_normal_myr'),metaFree=getGameProviderProfile('metagaming_free_myr');
+-  assert.equal(metaNormal.adapterStatus,'adapter_unimplemented');assert.equal(metaFree.adapterStatus,'adapter_unimplemented');
++  assert.equal(metaNormal.adapterStatus,'implemented');assert.equal(metaFree.adapterStatus,'implemented');
++  assert.equal(metaNormal.walletMode,'transfer');assert.equal(metaFree.walletMode,'transfer');
+   assert.equal(metaNormal.balanceClass,'cash');assert.equal(metaFree.balanceClass,'free_credit');
+   assert.notEqual(metaNormal.playerNamespace,metaFree.playerNamespace);assert.notEqual(metaNormal.ledgerNamespace,metaFree.ledgerNamespace);
+ });
+@@ -58,7 +59,7 @@ test('SPRIBE is independent from JDB while remaining outside the current 37 lobb
+   assert.equal(GAME_PROVIDER_BRANDS.some(item => item.providerId === 'spribe'), false);
+ });
+ 
+-test('implemented MegaH5 and JDB profiles resolve an injected executable adapter', async () => {
++test('implemented game profiles resolve only a matching injected executable adapter', async () => {
+   const fakeMega = Object.fromEntries([
+     ['key', 'megah5'],
+     ['executable', true],
+@@ -66,7 +67,8 @@ test('implemented MegaH5 and JDB profiles resolve an injected executable adapter
+   ]);
+   assert.equal(resolveGameProviderAdapter('megah5_myr', {megah5: fakeMega}), fakeMega);
+   const fakeJdb={...fakeMega,key:'jdb'};assert.equal(resolveGameProviderAdapter('jdb_myr',{jdb:fakeJdb}),fakeJdb);
+-  for (const item of GAME_PROVIDER_PROFILES.filter(profile => !['megah5_myr','jdb_myr'].includes(profile.profileId))) {
++  const fakeMeta={...fakeMega,key:'metagaming'};for(const profileId of ['metagaming_normal_myr','metagaming_free_myr'])assert.equal(resolveGameProviderAdapter(profileId,{metagaming:fakeMeta}),fakeMeta);
++  for (const item of GAME_PROVIDER_PROFILES.filter(profile => !['megah5_myr','jdb_myr','metagaming_normal_myr','metagaming_free_myr'].includes(profile.profileId))) {
+     assert.equal(resolveGameProviderAdapter(item.profileId, {[item.adapterKey]: fakeMega}).executable, false, item.profileId);
+   }
+   await assert.rejects(resolveGameProviderAdapter('megah5_myr').launchGame(), error =>
+@@ -76,8 +78,7 @@ test('implemented MegaH5 and JDB profiles resolve an injected executable adapter
+ test('all unavailable adapter operations fail closed with a precise reason', async () => {
+   for (const [profileId, expectedReason] of [
+     ['jili_myr_1to1', 'adapter_unimplemented'],
+-    ['metagaming_normal_myr', 'adapter_unimplemented'],
+-    ['metagaming_free_myr', 'adapter_unimplemented'],
++    ['918kiss_normal_myr', 'adapter_unimplemented'],
+     ['fuma_myr', 'contract_missing'],
+     ['unknown_profile', 'contract_missing'],
+   ]) {
+diff --git a/tests/metagaming-provider-adapter.test.mjs b/tests/metagaming-provider-adapter.test.mjs
+new file mode 100644
+index 0000000..1793a63
+--- /dev/null
++++ b/tests/metagaming-provider-adapter.test.mjs
+@@ -0,0 +1,33 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {createMetaGamingProviderAdapter,metaGamingPlayerId,metaGamingReferenceId} from '../lib/metagaming-provider-adapter.ts';
++import {metaGamingProfileRuntime} from '../lib/metagaming-profile-runtime.ts';
++import {gameTransferRuntime,seedTransferProfile} from '../lib/game-provider-runtime.ts';
++import {getGameProviderProfile} from '../lib/game-provider-registry.ts';
++
++const tokens={player:'p'.repeat(48),wallet:'w'.repeat(48),recovery:'r'.repeat(48),report:'l'.repeat(48)};
++const config=(profile='metagaming_normal_myr')=>({profile,account:profile.includes('_free_')?'free':'normal',baseUrl:'https://gateway.example.test',currency:'MYR',playerToken:tokens.player,walletToken:tokens.wallet,recoveryToken:tokens.recovery,reportToken:tokens.report,launchOrigins:['https://games.example.test']});
++const success=result=>({ok:true,status:200,description:'Success',responseDateTime:'2026-11-10 09:00:00',...result});
++function fake(profile='metagaming_normal_myr',overrides={}){
++ const cfg=config(profile),calls=[],handlers={player:success({}),launch:success({url:'https://games.example.test/play?session=synthetic'}),balance:success({currentBalance:'15.75',currency:'MYR'}),deposit:success({currentBalance:'20.00',currency:'MYR'}),withdraw:success({currentBalance:'0.00',currency:'MYR'}),'transfer-status':success({transaction:{transactionId:'123456',amount:'20.00',previousBalance:'0',newBalance:'20.00'}}),kick:success({kickAccepted:true,closureFinal:false}),'unfinished-rounds':success({rounds:[]}),reports:success({logs:[]}),...overrides},expected={player:tokens.player,launch:tokens.player,balance:tokens.player,deposit:tokens.wallet,withdraw:tokens.wallet,'transfer-status':tokens.wallet,kick:tokens.recovery,'unfinished-rounds':tokens.recovery,reports:tokens.report,'flag-log':tokens.report};
++ const transport=async(url,init={})=>{const parsed=new URL(url);if(parsed.pathname==='/providers/metagaming/games')return Response.json({provider:'metagaming',account:cfg.account,currency:'MYR',games:[{gameCode:'10001',name:'Synthetic slot',gameType:1,maintenance:true}]});const method=parsed.pathname.split('/').at(-1),body=JSON.parse(init.body);calls.push({method,body,authorization:init.headers.Authorization});assert.equal(init.method,'POST');assert.equal(init.redirect,'error');assert.equal(init.headers.Authorization,`Bearer ${expected[method]}`);assert.equal(body.profileId,profile);assert.equal(body.account,cfg.account);const value=handlers[method];if(value instanceof Response)return value;if(typeof value==='function')return value(body);return Response.json({provider:'metagaming',profileId:profile,account:cfg.account,operation:method,result:value});};
++ const adapter=createMetaGamingProviderAdapter(cfg,{fetchImpl:transport,allowedReturnOrigins:['https://www.master7.best'],merchantContractVerified:true,sessionClosureVerified:true,playerCreationEnabled:true,balanceEnabled:true,depositEnabled:true,withdrawalEnabled:true,launchEnabled:true,transferStatusEnabled:true,recoveryEnabled:true,reportEnabled:true});
++ return{cfg,calls,transport,adapter,context:{profile:getGameProviderProfile(profile)}};
++}
++const transfer=(profile='metagaming_normal_myr',patch={})=>({userId:'alice',providerPlayerId:metaGamingPlayerId(profile,'alice'),platformTransactionId:'wallet-transaction-1',amountMinor:'2000',currency:'MYR',...patch});
++
++test('META player and transaction identifiers are stable and profile isolated',()=>{const normal=metaGamingPlayerId('metagaming_normal_myr','alice'),free=metaGamingPlayerId('metagaming_free_myr','alice');assert.match(normal,/^m7mn_[a-f0-9]{45}$/);assert.match(free,/^m7mf_[a-f0-9]{45}$/);assert.notEqual(normal,free);assert.notEqual(metaGamingReferenceId('metagaming_normal_myr','same','deposit'),metaGamingReferenceId('metagaming_normal_myr','same','withdrawal'));assert.notEqual(metaGamingReferenceId('metagaming_normal_myr','same','deposit'),metaGamingReferenceId('metagaming_free_myr','same','deposit'));});
++
++test('normal and free adapters bind exact profile, account, player namespace and token role',async()=>{for(const profile of ['metagaming_normal_myr','metagaming_free_myr']){const f=fake(profile),player=await f.adapter.createOrVerifyPlayer(f.context,{userId:'alice',username:'alice'});assert.equal(player.providerPlayerId,metaGamingPlayerId(profile,'alice'));assert.equal((await f.adapter.queryBalance(f.context,{userId:'alice',providerPlayerId:player.providerPlayerId})).amountMinor,'1575');assert.deepEqual((await f.adapter.listGames(f.context)).map(x=>x.providerGameId),['10001']);assert.deepEqual(f.calls.map(x=>x.method),['player','balance']);const other=profile==='metagaming_normal_myr'?'metagaming_free_myr':'metagaming_normal_myr';await assert.rejects(()=>f.adapter.queryBalance({profile:getGameProviderProfile(other)},{userId:'alice',providerPlayerId:player.providerPlayerId}),e=>e.code==='META_PROFILE_MISMATCH');assert.equal(f.calls.length,2);await assert.rejects(()=>f.adapter.queryBalance(f.context,{userId:'alice',providerPlayerId:metaGamingPlayerId(profile,'bob')}),e=>e.code==='META_PLAYER_MISMATCH');assert.equal(f.calls.length,2);}});
++
++test('disabled META capabilities make zero gateway calls even with complete credentials',async()=>{const cfg=config(),calls=[],adapter=createMetaGamingProviderAdapter(cfg,{fetchImpl:async()=>{calls.push(1);throw Error('must not call');},allowedReturnOrigins:['https://www.master7.best'],merchantContractVerified:true,sessionClosureVerified:true}),context={profile:getGameProviderProfile(cfg.profile)},input=transfer();for(const action of [()=>adapter.createOrVerifyPlayer(context,{userId:'alice',username:'alice'}),()=>adapter.queryBalance(context,input),()=>adapter.depositToGame(context,input),()=>adapter.withdrawFromGame(context,input),()=>adapter.queryTransfer(context,{...input,direction:'deposit'}),()=>adapter.launchGame(context,{userId:'alice',providerPlayerId:input.providerPlayerId,providerGameId:'10001',language:'en',ip:'192.0.2.8',returnUrl:'https://www.master7.best/'})])await assert.rejects(action,e=>/DISABLED/.test(e.code));assert.equal(calls.length,0);});
++
++test('transfer submit remains unknown until the exact signed status receipt matches',async()=>{const f=fake(),input=transfer(),submitted=await f.adapter.depositToGame(f.context,input);assert.deepEqual(submitted,{state:'unknown',errorCode:'META_TRANSFER_STATUS_REQUIRED',requiresLedgerReconciliation:true});assert.equal(f.calls[0].body.amount,'20.00');assert.equal(f.calls[0].body.referenceId,metaGamingReferenceId(f.cfg.profile,input.platformTransactionId,'deposit'));const confirmed=await f.adapter.queryTransfer(f.context,{...input,direction:'deposit'});assert.deepEqual(confirmed,{state:'confirmed',providerTransactionId:'123456',requiresLedgerReconciliation:true});const mismatched=fake('metagaming_normal_myr',{'transfer-status':success({transaction:{transactionId:'123456',amount:'19.99',previousBalance:'0',newBalance:'19.99'}})});assert.equal((await mismatched.adapter.queryTransfer(mismatched.context,{...input,direction:'deposit'})).state,'unknown');});
++
++test('launch accepts only documented English, exact return origin, exact IPv4 and approved provider origin',async()=>{const f=fake(),input={userId:'alice',providerPlayerId:metaGamingPlayerId(f.cfg.profile,'alice'),providerGameId:'10001',language:'en',ip:'192.0.2.8',returnUrl:'https://www.master7.best/'};assert.equal((await f.adapter.launchGame(f.context,input)).launchUrl,'https://games.example.test/play?session=synthetic');assert.equal(f.calls[0].body.language,'en');assert.equal(f.calls[0].body.demo,false);for(const patch of [{language:'zh'},{ip:'999.0.0.1'},{ip:'256.0.0.1'},{ip:'192.00.2.8'},{returnUrl:'https://master7.best/'},{returnUrl:'https://www.master7.best/#fragment'}])await assert.rejects(()=>f.adapter.launchGame(f.context,{...input,...patch}),e=>/^META_/.test(e.code));assert.equal(f.calls.length,1);const bad=fake('metagaming_normal_myr',{launch:success({url:'https://unapproved.example.test/play'})});await assert.rejects(()=>bad.adapter.launchGame(bad.context,input),e=>e.code==='META_LAUNCH_URL_INVALID');const wrongOperation=fake('metagaming_normal_myr',{launch:Response.json({provider:'metagaming',profileId:'metagaming_normal_myr',account:'normal',operation:'balance',result:success({url:'https://games.example.test/play'})})});await assert.rejects(()=>wrongOperation.adapter.launchGame(wrongOperation.context,input),e=>e.code==='META_GATEWAY_BINDING_INVALID');});
++
++test('PullLog reports are projected without auto-flagging or false coverage',async()=>{const profile='metagaming_normal_myr',playerId=metaGamingPlayerId(profile,'alice'),f=fake(profile,{reports:success({logs:[{transactionId:'9007199254740993123',playerId,turnover:'3.60',validTurnover:'3.60',payout:'1.80',winLose:'-1.80',transactionDateTime:'2026-11-10T08:30:00Z',transactionType:0,gameCode:'10001',gameType:1,gameName:'Synthetic'}]})}),page=await f.adapter.fetchWagers(f.context,{from:Date.parse('2026-11-10T08:00:00Z'),to:Date.parse('2026-11-10T09:00:00Z')});assert.equal(page.complete,false);assert.equal(page.nextCursor,undefined);assert.equal(page.items[0].providerBetId,'9007199254740993123');assert.equal(page.items[0].betMinor,'360');assert.equal(page.items[0].winMinor,'180');assert.equal(page.items[0].providerRoundId,null);assert.equal(page.items[0].sourceDetails.flagging,'not_performed');assert.deepEqual(f.calls.map(x=>x.method),['reports']);});
++
++test('runtime requires isolated tokens, accepted contract, finality evidence and explicit account binding',()=>{const connection=config(),slot={mode:'production',environment:'production',recoveryEnabled:true,reportEnabled:true,reportFlaggingVerified:true,qaMemberIds:['alice'],approvedApiOrigins:[connection.baseUrl],allowedReturnOrigins:['https://www.master7.best'],connection,merchantContractVerified:true,merchantContractEvidenceSha256:'a'.repeat(64),sessionClosureVerified:true,sessionClosureEvidenceSha256:'b'.repeat(64),allIssuedLaunchesInvalidated:true,lateResultsFinal:true,reportEvidenceSha256:'c'.repeat(64)},document=()=>JSON.stringify({profiles:{[connection.profile]:slot}});assert.equal(metaGamingProfileRuntime(document(),connection.profile,'alice').launchAuthorized,false);let runtime=metaGamingProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true});assert.ok(runtime);assert.equal(runtime.launchAuthorized,true);assert.equal(runtime.recoveryEnabled,true);assert.equal(runtime.reportEnabled,true);assert.equal(gameTransferRuntime({gameTransferProfilesJson:document()},connection.profile,'alice',true).adapter.key,'metagaming');slot.lateResultsFinal=false;runtime=metaGamingProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true});assert.equal(runtime.launchAuthorized,false);assert.equal(runtime.recoveryEnabled,false);slot.lateResultsFinal=true;connection.walletToken=connection.playerToken;assert.equal(metaGamingProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true}),null);connection.walletToken=tokens.wallet;connection.account='free';assert.equal(metaGamingProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true}),null);});
++
++test('free-credit META adapter remains outside the member cash ledger',async()=>{const connection=config('metagaming_free_myr'),slot={mode:'qa',environment:'production',recoveryEnabled:true,reportEnabled:false,reportFlaggingVerified:false,qaMemberIds:['alice'],approvedApiOrigins:[connection.baseUrl],allowedReturnOrigins:['https://www.master7.best'],connection,merchantContractVerified:true,merchantContractEvidenceSha256:'a'.repeat(64),sessionClosureVerified:true,sessionClosureEvidenceSha256:'b'.repeat(64),allIssuedLaunchesInvalidated:true,lateResultsFinal:true},runtime=gameTransferRuntime({gameTransferProfilesJson:JSON.stringify({profiles:{[connection.profile]:slot}})},connection.profile,'alice');assert.ok(runtime);assert.equal(runtime.profile.balanceClass,'free_credit');assert.equal(runtime.adapter.executable,true);assert.equal(runtime.launchAuthorized,true);assert.equal(await seedTransferProfile({prepare(){throw Error('cash database must not be touched');}},runtime),false);});
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index c304e3f..6c08b4d 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.159-premium-mobile';
++const release='17.0.0-selfbuilt.160-meta-gaming-adapter';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{

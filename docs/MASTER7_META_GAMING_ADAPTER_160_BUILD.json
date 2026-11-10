@@ -1,0 +1,96 @@
+{
+  "release": "17.0.0-selfbuilt.160-meta-gaming-adapter",
+  "preparedAt": "2026-11-10T09:57:45.805296+00:00",
+  "sourceCommit": "8d0c42e1393e1cf18cf5d2efac131f75b5268e29",
+  "baselineSourceCommit": "07ad4419b09b7606ee539ddf939ea16c812f0736",
+  "baselineRelease": "17.0.0-selfbuilt.159-premium-mobile",
+  "archive": {
+    "sha256": "fab4e395fc338c6346caf7fc62b805a5c2a304c9a4a0b34eefbafc3dcdc5b96b",
+    "bytes": 7150422,
+    "files": 693,
+    "entries": 754,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/MASTER7_META_GAMING_ADAPTER_160.md",
+      "docs/MASTER7_META_GAMING_RUNTIME_CANDIDATE_20261110.md",
+      "lib/metagaming-profile-runtime.ts",
+      "lib/metagaming-provider-adapter.ts",
+      "tests/metagaming-provider-adapter.test.mjs"
+    ],
+    "changed": [
+      "app/portal.html",
+      "docs/MASTER7_META_GAMING_CATALOGUE_CANDIDATE_20261110.md",
+      "lib/backend.ts",
+      "lib/game-provider-registry.ts",
+      "lib/game-provider-runtime.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/service-worker.js",
+      "tests/game-launch.test.mjs",
+      "tests/game-provider-registry.test.mjs",
+      "tests/official-entries-probe.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1340,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "renderDatabase": 3,
+    "gatewayTests": 154,
+    "gatewaySourceChanged": true,
+    "gatewayCommit": "ad8d82ce9a277fdf443a56c2857da1dd10b33661",
+    "gatewayRelease": "1.20.0",
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "command": "pnpm verify:render",
+    "scope": "local synthetic and isolated validation; no live provider, player, wallet, game launch or payment calls"
+  },
+  "metaGamingAdapter": {
+    "profiles": [
+      "metagaming_normal_myr",
+      "metagaming_free_myr"
+    ],
+    "portalAdapterImplemented": true,
+    "gatewayRuntimeImplemented": true,
+    "profileAccountPlayerLedgerIsolation": true,
+    "peerTokenRoleIsolation": true,
+    "capabilitiesDisabledByDefault": true,
+    "providerCallsDuringValidation": 0,
+    "launchReadyProfiles": 0,
+    "verifiedProfiles": 0,
+    "playableProfiles": 0,
+    "externalBlockers": [
+      "provider HTTP 403 / IP allowlist",
+      "amount semantics",
+      "session closure and finality",
+      "report acknowledgement",
+      "controlled UAT acceptance"
+    ]
+  },
+  "operationalChanges": {
+    "newDepositsUiFlagChanged": false,
+    "providerOrderSubmissionEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPaymentsEnabled": false,
+    "metaGamingRuntimeEnabled": false,
+    "supplierAcceptanceBypassed": false
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false
+}
