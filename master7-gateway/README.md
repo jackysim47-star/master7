@@ -11,6 +11,19 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. A callback POST remains closed until that provider's signed callback contract is implemented; a reachability endpoint never claims transaction readiness.
 
+## Version 1.16.0: 918KISS catalogue-boundary hardening
+
+The three 918KISS H5 catalogue accounts remain isolated as Normal MYR,
+Normal MY1 and Free MYR. Successful catalogue responses now receive strict,
+bounded projection: malformed or duplicate game rows and unapproved artwork
+origins fail closed instead of publishing a partial list. The image origin is
+pinned to `gth.kissh5.com/thumbs/`.
+
+The supplied catalogue evidence does not establish a per-game availability
+contract. A game is therefore marked out of service unless the upstream row
+explicitly reports active H5 support with maintenance disabled. This version
+does not add player, Play, wallet, transfer, settlement or recovery routes.
+
 ## Version 1.15.0: MegaH5 contract-boundary hardening
 
 The legacy MegaH5 catalogue, session, balance and transfer responses are now
