@@ -1,0 +1,592 @@
+diff --git a/app/portal.html b/app/portal.html
+index d3bc5a1..d175960 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -3,7 +3,7 @@
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+-  <meta name="theme-color" content="#080b14">
++  <meta name="theme-color" content="#f4fbff">
+   <link rel="preload" as="image" href="/assets/master7-casino-lobby-premium.webp" type="image/webp">
+   <link rel="preload" as="image" href="/assets/master7-sponsored-mascots.webp" type="image/webp">
+   <meta name="description" content="MASTER7 · Premium games, rewards and member wallet">
+@@ -15,36 +15,36 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.155-catalogue-integrity">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.155-catalogue-integrity" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.156-member-polish">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.156-member-polish">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.156-member-polish">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.156-member-polish">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.156-member-polish">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.156-member-polish">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.156-member-polish">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.156-member-polish">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.156-member-polish">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.156-member-polish">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.156-member-polish">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.156-member-polish">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.156-member-polish">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.156-member-polish">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
+ </head>
+ <body>
+-  <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
++  <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+   <header class="topbar">
+     <a href="/" class="brand" aria-label="MASTER7 home"><img class="brand-logo" src="/assets/seven-emblem.png" alt=""><span>MASTER7<small>SERVICE PORTAL</small></span></a>
+     <nav class="topnav" aria-label="Main navigation">
+@@ -60,12 +60,12 @@
+       <button data-section="admin" id="adminNav" class="nav-button" hidden data-i18n="navAdmin">Backoffice</button>
+     </nav>
+     <div class="top-actions">
+-      <label class="sr-only" for="locale" data-i18n="language">语言</label>
++      <label class="sr-only" for="locale" data-i18n="language">Language</label>
+       <select id="locale" aria-label="Language"><option value="en" selected>English</option><option value="zh">中文</option><option value="ms">Bahasa Melayu</option></select>
+       <span id="userChip" class="user-chip" hidden></span>
+-      <button id="accountSecurity" class="button button-outline small" hidden data-i18n="accountSecurity">账号安全</button>
+-      <button id="loginButton" class="button button-primary small" data-i18n="login">登录</button>
+-      <a id="logoutButton" aria-label="Log out" href="/signout-with-chatgpt?return_to=%2F" target="_top" class="button button-ghost small" hidden data-i18n="logout">退出</a>
++      <button id="accountSecurity" class="button button-outline small" hidden data-i18n="accountSecurity">Account security</button>
++      <button id="loginButton" class="button button-primary small" data-i18n="login">Sign in</button>
++      <a id="logoutButton" aria-label="Log out" href="/signout-with-chatgpt?return_to=%2F" target="_top" class="button button-ghost small" hidden data-i18n="logout">Log out</a>
+     </div>
+   </header>
+ 
+@@ -292,9 +292,9 @@
+         </div>
+       </section>
+       <div class="section-header lobby-hero lobby-overview">
+-        <div class="lobby-hero-copy"><p class="eyebrow" data-i18n="lobbyEyebrow">游戏大厅</p><h1 data-i18n="lobbyTitle">MASTER7 游戏大厅</h1><p class="muted" data-i18n="lobbyNotice">MASTER7 公司广告、会员福利与精选游戏集中展示。</p><div class="casino-trust-row" aria-label="Platform highlights"><span>MYR</span><span>中文 · EN · BM</span><span>37 SUPPLIERS</span><span>SECURE ACCESS</span></div></div>
++        <div class="lobby-hero-copy"><p class="eyebrow" data-i18n="lobbyEyebrow">GAME LOBBY</p><h1 data-i18n="lobbyTitle">MASTER7 Game Lobby</h1><p class="muted" data-i18n="lobbyNotice">Browse 37 independent provider platforms by category.</p><div class="casino-trust-row" aria-label="Platform highlights"><span>MYR</span><span>EN · 中文 · BM</span><span>37 PROVIDERS</span><span>MEMBER ACCESS</span></div></div>
+         <div class="casino-hero-stage" aria-hidden="true"><div class="casino-symbols"><span>♠</span><span>♦</span><span>♣</span><span>♥</span></div><img src="/assets/seven-emblem.png" alt=""><b>MASTER7</b><small>PREMIUM GAME LOBBY</small></div>
+-        <div class="lobby-live-summary" aria-label="Live catalogue summary"><span><strong id="lobbyGameCount">37</strong><small>ENTRIES</small></span><span><strong id="lobbyBrandCount">37</strong><small>BRANDS</small></span><span><strong id="lobbyProviderCount">0</strong><small>CONNECTED</small></span></div>
++        <div class="lobby-live-summary" aria-label="Game catalogue summary"><span><strong id="lobbyGameCount">42</strong><small>ENTRIES</small></span><span><strong id="lobbyBrandCount">37</strong><small>BRANDS</small></span><span><strong>3</strong><small>FEATURED</small></span></div>
+       </div>
+       <section id="lobbyAdCarousel" class="lobby-ad-carousel" aria-label="Lobby advertisements" hidden>
+         <a id="lobbyAdLink" class="lobby-ad-link" href="#" target="_blank" rel="noopener noreferrer" hidden>
+@@ -327,6 +327,7 @@
+           <article class="bonus-brand-card bonus--megah5"><span class="bonus-card-top"><span class="bonus-index">SPONSORED 02</span><span class="bonus-locked">MEGA H5 × MASTER7</span></span><img class="sponsor-art" data-provider-art="megah5" data-sponsor-index="1" alt="MEGAH5 and MASTER7 sponsored provider artwork"><span class="bonus-big-mark bonus-mark-mega">MEGA H5 × MASTER7</span><span class="bonus-offer-label">FEATURED PROVIDER</span><span class="bonus-btn-bottom"><button class="bonus-brand-action" type="button" data-bonus-brand="megah5" data-bonus-i18n="cta">View games</button><button class="bonus-extra-action" type="button" data-provider-bonus="megah5" data-bonus-i18n="claim">Terms &amp; offers</button></span></article>
+           <article class="bonus-brand-card bonus--918kiss"><span class="bonus-card-top"><span class="bonus-index">SPONSORED 03</span><span class="bonus-locked">918KISS × MASTER7</span></span><img class="sponsor-art" data-provider-art="918kissh5" data-sponsor-index="2" alt="918KISS and MASTER7 sponsored provider artwork"><span class="bonus-big-mark bonus-mark-kiss">918KISS × MASTER7</span><span class="bonus-offer-label">FEATURED PROVIDER</span><span class="bonus-btn-bottom"><button class="bonus-brand-action" type="button" data-bonus-brand="918kissh5" data-bonus-i18n="cta">View games</button><button class="bonus-extra-action" type="button" data-provider-bonus="918kissh5" data-bonus-i18n="claim">Terms &amp; offers</button></span></article>
+         </div>
++        <div class="sponsor-pagination" aria-label="Three featured providers"><span class="active"></span><span></span><span></span></div>
+         <p class="bonus-disclosure" data-bonus-i18n="disclosure">游戏封面与品牌专区由 MASTER7 后台统一管理。</p>
+       </section>
+       </div>
+@@ -342,11 +343,11 @@
+       </div>
+       <div class="filters platform-search"><input id="search" placeholder="Search platform name · 搜索游戏平台" autocomplete="off"></div>
+       <section class="api-supplier-lobby" id="apiSupplierLobby" aria-labelledby="apiSupplierTitle">
+-        <div class="provider-directory-heading"><div><p class="eyebrow">PREMIUM GAME COLLECTION</p><h2 id="apiSupplierTitle">37 家独立游戏平台</h2><p class="muted">Choose a provider to view its games and account options.</p></div><span id="apiSupplierCountLabel" class="tiny-label">37 PLATFORMS</span></div>
++        <div class="provider-directory-heading"><div><p class="eyebrow">PREMIUM GAME COLLECTION</p><h2 id="apiSupplierTitle">37 Game Providers</h2><p class="muted">Choose a provider to browse its game catalogue.</p></div><span id="apiSupplierCountLabel" class="tiny-label">37 PROVIDERS</span></div>
+         <div id="apiSupplierButtons" class="api-supplier-grid" aria-live="polite"></div>
+       </section>
+       <button id="clearProviderFilter" class="button button-ghost small" type="button" hidden>Back to 37 game platforms</button>
+-      <p id="gamesStatus" class="notice" role="status" aria-live="polite">37 platforms · Choose one independent entry</p>
++      <p id="gamesStatus" class="notice member-catalogue-status" role="status" aria-live="polite">Choose a provider to browse available titles.</p>
+       <div id="providers" class="catalog-providers"></div>
+       <section id="gameWalletPanel" class="game-wallet-panel surface" hidden aria-labelledby="gameWalletTitle">
+         <div class="game-wallet-heading">
+@@ -375,14 +376,14 @@
+         <div class="payment-lobby-heading">
+           <div>
+             <p class="eyebrow">MYR · PAYMENT CHANNELS</p>
+-            <h2 id="paymentLobbyTitle" data-payment-i18n="title">充值方式</h2>
+-            <p class="muted" data-payment-i18n="notice">选择一家充值公司，打开该公司的充值面板。</p>
++            <h2 id="paymentLobbyTitle" data-payment-i18n="title">Deposit options</h2>
++            <p class="muted" data-payment-i18n="notice">Choose a deposit method to continue.</p>
+           </div>
+           <span class="payment-lobby-counter">4 PAYMENT PROFILES · MYR / USDT</span>
+         </div>
+         <div class="cashier-bank-entry">
+-          <button type="button" class="button button-primary cashier-bank-option" data-payment-channel="duitnow-qr"><strong>DUITNOW QR</strong><span class="payment-hint" data-payment-i18n="duitNowHint">扫描公司收款二维码 · 上传银行单后审核入钱包</span><span class="payment-state">查看二维码</span></button>
+-          <button type="button" class="button button-primary cashier-bank-option" data-payment-channel="manual-bank"><strong>BANK TRANSFER</strong><span class="payment-hint" data-payment-i18n="bankHint">公司银行 · 上传银行单，核实到账后入会员钱包</span><span class="payment-state">查看银行</span></button>
++          <button type="button" class="button button-primary cashier-bank-option" data-payment-channel="duitnow-qr"><strong>DUITNOW QR</strong><span class="payment-hint" data-payment-i18n="duitNowHint">Scan the company QR and submit the payment receipt for review.</span><span class="payment-state">View QR</span></button>
++          <button type="button" class="button button-primary cashier-bank-option" data-payment-channel="manual-bank"><strong>BANK TRANSFER</strong><span class="payment-hint" data-payment-i18n="bankHint">Transfer to the displayed company bank account and submit the receipt.</span><span class="payment-state">View bank</span></button>
+         </div>
+         <div id="paymentButtons" class="payment-grid" role="group" aria-label="Payment deposit options">
+           <button type="button" class="payment-option" data-payment-channel="vpay"><span class="payment-number">01</span><strong>VPAY</strong><span class="payment-hint" data-payment-i18n="vpayHint">独立入口 · MYR</span><span class="payment-state" data-payment-i18n="status">查看状态</span></button>
+@@ -426,11 +427,11 @@
+     </section>
+ 
+     <section id="support" class="section">
+-      <div class="section-header"><div><p class="eyebrow">AI SUPPORT CENTER</p><h1 data-i18n="supportTitle">客户服务中心</h1><p class="muted" data-i18n="supportIntro">Stephanie AI 客服会先回复，后台人员可在同一工单继续处理。</p></div></div>
++      <div class="section-header"><div><p class="eyebrow">AI SUPPORT CENTER</p><h1 data-i18n="supportTitle">Support center</h1><p class="muted" data-i18n="supportIntro">Stephanie AI support replies first; backoffice staff can continue in the same ticket.</p></div></div>
+       <article class="stephanie-intro" aria-label="Stephanie MASTER7 AI customer support">
+         <div class="stephanie-avatar" aria-hidden="true"><span>👩🏻‍💼</span><b>AI</b></div>
+-        <div><p class="eyebrow">STEPHANIE · MASTER7 AI 客服</p><h2>你好，我是 Stephanie</h2><p>我可以用中文、English 和 Bahasa Melayu 先处理常见问题。充值、提款、账号安全与投诉会保留给后台人员审核。</p><div class="stephanie-chips"><span>AI 助手</span><span>三语回复</span><span>人工接管</span></div></div>
+-        <p class="stephanie-safety">请勿发送密码、OTP、完整银行号码或 API 密钥。</p>
++        <div><p class="eyebrow">STEPHANIE · MASTER7 AI SUPPORT</p><h2>Hello, I am Stephanie</h2><p>I can help with common questions in English, Chinese and Bahasa Melayu. Payment, withdrawal, account security and complaint cases remain available for staff review.</p><div class="stephanie-chips"><span>AI assistance</span><span>Three languages</span><span>Staff follow-up</span></div></div>
++        <p class="stephanie-safety">Never send a password, OTP, full bank account number or API key.</p>
+       </article>
+       <div class="two-col">
+         <form id="ticketForm" class="surface stack"><h2 data-i18n="newTicket">创建工单</h2><label for="ticketSubject" data-i18n="subject">主题</label><input id="ticketSubject" minlength="3" maxlength="120" required><label for="ticketMessage" data-i18n="message">内容</label><textarea id="ticketMessage" rows="5" minlength="5" maxlength="2000" required></textarea><button class="button button-primary" type="submit" data-i18n="submitTicket">提交工单</button><small data-i18n="ticketLogin">登录并通过会员审批后可提交工单。</small></form>
+@@ -874,7 +875,7 @@
+     <span class="muted" data-social-key="publicHint">官方 Hotline 与聊天入口</span>
+     <div id="publicSocialLinks" class="public-social-links"></div>
+   </div>
+-  <footer class="footer"><div class="footer-brand">MASTER7 <small>PREMIUM MEMBER CLUB</small></div><p data-i18n="footerDisclaimer">会员可在一个平台查看游戏、钱包、福利、充值、提款与客服记录。</p><div class="footer-state"><span class="dot"></span><span data-i18n="sandbox">MASTER7 · SECURE MEMBER PORTAL</span></div></footer>
++  <footer class="footer"><div class="footer-brand">MASTER7 <small>PREMIUM MEMBER CLUB</small></div><p data-i18n="footerDisclaimer">Games, wallet, rewards, deposits, withdrawals and support in one member platform.</p><div class="footer-state"><span class="dot"></span><span data-i18n="sandbox">MASTER7 · SECURE MEMBER PORTAL</span></div></footer>
+ 
+   <dialog id="depositCashier" class="deposit-cashier" aria-labelledby="depositCashierTitle" aria-describedby="depositCashierStatus">
+     <div class="dialog-head"><div class="brand-mini" aria-hidden="true">7</div><div><p id="depositCashierCurrency" class="eyebrow">MYR · DEPOSIT</p><h2 id="depositCashierTitle">Deposit</h2></div><button id="depositCashierClose" class="close" type="button" aria-label="Close">×</button></div>
+@@ -931,8 +932,8 @@
+       <div class="member-auth-wordmark"><strong>MASTER7</strong><span id="authBrandSub" data-i18n="memberBrand">MEMBER LOUNGE</span></div>
+       <span id="authBrandBadge" class="member-auth-badge" data-i18n="memberBadge">MEMBER ACCESS</span>
+     </div>
+-    <p id="authTagline" class="member-auth-tagline" data-i18n="memberTagline">你的专属游戏大厅</p>
+-    <div class="dialog-head"><div class="brand-mini lock-brand" aria-hidden="true">M7</div><div><p class="eyebrow" id="authEyebrow">MEMBER ACCESS</p><h2 id="authTitle" data-i18n="signInTitle">会员登录</h2></div><button class="close" id="closeAuth" aria-label="Close">×</button></div>
++    <p id="authTagline" class="member-auth-tagline" data-i18n="memberTagline">Your premium game lobby</p>
++    <div class="dialog-head"><div class="brand-mini lock-brand" aria-hidden="true">M7</div><div><p class="eyebrow" id="authEyebrow">MEMBER ACCESS</p><h2 id="authTitle" data-i18n="signInTitle">Member sign-in</h2></div><button class="close" id="closeAuth" aria-label="Close">×</button></div>
+     <p id="authNotice" class="muted"></p>
+     <form id="passwordForm" class="stack">
+       <label id="usernameField"><span data-i18n="portalId">MASTER7 ID</span><input id="authUsername" name="username" autocomplete="username" inputmode="text" autocapitalize="none" spellcheck="false" pattern="[a-zA-Z0-9_]{4,32}" minlength="4" maxlength="32" data-i18n-placeholder="portalId" placeholder="MASTER7 ID" required></label>
+@@ -957,9 +958,8 @@
+     <div class="auth-language-row" role="group" aria-label="Language">
+       <button type="button" data-auth-lang="en">ENG</button><button type="button" data-auth-lang="zh">中文</button><button type="button" data-auth-lang="ms">BM</button>
+     </div>
+-    <div class="auth-quick-actions">
+-      <a href="/downloads/MASTER7-Android-v17.0.52.apk" download><span class="auth-quick-icon" aria-hidden="true">↓</span><span><small data-i18n="downloadApp">下载手机应用</small><strong>ANDROID APK</strong></span></a>
+-      <details class="auth-company-details"><summary><span class="auth-quick-icon auth-quick-logo" aria-hidden="true">7</span><span><small data-i18n="learnMore">了解更多</small><strong data-i18n="aboutMaster7">关于 MASTER7</strong></span></summary><p data-i18n="companyIntro">MASTER7 汇集游戏、会员福利、钱包、充值、提款与客服服务。</p></details>
++    <div class="auth-quick-actions auth-quick-actions-single">
++      <details class="auth-company-details"><summary><span class="auth-quick-icon auth-quick-logo" aria-hidden="true">7</span><span><small data-i18n="learnMore">Learn more</small><strong data-i18n="aboutMaster7">About MASTER7</strong></span></summary><p data-i18n="companyIntro">MASTER7 brings games, member rewards, wallet, deposits, withdrawals and support together.</p></details>
+     </div>
+     <p class="auth-company-foot">MASTER7 <span>•</span> PREMIUM MEMBER CLUB</p>
+   </dialog>
+diff --git a/docs/MASTER7_MEMBER_POLISH_156.md b/docs/MASTER7_MEMBER_POLISH_156.md
+new file mode 100644
+index 0000000..f406033
+--- /dev/null
++++ b/docs/MASTER7_MEMBER_POLISH_156.md
+@@ -0,0 +1,31 @@
++# MASTER7 v156 member frontend polish
++
++Release: `17.0.0-selfbuilt.156-member-polish`
++
++This release gives the customer portal one consistent water-blue, blue and
++white presentation while preserving every existing availability and money
++control.
++
++- Mobile member services use four large, readable Deposit, Withdraw, Games
++  and Support entrances instead of a compressed menu.
++- The company hero is shorter on mobile, the game-lobby heading has stronger
++  contrast, and provider artwork, cards, spacing and typography share stable
++  proportions.
++- The bottom navigation grows to a touch-friendly height, adapts to four or
++  five visible destinations and leaves safe page clearance above it.
++- Sponsored providers remain independent, horizontally scrollable placements
++  with a visible three-position cue.
++- Mobile payment profiles are compact single-column rows with clearer labels.
++- The retired Android APK promotion is removed from the member sign-in flow.
++- Public catalogue wording uses customer-facing availability such as
++  `Coming soon` and `Play coming soon`; internal API state labels and the
++  `0 CONNECTED` counter are no longer presented as customer features.
++
++At 393 px viewport width the page remains 393 px wide with no horizontal
++overflow. The primary service buttons measure about 180 × 119 px, the mobile
++dock is 70 px high and the compact brand hero is 237 px high.
++
++This release does not enable games, deposits, payouts or real-money
++operations. Supplier acceptance, launch, wallet, settlement and production
++evidence remain required before Play can be enabled. Payment channels and
++their operational flags remain unchanged.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 1418aa1..188a63c 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -38,7 +38,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.155-catalogue-integrity';
++export const RELEASE = '17.0.0-selfbuilt.156-member-polish';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index 8821bef..f515828 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.155-catalogue-integrity' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.156-member-polish' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/package.json b/package.json
+index 3417999..d940e0a 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.155-catalogue-integrity node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.155-catalogue-integrity node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.156-member-polish node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.156-member-polish node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.155-catalogue-integrity node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.156-member-polish node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/assets/app.js b/public/assets/app.js
+index c619583..5455636 100644
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -206,11 +206,11 @@ function supplierEntriesForCategory(category=state.gameCategory||"HOT"){
+ }
+ function apiSupplierState(entry){const profileSources=state.gameCatalogue?.profiles||[],providerSources=state.gameCatalogue?.providers||[],providerId=String(entry?.providerId||entry?.provider_id||entry?.id||""),profileSource=profileSources.find(item=>(item.profileId||item.profile_id||item.id)===entry.id),providerSource=providerSources.find(item=>item.id===providerId),source=profileSource||providerSources.find(item=>(item.profileId||item.profile_id)===entry.id)||providerSource,connected=(source?.connectionVerified??providerSource?.connectionVerified)===true&&(source?.catalogueSynced??providerSource?.catalogueSynced)===true;return {connected,qaOnly:source?.qaOnly===true||entry?.qaOnly===true,platformLaunchReady:source?.platformLaunchReady===true||source?.launchReady===true||source?.canLaunch===true,walletReady:source?.walletReady===true,settlementVerified:source?.settlementVerified===true,recoveryReady:source?.recoveryReady===true,maintenance:entry.maintenance===true||source?.maintenance===true||source?.status==="maintenance",walletMode:String(source?.walletMode||source?.wallet_mode||entry.walletMode||""),currency:String(source?.currency||entry.currency||"MYR"),capabilityReason:String(source?.capabilityReason||source?.capability_reason||entry.capabilityReason||"")};}
+ function apiSupplierStatusText(info){
+- if(info.qaOnly)return state.lang==="zh"?"专用测试入口":state.lang==="ms"?"Akses ujian terhad":"Restricted test entry";
+- if(info.maintenance)return state.lang==="zh"?"厂家维护中":state.lang==="ms"?"Penyelenggaraan penyedia":"Provider maintenance";
+- if(info.platformLaunchReady)return state.lang==="zh"?"游戏入口可用":state.lang==="ms"?"Pintu permainan tersedia":"Game entry available";
+- if(info.connected)return state.lang==="zh"?"目录已连接 · 游戏入口尚未就绪":state.lang==="ms"?"Katalog disambungkan · pintu permainan belum sedia":"Catalogue connected · game entry pending";
+- return state.lang==="zh"?"等待 API 连接":state.lang==="ms"?"Menunggu sambungan API":"Awaiting API connection";
++ if(info.qaOnly)return state.lang==="zh"?"测试目录":state.lang==="ms"?"Katalog ujian":"Test catalogue";
++ if(info.maintenance)return state.lang==="zh"?"暂时无法使用":state.lang==="ms"?"Tidak tersedia buat sementara":"Temporarily unavailable";
++ if(info.platformLaunchReady)return state.lang==="zh"?"可以进入":state.lang==="ms"?"Tersedia":"Available";
++ if(info.connected)return state.lang==="zh"?"可查看游戏 · 即将开放":state.lang==="ms"?"Lihat permainan · akan datang":"Browse games · Play coming soon";
++ return state.lang==="zh"?"即将推出":state.lang==="ms"?"Akan datang":"Coming soon";
+ }
+ function applyDefaultSupplierArtwork(image,entry,fallback){const providerId=gameProfileProviderId(entry),liveIndex=liveSupplierPortraits[providerId],cartoonIndex=cartoonSupplierPortraits[providerId],sprite=Number.isInteger(liveIndex)?{index:liveIndex,count:7,url:"/assets/master7-live-hosts.webp",y:"20%",kind:"live"}:Number.isInteger(cartoonIndex)?{index:cartoonIndex,count:12,url:"/assets/master7-cartoon-providers.webp",y:"22%",kind:"cartoon"}:null;image.classList.toggle("supplier-sprite",!!sprite);if(!sprite){image.onerror=()=>{image.onerror=null;image.src="/assets/master7-casino-lobby-premium.webp";};image.src=fallback;return;}image.src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";image.dataset.spriteKind=sprite.kind;image.style.backgroundImage=`url(${sprite.url})`;image.style.backgroundSize=`${sprite.count*100}% auto`;image.style.backgroundPosition=`${sprite.index/(sprite.count-1)*100}% ${sprite.y}`;}
+ function supplierArtwork(entry,css){const image=document.createElement("img"),providerId=gameProfileProviderId(entry),known=apiSupplierIdSet.has(providerId),fallback=known?`/assets/providers/${providerId}.webp`:"/assets/master7-luxury-lobby.webp",version=state.supplierArtwork?.[providerId];image.className=css;image.alt=`${entry.name} game platform`;image.loading="lazy";if(version){image.src=`/api/supplier-art?provider=${encodeURIComponent(providerId)}&v=${encodeURIComponent(version)}`;image.onerror=()=>{image.onerror=null;applyDefaultSupplierArtwork(image,entry,fallback);};}else applyDefaultSupplierArtwork(image,entry,fallback);return image;}
+@@ -891,8 +891,8 @@ function publicGameCard(game){
+  let imageSourceIndex=0;image.src=imageSources[0];image.alt=title.textContent;image.loading="lazy";image.onerror=()=>{imageSourceIndex+=1;if(imageSourceIndex>=imageSources.length){image.onerror=null;return;}image.src=imageSources[imageSourceIndex];};cover.append(image);favorite.type="button";favorite.setAttribute("aria-label",`${favorite.textContent==="♥"?"Remove":"Add"} ${title.textContent} favourite`);favorite.onclick=()=>toggleFavoriteGame(game);status.textContent=game.qaOnly===true?(state.lang==="zh"?"测试入口":state.lang==="ms"?"Ujian":"Test entry"):game.status==="suspended"?(state.lang==="zh"?"维护中":"Maintenance"):game.playable===true?(state.lang==="zh"?"可以进入":"Ready"):(state.lang==="zh"?"仅游戏目录":"Catalogue only");action.type="button";action.disabled=game.playable!==true||state.gameLaunchBusy||game.status!=="active";action.textContent=game.playable===true?(state.lang==="zh"?"开始游戏":"Play"):(state.lang==="zh"?"启动尚未就绪":"Launch not ready");action.onclick=()=>startGame(game);card.append(cover,favorite,title,meta,status,action);return card;
+ }
+ function renderCatalog(){
+- const host=$("providers");if(!host)return;clear(host);const brandLobby=$("apiSupplierLobby");if(brandLobby)brandLobby.hidden=!!state.selectedCatalogProvider;const allEntries=typeof gameProfileEntries==="function"?gameProfileEntries():apiSupplierEntries,counts=typeof gameProfileCounts==="function"?gameProfileCounts(allEntries):{profiles:allEntries.length,brands:allEntries.length},category=state.gameCategory||"HOT",entries=supplierEntriesForCategory(category),connectedCount=allEntries.filter(entry=>{const item=apiSupplierState(entry);return item.connected;}).length,clearProvider=$("clearProviderFilter"),searchBox=$("search");
+- if($("lobbyGameCount"))$("lobbyGameCount").textContent=String(counts.profiles);if($("lobbyBrandCount"))$("lobbyBrandCount").textContent=String(counts.brands);if($("lobbyProviderCount"))$("lobbyProviderCount").textContent=String(connectedCount);
++ const host=$("providers");if(!host)return;clear(host);const brandLobby=$("apiSupplierLobby");if(brandLobby)brandLobby.hidden=!!state.selectedCatalogProvider;const allEntries=typeof gameProfileEntries==="function"?gameProfileEntries():apiSupplierEntries,counts=typeof gameProfileCounts==="function"?gameProfileCounts(allEntries):{profiles:allEntries.length,brands:allEntries.length},category=state.gameCategory||"HOT",entries=supplierEntriesForCategory(category),clearProvider=$("clearProviderFilter"),searchBox=$("search");
++ if($("lobbyGameCount"))$("lobbyGameCount").textContent=String(counts.profiles);if($("lobbyBrandCount"))$("lobbyBrandCount").textContent=String(counts.brands);
+  if(!state.selectedCatalogProvider){state.gameWallet=null;renderGameWallet();if(clearProvider)clearProvider.hidden=true;if(searchBox)searchBox.placeholder=state.lang==="zh"?"搜索游戏平台":"Search platform name";const status=$("gamesStatus");if(status)status.textContent=state.lang==="zh"?`${entries.length} 个入口 · ${counts.brands} 家品牌 · 请选择一个独立入口`:state.lang==="ms"?`${entries.length} pintu · ${counts.brands} jenama · Pilih satu pintu masuk`:`${counts.brands} independent providers · Choose a provider`;return;}
+  const entry=(typeof gameProfileEntry==="function"?gameProfileEntry(state.selectedCatalogProvider):allEntries.find(item=>item.id===state.selectedCatalogProvider));if(!entry){state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;renderApiSupplierButtons();renderCatalog();return;}const info=apiSupplierState(entry),selectedKey=state.gameCatalogue?.selectedProfileId||state.gameCatalogue?.profileId||state.gameCatalogue?.selectedProvider,loaded=selectedKey===entry.id,games=loaded&&Array.isArray(state.games)?state.games:[],card=node("article",`platform-entry-status${info.connected?" connected":""}`),art=supplierArtwork(entry,"platform-entry-art"),copy=node("div","platform-entry-copy"),title=node("h2","",entry.name),profileCategories=typeof gameProfileCategories==="function"?[...gameProfileCategories(entry)]:Object.entries(apiSupplierCategoryIds).filter(([,ids])=>ids.includes(entry.id)).map(([name])=>name),categoryText=node("p","muted",profileCategories.join(" · ")),profileMeta=node("p","platform-entry-profile",typeof profileCapabilityText==="function"?profileCapabilityText(entry,info):""),message=node("p","platform-entry-message"),action=node("button","button button-primary");
+  if(searchBox)searchBox.placeholder=state.lang==="zh"?`搜索 ${entry.name} 游戏`:`Search ${entry.name} games`;if(clearProvider){clearProvider.hidden=false;clearProvider.textContent=state.lang==="zh"?`← 返回 ${counts.profiles} 个入口 / ${counts.brands} 家品牌`:state.lang==="ms"?`← Kembali ke ${counts.profiles} pintu / ${counts.brands} jenama`:`← Back to ${counts.brands} providers`;}
+@@ -903,7 +903,7 @@ function renderCatalog(){
+  if(accounts.length>1){const label=node("label","provider-account-picker","Game account"),select=node("select","provider-account-select");select.setAttribute("aria-label",`${apiSupplierEntries.find(item=>item.id===gameProfileProviderId(entry))?.name||entry.name} game account`);for(const account of accounts){const option=node("option","",account.name);option.value=account.id;option.selected=account.id===entry.id;select.append(option);}select.onchange=()=>{const account=accounts.find(item=>item.id===select.value);if(account)openCatalogProvider(account.id,account.name);};label.append(select);copy.append(label);}
+  card.append(art,copy);host.append(card);
+  if(games.length){const search=(searchBox?.value||"").trim().toLowerCase(),favorites=favoriteGameKeys(),filtered=games.filter(game=>(!search||[game.name,game.nameZh,game.gameCode].some(value=>String(value||"").toLowerCase().includes(search)))&&(category==="HOT"||category==="FAV"&&favorites.has(gameIdentity(game))||normalizedGameCategory(game)===category)&&(state.gameAccessZone==="ALL"||game.accessZone===state.gameAccessZone)),grid=node("div","catalog-grid game-grid");for(const game of filtered.slice(0,state.gameLimit))grid.append(publicGameCard(game));host.append(grid);if(filtered.length>state.gameLimit){const more=node("button","button button-outline game-load-more",state.lang==="zh"?`显示更多（${state.gameLimit}/${filtered.length}）`:`Show more (${state.gameLimit}/${filtered.length})`);more.type="button";more.onclick=()=>{state.gameLimit+=24;renderCatalog();};host.append(more);}if(!filtered.length)host.append(node("p","notice",state.lang==="zh"?"这个筛选没有游戏。":"No games match this filter."));}
+- const status=$("gamesStatus");if(status)status.textContent=`${entry.name} · ${loaded?`${games.length} GAMES`:"LOADING"} · ${info.maintenance?"PROVIDER MAINTENANCE":info.connected?"API CONNECTED":"API PENDING"}`;
++ const status=$("gamesStatus");if(status)status.textContent=state.lang==="zh"?`${entry.name} · ${loaded?`${games.length} 款游戏`:"正在读取"} · ${info.platformLaunchReady?"可以进入":"即将开放"}`:state.lang==="ms"?`${entry.name} · ${loaded?`${games.length} permainan`:"Memuatkan"} · ${info.platformLaunchReady?"Tersedia":"Akan datang"}`:`${entry.name} · ${loaded?`${games.length} games`:"Loading"} · ${info.platformLaunchReady?"Available":"Play coming soon"}`;
+ }
+ 
+ function renderAdGrid(items){const host=$("lobbyAdGrid");if(!host)return;clear(host);host.hidden=items.length<2;if(items.length<2)return;for(const ad of items.slice(0,6)){const target=typeof ad.target_url==="string"&&/^https:\/\//i.test(ad.target_url),card=document.createElement(target?"a":"article"),image=document.createElement("img"),label=node("span","",ad.title);card.className="lobby-ad-card";if(target){card.href=ad.target_url;card.target="_blank";card.rel="noopener noreferrer";}image.src=ad.image_data;image.alt=ad.title;image.loading="lazy";card.append(image,label);host.append(card);}}
+diff --git a/public/assets/member-refresh.css b/public/assets/member-refresh.css
+index 2b80021..35eacd7 100644
+--- a/public/assets/member-refresh.css
++++ b/public/assets/member-refresh.css
+@@ -161,3 +161,130 @@ body:not(.auth-entry):not(.admin-mode) #apiSupplierButtons .api-supplier-button.
+ body:not(.auth-entry):not(.admin-mode) #providers .platform-entry-status{background:#f8fcff!important;border-color:#c9dfef!important;}
+ body:not(.auth-entry):not(.admin-mode) #providers .platform-entry-copy h2{color:#12354d!important;}
+ body:not(.auth-entry):not(.admin-mode) #providers .platform-entry-copy p{color:#526f84!important;}
++
++/* V17.156 customer-shell polish. This final layer resolves older theme
++   collisions without changing payment or game availability state. */
++body:not(.auth-entry):not(.admin-mode){
++  --member-blue:#1269b8;
++  --member-water:#5ecdf0;
++  --member-soft:#eef8ff;
++  --member-border:#cfe4f3;
++  --member-shadow:0 12px 34px rgba(22,78,119,.10);
++  background:
++    radial-gradient(circle at 92% 0,rgba(92,205,240,.2),transparent 26rem),
++    linear-gradient(180deg,#effaff 0,#f8fbff 34rem,#f6f9fd 100%);
++}
++body:not(.auth-entry):not(.admin-mode) .demo-ribbon{
++  padding:7px 14px;border:0;background:linear-gradient(90deg,#0b4f8d,#1479c9 58%,#1ba6cb);color:#fff;font-size:11px;letter-spacing:.09em;
++}
++body:not(.auth-entry):not(.admin-mode) .topbar{box-shadow:0 8px 26px rgba(21,76,116,.08)}
++body:not(.auth-entry):not(.admin-mode) .brand-logo{filter:drop-shadow(0 5px 11px rgba(12,85,153,.24))}
++body:not(.auth-entry):not(.admin-mode) .button,
++body:not(.auth-entry):not(.admin-mode) button{transition:transform .16s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease}
++body:not(.auth-entry):not(.admin-mode) button:active{transform:translateY(1px)}
++body:not(.auth-entry):not(.admin-mode) :is(button,a,input,select,textarea):focus-visible{outline:3px solid rgba(30,151,220,.38);outline-offset:2px}
++
++body:not(.auth-entry):not(.admin-mode) .member-service-menu{gap:14px}
++body:not(.auth-entry):not(.admin-mode) .member-service-menu button{
++  position:relative;overflow:hidden;min-height:118px;border-color:var(--member-border);background:linear-gradient(145deg,#fff,#f1f9ff);box-shadow:var(--member-shadow)
++}
++body:not(.auth-entry):not(.admin-mode) .member-service-menu button::after{
++  content:"";position:absolute;right:-30px;bottom:-38px;width:92px;height:92px;border-radius:50%;background:rgba(80,194,233,.1)
++}
++body:not(.auth-entry):not(.admin-mode) .member-service-menu button>span{width:50px;height:50px;border-radius:16px;background:linear-gradient(145deg,#dff5ff,#edf7ff);box-shadow:inset 0 0 0 1px #cae9f8}
++body:not(.auth-entry):not(.admin-mode) .member-service-menu strong{font-size:18px;line-height:1.2}
++
++body:not(.auth-entry):not(.admin-mode) .company-profile-hero{overflow:hidden;box-shadow:var(--member-shadow)}
++body:not(.auth-entry):not(.admin-mode) .company-profile-copy{background:linear-gradient(145deg,#082d54,#0a436d);}
++body:not(.auth-entry):not(.admin-mode) .company-profile-copy h1{letter-spacing:-.025em}
++body:not(.auth-entry):not(.admin-mode) #lobby>.lobby-overview{padding:22px!important;border-radius:20px!important;box-shadow:var(--member-shadow)!important}
++body:not(.auth-entry):not(.admin-mode) .casino-trust-row{display:flex;flex-wrap:wrap;gap:7px}
++body:not(.auth-entry):not(.admin-mode) .casino-trust-row span{padding:6px 9px;border:1px solid #cfe5f4;border-radius:999px;background:#eef8ff;color:#2f709d;font-size:10px;font-weight:800;letter-spacing:.06em}
++body:not(.auth-entry):not(.admin-mode) .lobby-live-summary span{border-radius:14px}
++
++body:not(.auth-entry):not(.admin-mode) .bonus-brand-grid{scroll-padding-inline:2px}
++body:not(.auth-entry):not(.admin-mode) .bonus-brand-card{box-shadow:0 9px 25px rgba(25,76,112,.09)!important}
++body:not(.auth-entry):not(.admin-mode) .bonus-brand-action,
++body:not(.auth-entry):not(.admin-mode) .bonus-extra-action{min-height:42px;padding:9px 13px;border-radius:11px;font-size:12px}
++body:not(.auth-entry):not(.admin-mode) .bonus-brand-action{border-color:#b8dcef;background:#eaf7ff;color:#1a638e}
++body:not(.auth-entry):not(.admin-mode) .bonus-extra-action{border-color:#176eb0;background:#176eb0;color:#fff}
++body:not(.auth-entry):not(.admin-mode) .sponsor-pagination{display:flex;justify-content:center;gap:7px;padding:12px 0 3px}
++body:not(.auth-entry):not(.admin-mode) .sponsor-pagination span{width:7px;height:7px;border-radius:999px;background:#c4dbe9}
++body:not(.auth-entry):not(.admin-mode) .sponsor-pagination .active{width:24px;background:#2588ca}
++
++body:not(.auth-entry):not(.admin-mode) .api-supplier-lobby{border-radius:20px;box-shadow:var(--member-shadow)}
++body:not(.auth-entry):not(.admin-mode) .api-supplier-button{overflow:hidden;box-shadow:0 7px 20px rgba(28,76,108,.07)!important}
++body:not(.auth-entry):not(.admin-mode) .api-supplier-button:hover{border-color:#7fc9ef!important;box-shadow:0 10px 24px rgba(23,105,159,.13)!important}
++body:not(.auth-entry):not(.admin-mode) .member-catalogue-status{margin:12px 0 18px;padding:13px 16px;border-radius:13px}
++
++body:not(.auth-entry):not(.admin-mode) .payment-lobby{border-radius:22px;box-shadow:var(--member-shadow)}
++body:not(.auth-entry):not(.admin-mode) .payment-grid{gap:10px}
++body:not(.auth-entry):not(.admin-mode) .payment-option{min-height:132px;padding:17px;border-radius:16px;box-shadow:0 7px 20px rgba(30,81,119,.06)}
++body:not(.auth-entry):not(.admin-mode) .payment-option strong{font-size:19px}
++body:not(.auth-entry):not(.admin-mode) .cashier-bank-option{border-radius:16px;box-shadow:0 9px 22px rgba(12,91,136,.14)}
++
++body.auth-entry #authDialog.customer-auth .auth-quick-actions-single{grid-template-columns:1fr}
++body.auth-entry #authDialog.customer-auth .auth-quick-actions-single .auth-company-details{width:100%}
++
++@media(max-width:760px){
++  body:not(.auth-entry):not(.admin-mode){padding-bottom:calc(98px + env(safe-area-inset-bottom));font-size:16px}
++  body:not(.auth-entry):not(.admin-mode) .page{padding:12px 12px calc(42px + env(safe-area-inset-bottom))}
++  body:not(.auth-entry):not(.admin-mode) .topbar{height:62px;min-height:62px;padding:8px 12px}
++  body:not(.auth-entry):not(.admin-mode) .topbar .brand{font-size:17px}
++  body:not(.auth-entry):not(.admin-mode) .topbar .brand-logo{width:39px;height:39px;flex-basis:39px}
++  body:not(.auth-entry):not(.admin-mode) .mobile-dock{left:8px;right:8px;bottom:calc(7px + env(safe-area-inset-bottom));min-height:70px;padding:6px 5px;border-radius:20px}
++  body:not(.auth-entry):not(.admin-mode) .mobile-dock:not(:has([data-section="deposit"]:not([hidden]))){grid-template-columns:repeat(4,minmax(0,1fr))}
++  body:not(.auth-entry):not(.admin-mode) .mobile-dock-button{min-height:56px;border-radius:15px}
++  body:not(.auth-entry):not(.admin-mode) .mobile-dock-button>span{font-size:22px}
++  body:not(.auth-entry):not(.admin-mode) .mobile-dock-button>small{font-size:11px;font-weight:750;letter-spacing:-.01em}
++
++  body:not(.auth-entry):not(.admin-mode) .member-service-menu{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px}
++  body:not(.auth-entry):not(.admin-mode) .member-service-menu button{min-height:104px;padding:13px 8px;border-radius:17px}
++  body:not(.auth-entry):not(.admin-mode) .member-service-menu button>span{width:46px;height:46px;font-size:27px}
++  body:not(.auth-entry):not(.admin-mode) .member-service-menu strong{font-size:16px}
++  body:not(.auth-entry):not(.admin-mode) .member-service-menu small{display:block;font-size:11px}
++
++  body:not(.auth-entry):not(.admin-mode) .company-profile-hero{position:relative;display:block;min-height:235px;margin-bottom:14px;border-radius:20px}
++  body:not(.auth-entry):not(.admin-mode) .company-profile-media{min-height:235px;aspect-ratio:auto}
++  body:not(.auth-entry):not(.admin-mode) .company-profile-media img{min-height:235px;height:235px;aspect-ratio:auto;object-position:31% center}
++  body:not(.auth-entry):not(.admin-mode) .company-profile-copy{position:absolute;inset:0;justify-content:flex-end;padding:64px 18px 18px;background:linear-gradient(180deg,rgba(2,23,45,.06) 15%,rgba(4,35,64,.93) 72%,#062b50 100%)}
++  body:not(.auth-entry):not(.admin-mode) .company-profile-copy h1{max-width:14ch;margin-bottom:7px;font-size:25px;line-height:1.08}
++  body:not(.auth-entry):not(.admin-mode) .company-profile-copy .company-profile-lead{margin:0;color:#d2f4ff;font-size:14px}
++  body:not(.auth-entry):not(.admin-mode) .company-profile-copy .eyebrow{margin-bottom:5px;color:#94e6ff;font-size:9px}
++  body:not(.auth-entry):not(.admin-mode) .company-profile-about{display:none}
++
++  body:not(.auth-entry):not(.admin-mode) #lobby>.lobby-overview{gap:13px;padding:17px!important}
++  body:not(.auth-entry):not(.admin-mode) #lobby>.lobby-overview h1{font-size:25px!important;line-height:1.1}
++  body:not(.auth-entry):not(.admin-mode) #lobby>.lobby-overview h1{color:#173f60!important}
++  body:not(.auth-entry):not(.admin-mode) #lobby>.lobby-overview .muted{color:#526f84!important}
++  body:not(.auth-entry):not(.admin-mode) .lobby-live-summary{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
++  body:not(.auth-entry):not(.admin-mode) .lobby-live-summary span{min-height:66px;padding:10px 5px}
++  body:not(.auth-entry):not(.admin-mode) .lobby-live-summary strong{font-size:23px}
++  body:not(.auth-entry):not(.admin-mode) .lobby-live-summary small{font-size:9px}
++
++  body:not(.auth-entry):not(.admin-mode) .lobby-secondary-content .bonus-brand-card{flex-basis:88vw!important;min-height:0!important}
++  body:not(.auth-entry):not(.admin-mode) .bonus-brand-card .bonus-btn-bottom{gap:8px}
++  body:not(.auth-entry):not(.admin-mode) .bonus-brand-action,
++  body:not(.auth-entry):not(.admin-mode) .bonus-extra-action{flex:1;min-height:44px;font-size:12px}
++  body:not(.auth-entry):not(.admin-mode) .game-category-chip{min-height:46px;padding:10px 14px;font-size:13px}
++  body:not(.auth-entry):not(.admin-mode) .platform-search input{min-height:48px}
++  body:not(.auth-entry):not(.admin-mode) .api-supplier-grid{gap:11px!important}
++  body:not(.auth-entry):not(.admin-mode) .api-supplier-button{padding:8px!important;border-radius:15px!important}
++  body:not(.auth-entry):not(.admin-mode) .api-supplier-button strong{font-size:15px!important}
++  body:not(.auth-entry):not(.admin-mode) .api-supplier-button small{font-size:12px!important}
++
++  body:not(.auth-entry):not(.admin-mode) #deposit .payment-grid{grid-template-columns:1fr;gap:9px}
++  body:not(.auth-entry):not(.admin-mode) #deposit .payment-option{display:grid;grid-template-columns:38px minmax(0,1fr) auto;grid-template-rows:auto auto;align-items:center;gap:3px 10px;min-height:94px;padding:13px 14px}
++  body:not(.auth-entry):not(.admin-mode) #deposit .payment-option .payment-number{grid-row:1/3;align-self:center;font-size:12px}
++  body:not(.auth-entry):not(.admin-mode) #deposit .payment-option strong{font-size:18px;line-height:1.2}
++  body:not(.auth-entry):not(.admin-mode) #deposit .payment-option .payment-hint{grid-column:2;font-size:12px}
++  body:not(.auth-entry):not(.admin-mode) #deposit .payment-option .payment-state{grid-column:3;grid-row:1/3;align-self:center;white-space:nowrap;font-size:11px}
++  body:not(.auth-entry):not(.admin-mode) .cashier-bank-option{min-height:96px!important;padding:14px!important}
++}
++
++@media(max-width:370px){
++  body:not(.auth-entry):not(.admin-mode) .mobile-dock-button>small{font-size:10px}
++  body:not(.auth-entry):not(.admin-mode) .member-service-menu small{display:none}
++  body:not(.auth-entry):not(.admin-mode) #deposit .payment-option{grid-template-columns:30px minmax(0,1fr);}
++  body:not(.auth-entry):not(.admin-mode) #deposit .payment-option .payment-state{grid-column:2;grid-row:3;justify-self:start;margin-top:4px}
++}
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 6b14a34..6fcdbac 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.155-catalogue-integrity';
++const CACHE='master7-shell-17.0.0-selfbuilt.156-member-polish';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/tests/android-release.test.mjs b/tests/android-release.test.mjs
+index 68b9539..4f3024a 100644
+--- a/tests/android-release.test.mjs
++++ b/tests/android-release.test.mjs
+@@ -7,8 +7,8 @@ const html=readFileSync(new URL('../app/portal.html',import.meta.url),'utf8');
+ const apkUrl=new URL('../public/downloads/MASTER7-Android-v17.0.52.apk',import.meta.url);
+ const apk=readFileSync(apkUrl);
+ 
+-test('customer portal publishes the signed MASTER7 Android release',()=>{
+-  assert.match(html,/href="\/downloads\/MASTER7-Android-v17\.0\.52\.apk" download/);
++test('retired Android release remains verifiable without member promotion',()=>{
++  assert.doesNotMatch(html,/href="\/downloads\/MASTER7-Android-v17\.0\.52\.apk" download|ANDROID APK/);
+   assert.ok(statSync(apkUrl).size>50_000);
+   assert.equal(apk.subarray(0,2).toString(),'PK');
+   const expected=readFileSync(new URL('../public/downloads/MASTER7-Android-v17.0.52.apk.sha256',import.meta.url),'utf8').trim().split(/\s+/)[0];
+diff --git a/tests/automatic-availability-ui.test.mjs b/tests/automatic-availability-ui.test.mjs
+index 7c8a2d2..a2beb93 100644
+--- a/tests/automatic-availability-ui.test.mjs
++++ b/tests/automatic-availability-ui.test.mjs
+@@ -20,10 +20,10 @@ test('supplier state follows the catalogue response even when old browser contro
+  vm.runInNewContext(extract('function apiSupplierState(','function applyDefaultSupplierArtwork('),context);
+  let info=context.apiSupplierState({id:'megah5'});
+  assert.equal(info.connected,true);assert.equal(info.platformLaunchReady,true);
+- assert.equal(context.apiSupplierStatusText(info),'Game entry available');
++ assert.equal(context.apiSupplierStatusText(info),'Available');
+  state.gameCatalogue.providers[0]={id:'megah5',connectionVerified:false,catalogueSynced:false,platformLaunchReady:false};
+  info=context.apiSupplierState({id:'megah5'});assert.equal(info.connected,false);assert.equal(info.platformLaunchReady,false);
+- assert.equal(context.apiSupplierStatusText(info),'Awaiting API connection');
++ assert.equal(context.apiSupplierStatusText(info),'Coming soon');
+ });
+ 
+ test('profile readiness and brand catalogue connection remain separate for multi-account suppliers',()=>{
+diff --git a/tests/branded-login.test.mjs b/tests/branded-login.test.mjs
+index 5ccc0a8..9c4c1d3 100644
+--- a/tests/branded-login.test.mjs
++++ b/tests/branded-login.test.mjs
+@@ -16,7 +16,8 @@ test('signed-out member entry is a complete MASTER7 branded destination',()=>{
+  assert.match(auth,/alt="MASTER7 company logo"/);
+  assert.match(auth,/<strong>MASTER7<\/strong>/);
+  assert.match(auth,/data-auth-lang="en"[\s\S]*data-auth-lang="zh"[\s\S]*data-auth-lang="ms"/);
+- assert.match(auth,/MASTER7-Android-v17\.0\.52\.apk/);
++ assert.doesNotMatch(auth,/MASTER7-Android-v17\.0\.52\.apk|ANDROID APK/);
++ assert.match(auth,/auth-quick-actions auth-quick-actions-single/);
+  assert.match(auth,/data-i18n="aboutMaster7"/);
+  assert.doesNotMatch(auth,/captcha/i);
+ });
+diff --git a/tests/lobby-render.test.mjs b/tests/lobby-render.test.mjs
+index bd35333..3868d8d 100644
+--- a/tests/lobby-render.test.mjs
++++ b/tests/lobby-render.test.mjs
+@@ -59,7 +59,7 @@ test('customer rendering expands only the selected supplier into safe game cards
+  const start=source.indexOf('function publicGameCard('),end=source.indexOf('\nfunction renderCarousel()',start),renderSource=source.slice(start,end),openStart=source.indexOf('function openCatalogProvider('),openEnd=source.indexOf('\nfunction openProviderBonus',openStart),openSource=source.slice(openStart,openEnd);
+  assert.match(renderSource,/game-card|gameCode|state\.games|startGame/);
+  assert.match(openSource,/loadGameCatalogue\(profileId\)/);assert.match(openSource,/loadGameWallet\(profileId\)/);
+- assert.match(html,/Choose a provider to view its games and account options/);assert.doesNotMatch(html,/mini-game-grid|platformMiniGames/i);
++ assert.match(html,/Choose a provider to browse its game catalogue/);assert.doesNotMatch(html,/mini-game-grid|platformMiniGames/i);
+ });
+ 
+ test('every returned game can fall back from catalogue artwork to provider artwork and the global cover',()=>{
+@@ -74,7 +74,7 @@ test('every returned game can fall back from catalogue artwork to provider artwo
+ 
+ test('clicking a connected platform shows its platform state and only its own titles',()=>{
+  const connected=renderPlatformStatus('jili','active',true),view=JSON.stringify(connected.providers);
+- assert.match(view,/JILI/);assert.match(view,/1 games synchronized; launch or wallet integration is not ready/);assert.match(view,/providers\/jili\.webp/);assert.match(view,/One title|game-card/);assert.equal(connected.gamesStatus.textContent,'JILI · 1 GAMES · API CONNECTED');
++ assert.match(view,/JILI/);assert.match(view,/1 games synchronized; launch or wallet integration is not ready/);assert.match(view,/providers\/jili\.webp/);assert.match(view,/One title|game-card/);assert.equal(connected.gamesStatus.textContent,'JILI · 1 games · Play coming soon');
+  const maintenance=JSON.stringify(renderPlatformStatus('awc','suspended',true).providers);assert.match(maintenance,/The provider is under maintenance/);
+  const stale=JSON.stringify(renderPlatformStatus('evo888h5','active',false,true).providers);assert.match(stale,/saved catalogue games; the provider connection is unavailable and the platform is under maintenance/);assert.doesNotMatch(stale,/games connected/);
+  const synchronizedMaintenance=JSON.stringify(renderPlatformStatus('evo888h5','active',true,true).providers);assert.match(synchronizedMaintenance,/games synchronized; all are currently under maintenance/);assert.doesNotMatch(synchronizedMaintenance,/provider connection is unavailable|saved catalogue/);
+diff --git a/tests/member-portal-layout.test.mjs b/tests/member-portal-layout.test.mjs
+index 7a36548..6748b1f 100644
+--- a/tests/member-portal-layout.test.mjs
++++ b/tests/member-portal-layout.test.mjs
+@@ -55,7 +55,8 @@ test('provider presentation is aligned and preserves truthful integration state'
+  const publicRender=app.slice(app.indexOf('function renderApiSupplierButtons'),app.indexOf('function renderApiSupplierAdminButtons'));
+  assert.match(publicRender,/profileCapabilityText/);
+  const catalog=app.slice(app.indexOf('function renderCatalog()'),app.indexOf('function renderAdGrid'));
+- assert.match(catalog,/API PENDING|API CONNECTED/);
++ assert.match(catalog,/Play coming soon/);
++ assert.doesNotMatch(catalog,/API PENDING|API CONNECTED/);
+ });
+ 
+ test('lobby prioritizes wallet and sponsored providers before the full directory',()=>{
+@@ -66,8 +67,10 @@ test('lobby prioritizes wallet and sponsored providers before the full directory
+  assert.ok(lobby>=0&&hero>lobby&&secondary>hero&&providers>secondary);
+  const summary=html.match(/<div class="lobby-live-summary"[\s\S]*?<\/div>/)?.[0]||'';
+  assert.doesNotMatch(summary,/24\/7|PLAYABLE/);
+- assert.match(summary,/CONNECTED/);
++ assert.match(summary,/FEATURED/);
++ assert.doesNotMatch(summary,/CONNECTED/);
+  assert.match(html,/id="bonusBrandLobby"[\s\S]*JILI[\s\S]*MEGA H5[\s\S]*918KISS/);
+  assert.doesNotMatch(html.slice(lobby,html.indexOf('<section id="deposit"')),/android-download-panel|Android APK|iPhone 安装/);
+- assert.match(html,/auth-quick-actions[\s\S]*downloads\/MASTER7-Android-v17\.0\.52\.apk/,'public pre-login download stays available');
++ assert.doesNotMatch(html,/downloads\/MASTER7-Android|ANDROID APK/,'retired APK is not promoted to members');
++ assert.match(html,/auth-quick-actions auth-quick-actions-single[\s\S]*auth-company-details/);
+ });
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index 7a4be1e..65a095d 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.155-catalogue-integrity';
++const release='17.0.0-selfbuilt.156-member-polish';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+diff --git a/tests/support-ai-surface.test.mjs b/tests/support-ai-surface.test.mjs
+index c27d14d..0d93699 100644
+--- a/tests/support-ai-surface.test.mjs
++++ b/tests/support-ai-surface.test.mjs
+@@ -9,10 +9,10 @@ const route=readFileSync(new URL('../app/api/[...path]/route.ts',import.meta.url
+ const renderEnv=readFileSync(new URL('../lib/render-env.ts',import.meta.url),'utf8');
+ 
+ test('Stephanie is presented as a multilingual AI assistant with human escalation',()=>{
+- assert.match(html,/Stephanie · MASTER7 AI 客服/);
++ assert.match(html,/STEPHANIE · MASTER7 AI SUPPORT/);
+  assert.match(html,/class="stephanie-avatar"/);
+- assert.match(html,/中文、English 和 Bahasa Melayu/);
+- assert.match(html,/充值、提款、账号安全与投诉会保留给后台人员审核/);
++ assert.match(html,/English, Chinese and Bahasa Melayu/);
++ assert.match(html,/Payment, withdrawal, account security and complaint cases remain available for staff review/);
+  assert.match(css,/\.stephanie-intro/);
+  assert.match(css,/\.stephanie-avatar/);
+  assert.match(app,/"External AI",external\?"Connected":"Not connected"/);

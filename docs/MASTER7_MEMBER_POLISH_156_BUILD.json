@@ -1,0 +1,100 @@
+{
+  "release": "17.0.0-selfbuilt.156-member-polish",
+  "preparedAt": "2026-11-10T09:01:30.480603+00:00",
+  "sourceCommit": "195dfeb87ec4722696be4d7b5cdb21e660504622",
+  "baselineSourceCommit": "37ac8ce0f4e6cf607375ad4dd2021ef317a630c9",
+  "baselineRelease": "17.0.0-selfbuilt.155-catalogue-integrity",
+  "archive": {
+    "sha256": "54b62ae48a97587c6bfe82263382d3150a2fc79ee6137b1b0195bed9776e1dba",
+    "bytes": 7132006,
+    "files": 684,
+    "entries": 745,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/MASTER7_MEMBER_POLISH_156.md"
+    ],
+    "changed": [
+      "app/portal.html",
+      "lib/backend.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/assets/app.js",
+      "public/assets/member-refresh.css",
+      "public/service-worker.js",
+      "tests/android-release.test.mjs",
+      "tests/automatic-availability-ui.test.mjs",
+      "tests/branded-login.test.mjs",
+      "tests/lobby-render.test.mjs",
+      "tests/member-portal-layout.test.mjs",
+      "tests/official-entries-probe.test.mjs",
+      "tests/support-ai-surface.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1330,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "renderDatabase": 3,
+    "gatewayTests": 151,
+    "gatewaySourceChanged": false,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "command": "npm run verify:render",
+    "scope": "local synthetic and isolated validation; no live provider, player, wallet or payment calls"
+  },
+  "memberPolish": {
+    "palette": [
+      "water-blue",
+      "blue",
+      "white"
+    ],
+    "primaryMemberEntrances": [
+      "Deposit",
+      "Withdraw",
+      "Games",
+      "Support"
+    ],
+    "largeTouchTargets": true,
+    "compactMobileHero": true,
+    "responsiveBottomNavigation": true,
+    "sponsoredProvidersRemainIndependent": true,
+    "sponsoredProviderCarouselCue": true,
+    "compactMobilePaymentRows": true,
+    "androidApkPromotionOnMemberSignIn": false,
+    "customerFacingAvailabilityLabels": true,
+    "internalApiStatesExposedAsFeatures": false,
+    "connectedZeroCounterExposed": false,
+    "mobileViewportAudit": {
+      "viewportWidthPx": 393,
+      "renderedPageWidthPx": 393,
+      "horizontalOverflow": false,
+      "primaryServiceButtonApproxPx": "180x119",
+      "mobileDockHeightPx": 70,
+      "compactHeroHeightPx": 237
+    }
+  },
+  "operationalChanges": {
+    "gamesEnabled": false,
+    "depositsEnabled": false,
+    "payoutsEnabled": false,
+    "realMoneyOperationsEnabled": false,
+    "supplierAcceptanceBypassed": false
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false
+}
