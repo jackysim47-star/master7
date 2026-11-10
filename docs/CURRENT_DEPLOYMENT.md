@@ -21,11 +21,17 @@ response. `/health/live` reported the exact v173 release and a ready database.
 The deployment keeps new deposits, game launches and payouts disabled. A
 release-bound encrypted backup and rollback-only isolated PostgreSQL 18 restore
 rehearsal subsequently passed for v173, so current runtime health reports both
-`backupReady=true` and `restoreReady=true`. The production domain, provider,
-real-payment and live-game acceptance items remain outstanding. The platform
-therefore remains in integration/UAT and is not approved for production
-go-live. See `MASTER7_STAFF_SETUP_ROUTE_173_POSTDEPLOY.md` and
-`MASTER7_V173_BACKUP_RESTORE_ACCEPTANCE.md`.
+`backupReady=true` and `restoreReady=true`. Runtime database-monitoring
+technical evidence also passed: the live instance reported guards 9/9 and
+functions 5/5, with no fail-closed, error/critical or HTTP 5xx event observed
+from the v173 deployment through the evidence check. This is technical evidence
+only; the Owner monitoring sign-off has not been recorded. The production
+domain, provider, real-payment, live-game and rollback-approval items remain
+outstanding. The platform therefore remains in integration/UAT and is not
+approved for production go-live. See
+`MASTER7_STAFF_SETUP_ROUTE_173_POSTDEPLOY.md`,
+`MASTER7_V173_BACKUP_RESTORE_ACCEPTANCE.md` and
+`MASTER7_V173_MONITORING_TECHNICAL_ACCEPTANCE.md`.
 
 ## Staff setup route
 
