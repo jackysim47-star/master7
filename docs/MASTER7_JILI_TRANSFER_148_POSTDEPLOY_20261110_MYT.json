@@ -1,0 +1,295 @@
+{
+  "observedAt": "2026-11-10T04:23:21.962217+00:00",
+  "release": "17.0.0-selfbuilt.148-jili-transfer-wallet",
+  "deployId": "dep-dbp9m9p42hec73c0ng10",
+  "commit": "587d8368d5e783970953541c7b0f9eb821bfedcb",
+  "deployStatus": "live",
+  "deploymentLiveAt": "2026-11-10T04:20:28.934312Z",
+  "archiveSha256": "0a1c895159be269ba9d41c6b24ebf8f21a40dfa1aee93873a44c12f61667f241",
+  "healthLiveHttp": 200,
+  "healthHttp": 200,
+  "database": "ready",
+  "gameDirectory": {
+    "profileCount": 41,
+    "profileBrandCount": 37,
+    "implementedProfileCount": 4,
+    "launchReadyProfileCount": 0,
+    "verifiedProfileCount": 0
+  },
+  "controls": {
+    "newDepositsEnabled": true,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPayments": false,
+    "liveGames": false,
+    "anyGamePlayable": false,
+    "productionReady": false,
+    "backupReady": true,
+    "restoreReady": true
+  },
+  "providerAcceptance": {
+    "requiredProfileCount": 41,
+    "acceptedProfileCount": 0,
+    "liveProfileCount": 0
+  },
+  "onlineAssetsMatchSource": {
+    "app.js": true,
+    "member-refresh.css": true
+  },
+  "sideEffects": {
+    "actualGameLaunches": 0,
+    "realMoneyTransfers": 0,
+    "paymentProviderCalls": 0
+  },
+  "remaining": {
+    "allPlanItemsComplete": false,
+    "allGamesPlayable": false,
+    "jiliMerchantContractVerified": false,
+    "jiliProductionRuntimeSecretInstalled": false,
+    "productionAcceptedProfiles": 0,
+    "additionalProviderAdaptersMissing": true,
+    "megaProductionClosureImplemented": false,
+    "jdbSupplierAuthorization": "9001"
+  },
+  "validation": {
+    "maintenance": "12/12",
+    "releaseProbes": "27/27",
+    "regression": "1305/1305",
+    "finalFocused": "63/63",
+    "renderDatabase": "3/3",
+    "isolatedPostgresProvider": "9/9",
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "liveAnonymousBrowser": {
+      "testType": "anonymous deployed sign-in; authenticated member game journey not tested",
+      "http": 200,
+      "finalPath": "/signin",
+      "memberAuthenticationRequired": true,
+      "releaseBoundAssets": true,
+      "signInFormVisible": true,
+      "otpControlVisible": true,
+      "jsErrors": [],
+      "nonReadRequests": [],
+      "appScriptResponses": [
+        {
+          "path": "https://master7-v17-staging.onrender.com/assets/app.js",
+          "http": 200
+        }
+      ],
+      "authenticatedMemberJourneyVerified": false,
+      "realGamePlayVerified": false
+    }
+  },
+  "readOnlyProviderProbes": {
+    "checkedAt": "2026-11-10T04:19:38.595947+00:00",
+    "purpose": "anonymous read-only catalogue probe; not a game play or wallet acceptance test",
+    "realGameLaunches": 0,
+    "moneyTransfers": 0,
+    "results": [
+      {
+        "subject": "megah5",
+        "http": 200,
+        "catalogueEntries": 166,
+        "elapsedSeconds": 0.36,
+        "launchVerified": false,
+        "walletVerified": false,
+        "productionAcceptanceVerified": false,
+        "upstreamStatus": 200
+      },
+      {
+        "subject": "jili_myr_1to1",
+        "http": 200,
+        "catalogueEntries": 297,
+        "elapsedSeconds": 0.89,
+        "launchVerified": false,
+        "walletVerified": false,
+        "productionAcceptanceVerified": false,
+        "account": "1to1",
+        "currency": "MYR",
+        "ratio": "1:1"
+      },
+      {
+        "subject": "jili_my1_1to100",
+        "http": 200,
+        "catalogueEntries": 297,
+        "elapsedSeconds": 0.42,
+        "launchVerified": false,
+        "walletVerified": false,
+        "productionAcceptanceVerified": false,
+        "account": "1to100",
+        "currency": "MYR",
+        "ratio": "1:100"
+      },
+      {
+        "subject": "918kiss_normal_myr",
+        "http": 200,
+        "catalogueEntries": 92,
+        "elapsedSeconds": 0.41,
+        "launchVerified": false,
+        "walletVerified": false,
+        "productionAcceptanceVerified": false,
+        "account": "normal",
+        "currency": "MYR"
+      },
+      {
+        "subject": "918kiss_normal_my1_1to100",
+        "http": 200,
+        "catalogueEntries": 92,
+        "elapsedSeconds": 0.91,
+        "launchVerified": false,
+        "walletVerified": false,
+        "productionAcceptanceVerified": false,
+        "account": "my1",
+        "currency": "MY1"
+      },
+      {
+        "subject": "918kiss_free_myr",
+        "http": 200,
+        "catalogueEntries": 88,
+        "elapsedSeconds": 0.35,
+        "launchVerified": false,
+        "walletVerified": false,
+        "productionAcceptanceVerified": false,
+        "account": "free",
+        "currency": "MYR"
+      },
+      {
+        "subject": "jdb",
+        "http": 502,
+        "catalogueEntries": 0,
+        "elapsedSeconds": 1.0,
+        "launchVerified": false,
+        "walletVerified": false,
+        "productionAcceptanceVerified": false,
+        "error": "jdb_provider_rejected_9001"
+      },
+      {
+        "subject": "venus",
+        "http": 502,
+        "catalogueEntries": 0,
+        "elapsedSeconds": 0.39,
+        "launchVerified": false,
+        "walletVerified": false,
+        "productionAcceptanceVerified": false,
+        "error": "venus_response_signature_missing"
+      },
+      {
+        "subject": "pragmaticplay",
+        "http": 502,
+        "catalogueEntries": 0,
+        "elapsedSeconds": 0.84,
+        "launchVerified": false,
+        "walletVerified": false,
+        "productionAcceptanceVerified": false,
+        "error": "pragmatic_upstream_http_435"
+      },
+      {
+        "subject": "epicwin_normal",
+        "http": 502,
+        "catalogueEntries": 0,
+        "elapsedSeconds": 0.87,
+        "launchVerified": false,
+        "walletVerified": false,
+        "productionAcceptanceVerified": false,
+        "upstreamStatus": 403,
+        "error": "provider_catalogue_failed"
+      },
+      {
+        "subject": "epicwin_free",
+        "http": 502,
+        "catalogueEntries": 0,
+        "elapsedSeconds": 0.37,
+        "launchVerified": false,
+        "walletVerified": false,
+        "productionAcceptanceVerified": false,
+        "upstreamStatus": 403,
+        "error": "provider_catalogue_failed"
+      },
+      {
+        "subject": "clotplay",
+        "http": 502,
+        "catalogueEntries": 0,
+        "elapsedSeconds": 0.37,
+        "launchVerified": false,
+        "walletVerified": false,
+        "productionAcceptanceVerified": false,
+        "upstreamStatus": 403,
+        "error": "clotplay_catalogue_failed"
+      },
+      {
+        "subject": "evo888h5",
+        "http": 502,
+        "catalogueEntries": 0,
+        "elapsedSeconds": 0.35,
+        "launchVerified": false,
+        "walletVerified": false,
+        "productionAcceptanceVerified": false,
+        "upstreamStatus": 200
+      }
+    ]
+  },
+  "migrationEvidence": {
+    "migration": "0120-provider-wallet-sweeps",
+    "recorded": true,
+    "providerWalletOperationCount": 0,
+    "sweepOperationCount": 0,
+    "sweepSpecificRollbackBlocker": false,
+    "rollbackDrillPerformed": false
+  },
+  "backups": {
+    "pre": {
+      "release": "17.0.0-selfbuilt.147-game-runtime-repair",
+      "schemaVersion": "0119-withdrawal-destination-methods",
+      "sha256": "37850f0b585d31fa2c708c0640abb303673b5f3abb6dd6b34ac3a36144a93f99",
+      "tableCount": 71,
+      "records": 477,
+      "sqliteVerified": true,
+      "postgresVerified": true,
+      "rehearsalRecordedOnline": true,
+      "persistentWrites": false,
+      "foreignKeyViolations": 0,
+      "financialRecordCounts": {
+        "deposit_orders": 12,
+        "wallet_ledger": 0,
+        "wallet_reservations": 0,
+        "game_wallet_sessions": 0,
+        "game_wallet_ledger": 0,
+        "withdrawal_requests": 0,
+        "provider_wallet_operations": 0
+      }
+    },
+    "post": {
+      "release": "17.0.0-selfbuilt.148-jili-transfer-wallet",
+      "schemaVersion": "0120-provider-wallet-sweeps",
+      "sha256": "a0f9894499077326cc539df547fed46114212633054030d436ecc1a318d1e813",
+      "tableCount": 71,
+      "records": 480,
+      "sqliteVerified": true,
+      "postgresVerified": true,
+      "rehearsalRecordedOnline": true,
+      "persistentWrites": false,
+      "foreignKeyViolations": 0,
+      "financialRecordCounts": {
+        "deposit_orders": 12,
+        "wallet_ledger": 0,
+        "wallet_reservations": 0,
+        "game_wallet_sessions": 0,
+        "game_wallet_ledger": 0,
+        "withdrawal_requests": 0,
+        "provider_wallet_operations": 0
+      }
+    }
+  },
+  "financialRecordCountsUnchanged": true,
+  "runtimeErrorLogCheck": {
+    "logsReturned": 0,
+    "windowStart": "2026-11-10T04:20:28Z",
+    "windowEnd": "2026-11-10T04:22:07.915984416Z"
+  },
+  "request5xxLogCheck": {
+    "verified": false,
+    "reason": "Render log API returned 503: Loki retrieval unavailable. This is a log-query failure, not an observed application HTTP 503."
+  },
+  "finalCheckedAt": "2026-11-10T04:24:30.508748+00:00"
+}
