@@ -1,0 +1,1222 @@
+diff --git a/app/portal.html b/app/portal.html
+index 5ae811c..83eed86 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.160-meta-gaming-adapter">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.160-meta-gaming-adapter" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.161-readiness-hardening">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.161-readiness-hardening">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.161-readiness-hardening">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.161-readiness-hardening">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.161-readiness-hardening">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.161-readiness-hardening">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.161-readiness-hardening">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.161-readiness-hardening">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.161-readiness-hardening">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.161-readiness-hardening">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.161-readiness-hardening">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.161-readiness-hardening">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.161-readiness-hardening">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.161-readiness-hardening">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.161-readiness-hardening" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+diff --git a/docs/MASTER7_918KISS_RUNTIME_CONTRACT_GAP_20261110.md b/docs/MASTER7_918KISS_RUNTIME_CONTRACT_GAP_20261110.md
+new file mode 100644
+index 0000000..012db31
+--- /dev/null
++++ b/docs/MASTER7_918KISS_RUNTIME_CONTRACT_GAP_20261110.md
+@@ -0,0 +1,205 @@
++# MASTER7 918KISS H5 runtime contract gap
++
++Date: 2026-11-10  
++Scope: `918kiss_normal_myr`, `918kiss_normal_my1_1to100`, `918kiss_free_myr`
++
++## Finding
++
++The available source and handover evidence supports three isolated read-only
++catalogues. It does not contain an authoritative 918KISS H5 player, launch,
++wallet, transaction-query, session-closure, settlement or recovery contract.
++No executable adapter can be implemented safely from the current evidence.
++
++The existing gateway's `GetGameList` request and MD5 signing shape establish
++only the catalogue operation already implemented. They do not establish the
++operation name, fields, signing tail or result semantics of any runtime method.
++
++The gateway currently exposes only:
++
++```text
++GET /providers/918kissh5/games?account=normal
++GET /providers/918kissh5/games?account=my1
++GET /providers/918kissh5/games?account=free
++```
++
++The portal deliberately keeps all three profiles `adapter_unimplemented`,
++`enabled=false` and non-playable. The internal MY1 `unitScale=100` rule is a
++candidate platform conversion rule; it is not supplier confirmation that MY1
++means MYR at 1:100.
++
++## Evidence checked
++
++- Portal registry, catalogue, launch, wallet, acceptance and unit-conversion
++  code and tests.
++- Integration gateway 918KISS catalogue module, routes and tests.
++- All 84 uploaded attachments (including extracted DOCX, XLSX and PDF text),
++  repository documentation, handover files, acceptance CSVs, matching Git
++  material and 114 workspace archives containing `918KISS`, `KISS H5`,
++  `kissh5`, `MY1`, `opgateway` or the three account/profile labels.
++- `MASTER7_918KISS_验收记录_20261110.md`, which proves only `GetGameList` and
++  enumerates the absent runtime operations.
++- `MASTER7_918KISS_CATALOGUE_SAFETY_152.md`, which explicitly says the runtime
++  contracts have not been supplied or accepted.
++- `MASTER7_VENDOR_ACTIONS_20261107.md`, which asks the supplier for the missing
++  launch, wallet, query, exit, settlement, currency and account semantics.
++- `MASTER7_GAME_CONTRACT_DISCOVERY_20261110_MYT.json`, which marks Live22
++  kick/unfinished-round methods as another provider's compatibility reference;
++  they cannot be copied into a 918KISS adapter.
++
++Catalogue operator configuration and artwork URLs were not treated as runtime
++contract evidence. No supplier call, game launch, wallet movement or
++deployment was made during this audit.
++
++## Exact missing vendor fields
++
++The code exposes the same list as machine-readable, profile-isolated
++diagnostics in `lib/kissh5-contract-readiness.ts`. Values are never echoed by
++the validator.
++
++### Document provenance
++
++`document.document_id`, `document.api_version`, `document.environment`,
++`document.merchant_scope`, `document.base_urls`,
++`document.operation_names`, `document.ip_allowlist_rule`, `document.sha256`
++
++### Authentication and request signing
++
++`authentication.scheme`, `authentication.credential_fields`,
++`authentication.signature_algorithm`,
++`authentication.canonical_request_rule`, `authentication.signed_fields`,
++`authentication.timestamp_field`, `authentication.clock_skew_seconds`,
++`authentication.nonce_or_replay_rule`, `authentication.test_vectors`
++
++### Player registration and lookup
++
++`player.create.endpoint`, `player.create.method`,
++`player.create.required_fields`, `player.create.success_codes`,
++`player.create.error_codes`, `player.create.idempotency_rule`,
++`player.lookup.endpoint`, `player.lookup.method`,
++`player.lookup.required_fields`, `player.namespace_rule`
++
++### Game launch and return
++
++`launch.endpoint`, `launch.method`, `launch.required_fields`,
++`launch.response_url_field`, `launch.url_ttl_seconds`,
++`launch.return_url_field`, `launch.game_id_field`,
++`launch.session_id_field`, `launch.delivery_modes`, `launch.token_field`,
++`launch.token_expiry_rule`, `launch.token_revocation_rule`,
++`launch.success_codes`, `launch.error_codes`
++
++### Wallet balance and funds movement
++
++`wallet.mode`, `wallet.balance.endpoint`, `wallet.balance.method`,
++`wallet.balance.required_fields`, `wallet.balance.amount_field`,
++`wallet.balance.currency_field`, `wallet.funds_flow.operations`,
++`wallet.funds_flow.required_fields`,
++`wallet.funds_flow.transaction_id_field`,
++`wallet.funds_flow.idempotency_field`, `wallet.funds_flow.duplicate_rule`,
++`wallet.funds_flow.success_codes`, `wallet.funds_flow.error_codes`
++
++The supplier must first confirm `wallet.mode` as `transfer` or `seamless`.
++`wallet.funds_flow.operations` must then name the matching transfer operations
++or the matching wager/settle/cancel callbacks. A catalogue credential is not a
++wallet credential or wallet contract.
++
++### Transaction query and terminal states
++
++`wallet.transaction_query.endpoint`, `wallet.transaction_query.method`,
++`wallet.transaction_query.required_fields`,
++`wallet.transaction_query.pending_statuses`,
++`wallet.transaction_query.terminal_success_statuses`,
++`wallet.transaction_query.terminal_failure_statuses`,
++`wallet.transaction_query.not_found_rule`,
++`wallet.transaction_query.late_success_rule`,
++`wallet.transaction_query.binding_fields`
++
++### Callback and report contract
++
++`reports.endpoint`, `reports.method`, `reports.required_fields`,
++`reports.round_id_field`, `reports.bet_id_field`,
++`reports.transaction_id_field`, `reports.signed_fields`,
++`reports.source_ip_rule`, `reports.ack_schema`, `reports.retry_policy`,
++`reports.deduplication_field`, `reports.replay_window_seconds`,
++`reports.pagination_rule`, `reports.ordering_rule`
++
++### Exit and session closure
++
++`session.exit.endpoint`, `session.exit.method`,
++`session.exit.required_fields`, `session.exit.final_status_field`,
++`session.exit.success_codes`, `session.exit.error_codes`,
++`session.return_url_rule`, `session.disconnect_rule`,
++`session.duplicate_exit_rule`, `session.kick.endpoint`,
++`session.kick.method`, `session.kick.required_fields`,
++`session.offline_status.endpoint`, `session.offline_status.method`,
++`session.offline_status.required_fields`,
++`session.unfinished_rounds.endpoint`, `session.unfinished_rounds.method`,
++`session.unfinished_rounds.required_fields`,
++`session.issued_token_invalidation_rule`, `session.late_result_finality_rule`
++
++### Settlement and recovery
++
++`settlement.finality_rule`, `settlement.reversal_rule`,
++`settlement.reconciliation_fields`, `recovery.timeout_rule`,
++`recovery.retry_policy`, `recovery.polling_policy`
++
++### Limits, maintenance and acceptance vectors
++
++`limits.request_rate_rule`, `limits.amount_bounds_rule`,
++`maintenance.status_endpoint`, `maintenance.behavior`,
++`acceptance.uat_account_scope`, `acceptance.uat_test_cases`,
++`acceptance.production_vectors`
++
++### Fields required separately for every profile
++
++`profile.profile_id`, `profile.account_variant`,
++`profile.provider_account_scope`, `profile.provider_currency`,
++`profile.settlement_currency`, `profile.amount_unit`,
++`profile.amount_precision`, `profile.conversion_ratio`,
++`profile.rounding_rule`, `profile.balance_class`, `profile.game_scope`
++
++The required bindings are independent:
++
++| Portal profile | Account variant | Known label | Still requires supplier confirmation |
++|---|---|---|---|
++| `918kiss_normal_myr` | `normal` | MYR, cash | account scope, unit, precision, ratio, game scope and every runtime operation above |
++| `918kiss_normal_my1_1to100` | `my1` | MY1 label, cash | actual provider and settlement currencies, MY1 meaning, ratio, directions, rounding, game scope and every runtime operation above |
++| `918kiss_free_myr` | `free` | MYR, free credit | funding, spend, cash conversion, expiry, settlement, game scope and every runtime operation above |
++
++The MY1 profile additionally requires:
++
++`profile.my1_definition`, `profile.my1_to_myr_ratio`,
++`profile.conversion_direction`, `profile.conversion_rounding_rule`
++
++The free-credit profile additionally requires:
++
++`profile.free_credit_source`, `profile.free_credit_spend_rule`,
++`profile.free_credit_cash_conversion_rule`,
++`profile.free_credit_expiry_rule`, `profile.free_credit_settlement_rule`
++
++## Code change
++
++The new validator reports missing or malformed field names without reflecting
++submitted values. A syntactically complete documentation manifest still
++returns:
++
++```text
++documentationOnly = true
++adapterImplemented = false
++launchAllowed = false
++walletAllowed = false
++playAllowed = false
++```
++
++Production acceptance diagnostics now include the exact 918KISS contract gap
++for each profile. Existing acceptance evidence, catalogue success, credentials
++or an internal conversion test cannot enable Play.
++
++## Required next evidence
++
++Obtain the official versioned supplier documentation for each account scope,
++including sample request/response and error payloads, then have the provider
++confirm the merchant/environment binding in writing. Only after that evidence
++passes review should a disabled adapter be implemented and exercised in a
++non-money test environment. Production Play remains subject to separate launch,
++wallet, settlement, recovery and operational acceptance.
++
+diff --git a/docs/MASTER7_JILI_AUDIT_20261110.md b/docs/MASTER7_JILI_AUDIT_20261110.md
+new file mode 100644
+index 0000000..ee089ae
+--- /dev/null
++++ b/docs/MASTER7_JILI_AUDIT_20261110.md
+@@ -0,0 +1,32 @@
++# MASTER7 JILI 1:1 and 1:100 implementation audit
++
++Review date: 2026-11-10. This is a source audit, not provider acceptance or production evidence.
++
++## Proven by repository tests
++
++| Boundary | `jili_myr_1to1` | `jili_my1_1to100` |
++| --- | --- | --- |
++| Profile, player, catalogue cache and ledger namespace | isolated | isolated |
++| Platform ledger unit | MYR sen | MYR sen |
++| Ratio application | explicit field units; no inferred conversion | explicit field units; no inferred conversion |
++| Transfer submission | one attempt, then original-ID query | one attempt, then original-ID query |
++| Withdrawal | sweep-all; receipt determines actual return | sweep-all; receipt determines actual return |
++| Unknown provider result | reservation retained | reservation retained |
++| Launch URL | HTTPS and exact-origin allowlist | HTTPS and exact-origin allowlist |
++| Wager report | bounded window and profile-bound cursor | bounded window and profile-bound cursor |
++
++The portal protocol preserves decimal amounts and 64-bit wager identifiers before JSON parsing. It checks the report agent, player, page, window, amount precision and duplicate bet IDs. The gateway exposes only an account-bound read-only catalogue; it has no launch, wallet, report or settlement route.
++
++## Disabled-by-default acceptance gates
++
++- Cash launch/recovery requires the merchant contract evidence digest.
++- GetGameList rows remain in maintenance unless a separate evidence digest confirms the merchant account's list-to-launch availability meaning.
++- Session closure requires a separate closure evidence digest plus explicit confirmation that issued launches are invalidated and late results are final. `KickMember` or offline status alone cannot certify closure.
++- Wager transport requires a separate report evidence digest and explicit confirmation of BetAmount/PayoffAmount ledger semantics.
++- Production launch additionally requires durable profile-specific catalogue, launch, wallet, settlement and recovery acceptance events.
++
++## Vendor and UAT evidence still required
++
++For each profile independently, JILI must confirm the merchant-bound legacy protocol, assigned endpoint and credentials, the transfer/query/balance/report unit of every amount field, permitted launch origins, closure behavior, token invalidation, late-round finality, report sign/ledger meaning and availability semantics. UAT must then capture a real catalogue response, player lifecycle, launch/return, deposit and sweep query receipts, zero and positive sweep outcomes, paginated wager rows, interrupted-request recovery and reconciliation to the platform wallet ledger.
++
++Until that evidence is reviewed and the profile-specific acceptance events pass, neither profile is proven playable or suitable for real money. No source test can replace vendor certification or live UAT.
+diff --git a/docs/MASTER7_JILI_SAFETY_150.md b/docs/MASTER7_JILI_SAFETY_150.md
+index d550f38..3f12d5b 100644
+--- a/docs/MASTER7_JILI_SAFETY_150.md
++++ b/docs/MASTER7_JILI_SAFETY_150.md
+@@ -6,8 +6,11 @@ Verified platform behavior:
+ 
+ - `jili_myr_1to1` and `jili_my1_1to100` retain independent accounts, cache keys, player namespaces and ledger namespaces.
+ - Each live read-only catalogue currently returns 297 entries. A catalogue count is not launch, wallet or settlement acceptance.
++- Legacy GetGameList contains no availability field. Portal and gateway therefore keep its titles in maintenance until separate account-bound availability evidence is configured.
+ - A launch cannot reserve or submit funds unless the exact customer return origin is allowlisted.
+ - Every nonzero transfer-submit result stays `unknown` until the original transaction ID is confirmed by query. Recovery never resubmits that money action.
+ - Signed report amounts stay fail-closed because the merchant-specific sign convention has not been confirmed.
++- A point-in-time offline status cannot become platform closure unless a separate closure/finality evidence digest has been configured.
++- Wager-report transport is disabled independently from launch and recovery until report semantics and its evidence digest are configured.
+ 
+ Production remains closed. JILI must confirm the account-bound legacy contract, transfer/query/balance/report units for both profiles, launch origins, session closure, late-round finality and signed report semantics. Each profile then needs separate launch, wallet, settlement and recovery acceptance evidence.
+diff --git a/docs/MASTER7_JILI_TRANSFER_WALLET_148.md b/docs/MASTER7_JILI_TRANSFER_WALLET_148.md
+index 3da90cf..441bc36 100644
+--- a/docs/MASTER7_JILI_TRANSFER_WALLET_148.md
++++ b/docs/MASTER7_JILI_TRANSFER_WALLET_148.md
+@@ -21,7 +21,9 @@ Use server-only GAME_TRANSFER_PROFILES_JSON with independent profiles jili_myr_1
+ - approvedApiEndpoints and allowedReturnOrigins. Browser fields cannot select a supplier endpoint.
+ - qaMemberIds, at most 50 exact member IDs. QA membership never bypasses production acceptance.
+ - recoveryEnabled and merchantContractVerified, plus merchantContractEvidenceSha256 for independently reviewed account evidence.
+-- sessionClosureVerified, allIssuedLaunchesInvalidated and lateResultsFinal. Kick acknowledgement or a point-in-time offline status alone does not prove those properties.
++- catalogueAvailabilityVerified and catalogueAvailabilityEvidenceSha256. Legacy GetGameList has no per-title availability field, so listed games stay in maintenance unless the account contract confirms that a returned title is launchable.
++- sessionClosureVerified, sessionClosureEvidenceSha256, allIssuedLaunchesInvalidated and lateResultsFinal. Kick acknowledgement or a point-in-time offline status alone does not prove those properties. The adapter refuses to report a closed session without this independently reviewed closure evidence.
++- reportEnabled, reportSemanticsVerified and reportEvidenceSha256. These are independent from wallet/closure acceptance. GetBetRecordByTime stays disabled unless the merchant confirms the signed BetAmount/PayoffAmount ledger meaning and the evidence digest is recorded.
+ 
+ These are deployment inputs for reviewed evidence, not evidence generators. Do not set them just to display Play. Cash/recovery methods stay disabled when the account or closure contract is unverified. Production also requires that profile's five durable catalogue, launch, wallet, settlement and recovery acceptance capabilities. Unknown launch tokens remain blocked from settlement until closure is proven.
+ 
+diff --git a/docs/MASTER7_READINESS_HARDENING_161.md b/docs/MASTER7_READINESS_HARDENING_161.md
+new file mode 100644
+index 0000000..8d4d666
+--- /dev/null
++++ b/docs/MASTER7_READINESS_HARDENING_161.md
+@@ -0,0 +1,11 @@
++# MASTER7 V17.161 Readiness Hardening
++
++Release: `17.0.0-selfbuilt.161-readiness-hardening`
++
++This release keeps production payments and game launches closed while improving three independent readiness boundaries:
++
++- Company Bank: Bank Transfer remains separate from DuitNow QR. The QR option requires an enabled company account with actual QR artwork, and receipt submission returns a traceable order reference without automatically crediting a wallet.
++- 918KISS H5: three profile-isolated contract diagnostics enumerate the missing normal, MY1 1:100 and free-credit runtime fields. Catalogue evidence alone cannot make a profile playable.
++- JILI: availability, JP parsing, closure/finality and report-ledger semantics now fail closed unless independent documented evidence exists for each 1:1 and MY1 1:100 profile.
++
++No provider, payment, payout, game-launch or game-wallet capability is enabled by this release.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 5297e87..ce18f16 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -38,7 +38,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.160-meta-gaming-adapter';
++export const RELEASE = '17.0.0-selfbuilt.161-readiness-hardening';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff --git a/lib/game-provider-acceptance.ts b/lib/game-provider-acceptance.ts
+index dc758af..1271917 100644
+--- a/lib/game-provider-acceptance.ts
++++ b/lib/game-provider-acceptance.ts
+@@ -1,5 +1,6 @@
+ import {randomUUID} from 'node:crypto';
+ import {GAME_PROVIDER_PROFILES,getGameProviderProfile} from './game-provider-registry.ts';
++import {inspectKissH5ContractManifest,KISS_H5_PROFILE_IDS} from './kissh5-contract-readiness.ts';
+ 
+ export const GAME_PROVIDER_ACCEPTANCE_CAPABILITIES = Object.freeze([
+   'catalogue','launch','wallet','settlement','recovery',
+@@ -64,10 +65,11 @@ function profileStatuses(rows:CurrentRow[],environment:GameProviderAcceptanceEnv
+ 
+ export async function getGameProviderAcceptanceReadiness(db:D1Database,runtimeReadyProfileIds:readonly string[]=[]){
+  const rows=await currentRows(db,'production'),profiles=profileStatuses(rows,'production'),required=profiles.filter(profile=>profile.listedInLobby),runtimeReady=new Set(runtimeReadyProfileIds);
+- const profileReadiness=required.map(profile=>({profileId:profile.profileId,providerId:profile.providerId,
++ const kissProfiles=new Set<string>(KISS_H5_PROFILE_IDS),profileReadiness=required.map(profile=>({profileId:profile.profileId,providerId:profile.providerId,
+   evidenceAccepted:profile.accepted,adapterImplemented:profile.implemented,runtimeReady:runtimeReady.has(profile.profileId),
+   effectiveReady:profile.accepted&&profile.implemented&&runtimeReady.has(profile.profileId),
+   capabilities:Object.fromEntries(GAME_PROVIDER_ACCEPTANCE_CAPABILITIES.map(capability=>[capability,profile.capabilities[capability].passed===true])),
++  contractDiagnostic:kissProfiles.has(profile.profileId)?inspectKissH5ContractManifest(profile.profileId):null,
+  }));
+  const acceptedProfiles=profileReadiness.filter(profile=>profile.evidenceAccepted),liveProfiles=profileReadiness.filter(profile=>profile.effectiveReady);
+  const allAcceptanceEvidencePassed=required.length>0&&acceptedProfiles.length===required.length;
+@@ -80,6 +82,7 @@ export async function getGameProviderAcceptanceReadiness(db:D1Database,runtimeRe
+    profileId:profile.profileId,
+    missingEvidence:GAME_PROVIDER_ACCEPTANCE_CAPABILITIES.filter(capability=>!profile.capabilities[capability].passed),
+    adapterImplemented:profile.implemented,runtimeReady:runtimeReady.has(profile.profileId),
++   contractDiagnostic:kissProfiles.has(profile.profileId)?inspectKissH5ContractManifest(profile.profileId):null,
+   })),
+  };
+ }
+diff --git a/lib/jili-profile-runtime.ts b/lib/jili-profile-runtime.ts
+index 7c9a114..e70a031 100644
+--- a/lib/jili-profile-runtime.ts
++++ b/lib/jili-profile-runtime.ts
+@@ -15,6 +15,7 @@ function returnOrigins(raw:unknown){
+  if(allowed.some(value=>value===null))return {allowed:[] as string[],customerAllowed:false};
+  const exact=allowed as string[];return {allowed:exact,customerAllowed:exact.includes(CUSTOMER_RETURN_ORIGIN)};
+ }
++const sha=(value:unknown)=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
+ export function jiliProfileRuntime(raw:string|undefined,profileId:string,userId:string,options:{fetchImpl?:typeof fetch;productionAccepted?:boolean}={}){
+  if(!raw||Buffer.byteLength(raw)>32_768||!['jili_myr_1to1','jili_my1_1to100'].includes(profileId))return null;
+  try{
+@@ -24,16 +25,21 @@ export function jiliProfileRuntime(raw:string|undefined,profileId:string,userId:
+   if(!cfg||cfg.profile!==profileId||!endpoint||approved.length===0||approved.length>20||approved.some((x:unknown)=>x===null)||!approved.includes(endpoint)||!Array.isArray(v.qaMemberIds)||v.qaMemberIds.length>50||v.qaMemberIds.some((x:unknown)=>typeof x!=='string'||!/^[A-Za-z0-9_.:-]{1,200}$/.test(x)))return null;
+   // A secondary legacy manual does not confirm this merchant's amount units,
+   // issued-token invalidation or late-round finality. Keep those explicit.
+-  const contractVerified=v.merchantContractVerified===true&&typeof v.merchantContractEvidenceSha256==='string'&&/^[a-f0-9]{64}$/.test(v.merchantContractEvidenceSha256);
+-  const closureVerified=contractVerified&&v.sessionClosureVerified===true&&v.allIssuedLaunchesInvalidated===true&&v.lateResultsFinal===true;
++  const contractVerified=v.merchantContractVerified===true&&sha(v.merchantContractEvidenceSha256);
++  const catalogueEnabled=contractVerified&&v.catalogueAvailabilityVerified===true&&sha(v.catalogueAvailabilityEvidenceSha256);
++  const closureVerified=contractVerified&&v.sessionClosureVerified===true&&v.allIssuedLaunchesInvalidated===true&&v.lateResultsFinal===true&&sha(v.sessionClosureEvidenceSha256);
+   const recoveryEnabled=v.recoveryEnabled===true&&closureVerified;
++  // Reports are a separate acceptance surface. In particular, a valid signed
++  // response does not establish whether BetAmount/PayoffAmount are ledger
++  // debits, credits or absolute values for these merchant accounts.
++  const reportEnabled=contractVerified&&v.reportEnabled===true&&v.reportSemanticsVerified===true&&sha(v.reportEvidenceSha256);
+   // The wallet transfer precedes LoginWithoutRedirect. Refuse a new launch
+   // before reserving or submitting funds unless the exact customer return
+   // origin used by backend.ts is allowlisted. Keep the adapter available for
+   // recovery when only this launch-only setting is malformed.
+   const returns=returnOrigins(v.allowedReturnOrigins);
+-  const launchAuthorized=recoveryEnabled&&returns.customerAllowed&&cfg.launchOrigins?.length>0&&(v.mode==='qa'?v.qaMemberIds.includes(userId):v.mode==='production'&&options.productionAccepted===true);
+-  const adapter=createJiliGameProviderAdapter(cfg,{fetchImpl:options.fetchImpl??fetch,allowedReturnOrigins:returns.allowed,playerCreationEnabled:launchAuthorized,depositEnabled:launchAuthorized,launchEnabled:launchAuthorized,recoveryEnabled,merchantContractVerified:contractVerified,sessionClosureVerified:closureVerified});
+-  return {profile,adapter,launchAuthorized:!!launchAuthorized,recoveryEnabled,mode:v.mode as 'closed'|'qa'|'production',environment:'production' as const};
++  const launchAuthorized=catalogueEnabled&&recoveryEnabled&&returns.customerAllowed&&cfg.launchOrigins?.length>0&&(v.mode==='qa'?v.qaMemberIds.includes(userId):v.mode==='production'&&options.productionAccepted===true);
++  const adapter=createJiliGameProviderAdapter(cfg,{fetchImpl:options.fetchImpl??fetch,allowedReturnOrigins:returns.allowed,catalogueAvailabilityVerified:catalogueEnabled,playerCreationEnabled:launchAuthorized,depositEnabled:launchAuthorized,launchEnabled:launchAuthorized,recoveryEnabled,reportEnabled,merchantContractVerified:contractVerified,sessionClosureVerified:closureVerified});
++  return {profile,adapter,launchAuthorized:!!launchAuthorized,recoveryEnabled,reportEnabled,catalogueEnabled,mode:v.mode as 'closed'|'qa'|'production',environment:'production' as const};
+  }catch{return null;}
+ }
+diff --git a/lib/jili-provider-adapter.ts b/lib/jili-provider-adapter.ts
+index c0f27c9..e60b6a9 100644
+--- a/lib/jili-provider-adapter.ts
++++ b/lib/jili-provider-adapter.ts
+@@ -2,7 +2,7 @@ import {createJiliProtocolClient,jiliPlayerId,jiliTransactionId,type JiliConfig,
+ import {createHash} from 'node:crypto';
+ import type {GameProviderAdapter,GameProviderContext,GameProviderSweepInput,GameProviderTransferInput} from './game-provider-adapter.ts';
+ 
+-export type JiliAdapterOptions={fetchImpl:typeof fetch;now?:()=>number;allowedReturnOrigins:readonly string[];playerCreationEnabled?:boolean;depositEnabled?:boolean;launchEnabled?:boolean;recoveryEnabled?:boolean;merchantContractVerified?:boolean;sessionClosureVerified?:boolean};
++export type JiliAdapterOptions={fetchImpl:typeof fetch;now?:()=>number;allowedReturnOrigins:readonly string[];catalogueAvailabilityVerified?:boolean;playerCreationEnabled?:boolean;depositEnabled?:boolean;launchEnabled?:boolean;recoveryEnabled?:boolean;reportEnabled?:boolean;merchantContractVerified?:boolean;sessionClosureVerified?:boolean};
+ export class JiliAdapterError extends Error{readonly code:string;constructor(code:string){super(code);this.name='JiliAdapterError';this.code=code;}}
+ const fail=(code:string):never=>{throw new JiliAdapterError(code);};
+ 
+@@ -12,7 +12,7 @@ export function createJiliGameProviderAdapter(config:JiliConfig,options:JiliAdap
+  if(!options||!Array.isArray(options.allowedReturnOrigins))return fail('JILI_CONFIGURATION_INVALID');
+  const snapshot={...config,launchOrigins:[...config.launchOrigins]},client=createJiliProtocolClient(snapshot,options.fetchImpl,options.now),profileId=config.profile;
+  const returns=new Set(options.allowedReturnOrigins.map(raw=>{try{const u=new URL(raw);if(u.origin!==raw||u.protocol!=='https:'||u.port)return fail('JILI_RETURN_ORIGIN_INVALID');return u.origin;}catch{return fail('JILI_RETURN_ORIGIN_INVALID');}}));
+- const flags=Object.freeze({contract:options.merchantContractVerified===true,closure:options.sessionClosureVerified===true,player:options.playerCreationEnabled===true,deposit:options.depositEnabled===true,launch:options.launchEnabled===true,recovery:options.recoveryEnabled===true});
++ const flags=Object.freeze({contract:options.merchantContractVerified===true,closure:options.sessionClosureVerified===true,catalogue:options.catalogueAvailabilityVerified===true,player:options.playerCreationEnabled===true,deposit:options.depositEnabled===true,launch:options.launchEnabled===true,recovery:options.recoveryEnabled===true,report:options.reportEnabled===true});
+  function context(c:GameProviderContext){
+   const p=c?.profile,scale=profileId==='jili_my1_1to100'?100:1;
+   if(!p||p.profileId!==profileId||p.providerId!=='jili'||p.adapterKey!=='jili'||p.walletMode!=='transfer'||p.currency!=='MYR'||p.balanceClass==='free_credit'||p.unitScale!==scale||p.playerNamespace!==profileId||p.ledgerNamespace!==profileId)return fail('JILI_PROFILE_MISMATCH');
+@@ -26,7 +26,7 @@ export function createJiliGameProviderAdapter(config:JiliConfig,options:JiliAdap
+  const adapter:GameProviderAdapter&{readonly profileId:JiliProfile}={
+   key:'jili',profileId,executable:true,withdrawalMode:'all',
+   transferContractFingerprint:createHash('sha256').update(JSON.stringify([profileId,new URL(snapshot.baseUrl).href.replace(/\/$/,''),snapshot.agentId,snapshot.transferAmountUnit,snapshot.queryAmountUnit,snapshot.balanceAmountUnit,snapshot.reportAmountUnit])).digest('hex'),
+-  async listGames(c){context(c);return client.listGames();},
++  async listGames(c){context(c);const games=await client.listGames();return games.map(game=>({...game,maintenance:!flags.catalogue}));},
+   async createOrVerifyPlayer(c,m){
+    context(c);const id=jiliPlayerId(profileId,m.userId);let created=false;
+    if(flags.player){cashEnabled(true);try{created=(await client.createPlayer(id)).created;}catch{/* Verify once; never retry a timed-out create. */}}
+@@ -52,10 +52,14 @@ export function createJiliGameProviderAdapter(config:JiliConfig,options:JiliAdap
+   },
+   async closeGame(c,input){
+    context(c);const id=player(input.userId,input.providerPlayerId);
++   // Offline is useful only after the merchant's closure/finality contract has
++   // been independently accepted. A point-in-time member status is not that
++   // evidence and must never be promoted to a platform closure on its own.
++   if(!flags.closure)return fail('JILI_SESSION_CLOSURE_UNVERIFIED');
+    if(input.requestClosure){cashEnabled(flags.recovery);try{await client.kick(id);}catch{return {state:'unknown'};}}
+    try{const found=await client.player(id);if(!found.exists)return {state:'unknown'};return found.online?{state:'playing'}:{state:'closed',evidenceCode:input.requestClosure?'JILI_VERIFIED_KICK_OFFLINE':'JILI_MEMBER_OFFLINE'};}catch{return {state:'unknown'};}
+   },
+-  async fetchWagers(c,cursor){context(c);if(!cursor)return fail('JILI_REPORT_WINDOW_INVALID');return client.wagers(cursor.from,cursor.to,cursor.cursor);},
++  async fetchWagers(c,cursor){context(c);if(!flags.report)return fail('JILI_REPORT_DISABLED');if(!cursor)return fail('JILI_REPORT_WINDOW_INVALID');return client.wagers(cursor.from,cursor.to,cursor.cursor);},
+   async handleCallback(c){context(c);return {accepted:false,duplicate:false,responseBody:'UNSUPPORTED_TRANSFER_CALLBACK',responseStatus:403};},
+  };
+  return Object.freeze(adapter);
+diff --git a/lib/jili-transfer-protocol.ts b/lib/jili-transfer-protocol.ts
+index d517d4d..781a745 100644
+--- a/lib/jili-transfer-protocol.ts
++++ b/lib/jili-transfer-protocol.ts
+@@ -108,9 +108,12 @@ export function createJiliProtocolClient(config:JiliConfig,transport:typeof fetc
+  async function listGames(){
+   const r=await request('GetGameList',[],[],2*1024*1024);if(r.code!==0||!Array.isArray(r.data)||r.data.length>5000)return fail('JILI_CATALOGUE_UNAVAILABLE');
+   const seen=new Set<string>();return r.data.map(row=>{
+-   if(!object(row)||!object(row.name))return fail('JILI_RESPONSE_INVALID');const id=String(integer(row.GameId)),category=String(integer(row.GameCategoryId));
++   if(!object(row)||!object(row.name)||typeof row.JP!=='boolean')return fail('JILI_RESPONSE_INVALID');const id=String(integer(row.GameId)),category=String(integer(row.GameCategoryId));
+    if(id==='0'||seen.has(id)||typeof row.name['en-US']!=='string'||!row.name['en-US'].trim()||row.name['en-US'].length>200)return fail('JILI_RESPONSE_INVALID');seen.add(id);
+-   return {providerGameId:id,name:row.name['en-US'],category,maintenance:false};
++   // This legacy response has no per-title availability field. Keep every row
++   // closed until the account contract separately confirms that presence in
++   // GetGameList is sufficient launch-availability evidence.
++   return {providerGameId:id,name:row.name['en-US'],category,maintenance:true};
+   });
+  }
+  async function createPlayer(playerId:string){member(playerId);const r=await request('CreateMember',[['Account',playerId]]);if(r.code!==0&&r.code!==101)return fail('JILI_PLAYER_CREATE_UNCONFIRMED');return {created:r.code===0};}
+diff --git a/lib/kissh5-contract-readiness.ts b/lib/kissh5-contract-readiness.ts
+new file mode 100644
+index 0000000..020e36b
+--- /dev/null
++++ b/lib/kissh5-contract-readiness.ts
+@@ -0,0 +1,284 @@
++export const KISS_H5_PROFILE_IDS = Object.freeze([
++  '918kiss_normal_myr',
++  '918kiss_normal_my1_1to100',
++  '918kiss_free_myr',
++] as const);
++
++export type KissH5ProfileId = typeof KISS_H5_PROFILE_IDS[number];
++
++type FieldKind = 'string' | 'string_list' | 'positive_integer' | 'sha256' | 'ratio';
++
++export type KissH5ContractRequirement = Readonly<{
++  field: string;
++  kind: FieldKind;
++  purpose: string;
++  expected?: readonly string[];
++}>;
++
++const field = (
++  name: string,
++  kind: FieldKind,
++  purpose: string,
++  expected?: readonly string[],
++): KissH5ContractRequirement => Object.freeze({field: name, kind, purpose, ...(expected ? {expected} : {})});
++
++/**
++ * These are documentation fields, not runtime configuration fields. Values are
++ * deliberately never returned by the validator so a submitted credential or
++ * secret cannot be reflected into an API response or log.
++ */
++export const KISS_H5_COMMON_VENDOR_FIELDS: readonly KissH5ContractRequirement[] = Object.freeze([
++  field('document.document_id', 'string', 'Identify the authoritative supplier document.'),
++  field('document.api_version', 'string', 'Bind every operation to an exact API version.'),
++  field('document.environment', 'string', 'Identify UAT or production scope.', ['uat', 'production']),
++  field('document.merchant_scope', 'string', 'Identify the merchant/account scope covered by the document.'),
++  field('document.base_urls', 'string_list', 'List authoritative API bases for the named environment.'),
++  field('document.operation_names', 'string_list', 'List official operation names for the runtime contract.'),
++  field('document.ip_allowlist_rule', 'string', 'Define inbound and outbound IP allowlist requirements.'),
++  field('document.sha256', 'sha256', 'Bind review evidence to immutable document bytes.'),
++
++  field('authentication.scheme', 'string', 'Define the authentication scheme.'),
++  field('authentication.credential_fields', 'string_list', 'Name credential identifiers without supplying credential values.'),
++  field('authentication.signature_algorithm', 'string', 'Define the signature/MAC algorithm.'),
++  field('authentication.canonical_request_rule', 'string', 'Define field ordering, encoding and canonicalization.'),
++  field('authentication.signed_fields', 'string_list', 'List fields covered by the signature.'),
++  field('authentication.timestamp_field', 'string', 'Define the timestamp field and format.'),
++  field('authentication.clock_skew_seconds', 'positive_integer', 'Define the accepted clock window.'),
++  field('authentication.nonce_or_replay_rule', 'string', 'Define replay protection.'),
++  field('authentication.test_vectors', 'string_list', 'Provide non-secret official signing test vectors.'),
++
++  field('player.create.endpoint', 'string', 'Define player registration/mapping endpoint.'),
++  field('player.create.method', 'string', 'Define player registration HTTP method.'),
++  field('player.create.required_fields', 'string_list', 'List required player registration fields.'),
++  field('player.create.success_codes', 'string_list', 'List successful player registration results.'),
++  field('player.create.error_codes', 'string_list', 'List player registration error results.'),
++  field('player.create.idempotency_rule', 'string', 'Define repeat player-registration behavior.'),
++  field('player.lookup.endpoint', 'string', 'Define player lookup endpoint.'),
++  field('player.lookup.method', 'string', 'Define player lookup HTTP method.'),
++  field('player.lookup.required_fields', 'string_list', 'List required player lookup fields.'),
++  field('player.namespace_rule', 'string', 'Define uniqueness and isolation of supplier player IDs.'),
++
++  field('launch.endpoint', 'string', 'Define the game launch/login endpoint.'),
++  field('launch.method', 'string', 'Define launch HTTP method.'),
++  field('launch.required_fields', 'string_list', 'List required launch fields.'),
++  field('launch.response_url_field', 'string', 'Identify the successful launch URL field.'),
++  field('launch.url_ttl_seconds', 'positive_integer', 'Define launch URL lifetime.'),
++  field('launch.return_url_field', 'string', 'Identify the member return URL field.'),
++  field('launch.game_id_field', 'string', 'Identify the supplier game ID field.'),
++  field('launch.session_id_field', 'string', 'Identify the supplier session ID field.'),
++  field('launch.delivery_modes', 'string_list', 'Define supported H5, redirect or APK delivery modes.'),
++  field('launch.token_field', 'string', 'Identify the issued launch token field.'),
++  field('launch.token_expiry_rule', 'string', 'Define launch token expiry.'),
++  field('launch.token_revocation_rule', 'string', 'Define launch token revocation.'),
++  field('launch.success_codes', 'string_list', 'List successful launch results.'),
++  field('launch.error_codes', 'string_list', 'List launch error results.'),
++
++  field('wallet.mode', 'string', 'Confirm transfer or seamless wallet mode.', ['transfer', 'seamless']),
++  field('wallet.balance.endpoint', 'string', 'Define the provider balance endpoint.'),
++  field('wallet.balance.method', 'string', 'Define balance HTTP method.'),
++  field('wallet.balance.required_fields', 'string_list', 'List required balance fields.'),
++  field('wallet.balance.amount_field', 'string', 'Identify the balance amount field.'),
++  field('wallet.balance.currency_field', 'string', 'Identify the balance currency field.'),
++  field('wallet.funds_flow.operations', 'string_list', 'List transfer operations or seamless wager/settle/cancel callbacks.'),
++  field('wallet.funds_flow.required_fields', 'string_list', 'List required fields for every funds operation.'),
++  field('wallet.funds_flow.transaction_id_field', 'string', 'Identify the immutable provider transaction ID.'),
++  field('wallet.funds_flow.idempotency_field', 'string', 'Identify the idempotency key.'),
++  field('wallet.funds_flow.duplicate_rule', 'string', 'Define duplicate request behavior.'),
++  field('wallet.funds_flow.success_codes', 'string_list', 'List successful funds-operation results.'),
++  field('wallet.funds_flow.error_codes', 'string_list', 'List funds-operation error results.'),
++
++  field('wallet.transaction_query.endpoint', 'string', 'Define transaction-status query endpoint.'),
++  field('wallet.transaction_query.method', 'string', 'Define transaction-status query HTTP method.'),
++  field('wallet.transaction_query.required_fields', 'string_list', 'List transaction query fields.'),
++  field('wallet.transaction_query.pending_statuses', 'string_list', 'List non-terminal statuses.'),
++  field('wallet.transaction_query.terminal_success_statuses', 'string_list', 'List successful terminal statuses.'),
++  field('wallet.transaction_query.terminal_failure_statuses', 'string_list', 'List failed terminal statuses.'),
++  field('wallet.transaction_query.not_found_rule', 'string', 'Define unknown/not-found transaction handling.'),
++  field('wallet.transaction_query.late_success_rule', 'string', 'Define a success observed after timeout or earlier failure.'),
++  field('wallet.transaction_query.binding_fields', 'string_list', 'Bind player, direction, amount, currency and transaction IDs.'),
++
++  field('reports.endpoint', 'string', 'Define bet/round/report retrieval or callback endpoint.'),
++  field('reports.method', 'string', 'Define report/callback HTTP method.'),
++  field('reports.required_fields', 'string_list', 'List required report/callback fields.'),
++  field('reports.round_id_field', 'string', 'Identify the immutable round ID.'),
++  field('reports.bet_id_field', 'string', 'Identify the immutable bet ID.'),
++  field('reports.transaction_id_field', 'string', 'Identify the immutable report transaction ID.'),
++  field('reports.signed_fields', 'string_list', 'List signed report/callback fields.'),
++  field('reports.source_ip_rule', 'string', 'Define trusted report/callback source IPs.'),
++  field('reports.ack_schema', 'string', 'Define the required acknowledgement.'),
++  field('reports.retry_policy', 'string', 'Define supplier report/callback retries.'),
++  field('reports.deduplication_field', 'string', 'Identify the report/callback deduplication key.'),
++  field('reports.replay_window_seconds', 'positive_integer', 'Define the accepted report replay window.'),
++  field('reports.pagination_rule', 'string', 'Define report pagination and cursors.'),
++  field('reports.ordering_rule', 'string', 'Define stable report ordering.'),
++
++  field('session.exit.endpoint', 'string', 'Define explicit session/game exit endpoint.'),
++  field('session.exit.method', 'string', 'Define exit HTTP method.'),
++  field('session.exit.required_fields', 'string_list', 'List required exit fields.'),
++  field('session.exit.final_status_field', 'string', 'Identify final session status.'),
++  field('session.exit.success_codes', 'string_list', 'List successful exit results.'),
++  field('session.exit.error_codes', 'string_list', 'List exit error results.'),
++  field('session.return_url_rule', 'string', 'Define browser return-to-lobby behavior.'),
++  field('session.disconnect_rule', 'string', 'Define abandoned/disconnected session closure.'),
++  field('session.duplicate_exit_rule', 'string', 'Define duplicate exit behavior.'),
++  field('session.kick.endpoint', 'string', 'Define forced logout/kick endpoint.'),
++  field('session.kick.method', 'string', 'Define forced logout/kick HTTP method.'),
++  field('session.kick.required_fields', 'string_list', 'List forced logout/kick fields.'),
++  field('session.offline_status.endpoint', 'string', 'Define player/session online-status endpoint.'),
++  field('session.offline_status.method', 'string', 'Define online-status HTTP method.'),
++  field('session.offline_status.required_fields', 'string_list', 'List online-status query fields.'),
++  field('session.unfinished_rounds.endpoint', 'string', 'Define unfinished-round query endpoint.'),
++  field('session.unfinished_rounds.method', 'string', 'Define unfinished-round HTTP method.'),
++  field('session.unfinished_rounds.required_fields', 'string_list', 'List unfinished-round query fields.'),
++  field('session.issued_token_invalidation_rule', 'string', 'Define whether all issued launch tokens are invalidated.'),
++  field('session.late_result_finality_rule', 'string', 'Define when late results can no longer arrive.'),
++
++  field('settlement.finality_rule', 'string', 'Define when wallet movement is final.'),
++  field('settlement.reversal_rule', 'string', 'Define cancellation/rollback behavior.'),
++  field('settlement.reconciliation_fields', 'string_list', 'List fields needed for provider reconciliation.'),
++  field('recovery.timeout_rule', 'string', 'Define ambiguous timeout handling.'),
++  field('recovery.retry_policy', 'string', 'Define safe retries and retry limits.'),
++  field('recovery.polling_policy', 'string', 'Define transaction/session recovery polling.'),
++  field('limits.request_rate_rule', 'string', 'Define API rate and concurrency limits.'),
++  field('limits.amount_bounds_rule', 'string', 'Define minimum and maximum wallet amounts.'),
++  field('maintenance.status_endpoint', 'string', 'Define maintenance/status discovery endpoint.'),
++  field('maintenance.behavior', 'string', 'Define runtime behavior during supplier maintenance.'),
++  field('acceptance.uat_account_scope', 'string', 'Identify the authorized UAT account scope.'),
++  field('acceptance.uat_test_cases', 'string_list', 'Provide supplier-approved UAT cases.'),
++  field('acceptance.production_vectors', 'string_list', 'Provide production acceptance vectors without secrets.'),
++
++  field('profile.profile_id', 'string', 'Bind evidence to one portal profile.'),
++  field('profile.account_variant', 'string', 'Bind evidence to one supplier account variant.'),
++  field('profile.provider_account_scope', 'string', 'Identify the applicable supplier account without recording its secret.'),
++  field('profile.provider_currency', 'string', 'Confirm provider-side currency code.'),
++  field('profile.settlement_currency', 'string', 'Confirm settlement currency.'),
++  field('profile.amount_unit', 'string', 'Define whether amounts are major units, minor units or points.'),
++  field('profile.amount_precision', 'positive_integer', 'Define accepted decimal precision.'),
++  field('profile.conversion_ratio', 'ratio', 'Define provider units to MYR conversion.'),
++  field('profile.rounding_rule', 'string', 'Define conversion rounding and residual handling.'),
++  field('profile.balance_class', 'string', 'Confirm cash or free-credit balance.', ['cash', 'free_credit']),
++  field('profile.game_scope', 'string_list', 'Identify games authorized for this account.'),
++]);
++
++const PROFILE_FIELDS: Readonly<Record<KissH5ProfileId, readonly KissH5ContractRequirement[]>> = Object.freeze({
++  '918kiss_normal_myr': Object.freeze([]),
++  '918kiss_normal_my1_1to100': Object.freeze([
++    field('profile.my1_definition', 'string', 'Define the supplier meaning of MY1.'),
++    field('profile.my1_to_myr_ratio', 'ratio', 'Confirm the supplier-approved MY1 to MYR ratio.'),
++    field('profile.conversion_direction', 'string', 'Define both wallet-to-game and game-to-wallet conversion direction.'),
++    field('profile.conversion_rounding_rule', 'string', 'Define MY1 conversion rounding and residual handling.'),
++  ]),
++  '918kiss_free_myr': Object.freeze([
++    field('profile.free_credit_source', 'string', 'Define how free credit is funded.'),
++    field('profile.free_credit_spend_rule', 'string', 'Define where free credit may be spent.'),
++    field('profile.free_credit_cash_conversion_rule', 'string', 'Define whether and when free credit may become cash.'),
++    field('profile.free_credit_expiry_rule', 'string', 'Define expiry and forfeiture.'),
++    field('profile.free_credit_settlement_rule', 'string', 'Define result settlement for free-credit sessions.'),
++  ]),
++});
++
++const PROFILE_EXPECTATIONS: Readonly<Record<KissH5ProfileId, Readonly<Record<string, readonly string[]>>>> = Object.freeze({
++  '918kiss_normal_myr': Object.freeze({
++    'profile.profile_id': ['918kiss_normal_myr'],
++    'profile.account_variant': ['normal'],
++    'profile.provider_currency': ['MYR'],
++    'profile.settlement_currency': ['MYR'],
++    'profile.balance_class': ['cash'],
++  }),
++  '918kiss_normal_my1_1to100': Object.freeze({
++    'profile.profile_id': ['918kiss_normal_my1_1to100'],
++    'profile.account_variant': ['my1'],
++    'profile.balance_class': ['cash'],
++  }),
++  '918kiss_free_myr': Object.freeze({
++    'profile.profile_id': ['918kiss_free_myr'],
++    'profile.account_variant': ['free'],
++    'profile.provider_currency': ['MYR'],
++    'profile.settlement_currency': ['MYR'],
++    'profile.balance_class': ['free_credit'],
++  }),
++});
++
++function isProfileId(value: string): value is KissH5ProfileId {
++  return (KISS_H5_PROFILE_IDS as readonly string[]).includes(value);
++}
++
++function readPath(input: unknown, path: string): unknown {
++  let current: unknown = input;
++  for (const segment of path.split('.')) {
++    if (!current || typeof current !== 'object' || Array.isArray(current)) return undefined;
++    current = (current as Record<string, unknown>)[segment];
++  }
++  return current;
++}
++
++function validateValue(value: unknown, requirement: KissH5ContractRequirement, expected?: readonly string[]): string | null {
++  if (requirement.kind === 'string') {
++    if (typeof value !== 'string' || !value.trim() || value.length > 2000 || /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u.test(value)) return 'invalid_string';
++    const allowed = expected ?? requirement.expected;
++    if (allowed && !allowed.includes(value.trim())) return 'unexpected_value';
++    return null;
++  }
++  if (requirement.kind === 'string_list') {
++    if (!Array.isArray(value) || value.length === 0 || value.length > 100 || value.some(item => typeof item !== 'string' || !item.trim() || item.length > 256)) return 'invalid_string_list';
++    return null;
++  }
++  if (requirement.kind === 'positive_integer') return Number.isSafeInteger(value) && Number(value) >= 0 ? null : 'invalid_nonnegative_integer';
++  if (requirement.kind === 'sha256') return typeof value === 'string' && /^[a-f0-9]{64}$/.test(value) ? null : 'invalid_sha256';
++  if (requirement.kind === 'ratio') return typeof value === 'string' && /^[1-9]\d{0,8}:[1-9]\d{0,8}$/.test(value) ? null : 'invalid_ratio';
++  return 'invalid_value';
++}
++
++export function getKissH5ContractRequirements(profileId: string): readonly KissH5ContractRequirement[] {
++  if (!isProfileId(profileId)) return Object.freeze([]);
++  return Object.freeze([...KISS_H5_COMMON_VENDOR_FIELDS, ...PROFILE_FIELDS[profileId]]);
++}
++
++export type KissH5ContractDiagnostic = Readonly<{
++  profileId: string;
++  knownProfile: boolean;
++  manifestComplete: boolean;
++  missingVendorFields: readonly string[];
++  invalidVendorFields: readonly Readonly<{field: string; reason: string}>[];
++  documentationOnly: true;
++  adapterImplemented: false;
++  launchAllowed: false;
++  walletAllowed: false;
++  playAllowed: false;
++}>;
++
++/**
++ * Performs syntax and scope validation only. A complete manifest still cannot
++ * enable an adapter, wallet movement, game launch or Play button. Supplier
++ * documents must be reviewed and an independently tested adapter implemented.
++ */
++export function inspectKissH5ContractManifest(profileId: string, manifest: unknown = {}): KissH5ContractDiagnostic {
++  const knownProfile = isProfileId(profileId);
++  const requirements = getKissH5ContractRequirements(profileId);
++  const missingVendorFields: string[] = [];
++  const invalidVendorFields: Array<{field: string; reason: string}> = [];
++  if (knownProfile) {
++    for (const requirement of requirements) {
++      const value = readPath(manifest, requirement.field);
++      if (value === undefined || value === null || value === '') {
++        missingVendorFields.push(requirement.field);
++        continue;
++      }
++      const reason = validateValue(value, requirement, PROFILE_EXPECTATIONS[profileId][requirement.field]);
++      if (reason) invalidVendorFields.push({field: requirement.field, reason});
++    }
++  }
++  return Object.freeze({
++    profileId,
++    knownProfile,
++    manifestComplete: knownProfile && missingVendorFields.length === 0 && invalidVendorFields.length === 0,
++    missingVendorFields: Object.freeze(missingVendorFields),
++    invalidVendorFields: Object.freeze(invalidVendorFields.map(item => Object.freeze(item))),
++    documentationOnly: true,
++    adapterImplemented: false,
++    launchAllowed: false,
++    walletAllowed: false,
++    playAllowed: false,
++  });
++}
++
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index 728d3da..8e0f8ed 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.160-meta-gaming-adapter' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.161-readiness-hardening' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/package.json b/package.json
+index 53707f0..53d5e5c 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.160-meta-gaming-adapter node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.160-meta-gaming-adapter node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.161-readiness-hardening node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.161-readiness-hardening node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.160-meta-gaming-adapter node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.161-readiness-hardening node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/assets/app.js b/public/assets/app.js
+index cac5e3f..46b0f51 100644
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -251,7 +251,11 @@ const paymentPreviewCopy = {
+ };
+ function paymentText(key){return paymentPreviewCopy[state.lang]?.[key] || paymentPreviewCopy.en[key] || key;}
+ function paymentPreviewStatus(code){return paymentPreview.find(p=>p.code===code) || null;}
+-function manualBankPreviewReady(){return state.user?.role==="member"&&!!state.user.approved&&state.manualBankMemberId===state.user.id&&Array.isArray(state.manualBanks)&&state.manualBanks.length>0;}
++function manualBankAccountsForChannel(channel=state.depositProvider){
++ const accounts=Array.isArray(state.manualBanks)?state.manualBanks:[];
++ return channel==="duitnow-qr"?accounts.filter(account=>account?.duitnowQrReady===true||typeof account?.image_data==="string"&&account.image_data.startsWith("data:image/")):accounts;
++}
++function manualBankPreviewReady(channel=state.depositProvider){return state.user?.role==="member"&&!!state.user.approved&&state.manualBankMemberId===state.user.id&&manualBankAccountsForChannel(channel).length>0;}
+ function paymentPreviewOrderReady(code){
+  const status=code==="vpay"?state.paymentStatus:code==="1mpay"?state.oneMpayStatus:code==="gspay"?state.gspayStatus:code==="gspay-usdt"?state.gspayUsdtStatus:null;
+  return status?.orderReady===true;
+@@ -261,7 +265,7 @@ function renderPaymentPreview(){
+  const restriction=activeDepositRestriction();
+  for(const button of document.querySelectorAll("[data-payment-channel]")){
+   const p=paymentPreviewStatus(button.dataset.paymentChannel);
+-  if(p){const providerChannel=["vpay","gspay","gspay-usdt","1mpay"].includes(p.code),ready=providerChannel?paymentPreviewOrderReady(p.code):manualBankPreviewReady(),label=restriction?.message||paymentText(ready?"active":"unavailable");button.hidden=false;button.disabled=!!restriction;button.setAttribute("aria-disabled",String(!!restriction));button.setAttribute("title",restriction?.message||"");button.querySelector(".payment-state").textContent=label;button.setAttribute("aria-label",p.label+" · "+label);}
++  if(p){const providerChannel=["vpay","gspay","gspay-usdt","1mpay"].includes(p.code),ready=providerChannel?paymentPreviewOrderReady(p.code):manualBankPreviewReady(p.code),label=restriction?.message||paymentText(ready?"active":"unavailable");button.hidden=false;button.disabled=!!restriction;button.setAttribute("aria-disabled",String(!!restriction));button.setAttribute("title",restriction?.message||"");button.querySelector(".payment-state").textContent=label;button.setAttribute("aria-label",p.label+" · "+label);}
+  }
+ }
+ function bindPaymentPreview(){
+@@ -271,9 +275,9 @@ function bindPaymentPreview(){
+  $("depositCashierRecords").onclick=openDepositRecords;
+ }
+ const cashierCopy={
+- en:{title:"Deposit with",loading:"Checking this payment option…",member:"Deposits are available to member accounts.",approval:"Your member account is awaiting approval. Contact support before depositing.",unavailable:"This payment option is unavailable right now. Try checking again or contact support.",network:"The payment option could not be checked. Check your connection and try again.",channel:"No payment channels are available for VPay yet. Try checking again or choose another provider.",bank:"No company bank account is available right now. Contact support or choose another payment provider.",ready:"Enter the required details and continue to the provider's payment page. Your deposit record will update when payment is confirmed.",manual:"Transfer to the displayed company bank account, then upload your receipt for review.",amount:"Amount · MYR",channelLabel:"Payment channel",payer:"Payer name",payerHint:"Use the name shown on the paying bank account.",continue:"Continue to payment",checking:"Submitting this deposit…",close:"Close",retry:"Check availability again",records:"View deposit records",opening:"Opening the provider payment page…",open:"Open payment page",unknown:"The result could not be confirmed. Check your deposit records before paying or submitting again. A retry will keep the same deposit request.",rejected:"The provider declined this request. No new payment page was created.",session:"Your session could not authorize this request. Sign in again before depositing.",conflict:"This request conflicts with an existing deposit. Check your deposit records before continuing; do not pay twice.",invalid:"The provider did not return a valid payment page. Check the deposit record or contact support.",failed:"This deposit did not complete. You may enter the details again.",reference:"Order",paid:"Payment confirmed. Check your updated deposit record."},
+- zh:{title:"充值 ·",loading:"正在读取这家充值通道…",member:"充值仅供会员账号使用。",approval:"会员账号正在等待审批，请先联系客服。",unavailable:"这家充值通道目前暂不可用，请重新检查或联系客服。",network:"暂时无法读取这家充值通道，请检查网络后重试。",channel:"VPay 目前未返回可选付款渠道，请重新检查或选择其他充值公司。",bank:"目前没有可用公司银行账号，请联系客服或选择其他充值公司。",ready:"填写所需资料后前往厂家付款页面。付款确认后，结果会更新在充值记录中。",manual:"请转账到当前显示的公司银行账号，再上传银行单等待核对。",amount:"充值金额 · MYR",channelLabel:"付款渠道",payer:"付款人姓名",payerHint:"请填写付款银行户口上的姓名。",continue:"前往付款",checking:"正在提交这笔充值…",close:"关闭",retry:"重新检查通道",records:"查看充值记录",opening:"正在打开厂家付款页面…",open:"打开付款页面",unknown:"暂时无法确认提交结果。请先查看充值记录，不要重复付款；重试会沿用同一笔充值请求。",rejected:"厂家拒绝了这次申请，未建立新的付款页面。",session:"当前登录状态无法提交此请求，请重新登录后再充值。",conflict:"这次请求与已有充值冲突，请先查看充值记录后再继续，不要重复付款。",invalid:"未收到有效的厂家付款页面，请查看充值记录或联系客服。",failed:"这笔充值未完成，可以重新填写资料。",reference:"订单",paid:"付款已确认，请查看更新后的充值记录。"},
+- ms:{title:"Deposit melalui",loading:"Menyemak pilihan pembayaran ini…",member:"Deposit tersedia untuk akaun ahli.",approval:"Akaun ahli anda menunggu kelulusan. Hubungi sokongan sebelum membuat deposit.",unavailable:"Pilihan pembayaran ini tidak tersedia. Semak semula atau hubungi sokongan.",network:"Pilihan pembayaran tidak dapat disemak. Semak sambungan anda dan cuba lagi.",channel:"Tiada saluran pembayaran VPay tersedia. Semak semula atau pilih penyedia lain.",bank:"Tiada akaun bank syarikat tersedia. Hubungi sokongan atau pilih penyedia lain.",ready:"Isi maklumat yang diperlukan dan teruskan ke halaman pembayaran penyedia. Rekod deposit dikemas kini selepas bayaran disahkan.",manual:"Pindah ke akaun bank syarikat yang dipaparkan, kemudian muat naik resit untuk semakan.",amount:"Amaun · MYR",channelLabel:"Saluran pembayaran",payer:"Nama pembayar",payerHint:"Gunakan nama pada akaun bank pembayar.",continue:"Teruskan pembayaran",checking:"Menghantar deposit ini…",close:"Tutup",retry:"Semak ketersediaan semula",records:"Lihat rekod deposit",opening:"Membuka halaman pembayaran penyedia…",open:"Buka halaman pembayaran",unknown:"Keputusan belum dapat disahkan. Semak rekod sebelum membayar atau menghantar semula. Percubaan semula mengekalkan permintaan deposit yang sama.",rejected:"Penyedia menolak permintaan ini. Tiada halaman pembayaran baharu dicipta.",session:"Sesi anda tidak membenarkan permintaan ini. Log masuk semula sebelum membuat deposit.",conflict:"Permintaan ini bercanggah dengan deposit sedia ada. Semak rekod sebelum meneruskan dan jangan bayar dua kali.",invalid:"Penyedia tidak memulangkan halaman pembayaran yang sah. Semak rekod atau hubungi sokongan.",failed:"Deposit ini tidak selesai. Anda boleh mengisi maklumat semula.",reference:"Pesanan",paid:"Bayaran disahkan. Semak rekod deposit yang dikemas kini."}
++ en:{title:"Deposit with",loading:"Checking this payment option…",member:"Deposits are available to member accounts.",approval:"Your member account is awaiting approval. Contact support before depositing.",unavailable:"This payment option is unavailable right now. Try checking again or contact support.",network:"The payment option could not be checked. Check your connection and try again.",channel:"No payment channels are available for VPay yet. Try checking again or choose another provider.",bank:"No company bank account is available right now. Contact support or choose another payment provider.",qr:"The company DuitNow QR has not been configured. Use Bank Transfer or contact support.",ready:"Enter the required details and continue to the provider's payment page. Your deposit record will update when payment is confirmed.",manual:"Transfer to the displayed company bank account, then upload your receipt for review. Wallet credit is never automatic from a receipt alone.",amount:"Amount · MYR",channelLabel:"Payment channel",payer:"Payer name",payerHint:"Use the name shown on the paying bank account.",continue:"Continue to payment",checking:"Submitting this deposit…",close:"Close",retry:"Check availability again",records:"View deposit records",opening:"Opening the provider payment page…",open:"Open payment page",unknown:"The result could not be confirmed. Check your deposit records before paying or submitting again. A retry will keep the same deposit request.",rejected:"The provider declined this request. No new payment page was created.",session:"Your session could not authorize this request. Sign in again before depositing.",conflict:"This request conflicts with an existing deposit. Check your deposit records before continuing; do not pay twice.",invalid:"The provider did not return a valid payment page. Check the deposit record or contact support.",failed:"This deposit did not complete. You may enter the details again.",reference:"Order",paid:"Payment confirmed. Check your updated deposit record."},
++ zh:{title:"充值 ·",loading:"正在读取这家充值通道…",member:"充值仅供会员账号使用。",approval:"会员账号正在等待审批，请先联系客服。",unavailable:"这家充值通道目前暂不可用，请重新检查或联系客服。",network:"暂时无法读取这家充值通道，请检查网络后重试。",channel:"VPay 目前未返回可选付款渠道，请重新检查或选择其他充值公司。",bank:"目前没有可用公司银行账号，请联系客服或选择其他充值公司。",qr:"公司 DuitNow QR 尚未设置，请使用银行转账或联系客服。",ready:"填写所需资料后前往厂家付款页面。付款确认后，结果会更新在充值记录中。",manual:"请转账到当前显示的公司银行账号，再上传银行单等待核对。单凭银行单不会自动入账。",amount:"充值金额 · MYR",channelLabel:"付款渠道",payer:"付款人姓名",payerHint:"请填写付款银行户口上的姓名。",continue:"前往付款",checking:"正在提交这笔充值…",close:"关闭",retry:"重新检查通道",records:"查看充值记录",opening:"正在打开厂家付款页面…",open:"打开付款页面",unknown:"暂时无法确认提交结果。请先查看充值记录，不要重复付款；重试会沿用同一笔充值请求。",rejected:"厂家拒绝了这次申请，未建立新的付款页面。",session:"当前登录状态无法提交此请求，请重新登录后再充值。",conflict:"这次请求与已有充值冲突，请先查看充值记录后再继续，不要重复付款。",invalid:"未收到有效的厂家付款页面，请查看充值记录或联系客服。",failed:"这笔充值未完成，可以重新填写资料。",reference:"订单",paid:"付款已确认，请查看更新后的充值记录。"},
++ ms:{title:"Deposit melalui",loading:"Menyemak pilihan pembayaran ini…",member:"Deposit tersedia untuk akaun ahli.",approval:"Akaun ahli anda menunggu kelulusan. Hubungi sokongan sebelum membuat deposit.",unavailable:"Pilihan pembayaran ini tidak tersedia. Semak semula atau hubungi sokongan.",network:"Pilihan pembayaran tidak dapat disemak. Semak sambungan anda dan cuba lagi.",channel:"Tiada saluran pembayaran VPay tersedia. Semak semula atau pilih penyedia lain.",bank:"Tiada akaun bank syarikat tersedia. Hubungi sokongan atau pilih penyedia lain.",qr:"QR DuitNow syarikat belum dikonfigurasi. Gunakan Pindahan Bank atau hubungi sokongan.",ready:"Isi maklumat yang diperlukan dan teruskan ke halaman pembayaran penyedia. Rekod deposit dikemas kini selepas bayaran disahkan.",manual:"Pindah ke akaun bank syarikat yang dipaparkan, kemudian muat naik resit untuk semakan. Resit sahaja tidak pernah mengkredit dompet secara automatik.",amount:"Amaun · MYR",channelLabel:"Saluran pembayaran",payer:"Nama pembayar",payerHint:"Gunakan nama pada akaun bank pembayar.",continue:"Teruskan pembayaran",checking:"Menghantar deposit ini…",close:"Tutup",retry:"Semak ketersediaan semula",records:"Lihat rekod deposit",opening:"Membuka halaman pembayaran penyedia…",open:"Buka halaman pembayaran",unknown:"Keputusan belum dapat disahkan. Semak rekod sebelum membayar atau menghantar semula. Percubaan semula mengekalkan permintaan deposit yang sama.",rejected:"Penyedia menolak permintaan ini. Tiada halaman pembayaran baharu dicipta.",session:"Sesi anda tidak membenarkan permintaan ini. Log masuk semula sebelum membuat deposit.",conflict:"Permintaan ini bercanggah dengan deposit sedia ada. Semak rekod sebelum meneruskan dan jangan bayar dua kali.",invalid:"Penyedia tidak memulangkan halaman pembayaran yang sah. Semak rekod atau hubungi sokongan.",failed:"Deposit ini tidak selesai. Anda boleh mengisi maklumat semula.",reference:"Pesanan",paid:"Bayaran disahkan. Semak rekod deposit yang dikemas kini."}
+ };
+ function cashierText(key){return cashierCopy[state.lang]?.[key]||cashierCopy.en[key]||key;}
+ const cashierProviders=Object.freeze({
+@@ -285,12 +289,12 @@ const cashierProviders=Object.freeze({
+ });
+ function cashierState(){return state.cashier??(state.cashier={provider:null,displayProvider:null,requestId:0,loading:false,error:"",memberId:state.user?.id||null});}
+ function syncDepositCashierMember(){const cashier=cashierState(),memberId=state.user?.id||null;if(cashier.memberId===memberId)return;cashier.memberId=memberId;cashier.requestId++;cashier.provider=null;cashier.displayProvider=null;cashier.loading=false;cashier.error="";const dialog=$("depositCashier");if(dialog?.open)dialog.close();for(const id of ["vpayOrderMessage","gspayOrderMessage","gspayUsdtOrderMessage","oneMpayOrderMessage","manualBankMessage"])$(id).textContent="";for(const [provider,entry]of Object.entries(cashierProviders))if(provider!=="manual-bank")$(entry.form).reset?.();$("manualBankAmount").value="";$("manualBankReceipt").value="";}
+-function cashierReady(provider){return provider==="manual-bank"?manualBankPreviewReady():state[cashierProviders[provider]?.stateKey]?.orderReady===true;}
++function cashierReady(provider){return provider==="manual-bank"?manualBankPreviewReady(state.depositProvider):state[cashierProviders[provider]?.stateKey]?.orderReady===true;}
+ function renderDepositCashier(){
+  syncDepositCashierMember();const dialog=$("depositCashier"),cashier=cashierState(),provider=cashier.provider,config=cashierProviders[provider],displayLabel=cashier.displayProvider==="duitnow-qr"?"DUITNOW QR":config?.label;if(!dialog?.open||!config)return;$("depositCashierCurrency").textContent=`${config.currency} · DEPOSIT`;
+  const approved=state.user?.role==="member"&&!!state.user.approved,restriction=activeDepositRestriction(),status=config.stateKey?state[config.stateKey]:null,channels=provider!=="vpay"||Array.isArray(status?.tradeCodes)&&status.tradeCodes.length>0,ready=approved&&!restriction&&!cashier.loading&&!cashier.error&&cashierReady(provider)&&channels;
+  $("depositCashierTitle").textContent=`${cashierText("title")} ${displayLabel}`;
+- const message=!approved?cashierText(state.user?.role==="member"?"approval":"member"):restriction?.message||(cashier.loading?cashierText("loading"):cashier.error||(!cashierReady(provider)?cashierText(provider==="manual-bank"?"bank":"unavailable"):!channels?cashierText("channel"):cashierText(provider==="manual-bank"?"manual":"ready")));
++ const message=!approved?cashierText(state.user?.role==="member"?"approval":"member"):restriction?.message||(cashier.loading?cashierText("loading"):cashier.error||(!cashierReady(provider)?cashierText(provider==="manual-bank"&&cashier.displayProvider==="duitnow-qr"?"qr":provider==="manual-bank"?"bank":"unavailable"):!channels?cashierText("channel"):cashierText(provider==="manual-bank"?"manual":"ready")));
+  $("depositCashierStatus").textContent=message;$("depositCashierStatus").className=`cashier-status ${ready?"ready":"pending"}`;
+  $("depositCashierRetry").hidden=!approved||!!restriction||cashier.loading||ready;$("depositCashierRetry").textContent=cashierText("retry");$("depositCashierClose").setAttribute("aria-label",cashierText("close"));$("depositCashierRecords").disabled=false;$("depositCashierRecords").textContent=cashierText("records");
+  for(const [id,entry]of Object.entries(cashierProviders)){$(entry.form).hidden=id!==provider||!ready;$(entry.submit).disabled=!!state.depositSubmitting||cashier.loading||!ready;if(id!=="manual-bank")$(entry.submit).textContent=state.depositSubmitting===id?cashierText("checking"):cashierText("continue");}
+@@ -311,7 +315,7 @@ async function openDepositCashier(provider){
+  finally{if(cashier.requestId===requestId){cashier.loading=false;renderPaymentPreview();renderDepositCashier();}}
+ }
+ function openDepositRecords(){const dialog=$("depositCashier");if(dialog?.open)dialog.close();selected("lobby");setTimeout(()=>$("memberPaymentRecords")?.scrollIntoView({behavior:"smooth",block:"start"}),0);loadMemberWallet();}
+-function populateManualBankAccounts(){const select=$("manualBankAccount"),previous=select.value;clear(select);for(const bank of state.manualBanks){const option=node("option","",bank.bank_name);option.value=bank.id;select.append(option);}if([...select.options].some(item=>item.value===previous))select.value=previous;if(state.manualBanks.length)renderManualBankCopyDetails();else $("manualBankCopyDetails").hidden=true;}
++function populateManualBankAccounts(){const select=$("manualBankAccount"),previous=select.value,accounts=manualBankAccountsForChannel();clear(select);for(const bank of accounts){const option=node("option","",bank.bank_name);option.value=bank.id;select.append(option);}if([...select.options].some(item=>item.value===previous))select.value=previous;if(accounts.length)renderManualBankCopyDetails();else $("manualBankCopyDetails").hidden=true;}
+ 
+ const walletCopy={
+  en:{signIn:"Sign in with an approved member account to view wallet status.",pending:"Your member account is awaiting administrator approval. Deposits are unavailable.",unavailable:"Wallet status is temporarily unavailable.",reconciliation:"Your game funds are being checked. Please contact support.",balance:"Available balance",vpayReady:"VPay deposit is available.",vpayOff:"VPay is currently unavailable. No order can be submitted.",vpayError:"VPay status could not be verified. Deposits remain unavailable.",none:"No deposit records.",loadError:"Could not load deposit records.",refreshing:"Refreshing…",provider:"VPay",loading:"Checking VPay status…",requestCreated:"Payment page opened. Check the provider page for its result.",requestPending:"Request recorded; confirmation is pending. Do not submit it again until records are checked.",requestRejected:"The provider rejected this request. No payment order was created; you may submit a new attempt.",requestFailed:"The deposit request was not created. Check the status and try later.",status:{pending:"Pending",creating:"Being created",created:"Awaiting payment",unknown:"Confirming",credited:"Credited",failed:"Failed",expired:"Expired",cancelled:"Cancelled"}},
+@@ -400,7 +404,7 @@ function manualBankAttemptFor(bankId,amount,file){
+  return attempt;
+ }
+ function clearManualBankAttempt(){const storageKey=state.manualBankAttempt?.storageKey||manualBankAttemptStorageKey();state.manualBankAttempt=null;if(storageKey){try{sessionStorage.removeItem(storageKey);}catch{}}}
+-async function submitManualBankDeposit(e){e.preventDefault();const button=$("manualBankSubmit"),message=$("manualBankMessage"),restriction=activeDepositRestriction();if(restriction){message.textContent=restriction.message;renderDepositCashier();return;}const file=$("manualBankReceipt").files[0];if(!file){message.textContent="Upload a bank receipt.";return;}const bankId=$("manualBankAccount").value,amount=$("manualBankAmount").value,attempt=manualBankAttemptFor(bankId,amount,file);button.disabled=true;message.textContent="Uploading…";try{const receiptData=await receiptDataForUpload(file,1200,1600);await api("/api/manual-bank/deposits","POST",{bankId,amount,receiptData,requestKey:attempt.requestKey});clearManualBankAttempt();$("manualBankDepositForm").reset();message.textContent="Submitted. Waiting for bank verification.";await loadMemberWallet();}catch(error){message.textContent=error.message;}finally{button.disabled=false;}}
++async function submitManualBankDeposit(e){e.preventDefault();const button=$("manualBankSubmit"),message=$("manualBankMessage"),restriction=activeDepositRestriction();if(restriction){message.textContent=restriction.message;renderDepositCashier();return;}const file=$("manualBankReceipt").files[0];if(!file){message.textContent="Upload a bank receipt.";return;}const bankId=$("manualBankAccount").value,amount=$("manualBankAmount").value,attempt=manualBankAttemptFor(bankId,amount,file);button.disabled=true;message.textContent="Uploading…";try{const receiptData=await receiptDataForUpload(file,1200,1600),result=await api("/api/manual-bank/deposits","POST",{bankId,amount,receiptData,requestKey:attempt.requestKey});clearManualBankAttempt();$("manualBankDepositForm").reset();message.textContent=`Submitted for review · Reference ${result.id}. Wallet credit follows bank verification.`;await loadMemberWallet();}catch(error){message.textContent=error.message;}finally{button.disabled=false;}}
+ function bindWalletActions(){document.querySelectorAll("[data-home-service]").forEach(button=>button.onclick=()=>{const section=button.dataset.homeService;if((section==="deposit"||section==="withdraw")&&!state.user){showAuth();return;}if(section==="games"){$("mobileGamesButton").click();return;}selected(section);});$("walletDepositAction").onclick=()=>{selected("deposit");setTimeout(()=>$("paymentLobby")?.scrollIntoView({behavior:"smooth",block:"start"}),0);};$("walletWithdrawAction").onclick=()=>selected("withdraw");$("walletRecordsAction").onclick=openDepositRecords;$("mobileGamesButton").onclick=()=>{selected("lobby");setTimeout(()=>$("apiSupplierLobby")?.scrollIntoView({behavior:"smooth",block:"start"}),0);};const mobileAccountButton=$("mobileAccountButton");if(mobileAccountButton)mobileAccountButton.onclick=()=>state.user&&state.authMethod==="password"?showAuth("security"):state.user?.role==="member"?selected("responsible-play"):showAuth();$("manualBankAccount").onchange=renderManualBankCopyDetails;$("copyBankBank").onclick=()=>copyBankValue("manualBankCopyBank");$("copyBankName").onclick=()=>copyBankValue("manualBankCopyName");$("copyBankNumber").onclick=()=>copyBankValue("manualBankCopyNumber");$("manualBankDepositForm").addEventListener("submit",submitManualBankDeposit);$("manualBankDepositForm").addEventListener("reset",clearManualBankAttempt);$("gspayOrderForm").addEventListener("submit",submitGSPayOrder);$("companyBankForm").addEventListener("submit",saveCompanyBank);$("companyBankImage").onchange=async()=>{const file=$("companyBankImage").files?.[0];if(!file){showCompanyBankImagePreview();return;}try{showCompanyBankImagePreview(await receiptDataForUpload(file,800,800));}catch(error){$("companyBankImage").value="";showCompanyBankImagePreview();notification(error.message);}};$("refreshManualBank").onclick=()=>loadAdminPanel("manualBankAdminPanel",{force:true});document.querySelectorAll("[data-bank-admin-tab]").forEach(button=>button.onclick=()=>selectManualBankAdminTab(button.dataset.bankAdminTab));}
+ function trustedGSPayCheckout(value){
+  let url;try{url=new URL(value);}catch{return null;}
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 97ffad3..ac40e49 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.160-meta-gaming-adapter';
++const CACHE='master7-shell-17.0.0-selfbuilt.161-readiness-hardening';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/tests/automatic-availability-ui.test.mjs b/tests/automatic-availability-ui.test.mjs
+index a2beb93..38441f3 100644
+--- a/tests/automatic-availability-ui.test.mjs
++++ b/tests/automatic-availability-ui.test.mjs
+@@ -47,12 +47,12 @@ test('customer payment cards follow readiness and preserve their selected provid
+  assert.deepEqual(calls,['vpay','gspay','1mpay','manual-bank']);
+ });
+ 
+-test('manual-bank availability follows the current approved member account read and clears on failure or identity change',async()=>{
+- const nodes=new Map(),bankButton=new Element('button');bankButton.dataset.paymentChannel='manual-bank';bankButton.label=new Element('small');bankButton.querySelector=()=>bankButton.label;
++test('company-bank and DuitNow QR readiness follow the current approved member configuration and clear on identity change',async()=>{
++ const nodes=new Map(),bankButton=new Element('button'),qrButton=new Element('button');bankButton.dataset.paymentChannel='manual-bank';qrButton.dataset.paymentChannel='duitnow-qr';for(const button of [bankButton,qrButton]){button.label=new Element('small');button.querySelector=()=>button.label;}
+  const get=id=>{if(!nodes.has(id)){const el=new Element();el.value='';Object.defineProperty(el,'options',{get:()=>el.children});nodes.set(id,el);}return nodes.get(id);};
+  const state={lang:'en',user:{id:'member-a',role:'member',approved:1},authMethod:'password',section:'lobby',manualBanks:[],manualBankMemberId:null,memberWalletRequestId:0,paymentChannels:{'manual-bank':'active'},depositProvider:'manual-bank'};
+  let bankRead=()=>({items:[{id:'synthetic-bank',bank_name:'Fixture bank'}]}),walletRead=()=>({availableMinor:'0'});
+- const context={state,$:get,node,clear:el=>el.replaceChildren(),activeDepositRestriction:()=>null,document:{querySelectorAll:selector=>selector==='[data-payment-channel]'?[bankButton]:[]},window:{},t:key=>key,wt:key=>key,dt:key=>key,moneyMinor:value=>String(value),renderManualBankCopyDetails(){},clearCompletedDepositAttempts(){},renderPaymentRecords(){},renderTicketUnreadBadges(){},renderGameWallet(){},api:async path=>{
++ const context={state,$:get,node,clear:el=>el.replaceChildren(),activeDepositRestriction:()=>null,document:{querySelectorAll:selector=>selector==='[data-payment-channel]'?[bankButton,qrButton]:[]},window:{},t:key=>key,wt:key=>key,dt:key=>key,moneyMinor:value=>String(value),renderManualBankCopyDetails(){},clearCompletedDepositAttempts(){},renderPaymentRecords(){},renderTicketUnreadBadges(){},renderGameWallet(){},api:async path=>{
+   if(path==='/api/manual-bank/accounts')return bankRead();
+   if(path==='/api/wallet')return walletRead();
+   if(path==='/api/payment-records')return {items:[]};
+@@ -60,7 +60,8 @@ test('manual-bank availability follows the current approved member account read
+  }};
+  vm.runInNewContext(extract('const paymentPreview =','const walletCopy=')+extract('async function loadMemberWallet(','function renderManualBankCopyDetails(')+extract('function renderSession(','function renderAnnouncements('),context);
+  context.renderPaymentPreview();assert.equal(bankButton.label.textContent,'Unavailable','a legacy channel flag cannot establish bank availability');
+- await context.loadMemberWallet();assert.equal(bankButton.label.textContent,'Available');
++ await context.loadMemberWallet();assert.equal(bankButton.label.textContent,'Available');assert.equal(qrButton.label.textContent,'Unavailable','a bank account without a QR image cannot open the QR flow');
++ bankRead=()=>({items:[{id:'synthetic-bank',bank_name:'Fixture bank',image_data:'data:image/png;base64,fixture'}]});await context.loadMemberWallet();assert.equal(bankButton.label.textContent,'Available');assert.equal(qrButton.label.textContent,'Available');
+  bankRead=()=>({items:[]});await context.loadMemberWallet();assert.equal(bankButton.label.textContent,'Unavailable');
+  bankRead=()=>({items:[{id:'synthetic-bank',bank_name:'Fixture bank'}]});await context.loadMemberWallet();assert.equal(bankButton.label.textContent,'Available');
+  bankRead=()=>Promise.reject(new Error('synthetic unavailable'));await context.loadMemberWallet();assert.equal(bankButton.label.textContent,'Unavailable');assert.equal(state.manualBanks.length,0);assert.equal(state.manualBankMemberId,null);
+diff --git a/tests/deposit-cashier.test.mjs b/tests/deposit-cashier.test.mjs
+index 7ab1930..7008fd6 100644
+--- a/tests/deposit-cashier.test.mjs
++++ b/tests/deposit-cashier.test.mjs
+@@ -15,6 +15,7 @@ class Element{
+  get options(){return this.children;}
+  addEventListener(name,handler){this[name]=handler;}
+  setAttribute(name,value){this.attributes[name]=String(value);}
++ removeAttribute(name){delete this.attributes[name];}
+  querySelector(){return this.label||null;}
+  showModal(){this.open=true;}
+  close(){this.open=false;}
+@@ -54,6 +55,28 @@ test('GSPAY USDT stays visibly isolated and cannot expose an order form before c
+  assert.deepEqual(f.calls.map(call=>[call.path,call.method]),[['/api/payments/gspay/usdt/status','GET']]);
+ });
+ 
++test('DuitNow QR opens only configured QR accounts while Bank Transfer keeps every enabled company account',async()=>{
++ const accounts=[
++  {id:'bank-only',bank_name:'Bank only',account_name:'MASTER7',account_number:'11111111',image_data:''},
++  {id:'bank-with-qr',bank_name:'Bank with QR',account_name:'MASTER7',account_number:'22222222',image_data:'data:image/png;base64,fixture'}
++ ],f=fixture({read:path=>path==='/api/manual-bank/accounts'?{items:accounts}:{enabled:false,orderReady:false}});
++ await f.context.openDepositCashier('duitnow-qr');
++ assert.equal(f.nodes.get('manualBankDepositForm').hidden,false);
++ assert.deepEqual(f.nodes.get('manualBankAccount').options.map(option=>option.value),['bank-with-qr']);
++ assert.match(f.nodes.get('depositCashierStatus').textContent,/never automatic from a receipt alone/);
++ await f.context.openDepositCashier('manual-bank');
++ assert.deepEqual(f.nodes.get('manualBankAccount').options.map(option=>option.value),['bank-only','bank-with-qr']);
++});
++
++test('DuitNow QR stays closed when only bank-transfer details are configured',async()=>{
++ const f=fixture({read:path=>path==='/api/manual-bank/accounts'?{items:[{id:'bank-only',bank_name:'Bank only',account_name:'MASTER7',account_number:'11111111',image_data:''}]}:{enabled:false,orderReady:false}});
++ await f.context.openDepositCashier('duitnow-qr');
++ assert.equal(f.nodes.get('manualBankDepositForm').hidden,true);
++ assert.match(f.nodes.get('depositCashierStatus').textContent,/DuitNow QR has not been configured/);
++ await f.context.openDepositCashier('manual-bank');
++ assert.equal(f.nodes.get('manualBankDepositForm').hidden,false);
++});
++
+ for(const [provider,entry]of Object.entries(entries)){
+  test(`${provider}: click checks only that provider and opens its required form before any order`,async()=>{
+   const f=fixture();await f.buttons.find(button=>button.dataset.paymentChannel===provider).click(event);
+diff --git a/tests/game-provider-acceptance.test.mjs b/tests/game-provider-acceptance.test.mjs
+index d6f7f32..94d59c1 100644
+--- a/tests/game-provider-acceptance.test.mjs
++++ b/tests/game-provider-acceptance.test.mjs
+@@ -87,7 +87,13 @@ test('UAT evidence and owner evidence cannot independently make a game live',asy
+  assert.equal(readiness.liveProfileCount,0,'918KISS remains non-live because its adapter is unimplemented');
+  assert.equal(readiness.allGamesVerified,false);
+  assert.equal(readiness.liveGames,false);
+- assert.equal(readiness.blockers.find(item=>item.profileId==='918kiss_normal_myr').adapterImplemented,false);
++ const kissBlocker=readiness.blockers.find(item=>item.profileId==='918kiss_normal_myr');
++ assert.equal(kissBlocker.adapterImplemented,false);
++ assert.equal(kissBlocker.contractDiagnostic.manifestComplete,false);
++ assert.equal(kissBlocker.contractDiagnostic.playAllowed,false);
++ assert.ok(kissBlocker.contractDiagnostic.missingVendorFields.includes('launch.endpoint'));
++ assert.ok(kissBlocker.contractDiagnostic.missingVendorFields.includes('wallet.transaction_query.terminal_success_statuses'));
++ assert.equal(readiness.profiles.find(item=>item.profileId==='918kiss_normal_myr').contractDiagnostic.playAllowed,false);
+  assert.equal((await getGameProviderAcceptance(f.db,staff,{environment:'production'})).profiles.find(item=>item.profileId==='megah5_myr').capabilities.catalogue.passed,false,'UAT does not count as production evidence');
+  assert.ok(previous);
+ });
+diff --git a/tests/jili-transfer-protocol.test.mjs b/tests/jili-transfer-protocol.test.mjs
+index b2877bb..0bce6f1 100644
+--- a/tests/jili-transfer-protocol.test.mjs
++++ b/tests/jili-transfer-protocol.test.mjs
+@@ -29,8 +29,14 @@ test('JILI signing matches the published example and the UTC-4 unpadded day boun
+  assert.notEqual(jiliPlayerId('jili_myr_1to1','alice'),jiliPlayerId('jili_my1_1to100','alice'));assert.notEqual(jiliTransactionId('jili_myr_1to1','same','deposit'),jiliTransactionId('jili_myr_1to1','same','withdrawal'));
+ });
+ test('JILI game catalogue preserves escaped names and rejects duplicate game IDs',async()=>{
+- const row={GameId:1,name:{'en-US':'A "quoted" game 123'},GameCategoryId:1},f=fake({GetGameList:success([row])});assert.equal((await f.client.listGames())[0].name,row.name['en-US']);
++ const row={GameId:1,name:{'en-US':'A "quoted" game 123'},GameCategoryId:1,JP:false},f=fake({GetGameList:success([row])}),game=(await f.client.listGames())[0];assert.equal(game.name,row.name['en-US']);assert.equal(game.maintenance,true);
+  const bad=fake({GetGameList:success([row,row])});await assert.rejects(()=>bad.client.listGames(),e=>e.code==='JILI_RESPONSE_INVALID');
++ const missing=fake({GetGameList:success([{...row,JP:undefined}])});await assert.rejects(()=>missing.client.listGames(),e=>e.code==='JILI_RESPONSE_INVALID');
++});
++test('JILI catalogue availability is an explicit account-bound adapter gate',async()=>{
++ const config=cfg(),row={GameId:1,name:{'en-US':'Synthetic JILI'},GameCategoryId:1,JP:true},f=fake({GetGameList:success([row])},config),context={profile:getGameProviderProfile(config.profile)};
++ const closed=createJiliGameProviderAdapter(config,{fetchImpl:f.transport,allowedReturnOrigins:[]}),verified=createJiliGameProviderAdapter(config,{fetchImpl:f.transport,allowedReturnOrigins:[],catalogueAvailabilityVerified:true});
++ assert.equal((await closed.listGames(context))[0].maintenance,true);assert.equal((await verified.listGames(context))[0].maintenance,false);
+ });
+ test('deposit confirmation requires the original account, direction, amount and transaction query',async()=>{
+  const f=fake({ExchangeTransferByAgentId:success({TransactionId:input.transactionId,Status:1}),CheckTransferByTransactionId:receipt()});
+@@ -76,6 +82,11 @@ test('signed report amounts stay fail-closed until the merchant sign contract is
+  const from=time-30*60_000,to=time-11*60_000,when=new Date(from+60_000-4*60*60_000).toISOString().slice(0,19),raw=`{"ErrorCode":0,"Data":{"Result":[{"Account":"m7synthetic","AgentId":"synthetic_myr","WagersId":1710419268000161101,"GameId":1,"BetAmount":-4.2500,"PayoffAmount":1.5000,"Status":1,"SettlementTime":"${when}"}],"Pagination":{"CurrentPage":1,"TotalPages":1,"PageLimit":10000,"TotalNumber":1}}}`;
+  const f=fake({GetBetRecordByTime:()=>new Response(raw,{headers:{'Content-Type':'application/json'}})});await assert.rejects(()=>f.client.wagers(from,to),e=>e.code==='JILI_AMOUNT_INVALID');assert.deepEqual(f.calls.map(x=>x.method),['GetBetRecordByTime']);
+ });
++test('1:100 report units are explicit and converted exactly once',async()=>{
++ const config=cfg('jili_my1_1to100'),from=time-30*60_000,to=time-11*60_000,when=new Date(from+60_000-4*60*60_000).toISOString().slice(0,19),row=amount=>`{"ErrorCode":0,"Data":{"Result":[{"Account":"m7synthetic","AgentId":"synthetic_myr","WagersId":1710419268000161101,"GameId":1,"BetAmount":${amount},"PayoffAmount":${amount},"Status":1,"SettlementTime":"${when}"}],"Pagination":{"CurrentPage":1,"TotalPages":1,"PageLimit":10000,"TotalNumber":1}}}`;
++ const points=fake({GetBetRecordByTime:()=>new Response(row('125.00'),{headers:{'Content-Type':'application/json'}})},config),pointPage=await points.client.wagers(from,to);assert.equal(pointPage.items[0].betMinor,'125');assert.equal(pointPage.items[0].sourceDetails.amountUnit,'game_points');
++ const currency={...config,reportAmountUnit:'platform_currency'},myr=fake({GetBetRecordByTime:()=>new Response(row('1.25'),{headers:{'Content-Type':'application/json'}})},currency),myrPage=await myr.client.wagers(from,to);assert.equal(myrPage.items[0].betMinor,'125');assert.equal(myrPage.items[0].sourceDetails.amountUnit,'platform_currency');
++});
+ test('unconfirmed account units and unsafe endpoints fail before contacting any supplier',()=>{
+  for(const patch of [{transferAmountUnit:undefined},{queryAmountUnit:'unknown'},{baseUrl:'http://supplier.example.test/api1'},{baseUrl:'https://supplier.example.test/api1?key=bad'},{baseUrl:'https://supplier.example.test/other'}])assert.throws(()=>createJiliProtocolClient({...cfg(),...patch},fetch),e=>e.code==='JILI_CONFIGURATION_INVALID');
+ });
+@@ -85,14 +96,25 @@ test('JILI profile and player substitutions cannot reach a transport or create a
+  await assert.rejects(()=>adapter.depositToGame(c,{userId:'alice',providerPlayerId:jiliPlayerId(config.profile,'bob'),platformTransactionId:'same',amountMinor:'20',currency:'MYR'}),e=>e.code==='JILI_PLAYER_MISMATCH');assert.equal(f.calls.length,0);
+  const closed=createJiliGameProviderAdapter(config,{fetchImpl:f.transport,allowedReturnOrigins:[],depositEnabled:true});await assert.rejects(()=>closed.depositToGame(c,{userId:'alice',providerPlayerId:jiliPlayerId(config.profile,'alice'),platformTransactionId:'same',amountMinor:'20',currency:'MYR'}),e=>e.code==='JILI_MERCHANT_CONTRACT_UNVERIFIED');assert.equal(f.calls.length,0);
+ });
++test('JILI closure and wager reports stay disabled before their independent acceptance gates',async()=>{
++ const config=cfg(),f=fake({}),c={profile:getGameProviderProfile(config.profile)},playerId=jiliPlayerId(config.profile,'alice'),window={from:time-30*60_000,to:time-11*60_000};
++ const closed=createJiliGameProviderAdapter(config,{fetchImpl:f.transport,allowedReturnOrigins:['https://www.master7.best'],merchantContractVerified:true});
++ await assert.rejects(()=>closed.closeGame(c,{userId:'alice',providerPlayerId:playerId,requestClosure:false}),e=>e.code==='JILI_SESSION_CLOSURE_UNVERIFIED');
++ await assert.rejects(()=>closed.fetchWagers(c,window),e=>e.code==='JILI_REPORT_DISABLED');assert.equal(f.calls.length,0);
++ const when=new Date(window.from+60_000-4*60*60_000).toISOString().slice(0,19),raw=`{"ErrorCode":0,"Data":{"Result":[{"Account":"${playerId}","AgentId":"${config.agentId}","WagersId":1710419268000161101,"GameId":1,"BetAmount":1.25,"PayoffAmount":2.5,"Status":1,"SettlementTime":"${when}"}],"Pagination":{"CurrentPage":1,"TotalPages":1,"PageLimit":10000,"TotalNumber":1}}}`,enabled=fake({GetBetRecordByTime:()=>new Response(raw,{headers:{'Content-Type':'application/json'}})},config),accepted=createJiliGameProviderAdapter(config,{fetchImpl:enabled.transport,now:()=>time,allowedReturnOrigins:[],reportEnabled:true});
++ assert.equal((await accepted.fetchWagers(c,window)).items[0].providerPlayerId,playerId);assert.deepEqual(enabled.calls.map(x=>x.method),['GetBetRecordByTime']);
++});
+ test('JILI runtime needs account evidence, closure finality and production acceptance independently',()=>{
+- const connection=cfg(),slot={mode:'production',environment:'production',recoveryEnabled:true,qaMemberIds:['alice'],approvedApiEndpoints:[connection.baseUrl],connection,merchantContractVerified:true,merchantContractEvidenceSha256:'a'.repeat(64),sessionClosureVerified:true,allIssuedLaunchesInvalidated:true,lateResultsFinal:true},document=()=>JSON.stringify({profiles:{[connection.profile]:slot}});
++ const connection=cfg(),slot={mode:'production',environment:'production',recoveryEnabled:true,qaMemberIds:['alice'],approvedApiEndpoints:[connection.baseUrl],connection,merchantContractVerified:true,merchantContractEvidenceSha256:'a'.repeat(64),catalogueAvailabilityVerified:true,catalogueAvailabilityEvidenceSha256:'d'.repeat(64),sessionClosureVerified:true,sessionClosureEvidenceSha256:'b'.repeat(64),allIssuedLaunchesInvalidated:true,lateResultsFinal:true},document=()=>JSON.stringify({profiles:{[connection.profile]:slot}});
+  assert.equal(jiliProfileRuntime(document(),connection.profile,'alice').launchAuthorized,false);assert.equal(jiliProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true}).launchAuthorized,true);
+- slot.lateResultsFinal=false;assert.equal(jiliProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true}).recoveryEnabled,false);slot.lateResultsFinal=true;slot.merchantContractEvidenceSha256='';assert.equal(jiliProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true}).launchAuthorized,false);
+- slot.merchantContractEvidenceSha256='a'.repeat(64);slot.mode='qa';assert.equal(gameTransferRuntime({gameTransferProfilesJson:document()},connection.profile,'bob').launchAuthorized,false);assert.equal(gameTransferRuntime({gameTransferProfilesJson:document()},connection.profile,'alice').launchAuthorized,true);assert.equal(gameTransferRuntime({gameTransferProfilesJson:document()},'jili_my1_1to100','alice'),null);
++ slot.catalogueAvailabilityEvidenceSha256='';assert.equal(jiliProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true}).launchAuthorized,false);slot.catalogueAvailabilityEvidenceSha256='d'.repeat(64);
++ slot.lateResultsFinal=false;assert.equal(jiliProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true}).recoveryEnabled,false);slot.lateResultsFinal=true;slot.sessionClosureEvidenceSha256='';assert.equal(jiliProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true}).recoveryEnabled,false);
++ slot.sessionClosureEvidenceSha256='b'.repeat(64);slot.merchantContractEvidenceSha256='';assert.equal(jiliProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true}).launchAuthorized,false);slot.merchantContractEvidenceSha256='a'.repeat(64);
++ let runtime=jiliProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true});assert.equal(runtime.reportEnabled,false);slot.reportEnabled=true;slot.reportSemanticsVerified=true;slot.reportEvidenceSha256='c'.repeat(64);runtime=jiliProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true});assert.equal(runtime.reportEnabled,true);slot.reportEvidenceSha256='';assert.equal(jiliProfileRuntime(document(),connection.profile,'alice',{productionAccepted:true}).reportEnabled,false);
++ slot.reportEvidenceSha256='c'.repeat(64);slot.mode='qa';assert.equal(gameTransferRuntime({gameTransferProfilesJson:document()},connection.profile,'bob').launchAuthorized,false);assert.equal(gameTransferRuntime({gameTransferProfilesJson:document()},connection.profile,'alice').launchAuthorized,true);assert.equal(gameTransferRuntime({gameTransferProfilesJson:document()},'jili_my1_1to100','alice'),null);
+ });
+ test('JILI runtime blocks new funds before launch when the customer return origin is missing but keeps recovery available',()=>{
+- const connection=cfg(),slot={mode:'qa',environment:'production',recoveryEnabled:true,qaMemberIds:['alice'],approvedApiEndpoints:[connection.baseUrl],allowedReturnOrigins:['https://operator.example.test'],connection,merchantContractVerified:true,merchantContractEvidenceSha256:'a'.repeat(64),sessionClosureVerified:true,allIssuedLaunchesInvalidated:true,lateResultsFinal:true},document=()=>JSON.stringify({profiles:{[connection.profile]:slot}});
++ const connection=cfg(),slot={mode:'qa',environment:'production',recoveryEnabled:true,qaMemberIds:['alice'],approvedApiEndpoints:[connection.baseUrl],allowedReturnOrigins:['https://operator.example.test'],connection,merchantContractVerified:true,merchantContractEvidenceSha256:'a'.repeat(64),catalogueAvailabilityVerified:true,catalogueAvailabilityEvidenceSha256:'d'.repeat(64),sessionClosureVerified:true,sessionClosureEvidenceSha256:'b'.repeat(64),allIssuedLaunchesInvalidated:true,lateResultsFinal:true},document=()=>JSON.stringify({profiles:{[connection.profile]:slot}});
+  let runtime=jiliProfileRuntime(document(),connection.profile,'alice');assert.ok(runtime);assert.equal(runtime.launchAuthorized,false);assert.equal(runtime.recoveryEnabled,true);
+  slot.allowedReturnOrigins=[];runtime=jiliProfileRuntime(document(),connection.profile,'alice');assert.ok(runtime);assert.equal(runtime.launchAuthorized,false);assert.equal(runtime.recoveryEnabled,true);
+  slot.allowedReturnOrigins=['https://www.master7.best'];runtime=jiliProfileRuntime(document(),connection.profile,'alice');assert.equal(runtime.launchAuthorized,true);assert.equal(runtime.recoveryEnabled,true);
+diff --git a/tests/jili-wallet-api.test.mjs b/tests/jili-wallet-api.test.mjs
+index 4e9718e..d62e0c8 100644
+--- a/tests/jili-wallet-api.test.mjs
++++ b/tests/jili-wallet-api.test.mjs
+@@ -12,11 +12,11 @@ function fixture(profileId='jili_myr_1to1'){
+  sql.exec("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES('alice','alice','member',1,'csrf-alice',0),('bob','bob','member',1,'csrf-bob',0),('owner','owner','owner',1,'csrf-owner',0);INSERT INTO deposit_orders(id,user_id,request_key,fingerprint,provider,amount_minor,currency,trade_code,status,created_at,updated_at) VALUES('synthetic-credit','alice','synthetic-credit','fixture','manual_bank',2000,'MYR','fixture','credited',0,0);INSERT INTO wallet_ledger(id,order_id,user_id,account_code,amount_minor,currency,created_at) VALUES('synthetic-member','synthetic-credit','alice','member',2000,'MYR',0),('synthetic-clearing','synthetic-credit','alice','provider_clearing',-2000,'MYR',0)");
+  class Statement{constructor(text,args=[]){this.text=text;this.args=args;}bind(...args){return new Statement(this.text,args);}async first(){return sql.prepare(this.text).get(...this.args)??null;}async all(){return {results:sql.prepare(this.text).all(...this.args)};}async run(){return sql.prepare(this.text).run(...this.args);}}
+  let queue=Promise.resolve();const db={prepare:text=>new Statement(text),batch(statements){const result=queue.then(async()=>{sql.exec('BEGIN IMMEDIATE');try{const out=[];for(const s of statements)out.push(await s.run());sql.exec('COMMIT');return out;}catch(e){sql.exec('ROLLBACK');throw e;}});queue=result.catch(()=>{});return result;}};
+- const profile=getGameProviderProfile(profileId),account=profile.unitScale===100?'1to100':'1to1',connection={profile:profileId,baseUrl:'https://supplier.example.test/api1',agentId:'synthetic_'+account,agentKey:'syntheticAgentKey000000000000000',transferAmountUnit:'platform_currency',queryAmountUnit:'platform_currency',balanceAmountUnit:'game_points',reportAmountUnit:'game_points',launchOrigins:['https://games.example.test']},slot={mode:'qa',environment:'production',recoveryEnabled:true,qaMemberIds:['alice'],approvedApiEndpoints:[connection.baseUrl],connection,merchantContractVerified:true,merchantContractEvidenceSha256:'a'.repeat(64),sessionClosureVerified:true,allIssuedLaunchesInvalidated:true,lateResultsFinal:true};
++ const profile=getGameProviderProfile(profileId),account=profile.unitScale===100?'1to100':'1to1',connection={profile:profileId,baseUrl:'https://supplier.example.test/api1',agentId:'synthetic_'+account,agentKey:'syntheticAgentKey000000000000000',transferAmountUnit:'platform_currency',queryAmountUnit:'platform_currency',balanceAmountUnit:'game_points',reportAmountUnit:'game_points',launchOrigins:['https://games.example.test']},slot={mode:'qa',environment:'production',recoveryEnabled:true,qaMemberIds:['alice'],approvedApiEndpoints:[connection.baseUrl],connection,merchantContractVerified:true,merchantContractEvidenceSha256:'a'.repeat(64),catalogueAvailabilityVerified:true,catalogueAvailabilityEvidenceSha256:'d'.repeat(64),sessionClosureVerified:true,sessionClosureEvidenceSha256:'b'.repeat(64),allIssuedLaunchesInvalidated:true,lateResultsFinal:true};
+  const state={cash:'0',online:false,created:false,calls:[],gatewayCalls:[],transfers:new Map(),throwDeposit:false,throwSweep:false,submitErrorCode:null,missingQuery:false,badGatewayAccount:false};
+  const transport=async(url,init)=>{
+   const method=new URL(url).pathname.split('/').at(-1),form=new URLSearchParams(init.body);state.calls.push({method,form});assert.equal(form.get('AgentId'),connection.agentId);const ok=data=>Response.json({ErrorCode:0,Data:data});
+-  if(method==='GetGameList')return ok([{GameId:1,name:{'en-US':'Synthetic JILI slot'},GameCategoryId:1}]);
++  if(method==='GetGameList')return ok([{GameId:1,name:{'en-US':'Synthetic JILI slot'},GameCategoryId:1,JP:false}]);
+   if(method==='CreateMember'){state.created=true;return ok(null);}
+   if(method==='GetMemberInfo')return ok([{Account:form.get('Accounts'),Balance:walletMinorToGameAmount(state.cash,profile.unitScale),Status:state.created?state.online?1:2:3}]);
+   if(method==='KickMember'){state.online=false;return ok(null);}
+@@ -64,6 +64,9 @@ test('JILI maintenance and ambiguous member submit results retain funds and reco
+ test('JILI credentials, accepted evidence and a QA allowlist cannot bypass an unverified merchant closure contract',async()=>{
+  const h=fixture();try{h.slot.mode='production';await h.accept();h.slot.allIssuedLaunchesInvalidated=false;const r=await h.launch();assert.equal(r.status,503);assert.equal(h.state.calls.length,0);assert.equal(h.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);assert.equal((await h.request(null,'/health')).body.anyGamePlayable,false);}finally{h.close();}
+ });
++test('JILI GetGameList without account-bound availability evidence cannot advertise or fund Play',async()=>{
++ const h=fixture();try{h.slot.catalogueAvailabilityEvidenceSha256='';const catalogue=await h.request('alice',`/api/games?provider=jili&profileId=${h.profile.profileId}`);assert.equal(catalogue.body.selectedProfile.launchReady,false);assert.equal(catalogue.body.playable,false);const result=await h.launch();assert.equal(result.status,503);assert.equal(h.state.calls.length,0);assert.equal(h.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);}finally{h.close();}
++});
+ test('a JILI return-origin misconfiguration cannot advertise Play, reserve a wallet or submit funds',async()=>{
+  const h=fixture();try{
+   h.slot.allowedReturnOrigins=['https://operator.example.test'];
+diff --git a/tests/kissh5-contract-readiness.test.mjs b/tests/kissh5-contract-readiness.test.mjs
+new file mode 100644
+index 0000000..e4468a5
+--- /dev/null
++++ b/tests/kissh5-contract-readiness.test.mjs
+@@ -0,0 +1,104 @@
++import assert from 'node:assert/strict';
++import test from 'node:test';
++import {
++  getKissH5ContractRequirements,
++  inspectKissH5ContractManifest,
++  KISS_H5_PROFILE_IDS,
++} from '../lib/kissh5-contract-readiness.ts';
++
++const profileValues={
++  '918kiss_normal_myr':{profileId:'918kiss_normal_myr',account:'normal',currency:'MYR',settlement:'MYR',balanceClass:'cash'},
++  '918kiss_normal_my1_1to100':{profileId:'918kiss_normal_my1_1to100',account:'my1',currency:'MY1',settlement:'MYR',balanceClass:'cash'},
++  '918kiss_free_myr':{profileId:'918kiss_free_myr',account:'free',currency:'MYR',settlement:'MYR',balanceClass:'free_credit'},
++};
++
++function setPath(target,path,value){
++ const parts=path.split('.');let current=target;
++ for(const part of parts.slice(0,-1))current=current[part]??={};
++ current[parts.at(-1)]=value;
++}
++
++function completeManifest(profileId){
++ const manifest={},profile=profileValues[profileId];
++ for(const requirement of getKissH5ContractRequirements(profileId)){
++  let value=requirement.expected?.[0]??'documented-value';
++  if(requirement.kind==='string_list')value=['documented-field'];
++  if(requirement.kind==='positive_integer')value=1;
++  if(requirement.kind==='sha256')value='a'.repeat(64);
++  if(requirement.kind==='ratio')value='1:1';
++  if(requirement.field==='profile.profile_id')value=profile.profileId;
++  if(requirement.field==='profile.account_variant')value=profile.account;
++  if(requirement.field==='profile.provider_currency')value=profile.currency;
++  if(requirement.field==='profile.settlement_currency')value=profile.settlement;
++  if(requirement.field==='profile.balance_class')value=profile.balanceClass;
++  setPath(manifest,requirement.field,value);
++ }
++ return manifest;
++}
++
++test('all three 918KISS profiles report exact fail-closed contract gaps independently',()=>{
++ assert.deepEqual(KISS_H5_PROFILE_IDS,[
++  '918kiss_normal_myr','918kiss_normal_my1_1to100','918kiss_free_myr',
++ ]);
++ for(const profileId of KISS_H5_PROFILE_IDS){
++  const diagnostic=inspectKissH5ContractManifest(profileId);
++  assert.equal(diagnostic.knownProfile,true);
++  assert.equal(diagnostic.manifestComplete,false);
++  assert.deepEqual(diagnostic.missingVendorFields,getKissH5ContractRequirements(profileId).map(item=>item.field));
++  assert.equal(diagnostic.adapterImplemented,false);
++  assert.equal(diagnostic.launchAllowed,false);
++  assert.equal(diagnostic.walletAllowed,false);
++  assert.equal(diagnostic.playAllowed,false);
++ }
++ assert.ok(inspectKissH5ContractManifest('918kiss_normal_my1_1to100').missingVendorFields.includes('profile.my1_to_myr_ratio'));
++ assert.equal(inspectKissH5ContractManifest('918kiss_normal_myr').missingVendorFields.includes('profile.my1_to_myr_ratio'),false);
++ assert.ok(inspectKissH5ContractManifest('918kiss_free_myr').missingVendorFields.includes('profile.free_credit_settlement_rule'));
++});
++
++test('catalogue credentials and game rows cannot satisfy runtime contract requirements',()=>{
++ const catalogueOnly={
++  operatorId:'catalogue-operator',secretKey:'must-never-be-reflected',
++  baseUrl:'https://catalogue.invalid',games:[{gameCode:'fixture'}],
++ };
++ const diagnostic=inspectKissH5ContractManifest('918kiss_normal_myr',catalogueOnly);
++ assert.equal(diagnostic.manifestComplete,false);
++ assert.equal(diagnostic.missingVendorFields.length,getKissH5ContractRequirements('918kiss_normal_myr').length);
++ assert.equal(JSON.stringify(diagnostic).includes('must-never-be-reflected'),false);
++ assert.equal(diagnostic.playAllowed,false);
++});
++
++test('a syntactically complete documentation manifest still cannot enable an adapter or Play',()=>{
++ for(const profileId of KISS_H5_PROFILE_IDS){
++  const diagnostic=inspectKissH5ContractManifest(profileId,completeManifest(profileId));
++  assert.equal(diagnostic.manifestComplete,true,profileId);
++  assert.deepEqual(diagnostic.missingVendorFields,[]);
++  assert.deepEqual(diagnostic.invalidVendorFields,[]);
++  assert.equal(diagnostic.documentationOnly,true);
++  assert.equal(diagnostic.adapterImplemented,false);
++  assert.equal(diagnostic.launchAllowed,false);
++  assert.equal(diagnostic.walletAllowed,false);
++  assert.equal(diagnostic.playAllowed,false);
++ }
++});
++
++test('profile manifests cannot be reused across normal, MY1 and free accounts',()=>{
++ const normal=completeManifest('918kiss_normal_myr');
++ const my1=inspectKissH5ContractManifest('918kiss_normal_my1_1to100',normal);
++ assert.equal(my1.manifestComplete,false);
++ assert.ok(my1.invalidVendorFields.some(item=>item.field==='profile.profile_id'&&item.reason==='unexpected_value'));
++ assert.ok(my1.invalidVendorFields.some(item=>item.field==='profile.account_variant'&&item.reason==='unexpected_value'));
++ assert.ok(my1.missingVendorFields.includes('profile.my1_definition'));
++ const free=inspectKissH5ContractManifest('918kiss_free_myr',normal);
++ assert.equal(free.manifestComplete,false);
++ assert.ok(free.invalidVendorFields.some(item=>item.field==='profile.balance_class'&&item.reason==='unexpected_value'));
++ assert.ok(free.missingVendorFields.includes('profile.free_credit_source'));
++});
++
++test('unknown profile IDs do not inherit any 918KISS contract or capability',()=>{
++ const diagnostic=inspectKissH5ContractManifest('918kiss_unknown',completeManifest('918kiss_normal_myr'));
++ assert.equal(diagnostic.knownProfile,false);
++ assert.equal(diagnostic.manifestComplete,false);
++ assert.deepEqual(diagnostic.missingVendorFields,[]);
++ assert.equal(diagnostic.playAllowed,false);
++});
++
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index 6c08b4d..26f8b16 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.160-meta-gaming-adapter';
++const release='17.0.0-selfbuilt.161-readiness-hardening';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{

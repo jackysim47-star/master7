@@ -1,0 +1,111 @@
+{
+  "release": "17.0.0-selfbuilt.161-readiness-hardening",
+  "preparedAt": "2026-11-10T10:30:21.356801+00:00",
+  "sourceCommit": "d3ef26496326adc942842c3e0d7233d0a6abc795",
+  "baselineSourceCommit": "8d0c42e1393e1cf18cf5d2efac131f75b5268e29",
+  "baselineRelease": "17.0.0-selfbuilt.160-meta-gaming-adapter",
+  "archive": {
+    "sha256": "cf6720e5346b0d2f342d4cf50ba4a17ab5ea13be8cf00827c7c2f297aa0cbb87",
+    "bytes": 7161203,
+    "files": 698,
+    "entries": 759,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/MASTER7_918KISS_RUNTIME_CONTRACT_GAP_20261110.md",
+      "docs/MASTER7_JILI_AUDIT_20261110.md",
+      "docs/MASTER7_READINESS_HARDENING_161.md",
+      "lib/kissh5-contract-readiness.ts",
+      "tests/kissh5-contract-readiness.test.mjs"
+    ],
+    "changed": [
+      "app/portal.html",
+      "docs/MASTER7_JILI_SAFETY_150.md",
+      "docs/MASTER7_JILI_TRANSFER_WALLET_148.md",
+      "lib/backend.ts",
+      "lib/game-provider-acceptance.ts",
+      "lib/jili-profile-runtime.ts",
+      "lib/jili-provider-adapter.ts",
+      "lib/jili-transfer-protocol.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/assets/app.js",
+      "public/service-worker.js",
+      "tests/automatic-availability-ui.test.mjs",
+      "tests/deposit-cashier.test.mjs",
+      "tests/game-provider-acceptance.test.mjs",
+      "tests/jili-transfer-protocol.test.mjs",
+      "tests/jili-wallet-api.test.mjs",
+      "tests/official-entries-probe.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1351,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "renderDatabase": 3,
+    "gatewaySourceChanged": false,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "command": "pnpm verify:render",
+    "scope": "local synthetic and isolated validation; no live provider, player, wallet, game launch or payment calls"
+  },
+  "readinessHardening": {
+    "manualBank": {
+      "bankTransferAndDuitNowSeparated": true,
+      "duitNowRequiresEnabledAccountAndQrArtwork": true,
+      "receiptReturnsTraceableOrderReference": true,
+      "receiptAutomaticallyCreditsWallet": false
+    },
+    "kissH5": {
+      "profiles": [
+        "918kiss_normal_myr",
+        "918kiss_normal_my1_1to100",
+        "918kiss_free_myr"
+      ],
+      "profileIsolatedContractDiagnostics": true,
+      "catalogueEvidenceMakesProfilePlayable": false,
+      "launchReadyProfiles": 0,
+      "verifiedProfiles": 0,
+      "playableProfiles": 0
+    },
+    "jili": {
+      "profiles": [
+        "jili_myr_1to1",
+        "jili_my1_1to100"
+      ],
+      "availabilityFailsClosed": true,
+      "jpParsingFailsClosed": true,
+      "closureAndFinalityFailClosed": true,
+      "reportLedgerSemanticsFailClosed": true,
+      "providerAcceptanceCompleted": false
+    }
+  },
+  "operationalChanges": {
+    "newDepositsUiFlagChanged": false,
+    "providerOrderSubmissionEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPaymentsEnabled": false,
+    "metaGamingRuntimeEnabled": false,
+    "supplierAcceptanceBypassed": false
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "renderYaml": false,
+    "environmentTemplates": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false
+}
