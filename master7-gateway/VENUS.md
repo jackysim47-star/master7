@@ -6,4 +6,9 @@ Contract: EliteHubz Merchant Integration Document v1.20.3, supplied Google Drive
 
 Request and response signatures use HMAC-SHA256 over the flattened, sorted, percent-encoded body plus the millisecond timestamp. The documented independent signature example is a test vector. Response timestamps must be within five minutes. HTTPS, redirect refusal, timeout, page bounds, total checks, duplicate rejection and field projection fail closed. Neither a partial catalogue nor a provider error is presented as successful.
 
+The game-list contract does not provide an accepted per-title availability
+field or an approved artwork host. Catalogue rows therefore remain in
+maintenance and remote thumbnail URLs are withheld until those two contracts
+are separately confirmed.
+
 Only catalogue reads are implemented. Transfer-wallet operations, player creation, game launch and bonuses are outside this endpoint. Successful catalogue retrieval alone does not establish that the customer website or APK is connected.

@@ -8,7 +8,8 @@ function signed(data, key = env.VENUS_API_KEY) {
   const timestamp = String(now().getTime());
   return new Response(JSON.stringify(data), { headers: { 'X-Ts': timestamp, 'X-Sign': venusSignature(data, timestamp, key) } });
 }
-const game = id => ({ Code: `game${id}`, ProviderCode: 'TEST', Name: 'Sample', secret: 'omit-this' });
+const game = id => ({ Code: `game${id}`, ProviderCode: 'TEST', Name: 'Sample',
+  Thumbnails: [{ Language: 'en', ImagePath: 'https://unapproved.example.test/game.png' }], secret: 'omit-this' });
 
 test('VENUS signature matches the independent document example', () => {
   const body = { ProviderCode: 'string', PlayerCode: 'string', GameRoundId: 'string', TransactionId: 'string',
@@ -32,6 +33,9 @@ test('VENUS fetches all enabled pages, verifies responses and projects public fi
   const result = await venusCatalogue({ env, now, fetchImpl });
   assert.equal(result.count, 1001); assert.equal(result.pages, 2);
   assert.equal(requests[0].url, 'https://product.elitehubzapi.com/api/sm/services/games');
+  assert.ok(result.games.every(item => item.maintenance === true));
+  assert.ok(result.games.every(item => Array.isArray(item.thumbnails) && item.thumbnails.length === 0));
+  assert.equal(JSON.stringify(result).includes('unapproved.example.test'), false);
   assert.equal(JSON.stringify(result).includes('omit-this'), false);
 });
 

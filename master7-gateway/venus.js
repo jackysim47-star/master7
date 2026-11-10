@@ -85,8 +85,11 @@ async function venusCatalogue({ env, fetchImpl = global.fetch, now = () => new D
         gameCode: row.Code, providerCode: row.ProviderCode, providerName: String(row.ProviderName || ''),
         name: String(row.Name || ''), category: row.Category ?? null, type: row.Type ?? null,
         isLobby: row.IsLobby === true, hasDemo: row.HasDemo === true, hasFreespin: row.HasFreespin === true,
-        thumbnails: (Array.isArray(row.Thumbnails) ? row.Thumbnails : []).filter(t => typeof t?.ImagePath === 'string' && /^https:\/\//i.test(t.ImagePath))
-          .map(t => ({ language: String(t.Language || ''), imageUrl: t.ImagePath })),
+        // Game list v1.20.5 has no accepted per-title availability signal.
+        // Catalogue presence must not be treated as proof that a title can be
+        // launched. Artwork origins are also unapproved, so keep both closed.
+        maintenance: true,
+        thumbnails: [],
       });
     }
     if (expectedTotal !== undefined && games.size > expectedTotal) fail('venus_invalid_total');
