@@ -6,12 +6,13 @@ Date: 2026-11-10 UTC
 
 - Gateway and portal run in Render Singapore.
 - A one-time egress diagnostic observed `74.220.52.216`.
-- This single address is not a complete Render allowlist. Render states that a service without dedicated IPs can use any address in its region's published CIDR ranges.
+- The current Render Singapore outbound ranges recorded for these services are `74.220.52.0/24` and `74.220.60.0/24`.
+- The single observed address is not a complete Render allowlist. Render states that a service without dedicated IPs can use any address in its region's published CIDR ranges.
 - Render Dedicated IPs provide three exclusive IPv4 addresses for one region. The current published price is USD 100 per month for each IP set and the workspace must be on Pro or higher.
 
 ## Required network decision
 
-For payment and game suppliers that accept CIDR ranges, copy the gateway service's full list from **Connect > Outbound** and submit every listed Singapore range.
+For payment and game suppliers that accept CIDR ranges, submit both `74.220.52.0/24` and `74.220.60.0/24`. Confirm the list against the gateway service's **Connect > Outbound** panel whenever Render announces a network-range change.
 
 For suppliers that accept only individual IP addresses, create one Singapore Dedicated IP set scoped to the MASTER7 environment or workspace, wait until it is Active, then submit all three IPv4 addresses to every supplier. Both the gateway and portal are in Singapore, but game-provider traffic currently originates from the gateway.
 

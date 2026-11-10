@@ -1,0 +1,20 @@
+Subject: MASTER7 production API outbound IP allowlist
+
+Please allowlist both current Render Singapore outbound CIDR ranges for the MASTER7 production merchant account:
+
+74.220.52.0/24
+74.220.60.0/24
+
+Please do not register only one observed IP address. Requests can originate from any address in either range.
+
+After the allowlist is active, please confirm the merchant/operator is authorized for MYR production catalogue, player, game launch, transfer wallet, transaction query and report access. No real-money acceptance will start until a read-only catalogue check and restricted UAT pass.
+
+Provider-specific current results:
+
+- JDB: 9001 Unauthorized
+- META GAMING Normal: HTTP 403
+- META GAMING Free Credit: HTTP 403
+- Pragmatic Play: HTTP 435
+- RSG Hub: HTTP 403
+
+VENUS / EliteHubz requires a separate correction: its successful business response must include the contract-required X-Sign and X-Ts response headers.
