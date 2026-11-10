@@ -37,8 +37,9 @@ test('JILI 1:1 and 1:100 select separate credentials and only call GetGameList',
     requests.push({url, options});
     return new Response(JSON.stringify({ErrorCode:0,Data:[{GameId:1,name:{'en-US':'Sample','zh-CN':'样本'},GameCategoryId:5,JP:true,secret:'private-data'}],Key:'private-data'}));
   };
+  const app = makeApp({env,fetchImpl,now:()=>fixed});
   for (const [account,id,key,ratio] of [['1to1','test_one','one-secret','1:1'],['1to100','test_hundred','hundred-secret','1:100']]) {
-    const res = await run(makeApp({env,fetchImpl,now:()=>fixed}), `/providers/jili/games?account=${account}`);
+    const res = await run(app, `/providers/jili/games?account=${account}`);
     const data = await res.json();
     assert.equal(res.status,200);assert.equal(data.ratio,ratio);assert.equal(data.currency,'MYR');
     assert.equal(data.games[0].nameZh,'样本');assert.equal(data.games[0].gameCode,'1');
@@ -52,6 +53,8 @@ test('JILI 1:1 and 1:100 select separate credentials and only call GetGameList',
     assert.equal(params.get('Key').slice(6,-6),jiliKey(`AgentId=${id}`,id,key,fixed).slice(6,-6));
     assert.equal(request.options.body.includes(key),false);
   }
+  const replay = await run(app, '/providers/jili/games?account=1to1');
+  assert.equal(replay.status, 200);assert.equal(requests.length, 2);
   const health = await (await run(makeApp({env}),'/health')).json();
   assert.deepEqual(health.configured.jili,{'1to1':true,'1to100':true});
   assert.equal(JSON.stringify(health).includes('one-secret'),false);
@@ -66,6 +69,9 @@ test('JILI fails closed for missing profile, inherited property, unsafe base and
   const env={JILI_1TO1_AGENT_ID:'one',JILI_1TO1_AGENT_KEY:'key',JILI_BASE_URL:'http://provider.test/api1'};
   assert.equal((await run(makeApp({env,fetchImpl}),'/providers/jili/games')).status,503);
   assert.equal((await run(makeApp({env:{...env,JILI_BASE_URL:'https://provider.test/api1',JILI_1TO1_AGENT_ID:'one&x=y'},fetchImpl}),'/providers/jili/games')).status,503);
+  for (const base of ['not-a-url','https://provider.test:8443/api1','https://provider.test/other']) {
+    assert.equal((await run(makeApp({env:{...env,JILI_BASE_URL:base},fetchImpl}),'/providers/jili/games')).status,503);
+  }
   assert.equal(calls,0);
 });
 

@@ -626,19 +626,26 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         }
         const account = jiliAccounts[accountName];
         if (!account.id || !account.secret) return send(res, 503, { error: 'catalogue_not_configured' }, cors);
-        const endpoint = new URL(`${jiliBase}/GetGameList`);
-        if (endpoint.protocol !== 'https:' || endpoint.username || endpoint.password || endpoint.search || endpoint.hash) {
+        let endpoint;
+        try { endpoint = new URL(`${jiliBase}/GetGameList`); }
+        catch { return send(res, 503, { error: 'jili_invalid_configuration' }, cors); }
+        if (endpoint.protocol !== 'https:' || endpoint.username || endpoint.password || endpoint.port
+            || endpoint.search || endpoint.hash || endpoint.pathname !== '/api1/GetGameList') {
           return send(res, 503, { error: 'jili_invalid_configuration' }, cors);
         }
         const agentId = String(account.id).trim();
         if (!/^[A-Za-z0-9_]+$/.test(agentId)) return send(res, 503, { error: 'jili_invalid_configuration' }, cors);
-        const result = await upstream(endpoint.toString(), {
-          method: 'POST',
-          redirect: 'error',
-          headers: { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: jiliCatalogueBody(agentId, String(account.secret), now()),
-        });
-        if (!result.ok || result.data?.ErrorCode !== 0 || !Array.isArray(result.data?.Data)) {
+        const result = await cached(`jili-games:${accountName}`, async () => {
+          const response = await upstream(endpoint.toString(), {
+            method: 'POST',
+            redirect: 'error',
+            headers: { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: jiliCatalogueBody(agentId, String(account.secret), now()),
+          });
+          if (!response.ok || response.data?.ErrorCode !== 0 || !Array.isArray(response.data?.Data)) return response;
+          return { ok: true, status: response.status, data: { ErrorCode: 0 }, games: normalizeJiliGames(response.data.Data) };
+        }, value => value.ok && Array.isArray(value.games));
+        if (!result.ok || result.data?.ErrorCode !== 0 || !Array.isArray(result.games)) {
           return send(res, 502, {
             error: 'provider_catalogue_failed', provider: 'jili', upstreamStatus: result.status,
             providerStatus: Number.isSafeInteger(result.data?.ErrorCode) ? result.data.ErrorCode : null,
@@ -647,7 +654,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         return send(res, 200, {
           provider: 'jili', account: accountName, currency: 'MYR', ratio: account.ratio,
           complete: true,
-          games: normalizeJiliGames(result.data.Data),
+          games: result.games,
         }, cors);
       }
 
