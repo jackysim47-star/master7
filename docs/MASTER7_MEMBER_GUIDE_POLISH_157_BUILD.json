@@ -1,0 +1,79 @@
+{
+  "release": "17.0.0-selfbuilt.157-member-guide-polish",
+  "preparedAt": "2026-11-10T09:12:37.169362+00:00",
+  "sourceCommit": "13f259306de746958c00df7e63b40bdc0c7af1eb",
+  "baselineSourceCommit": "195dfeb87ec4722696be4d7b5cdb21e660504622",
+  "baselineRelease": "17.0.0-selfbuilt.156-member-polish",
+  "archive": {
+    "sha256": "54b57b75928206e26a7775b326449f6dd2a1a2e3fbe25211794d519454f332f2",
+    "bytes": 7132121,
+    "files": 685,
+    "entries": 746,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/MASTER7_MEMBER_GUIDE_POLISH_157.md"
+    ],
+    "changed": [
+      "app/portal.html",
+      "lib/backend.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/assets/app.js",
+      "public/assets/member-refresh.css",
+      "public/service-worker.js",
+      "tests/luxury-backoffice-ui.test.mjs",
+      "tests/official-entries-probe.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1330,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "renderDatabase": 3,
+    "gatewayTests": 151,
+    "gatewaySourceChanged": false,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "scope": "local synthetic and isolated validation; no live provider, player, wallet or payment calls"
+  },
+  "memberGuidePolish": {
+    "englishFirstCustomerGuides": true,
+    "guideSummary": "Member guide · How it works",
+    "memberGuidePalette": [
+      "white",
+      "water-blue",
+      "navy"
+    ],
+    "oldBlackTechnicalPanelRemoved": true,
+    "administrativeGuideStylingChanged": false,
+    "backofficeFunctionsChanged": false,
+    "mobileViewportAudit": {
+      "viewportWidthPx": 393,
+      "horizontalOverflow": false
+    }
+  },
+  "operationalChanges": {
+    "gamesEnabled": false,
+    "depositsEnabled": false,
+    "payoutsEnabled": false,
+    "realMoneyOperationsEnabled": false,
+    "supplierAcceptanceBypassed": false
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false
+}

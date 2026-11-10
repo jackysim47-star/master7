@@ -1,0 +1,234 @@
+diff --git a/app/portal.html b/app/portal.html
+index d175960..7ddfac2 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.156-member-polish">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.156-member-polish">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.156-member-polish">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.156-member-polish">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.156-member-polish">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.156-member-polish">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.156-member-polish">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.156-member-polish">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.156-member-polish">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.156-member-polish">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.156-member-polish">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.156-member-polish">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.156-member-polish">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.156-member-polish">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.156-member-polish" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.157-member-guide-polish">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.157-member-guide-polish">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.157-member-guide-polish">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.157-member-guide-polish">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.157-member-guide-polish">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.157-member-guide-polish">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.157-member-guide-polish">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.157-member-guide-polish">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.157-member-guide-polish">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.157-member-guide-polish">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.157-member-guide-polish">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.157-member-guide-polish">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.157-member-guide-polish">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.157-member-guide-polish">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.157-member-guide-polish" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+diff --git a/docs/MASTER7_MEMBER_GUIDE_POLISH_157.md b/docs/MASTER7_MEMBER_GUIDE_POLISH_157.md
+new file mode 100644
+index 0000000..b2f3275
+--- /dev/null
++++ b/docs/MASTER7_MEMBER_GUIDE_POLISH_157.md
+@@ -0,0 +1,17 @@
++# MASTER7 v157 member guide polish
++
++Release: `17.0.0-selfbuilt.157-member-guide-polish`
++
++This release completes the English-first water-blue member presentation started
++in v156.
++
++- Customer quick guides use clear English text throughout the member portal.
++- The guide summary uses `Member guide · How it works` instead of the former
++  Chinese technical label.
++- Member guides now use a subtle white and water-blue card with navy text,
++  matching the customer shell instead of the old black technical panel.
++- Administrative guide styling and all backoffice functions remain unchanged.
++
++At 393 px viewport width the customer page remains free of horizontal overflow.
++Game and payment availability, launch controls, wallet controls and real-money
++switches are unchanged and remain subject to their existing acceptance gates.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 188a63c..dc7e1a2 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -38,7 +38,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.156-member-polish';
++export const RELEASE = '17.0.0-selfbuilt.157-member-guide-polish';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index f515828..8e09dc5 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.156-member-polish' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.157-member-guide-polish' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/package.json b/package.json
+index d940e0a..d51ee6b 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.156-member-polish node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.156-member-polish node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.157-member-guide-polish node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.157-member-guide-polish node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.156-member-polish node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.157-member-guide-polish node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/assets/app.js b/public/assets/app.js
+index 5455636..c31f30f 100644
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -1277,19 +1277,19 @@ function bindPasswordAuth(){
+  });
+ }
+ const customerFeatureGuides=Object.freeze({
+- home:["查看 MASTER7 公告、品牌入口与平台状态，再进入游戏大厅。","前台只显示顾客功能；管理后台固定使用 master7.site/admin。"],
+- lobby:[`选择游戏类别或厂家大厅；${GAME_PLATFORM_COUNT} 家厂家保留各自原有 ID 和内部游戏。`,"赔率、RTP、注单和结算由厂家提供，平台只显示已开放的入口。"],
+- deposit:["选择已开放的充值方式；人工银行转账须上传银行单。","订单未成功前不会增加钱包，同一订单不会重复入账。"],
+- withdraw:["填写本人银行资料并提交提款申请。","实际处理时间及状态以后台审核和出款通道结果为准。"],
+- wallet:["查看真钱钱包、充值提款记录和游戏钱包状态。","显示金额来自已保存账本，不把处理中订单当成已入账。"],
+- vip:["查看当前 VIP、升级进度、Cashback、礼金和限制。","只有已开启且数据来源通过验收的权益才会派发。"],
+- rewards:["查看每日签到、非现金积分及积分记录。","积分不能提款或转入真钱钱包。"],
+- events:["查看个人大厅偏好和消息入口。","收藏与最近游戏仅影响您的大厅展示；消息以实际记录为准。"],
+- support:["向 Stephanie 或客服人员提交问题并查看回复。","资金、安全和投诉会转交人员审核。"],
+- "responsible-play":["会员可以设置充值额度或暂停新充值及游戏。","设置不会没收余额，暂停期间客服及历史记录继续可用。"]
++ home:["Review MASTER7 notices and member services, then enter the game lobby.","Customer pages show member features only. Management remains in the protected backoffice."],
++ lobby:[`Choose a category or provider. All ${GAME_PLATFORM_COUNT} providers keep their own account and game catalogue boundaries.`,"Odds, RTP, bets and settlement remain with each provider. MASTER7 shows only approved entrances."],
++ deposit:["Choose an available deposit method. Company bank transfers require a payment receipt.","Your wallet changes only after a successful, verified order. Duplicate orders are never credited twice."],
++ withdraw:["Enter your own bank details and submit a withdrawal request.","Processing time and final status follow backoffice review and the selected payout channel."],
++ wallet:["Review your cash wallet, deposit and withdrawal records, and game wallet status.","Displayed balances come from saved ledger entries. Pending orders are not treated as credited funds."],
++ vip:["Review your VIP level, progress, cashback, benefits and limits.","A benefit is issued only when it is enabled and its required data source has passed acceptance."],
++ rewards:["Review daily check-in, non-cash points and point records.","Points cannot be withdrawn or moved into the cash wallet."],
++ events:["Manage lobby preferences and view member messages.","Favourites and recent games affect only your lobby display. Message status follows its saved record."],
++ support:["Send a request to Stephanie or the support team and review their replies.","Payment, security and complaint cases remain available for staff review."],
++ "responsible-play":["Set deposit limits or pause new deposits and game access.","These settings do not remove your balance. Support and account history remain available while paused."]
+ });
+-function featureGuide(title,lines){const details=node("details","feature-inline-guide"),summary=node("summary","",`功能说明书 · ${title}`);details.append(summary);for(const line of lines)details.append(node("p","",line));return details;}
+-function installFeatureGuides(){for(const [id,lines] of Object.entries(customerFeatureGuides)){const host=$(id);if(host&&!host.querySelector(":scope > .feature-inline-guide"))host.append(featureGuide("顾客前台",lines));}}
++function featureGuide(title,lines){const details=node("details","feature-inline-guide"),summary=node("summary","",`Member guide · ${title}`);details.append(summary);for(const line of lines)details.append(node("p","",line));return details;}
++function installFeatureGuides(){for(const [id,lines] of Object.entries(customerFeatureGuides)){const host=$(id);if(host&&!host.querySelector(":scope > .feature-inline-guide"))host.append(featureGuide("How it works",lines));}}
+ function bind(){installFeatureGuides();updateOrganicPromotion();$("organicPromoLanguage").onchange=updateOrganicPromotion;document.querySelectorAll("[data-organic-share]").forEach(button=>button.onclick=()=>shareOrganicPromotion(button.dataset.organicShare));$("socialEnabled").onchange=()=>paintContactAdminState();$("addContact").onclick=()=>$("contactRows").append(contactRow());$("addPixel").onclick=()=>$("pixelRows").append(pixelRow());$("marketingImportForm").addEventListener("submit",importMarketingContacts);$("marketingCampaignForm").addEventListener("submit",saveMarketingCampaign);$("marketingCampaignImage").addEventListener("change",previewMarketingImageSelection);$("marketingContactsRefresh").onclick=()=>loadMarketingContacts(state.marketingContactPage);$("marketingContactSearchButton").onclick=()=>loadMarketingContacts(1);$("marketingContactSearch").onkeydown=event=>{if(event.key==="Enter"){event.preventDefault();loadMarketingContacts(1);}};$("marketingContactConsent").onchange=()=>loadMarketingContacts(1);$("marketingContactsPrev").onclick=()=>loadMarketingContacts(Math.max(1,state.marketingContactPage-1));$("marketingContactsNext").onclick=()=>loadMarketingContacts(Math.min(state.marketingContactPages,state.marketingContactPage+1));$("marketingSendRate").addEventListener("input",updateMarketingDuration);updateMarketingDuration();$("createEncryptedBackup").onclick=createEncryptedBackup;try{state.financialSoundEnabled=localStorage.getItem("m7-financial-sound")!=="off";}catch{}renderFinancialAudioControl();$("financialAudioToggle").onclick=toggleFinancialAudio;document.addEventListener?.("pointerdown",event=>{if(!event.target?.closest?.("#financialAudioToggle"))armFinancialAudio();},{once:true});$("referralSettingsForm").addEventListener("submit",async event=>{event.preventDefault();$("commissionSaveStatus").textContent="Saving…";try{await api("/api/admin/referrals","POST",{action:"save",settings:commissionFormPayload()});await loadReferralAdmin();$("commissionSaveStatus").textContent="✅ Saved";notification("Commission settings saved");}catch(error){$("commissionSaveStatus").textContent=error.message;notification(error.message);}});$("refreshReferrals").onclick=()=>loadAdminPanel("referralAdminPanel",{force:true});$("copyAdminReferral").onclick=async()=>{const value=$("adminReferralLink").value;if(!value)return;try{await navigator.clipboard.writeText(value);notification("注册链接已复制");}catch{notification(value);}};$("commissionBasis").onchange=updateCommissionBasisNotice;$("commissionRunNow").onclick=async()=>{try{const result=await api("/api/admin/referrals","POST",{action:"run"});await loadReferralAdmin();selectCommissionTab("ledger");notification(result.message);}catch(error){notification(error.message);}};document.querySelectorAll("[data-commission-tab]").forEach(button=>button.onclick=()=>selectCommissionTab(button.dataset.commissionTab));$("supportAutomationForm").addEventListener("submit",async event=>{event.preventDefault();try{await api("/api/admin/support-settings","POST",{aiEnabled:$("supportAiEnabled").checked,humanHandoff:$("supportHumanHandoff").checked});await loadSupportAutomation();notification("Support settings saved");}catch(error){notification(error.message);}});$("telegramBotTest").onclick=async()=>{const button=$("telegramBotTest");button.disabled=true;try{await api("/api/admin/telegram-bot","POST",{action:"test"});notification("Telegram 测试通知已发送");await loadTelegramBot();}catch(error){notification(error.message);}finally{button.disabled=false;}};$("refreshSystemReadiness").onclick=()=>loadAdminPanel("systemReadinessPanel",{force:true});$("adminMenuToggle").onclick=()=>toggleAdminMenu(true);$("adminMenuClose").onclick=()=>toggleAdminMenu(false);$("adminMenuBackdrop").onclick=()=>toggleAdminMenu(false);$("adminNotificationButton").onclick=openAdminNotifications;$("adminSupportButton").onclick=event=>{event.preventDefault();openAdminNotifications();};document.querySelectorAll("[data-admin-shortcut]").forEach(link=>link.onclick=event=>{event.preventDefault();selectAdminPanel(link.dataset.adminShortcut);});document.addEventListener("keydown",event=>{if(event.key==="Escape")toggleAdminMenu(false);});document.querySelectorAll("[data-accounting-period]").forEach(button=>button.onclick=()=>loadAccounting(button.dataset.accountingPeriod,""));$("refreshAccounting").onclick=()=>loadAdminPanel("accountingPanel",{force:true});$("loadAccountingMonth").onclick=()=>{const month=$("accountingMonth").value;if(month)loadAccounting("month",month);};for(const link of document.querySelectorAll(".admin-internal-sidebar a")){link.onclick=event=>{event.preventDefault();selectAdminPanel(link.getAttribute("href").slice(1));toggleAdminMenu(false);};}for(const id of ["benefitExampleDeposit","benefitAmount","benefitPercent","benefitMinDeposit","benefitMaxReward","benefitMultiplier","benefitTurnoverBase","benefitTurnover"]){$(id)?.addEventListener("input",renderBenefitCalculationPreview);$(id)?.addEventListener("change",renderBenefitCalculationPreview);}renderBenefitCalculationPreview();document.querySelectorAll("[data-game-zone]").forEach(button=>button.onclick=()=>{state.gameAccessZone=button.dataset.gameZone;state.gameLimit=12;document.querySelectorAll("[data-game-zone]").forEach(x=>x.classList.toggle("active",x===button));renderCatalog();});document.querySelectorAll("[data-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.gameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.sidebarGameCategory===state.gameCategory));renderApiSupplierButtons();renderCatalog();});document.querySelectorAll("[data-sidebar-game-category]").forEach(button=>button.onclick=()=>{state.gameCategory=button.dataset.sidebarGameCategory;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;document.querySelectorAll("[data-game-category]").forEach(x=>x.classList.toggle("active",x.dataset.gameCategory===state.gameCategory));document.querySelectorAll("[data-sidebar-game-category]").forEach(x=>x.classList.toggle("active",x===button));selected("lobby");renderApiSupplierButtons();renderCatalog();document.querySelector(".game-category-filters")?.scrollIntoView({behavior:"smooth",block:"start"});});$("clearProviderFilter").onclick=()=>{state.gameCatalogueRequestId++;state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;state.gameLimit=12;state.games=[];state.gameCatalogue={...(state.gameCatalogue||{}),games:[],providersOnly:true,platformsOnly:true,selectedProvider:null,selectedPlatform:null};renderCatalog();$("apiSupplierButtons").scrollIntoView({behavior:"smooth",block:"start"});};document.querySelectorAll("[data-section]").forEach(b=>b.onclick=()=>selected(b.dataset.section));$("exploreButton").onclick=()=>selected("lobby");$("aboutButton").onclick=async()=>{try{const data=await api("/health");notification(`${t("statusTitle")}: ${data.status} · ${data.release} · ${t("statusMessage")}`);}catch(e){notification(e.message)}};$("loginButton").onclick=()=>showAuth();$("closeAuth").onclick=()=>$("authDialog").close();$("refreshTickets").onclick=()=>refreshTickets();$("refreshWallet").onclick=loadMemberWallet;$("refreshPaymentRecords").onclick=loadMemberWallet;$("refreshGameWallet").onclick=()=>loadGameWallet();$("gameWalletSettle").onclick=()=>settleGameWallet(false);$("gameWalletRecover").onclick=recoverGameWallet;$("refreshAdminGameWallet").onclick=()=>loadAdminPanel("gameWalletAdminPanel",{force:true});$("refreshAdminDeposits").onclick=()=>loadAdminPanel("adminDepositPanel",{force:true});$("syncGamesNow").onclick=async()=>{await renderGameSync(true);state.adminLoadedPanels.add("gameSyncPanel");};$("refreshWithdrawals").onclick=loadWithdrawals;$("refreshAdminWithdrawals").onclick=()=>loadAdminPanel("adminWithdrawalPanel",{force:true});document.querySelectorAll('input[name="withdrawDestinationType"]').forEach(input=>input.onchange=syncWithdrawalDestinationFields);$("withdrawProvider").onchange=updateWithdrawalSubmitState;syncWithdrawalDestinationFields();$("withdrawalForm").addEventListener("submit",submitWithdrawalForm);$("vpayOrderForm").addEventListener("submit",submitVPayOrder);$("oneMpayOrderForm").addEventListener("submit",submitOneMpayOrder);$("search").oninput=()=>{renderApiSupplierButtons();renderCatalog();};$("locale").onchange=e=>{state.lang=e.target.value;try{localStorage.setItem("m7-language",state.lang);}catch{}applyLang();renderApiSupplierButtons();};$("lobbyAdPrevious").onclick=()=>{state.adIndex--;renderCarousel();};$("lobbyAdNext").onclick=()=>{state.adIndex++;renderCarousel();};$("lobbyAdCancel").onclick=resetAdForm;$("lobbyAdForm").addEventListener("submit",async e=>{e.preventDefault();const button=$("lobbyAdSave");button.disabled=true;try{const file=$("lobbyAdFile").files[0],imageData=file?await imageDataForUpload(file):"";await api("/api/admin/ads","POST",{action:"save",id:state.editAdId||undefined,title:$("lobbyAdTitle").value,targetUrl:$("lobbyAdTarget").value,imageData,status:$("lobbyAdStatus").value,startsAt:$("lobbyAdStartsAt").value,endsAt:$("lobbyAdEndsAt").value,position:state.adminAds?.length||0});resetAdForm();await loadLobbyContent();await renderAdManager();notification(t("success"));}catch(err){$("lobbyAdFormStatus").textContent=err.message;}finally{button.disabled=false;}});$("benefitCancel").onclick=resetBenefitForm;$("benefitForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/benefits","POST",benefitFormPayload("draft"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}});$("benefitPublish").onclick=async()=>{if(!$("benefitForm").reportValidity())return;try{await api("/api/admin/benefits","POST",benefitFormPayload("active"));resetBenefitForm();await loadLobbyContent();await renderBenefitManager();notification(t("success"));}catch(err){$("benefitFormStatus").textContent=err.message;}};$("ticketForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user){showAuth();return;}try{await api("/api/tickets","POST",{subject:$("ticketSubject").value,message:$("ticketMessage").value});$("ticketForm").reset();await refreshTickets();notification(t("success"));}catch(err){notification(err.message)}});$("socialForm").addEventListener("submit",async e=>{e.preventDefault();$("socialFormStatus").textContent="Saving…";try{await api("/api/admin/social-links","POST",socialFormPayload());await loadPublic();await renderSocialAdmin(true);$("socialFormStatus").textContent="✅ Saved";notification(t("success"));}catch(err){$("socialFormStatus").textContent=err.message;notification(err.message)}});$("announcementCancel").onclick=resetAnnouncementForm;$("announcementForm").addEventListener("submit",async e=>{e.preventDefault();try{await api("/api/admin/announcement","POST",{action:"save",id:state.editAnnouncementId||undefined,title:$("announcementTitle").value,body:$("announcementBody").value,status:$("announcementStatus").value,startsAt:$("announcementStartsAt").value,endsAt:$("announcementEndsAt").value});resetAnnouncementForm();await loadPublic();await renderAnnouncementManager();notification(t("success"));}catch(err){$("announcementFormStatus").textContent=err.message;}});}
+ (function restoreLanguage(){try{const saved=localStorage.getItem("m7-language");if(["en","zh","ms"].includes(saved))state.lang=saved;}catch{}})();
+ Object.assign(translations.zh,{registrationDone:"注册成功，手机号已验证。请使用会员 ID、密码和手机 OTP 登录。",registerSaved:"注册成功，请登录。",loginNotice:"输入会员 ID 和密码，再把发送到登记手机的 6 位 OTP 填入小格。",managementSignIn:"后台管理登录",managementLoginNotice:"请输入管理员或员工 ID 与密码。",featureOtpDesc:"注册时验证马来西亚手机号；会员登录使用 ID、密码和短信 OTP"});
+diff --git a/public/assets/member-refresh.css b/public/assets/member-refresh.css
+index 35eacd7..be036de 100644
+--- a/public/assets/member-refresh.css
++++ b/public/assets/member-refresh.css
+@@ -226,6 +226,18 @@ body:not(.auth-entry):not(.admin-mode) .cashier-bank-option{border-radius:16px;b
+ body.auth-entry #authDialog.customer-auth .auth-quick-actions-single{grid-template-columns:1fr}
+ body.auth-entry #authDialog.customer-auth .auth-quick-actions-single .auth-company-details{width:100%}
+ 
++/* Customer guides follow the member palette. Backoffice guide styling remains
++   scoped to body.admin-mode in the administrative theme. */
++body:not(.auth-entry):not(.admin-mode) .feature-inline-guide{
++  margin:16px 0 0;border:1px solid #cfe4f3;border-radius:15px;background:linear-gradient(145deg,#fff,#eef8ff);color:#274f6d;box-shadow:0 8px 22px rgba(22,78,119,.07)
++}
++body:not(.auth-entry):not(.admin-mode) .feature-inline-guide summary{
++  padding:12px 14px;color:#1d618f;font-size:12px;font-weight:800;letter-spacing:.03em;cursor:pointer
++}
++body:not(.auth-entry):not(.admin-mode) .feature-inline-guide[open] summary{border-bottom:1px solid #d8eaf5;color:#115f99}
++body:not(.auth-entry):not(.admin-mode) .feature-inline-guide p{margin:0;padding:9px 14px 0;color:#526f84;font-size:12px;line-height:1.55}
++body:not(.auth-entry):not(.admin-mode) .feature-inline-guide p:last-child{padding-bottom:12px}
++
+ @media(max-width:760px){
+   body:not(.auth-entry):not(.admin-mode){padding-bottom:calc(98px + env(safe-area-inset-bottom));font-size:16px}
+   body:not(.auth-entry):not(.admin-mode) .page{padding:12px 12px calc(42px + env(safe-area-inset-bottom))}
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 6fcdbac..02dbb0c 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.156-member-polish';
++const CACHE='master7-shell-17.0.0-selfbuilt.157-member-guide-polish';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/tests/luxury-backoffice-ui.test.mjs b/tests/luxury-backoffice-ui.test.mjs
+index 8b354e9..dc950bc 100644
+--- a/tests/luxury-backoffice-ui.test.mjs
++++ b/tests/luxury-backoffice-ui.test.mjs
+@@ -59,8 +59,10 @@ test('AI platform manager links core white-label modules without duplicating the
+  assert.doesNotMatch(app,/const adminFeatureGuides/);
+  const manual=readFileSync(new URL('../public/assets/owner-manual.js',import.meta.url),'utf8');
+  for(const id of ['operationsAiPanel','financeCenterPanel','manualBankAdminPanel','vipManager','apiSupplierManager','gameCatalogManager','marketingCenter','supportOperationsPanel'])assert.ok(manual.includes(`id:"${id}"`),`${id} needs its owner manual entry`);
+- assert.match(app,/功能说明书 · \$\{title\}/);
++ assert.match(app,/Member guide · \$\{title\}/);
+  assert.match(app,/const customerFeatureGuides=Object\.freeze/);
++ assert.match(app,/featureGuide\("How it works",lines\)/);
++ assert.doesNotMatch(app,/功能说明书|顾客前台/);
+ });
+ 
+ test('optimized original artwork is wired into customer, login and owner shells',()=>{
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index 65a095d..68c7681 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.156-member-polish';
++const release='17.0.0-selfbuilt.157-member-guide-polish';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
