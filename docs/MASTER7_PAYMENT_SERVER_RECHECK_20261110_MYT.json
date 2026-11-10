@@ -1,0 +1,88 @@
+{
+  "observedAt": "2026-11-10T02:08:49.443896+00:00",
+  "release": "17.0.0-selfbuilt.146-member-front-clarity",
+  "method": "Read-only transaction snapshot plus existing-order provider queries, executed by the deployed portal and integration gateway.",
+  "vpay": {
+    "providerQueriesExecuted": 8,
+    "items": 8,
+    "resultCounts": {
+      "vpay_order_not_found": 8
+    },
+    "allPaymentVerified": false,
+    "evidenceSha256": "f14fa154a33f5ddc9ea64277c31f067a53a8881a9909c042b9dc91bc118ef54b",
+    "storedDepositControl": "paused",
+    "storedControlObservedAt": "2026-11-10T01:59:15.813Z",
+    "publicOrderReady": false,
+    "publicReason": "profile_orders_disabled",
+    "apiTokenAlreadyConfigured": true
+  },
+  "oneMpay": {
+    "providerQueriesExecuted": 1,
+    "boundProviderStatus": "fail",
+    "paymentVerified": false,
+    "walletCreditExecuted": false,
+    "evidenceSha256": "b8098165456d6e2fbb283834fb31b8fc297c90347171f8f4630b3ece9640c912"
+  },
+  "snapshot": {
+    "items": 12,
+    "orderSummary": [
+      {
+        "provider": "1mpay",
+        "status": "review",
+        "currency": "MYR",
+        "orders": 3,
+        "amountMinor": "6000"
+      },
+      {
+        "provider": "1mpay",
+        "status": "unknown",
+        "currency": "MYR",
+        "orders": 1,
+        "amountMinor": "1000"
+      },
+      {
+        "provider": "vpay",
+        "status": "failed",
+        "currency": "MYR",
+        "orders": 1,
+        "amountMinor": "2000"
+      },
+      {
+        "provider": "vpay",
+        "status": "unknown",
+        "currency": "MYR",
+        "orders": 7,
+        "amountMinor": "14000"
+      }
+    ],
+    "ledgerRows": 0,
+    "verifiedCredits": 0,
+    "dedicatedCallbackEvents": 0,
+    "truncation": {
+      "ordersTruncated": false,
+      "auditCandidatesTruncated": false
+    },
+    "sha256": "13c009ce2b8db5cf97b7851666cd965913d662a7a270f41adc6899d48fb525b0"
+  },
+  "operations": {
+    "temporaryReadAuthorizationDeploy": "dep-dbp7o9jrjlhs73f4181g",
+    "retirementDeploy": "dep-dbp7pf8m7kps73a3oabg",
+    "retirementDeployStatus": "live",
+    "retiredCredentialHttpStatus": 401,
+    "readAuthorizationRetired": true,
+    "newOrdersCreated": false,
+    "walletCreditsExecuted": false,
+    "repairsExecuted": false,
+    "paymentControlsChanged": false,
+    "backupReady": true,
+    "restoreReady": true
+  },
+  "merchantBackoffice": {
+    "url": "https://zxc.vpayonline.asia/login",
+    "loginPageHttpStatus": 200,
+    "googleAuthCodeFieldPresent": true,
+    "authenticatedSessionEstablished": false,
+    "privateSettingsInspected": false
+  },
+  "remainingAcceptance": "VPay platform control remains paused. A new approved-member order, actual payment, authenticated callback/query, balanced ledger and member balance must still be verified. Missing legacy provider orders do not establish whether new order creation works."
+}

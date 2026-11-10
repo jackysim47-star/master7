@@ -116,3 +116,13 @@ The global deposit flag and the per-profile controls are separate. A globally en
 7. Complete official-domain routing and TLS verification; the staging service's healthy response does not certify the official domains.
 
 **Go-live decision: NOT ACCEPTED by this evidence.**
+
+## 8. Deployed-server recheck — 2026-11-10 10:08 MYT
+
+The deployed `.146` portal queried the eight stored VPay merchant order IDs through the production gateway. All eight received supplier HTTP 200 / business code `-1`, classified from the supplier message as `vpay_order_not_found`; none was classified as a signature rejection. These were existing-order queries only. No new order or wallet credit was made.
+
+A fresh read-only transaction snapshot still contains 12 orders, zero ledger rows, zero verified credits and zero dedicated authenticated callback receipt events. The one existing 1MPay provider reference was queried again, bound correctly, and returned normalized status `fail`.
+
+The latest public VPay status remains `orderReady=false` with `profile_orders_disabled`. The `.146` encrypted snapshot also records `deposit_control:vpay=paused`. The API token is already configured; the remaining pause and a new-order payment acceptance are separate from obtaining the API key.
+
+Temporary forensic authorization was removed. Its retirement deployment is live and the retired bearer now receives HTTP 401. Backup and restore readiness remain true. See `MASTER7_PAYMENT_SERVER_RECHECK_20261110_MYT.json` for the exact evidence hashes and scope.
