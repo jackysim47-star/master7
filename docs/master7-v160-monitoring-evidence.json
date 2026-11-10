@@ -1,0 +1,186 @@
+{
+  "assessment": {
+    "databaseHealth": "pass",
+    "gatewayProcessHealth": "pass",
+    "hostingHealth": "pass",
+    "limits": "This monitoring digest does not certify game provider, payment, payout, settlement, DNS, or final owner/operations acceptance.",
+    "portal5xx": "pass",
+    "portalProcessHealth": "pass",
+    "productionReadiness": false,
+    "providerCatalogueAvailability": "blocked",
+    "resourceHeadroom": "pass"
+  },
+  "capturedAt": "2026-11-10T10:10:30Z",
+  "evidenceVersion": 1,
+  "gateway": {
+    "autoscaling": false,
+    "deploy": {
+      "buildEvent": "succeeded",
+      "commit": "ad8d82ce9a277fdf443a56c2857da1dd10b33661",
+      "deployEvent": "succeeded",
+      "finishedAt": "2026-11-10T09:55:52.798747Z",
+      "id": "dep-dbpek2qvcj2c73d35q60",
+      "serverFailureEvents": 0,
+      "serverRestartEvents": 0,
+      "startedAt": "2026-11-10T09:55:23.938656Z",
+      "status": "live"
+    },
+    "health": {
+      "currency": "MYR",
+      "httpStatus": 200,
+      "mode": "uat",
+      "ok": true,
+      "readiness": {
+        "liveReady": false,
+        "productionQa": "not_verified",
+        "scope": "process_health_only"
+      },
+      "service": "master7-integration-gateway",
+      "version": "1.20.0"
+    },
+    "instances": 1,
+    "logs": {
+      "applicationErrorOrCriticalCount": 0,
+      "applicationWarningCount": 0,
+      "exactRequest5xxCount": 21,
+      "interpretation": "META GAMING accounts for three exact 502 responses on its read-only catalogue GET and is a known supplier authorization or IP-allowlist blocker, not a platform process fault. The remaining 18 exact 502 responses are read-only catalogue refreshes for six other profiles already blocked by supplier authorization, allowlisting, or contract readiness. All 21 reads failed closed; none was a payment, game-launch, wallet, or provider-write call.",
+      "request5xx": {
+        "classification": "fail_closed_provider_catalogue_read",
+        "distinction": {
+          "metaGaming": {
+            "cause": "known_supplier_authorization_or_allowlist_blocker",
+            "count": 3,
+            "operation": "read_only_catalogue_get",
+            "path": "/providers/metagaming/games?account=normal",
+            "platformProcessFault": false
+          },
+          "otherProviderCatalogues": {
+            "cause": "supplier_authorization_allowlist_or_contract_readiness_blocker",
+            "count": 18,
+            "operation": "read_only_catalogue_get",
+            "platformProcessFault": false,
+            "providers": [
+              "CLOTPLAY",
+              "EPICWIN",
+              "EVO888H5",
+              "JDB",
+              "Pragmatic Play",
+              "VENUS"
+            ]
+          }
+        },
+        "method": "GET",
+        "paths": {
+          "/providers/clotplay/games": 3,
+          "/providers/epicwin/games?account=normal": 3,
+          "/providers/evo888h5/games": 3,
+          "/providers/jdb/games": 3,
+          "/providers/metagaming/games?account=normal": 3,
+          "/providers/pragmaticplay/games": 3,
+          "/providers/venus/games": 3
+        },
+        "status": 502
+      }
+    },
+    "metrics": {
+      "cpuLimitCores": 1,
+      "cpuPeakCores": 0.019125184,
+      "cpuPeakPercent": 1.9125184,
+      "http200Count": 313,
+      "http200P95PeakSeconds": 0.086934,
+      "http502MetricBucketCount": 23,
+      "http502P95PeakSeconds": 0.24333,
+      "instanceCountMax": 1,
+      "instanceCountMin": 1,
+      "memoryLimitBytes": 2147483600,
+      "memoryPeakBytes": 86233090,
+      "memoryPeakPercent": 4.0155419134
+    },
+    "plan": "1c-2g",
+    "region": "singapore",
+    "service": "master7-integration-gateway"
+  },
+  "portal": {
+    "autoscaling": false,
+    "deploy": {
+      "buildEvent": "succeeded",
+      "commit": "7ea3042bb2b85b8cece80ebeeb493b37be85b217",
+      "deployEvent": "succeeded",
+      "finishedAt": "2026-11-10T10:00:10.91633Z",
+      "id": "dep-dbpelh08v5cc73e20fqg",
+      "serverFailureEvents": 0,
+      "serverRestartEvents": 0,
+      "startedAt": "2026-11-10T09:58:28.751071Z",
+      "status": "live"
+    },
+    "health": {
+      "backupReady": true,
+      "database": "ready",
+      "httpStatus": 200,
+      "liveGames": false,
+      "newDepositsEnabled": true,
+      "newGameLaunchesEnabled": false,
+      "newPayoutsEnabled": false,
+      "payoutsEnabled": false,
+      "productionReady": false,
+      "realPayments": false,
+      "release": "17.0.0-selfbuilt.160-meta-gaming-adapter",
+      "restoreReady": true,
+      "status": "ok",
+      "transactionsEnabled": false
+    },
+    "instances": 1,
+    "logs": {
+      "applicationErrorOrCriticalCount": 0,
+      "applicationWarningCount": 0,
+      "exactRequest5xxCount": 0
+    },
+    "metrics": {
+      "cpuLimitCores": 1,
+      "cpuPeakCores": 0.0693026,
+      "cpuPeakPercent": 6.93026,
+      "http200Count": 3699,
+      "http200P95PeakSeconds": 0.12764,
+      "instanceCountMax": 1,
+      "instanceCountMin": 1,
+      "memoryLimitBytes": 2147483600,
+      "memoryPeakBytes": 175697920,
+      "memoryPeakPercent": 8.1815721289
+    },
+    "plan": "1c-2g",
+    "region": "singapore",
+    "service": "master7-v17-staging"
+  },
+  "postgres": {
+    "diskAutoscaling": true,
+    "highAvailability": true,
+    "metrics": {
+      "activeConnectionsPeak": 11,
+      "cpuLimitCores": 1,
+      "cpuPeakCores": 0.033984233,
+      "cpuPeakPercent": 3.3984233,
+      "memoryLimitBytes": 2147483600,
+      "memoryPeakBytes": 302956540,
+      "memoryPeakPercent": 14.10751318
+    },
+    "name": "master7-cloud-staging-db",
+    "plan": "1c-2g",
+    "region": "singapore",
+    "status": "available",
+    "version": "18"
+  },
+  "safety": {
+    "clientIdentifiersIncluded": false,
+    "gameLaunchCalls": 0,
+    "paymentCalls": 0,
+    "payoutCalls": 0,
+    "providerWriteCalls": 0,
+    "readOnly": true,
+    "secretsIncluded": false
+  },
+  "window": {
+    "end": "2026-11-10T10:10:30Z",
+    "resolutionSeconds": 60,
+    "start": "2026-11-10T09:55:00Z"
+  }
+}

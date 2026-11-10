@@ -1,0 +1,24 @@
+{
+  "checkedAt": "2026-11-10T10:10:00Z",
+  "render": {
+    "blueprintId": "exs-dboff93rjlhs73b9hihg",
+    "serviceId": "srv-dbl0iv7f3r2c73848ei0",
+    "planningOutcome": "no_changes",
+    "domains": ["www.master7.best", "www.master7.site"],
+    "origin": "master7-v17-staging.onrender.com"
+  },
+  "dnsProvider": "Spaceship",
+  "nameservers": ["launch1.spaceship.net", "launch2.spaceship.net"],
+  "hosts": {
+    "master7.best": {"A": ["15.197.162.184"], "AAAA": [], "CNAME": [], "redirect": "https://master7-v17-staging.onrender.com/"},
+    "www.master7.best": {"A": [], "AAAA": [], "CNAME": [], "reachable": false},
+    "master7.site": {"A": ["15.197.162.184"], "AAAA": [], "CNAME": [], "redirect": "https://master7-v17-staging.onrender.com/admin"},
+    "www.master7.site": {"A": ["15.197.162.184"], "AAAA": [], "CNAME": [], "redirect": "https://master7-v17-staging.onrender.com/admin"}
+  },
+  "requiredChanges": [
+    {"host": "www.master7.best", "type": "CNAME", "value": "master7-v17-staging.onrender.com"},
+    {"host": "www.master7.site", "type": "CNAME", "value": "master7-v17-staging.onrender.com"}
+  ],
+  "writePathAvailable": false,
+  "mutationAttempted": false
+}
