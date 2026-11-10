@@ -1,0 +1,236 @@
+diff --git a/app/portal.html b/app/portal.html
+index f5c771cdb937368c7f3e6840e86e8c171caab918..530b5c2e0ee54b70b5eee196f029c4eb40cd05b1 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.166-database-guard-attestation">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.166-database-guard-attestation" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.167-guard-log-severity">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.167-guard-log-severity">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.167-guard-log-severity">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.167-guard-log-severity">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.167-guard-log-severity">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.167-guard-log-severity">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.167-guard-log-severity">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.167-guard-log-severity">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.167-guard-log-severity">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.167-guard-log-severity">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.167-guard-log-severity">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.167-guard-log-severity">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.167-guard-log-severity">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.167-guard-log-severity">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.167-guard-log-severity" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index 4610aed34e984b05308640a8929181b8a616c450..813e50e584a23a67e7a14d64c8190ec49acf49f4 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,6 +1,6 @@
+ # MASTER7 deployment handover
+ 
+-Candidate source: `17.0.0-selfbuilt.166-database-guard-attestation`.
++Candidate source: `17.0.0-selfbuilt.167-guard-log-severity`.
+ 
+ This candidate has not been deployed by the source commit. Confirm the actual
+ Render release and deployment ID from the Portal service before cutover or
+@@ -9,7 +9,15 @@ rollback. Portal service: `srv-dbl0iv7f3r2c73848ei0`.
+ The last recorded integration-gateway baseline remains release `1.17.0`,
+ deployment `dep-dbpchge417fc739h9b50`, commit
+ `c4aab70060439469f3c2e6081a57c0b40e630ff4`. Gateway service:
+-`srv-db6b7inlk1mc73ck6cmg`. The v166 candidate does not change the gateway.
++`srv-db6b7inlk1mc73ck6cmg`. The v167 candidate does not change the gateway.
++
++## Startup log severity
++
++v167 removes alert-severity words from the successful database-guard startup
++message. It still reports `database guards 9/9 ready`; the nine-guard
++attestation and its fail-closed behavior are unchanged. This prevents Render
++from classifying a successful startup message as a critical log entry. See
++`V167_GUARD_LOG_SEVERITY.md`.
+ 
+ ## Critical database guard attestation
+ 
+@@ -65,10 +73,10 @@ gates.
+ ## Other operational boundaries
+ 
+ Payment work remains paused. VPay, GSPAY and 1MPay code, credentials, callbacks,
+-activation flags, service plans and DNS are unchanged by v166. This candidate
++activation flags, service plans and DNS are unchanged by v167. This candidate
+ does not enable any real-money payment, payout or live-game switch.
+ 
+-The verification totals for v166 must be recorded only after the complete
++The verification totals for v167 must be recorded only after the complete
+ source verification finishes. No deployment or production acceptance is
+ claimed by this handover.
+ 
+diff --git a/docs/V167_GUARD_LOG_SEVERITY.md b/docs/V167_GUARD_LOG_SEVERITY.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..c7c12a7662c5e686a4f074641f6067042583cbc5
+--- /dev/null
++++ b/docs/V167_GUARD_LOG_SEVERITY.md
+@@ -0,0 +1,16 @@
++# V167 Database Guard Log Severity
++
++Release: `17.0.0-selfbuilt.167-guard-log-severity`
++
++## Change
++
++The successful Render startup message now reports `database guards 9/9 ready` without severity keywords. Render had classified the prior successful message as `critical` solely because the text contained that word, which could create a false operational alert.
++
++The database guard attestation remains unchanged: all nine PostgreSQL guards are still verified in the startup transaction before directory seeding and commit, and any drift still rolls the startup transaction back.
++
++## Scope
++
++- no database schema or backup contract change;
++- backup schema remains `0122-acceptance-ledger-integrity` with 76 tables;
++- no payment, payout, wallet, game-provider, DNS, credential, plan, or production-control change;
++- no live provider or customer transaction calls during validation.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 8f40ce0265849c152926307f5a525b1d7515d47f..b04507719f13f34f537201768b46cc1abb3b2277 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -39,7 +39,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.166-database-guard-attestation';
++export const RELEASE = '17.0.0-selfbuilt.167-guard-log-severity';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index 4d54d847eeb8b0f16accb5ba701ad109a0e88ac7..cb97e2e0e8f0f868952d4e00879b881145f6bc61 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.166-database-guard-attestation' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.167-guard-log-severity' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/package.json b/package.json
+index 54b5e3d000e0afec20f2467a37ffeb115fdf1dc5..2a1b040c803db660bb0c053c02768738095672aa 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.166-database-guard-attestation node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.166-database-guard-attestation node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.167-guard-log-severity node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.167-guard-log-severity node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.166-database-guard-attestation node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.167-guard-log-severity node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs",
+     "test:acceptance-integrity-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-acceptance-integrity.mjs"
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 7d6d442593dc6bed38643c294547ddef06d1ab63..5e234d37e03e1034f79783b89ea46f317fffa2d4 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.166-database-guard-attestation';
++const CACHE='master7-shell-17.0.0-selfbuilt.167-guard-log-severity';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/scripts/start-render.mjs b/scripts/start-render.mjs
+index a99d8acc570e0cfca2bdcc1c95043aa1f74d89fc..62f64c235a6ffd36d2ef8388b103dd800026712d 100644
+--- a/scripts/start-render.mjs
++++ b/scripts/start-render.mjs
+@@ -29,7 +29,7 @@ try {
+   const directoryEntries = JSON.parse(await readFile(resolve("db/vendor-directory.json"), "utf8"));
+   const paymentActivation = renderPaymentActivationOptions(process.env);
+   const result = await initializePortalDatabase(pool, schema, directoryEntries, paymentActivation);
+-  console.log(`MASTER7 V17 Render staging database ready; status migration ${result.migrated ? "applied" : "already applied"}; critical database guards ${result.criticalDatabaseGuardCount}/9 ready; ${result.seededBrandCount} closed directory entries available.`);
++  console.log(`MASTER7 V17 Render staging database ready; status migration ${result.migrated ? "applied" : "already applied"}; database guards ${result.criticalDatabaseGuardCount}/9 ready; ${result.seededBrandCount} closed directory entries available.`);
+ } catch (error) {
+   console.error("MASTER7 V17 staging database initialization failed:", error instanceof Error ? error.message : "unknown error");
+   await pool.end();
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index dd29a05bf5296fb2f58665a3e8af2c1f75dfcc47..010d926ed66144f1d6b7e5a03c2892064470207e 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.166-database-guard-attestation';
++const release='17.0.0-selfbuilt.167-guard-log-severity';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+diff --git a/tests/scheduler-leader.test.mjs b/tests/scheduler-leader.test.mjs
+index 85fb76d737e69e0de138dc7dd86303f3da8bc17f..8a8aa241f47614892d7c31af085879e55e843060 100644
+--- a/tests/scheduler-leader.test.mjs
++++ b/tests/scheduler-leader.test.mjs
+@@ -114,9 +114,17 @@ test("Render starts schedulers only through the advisory-lock leader", () => {
+   const source = readFileSync(new URL("../scripts/start-render.mjs", import.meta.url), "utf8");
+   assert.match(source, /startSchedulerLeadership\(\{/);
+   assert.match(source, /startWorkers:\s*\(\)\s*=>\s*\[/);
+-  assert.match(source,/critical database guards \$\{result\.criticalDatabaseGuardCount\}\/9 ready/);
++  assert.match(source,/database guards \$\{result\.criticalDatabaseGuardCount\}\/9 ready/);
+   assert.ok(source.indexOf('initializePortalDatabase')<source.indexOf('await import("../.output/server/index.mjs")'));
+   for (const name of ["startCatalogueSync", "startAccountingCloseScheduler", "startPaymentRecovery", "startWhatsAppDispatch"]) {
+     assert.equal((source.match(new RegExp(`${name}\\(\\)`, "g")) ?? []).length, 1, name);
+   }
+ });
++
++test("successful database guard startup logging cannot be classified as an alert", () => {
++  const source = readFileSync(new URL("../scripts/start-render.mjs", import.meta.url), "utf8");
++  const successLog = source.match(/console\.log\(`([^`]*database guards[^`]*)`\);/)?.[1] ?? "";
++  assert.ok(successLog, "database guard startup success log is missing");
++  assert.match(successLog, /database guards \$\{result\.criticalDatabaseGuardCount\}\/9 ready/);
++  assert.doesNotMatch(successLog, /\b(?:critical|error|warning|warn|fatal|emergency|alert|panic|fail|failed|failure)\b/i);
++});

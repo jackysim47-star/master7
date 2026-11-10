@@ -1,0 +1,109 @@
+{
+  "release": "17.0.0-selfbuilt.167-guard-log-severity",
+  "preparedAt": "2026-11-10T15:35:06.913682+00:00",
+  "sourceCommit": "75b4c110eb2872f4f5b944a830a7084c463ff400",
+  "sourceTree": "63764ff8d64f589c587174be6070f0a31259442f",
+  "baselineSourceCommit": "6e50815a60cdc23d3791085a967310d2e9e5343d",
+  "baselineRelease": "17.0.0-selfbuilt.166-database-guard-attestation",
+  "archive": {
+    "sha256": "698a5ea3026a2f2ea7e89dff1f7da2cba994d54632d926683d9316b39014d04a",
+    "bytes": 7225316,
+    "files": 713,
+    "entries": 774,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/V167_GUARD_LOG_SEVERITY.md"
+    ],
+    "changed": [
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "lib/backend.ts",
+      "lib/production-acceptance.ts",
+      "package.json",
+      "public/service-worker.js",
+      "scripts/start-render.mjs",
+      "tests/official-entries-probe.test.mjs",
+      "tests/scheduler-leader.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1390,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "renderDatabase": 3,
+    "isolatedPostgres18": 1,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "diffCheck": true,
+    "independentReview": true,
+    "command": "npm run verify:render",
+    "scope": "local synthetic, fixture-only and isolated validation; no live provider, player, wallet, game launch or payment calls"
+  },
+  "guardLogSeverity": {
+    "successfulStartupMessage": "database guards 9/9 ready",
+    "severityKeywordsRemoved": true,
+    "reservedSeverityWordsRejectedByTest": [
+      "critical",
+      "error",
+      "warning",
+      "warn",
+      "fatal",
+      "emergency",
+      "alert",
+      "panic",
+      "fail",
+      "failed",
+      "failure"
+    ],
+    "databaseGuardAttestationChanged": false,
+    "requiredGuards": 9,
+    "falseCriticalLogAddressed": true,
+    "providerCallsDuringValidation": 0,
+    "moneyOrWalletWritesDuringValidation": 0
+  },
+  "databaseChanges": {
+    "newMigration": false,
+    "latestMigration": "0122-acceptance-ledger-integrity",
+    "backupSchemaVersion": "0122-acceptance-ledger-integrity",
+    "backupSchemaSha256": "534b830dc4330ee48c77543500116451880b13540d5e0691ee8a09910041328b",
+    "backupTableCount": 76,
+    "sqliteSupported": true,
+    "postgres18Supported": true
+  },
+  "operationalChanges": {
+    "newDepositsUiFlagChanged": false,
+    "providerOrderSubmissionEnabled": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "realPaymentsEnabled": false,
+    "liveGamesEnabled": false,
+    "supplierAcceptanceBypassed": false
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "renderYaml": false,
+    "environmentTemplates": false,
+    "servicePlans": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false,
+  "securityScan": {
+    "privateKeyMarkers": 0,
+    "credentialBearingUrlsTotal": 13,
+    "credentialBearingUrlsAllUnderTests": true,
+    "newCredentialBearingUrlsVersusV166": 0,
+    "newSuspectCredentialAssignmentsVersusV166": 0,
+    "newPrivateKeyMarkersVersusV166": 0
+  }
+}
