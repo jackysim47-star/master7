@@ -1,0 +1,1243 @@
+diff --git a/.env.example b/.env.example
+index 3daf964d0f8ce4c1665cf6e569bb0ea42f2946ad..286c8afd2cda0bac411afb30ebcb2d44a8e5dc37 100644
+--- a/.env.example
++++ b/.env.example
+@@ -71,6 +71,10 @@ WHATSAPP_WORKER_BATCH_SIZE=10
+ GAME_GATEWAY_URL=https://master7-integration-gateway.onrender.com
+ GAME_GATEWAY_TOKEN=
+ GAME_GATEWAY_WALLET_TOKEN=
++# Server-only compiled adapter configuration. Never expose this JSON to browsers.
++GAME_TRANSFER_PROFILES_JSON=
++# Existing JDB configuration remains supported when its slot is absent above.
++JDB_TRANSFER_PROFILES_JSON=
+ PORTAL_MEGA_TRANSFERS_ENABLED=false
+ # Set only after provider-signed production launch acceptance.
+ PORTAL_MEGA_LIVE_GAMES_ENABLED=false
+diff --git a/app/api/[...path]/route.ts b/app/api/[...path]/route.ts
+index fea002735033df5c4ea475ad6c3ae6cca68cfa5d..06e9817f064ae34e5416ac8ec83a7ca80aadd9b9 100644
+--- a/app/api/[...path]/route.ts
++++ b/app/api/[...path]/route.ts
+@@ -11,6 +11,6 @@ function hostedIdentityHeadersTrusted(config:Record<string,string>){
+  // request headers, so OAI identity headers must never authenticate there.
+  return !config.RENDER_EXTERNAL_URL&&config.OAI_HOSTED_IDENTITY_TRUSTED==='true';
+ }
+-async function dispatch(req:Request){if(!env.DB)return Response.json({error:'Database unavailable'},{status:503});const config=env as unknown as Record<string,string>;return handle(req,{db:env.DB,identity:await getChatGPTUser({trustedHeaders:hostedIdentityHeadersTrusted(config)}),ownerEmail:config.OWNER_EMAIL??'',manualComplianceEnforced:config.PORTAL_MANUAL_COMPLIANCE_ENFORCED,newDepositsEnabled:config.PORTAL_NEW_DEPOSITS_ENABLED,newGameLaunchesEnabled:config.PORTAL_NEW_GAME_LAUNCHES_ENABLED,newPayoutsEnabled:config.PORTAL_NEW_PAYOUTS_ENABLED,ownerLoginId:config.OWNER_LOGIN_ID,allowedOrigins:trustedOrigins(config),jdbTransferProfilesJson:config.JDB_TRANSFER_PROFILES_JSON,gameGatewayUrl:config.GAME_GATEWAY_URL,gameGatewayToken:config.GAME_GATEWAY_TOKEN,gameGatewayWalletToken:config.GAME_GATEWAY_WALLET_TOKEN,megaTransfersEnabled:config.PORTAL_MEGA_TRANSFERS_ENABLED,megaLiveGamesEnabled:config.PORTAL_MEGA_LIVE_GAMES_ENABLED,megaSettlementVerified:config.PORTAL_MEGA_SETTLEMENT_VERIFIED,vpayGatewayUrl:config.VPAY_GATEWAY_URL,vpayOrderToken:config.VPAY_ORDER_TOKEN,vpayQueryToken:config.VPAY_QUERY_TOKEN,vpayCallbackToken:config.VPAY_CALLBACK_TOKEN,vpayPayoutToken:config.VPAY_PAYOUT_TOKEN,vpayPayoutEnabled:config.VPAY_PAYOUT_ENABLED,vpayOrdersEnabled:config.VPAY_ORDERS_ENABLED,vpayMode:config.VPAY_MODE,vpayTraderId:config.VPAY_TRADER_ID,vpayReturnUrl:config.VPAY_RETURN_URL,vpayRecoveryEnabled:config.VPAY_RECOVERY_ENABLED,gspayApiBase:config.GSPAY_API_BASE_URL,gspayAuthKey:config.GSPAY_AUTH_KEY,gspaySecretKey:config.GSPAY_SECRET_KEY,gspayCallbackToken:config.GSPAY_CALLBACK_TOKEN,gspayOrdersEnabled:config.GSPAY_ORDERS_ENABLED,gspayReturnUrl:config.GSPAY_RETURN_URL,gspayRecoveryEnabled:config.GSPAY_RECOVERY_ENABLED,gspayBalanceEnabled:config.GSPAY_BALANCE_QUERY_ENABLED,gspayPayoutEnabled:config.GSPAY_PAYOUT_ENABLED,gspayPayoutIpWhitelistConfirmed:config.GSPAY_PAYOUT_IP_WHITELIST_CONFIRMED,gspayPayoutBankTargetsJson:config.GSPAY_BANK_TARGETS_JSON,gspayUsdtApiBase:config.GSPAY_USDT_API_BASE_URL,gspayUsdtAuthKey:config.GSPAY_USDT_AUTH_KEY,gspayUsdtSecretKey:config.GSPAY_USDT_SECRET_KEY,gspayUsdtCallbackToken:config.GSPAY_USDT_CALLBACK_TOKEN,gspayUsdtOrdersEnabled:config.GSPAY_USDT_ORDERS_ENABLED,gspayUsdtReturnUrl:config.GSPAY_USDT_RETURN_URL,gspayUsdtCallbackUrl:config.GSPAY_USDT_CALLBACK_URL,gspayUsdtRecoveryEnabled:config.GSPAY_USDT_RECOVERY_ENABLED,gspayUsdtBalanceEnabled:config.GSPAY_USDT_BALANCE_QUERY_ENABLED,gspayUsdtContractVerified:config.GSPAY_USDT_CONTRACT_VERIFIED,gspayUsdtAssetNetwork:config.GSPAY_USDT_ASSET_NETWORK,gspayUsdtCurrencyScale:config.GSPAY_USDT_CURRENCY_SCALE,gspayUsdtCheckoutOrigin:config.GSPAY_USDT_CHECKOUT_ORIGIN,paymentRecoveryToken:config.PAYMENT_RECOVERY_TOKEN,backupJobToken:config.BACKUP_JOB_TOKEN,depositIncidentTokenHash:config.PORTAL_DEPOSIT_FORENSICS_TOKEN_HASH,depositIncidentExpiresAt:Number(config.PORTAL_DEPOSIT_FORENSICS_EXPIRES_AT??0),ownerSetupHash:config.OWNER_SETUP_TOKEN_HASH,ownerSetupExpires:Number(config.OWNER_SETUP_EXPIRES_AT??0),ownerResetHash:config.OWNER_RESET_TOKEN_HASH,ownerResetExpires:Number(config.OWNER_RESET_EXPIRES_AT??0),ownerResetIssuedAt:Number(config.OWNER_RESET_ISSUED_AT??0),anchorApiBaseUrl:config.ANCHOR_SMS_API_BASE_URL,anchorUsername:config.ANCHOR_SMS_USERNAME,anchorPassword:config.ANCHOR_SMS_PASSWORD,anchorSenderId:config.ANCHOR_SMS_SENDER_ID,otpHashSecret:config.OTP_HASH_SECRET,withdrawalDataKey:config.WITHDRAWAL_DATA_KEY,oneMpayApiBase:config.ONE_MPAY_API_BASE_URL,oneMpayMerchant:config.ONE_MPAY_MERCHANT,oneMpaySecretKey:config.ONE_MPAY_SECRET_KEY,oneMpayOrdersEnabled:config.ONE_MPAY_ORDERS_ENABLED,oneMpayCallbackUrl:config.ONE_MPAY_CALLBACK_URL,oneMpayReturnUrl:config.ONE_MPAY_RETURN_URL,oneMpayDiagnosticToken:config.ONE_MPAY_DIAGNOSTICS_TOKEN,oneMpayRecoveryEnabled:config.ONE_MPAY_RECOVERY_ENABLED,rectangleApiBase:config.RECTANGLE_API_BASE_URL,rectangleOperatorCode:config.RECTANGLE_OPERATOR_CODE,rectangleApiKey:config.RECTANGLE_API_KEY,godeeApiBase:config.GODEE_API_BASE_URL,godeeOperatorId:config.GODEE_OPERATOR_ID,godeeApiKey:config.GODEE_API_KEY,gameSyncToken:config.GAME_CATALOGUE_SYNC_TOKEN,accountingJobToken:config.ACCOUNTING_JOB_TOKEN,telegramBotToken:config.TELEGRAM_BOT_TOKEN,telegramAdminChatId:config.TELEGRAM_ADMIN_CHAT_ID,whatsappEnabled:config.WHATSAPP_SENDING_ENABLED,whatsappGraphApiVersion:config.WHATSAPP_GRAPH_API_VERSION,whatsappPhoneNumberId:config.WHATSAPP_PHONE_NUMBER_ID,whatsappWabaId:config.WHATSAPP_WABA_ID,whatsappAccessToken:config.WHATSAPP_ACCESS_TOKEN,whatsappAppSecret:config.WHATSAPP_APP_SECRET,whatsappWebhookVerifyToken:config.WHATSAPP_WEBHOOK_VERIFY_TOKEN,whatsappBusinessNumber:config.WHATSAPP_BUSINESS_NUMBER,whatsappTemplateName:config.WHATSAPP_TEMPLATE_NAME,whatsappTemplateLanguage:config.WHATSAPP_TEMPLATE_LANGUAGE,whatsappRecipientLimit:config.WHATSAPP_RECIPIENT_LIMIT,whatsappWorkerToken:config.WHATSAPP_WORKER_TOKEN,whatsappWorkerBatchSize:config.WHATSAPP_WORKER_BATCH_SIZE,supportAiEnabled:config.SUPPORT_AI_ENABLED,supportAiApiBaseUrl:config.SUPPORT_AI_API_BASE_URL,supportAiApiKey:config.SUPPORT_AI_API_KEY,supportAiModel:config.SUPPORT_AI_MODEL});}
++async function dispatch(req:Request){if(!env.DB)return Response.json({error:'Database unavailable'},{status:503});const config=env as unknown as Record<string,string>;return handle(req,{db:env.DB,identity:await getChatGPTUser({trustedHeaders:hostedIdentityHeadersTrusted(config)}),ownerEmail:config.OWNER_EMAIL??'',manualComplianceEnforced:config.PORTAL_MANUAL_COMPLIANCE_ENFORCED,newDepositsEnabled:config.PORTAL_NEW_DEPOSITS_ENABLED,newGameLaunchesEnabled:config.PORTAL_NEW_GAME_LAUNCHES_ENABLED,newPayoutsEnabled:config.PORTAL_NEW_PAYOUTS_ENABLED,ownerLoginId:config.OWNER_LOGIN_ID,allowedOrigins:trustedOrigins(config),jdbTransferProfilesJson:config.JDB_TRANSFER_PROFILES_JSON,gameTransferProfilesJson:config.GAME_TRANSFER_PROFILES_JSON,gameGatewayUrl:config.GAME_GATEWAY_URL,gameGatewayToken:config.GAME_GATEWAY_TOKEN,gameGatewayWalletToken:config.GAME_GATEWAY_WALLET_TOKEN,megaTransfersEnabled:config.PORTAL_MEGA_TRANSFERS_ENABLED,megaLiveGamesEnabled:config.PORTAL_MEGA_LIVE_GAMES_ENABLED,megaSettlementVerified:config.PORTAL_MEGA_SETTLEMENT_VERIFIED,vpayGatewayUrl:config.VPAY_GATEWAY_URL,vpayOrderToken:config.VPAY_ORDER_TOKEN,vpayQueryToken:config.VPAY_QUERY_TOKEN,vpayCallbackToken:config.VPAY_CALLBACK_TOKEN,vpayPayoutToken:config.VPAY_PAYOUT_TOKEN,vpayPayoutEnabled:config.VPAY_PAYOUT_ENABLED,vpayOrdersEnabled:config.VPAY_ORDERS_ENABLED,vpayMode:config.VPAY_MODE,vpayTraderId:config.VPAY_TRADER_ID,vpayReturnUrl:config.VPAY_RETURN_URL,vpayRecoveryEnabled:config.VPAY_RECOVERY_ENABLED,gspayApiBase:config.GSPAY_API_BASE_URL,gspayAuthKey:config.GSPAY_AUTH_KEY,gspaySecretKey:config.GSPAY_SECRET_KEY,gspayCallbackToken:config.GSPAY_CALLBACK_TOKEN,gspayOrdersEnabled:config.GSPAY_ORDERS_ENABLED,gspayReturnUrl:config.GSPAY_RETURN_URL,gspayRecoveryEnabled:config.GSPAY_RECOVERY_ENABLED,gspayBalanceEnabled:config.GSPAY_BALANCE_QUERY_ENABLED,gspayPayoutEnabled:config.GSPAY_PAYOUT_ENABLED,gspayPayoutIpWhitelistConfirmed:config.GSPAY_PAYOUT_IP_WHITELIST_CONFIRMED,gspayPayoutBankTargetsJson:config.GSPAY_BANK_TARGETS_JSON,gspayUsdtApiBase:config.GSPAY_USDT_API_BASE_URL,gspayUsdtAuthKey:config.GSPAY_USDT_AUTH_KEY,gspayUsdtSecretKey:config.GSPAY_USDT_SECRET_KEY,gspayUsdtCallbackToken:config.GSPAY_USDT_CALLBACK_TOKEN,gspayUsdtOrdersEnabled:config.GSPAY_USDT_ORDERS_ENABLED,gspayUsdtReturnUrl:config.GSPAY_USDT_RETURN_URL,gspayUsdtCallbackUrl:config.GSPAY_USDT_CALLBACK_URL,gspayUsdtRecoveryEnabled:config.GSPAY_USDT_RECOVERY_ENABLED,gspayUsdtBalanceEnabled:config.GSPAY_USDT_BALANCE_QUERY_ENABLED,gspayUsdtContractVerified:config.GSPAY_USDT_CONTRACT_VERIFIED,gspayUsdtAssetNetwork:config.GSPAY_USDT_ASSET_NETWORK,gspayUsdtCurrencyScale:config.GSPAY_USDT_CURRENCY_SCALE,gspayUsdtCheckoutOrigin:config.GSPAY_USDT_CHECKOUT_ORIGIN,paymentRecoveryToken:config.PAYMENT_RECOVERY_TOKEN,backupJobToken:config.BACKUP_JOB_TOKEN,depositIncidentTokenHash:config.PORTAL_DEPOSIT_FORENSICS_TOKEN_HASH,depositIncidentExpiresAt:Number(config.PORTAL_DEPOSIT_FORENSICS_EXPIRES_AT??0),ownerSetupHash:config.OWNER_SETUP_TOKEN_HASH,ownerSetupExpires:Number(config.OWNER_SETUP_EXPIRES_AT??0),ownerResetHash:config.OWNER_RESET_TOKEN_HASH,ownerResetExpires:Number(config.OWNER_RESET_EXPIRES_AT??0),ownerResetIssuedAt:Number(config.OWNER_RESET_ISSUED_AT??0),anchorApiBaseUrl:config.ANCHOR_SMS_API_BASE_URL,anchorUsername:config.ANCHOR_SMS_USERNAME,anchorPassword:config.ANCHOR_SMS_PASSWORD,anchorSenderId:config.ANCHOR_SMS_SENDER_ID,otpHashSecret:config.OTP_HASH_SECRET,withdrawalDataKey:config.WITHDRAWAL_DATA_KEY,oneMpayApiBase:config.ONE_MPAY_API_BASE_URL,oneMpayMerchant:config.ONE_MPAY_MERCHANT,oneMpaySecretKey:config.ONE_MPAY_SECRET_KEY,oneMpayOrdersEnabled:config.ONE_MPAY_ORDERS_ENABLED,oneMpayCallbackUrl:config.ONE_MPAY_CALLBACK_URL,oneMpayReturnUrl:config.ONE_MPAY_RETURN_URL,oneMpayDiagnosticToken:config.ONE_MPAY_DIAGNOSTICS_TOKEN,oneMpayRecoveryEnabled:config.ONE_MPAY_RECOVERY_ENABLED,rectangleApiBase:config.RECTANGLE_API_BASE_URL,rectangleOperatorCode:config.RECTANGLE_OPERATOR_CODE,rectangleApiKey:config.RECTANGLE_API_KEY,godeeApiBase:config.GODEE_API_BASE_URL,godeeOperatorId:config.GODEE_OPERATOR_ID,godeeApiKey:config.GODEE_API_KEY,gameSyncToken:config.GAME_CATALOGUE_SYNC_TOKEN,accountingJobToken:config.ACCOUNTING_JOB_TOKEN,telegramBotToken:config.TELEGRAM_BOT_TOKEN,telegramAdminChatId:config.TELEGRAM_ADMIN_CHAT_ID,whatsappEnabled:config.WHATSAPP_SENDING_ENABLED,whatsappGraphApiVersion:config.WHATSAPP_GRAPH_API_VERSION,whatsappPhoneNumberId:config.WHATSAPP_PHONE_NUMBER_ID,whatsappWabaId:config.WHATSAPP_WABA_ID,whatsappAccessToken:config.WHATSAPP_ACCESS_TOKEN,whatsappAppSecret:config.WHATSAPP_APP_SECRET,whatsappWebhookVerifyToken:config.WHATSAPP_WEBHOOK_VERIFY_TOKEN,whatsappBusinessNumber:config.WHATSAPP_BUSINESS_NUMBER,whatsappTemplateName:config.WHATSAPP_TEMPLATE_NAME,whatsappTemplateLanguage:config.WHATSAPP_TEMPLATE_LANGUAGE,whatsappRecipientLimit:config.WHATSAPP_RECIPIENT_LIMIT,whatsappWorkerToken:config.WHATSAPP_WORKER_TOKEN,whatsappWorkerBatchSize:config.WHATSAPP_WORKER_BATCH_SIZE,supportAiEnabled:config.SUPPORT_AI_ENABLED,supportAiApiBaseUrl:config.SUPPORT_AI_API_BASE_URL,supportAiApiKey:config.SUPPORT_AI_API_KEY,supportAiModel:config.SUPPORT_AI_MODEL});}
+ export const GET=dispatch;
+ export const POST=dispatch;
+diff --git a/app/portal.html b/app/portal.html
+index 71d87c4629882e6fa68add5e1e6f989a580c2798..8191d4f4925db08dfff8c9e36ce7dc8d9542d4a4 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.146-member-front-clarity">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.146-member-front-clarity">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.146-member-front-clarity">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.146-member-front-clarity">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.146-member-front-clarity">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.146-member-front-clarity">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.146-member-front-clarity">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.146-member-front-clarity">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.146-member-front-clarity">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.146-member-front-clarity">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.146-member-front-clarity">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.146-member-front-clarity">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.146-member-front-clarity">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.146-member-front-clarity">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.146-member-front-clarity" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.146-member-front-clarity" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.146-member-front-clarity" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.146-member-front-clarity" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.146-member-front-clarity" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.146-member-front-clarity" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.146-member-front-clarity" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.146-member-front-clarity" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.146-member-front-clarity" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.146-member-front-clarity" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.146-member-front-clarity" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.146-member-front-clarity" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.146-member-front-clarity" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.147-game-runtime-repair">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.147-game-runtime-repair" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
+@@ -342,7 +342,7 @@
+       </div>
+       <div class="filters platform-search"><input id="search" placeholder="Search platform name · 搜索游戏平台" autocomplete="off"></div>
+       <section class="api-supplier-lobby" id="apiSupplierLobby" aria-labelledby="apiSupplierTitle">
+-        <div class="provider-directory-heading"><div><p class="eyebrow">PREMIUM GAME COLLECTION</p><h2 id="apiSupplierTitle">37 家独立游戏平台</h2><p class="muted">外面先显示 37 家独立平台；选择一家后，只展开该厂商已连接的游戏。</p></div><span id="apiSupplierCountLabel" class="tiny-label">37 PLATFORMS</span></div>
++        <div class="provider-directory-heading"><div><p class="eyebrow">PREMIUM GAME COLLECTION</p><h2 id="apiSupplierTitle">37 家独立游戏平台</h2><p class="muted">Choose a provider to view its games and account options.</p></div><span id="apiSupplierCountLabel" class="tiny-label">37 PLATFORMS</span></div>
+         <div id="apiSupplierButtons" class="api-supplier-grid" aria-live="polite"></div>
+       </section>
+       <button id="clearProviderFilter" class="button button-ghost small" type="button" hidden>Back to 37 game platforms</button>
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index 73cf0af020d2d48c3ab0a4ac1573a5433dd6d2a4..1a9d09d11c3612c8f1ae66ca57f7ecb9a7d60bf8 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,14 +1,16 @@
+ # MASTER7 deployment handover
+ 
+-Candidate: `17.0.0-selfbuilt.146-member-front-clarity`
++Candidate source: `17.0.0-selfbuilt.147-game-runtime-repair`.
+ 
+-Live at candidate preparation: `17.0.0-selfbuilt.145-payment-callback-evidence`, deploy `dep-dbp762o8v5cc73dd893g`, commit `29e78a1ecf3e89a778798915732b04c7bcb1154e`.
++Baseline at preparation: `17.0.0-selfbuilt.146-member-front-clarity`, deploy `dep-dbp7pf8m7kps73a3oabg`.
+ 
+-This candidate refines the member front end with blue/white surfaces, larger service entrances, a shorter company hero and expandable company information. Existing payment, withdrawal, game and wallet routes retain their availability checks.
++This release repairs the shared game runtime: normalized MYR accounting supports registered 1:100 cash profiles; startup, wallet reads and recovery resolve compiled per-profile adapters; accepted JDB runtime observations reach health without requiring every other provider. MegaH5 verification reads durable evidence and a provider-bound closure interface can record closure receipts before one return and a zero-balance check. No production closure implementation is installed without the account-specific supplier contract.
+ 
+-The incident report was reviewed and corrected: the latest direct VPay query returned `This deposit is not exist.`; business code `-1` alone cannot be classified as invalid signature. Earlier signature-rejection observations remain historical evidence.
++The customer directory has one card for each of the 37 brands. Multiple account profiles remain separate in that brand's selector, player mapping and ledger. There are still 41 listed account profiles. Selecting a ready account never silently changes a member's ratio or account.
+ 
+-No schema, capacity, DNS, secret, balance or payment/game/payout activation change is included in the portal candidate. Publication, validation and post-deploy results are recorded separately in the publication repository.
++Current executable protocol inventory remains MegaH5 and JDB. JILI, 918KISS and other incomplete merchant integrations remain blocked; a readable catalogue is not game acceptance. JDB's latest server query was rejected with provider code 9001. New game, payment and payout switches remain unchanged. There is no schema, capacity, DNS, secret or customer balance change in this candidate.
++
++Validation and live deployment evidence are recorded in the publication repository. Synthetic supplier tests are distinguished from actual merchant acceptance.
+ 
+ Portal service: `srv-dbl0iv7f3r2c73848ei0`.
+ Workspace: `tea-dakfo2h594qs73du231g`.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 3eecf9cd45592a5e27ab06bffcbc885f30e88fb9..ad455c3cca152190748070ccf44b6fe6afb99f6d 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -1,5 +1,6 @@
+ import {ProviderTransferError,launchTransferWallet,settleTransferWallet,recoverTransferWallet,readMemberTransferWallet,adminTransferWalletRecords,type ProviderTransferContext} from './provider-transfer-wallet.ts';
+-import {jdbProfileRuntime,seedJdbTransferProfile} from './jdb-profile-runtime.ts';
++import {gameTransferRuntime,seedTransferProfile,transferProfileSupported} from './game-provider-runtime.ts';
++import type {MegaSessionCloser,MegaAcceptanceCapabilities} from './mega-session-closure.ts';
+ import {authorizeDepositIncidentRead} from './deposit-incident-evidence.ts';
+ import {createHash,timingSafeEqual} from 'node:crypto';
+ import {getGameCatalogue,cachedGameArtwork,gameControlSourceIds,configuredGameCatalogueSourceIds,gameCatalogueCacheFresh} from './game-catalogue.ts';
+@@ -37,7 +38,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.146-member-front-clarity';
++export const RELEASE = '17.0.0-selfbuilt.147-game-runtime-repair';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+@@ -53,16 +54,16 @@ async function depositControls(db:D1Database){
+  const values=new Map(result.results.map(row=>[row.id,row.value]));
+  return Object.fromEntries(depositControlProviders.map(provider=>{const key='deposit_control:'+provider,value=values.get(key);return [provider,!values.has(key)||value==='auto'?'auto':'paused'];})) as Record<DepositControlProvider,'auto'|'paused'>;
+ }
+-export type Context={db:D1Database;identity:Identity|null;ownerEmail:string;manualComplianceEnforced?:string;newDepositsEnabled?:string;newGameLaunchesEnabled?:string;newPayoutsEnabled?:string;ownerLoginId?:string;allowedOrigins?:string[];gameGatewayUrl?:string;gameGatewayToken?:string;gameGatewayWalletToken?:string;jdbTransferProfilesJson?:string;providerTransferFetch?:typeof fetch;megaTransfersEnabled?:string;megaLiveGamesEnabled?:string;megaSettlementVerified?:string;gameGatewayFetch?:typeof fetch;gameArtFetch?:typeof fetch;vpayGatewayUrl?:string;vpayOrderToken?:string;vpayQueryToken?:string;vpayCallbackToken?:string;vpayPayoutToken?:string;vpayPayoutEnabled?:string;vpayOrdersEnabled?:string;vpayMode?:string;vpayTraderId?:string;vpayReturnUrl?:string;vpayRecoveryEnabled?:string;vpayFetch?:typeof fetch;gspayApiBase?:string;gspayAuthKey?:string;gspaySecretKey?:string;gspayCallbackToken?:string;gspayOrdersEnabled?:string;gspayReturnUrl?:string;gspayRecoveryEnabled?:string;gspayBalanceEnabled?:string;gspayPayoutEnabled?:string;gspayPayoutIpWhitelistConfirmed?:string;gspayPayoutBankTargetsJson?:string;gspayUsdtApiBase?:string;gspayUsdtAuthKey?:string;gspayUsdtSecretKey?:string;gspayUsdtCallbackToken?:string;gspayUsdtOrdersEnabled?:string;gspayUsdtReturnUrl?:string;gspayUsdtCallbackUrl?:string;gspayUsdtRecoveryEnabled?:string;gspayUsdtBalanceEnabled?:string;gspayUsdtContractVerified?:string;gspayUsdtAssetNetwork?:string;gspayUsdtCurrencyScale?:string;gspayUsdtCheckoutOrigin?:string;paymentRecoveryToken?:string;backupJobToken?:string;depositIncidentTokenHash?:string;depositIncidentExpiresAt?:number;gspayFetch?:typeof fetch;ownerSetupHash?:string;ownerSetupExpires?:number;ownerResetHash?:string;ownerResetExpires?:number;ownerResetIssuedAt?:number;anchorApiBaseUrl?:string;anchorUsername?:string;anchorPassword?:string;anchorSenderId?:string;otpHashSecret?:string;smsFetch?:typeof fetch;withdrawalDataKey?:string;oneMpayApiBase?:string;oneMpayMerchant?:string;oneMpaySecretKey?:string;oneMpayOrdersEnabled?:string;oneMpayCallbackUrl?:string;oneMpayReturnUrl?:string;oneMpayDiagnosticToken?:string;oneMpayRecoveryEnabled?:string;oneMpayFetch?:typeof fetch;rectangleApiBase?:string;rectangleOperatorCode?:string;rectangleApiKey?:string;godeeApiBase?:string;godeeOperatorId?:string;godeeApiKey?:string;gameCatalogueFetch?:typeof fetch;gameSyncToken?:string;accountingJobToken?:string;telegramBotToken?:string;telegramAdminChatId?:string;telegramFetch?:typeof fetch;whatsappEnabled?:string;whatsappGraphApiVersion?:string;whatsappPhoneNumberId?:string;whatsappWabaId?:string;whatsappAccessToken?:string;whatsappAppSecret?:string;whatsappWebhookVerifyToken?:string;whatsappBusinessNumber?:string;whatsappTemplateName?:string;whatsappTemplateLanguage?:string;whatsappRecipientLimit?:string;whatsappWorkerToken?:string;whatsappWorkerBatchSize?:string;whatsappFetch?:typeof fetch;supportAiEnabled?:string;supportAiApiBaseUrl?:string;supportAiApiKey?:string;supportAiModel?:string;supportAiFetch?:typeof fetch};
++export type Context={db:D1Database;identity:Identity|null;ownerEmail:string;manualComplianceEnforced?:string;newDepositsEnabled?:string;newGameLaunchesEnabled?:string;newPayoutsEnabled?:string;ownerLoginId?:string;allowedOrigins?:string[];gameGatewayUrl?:string;gameGatewayToken?:string;gameGatewayWalletToken?:string;jdbTransferProfilesJson?:string;gameTransferProfilesJson?:string;providerTransferFetch?:typeof fetch;megaTransfersEnabled?:string;megaLiveGamesEnabled?:string;megaSettlementVerified?:string;megaSessionCloser?:MegaSessionCloser;megaClosureContractVerified?:boolean;gameGatewayFetch?:typeof fetch;gameArtFetch?:typeof fetch;vpayGatewayUrl?:string;vpayOrderToken?:string;vpayQueryToken?:string;vpayCallbackToken?:string;vpayPayoutToken?:string;vpayPayoutEnabled?:string;vpayOrdersEnabled?:string;vpayMode?:string;vpayTraderId?:string;vpayReturnUrl?:string;vpayRecoveryEnabled?:string;vpayFetch?:typeof fetch;gspayApiBase?:string;gspayAuthKey?:string;gspaySecretKey?:string;gspayCallbackToken?:string;gspayOrdersEnabled?:string;gspayReturnUrl?:string;gspayRecoveryEnabled?:string;gspayBalanceEnabled?:string;gspayPayoutEnabled?:string;gspayPayoutIpWhitelistConfirmed?:string;gspayPayoutBankTargetsJson?:string;gspayUsdtApiBase?:string;gspayUsdtAuthKey?:string;gspayUsdtSecretKey?:string;gspayUsdtCallbackToken?:string;gspayUsdtOrdersEnabled?:string;gspayUsdtReturnUrl?:string;gspayUsdtCallbackUrl?:string;gspayUsdtRecoveryEnabled?:string;gspayUsdtBalanceEnabled?:string;gspayUsdtContractVerified?:string;gspayUsdtAssetNetwork?:string;gspayUsdtCurrencyScale?:string;gspayUsdtCheckoutOrigin?:string;paymentRecoveryToken?:string;backupJobToken?:string;depositIncidentTokenHash?:string;depositIncidentExpiresAt?:number;gspayFetch?:typeof fetch;ownerSetupHash?:string;ownerSetupExpires?:number;ownerResetHash?:string;ownerResetExpires?:number;ownerResetIssuedAt?:number;anchorApiBaseUrl?:string;anchorUsername?:string;anchorPassword?:string;anchorSenderId?:string;otpHashSecret?:string;smsFetch?:typeof fetch;withdrawalDataKey?:string;oneMpayApiBase?:string;oneMpayMerchant?:string;oneMpaySecretKey?:string;oneMpayOrdersEnabled?:string;oneMpayCallbackUrl?:string;oneMpayReturnUrl?:string;oneMpayDiagnosticToken?:string;oneMpayRecoveryEnabled?:string;oneMpayFetch?:typeof fetch;rectangleApiBase?:string;rectangleOperatorCode?:string;rectangleApiKey?:string;godeeApiBase?:string;godeeOperatorId?:string;godeeApiKey?:string;gameCatalogueFetch?:typeof fetch;gameSyncToken?:string;accountingJobToken?:string;telegramBotToken?:string;telegramAdminChatId?:string;telegramFetch?:typeof fetch;whatsappEnabled?:string;whatsappGraphApiVersion?:string;whatsappPhoneNumberId?:string;whatsappWabaId?:string;whatsappAccessToken?:string;whatsappAppSecret?:string;whatsappWebhookVerifyToken?:string;whatsappBusinessNumber?:string;whatsappTemplateName?:string;whatsappTemplateLanguage?:string;whatsappRecipientLimit?:string;whatsappWorkerToken?:string;whatsappWorkerBatchSize?:string;whatsappFetch?:typeof fetch;supportAiEnabled?:string;supportAiApiBaseUrl?:string;supportAiApiKey?:string;supportAiModel?:string;supportAiFetch?:typeof fetch};
+ function vpaySettings(c:Context,user:User|null,acceptance?:{realPaymentVerified:boolean;settlementVerified:boolean}){return {...vpayPayoutSettings(c),user,orderToken:c.vpayOrderToken,queryToken:c.vpayQueryToken,enabled:c.vpayOrdersEnabled,newDepositsEnabled:c.newDepositsEnabled,mode:c.vpayMode,portalOrigins:c.allowedOrigins,returnUrl:c.vpayReturnUrl,recoveryEnabled:c.vpayRecoveryEnabled,acceptance};}
+ function vpayPayoutSettings(c:Context){return {db:c.db,gatewayUrl:c.vpayGatewayUrl,payoutToken:c.vpayPayoutToken,callbackToken:c.vpayCallbackToken,payoutEnabled:c.vpayPayoutEnabled,newPayoutsEnabled:c.newPayoutsEnabled,vpayTraderId:c.vpayTraderId,withdrawalDataKey:c.withdrawalDataKey,fetchImpl:c.vpayFetch};}
+ function gspaySettings(c:Context,user:User|null,acceptance?:{realPaymentVerified:boolean;settlementVerified:boolean}){return {db:c.db,user,apiBase:c.gspayApiBase,authKey:c.gspayAuthKey,secretKey:c.gspaySecretKey,callbackToken:c.gspayCallbackToken,enabled:c.gspayOrdersEnabled,newDepositsEnabled:c.newDepositsEnabled,portalOrigins:c.allowedOrigins,returnUrl:c.gspayReturnUrl,recoveryEnabled:c.gspayRecoveryEnabled,balanceEnabled:c.gspayBalanceEnabled,payoutEnabled:c.gspayPayoutEnabled,newPayoutsEnabled:c.newPayoutsEnabled,payoutIpWhitelistConfirmed:c.gspayPayoutIpWhitelistConfirmed,payoutBankTargetsJson:c.gspayPayoutBankTargetsJson,withdrawalDataKey:c.withdrawalDataKey,acceptance,fetchImpl:c.gspayFetch};}
+ function gspayUsdtSettings(c:Context){return {apiBase:c.gspayUsdtApiBase,authKey:c.gspayUsdtAuthKey,secretKey:c.gspayUsdtSecretKey,callbackToken:c.gspayUsdtCallbackToken,ordersEnabled:c.gspayUsdtOrdersEnabled,returnUrl:c.gspayUsdtReturnUrl,callbackUrl:c.gspayUsdtCallbackUrl,recoveryEnabled:c.gspayUsdtRecoveryEnabled,balanceEnabled:c.gspayUsdtBalanceEnabled,contractVerified:c.gspayUsdtContractVerified,assetNetwork:c.gspayUsdtAssetNetwork,currencyScale:c.gspayUsdtCurrencyScale,checkoutOrigin:c.gspayUsdtCheckoutOrigin};}
+ async function withdrawalSettings(c:Context,user:User|null){const bank=await manualBankAvailability({db:c.db,user,newDepositsEnabled:c.newDepositsEnabled,newPayoutsEnabled:c.newPayoutsEnabled});const gspay=gspaySettings(c,user),vpay=vpayPayoutSettings(c),[gspayReady,vpayReady]=await Promise.all([gspayPayoutAvailability(gspay),vpayPayoutAvailability(vpay)]);return {db:c.db,user,dataKey:c.withdrawalDataKey,payouts:{manual_bank:{enabled:user?.role==='owner'?bank.payoutGateOpen:bank.payoutEnabled,allowsMember:async(id:string)=>(await manualBankAvailability({db:c.db,user:user?{...user,id}:null,newPayoutsEnabled:c.newPayoutsEnabled})).payoutEnabled,reason:bank.payoutEnabled?'Manual bank transfer after owner approval':'Company-bank withdrawals are temporarily unavailable',submit:async()=>({status:'processing' as const})},vpay:{enabled:vpayReady.enabled,reason:vpayReady.reason,supportsBank:vpayPayoutSupportsBank,submit:(input:any)=>submitVPayPayout(input,vpay)},gspay:{enabled:gspayReady.enabled,reason:gspayReady.reason,submit:(input:any)=>submitGSPayPayout(input,gspay)},'1mpay':{enabled:false,reason:'Payout bank codes and final callback states are not verified',submit:async()=>({status:'review' as const})}}};}
+ function oneMpaySettings(c:Context,user:User|null,acceptance?:{realPaymentVerified:boolean;settlementVerified:boolean}){return {db:c.db,user,apiBase:c.oneMpayApiBase,merchant:c.oneMpayMerchant,secretKey:c.oneMpaySecretKey,enabled:c.oneMpayOrdersEnabled,newDepositsEnabled:c.newDepositsEnabled,portalOrigins:c.allowedOrigins,callbackUrl:c.oneMpayCallbackUrl,returnUrl:c.oneMpayReturnUrl,diagnosticToken:c.oneMpayDiagnosticToken,recoveryEnabled:c.oneMpayRecoveryEnabled,acceptance,fetchImpl:c.oneMpayFetch};}
+-function megaWalletSettings(c:Context,user:User):MegaWalletContext{return {db:c.db,user,gatewayUrl:c.gameGatewayUrl,gameToken:c.gameGatewayToken,walletToken:c.gameGatewayWalletToken,enabled:c.megaTransfersEnabled,liveGamesEnabled:c.megaLiveGamesEnabled,newGameLaunchesEnabled:c.newGameLaunchesEnabled,settlementVerified:c.megaSettlementVerified,fetchImpl:c.gameGatewayFetch};}
++function megaWalletSettings(c:Context,user:User):MegaWalletContext{return {db:c.db,user,gatewayUrl:c.gameGatewayUrl,gameToken:c.gameGatewayToken,walletToken:c.gameGatewayWalletToken,enabled:c.megaTransfersEnabled,liveGamesEnabled:c.megaLiveGamesEnabled,newGameLaunchesEnabled:c.newGameLaunchesEnabled,settlementVerified:c.megaSettlementVerified,closeSession:c.megaSessionCloser,closureContractVerified:c.megaClosureContractVerified,fetchImpl:c.gameGatewayFetch};}
+ async function transferSettings(c:Context,user:User,profile:RegisteredGameProviderProfile):Promise<ProviderTransferContext>{
+- const acceptance=await getGameProviderAcceptanceReadiness(c.db),profileAcceptance=acceptance.profiles.find(item=>item.profileId===profile.profileId),runtime=jdbProfileRuntime(c.jdbTransferProfilesJson,profile.profileId,user.id,{fetchImpl:c.providerTransferFetch,productionAccepted:profileAcceptance?.evidenceAccepted===true});
++ const acceptance=await getGameProviderAcceptanceReadiness(c.db),profileAcceptance=acceptance.profiles.find(item=>item.profileId===profile.profileId),runtime=gameTransferRuntime(c,profile.profileId,user.id,profileAcceptance?.evidenceAccepted===true);
+  if(!runtime||!runtime.recoveryEnabled)throw new ProviderTransferError(503,'GAME_TRANSFER_PROFILE_UNAVAILABLE');
+  return {db:c.db,user,profile:runtime.profile,adapter:runtime.adapter,newGameLaunchesEnabled:c.newGameLaunchesEnabled,launchAuthorized:runtime.launchAuthorized,manualComplianceEnforced:c.manualComplianceEnforced==='true'};
+ }
+@@ -85,18 +86,29 @@ async function createResponsiblePlayGuardedDeposit<T>(db:D1Database,user:User|nu
+  try{return await create();}
+  finally{await finalizeResponsiblePlayDeposit(db,user!.id,provider,requestKey);}
+ }
+-function megaProviderCapability(c:Context){return megaWalletCapabilities(megaWalletSettings(c,{id:'readiness',username:'readiness',role:'member',approved:1,csrf:'',created_at:0}));}
++async function acceptedMegaWalletSettings(c:Context,user:User){
++ const acceptance=await getGameProviderAcceptanceReadiness(c.db),capabilities=acceptance.profiles.find(profile=>profile.profileId==='megah5_myr')?.capabilities??{};
++ const evidence:MegaAcceptanceCapabilities={catalogue:capabilities.catalogue===true,launch:capabilities.launch===true,wallet:capabilities.wallet===true,settlement:capabilities.settlement===true,recovery:capabilities.recovery===true};
++ return {...megaWalletSettings(c,user),acceptance:evidence};
++}
++async function megaProviderCapability(c:Context){return megaWalletCapabilities(await acceptedMegaWalletSettings(c,{id:'readiness',username:'readiness',role:'member',approved:1,csrf:'',created_at:0}));}
+ function cachedCatalogueCapability(c:Context):MegaWalletCapability{
++ const observation=gameAvailabilityObservations.get(c.db);if(observation?.key===gameAvailabilityKey(c)&&observation.expiresAt>Date.now()&&observation.closer===c.megaSessionCloser&&observation.capability)return {...observation.capability};
+  const configured=megaWalletConfigured(megaWalletSettings(c,{id:'readiness',username:'readiness',role:'member',approved:1,csrf:'',created_at:0}));
+- return {availabilityMode:'automatic',readOnlyAvailability:true,configured,launchReady:false,walletReady:false,launchVerified:false,walletVerified:false,settlementVerified:false,capabilitySource:'gateway_configuration',capabilityReason:configured?'gateway_not_probed_by_catalogue_summary':'connection_not_configured'};
++ return {availabilityMode:'automatic',readOnlyAvailability:true,configured,launchReady:false,walletReady:false,catalogueVerified:false,launchVerified:false,walletVerified:false,settlementVerified:false,recoveryVerified:false,capabilitySource:'gateway_configuration',capabilityReason:configured?'gateway_not_probed_by_catalogue_summary':'connection_not_configured'};
+ }
+ // Reports and process-health reads never probe providers. Reuse a short-lived
+ // observation made by the customer/catalogue path, and fail closed on restart,
+ // credential changes or expiry. This is capability evidence, never settlement QA.
+-const gameAvailabilityObservations=new WeakMap<object,{key:string;expiresAt:number;ready:boolean}>();
+-function gameAvailabilityKey(c:Context){return createHash('sha256').update(JSON.stringify([c.gameGatewayUrl,c.gameGatewayToken,c.gameGatewayWalletToken,c.newGameLaunchesEnabled])).digest('hex');}
+-function observeGameAvailability(c:Context,ready:boolean){gameAvailabilityObservations.set(c.db,{key:gameAvailabilityKey(c),expiresAt:Date.now()+30_000,ready});}
+-function observedGameAvailability(c:Context){const observation=gameAvailabilityObservations.get(c.db);return observation?.key===gameAvailabilityKey(c)&&observation.expiresAt>Date.now()&&observation.ready===true;}
++const gameAvailabilityObservations=new WeakMap<object,{key:string;expiresAt:number;ready:boolean;capability?:MegaWalletCapability;closer?:MegaSessionCloser}>();
++function gameAvailabilityKey(c:Context){return createHash('sha256').update(JSON.stringify([c.gameGatewayUrl,c.gameGatewayToken,c.gameGatewayWalletToken,c.newGameLaunchesEnabled,c.megaClosureContractVerified,!!c.megaSessionCloser])).digest('hex');}
++function observeGameAvailability(c:Context,ready:boolean,capability?:MegaWalletCapability){gameAvailabilityObservations.set(c.db,{key:gameAvailabilityKey(c),expiresAt:Date.now()+30_000,ready,capability,closer:c.megaSessionCloser});}
++function observedGameAvailability(c:Context){const observation=gameAvailabilityObservations.get(c.db);return observation?.key===gameAvailabilityKey(c)&&observation.expiresAt>Date.now()&&observation.closer===c.megaSessionCloser&&observation.ready===true;}
++const transferAvailabilityObservations=new WeakMap<object,Map<string,{key:string;expiresAt:number;ready:boolean}>>();
++function transferAvailabilityKey(c:Context){return createHash('sha256').update(JSON.stringify([c.jdbTransferProfilesJson,c.gameTransferProfilesJson,c.newGameLaunchesEnabled])).digest('hex');}
++function observeTransferAvailability(c:Context,profileId:string,ready:boolean){let observations=transferAvailabilityObservations.get(c.db);if(!observations){observations=new Map();transferAvailabilityObservations.set(c.db,observations);}observations.set(profileId,{key:transferAvailabilityKey(c),expiresAt:Date.now()+30_000,ready});}
++function observedTransferAvailability(c:Context,profileId:string){const observation=transferAvailabilityObservations.get(c.db)?.get(profileId);return observation?.key===transferAvailabilityKey(c)&&observation.expiresAt>Date.now()&&observation.ready===true;}
++
+ 
+ async function paymentFlags(c:Context,channels:Record<string,unknown>[]){
+  const productionAcceptance=await getProductionAcceptanceReadiness(c.db);
+@@ -217,7 +229,7 @@ async function gameRuntimeReadyProfileIds(c:Context){
+  // written by the customer catalogue path after it has checked current
+  // catalogue and adapter capability; a restart, expiry or missing observation
+  // fails closed without probing a provider from /health.
+- return observedGameAvailability(c)?['megah5_myr']:[];
++ return [...(observedGameAvailability(c)?['megah5_myr']:[]),...listedGameProfiles.filter(profile=>transferProfileSupported(profile)&&observedTransferAvailability(c,profile.profileId)&&gameTransferRuntime(c,profile.profileId,'readiness',true)?.mode==='production').map(profile=>profile.profileId)];
+ }
+ function eventAfter(eventAt:number,eventId:string,readAt:unknown,readId:unknown){const at=Number(readAt??-1),id=String(readId??'');return eventAt>at||eventAt===at&&eventId>id;}
+ async function ticketNotificationState(db:D1Database,u:User){
+@@ -343,7 +355,7 @@ const listedGameProfiles=GAME_PROVIDER_PROFILES.filter(profile=>profile.listedIn
+ function publicGameProfile(profile:RegisteredGameProviderProfile,provider:any,position:number){
+  const implemented=profile.implemented===true,mega=profile.profileId==='megah5_myr',launchReady=mega&&provider?.launchReady===true,walletReady=mega&&provider?.walletReady===true;
+  const capabilityReason=mega?String(provider?.capabilityReason??'adapter_unavailable'):profile.adapterStatus;
+- return {profileId:profile.profileId,providerId:profile.providerId,displayName:profile.displayName,walletMode:profile.walletMode,currency:profile.currency,unitScale:profile.unitScale,position,implemented,enabled:false,launchReady,walletReady,recoveryReady:walletReady,launchVerified:false,walletVerified:false,settlementVerified:mega&&provider?.settlementVerified===true,capabilityReason,status:launchReady?'available':'unavailable'};
++ return {profileId:profile.profileId,providerId:profile.providerId,displayName:profile.displayName,walletMode:profile.walletMode,currency:profile.currency,unitScale:profile.unitScale,position,implemented,enabled:launchReady,launchReady,walletReady,recoveryReady:walletReady,launchVerified:mega&&provider?.launchVerified===true,walletVerified:mega&&provider?.walletVerified===true,settlementVerified:mega&&provider?.settlementVerified===true,capabilityReason,status:launchReady?'available':'unavailable'};
+ }
+ function publicGameProfileDirectory(providers:any[]){
+  const byProvider=new Map(providers.map(provider=>[String(provider.id),provider])),profiles=listedGameProfiles.map((profile,index)=>publicGameProfile(profile,byProvider.get(profile.providerId),index+1));
+@@ -359,12 +371,12 @@ function catalogueReady(c:Context,provider:any){return provider?.connectionVerif
+ function providerCapability(c:Context,provider:any,games:any[],mega:MegaWalletCapability){
+  const id=String(provider.id),connected=catalogueReady(c,provider),anyGame=games.some(game=>game.provider===id&&game.maintenance!==true),walletReady=id==='megah5'&&mega.walletReady;
+  // A configured connection and a catalogue are not production acceptance.
+- // No current profile has independently verified launch, wallet and settlement.
+- const verified=id==='megah5'&&mega.launchVerified&&mega.walletVerified&&mega.settlementVerified;
++ // Runtime capabilities carry independently recorded profile acceptance.
++ const verified=id==='megah5'&&mega.catalogueVerified&&mega.launchVerified&&mega.walletVerified&&mega.settlementVerified&&mega.recoveryVerified;
+  const launchReady=id==='megah5'&&mega.launchReady&&walletReady&&connected&&anyGame&&verified;
+  const pendingAcceptance=id==='megah5'&&mega.launchReady&&walletReady&&connected&&anyGame&&!verified;
+  const platformStatus=launchReady?'ready':pendingAcceptance?'awaiting_acceptance':games.length&&(!connected||!anyGame)?'maintenance':connected?(id==='megah5'?'catalogue_ready':'awaiting_platform_adapter'):'awaiting_api';
+- return {...provider,...automaticAvailability,operationalStatus:platformStatus,platformStatus,platformLaunchReady:launchReady,launchReady,walletReady,launchVerified:false,walletVerified:false,settlementVerified:false,capabilitySource:id==='megah5'?mega.capabilitySource:'adapter_inventory',capabilityReason:id==='jdb'?'transfer_connection_or_acceptance_pending':id!=='megah5'?'launch_wallet_adapter_not_implemented':!connected?'catalogue_not_ready':!anyGame?'provider_maintenance':pendingAcceptance?'acceptance_pending':mega.capabilityReason};
++ return {...provider,...automaticAvailability,operationalStatus:platformStatus,platformStatus,platformLaunchReady:launchReady,launchReady,walletReady,launchVerified:id==='megah5'&&mega.launchVerified,walletVerified:id==='megah5'&&mega.walletVerified,settlementVerified:id==='megah5'&&mega.settlementVerified,capabilitySource:id==='megah5'?mega.capabilitySource:'adapter_inventory',capabilityReason:id==='jdb'?'transfer_connection_or_acceptance_pending':id!=='megah5'?'launch_wallet_adapter_not_implemented':!connected?'catalogue_not_ready':!anyGame?'provider_maintenance':pendingAcceptance&&mega.capabilityReason==='ready'?'acceptance_pending':mega.capabilityReason};
+ }
+ async function publicSupplierPlatforms(c:Context,capability?:MegaWalletCapability){
+  const [cached,rankingState]=await Promise.all([rows(c.db,'SELECT provider_id,status,complete,checked_at,games_json FROM game_catalogue_cache'),loadGameRanking(c.db)]),mega=capability??cachedCatalogueCapability(c),cacheById=new Map((cached as any[]).map(item=>[String(item.provider_id),item])),configuredSources=new Set(configuredGameCatalogueSourceIds(c)),platforms=apiSupplierIds.map((id,index)=>{
+@@ -414,20 +426,33 @@ async function automaticCatalogue(c:Context,catalog:any,capability?:MegaWalletCa
+  const [visible,mega]=await Promise.all([applyGameVisibility(c.db,customerSupplierCatalogue(catalog)),capability?Promise.resolve(capability):megaProviderCapability(c)]);
+  const providers=visible.providers.map((provider:any)=>providerCapability(c,provider,visible.games.filter((game:any)=>game.provider===provider.id),mega)),ready=new Set(providers.filter((provider:any)=>provider.launchReady).map((provider:any)=>provider.id));
+  const games=visible.games.map((game:any)=>({...game,playable:ready.has(game.provider)&&!game.maintenance}));
+- if((catalog.providers??[]).some((provider:any)=>provider.id==='megah5'))observeGameAvailability(c,ready.has('megah5'));
++ if((catalog.providers??[]).some((provider:any)=>provider.id==='megah5'))observeGameAvailability(c,ready.has('megah5'),mega);
+  return {...visible,providers,games,playable:games.some((game:any)=>game.playable)};
+ }
+-async function jdbGameResponse(c:Context,user:User|null,payload:any){
++async function providerGameResponse(c:Context,user:User|null,payload:any){
+  if(user?.role!=='member'||user.approved!==1||c.newGameLaunchesEnabled!=='true')return payload;
+- const acceptance=await getGameProviderAcceptanceReadiness(c.db),profileAcceptance=acceptance.profiles.find(item=>item.profileId==='jdb_myr'),runtime=jdbProfileRuntime(c.jdbTransferProfilesJson,'jdb_myr',user.id,{fetchImpl:c.providerTransferFetch,productionAccepted:profileAcceptance?.evidenceAccepted===true});
+- if(!runtime||!runtime.launchAuthorized)return payload;
+- const provider=(payload.providers??[]).find((item:any)=>item.id==='jdb');if(!provider||!catalogueReady(c,provider))return payload;
+- const selected=payload.selectedProvider==='jdb',any=selected||payload.selectedProvider===null,qaOnly=runtime.mode==='qa',available=selected?(payload.games??[]).some((game:any)=>game.provider==='jdb'&&game.maintenance!==true):Number(provider.cachedGameCount??0)>0;
+- if(!any||!available)return payload;
+- const capabilities=profileAcceptance?.capabilities??{},production=runtime.mode==='production',reason=qaOnly?'restricted_qa':'profile_acceptance_ready';
+- const profiles=(payload.profiles??[]).map((p:any)=>p.profileId==='jdb_myr'?{...p,enabled:true,qaOnly,launchReady:true,walletReady:true,recoveryReady:true,launchVerified:production&&capabilities.launch===true,walletVerified:production&&capabilities.wallet===true,settlementVerified:production&&capabilities.settlement===true,status:qaOnly?'qa':'available',capabilityReason:reason}:p),providers=(payload.providers??[]).map((p:any)=>p.id==='jdb'?{...p,qaOnly,launchReady:true,walletReady:true,platformLaunchReady:true,launchVerified:production&&capabilities.launch===true,walletVerified:production&&capabilities.wallet===true,settlementVerified:production&&capabilities.settlement===true,platformStatus:qaOnly?'restricted_qa':'ready',capabilityReason:reason,profiles:profiles.filter((item:any)=>item.providerId==='jdb')}:p),games=(payload.games??[]).map((game:any)=>game.provider==='jdb'&&!game.maintenance?{...game,qaOnly,playable:true}:game);
+- const liveReady=production||payload.liveReady===true;
+- return {...payload,profiles,providers,games,qaOnly:qaOnly&&any,launchReadyProfileCount:profiles.filter((profile:any)=>profile.launchReady===true).length,verifiedProfileCount:profiles.filter((profile:any)=>profile.launchVerified===true&&profile.walletVerified===true&&profile.settlementVerified===true).length,selectedPlatform:selected?providers.find((p:any)=>p.id==='jdb'):payload.selectedPlatform,selectedProfile:selected?profiles.find((p:any)=>p.profileId==='jdb_myr'):payload.selectedProfile,playable:true,liveReady,launchProvider:'jdb',launchProfile:'jdb_myr'};
++ const acceptance=await getGameProviderAcceptanceReadiness(c.db);
++ let profiles=[...(payload.profiles??[])],providers=[...(payload.providers??[])],games=[...(payload.games??[])],readyProfile:string|null=null,readyProvider:string|null=null,productionReady=false,qaReady=false;
++ for(const profile of listedGameProfiles.filter(transferProfileSupported)){
++  const selected=payload.selectedProvider===profile.providerId,summary=payload.selectedProvider===null;
++  if(!summary&&!selected)continue;
++  // Multi-account brands require the exact account selected by the member.
++  if(selected&&payload.selectedProfileId&&payload.selectedProfileId!==profile.profileId)continue;
++  if(selected&&!payload.selectedProfileId&&getGameProviderProfiles(profile.providerId).filter(p=>p.listedInLobby).length!==1)continue;
++  const accepted=acceptance.profiles.find(item=>item.profileId===profile.profileId),runtime=gameTransferRuntime(c,profile.profileId,user.id,accepted?.evidenceAccepted===true),provider=providers.find((item:any)=>item.id===profile.providerId);
++  const available=selected?games.some((game:any)=>game.provider===profile.providerId&&game.maintenance!==true):Number(provider?.cachedGameCount??0)>0;
++  if(!runtime?.launchAuthorized||!provider||!catalogueReady(c,provider)||!available){observeTransferAvailability(c,profile.profileId,false);continue;}
++  const production=runtime.mode==='production',qaOnly=runtime.mode==='qa',capabilities=accepted?.capabilities??{},reason=qaOnly?'restricted_qa':'profile_acceptance_ready';
++  if(production)observeTransferAvailability(c,profile.profileId,true);
++  profiles=profiles.map((p:any)=>p.profileId===profile.profileId?{...p,enabled:true,qaOnly,launchReady:true,walletReady:true,recoveryReady:true,launchVerified:production&&capabilities.launch===true,walletVerified:production&&capabilities.wallet===true,settlementVerified:production&&capabilities.settlement===true,status:qaOnly?'qa':'available',capabilityReason:reason}:p);
++  providers=providers.map((p:any)=>p.id===profile.providerId?{...p,qaOnly,launchReady:true,walletReady:true,platformLaunchReady:true,launchVerified:production&&capabilities.launch===true,walletVerified:production&&capabilities.wallet===true,settlementVerified:production&&capabilities.settlement===true,platformStatus:qaOnly?'restricted_qa':'ready',capabilityReason:reason}:p);
++  games=games.map((game:any)=>game.provider===profile.providerId&&!game.maintenance?{...game,profileId:profile.profileId,qaOnly,playable:true}:game);
++  readyProfile??=profile.profileId;readyProvider??=profile.providerId;productionReady||=production;qaReady||=qaOnly;
++ }
++ if(!readyProfile)return payload;
++ providers=providers.map((p:any)=>({...p,profiles:profiles.filter((item:any)=>item.providerId===p.id)}));
++ const selected=payload.selectedProvider!==null,preferCurrent=!selected&&payload.launchProvider;
++ return {...payload,profiles,providers,games,qaOnly:qaReady&&!productionReady,launchReadyProfileCount:profiles.filter((profile:any)=>profile.launchReady===true).length,verifiedProfileCount:profiles.filter((profile:any)=>profile.launchVerified===true&&profile.walletVerified===true&&profile.settlementVerified===true).length,selectedPlatform:selected?providers.find((p:any)=>p.id===payload.selectedProvider):payload.selectedPlatform,selectedProfile:selected?profiles.find((p:any)=>p.profileId===readyProfile):payload.selectedProfile,playable:true,liveReady:productionReady||payload.liveReady===true,launchProvider:preferCurrent?payload.launchProvider:readyProvider,launchProfile:preferCurrent?payload.launchProfile:readyProfile};
+ }
+ function launchClientIp(req:Request){
+  const candidates=[req.headers.get('cf-connecting-ip'),...(req.headers.get('x-forwarded-for')??'').split(',')];
+@@ -456,14 +481,14 @@ function resolveLaunchProfile(d:any):{profile:RegisteredGameProviderProfile|null
+   if(profiles.length!==1)return {profile:null,error:invalidGameProfile('GAME_PROFILE_REQUIRED','multiple_profiles')};
+   profile=profiles[0];
+  }
+- if(!profile.listedInLobby||!profile.implemented||!['megah5_myr','jdb_myr'].includes(profile.profileId))return {profile:null,error:gameProfileUnavailable(profile)};
++ if(!profile.listedInLobby||!profile.implemented||profile.profileId!=='megah5_myr'&&!transferProfileSupported(profile))return {profile:null,error:gameProfileUnavailable(profile)};
+  return {profile,error:null};
+ }
+ function resolveWalletProfile(value:any):{profile:RegisteredGameProviderProfile|null;error:Response|null}{
+  const requested=bodyProfileId(value);if(requested.error)return {profile:null,error:requested.error};
+  const profileId=requested.profileId??'megah5_myr',profile=getGameProviderProfile(profileId);
+  if(!profile)return {profile:null,error:invalidGameProfile('GAME_PROFILE_INVALID','profile_not_registered')};
+- if(!['megah5_myr','jdb_myr'].includes(profile.profileId)||!profile.implemented)return {profile:null,error:gameProfileUnavailable(profile)};
++ if(!profile.implemented||profile.profileId!=='megah5_myr'&&!transferProfileSupported(profile))return {profile:null,error:gameProfileUnavailable(profile)};
+  return {profile,error:null};
+ }
+ function queryProfileId(search:URLSearchParams){
+@@ -477,7 +502,7 @@ async function launchMegaH5(req:Request,c:Context,u:User,d:any){
+  const capability=await megaProviderCapability(c);if(!capability.launchReady||!capability.walletReady)throw new ApiError(503,'MegaH5 launch or transfer/recovery capability is unavailable');
+  // Until launch, wallet and settlement have independent real acceptance, new
+  // launches remain closed. Existing settlement and recovery routes stay active.
+- if(!capability.launchVerified||!capability.walletVerified||!capability.settlementVerified)throw new ApiError(503,'MegaH5 game acceptance is pending');
++ if(!capability.catalogueVerified||!capability.launchVerified||!capability.walletVerified||!capability.settlementVerified||!capability.recoveryVerified)throw new ApiError(503,'MegaH5 game acceptance is pending');
+  const catalogue=await applyGameVisibility(c.db,await getGameCatalogue(c,{providerId:'megah5'})),game=catalogue.games.find((item:any)=>item.provider==='megah5'&&item.gameCode===gameCode);
+  if(!providerCatalogueLiveReady(c,catalogue,'megah5',capability)||!game||game.maintenance===true)throw new ApiError(409,'Game is unavailable or under maintenance');
+  const ip=launchClientIp(req);if(!ip)throw new ApiError(400,'Player network address is unavailable');
+@@ -495,7 +520,7 @@ async function launchMegaH5(req:Request,c:Context,u:User,d:any){
+   const urlValue=result?.result?.Url??result?.result?.URL??result?.result?.GameUrl??result?.result?.GameURL;let launchUrl:URL;try{launchUrl=new URL(String(urlValue??''));}catch{throw new ApiError(502,'MegaH5 launch URL is missing');}
+   if(launchUrl.protocol!=='https:'||launchUrl.username||launchUrl.password||launchUrl.hash)throw new ApiError(502,'MegaH5 launch URL is invalid');
+   await markMegaLaunchIssued(walletContext,launch.id,prepared.sessionId);
+-  await auditStmt(c.db,u,'game_launch_created',`megah5:${gameCode}`).run();return json({provider:'megah5',profileId:'megah5_myr',gameCode,launchUrl:launchUrl.href,walletVerified:prepared.walletVerified,walletSessionId:prepared.sessionId,settlementBlocked:true,amountInGameMinor:prepared.amountOutMinor});
++  await auditStmt(c.db,u,'game_launch_created',`megah5:${gameCode}`).run();return json({provider:'megah5',profileId:'megah5_myr',gameCode,launchUrl:launchUrl.href,walletVerified:prepared.walletVerified,walletSessionId:prepared.sessionId,settlementBlocked:!(c.megaClosureContractVerified===true&&typeof c.megaSessionCloser==='function'),amountInGameMinor:prepared.amountOutMinor});
+  }catch(error){
+   // A timeout, malformed reply or even an upstream error cannot establish
+   // that GameLogin was not executed. Keep the durable attempt for review.
+@@ -505,13 +530,13 @@ async function launchMegaH5(req:Request,c:Context,u:User,d:any){
+ }
+ async function launchProviderGame(req:Request,c:Context,u:User,d:any,profile:RegisteredGameProviderProfile){
+  if(profile.profileId==='megah5_myr'&&profile.providerId==='megah5')return launchMegaH5(req,c,u,d);
+- if(profile.profileId!=='jdb_myr'||profile.providerId!=='jdb')return gameProfileUnavailable(profile);
++ if(!transferProfileSupported(profile))return gameProfileUnavailable(profile);
+  const gameCode=textField(d.gameCode,1,100),settings=await transferSettings(c,u,profile);
+  if(!settings.launchAuthorized)throw new ProviderTransferError(503,'GAME_ACCEPTANCE_REQUIRED');
+- const catalogue=await applyGameVisibility(c.db,await getGameCatalogue(c,{providerId:'jdb'})),provider=catalogue.providers.find((item:any)=>item.id==='jdb'),game=catalogue.games.find((item:any)=>item.provider==='jdb'&&item.gameCode===gameCode);
++ const catalogue=await applyGameVisibility(c.db,await getGameCatalogue(c,{providerId:profile.providerId,profileId:profile.profileId})),provider=catalogue.providers.find((item:any)=>item.id===profile.providerId),game=catalogue.games.find((item:any)=>item.provider===profile.providerId&&item.gameCode===gameCode);
+  if(!catalogueReady(c,provider)||!game||game.maintenance===true)throw new ProviderTransferError(409,'GAME_CATALOGUE_UNAVAILABLE');
+- const runtime=jdbProfileRuntime(c.jdbTransferProfilesJson,profile.profileId,u.id,{fetchImpl:c.providerTransferFetch,productionAccepted:settings.launchAuthorized});
+- if(!runtime||!await seedJdbTransferProfile(c.db,runtime))throw new ProviderTransferError(409,'GAME_PROFILE_RECONCILIATION_REQUIRED');
++ const runtime=gameTransferRuntime(c,profile.profileId,u.id,settings.launchAuthorized);
++ if(!runtime||!await seedTransferProfile(c.db,runtime))throw new ProviderTransferError(409,'GAME_PROFILE_RECONCILIATION_REQUIRED');
+  return json(await launchTransferWallet(settings,{gameCode,requestKey:textField(d.idempotencyKey??d.requestKey,1,200),language:['en','zh','ms'].includes(d.language)?d.language:'en',ip:launchClientIp(req),returnUrl:CUSTOMER_ORIGIN+'/'}));
+ }
+ 
+@@ -546,7 +571,7 @@ export async function handle(req:Request,c:Context):Promise<Response>{
+ async function route(req:Request,c:Context){
+  const p=new URL(req.url).pathname,db=c.db;
+  if(req.method==='GET'&&p==='/health/live'){await db.prepare('SELECT id FROM users LIMIT 1').all();return json({status:'ok',release:RELEASE,database:'ready',scope:'portal-liveness'});}
+- if(req.method==='GET'&&(p==='/health'||p==='/api/version')){await db.prepare('SELECT id FROM users LIMIT 1').all();const megaWalletCredentialsConfigured=c.gameGatewayUrl==='https://master7-integration-gateway.onrender.com'&&!!c.gameGatewayToken&&!!c.gameGatewayWalletToken&&c.gameGatewayToken!==c.gameGatewayWalletToken&&Buffer.byteLength(c.gameGatewayToken)>=32&&Buffer.byteLength(c.gameGatewayWalletToken)>=32,{payments,readiness}=await canonicalOperationsReadiness(c),megaAcceptance=readiness.gameAcceptance.profiles.find(profile=>profile.profileId==='megah5_myr'),megaLiveReady=megaAcceptance?.effectiveReady===true,smsOtpReady=!!(c.anchorApiBaseUrl&&c.anchorUsername&&c.anchorPassword&&c.anchorSenderId&&c.otpHashSecret&&c.otpHashSecret.length>=32),productionReady=readiness.productionReady,readinessBlockers=[...(!payments.realPayments?['deposit_provider_not_ready']:[]),...(!payments.payoutsEnabled?['payout_provider_not_ready']:[]),...(!payments.settlementVerified?['payment_settlement_not_verified']:[]),...(!readiness.gamesReady?['game_launch_or_settlement_not_ready']:[]),...(!readiness.backupReady?['encrypted_backup_not_ready']:[]),...(!readiness.restoreReady?['restore_rehearsal_not_verified']:[]),...(!readiness.productionAcceptance.domainReady?['official_domain_tls_not_verified']:[]),...(!readiness.productionAcceptance.credentialRotationReady?['credential_rotation_not_verified']:[]),...(!readiness.productionAcceptance.signoffReady?['production_signoff_not_verified']:[])];return json({status:'ok',release:RELEASE,sourceRelease:SOURCE_RELEASE,database:'ready',smsOtpReady,mode:'selfbuilt-service-portal',...payments,providerAcceptance:{requiredProfileCount:readiness.gameAcceptance.requiredProfileCount,acceptedProfileCount:readiness.gameAcceptance.acceptedProfileCount,liveProfileCount:readiness.gameAcceptance.liveProfileCount,allAcceptanceEvidencePassed:readiness.gameAcceptance.allAcceptanceEvidencePassed,allGamesVerified:readiness.allGamesVerified},externalAcceptance:{domainReady:readiness.productionAcceptance.domainReady,credentialRotationReady:readiness.productionAcceptance.credentialRotationReady,paymentReady:readiness.productionAcceptance.paymentReady,signoffReady:readiness.productionAcceptance.signoffReady},backupReady:readiness.backupReady,restoreReady:readiness.restoreReady,backupCreatedAt:readiness.backupCreatedAt,restoreVerifiedAt:readiness.restoreVerifiedAt,megaWallet:{configured:megaWalletCredentialsConfigured,...automaticAvailability,enabled:megaLiveReady,liveGamesEnabled:megaLiveReady,launchReady:readiness.megaAvailable,launchVerified:megaAcceptance?.capabilities.launch===true,walletVerified:megaAcceptance?.capabilities.wallet===true,settlementVerified:megaAcceptance?.capabilities.settlement===true,recoveryVerified:megaAcceptance?.capabilities.recovery===true,liveReady:megaLiveReady},liveGames:readiness.gamesReady,productionReady,readinessBlockers,scope:'portal-database-health'});}
++ if(req.method==='GET'&&(p==='/health'||p==='/api/version')){await db.prepare('SELECT id FROM users LIMIT 1').all();const megaWalletCredentialsConfigured=c.gameGatewayUrl==='https://master7-integration-gateway.onrender.com'&&!!c.gameGatewayToken&&!!c.gameGatewayWalletToken&&c.gameGatewayToken!==c.gameGatewayWalletToken&&Buffer.byteLength(c.gameGatewayToken)>=32&&Buffer.byteLength(c.gameGatewayWalletToken)>=32,{payments,readiness}=await canonicalOperationsReadiness(c),megaAcceptance=readiness.gameAcceptance.profiles.find(profile=>profile.profileId==='megah5_myr'),megaLiveReady=megaAcceptance?.effectiveReady===true,smsOtpReady=!!(c.anchorApiBaseUrl&&c.anchorUsername&&c.anchorPassword&&c.anchorSenderId&&c.otpHashSecret&&c.otpHashSecret.length>=32),productionReady=readiness.productionReady,readinessBlockers=[...(!payments.realPayments?['deposit_provider_not_ready']:[]),...(!payments.payoutsEnabled?['payout_provider_not_ready']:[]),...(!payments.settlementVerified?['payment_settlement_not_verified']:[]),...(!readiness.gamesReady?['game_launch_or_settlement_not_ready']:[]),...(!readiness.backupReady?['encrypted_backup_not_ready']:[]),...(!readiness.restoreReady?['restore_rehearsal_not_verified']:[]),...(!readiness.productionAcceptance.domainReady?['official_domain_tls_not_verified']:[]),...(!readiness.productionAcceptance.credentialRotationReady?['credential_rotation_not_verified']:[]),...(!readiness.productionAcceptance.signoffReady?['production_signoff_not_verified']:[])];return json({status:'ok',release:RELEASE,sourceRelease:SOURCE_RELEASE,database:'ready',smsOtpReady,mode:'selfbuilt-service-portal',...payments,providerAcceptance:{requiredProfileCount:readiness.gameAcceptance.requiredProfileCount,acceptedProfileCount:readiness.gameAcceptance.acceptedProfileCount,liveProfileCount:readiness.gameAcceptance.liveProfileCount,allAcceptanceEvidencePassed:readiness.gameAcceptance.allAcceptanceEvidencePassed,allGamesVerified:readiness.allGamesVerified},externalAcceptance:{domainReady:readiness.productionAcceptance.domainReady,credentialRotationReady:readiness.productionAcceptance.credentialRotationReady,paymentReady:readiness.productionAcceptance.paymentReady,signoffReady:readiness.productionAcceptance.signoffReady},backupReady:readiness.backupReady,restoreReady:readiness.restoreReady,backupCreatedAt:readiness.backupCreatedAt,restoreVerifiedAt:readiness.restoreVerifiedAt,megaWallet:{configured:megaWalletCredentialsConfigured,...automaticAvailability,enabled:megaLiveReady,liveGamesEnabled:megaLiveReady,launchReady:readiness.megaAvailable,launchVerified:megaAcceptance?.capabilities.launch===true,walletVerified:megaAcceptance?.capabilities.wallet===true,settlementVerified:megaAcceptance?.capabilities.settlement===true,recoveryVerified:megaAcceptance?.capabilities.recovery===true,liveReady:megaLiveReady},liveGames:readiness.gamesReady,anyGamePlayable:readiness.gameAcceptance.anyGamePlayable,productionReady,readinessBlockers,scope:'portal-database-health'});}
+  if(p==='/api/jobs/backup'){
+   if(req.method!=='POST')return json({error:'Method not allowed'},405);
+   if(!authorizedBearer(req,c.backupJobToken))return json({error:'Access denied'},401);
+@@ -648,12 +673,13 @@ async function route(req:Request,c:Context){
+    role(u,['member']);if(!u.approved)throw new ApiError(403,'Account awaiting approval');
+    const search=new URL(req.url).searchParams,requested=bodyProfileId({profile:search.get('profile'),profileId:search.get('profileId')});if(requested.error)return requested.error;
+    const profile=getGameProviderProfile(requested.profileId??'megah5_myr');if(!profile||!profile.listedInLobby)return invalidGameProfile('GAME_PROFILE_INVALID','profile_not_registered');
+-   if(profile.profileId==='jdb_myr'){
+-    const runtime=jdbProfileRuntime(c.jdbTransferProfilesJson,profile.profileId,u.id,{fetchImpl:c.providerTransferFetch}),transfer=await readMemberTransferWallet(db,u.id,profile,runtime?.recoveryEnabled===true),legacy=await memberProfileGameWallet(db,u.id,profile);
+-    return json(transfer.session||!legacy.session?transfer:legacy);
++   if(transferProfileSupported(profile)){
++    const acceptance=await getGameProviderAcceptanceReadiness(db),accepted=acceptance.profiles.find(item=>item.profileId===profile.profileId),runtime=gameTransferRuntime(c,profile.profileId,u.id,accepted?.evidenceAccepted===true),transfer=await readMemberTransferWallet(db,u.id,profile,runtime?.recoveryEnabled===true),legacy=await memberProfileGameWallet(db,u.id,profile);
++    const production=runtime?.mode==='production',capabilities=accepted?.capabilities??{},launchReady=runtime?.launchAuthorized===true&&c.newGameLaunchesEnabled==='true',liveReady=production&&launchReady&&observedTransferAvailability(c,profile.profileId);
++    return json(transfer.session||!legacy.session?{...transfer,qaOnly:runtime?.mode==='qa',launchReady,liveReady,launchVerified:production&&capabilities.launch===true,walletVerified:production&&capabilities.wallet===true,settlementVerified:production&&capabilities.settlement===true,capabilityReason:launchReady?runtime?.mode==='qa'?'restricted_qa':'profile_acceptance_ready':transfer.capabilityReason}:legacy);
+    }
+    if(profile.profileId!=='megah5_myr')return json(await memberProfileGameWallet(db,u.id,profile));
+-   return json({profileId:profile.profileId,supportsSettlement:true,supportsRecovery:true,...await memberMegaWalletState(megaWalletSettings(c,u))});
++   return json({profileId:profile.profileId,supportsSettlement:true,supportsRecovery:true,...await memberMegaWalletState(await acceptedMegaWalletSettings(c,u))});
+   }
+   if(p==='/api/announcements')return json({items:await rows(db,"SELECT id,title,body,created_at,starts_at,ends_at FROM announcements WHERE status='published' AND (starts_at IS NULL OR starts_at<=?) AND (ends_at IS NULL OR ends_at>?) ORDER BY created_at DESC,id DESC LIMIT 100",now(),now())});
+   if(p==='/api/ads')return json({items:await rows(db,"SELECT id,title,image_data,target_url,position,starts_at,ends_at FROM lobby_ads WHERE enabled=1 AND status='published' AND (starts_at IS NULL OR starts_at<=?) AND (ends_at IS NULL OR ends_at>?) ORDER BY position ASC,created_at DESC,id ASC LIMIT 20",now(),now())});
+@@ -688,10 +714,10 @@ async function route(req:Request,c:Context){
+    let selectedProvider=search.get('provider');if(selectedProvider!==null&&!apiSupplierIdSet.has(selectedProvider))throw new ApiError(400,'Invalid game provider');
+    if(requestedProfile&&selectedProvider!==null&&requestedProfile.providerId!==selectedProvider)throw new ApiError(400,'Game profile does not belong to provider');
+    if(requestedProfile)selectedProvider=requestedProfile.providerId;
+-   if(selectedProvider===null){const platformState=await publicSupplierPlatforms(c),{providers,rankingState,...profileState}=platformState,liveReady=providers.some(provider=>provider.platformLaunchReady);return json(await jdbGameResponse(c,u,{...automaticAvailability,...profileState,mode:'provider-platforms',providers,games:[],providersOnly:true,platformsOnly:false,gamesOmittedUntilProviderSelected:true,gameCountScope:'current_response',selectedProvider:null,selectedProfile:null,selectedProfileId:null,selectedPlatform:null,platformCount:providers.length,totalGameCount:0,selectedGameCount:0,playable:liveReady,liveReady,launchProvider:liveReady?'megah5':null,launchProfile:liveReady?'megah5_myr':null,ranking:{...rankingState.ranking,configured:rankingState.configured,source:'owner_curated',automaticRanking:false,internalGamesRanked:false}}));}
++   if(selectedProvider===null){const platformState=await publicSupplierPlatforms(c),{providers,rankingState,...profileState}=platformState,liveReady=providers.some(provider=>provider.platformLaunchReady);return json(await providerGameResponse(c,u,{...automaticAvailability,...profileState,mode:'provider-platforms',providers,games:[],providersOnly:true,platformsOnly:false,gamesOmittedUntilProviderSelected:true,gameCountScope:'current_response',selectedProvider:null,selectedProfile:null,selectedProfileId:null,selectedPlatform:null,platformCount:providers.length,totalGameCount:0,selectedGameCount:0,playable:liveReady,liveReady,launchProvider:liveReady?'megah5':null,launchProfile:liveReady?'megah5_myr':null,ranking:{...rankingState.ranking,configured:rankingState.configured,source:'owner_curated',automaticRanking:false,internalGamesRanked:false}}));}
+    const trustedSource=configuredGameCatalogueSourceIds(c).includes(selectedProvider),capability=await megaProviderCapability(c),catalogue=trustedSource?await automaticCatalogue(c,await getGameCatalogue(c,{providerId:selectedProvider,profileId:requestedProfileId??undefined}),capability):{providers:[],games:[]},games=catalogue.games.filter((game:any)=>game.provider===selectedProvider),fresh=await publicSupplierPlatforms(c,capability),selected=(catalogue.providers??[]).find((provider:any)=>provider.id===selectedProvider),providers=fresh.providers.map((provider:any)=>provider.id===selectedProvider&&selected?{...provider,...selected,cachedGameCount:Number(selected.count??0)}:provider),selectedPlatform=providers.find((provider:any)=>provider.id===selectedProvider)??null,liveReady=selectedPlatform?.platformLaunchReady===true;
+    const providerProfiles=fresh.profiles.filter(profile=>profile.providerId===selectedProvider),selectedProfile=requestedProfileId?fresh.profiles.find(profile=>profile.profileId===requestedProfileId)??null:providerProfiles.length===1?providerProfiles[0]:null;
+-   return json(await jdbGameResponse(c,u,{...automaticAvailability,profiles:fresh.profiles,profileCount:fresh.profileCount,profileBrandCount:fresh.profileBrandCount,implementedProfileCount:fresh.implementedProfileCount,launchReadyProfileCount:fresh.launchReadyProfileCount,verifiedProfileCount:fresh.verifiedProfileCount,mode:'provider-games',providers,games,providersOnly:false,platformsOnly:false,selectedProvider,selectedProfile,selectedProfileId:selectedProfile?.profileId??null,selectedPlatform,platformCount:providers.length,totalGameCount:games.length,selectedGameCount:games.length,playable:games.some((game:any)=>game.playable),liveReady,launchProvider:liveReady?'megah5':null,launchProfile:liveReady?'megah5_myr':null,ranking:{...fresh.rankingState.ranking,configured:fresh.rankingState.configured,source:'owner_curated',automaticRanking:false,internalGamesRanked:false}}));
++   return json(await providerGameResponse(c,u,{...automaticAvailability,profiles:fresh.profiles,profileCount:fresh.profileCount,profileBrandCount:fresh.profileBrandCount,implementedProfileCount:fresh.implementedProfileCount,launchReadyProfileCount:fresh.launchReadyProfileCount,verifiedProfileCount:fresh.verifiedProfileCount,mode:'provider-games',providers,games,providersOnly:false,platformsOnly:false,selectedProvider,selectedProfile,selectedProfileId:selectedProfile?.profileId??null,selectedPlatform,platformCount:providers.length,totalGameCount:games.length,selectedGameCount:games.length,playable:games.some((game:any)=>game.playable),liveReady,launchProvider:liveReady?'megah5':null,launchProfile:liveReady?'megah5_myr':null,ranking:{...fresh.rankingState.ranking,configured:fresh.rankingState.configured,source:'owner_curated',automaticRanking:false,internalGamesRanked:false}}));
+   }
+   if(p==='/api/providers'){const [items,platforms]=await Promise.all([rows(db,'SELECT * FROM providers ORDER BY name'),publicSupplierPlatforms(c)]),byId=new Map(platforms.providers.map(provider=>[provider.id,provider]));return json({...automaticAvailability,items:(items as any[]).filter(item=>apiSupplierIdSet.has(String(item.id))).map(item=>({...item,...byId.get(item.id)})),playable:platforms.providers.some(provider=>provider.platformLaunchReady)});}
+   if(p==='/api/social-links'){
+diff --git a/lib/game-profile-units.ts b/lib/game-profile-units.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..43e733c411cb9bc2e184b5caf816b6c01779e23b
+--- /dev/null
++++ b/lib/game-profile-units.ts
+@@ -0,0 +1,16 @@
++import {GAME_PROVIDER_PROFILES,getGameProviderProfile} from './game-provider-registry.ts';
++
++/** Ratios describe supplier game points per MYR. All wallet operations remain
++ * MYR sen; only the supplier adapter converts at its transport boundary. */
++export function registeredCashProfileUnits(profileId:string){
++ const profile=getGameProviderProfile(profileId);
++ if(!profile||profile.balanceClass==='free_credit')return null;
++ return {providerId:profile.providerId,unitScale:profile.unitScale,numerator:profile.unitScale,denominator:1} as const;
++}
++
++// These strings contain compiled registry identifiers only, never request data.
++const cashProfiles=GAME_PROVIDER_PROFILES.filter(profile=>profile.balanceClass!=='free_credit');
++if(cashProfiles.some(profile=>!/^\w+$/.test(profile.profileId)))throw new Error('Invalid registered game profile identifier');
++const ids=cashProfiles.map(profile=>`'${profile.profileId}'`).join(',');
++const hundred=cashProfiles.filter(profile=>profile.unitScale===100).map(profile=>`'${profile.profileId}'`).join(',');
++export const registeredCashProfileRatioSql=`(p.id IN (${ids}) AND p.unit_denominator=1 AND p.unit_numerator=CASE WHEN p.id IN (${hundred||"''"}) THEN 100 ELSE 1 END)`;
+diff --git a/lib/game-provider-acceptance.ts b/lib/game-provider-acceptance.ts
+index e94f6e61b24b11003cd666c34d1b3faf6895272a..dc758af29def69f9a51d5a1e67e9526f7acec1a8 100644
+--- a/lib/game-provider-acceptance.ts
++++ b/lib/game-provider-acceptance.ts
+@@ -75,7 +75,7 @@ export async function getGameProviderAcceptanceReadiness(db:D1Database,runtimeRe
+  const allGamesVerified=liveGames;
+  return {
+   requiredProfileCount:required.length,acceptedProfileCount:acceptedProfiles.length,liveProfileCount:liveProfiles.length,
+-  allAcceptanceEvidencePassed,allGamesVerified,liveGames,profiles:profileReadiness,
++  allAcceptanceEvidencePassed,allGamesVerified,liveGames,anyGamePlayable:liveProfiles.length>0,profiles:profileReadiness,
+   blockers:required.filter(profile=>!profile.accepted||!profile.implemented||!runtimeReady.has(profile.profileId)).map(profile=>({
+    profileId:profile.profileId,
+    missingEvidence:GAME_PROVIDER_ACCEPTANCE_CAPABILITIES.filter(capability=>!profile.capabilities[capability].passed),
+diff --git a/lib/game-provider-adapter.ts b/lib/game-provider-adapter.ts
+index faf1593e99e1f56d027e51d9f87a42bdde958ec8..ea7579ba448e5798beb1f33d0fc642031e6c238b 100644
+--- a/lib/game-provider-adapter.ts
++++ b/lib/game-provider-adapter.ts
+@@ -19,6 +19,7 @@ export type GameProviderProfile = {
+   providerId: string;
+   displayName: string;
+   walletMode: GameWalletMode;
++  balanceClass?: 'cash' | 'free_credit';
+   currency: 'MYR';
+   unitScale: 1 | 100;
+   adapterKey: string;
+diff --git a/lib/game-provider-registry.ts b/lib/game-provider-registry.ts
+index 967417cf431dc7c88d0b46142d3c002bb1632890..4a2fa1550be5c592d38cc933ba623a83341726a1 100644
+--- a/lib/game-provider-registry.ts
++++ b/lib/game-provider-registry.ts
+@@ -31,6 +31,7 @@ type ProfileInput = {
+   providerId: GameProviderId | 'spribe';
+   displayName: string;
+   walletMode?: GameWalletMode;
++  balanceClass?: 'cash' | 'free_credit';
+   unitScale?: 1 | 100;
+   adapterKey?: string;
+   envPrefix?: string;
+@@ -46,6 +47,7 @@ const profile = (input: ProfileInput): RegisteredGameProviderProfile => {
+     providerId: input.providerId,
+     displayName: input.displayName,
+     walletMode: input.walletMode ?? 'unknown',
++    balanceClass: input.balanceClass ?? (input.profileId.includes('_free_') ? 'free_credit' : 'cash'),
+     currency: 'MYR' as const,
+     unitScale: input.unitScale ?? 1,
+     adapterKey: input.adapterKey ?? input.providerId,
+diff --git a/lib/game-provider-runtime.ts b/lib/game-provider-runtime.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..a0b05c3458b54fea615a56b72f4e2c42009e783f
+--- /dev/null
++++ b/lib/game-provider-runtime.ts
+@@ -0,0 +1,46 @@
++import {jdbProfileRuntime} from './jdb-profile-runtime.ts';
++import {getGameProviderProfile,type RegisteredGameProviderProfile} from './game-provider-registry.ts';
++import {registeredCashProfileUnits} from './game-profile-units.ts';
++import type {GameProviderAdapter} from './game-provider-adapter.ts';
++
++export type TransferRuntimeSettings={jdbTransferProfilesJson?:string;gameTransferProfilesJson?:string;providerTransferFetch?:typeof fetch};
++export type GameTransferRuntime={profile:RegisteredGameProviderProfile;adapter:GameProviderAdapter;launchAuthorized:boolean;recoveryEnabled:boolean;mode:'closed'|'qa'|'production';environment:'production'};
++type Factory=(settings:TransferRuntimeSettings,profileId:string,userId:string,productionAccepted:boolean)=>GameTransferRuntime|null;
++
++function profileDocument(settings:TransferRuntimeSettings,profileId:string){
++ if(!settings.gameTransferProfilesJson)return settings.jdbTransferProfilesJson;
++ try{
++  if(Buffer.byteLength(settings.gameTransferProfilesJson)>262_144)return undefined;
++  const document=JSON.parse(settings.gameTransferProfilesJson);
++  if(!document||typeof document!=='object'||!document.profiles||typeof document.profiles!=='object'||Array.isArray(document.profiles))return undefined;
++  return Object.hasOwn(document.profiles,profileId)?JSON.stringify({profiles:{[profileId]:document.profiles[profileId]}}):settings.jdbTransferProfilesJson;
++ }catch{return undefined;}
++}
++
++// Registration is compiled server code. Browser fields and secret JSON cannot
++// install executable adapters or select an arbitrary provider protocol.
++const factories:Readonly<Record<string,Factory>>=Object.freeze({
++ jdb:(settings,profileId,userId,productionAccepted)=>jdbProfileRuntime(profileDocument(settings,profileId),profileId,userId,{fetchImpl:settings.providerTransferFetch,productionAccepted}),
++});
++
++export function transferProfileSupported(profile:RegisteredGameProviderProfile){
++ return profile.listedInLobby&&profile.implemented&&profile.walletMode==='transfer'&&profile.providerId!=='megah5'&&typeof factories[profile.adapterKey]==='function';
++}
++
++export function gameTransferRuntime(settings:TransferRuntimeSettings,profileId:string,userId:string,productionAccepted=false):GameTransferRuntime|null{
++ const profile=getGameProviderProfile(profileId);if(!profile||!transferProfileSupported(profile))return null;
++ try{
++  const runtime=factories[profile.adapterKey](settings,profileId,userId,productionAccepted);
++  if(!runtime||runtime.profile.profileId!==profileId||runtime.profile.providerId!==profile.providerId||runtime.adapter.key!==profile.adapterKey||runtime.adapter.executable!==true)return null;
++  return {...runtime,profile};
++ }catch{return null;}
++}
++
++export async function seedTransferProfile(db:D1Database,runtime:GameTransferRuntime){
++ const p=runtime.profile,units=registeredCashProfileUnits(p.profileId),at=Math.floor(Date.now()/1000);
++ if(!units||units.providerId!==p.providerId||units.unitScale!==p.unitScale||p.walletMode!=='transfer')return false;
++ await db.prepare("INSERT INTO game_provider_profiles(id,provider_id,display_name,adapter_key,wallet_mode,balance_class,currency,unit_numerator,unit_denominator,environment,status,created_at,updated_at) VALUES(?,?,?,?,'transfer','cash','MYR',?,1,'production',?,?,?) ON CONFLICT(id) DO NOTHING")
++  .bind(p.profileId,p.providerId,p.displayName,p.adapterKey,units.numerator,runtime.mode==='qa'?'uat':runtime.mode==='production'&&runtime.launchAuthorized?'active':'closed',at,at).run();
++ const stored=await db.prepare('SELECT provider_id,adapter_key,wallet_mode,balance_class,currency,unit_numerator,unit_denominator,environment FROM game_provider_profiles WHERE id=?').bind(p.profileId).first<Record<string,unknown>>();
++ return !!stored&&stored.environment==='production'&&stored.provider_id===p.providerId&&stored.adapter_key===p.adapterKey&&stored.wallet_mode==='transfer'&&stored.balance_class==='cash'&&stored.currency==='MYR'&&String(stored.unit_numerator)===String(units.numerator)&&String(stored.unit_denominator)==='1';
++}
+diff --git a/lib/mega-session-closure.ts b/lib/mega-session-closure.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..7be9857a0a791ffc09f3eae2795b4941be2a3b8b
+--- /dev/null
++++ b/lib/mega-session-closure.ts
+@@ -0,0 +1,17 @@
++/** Implementations must come from an account-specific, verified supplier
++ * contract. A browser closing or a generic kick acknowledgement is insufficient. */
++export type MegaClosureInput={walletSessionId:string;launchOperationId:string;providerPlayerId:string;gameCode:string};
++export type MegaClosureReceipt=MegaClosureInput&{providerClosureReference:string;allIssuedLaunchesInvalidated:true;pendingRounds:0;lateResultsFinal:true};
++export type MegaSessionCloser=(input:MegaClosureInput)=>Promise<{state:'closed';receipt:MegaClosureReceipt}|{state:'playing'|'unknown'}>;
++export type MegaAcceptanceCapabilities={catalogue:boolean;launch:boolean;wallet:boolean;settlement:boolean;recovery:boolean};
++export const MEGA_CLOSURE_EVENT='megah5_session_closed';
++
++export function megaClosureProofSql(alias:'o'|'closed_launch'){
++ return `EXISTS(SELECT 1 FROM audit closure_audit WHERE closure_audit.user_id=${alias}.user_id AND closure_audit.event='${MEGA_CLOSURE_EVENT}' AND closure_audit.target LIKE ${alias}.wallet_session_id||':'||${alias}.id||':%' AND LENGTH(closure_audit.target)=LENGTH(${alias}.wallet_session_id)+LENGTH(${alias}.id)+66)`;
++}
++
++export function validMegaClosureReceipt(input:MegaClosureInput,value:unknown):value is MegaClosureReceipt{
++ if(!value||typeof value!=='object')return false;
++ const r=value as Record<string,unknown>;
++ return r.walletSessionId===input.walletSessionId&&r.launchOperationId===input.launchOperationId&&r.providerPlayerId===input.providerPlayerId&&r.gameCode===input.gameCode&&typeof r.providerClosureReference==='string'&&/^[A-Za-z0-9_.:-]{1,200}$/.test(r.providerClosureReference)&&r.allIssuedLaunchesInvalidated===true&&r.pendingRounds===0&&r.lateResultsFinal===true;
++}
+diff --git a/lib/megah5-wallet.ts b/lib/megah5-wallet.ts
+index 189d3fcf5437952f8955be038c9ed48befa203b5..e4ec2153d0cab782bfa907965a0dc1464f8e8922 100644
+--- a/lib/megah5-wallet.ts
++++ b/lib/megah5-wallet.ts
+@@ -1,11 +1,13 @@
+ import {createHash,randomUUID} from 'node:crypto';
+ import {clearStaleReservation,hasProtectedGameReservation,withdrawalWalletState} from './withdrawals.ts';
+ import {walletGuardStatements,walletGuardedReservation,walletGuardedRiskCheck,walletGuardedMegaLaunch} from './wallet-guard.ts';
++import {megaClosureProofSql,validMegaClosureReceipt,MEGA_CLOSURE_EVENT,type MegaSessionCloser,type MegaAcceptanceCapabilities} from './mega-session-closure.ts';
+ 
+ type Member={id:string;username:string;role:string;approved:number};
+ export type MegaWalletContext={
+  db:D1Database;user:Member;gatewayUrl?:string;gameToken?:string;walletToken?:string;
+  enabled?:string;liveGamesEnabled?:string;newGameLaunchesEnabled?:string;settlementVerified?:string;fetchImpl?:typeof fetch;
++ acceptance?:MegaAcceptanceCapabilities;closeSession?:MegaSessionCloser;closureContractVerified?:boolean;
+ };
+ 
+ type GatewayOutcome=
+@@ -26,9 +28,9 @@ const tokenReady=(value?:string)=>typeof value==='string'&&Buffer.byteLength(val
+ export function megaWalletConfigured(c:MegaWalletContext){
+  return c.gatewayUrl===gatewayOrigin&&tokenReady(c.gameToken)&&tokenReady(c.walletToken)&&c.gameToken!==c.walletToken;
+ }
+-export type MegaWalletCapability={availabilityMode:'automatic';readOnlyAvailability:true;configured:boolean;launchReady:boolean;walletReady:boolean;launchVerified:false;walletVerified:false;settlementVerified:false;capabilitySource:'gateway_configuration';capabilityReason:string};
++export type MegaWalletCapability={availabilityMode:'automatic';readOnlyAvailability:true;configured:boolean;launchReady:boolean;walletReady:boolean;catalogueVerified:boolean;recoveryVerified:boolean;launchVerified:boolean;walletVerified:boolean;settlementVerified:boolean;capabilitySource:'gateway_configuration';capabilityReason:string};
+ export async function megaWalletCapabilities(c:MegaWalletContext):Promise<MegaWalletCapability>{
+- const result:MegaWalletCapability={availabilityMode:'automatic',readOnlyAvailability:true,configured:megaWalletConfigured(c),launchReady:false,walletReady:false,launchVerified:false,walletVerified:false,settlementVerified:false,capabilitySource:'gateway_configuration',capabilityReason:'connection_not_configured'};
++ const result:MegaWalletCapability={availabilityMode:'automatic',readOnlyAvailability:true,configured:megaWalletConfigured(c),launchReady:false,walletReady:false,catalogueVerified:false,recoveryVerified:false,launchVerified:false,walletVerified:false,settlementVerified:false,capabilitySource:'gateway_configuration',capabilityReason:'connection_not_configured'};
+  if(!result.configured)return result;
+  // This existing endpoint reads gateway configuration only. It never creates a
+  // player, launches a game or transfers money, and is not an acceptance test.
+@@ -43,7 +45,8 @@ export async function megaWalletCapabilities(c:MegaWalletContext):Promise<MegaWa
+   // Recovery and cash-out are required before any new deposit. A gateway
+   // reporting only an enabled switch cannot establish these capabilities.
+   if(!['status','deposit','withdrawal'].every(name=>mega.channels?.[name]?.configurationReady===true&&Array.isArray(mega.channels[name].blockers)&&mega.channels[name].blockers.length===0))return {...result,capabilityReason:'gateway_wallet_contract_unavailable'};
+-  return {...result,launchReady:c.newGameLaunchesEnabled==='true',walletReady:true,capabilityReason:c.newGameLaunchesEnabled==='true'?'ready':'new_game_launches_paused'};
++  const launchVerified=c.acceptance?.launch===true,walletVerified=c.acceptance?.wallet===true,closureReady=c.closureContractVerified===true&&typeof c.closeSession==='function',settlementVerified=closureReady&&c.acceptance?.settlement===true&&c.acceptance?.recovery===true;
++  return {...result,launchReady:c.newGameLaunchesEnabled==='true',walletReady:true,catalogueVerified:c.acceptance?.catalogue===true,recoveryVerified:closureReady&&c.acceptance?.recovery===true,launchVerified,walletVerified,settlementVerified,capabilityReason:c.newGameLaunchesEnabled!=='true'?'new_game_launches_paused':!closureReady?'session_closure_contract_unavailable':!launchVerified||!walletVerified||!settlementVerified||c.acceptance?.catalogue!==true?'acceptance_pending':'ready'};
+  }catch{return {...result,capabilityReason:'gateway_capability_unavailable'};}finally{clearTimeout(timer);}
+ }
+ export async function megaWalletLiveReady(c:MegaWalletContext){return (await megaWalletCapabilities(c)).walletReady;}
+@@ -110,14 +113,14 @@ async function session(db:D1Database,userId:string,openOnly=true){
+  return db.prepare(`SELECT s.*,CAST(l.amount_minor AS TEXT) result_minor,(SELECT o.state FROM megah5_launch_operations o WHERE o.wallet_session_id=s.id) launch_state FROM game_wallet_sessions s LEFT JOIN game_wallet_ledger l ON l.session_id=s.id WHERE s.user_id=? AND s.provider='megah5' ${openOnly?`AND s.status IN (${openStatuses})`:''} ORDER BY s.created_at DESC,s.id DESC LIMIT 1`).bind(userId).first<any>();
+ }
+ 
+-function memberSession(row:any){return row?{
++function memberSession(row:any,closureReady=false){return row?{
+  id:row.id,provider:'megah5',gameCode:row.game_code,status:row.status,amountOutMinor:String(row.amount_out_minor),
+  amountReturnedMinor:row.amount_returned_minor==null?null:String(row.amount_returned_minor),resultMinor:row.result_minor==null?null:String(row.result_minor),
+- launchState:row.launch_state??null,settlementBlocked:row.launch_state!=null&&row.launch_state!=='closed',
++ launchState:row.launch_state??null,settlementBlocked:row.launch_state!=null&&row.launch_state!=='closed'&&!(closureReady&&['issued','unknown'].includes(row.launch_state)),
+  recoveryRequired:['deposit_unknown','withdraw_unknown','manual_review'].includes(row.status),createdAt:Number(row.created_at),updatedAt:Number(row.updated_at),settledAt:row.settled_at==null?null:Number(row.settled_at),
+ }:null;}
+ 
+-function adminSession(row:any){return {...memberSession(row),userId:row.user_id,username:row.username,playerId:row.player_id,depositReference:row.deposit_reference,withdrawReference:row.withdraw_reference??null,providerResidual:row.provider_residual??''};}
++function adminSession(row:any,closureReady=false){return {...memberSession(row,closureReady),userId:row.user_id,username:row.username,playerId:row.player_id,depositReference:row.deposit_reference,withdrawReference:row.withdraw_reference??null,providerResidual:row.provider_residual??''};}
+ 
+ async function audit(c:MegaWalletContext,event:string,target:string){await c.db.prepare('INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,?,?,?)').bind(randomUUID(),c.user.id,event,target,stamp()).run();}
+ const changed=(value:any)=>Number(value?.meta?.changes??value?.changes??0);
+@@ -134,14 +137,14 @@ async function authorizeLaunch(c:MegaWalletContext,existing:{id:string;game_code
+ 
+ export async function memberMegaWalletState(c:MegaWalletContext){
+  const current=await session(c.db,c.user.id,false),wallet=await withdrawalWalletState(c.db,c.user.id);
+- const capability=await megaWalletCapabilities(c),liveReady=capability.launchReady&&capability.launchVerified&&capability.walletVerified&&capability.settlementVerified;
+- return {provider:'megah5',currency:'MYR',...capability,launchReady:liveReady,capabilityReason:capability.launchReady&&!liveReady?'acceptance_pending':capability.capabilityReason,enabled:liveReady,liveReady,wallet,session:memberSession(current)};
++ const capability=await megaWalletCapabilities(c),liveReady=capability.launchReady&&capability.catalogueVerified&&capability.launchVerified&&capability.walletVerified&&capability.settlementVerified&&capability.recoveryVerified;
++ return {provider:'megah5',currency:'MYR',...capability,launchReady:liveReady,capabilityReason:capability.launchReady&&!liveReady&&capability.capabilityReason==='ready'?'acceptance_pending':capability.capabilityReason,enabled:liveReady,liveReady,wallet,session:memberSession(current,c.closureContractVerified===true&&typeof c.closeSession==='function')};
+ }
+ 
+ export async function adminMegaWalletSessions(c:MegaWalletContext){
+  const result=await c.db.prepare(`SELECT s.*,u.username,CAST(l.amount_minor AS TEXT) result_minor,(SELECT o.state FROM megah5_launch_operations o WHERE o.wallet_session_id=s.id) launch_state FROM game_wallet_sessions s JOIN users u ON u.id=s.user_id LEFT JOIN game_wallet_ledger l ON l.session_id=s.id WHERE s.provider='megah5' ORDER BY s.created_at DESC,s.id DESC LIMIT 500`).all<any>();
+- const capability=await megaWalletCapabilities(c),liveReady=capability.launchReady&&capability.launchVerified&&capability.walletVerified&&capability.settlementVerified;
+- return {provider:'megah5',...capability,launchReady:liveReady,capabilityReason:capability.launchReady&&!liveReady?'acceptance_pending':capability.capabilityReason,enabled:liveReady,liveReady,items:(result.results??[]).map(adminSession)};
++ const capability=await megaWalletCapabilities(c),liveReady=capability.launchReady&&capability.catalogueVerified&&capability.launchVerified&&capability.walletVerified&&capability.settlementVerified&&capability.recoveryVerified;
++ return {provider:'megah5',...capability,launchReady:liveReady,capabilityReason:capability.launchReady&&!liveReady&&capability.capabilityReason==='ready'?'acceptance_pending':capability.capabilityReason,enabled:liveReady,liveReady,items:(result.results??[]).map(row=>adminSession(row,c.closureContractVerified===true&&typeof c.closeSession==='function'))};
+ }
+ 
+ /** Persist the unique in-flight attempt before any provider game request. */
+@@ -210,29 +213,49 @@ export async function prepareMegaWallet(c:MegaWalletContext,gameCode:string){
+ }
+ 
+ async function finalize(c:MegaWalletContext,row:any,returned:bigint){
++ const launched=await c.db.prepare('SELECT id FROM megah5_launch_operations WHERE wallet_session_id=? AND user_id=?').bind(row.id,c.user.id).first();
++ if(launched){const remaining=await balance(c,row.player_id);if(remaining.minor!==0n||remaining.residual)throw new MegaWalletError(409,'MegaH5 provider balance must be zero before final settlement');}
+  const updated=stamp(),result=returned-BigInt(row.amount_out_minor);
+  await c.db.batch([
+   ...walletGuardStatements(c.db,c.user.id),
+-  c.db.prepare(`UPDATE game_wallet_sessions SET status='settled',amount_returned_minor=?,updated_at=?,settled_at=? WHERE id=? AND status IN ('withdraw_pending','withdraw_unknown') AND NOT EXISTS (SELECT 1 FROM megah5_launch_operations o WHERE o.wallet_session_id=game_wallet_sessions.id AND o.state<>'closed') AND NOT EXISTS (SELECT 1 FROM game_wallet_ledger l WHERE l.session_id=game_wallet_sessions.id AND (l.user_id<>game_wallet_sessions.user_id OR l.account_code<>'game_result' OR l.currency<>'MYR' OR l.amount_minor<>?))`).bind(returned.toString(),updated,updated,row.id,result.toString()),
+-  c.db.prepare("INSERT INTO game_wallet_ledger(id,session_id,user_id,account_code,amount_minor,currency,created_at) SELECT ?,id,user_id,'game_result',?,'MYR',? FROM game_wallet_sessions WHERE id=? AND status='settled' AND amount_returned_minor=? AND amount_out_minor=? AND NOT EXISTS (SELECT 1 FROM megah5_launch_operations o WHERE o.wallet_session_id=game_wallet_sessions.id AND o.state<>'closed') ON CONFLICT(session_id) DO NOTHING").bind(randomUUID(),result.toString(),updated,row.id,returned.toString(),String(row.amount_out_minor)),
+-  c.db.prepare("DELETE FROM wallet_reservations WHERE kind='game' AND reference_id=? AND amount_minor=? AND NOT EXISTS (SELECT 1 FROM megah5_launch_operations o WHERE o.wallet_session_id=wallet_reservations.reference_id AND o.state<>'closed') AND EXISTS (SELECT 1 FROM game_wallet_sessions s JOIN game_wallet_ledger l ON l.session_id=s.id AND l.user_id=s.user_id WHERE s.id=? AND s.user_id=wallet_reservations.user_id AND s.status='settled' AND s.amount_returned_minor=? AND s.amount_out_minor=? AND l.account_code='game_result' AND l.currency='MYR' AND l.amount_minor=?)").bind(row.id,String(row.amount_out_minor),row.id,returned.toString(),String(row.amount_out_minor),result.toString()),
++  c.db.prepare(`UPDATE game_wallet_sessions SET status='settled',amount_returned_minor=?,updated_at=?,settled_at=? WHERE id=? AND status IN ('withdraw_pending','withdraw_unknown') AND NOT EXISTS (SELECT 1 FROM megah5_launch_operations o WHERE o.wallet_session_id=game_wallet_sessions.id AND (o.state<>'closed' OR NOT ${megaClosureProofSql('o')})) AND NOT EXISTS (SELECT 1 FROM game_wallet_ledger l WHERE l.session_id=game_wallet_sessions.id AND (l.user_id<>game_wallet_sessions.user_id OR l.account_code<>'game_result' OR l.currency<>'MYR' OR l.amount_minor<>?))`).bind(returned.toString(),updated,updated,row.id,result.toString()),
++  c.db.prepare(`INSERT INTO game_wallet_ledger(id,session_id,user_id,account_code,amount_minor,currency,created_at) SELECT ?,id,user_id,'game_result',?,'MYR',? FROM game_wallet_sessions WHERE id=? AND status='settled' AND amount_returned_minor=? AND amount_out_minor=? AND NOT EXISTS (SELECT 1 FROM megah5_launch_operations o WHERE o.wallet_session_id=game_wallet_sessions.id AND (o.state<>'closed' OR NOT ${megaClosureProofSql('o')})) ON CONFLICT(session_id) DO NOTHING`).bind(randomUUID(),result.toString(),updated,row.id,returned.toString(),String(row.amount_out_minor)),
++  c.db.prepare(`DELETE FROM wallet_reservations WHERE kind='game' AND reference_id=? AND amount_minor=? AND NOT EXISTS (SELECT 1 FROM megah5_launch_operations o WHERE o.wallet_session_id=wallet_reservations.reference_id AND (o.state<>'closed' OR NOT ${megaClosureProofSql('o')})) AND EXISTS (SELECT 1 FROM game_wallet_sessions s JOIN game_wallet_ledger l ON l.session_id=s.id AND l.user_id=s.user_id WHERE s.id=? AND s.user_id=wallet_reservations.user_id AND s.status='settled' AND s.amount_returned_minor=? AND s.amount_out_minor=? AND l.account_code='game_result' AND l.currency='MYR' AND l.amount_minor=?)`).bind(row.id,String(row.amount_out_minor),row.id,returned.toString(),String(row.amount_out_minor),result.toString()),
+  ]);
+- const finished=await c.db.prepare("SELECT s.*,CAST(l.amount_minor AS TEXT) result_minor FROM game_wallet_sessions s JOIN game_wallet_ledger l ON l.session_id=s.id AND l.user_id=s.user_id WHERE s.id=? AND s.user_id=? AND s.status='settled' AND s.amount_returned_minor=? AND s.amount_out_minor=? AND l.account_code='game_result' AND l.currency='MYR' AND l.amount_minor=? AND NOT EXISTS (SELECT 1 FROM wallet_reservations r WHERE r.kind='game' AND r.reference_id=s.id) AND NOT EXISTS (SELECT 1 FROM megah5_launch_operations o WHERE o.wallet_session_id=s.id AND o.state<>'closed')").bind(row.id,c.user.id,returned.toString(),String(row.amount_out_minor),result.toString()).first<any>();
++ const finished=await c.db.prepare(`SELECT s.*,CAST(l.amount_minor AS TEXT) result_minor FROM game_wallet_sessions s JOIN game_wallet_ledger l ON l.session_id=s.id AND l.user_id=s.user_id WHERE s.id=? AND s.user_id=? AND s.status='settled' AND s.amount_returned_minor=? AND s.amount_out_minor=? AND l.account_code='game_result' AND l.currency='MYR' AND l.amount_minor=? AND NOT EXISTS (SELECT 1 FROM wallet_reservations r WHERE r.kind='game' AND r.reference_id=s.id) AND NOT EXISTS (SELECT 1 FROM megah5_launch_operations o WHERE o.wallet_session_id=s.id AND (o.state<>'closed' OR NOT ${megaClosureProofSql('o')}))`).bind(row.id,c.user.id,returned.toString(),String(row.amount_out_minor),result.toString()).first<any>();
+  if(!finished)throw new MegaWalletError(409,'MegaH5 settlement requires reconciliation');
+  await audit(c,'megah5_wallet_settled',row.id);
+  return memberSession(finished);
+ }
+ 
++async function ensureMegaLaunchClosed(c:MegaWalletContext,walletSessionId:string){
++ const launch=await c.db.prepare('SELECT o.*,s.player_id,s.status wallet_status FROM megah5_launch_operations o JOIN game_wallet_sessions s ON s.id=o.wallet_session_id AND s.user_id=o.user_id AND s.game_code=o.game_code WHERE o.wallet_session_id=? AND o.user_id=?').bind(walletSessionId,c.user.id).first<any>();
++ if(!launch)return;
++ const proved=()=>c.db.prepare(`SELECT o.id FROM megah5_launch_operations o WHERE o.id=? AND o.wallet_session_id=? AND o.user_id=? AND o.state='closed' AND ${megaClosureProofSql('o')}`).bind(launch.id,walletSessionId,c.user.id).first();
++ if(launch.state==='closed'){if(await proved())return;throw new MegaWalletError(409,'Game session closure evidence is missing');}
++ if(!['issued','unknown'].includes(launch.state)||launch.wallet_status!=='active'||c.closureContractVerified!==true||typeof c.closeSession!=='function')throw new MegaWalletError(409,'Game session closure requires reconciliation before settlement');
++ const input={walletSessionId,launchOperationId:String(launch.id),providerPlayerId:String(launch.player_id),gameCode:String(launch.game_code)};
++ let outcome;try{outcome=await c.closeSession(input);}catch{throw new MegaWalletError(409,'Provider game closure remains unconfirmed');}
++ if(outcome?.state!=='closed'||!validMegaClosureReceipt(input,outcome.receipt))throw new MegaWalletError(409,'Provider game closure remains unconfirmed');
++ const receipt={...input,providerClosureReference:outcome.receipt.providerClosureReference,allIssuedLaunchesInvalidated:true,pendingRounds:0,lateResultsFinal:true},digest=createHash('sha256').update(JSON.stringify(receipt)).digest('hex'),target=`${walletSessionId}:${launch.id}:${digest}`,at=stamp();
++ await c.db.batch([...walletGuardStatements(c.db,c.user.id),
++  c.db.prepare("UPDATE megah5_launch_operations SET state='closed',last_error='',updated_at=? WHERE id=? AND wallet_session_id=? AND user_id=? AND state IN ('issued','unknown') AND EXISTS(SELECT 1 FROM game_wallet_sessions s WHERE s.id=megah5_launch_operations.wallet_session_id AND s.user_id=megah5_launch_operations.user_id AND s.status='active')").bind(at,launch.id,walletSessionId,c.user.id),
++  c.db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,?,?,?,? WHERE EXISTS(SELECT 1 FROM megah5_launch_operations WHERE id=? AND wallet_session_id=? AND user_id=? AND state='closed') AND NOT EXISTS(SELECT 1 FROM audit WHERE user_id=? AND event=? AND target=?)").bind(randomUUID(),c.user.id,MEGA_CLOSURE_EVENT,target,at,launch.id,walletSessionId,c.user.id,c.user.id,MEGA_CLOSURE_EVENT,target),
++  c.db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,?,'megah5_session_closure_reference',?,? WHERE EXISTS(SELECT 1 FROM audit WHERE user_id=? AND event=? AND target=?)").bind(randomUUID(),c.user.id,`${walletSessionId}:${launch.id}:${receipt.providerClosureReference}`,at,c.user.id,MEGA_CLOSURE_EVENT,target),
++ ]);
++ if(!await proved())throw new MegaWalletError(409,'Game session closure changed during reconciliation');
++}
++
+ export async function settleMegaWallet(c:MegaWalletContext,expectedSessionId?:string){
+  if(!megaWalletConfigured(c))throw new MegaWalletError(503,'MegaH5 wallet recovery connection is unavailable');
+  let current=await session(c.db,c.user.id,true);if(!current)return {status:'none',session:null};
+  if(expectedSessionId&&current.id!==expectedSessionId)throw new MegaWalletError(409,'The requested game session is no longer current');
+  if(current.status!=='active')throw new MegaWalletError(409,'MegaH5 wallet recovery is required');
+- if(current.launch_state&&current.launch_state!=='closed')throw new MegaWalletError(409,'Game session closure requires reconciliation before settlement');
++ if(current.launch_state)await ensureMegaLaunchClosed(c,current.id);
+  const providerBalance=await balance(c,current.player_id);
+  if(providerBalance.residual){await c.db.batch([...walletGuardStatements(c.db,c.user.id),c.db.prepare("UPDATE game_wallet_sessions SET status='manual_review',provider_residual=?,last_error='fractional_balance',updated_at=? WHERE id=? AND status='active'").bind(providerBalance.raw,stamp(),current.id)]);throw new MegaWalletError(409,'MegaH5 balance requires manual reconciliation');}
+  const withdrawalReference=reference('m7w'),expected=providerBalance.minor;
+- const claim=await c.db.batch([...walletGuardStatements(c.db,c.user.id),c.db.prepare("UPDATE game_wallet_sessions SET status='withdraw_pending',withdraw_reference=?,expected_return_minor=?,updated_at=? WHERE id=? AND user_id=? AND status='active' AND NOT EXISTS (SELECT 1 FROM megah5_launch_operations o WHERE o.wallet_session_id=game_wallet_sessions.id AND o.state<>'closed')").bind(withdrawalReference,expected.toString(),stamp(),current.id,c.user.id)]);
++ const claim=await c.db.batch([...walletGuardStatements(c.db,c.user.id),c.db.prepare(`UPDATE game_wallet_sessions SET status='withdraw_pending',withdraw_reference=?,expected_return_minor=?,updated_at=? WHERE id=? AND user_id=? AND status='active' AND NOT EXISTS (SELECT 1 FROM megah5_launch_operations o WHERE o.wallet_session_id=game_wallet_sessions.id AND (o.state<>'closed' OR NOT ${megaClosureProofSql('o')}))`).bind(withdrawalReference,expected.toString(),stamp(),current.id,c.user.id)]);
+  if(changed(claim[2])!==1)throw new MegaWalletError(409,'MegaH5 settlement is already in progress');
+  current={...current,status:'withdraw_pending',withdraw_reference:withdrawalReference,expected_return_minor:expected.toString()};
+  if(expected===0n)return {status:'settled',session:await finalize(c,current,0n)};
+@@ -250,7 +273,7 @@ export async function recoverMegaWallet(c:MegaWalletContext,expectedSessionId?:s
+  if(!megaWalletConfigured(c))throw new MegaWalletError(503,'MegaH5 wallet recovery connection is unavailable');
+  const current=await session(c.db,c.user.id,true);if(!current)return {status:'none',session:null};
+  if(expectedSessionId&&current.id!==expectedSessionId)throw new MegaWalletError(409,'The requested game session is no longer current');
+- if(current.launch_state&&current.launch_state!=='closed')throw new MegaWalletError(409,'Game session closure requires reconciliation before recovery');
++ if(current.launch_state)await ensureMegaLaunchClosed(c,current.id);
+  let transferType:'deposit'|'withdrawal',referenceId:string;
+  if(['deposit_pending','deposit_unknown'].includes(current.status)){transferType='deposit';referenceId=current.deposit_reference;}
+  else if(['withdraw_pending','withdraw_unknown'].includes(current.status)){transferType='withdrawal';referenceId=current.withdraw_reference;}
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index c89284bc9b44a27555f16aff8027dcee07bb380a..fcb7cbc95c683443fba10d80684b0873cd6813be 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.146-member-front-clarity' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.147-game-runtime-repair' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/lib/provider-transfer-wallet.ts b/lib/provider-transfer-wallet.ts
+index 67d4856c989cca60ea246c72d803cc89eed3d480..26ed874a3f3017b814baa5c56c12c40b47d6b6bf 100644
+--- a/lib/provider-transfer-wallet.ts
++++ b/lib/provider-transfer-wallet.ts
+@@ -2,6 +2,7 @@ import {createHash,randomUUID} from 'node:crypto';
+ import type {GameProviderAdapter,GameProviderProfile,GameProviderContext,GameProviderTransferResult} from './game-provider-adapter.ts';
+ import {walletGuardStatements,walletGuardedReservation,walletRiskFreeSql} from './wallet-guard.ts';
+ import {withdrawalWalletState,clearStaleReservation} from './withdrawals.ts';
++import {registeredCashProfileUnits} from './game-profile-units.ts';
+ 
+ export type ProviderTransferContext={db:D1Database;user:{id:string;username:string;role:string;approved:number};profile:GameProviderProfile;adapter:GameProviderAdapter;newGameLaunchesEnabled?:string;launchAuthorized:boolean;manualComplianceEnforced?:boolean};
+ export class ProviderTransferError extends Error{readonly status:number;readonly code:string;constructor(status:number,code:string){super(code==='GAMES_MAINTENANCE'?'New game launches are temporarily unavailable':code.includes('UNKNOWN')?'Game funds are reserved. Check game wallet recovery.':code==='GAME_PROVIDER_STILL_OPEN'?'The provider has not confirmed game closure.':'Game wallet verification is required before continuing');this.name='ProviderTransferError';this.status=status;this.code=code;}}
+@@ -19,13 +20,14 @@ function currentGameEligibilitySql(c:ProviderTransferContext){
+ }
+ 
+ function context(c:ProviderTransferContext){
+- const p=c.profile;
++ const p=c.profile,units=p?registeredCashProfileUnits(p.profileId):null;
+  if(c.user.role!=='member'||!recordId(c.user.id))return fail(403,'GAME_MEMBER_REQUIRED');
+- if(!p||p.providerId==='megah5'||p.walletMode!=='transfer'||p.currency!=='MYR'||p.unitScale!==1||p.playerNamespace!==p.profileId||p.ledgerNamespace!==p.profileId||!c.adapter?.executable||!c.adapter.closeGame)return fail(503,'GAME_TRANSFER_PROFILE_UNAVAILABLE');
++ if(!p||!units||units.providerId!==p.providerId||units.unitScale!==p.unitScale||p.balanceClass==='free_credit'||p.providerId==='megah5'||p.walletMode!=='transfer'||p.currency!=='MYR'||p.playerNamespace!==p.profileId||p.ledgerNamespace!==p.profileId||!c.adapter?.executable||!c.adapter.closeGame)return fail(503,'GAME_TRANSFER_PROFILE_UNAVAILABLE');
+ }
+ async function profileRow(c:ProviderTransferContext,launch=false){
+  context(c);const p=await c.db.prepare('SELECT * FROM game_provider_profiles WHERE id=?').bind(c.profile.profileId).first<any>();
+- if(!p||p.provider_id!==c.profile.providerId||p.adapter_key!==c.profile.adapterKey||p.wallet_mode!=='transfer'||p.balance_class!=='cash'||p.currency!=='MYR'||String(p.unit_numerator)!==String(p.unit_denominator))return fail(409,'GAME_PROFILE_RECONCILIATION_REQUIRED');
++ const units=registeredCashProfileUnits(c.profile.profileId)!;
++ if(!p||p.provider_id!==c.profile.providerId||p.adapter_key!==c.profile.adapterKey||p.wallet_mode!=='transfer'||p.balance_class!=='cash'||p.currency!=='MYR'||String(p.unit_numerator)!==String(units.numerator)||String(p.unit_denominator)!=='1')return fail(409,'GAME_PROFILE_RECONCILIATION_REQUIRED');
+  if(launch&&!['uat','active'].includes(p.status))return fail(503,'GAME_PROFILE_CLOSED');
+  return p;
+ }
+@@ -74,7 +76,7 @@ async function transferOutcome(c:ProviderTransferContext,s:any,direction:'deposi
+ }
+ 
+ export async function readMemberTransferWallet(db:D1Database,userId:string,profile:GameProviderProfile,recoveryReady=false){
+- const s=await row({db,user:{id:userId},profile});return {profileId:profile.profileId,providerId:profile.providerId,provider:profile.providerId,currency:'MYR',walletMode:'transfer',session:memberSession(s),wallet:await withdrawalWalletState(db,userId),supportsSettlement:recoveryReady,supportsRecovery:recoveryReady,launchVerified:false,walletVerified:false,settlementVerified:false,launchReady:false,walletReady:recoveryReady,liveReady:false,capabilityReason:recoveryReady?'production_acceptance_pending':'transfer_connection_unavailable'};
++ const s=await row({db,user:{id:userId},profile});return {profileId:profile.profileId,providerId:profile.providerId,provider:profile.providerId,currency:'MYR',walletMode:'transfer',unitScale:profile.unitScale,gameUnitsPerMYR:profile.unitScale,session:memberSession(s),wallet:await withdrawalWalletState(db,userId),supportsSettlement:recoveryReady,supportsRecovery:recoveryReady,launchVerified:false,walletVerified:false,settlementVerified:false,launchReady:false,walletReady:recoveryReady,liveReady:false,capabilityReason:recoveryReady?'production_acceptance_pending':'transfer_connection_unavailable'};
+ }
+ export async function memberTransferWallet(c:ProviderTransferContext){await profileRow(c);return readMemberTransferWallet(c.db,c.user.id,c.profile,true);}
+ 
+diff --git a/lib/provider-wallet-consistency.ts b/lib/provider-wallet-consistency.ts
+index c5f9d1ab57447ec008079eb3f142bce8dd5fb8fe..6d646369a16c7d65d425a6dd68253bbbde7d5821 100644
+--- a/lib/provider-wallet-consistency.ts
++++ b/lib/provider-wallet-consistency.ts
+@@ -1,3 +1,5 @@
++import {registeredCashProfileRatioSql} from './game-profile-units.ts';
++
+ /** Correlated, static SQL: m.id is the member alias. The original wallet ledger
+  * projection remains authoritative; additional provider sessions must prove the
+  * same debit, closure and return before they can release its reservation. */
+@@ -11,7 +13,7 @@ export const providerWalletRiskFreeSql=`
+   o.session_id IS NULL OR p.id IS NULL OR player.user_id IS NULL
+   OR o.profile_id<>s.profile_id OR o.user_id<>s.user_id OR p.provider_id<>s.provider
+   OR player.provider_player_id<>s.player_id OR player.status<>'verified'
+-  OR p.wallet_mode<>'transfer' OR p.balance_class<>'cash' OR p.currency<>'MYR' OR p.unit_numerator<>p.unit_denominator
++  OR p.wallet_mode<>'transfer' OR p.balance_class<>'cash' OR p.currency<>'MYR' OR NOT ${registeredCashProfileRatioSql}
+   OR (s.status IN ('deposit_pending','deposit_unknown','active','withdraw_pending','withdraw_unknown','manual_review') AND (r.user_id IS NULL OR r.user_id<>s.user_id OR r.amount_minor<>s.amount_out_minor))
+   OR (s.status IN ('settled','deposit_failed') AND r.user_id IS NOT NULL)
+   OR (o.deposit_state='prepared' AND o.deposit_attempts<>0)
+@@ -41,7 +43,7 @@ export const providerTerminalHoldEvidenceSql=`(g.provider='megah5' OR EXISTS(
+  JOIN game_provider_profiles p ON p.id=o.profile_id
+  JOIN game_provider_players player ON player.profile_id=o.profile_id AND player.user_id=o.user_id
+  WHERE o.session_id=g.id AND o.profile_id=g.profile_id AND o.user_id=g.user_id
+- AND p.provider_id=g.provider AND p.wallet_mode='transfer' AND p.balance_class='cash' AND p.currency='MYR' AND p.unit_numerator=p.unit_denominator
++ AND p.provider_id=g.provider AND p.wallet_mode='transfer' AND p.balance_class='cash' AND p.currency='MYR' AND ${registeredCashProfileRatioSql}
+  AND player.provider_player_id=g.player_id AND player.status='verified'
+  AND g.amount_out_minor=wallet_reservations.amount_minor
+  AND ((g.status='deposit_failed' AND o.deposit_state='rejected' AND o.deposit_attempts IN (0,1) AND o.deposit_provider_reference IS NULL AND o.withdrawal_state='none' AND o.withdrawal_attempts=0)
+diff --git a/lib/render-env.ts b/lib/render-env.ts
+index d7a451425dc3906abe35512bf1c575d1a56e7894..74ac74751539436abbdd05d4c28902837a55dc65 100644
+--- a/lib/render-env.ts
++++ b/lib/render-env.ts
+@@ -16,6 +16,7 @@ export const env = {
+   PORTAL_DEPOSIT_FORENSICS_EXPIRES_AT: process.env.PORTAL_DEPOSIT_FORENSICS_EXPIRES_AT,
+   GAME_GATEWAY_URL: process.env.GAME_GATEWAY_URL,
+   JDB_TRANSFER_PROFILES_JSON: process.env.JDB_TRANSFER_PROFILES_JSON,
++  GAME_TRANSFER_PROFILES_JSON: process.env.GAME_TRANSFER_PROFILES_JSON,
+   GAME_GATEWAY_TOKEN: process.env.GAME_GATEWAY_TOKEN,
+   GAME_GATEWAY_WALLET_TOKEN: process.env.GAME_GATEWAY_WALLET_TOKEN,
+   PORTAL_MEGA_TRANSFERS_ENABLED: process.env.PORTAL_MEGA_TRANSFERS_ENABLED,
+diff --git a/lib/wallet-guard.ts b/lib/wallet-guard.ts
+index fb6e2711b011f2816140717649b83edffd5939a8..4e6312accd0ea5b2d839da8e54b077bb8ac0b538 100644
+--- a/lib/wallet-guard.ts
++++ b/lib/wallet-guard.ts
+@@ -1,3 +1,4 @@
++import {megaClosureProofSql} from './mega-session-closure.ts';
+ import {providerWalletRiskFreeSql} from './provider-wallet-consistency.ts';
+ import {manualPayoutEvidenceSql} from './manual-bank-evidence.ts';
+ import {genericGameWalletRiskFreeSql} from './game-wallet-consistency.ts';
+@@ -27,7 +28,7 @@ export const walletRiskFreeSql=`
+  NOT EXISTS (SELECT 1 FROM deposit_orders o JOIN wallet_ledger l ON l.order_id=o.id WHERE (o.user_id=m.id OR l.user_id=m.id) AND o.status='review' AND l.account_code='member')
+  AND NOT EXISTS (SELECT 1 FROM game_provider_sessions s WHERE s.user_id=m.id AND s.wallet_mode='transfer' AND s.status IN ('prepared','launching','active','settling','unknown','review') AND NOT EXISTS (SELECT 1 FROM wallet_reservations r WHERE r.user_id=s.user_id AND r.kind='game' AND r.reference_id=s.id))
+  AND NOT EXISTS (SELECT 1 FROM game_wallet_sessions s LEFT JOIN game_wallet_ledger l ON l.session_id=s.id WHERE (s.user_id=m.id OR l.user_id=m.id) AND ((s.status='settled' AND (s.amount_returned_minor IS NULL OR l.id IS NULL OR l.user_id<>s.user_id OR l.account_code<>'game_result' OR l.currency<>'MYR' OR l.amount_minor<>s.amount_returned_minor-s.amount_out_minor)) OR (s.status<>'settled' AND l.id IS NOT NULL)))
+- AND NOT EXISTS (SELECT 1 FROM megah5_launch_operations o LEFT JOIN game_wallet_sessions s ON s.id=o.wallet_session_id LEFT JOIN wallet_reservations r ON r.kind='game' AND r.reference_id=o.wallet_session_id WHERE (o.user_id=m.id OR s.user_id=m.id) AND o.state<>'closed' AND (s.id IS NULL OR s.user_id<>o.user_id OR s.game_code<>o.game_code OR s.status<>'active' OR r.user_id IS NULL OR r.user_id<>s.user_id OR r.amount_minor<>s.amount_out_minor))
++ AND NOT EXISTS (SELECT 1 FROM megah5_launch_operations o LEFT JOIN game_wallet_sessions s ON s.id=o.wallet_session_id LEFT JOIN wallet_reservations r ON r.kind='game' AND r.reference_id=o.wallet_session_id WHERE (o.user_id=m.id OR s.user_id=m.id) AND ((o.state='closed' AND NOT ${megaClosureProofSql('o')}) OR (o.state<>'closed' AND (s.id IS NULL OR s.user_id<>o.user_id OR s.game_code<>o.game_code OR s.status<>'active' OR r.user_id IS NULL OR r.user_id<>s.user_id OR r.amount_minor<>s.amount_out_minor))))
+  AND NOT EXISTS (SELECT 1 FROM withdrawal_requests w LEFT JOIN provider_payouts p ON p.withdrawal_id=w.id LEFT JOIN wallet_reservations r ON r.kind='withdrawal' AND r.reference_id=w.id WHERE w.user_id=m.id AND (
+   p.id IS NULL OR (p.id IS NOT NULL AND (p.provider_id<>w.provider_id OR p.request_key<>w.request_key OR p.amount_minor<>w.amount_minor OR p.currency<>w.currency))
+   OR (r.user_id IS NOT NULL AND (r.user_id<>w.user_id OR r.amount_minor<>w.amount_minor))
+diff --git a/lib/withdrawals.ts b/lib/withdrawals.ts
+index 7758d6c4f8ebcd6c70b4bbd5b9e926ac76e6d737..6daa94fc6f813ba274711d438449016aba0ba4bd 100644
+--- a/lib/withdrawals.ts
++++ b/lib/withdrawals.ts
+@@ -1,3 +1,4 @@
++import {megaClosureProofSql} from './mega-session-closure.ts';
+ import {providerWalletRiskFreeSql,providerTerminalHoldEvidenceSql} from './provider-wallet-consistency.ts';
+ import {manualPayoutEvidenceSql} from './manual-bank-evidence.ts';
+ import {createHash} from 'node:crypto';
+@@ -90,7 +91,7 @@ export async function withdrawalWalletState(db:D1Database,userId:string){
+   AND NOT EXISTS (SELECT 1 FROM wallet_reservations r WHERE r.user_id=s.user_id AND r.kind='game' AND r.reference_id=s.id) LIMIT 1`).bind(userId).first();
+  const invalidGameResult=await db.prepare(`SELECT s.id FROM game_wallet_sessions s LEFT JOIN game_wallet_ledger l ON l.session_id=s.id WHERE (s.user_id=? OR l.user_id=?) AND ((s.status='settled' AND (s.amount_returned_minor IS NULL OR l.id IS NULL OR l.user_id<>s.user_id OR l.account_code<>'game_result' OR l.currency<>'MYR' OR l.amount_minor<>s.amount_returned_minor-s.amount_out_minor)) OR (s.status<>'settled' AND l.id IS NOT NULL)) LIMIT 1`).bind(userId,userId).first();
+  // An unresolved provider launch cannot justify a settled or unreserved wallet.
+- const invalidLaunch=await db.prepare(`SELECT o.id FROM megah5_launch_operations o LEFT JOIN game_wallet_sessions s ON s.id=o.wallet_session_id LEFT JOIN wallet_reservations r ON r.kind='game' AND r.reference_id=o.wallet_session_id WHERE (o.user_id=? OR s.user_id=?) AND o.state<>'closed' AND (s.id IS NULL OR s.user_id<>o.user_id OR s.game_code<>o.game_code OR s.status<>'active' OR r.user_id IS NULL OR r.user_id<>s.user_id OR r.amount_minor<>s.amount_out_minor) LIMIT 1`).bind(userId,userId).first();
++ const invalidLaunch=await db.prepare(`SELECT o.id FROM megah5_launch_operations o LEFT JOIN game_wallet_sessions s ON s.id=o.wallet_session_id LEFT JOIN wallet_reservations r ON r.kind='game' AND r.reference_id=o.wallet_session_id WHERE (o.user_id=? OR s.user_id=?) AND ((o.state='closed' AND NOT ${megaClosureProofSql('o')}) OR (o.state<>'closed' AND (s.id IS NULL OR s.user_id<>o.user_id OR s.game_code<>o.game_code OR s.status<>'active' OR r.user_id IS NULL OR r.user_id<>s.user_id OR r.amount_minor<>s.amount_out_minor))) LIMIT 1`).bind(userId,userId).first();
+  // Historical payout/withdrawal contradictions must never turn a released
+  // or absent reservation into spendable funds. A missing payout is not proof
+  // that an older external transfer was never submitted: require reconciliation.
+@@ -268,6 +269,6 @@ export async function clearStaleReservation(db:D1Database,userId:string){
+    AND EXISTS (SELECT 1 FROM game_wallet_sessions g WHERE g.id=wallet_reservations.reference_id AND g.user_id=wallet_reservations.user_id AND ${providerTerminalHoldEvidenceSql} AND (
+     (g.status='deposit_failed' AND NOT EXISTS (SELECT 1 FROM game_wallet_ledger l WHERE l.session_id=g.id)) OR (g.status='settled' AND g.amount_returned_minor IS NOT NULL AND g.amount_out_minor=wallet_reservations.amount_minor AND EXISTS (SELECT 1 FROM game_wallet_ledger l WHERE l.session_id=g.id AND l.user_id=g.user_id AND l.account_code='game_result' AND l.currency='MYR' AND l.amount_minor=g.amount_returned_minor-g.amount_out_minor))))
+    AND NOT EXISTS (SELECT 1 FROM game_provider_sessions s WHERE s.id=wallet_reservations.reference_id AND s.user_id=wallet_reservations.user_id)
+-   AND NOT EXISTS (SELECT 1 FROM megah5_launch_operations o WHERE o.wallet_session_id=wallet_reservations.reference_id AND o.state<>'closed'))
++   AND NOT EXISTS (SELECT 1 FROM megah5_launch_operations o WHERE o.wallet_session_id=wallet_reservations.reference_id AND (o.state<>'closed' OR NOT ${megaClosureProofSql('o')})))
+  )`).bind(userId,userId)]);
+ }
+diff --git a/package.json b/package.json
+index fb0cac1062ddb7ea7ed82fed6c949f32024e0808..f6c28c446e15df99c258308bc03e7032a0f6a987 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.146-member-front-clarity node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.146-member-front-clarity node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.147-game-runtime-repair node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.147-game-runtime-repair node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.146-member-front-clarity node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.147-game-runtime-repair node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/assets/app.js b/public/assets/app.js
+index 776cc359239b3ed83bbee2de428662cfb943999f..82b5196dd2295f85eca2f7a8ac02f61370759388 100644
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -112,7 +112,7 @@ function renderBonusBrandPreview(){
+  }
+ }
+ function openCatalogProvider(profileId,profileName){
+- const entry=gameProfileEntry(profileId);if(!entry)return;window.Master7Engagement?.recordRecentProvider(profileId,profileName);state.selectedCatalogProvider=profileId;state.selectedCatalogProviderName=profileName;state.gameLimit=12;state.games=[];state.gameWallet=null;selected('lobby');renderCatalog();loadGameCatalogue(profileId);loadGameWallet(profileId);$("providers").scrollIntoView({behavior:'smooth',block:'start'});
++ const entry=gameProfileEntry(profileId);if(!entry)return;state.providerAccountSelections={...(state.providerAccountSelections||{}),[gameProfileProviderId(entry)]:profileId};window.Master7Engagement?.recordRecentProvider(profileId,profileName);state.selectedCatalogProvider=profileId;state.selectedCatalogProviderName=profileName;state.gameLimit=12;state.games=[];state.gameWallet=null;selected('lobby');renderCatalog();loadGameCatalogue(profileId);loadGameWallet(profileId);$("providers").scrollIntoView({behavior:'smooth',block:'start'});
+ }
+ function openProviderBonus(code){
+  const provider=bonusBrandLookup(code);if(!provider)return;
+@@ -165,6 +165,11 @@ function normalizedGameProfile(raw,index=0){
+ }
+ function gameProfileEntries(){return Array.isArray(state.gameProfiles)&&state.gameProfiles.length?state.gameProfiles:apiSupplierEntries;}
+ function gameProfileEntry(profileId){return gameProfileEntries().find(entry=>entry.id===profileId)||null;}
++function providerBrandEntries(entries=gameProfileEntries()){
++ const groups=new Map();for(const entry of entries){const id=gameProfileProviderId(entry);if(!groups.has(id))groups.set(id,[]);groups.get(id).push(entry);}
++ return [...groups].map(([providerId,profiles])=>{const choice=state.providerAccountSelections?.[providerId],entry=profiles.find(profile=>profile.id===choice)||profiles[0],brand=apiSupplierEntries.find(item=>item.id===providerId);return {...entry,name:brand?.name||entry.name,profiles};});
++}
++
+ function gameProfileCounts(entries=gameProfileEntries()){return {profiles:entries.length,brands:new Set(entries.map(gameProfileProviderId)).size};}
+ function syncGameProfiles(catalogue){
+  if(!Array.isArray(catalogue?.profiles))return;const seen=new Set(),incoming=catalogue.profiles.map(normalizedGameProfile).filter(profile=>profile&&!seen.has(profile.id)&&seen.add(profile.id));if(!incoming.length)return;const selected=String(catalogue.selectedProfileId||catalogue.profileId||catalogue.selectedProvider||""),partial=!!selected&&Array.isArray(state.gameProfiles)&&state.gameProfiles.length>incoming.length,profiles=(partial?[...new Map([...state.gameProfiles,...incoming].map(profile=>[profile.id,profile])).values()]:incoming).sort((a,b)=>a.position-b.position||a.name.localeCompare(b.name));state.gameProfiles=profiles;
+@@ -178,7 +183,7 @@ function toggleFavoriteProvider(providerId){const favorites=supplierFavoriteKeys
+ function supplierEntriesForCategory(category=state.gameCategory||"HOT"){
+  const all=gameProfileEntries(),rankCategory=category==="FAV"?"HOT":category,dynamic=Array.isArray(state.gameProfiles)&&state.gameProfiles.length>0,ranked=!dynamic?window.Master7GameRanking?.orderEntries(apiSupplierEntries,rankCategory,state.gameRanking):null,fallback=all.filter(entry=>gameProfileCategories(entry).has(rankCategory)).sort((a,b)=>(a.position||0)-(b.position||0)),entries=Array.isArray(ranked)?ranked:fallback;if(category==="FAV"){const favorites=supplierFavoriteKeys();return entries.filter(entry=>favorites.has(entry.id));}return entries;
+ }
+-function apiSupplierState(entry){const profileSources=state.gameCatalogue?.profiles||[],providerSources=state.gameCatalogue?.providers||[],providerId=String(entry?.providerId||entry?.provider_id||entry?.id||""),source=profileSources.find(item=>(item.profileId||item.profile_id||item.id)===entry.id)||providerSources.find(item=>(item.profileId||item.profile_id)===entry.id)||providerSources.find(item=>item.id===entry.id&&providerId===entry.id),connected=source?.connectionVerified===true&&source?.catalogueSynced===true;return {connected,qaOnly:source?.qaOnly===true||entry?.qaOnly===true,platformLaunchReady:source?.platformLaunchReady===true||source?.launchReady===true||source?.canLaunch===true,walletReady:source?.walletReady===true,settlementVerified:source?.settlementVerified===true,recoveryReady:source?.recoveryReady===true,maintenance:entry.maintenance===true||source?.maintenance===true||source?.status==="maintenance",walletMode:String(source?.walletMode||source?.wallet_mode||entry.walletMode||""),currency:String(source?.currency||entry.currency||"MYR"),capabilityReason:String(source?.capabilityReason||source?.capability_reason||entry.capabilityReason||"")};}
++function apiSupplierState(entry){const profileSources=state.gameCatalogue?.profiles||[],providerSources=state.gameCatalogue?.providers||[],providerId=String(entry?.providerId||entry?.provider_id||entry?.id||""),profileSource=profileSources.find(item=>(item.profileId||item.profile_id||item.id)===entry.id),providerSource=providerSources.find(item=>item.id===providerId),source=profileSource||providerSources.find(item=>(item.profileId||item.profile_id)===entry.id)||providerSource,connected=(source?.connectionVerified??providerSource?.connectionVerified)===true&&(source?.catalogueSynced??providerSource?.catalogueSynced)===true;return {connected,qaOnly:source?.qaOnly===true||entry?.qaOnly===true,platformLaunchReady:source?.platformLaunchReady===true||source?.launchReady===true||source?.canLaunch===true,walletReady:source?.walletReady===true,settlementVerified:source?.settlementVerified===true,recoveryReady:source?.recoveryReady===true,maintenance:entry.maintenance===true||source?.maintenance===true||source?.status==="maintenance",walletMode:String(source?.walletMode||source?.wallet_mode||entry.walletMode||""),currency:String(source?.currency||entry.currency||"MYR"),capabilityReason:String(source?.capabilityReason||source?.capability_reason||entry.capabilityReason||"")};}
+ function apiSupplierStatusText(info){
+  if(info.qaOnly)return state.lang==="zh"?"专用测试入口":state.lang==="ms"?"Akses ujian terhad":"Restricted test entry";
+  if(info.maintenance)return state.lang==="zh"?"厂家维护中":state.lang==="ms"?"Penyelenggaraan penyedia":"Provider maintenance";
+@@ -189,8 +194,8 @@ function apiSupplierStatusText(info){
+ function applyDefaultSupplierArtwork(image,entry,fallback){const providerId=gameProfileProviderId(entry),liveIndex=liveSupplierPortraits[providerId],cartoonIndex=cartoonSupplierPortraits[providerId],sprite=Number.isInteger(liveIndex)?{index:liveIndex,count:7,url:"/assets/master7-live-hosts.webp",y:"20%",kind:"live"}:Number.isInteger(cartoonIndex)?{index:cartoonIndex,count:12,url:"/assets/master7-cartoon-providers.webp",y:"22%",kind:"cartoon"}:null;image.classList.toggle("supplier-sprite",!!sprite);if(!sprite){image.onerror=()=>{image.onerror=null;image.src="/assets/master7-casino-lobby-premium.webp";};image.src=fallback;return;}image.src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";image.dataset.spriteKind=sprite.kind;image.style.backgroundImage=`url(${sprite.url})`;image.style.backgroundSize=`${sprite.count*100}% auto`;image.style.backgroundPosition=`${sprite.index/(sprite.count-1)*100}% ${sprite.y}`;}
+ function supplierArtwork(entry,css){const image=document.createElement("img"),providerId=gameProfileProviderId(entry),known=apiSupplierIdSet.has(providerId),fallback=known?`/assets/providers/${providerId}.webp`:"/assets/master7-luxury-lobby.webp",version=state.supplierArtwork?.[providerId];image.className=css;image.alt=`${entry.name} game platform`;image.loading="lazy";if(version){image.src=`/api/supplier-art?provider=${encodeURIComponent(providerId)}&v=${encodeURIComponent(version)}`;image.onerror=()=>{image.onerror=null;applyDefaultSupplierArtwork(image,entry,fallback);};}else applyDefaultSupplierArtwork(image,entry,fallback);return image;}
+ function renderApiSupplierButtons(){
+- const host=$("apiSupplierButtons");if(!host)return;clear(host);const category=state.gameCategory||"HOT",search=($("search")?.value||"").trim().toLowerCase(),categoryEntries=supplierEntriesForCategory(category),entries=categoryEntries.filter(entry=>!search||entry.name.toLowerCase().includes(search)),favorites=supplierFavoriteKeys();
+- const counts=gameProfileCounts();if($("apiSupplierTitle"))$("apiSupplierTitle").textContent=state.lang==="zh"?`${counts.profiles} 个独立入口 · ${counts.brands} 家游戏品牌`:state.lang==="ms"?`${counts.profiles} pintu berasingan · ${counts.brands} jenama permainan`:`${counts.profiles} independent entries · ${counts.brands} game brands`;if($("apiSupplierCountLabel"))$("apiSupplierCountLabel").textContent=`${entries.length} / ${counts.profiles} ENTRIES · ${counts.brands} BRANDS`;
++ const host=$("apiSupplierButtons");if(!host)return;clear(host);const category=state.gameCategory||"HOT",search=($("search")?.value||"").trim().toLowerCase(),categoryEntries=typeof providerBrandEntries==="function"?providerBrandEntries(supplierEntriesForCategory(category)):supplierEntriesForCategory(category),entries=categoryEntries.filter(entry=>!search||entry.name.toLowerCase().includes(search)),favorites=supplierFavoriteKeys();
++ const counts=gameProfileCounts();if($("apiSupplierTitle"))$("apiSupplierTitle").textContent=state.lang==="zh"?`${counts.brands} 家独立游戏厂家`:state.lang==="ms"?`${counts.brands} penyedia permainan berasingan`:`${counts.brands} independent game providers`;if($("apiSupplierCountLabel"))$("apiSupplierCountLabel").textContent=`${entries.length} / ${counts.brands} PROVIDERS`;
+  if(!entries.length){host.append(node("p","muted",state.lang==="zh"?"这个分类目前没有游戏平台。":state.lang==="ms"?"Tiada platform dalam kategori ini.":"No platforms in this category yet."));return;}
+  for(const entry of entries){const index=categoryEntries.indexOf(entry),stateInfo=apiSupplierState(entry),connected=stateInfo.connected,tile=node("article","api-supplier-tile"),button=node("button",`api-supplier-button${connected?" connected":" pending"}`),art=supplierArtwork(entry,"api-supplier-art"),number=node("span","api-supplier-number",String(index+1).padStart(2,"0")),copy=node("span","api-supplier-copy"),name=node("strong","",entry.name),statusText=apiSupplierStatusText(stateInfo),status=node("small","",statusText),capability=node("small","api-supplier-capability",profileCapabilityText(entry,stateInfo)),favorite=node("button",`api-supplier-favorite${favorites.has(entry.id)?" active":""}`,favorites.has(entry.id)?"♥":"♡");button.type="button";button.dataset.profileId=entry.id;button.dataset.providerId=gameProfileProviderId(entry);button.setAttribute?.("aria-label",`${entry.name} game entry · ${statusText}`);copy.append(name,status);if(capability.textContent)copy.append(capability);button.append(art,number,copy);button.onclick=()=>openCatalogProvider(entry.id,entry.name);favorite.type="button";favorite.setAttribute("aria-label",`${favorites.has(entry.id)?"Remove":"Add"} ${entry.name} favourite`);favorite.onclick=()=>toggleFavoriteProvider(entry.id);tile.append(button,favorite);host.append(tile);}
+ }
+@@ -864,14 +869,17 @@ function publicGameCard(game){
+  let imageSourceIndex=0;image.src=imageSources[0];image.alt=title.textContent;image.loading="lazy";image.onerror=()=>{imageSourceIndex+=1;if(imageSourceIndex>=imageSources.length){image.onerror=null;return;}image.src=imageSources[imageSourceIndex];};cover.append(image);favorite.type="button";favorite.setAttribute("aria-label",`${favorite.textContent==="♥"?"Remove":"Add"} ${title.textContent} favourite`);favorite.onclick=()=>toggleFavoriteGame(game);status.textContent=game.qaOnly===true?(state.lang==="zh"?"测试入口":state.lang==="ms"?"Ujian":"Test entry"):game.status==="suspended"?(state.lang==="zh"?"维护中":"Maintenance"):game.playable===true?(state.lang==="zh"?"可以进入":"Ready"):(state.lang==="zh"?"仅游戏目录":"Catalogue only");action.type="button";action.disabled=game.playable!==true||state.gameLaunchBusy||game.status!=="active";action.textContent=game.playable===true?(state.lang==="zh"?"开始游戏":"Play"):(state.lang==="zh"?"启动尚未就绪":"Launch not ready");action.onclick=()=>startGame(game);card.append(cover,favorite,title,meta,status,action);return card;
+ }
+ function renderCatalog(){
+- const host=$("providers");if(!host)return;clear(host);const allEntries=typeof gameProfileEntries==="function"?gameProfileEntries():apiSupplierEntries,counts=typeof gameProfileCounts==="function"?gameProfileCounts(allEntries):{profiles:allEntries.length,brands:allEntries.length},category=state.gameCategory||"HOT",entries=supplierEntriesForCategory(category),connectedCount=allEntries.filter(entry=>{const item=apiSupplierState(entry);return item.connected;}).length,clearProvider=$("clearProviderFilter"),searchBox=$("search");
++ const host=$("providers");if(!host)return;clear(host);const brandLobby=$("apiSupplierLobby");if(brandLobby)brandLobby.hidden=!!state.selectedCatalogProvider;const allEntries=typeof gameProfileEntries==="function"?gameProfileEntries():apiSupplierEntries,counts=typeof gameProfileCounts==="function"?gameProfileCounts(allEntries):{profiles:allEntries.length,brands:allEntries.length},category=state.gameCategory||"HOT",entries=supplierEntriesForCategory(category),connectedCount=allEntries.filter(entry=>{const item=apiSupplierState(entry);return item.connected;}).length,clearProvider=$("clearProviderFilter"),searchBox=$("search");
+  if($("lobbyGameCount"))$("lobbyGameCount").textContent=String(counts.profiles);if($("lobbyBrandCount"))$("lobbyBrandCount").textContent=String(counts.brands);if($("lobbyProviderCount"))$("lobbyProviderCount").textContent=String(connectedCount);
+- if(!state.selectedCatalogProvider){state.gameWallet=null;renderGameWallet();if(clearProvider)clearProvider.hidden=true;if(searchBox)searchBox.placeholder=state.lang==="zh"?"搜索游戏平台":"Search platform name";const status=$("gamesStatus");if(status)status.textContent=state.lang==="zh"?`${entries.length} 个入口 · ${counts.brands} 家品牌 · 请选择一个独立入口`:state.lang==="ms"?`${entries.length} pintu · ${counts.brands} jenama · Pilih satu pintu masuk`:`${entries.length} entries · ${counts.brands} brands · Choose one independent entry`;return;}
++ if(!state.selectedCatalogProvider){state.gameWallet=null;renderGameWallet();if(clearProvider)clearProvider.hidden=true;if(searchBox)searchBox.placeholder=state.lang==="zh"?"搜索游戏平台":"Search platform name";const status=$("gamesStatus");if(status)status.textContent=state.lang==="zh"?`${entries.length} 个入口 · ${counts.brands} 家品牌 · 请选择一个独立入口`:state.lang==="ms"?`${entries.length} pintu · ${counts.brands} jenama · Pilih satu pintu masuk`:`${counts.brands} independent providers · Choose a provider`;return;}
+  const entry=(typeof gameProfileEntry==="function"?gameProfileEntry(state.selectedCatalogProvider):allEntries.find(item=>item.id===state.selectedCatalogProvider));if(!entry){state.selectedCatalogProvider=null;state.selectedCatalogProviderName=null;renderApiSupplierButtons();renderCatalog();return;}const info=apiSupplierState(entry),selectedKey=state.gameCatalogue?.selectedProfileId||state.gameCatalogue?.profileId||state.gameCatalogue?.selectedProvider,loaded=selectedKey===entry.id,games=loaded&&Array.isArray(state.games)?state.games:[],card=node("article",`platform-entry-status${info.connected?" connected":""}`),art=supplierArtwork(entry,"platform-entry-art"),copy=node("div","platform-entry-copy"),title=node("h2","",entry.name),profileCategories=typeof gameProfileCategories==="function"?[...gameProfileCategories(entry)]:Object.entries(apiSupplierCategoryIds).filter(([,ids])=>ids.includes(entry.id)).map(([name])=>name),categoryText=node("p","muted",profileCategories.join(" · ")),profileMeta=node("p","platform-entry-profile",typeof profileCapabilityText==="function"?profileCapabilityText(entry,info):""),message=node("p","platform-entry-message"),action=node("button","button button-primary");
+- if(searchBox)searchBox.placeholder=state.lang==="zh"?`搜索 ${entry.name} 游戏`:`Search ${entry.name} games`;if(clearProvider){clearProvider.hidden=false;clearProvider.textContent=state.lang==="zh"?`← 返回 ${counts.profiles} 个入口 / ${counts.brands} 家品牌`:state.lang==="ms"?`← Kembali ke ${counts.profiles} pintu / ${counts.brands} jenama`:`← Back to ${counts.profiles} entries / ${counts.brands} brands`;}
++ if(searchBox)searchBox.placeholder=state.lang==="zh"?`搜索 ${entry.name} 游戏`:`Search ${entry.name} games`;if(clearProvider){clearProvider.hidden=false;clearProvider.textContent=state.lang==="zh"?`← 返回 ${counts.profiles} 个入口 / ${counts.brands} 家品牌`:state.lang==="ms"?`← Kembali ke ${counts.profiles} pintu / ${counts.brands} jenama`:`← Back to ${counts.brands} providers`;}
+  const allMaintenance=games.length>0&&games.every(game=>game.maintenance===true||game.status==="suspended");
+  let statusText;if(!loaded)statusText=state.lang==="zh"?"正在读取这家厂商的游戏…":"Loading this provider's games…";else if(info.maintenance)statusText=state.lang==="zh"?"厂家目前维护中。":"The provider is under maintenance.";else if(games.length&&!info.connected)statusText=state.lang==="zh"?`保留 ${games.length} 款旧目录；厂家连接目前不可用，平台维护中。`:state.lang==="ms"?`${games.length} katalog lama disimpan; sambungan penyedia tidak tersedia dan platform sedang diselenggara.`:`${games.length} saved catalogue games; the provider connection is unavailable and the platform is under maintenance.`;else if(games.length&&allMaintenance)statusText=state.lang==="zh"?`已同步 ${games.length} 款游戏；目前全部维护中。`:state.lang==="ms"?`${games.length} permainan disegerakkan; semuanya sedang diselenggara.`:`${games.length} games synchronized; all are currently under maintenance.`;else if(games.length&&info.platformLaunchReady)statusText=state.lang==="zh"?`已连接 ${games.length} 款游戏，可以进入。`:`${games.length} games connected and ready.`;else if(games.length)statusText=state.lang==="zh"?`已同步 ${games.length} 款游戏；启动或钱包接入尚未就绪。`:`${games.length} games synchronized; launch or wallet integration is not ready.`;else statusText=state.lang==="zh"?"供应商游戏接口尚未接通。":"The provider game API is not connected.";
+- message.textContent=statusText;action.type="button";action.disabled=!games.length;action.textContent=games.length?(state.lang==="zh"?`查看 ${games.length} 款游戏`:`View ${games.length} games`):(state.lang==="zh"?"等待厂家 API":"Awaiting provider API");action.onclick=()=>host.querySelector(".game-grid")?.scrollIntoView({behavior:"smooth",block:"start"});copy.append(title,categoryText);if(profileMeta.textContent)copy.append(profileMeta);copy.append(message,action);card.append(art,copy);host.append(card);
++ message.textContent=statusText;action.type="button";action.disabled=!games.length;action.textContent=games.length?(state.lang==="zh"?`查看 ${games.length} 款游戏`:`View ${games.length} games`):(state.lang==="zh"?"等待厂家 API":"Awaiting provider API");action.onclick=()=>host.querySelector(".game-grid")?.scrollIntoView({behavior:"smooth",block:"start"});copy.append(title,categoryText);if(profileMeta.textContent)copy.append(profileMeta);copy.append(message,action);
++ const accounts=allEntries.filter(profile=>gameProfileProviderId(profile)===gameProfileProviderId(entry));
++ if(accounts.length>1){const label=node("label","provider-account-picker","Game account"),select=node("select","provider-account-select");select.setAttribute("aria-label",`${apiSupplierEntries.find(item=>item.id===gameProfileProviderId(entry))?.name||entry.name} game account`);for(const account of accounts){const option=node("option","",account.name);option.value=account.id;option.selected=account.id===entry.id;select.append(option);}select.onchange=()=>{const account=accounts.find(item=>item.id===select.value);if(account)openCatalogProvider(account.id,account.name);};label.append(select);copy.append(label);}
++ card.append(art,copy);host.append(card);
+  if(games.length){const search=(searchBox?.value||"").trim().toLowerCase(),favorites=favoriteGameKeys(),filtered=games.filter(game=>(!search||[game.name,game.nameZh,game.gameCode].some(value=>String(value||"").toLowerCase().includes(search)))&&(category==="HOT"||category==="FAV"&&favorites.has(gameIdentity(game))||normalizedGameCategory(game)===category)&&(state.gameAccessZone==="ALL"||game.accessZone===state.gameAccessZone)),grid=node("div","catalog-grid game-grid");for(const game of filtered.slice(0,state.gameLimit))grid.append(publicGameCard(game));host.append(grid);if(filtered.length>state.gameLimit){const more=node("button","button button-outline game-load-more",state.lang==="zh"?`显示更多（${state.gameLimit}/${filtered.length}）`:`Show more (${state.gameLimit}/${filtered.length})`);more.type="button";more.onclick=()=>{state.gameLimit+=24;renderCatalog();};host.append(more);}if(!filtered.length)host.append(node("p","notice",state.lang==="zh"?"这个筛选没有游戏。":"No games match this filter."));}
+  const status=$("gamesStatus");if(status)status.textContent=`${entry.name} · ${loaded?`${games.length} GAMES`:"LOADING"} · ${info.maintenance?"PROVIDER MAINTENANCE":info.connected?"API CONNECTED":"API PENDING"}`;
+ }
+diff --git a/public/assets/member-refresh.css b/public/assets/member-refresh.css
+index 42035b9a075ad67bf8759476d54a67932454b03b..2b800211d5b3eb274b39b4f5ac22410b97cad524 100644
+--- a/public/assets/member-refresh.css
++++ b/public/assets/member-refresh.css
+@@ -149,3 +149,15 @@ body:not(.auth-entry):not(.admin-mode) .footer-brand{color:#1b537e}
+   body:not(.auth-entry):not(.admin-mode) .wallet-quick-grid .wallet-primary-action strong{font-size:12px}
+   body:not(.auth-entry):not(.admin-mode) .mobile-dock-button>small{font-size:10px}
+ }
++
++body:not(.auth-entry):not(.admin-mode) .provider-account-picker{display:grid;gap:8px;margin-top:16px;font-size:16px;font-weight:600;}
++body:not(.auth-entry):not(.admin-mode) .provider-account-select{width:100%;min-height:48px;padding:10px 12px;border:1px solid #b8d9ec;border-radius:12px;background:#fff;color:#12354d;font-size:16px;}
++
++body:not(.auth-entry):not(.admin-mode) #apiSupplierLobby{background:#f0f8ff!important;border-color:#c9dfef!important;}
++body:not(.auth-entry):not(.admin-mode) #apiSupplierTitle{color:#12354d!important;}
++body:not(.auth-entry):not(.admin-mode) #apiSupplierLobby .muted{color:#526f84!important;}
++body:not(.auth-entry):not(.admin-mode) #apiSupplierButtons .api-supplier-button.connected,
++body:not(.auth-entry):not(.admin-mode) #apiSupplierButtons .api-supplier-button.pending{background:#fff!important;color:#12354d!important;border-color:#bbd9eb!important;}
++body:not(.auth-entry):not(.admin-mode) #providers .platform-entry-status{background:#f8fcff!important;border-color:#c9dfef!important;}
++body:not(.auth-entry):not(.admin-mode) #providers .platform-entry-copy h2{color:#12354d!important;}
++body:not(.auth-entry):not(.admin-mode) #providers .platform-entry-copy p{color:#526f84!important;}
+diff --git a/public/service-worker.js b/public/service-worker.js
+index 3376310300ca54df7922b5a1b374fffc8e4f5ff6..14ac785bc889981b699f325b61717974b18be6dd 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.146-member-front-clarity';
++const CACHE='master7-shell-17.0.0-selfbuilt.147-game-runtime-repair';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/scripts/verify-isolated-postgres-megah5-launch.mjs b/scripts/verify-isolated-postgres-megah5-launch.mjs
+index 00009fdd5727ecebdca71eb3a354637414e17e73..48a7192d661aaa49a51f9ba3ca68acb00682e3ef 100644
+--- a/scripts/verify-isolated-postgres-megah5-launch.mjs
++++ b/scripts/verify-isolated-postgres-megah5-launch.mjs
+@@ -53,6 +53,15 @@ test('MegaH5 launch and settlement use one durable transaction boundary on isola
+   await rejects409(()=>settleMegaWallet(c,id));assert.equal(c.withdrawalCount(),0);
+   const s=await state(id);assert.equal(s.status,'active');assert.deepEqual(s.ledger,[]);assert.deepEqual(s.reserved,['2000']);assert.deepEqual(s.ops,[{state:'launching',game_code:'55021'}]);
+  });
++ await t.test('provider-backed closure permits one PostgreSQL return and stores one durable receipt',async()=>{
++  const user='proven-close-user',id='proven-close-session';await seed(user,id);const c=context(user),original=c.fetchImpl;let returned=false;
++  c.closureContractVerified=true;c.closeSession=async input=>({state:'closed',receipt:{...input,providerClosureReference:'SYNTHETIC-PG-CLOSE',allIssuedLaunchesInvalidated:true,pendingRounds:0,lateResultsFinal:true}});
++  c.fetchImpl=async(url,init)=>{if(new URL(url).pathname.endsWith('/balance')&&returned)return Response.json({provider:'megah5',result:{Status:200,CurrentBalance:'0.00',Currency:'MYR'}});const response=await original(url,init);if(new URL(url).pathname.endsWith('/withdraw'))returned=true;return response;};
++  const claim=await claimMegaLaunch(c,id,'55021');await markMegaLaunchIssued(c,claim.id,id);
++  const results=await Promise.allSettled([settleMegaWallet(c,id),settleMegaWallet(c,id)]);assert.ok(results.some(x=>x.status==='fulfilled'),JSON.stringify(results));assert.equal(c.withdrawalCount(),1);
++  const final=await state(id);assert.equal(final.status,'settled');assert.deepEqual(final.ledger,[{amount:'-450',currency:'MYR'}]);assert.deepEqual(final.reserved,[]);assert.equal(final.ops[0].state,'closed');
++  assert.equal((await pool.query("SELECT COUNT(*)::int n FROM audit WHERE user_id=$1 AND event='megah5_session_closed'",[user])).rows[0].n,1);
++ });
+  await t.test('a settlement already claimed blocks a concurrent launch',async()=>{
+   const user='settle-first-user',id='settle-first-session';await seed(user,id);const withdraw=gate(),c=context(user,withdraw);
+   const pending=settleMegaWallet(c,id);await timeout(withdraw.ready);await rejects409(()=>claimMegaLaunch(c,id,'55021'));withdraw.release();
+diff --git a/scripts/verify-isolated-postgres-provider-wallet.mjs b/scripts/verify-isolated-postgres-provider-wallet.mjs
+index 1206642491f7ac8437c72f12247902cc578d209c..265965469d26384209aaf17b02415201d8ffbbf0 100644
+--- a/scripts/verify-isolated-postgres-provider-wallet.mjs
++++ b/scripts/verify-isolated-postgres-provider-wallet.mjs
+@@ -33,6 +33,17 @@ test('profile transfer wallets preserve real PostgreSQL locking and backup integ
+  await t.test('simultaneous settlement returns once and projects exact profit without a second cash debit',async()=>{await reset();const created=await launchTransferWallet(context(),input());balance='2350';const results=await Promise.allSettled([settleTransferWallet(context(),created.walletSessionId),settleTransferWallet(context(),created.walletSessionId)]);assert.ok(results.some(x=>x.status==='fulfilled'),JSON.stringify(results));assert.equal(withdrawCalls,1);assert.equal((await pool.query('SELECT COUNT(*)::int n FROM game_wallet_ledger')).rows[0].n,1);assert.equal((await pool.query('SELECT COUNT(*)::int n FROM wallet_reservations')).rows[0].n,0);assert.equal((await withdrawalWalletState(db,'alice')).availableMinor,'2350');assert.equal((await pool.query("SELECT COUNT(*)::int n FROM wallet_ledger WHERE account_code='member'")).rows[0].n,1);});
+  await t.test('timed-out deposit recovery queries without re-submission under maintenance',async()=>{await reset();throwDeposit=true;await assert.rejects(()=>launchTransferWallet(context(),input()));const s=(await pool.query('SELECT id FROM game_wallet_sessions')).rows[0],c={...context(),newGameLaunchesEnabled:'false',launchAuthorized:false};assert.equal((await recoverTransferWallet(c,s.id)).status,'active');assert.equal(depositCalls,1);assert.equal((await settleTransferWallet(c,s.id)).status,'settled');assert.equal((await withdrawalWalletState(db,'alice')).availableMinor,'2000');});
+  await t.test('timed-out return retains the hold then posts one settled result',async()=>{await reset();const created=await launchTransferWallet(context(),input());balance='1801';throwWithdraw=true;await assert.rejects(()=>settleTransferWallet(context(),created.walletSessionId));assert.equal((await withdrawalWalletState(db,'alice')).availableMinor,'0');assert.equal((await recoverTransferWallet(context(),created.walletSessionId)).status,'settled');assert.equal(withdrawCalls,1);assert.equal((await withdrawalWalletState(db,'alice')).availableMinor,'1801');});
++ await t.test('1:100 accounts settle normalized MYR under PostgreSQL locks and reject a changed ratio',async()=>{
++  await reset();const profile={...getGameProviderProfile('jili_my1_1to100'),walletMode:'transfer'},c={...context(),profile,adapter:{...adapter,key:profile.adapterKey}};
++  await pool.query("INSERT INTO game_provider_profiles(id,provider_id,display_name,adapter_key,wallet_mode,balance_class,currency,unit_numerator,unit_denominator,environment,status,created_at,updated_at) VALUES($1,$2,$3,$4,'transfer','cash','MYR',100,1,'production','uat',0,0) ON CONFLICT(id) DO NOTHING",[profile.profileId,profile.providerId,profile.displayName,profile.adapterKey]);
++  const created=await launchTransferWallet(c,input());balance='1575';
++  await pool.query('UPDATE game_provider_profiles SET unit_numerator=1 WHERE id=$1',[profile.profileId]);
++  await assert.rejects(()=>settleTransferWallet(c,created.walletSessionId),e=>e.code==='GAME_PROFILE_RECONCILIATION_REQUIRED');assert.equal(withdrawCalls,0);assert.equal((await withdrawalWalletState(db,'alice')).reconciliationRequired,true);
++  await pool.query('UPDATE game_provider_profiles SET unit_numerator=100 WHERE id=$1',[profile.profileId]);
++  const results=await Promise.allSettled([settleTransferWallet(c,created.walletSessionId),settleTransferWallet(c,created.walletSessionId)]);assert.ok(results.some(x=>x.status==='fulfilled'));
++  assert.equal(withdrawCalls,1);assert.equal((await withdrawalWalletState(db,'alice')).availableMinor,'1575');assert.equal((await pool.query('SELECT amount_minor::text result FROM game_wallet_ledger')).rows[0].result,'-425');
++  await recoverTransferWallet(c,created.walletSessionId);assert.equal(withdrawCalls,1);
++ });
+  await t.test('profile operation evidence restores with deferred foreign keys and rolls back completely',async()=>{
+   const dir=mkdtempSync(join(tmpdir(),'master7-provider-restore-')),passphrase=randomBytes(24).toString('hex'),{publicKey,privateKey}=generateKeyPairSync('rsa',{modulusLength:2048,publicKeyEncoding:{type:'spki',format:'pem'},privateKeyEncoding:{type:'pkcs8',format:'pem',cipher:'aes-256-cbc',passphrase}}),fingerprint=createHash('sha256').update(createPublicKey(publicKey).export({type:'spki',format:'der'})).digest('hex');
+   try{
+diff --git a/tests/automatic-availability-ui.test.mjs b/tests/automatic-availability-ui.test.mjs
+index e2332628d4122e868bf1d92f84476f0423cffa07..7c8a2d247e371301906784b04636812911383be9 100644
+--- a/tests/automatic-availability-ui.test.mjs
++++ b/tests/automatic-availability-ui.test.mjs
+@@ -26,6 +26,14 @@ test('supplier state follows the catalogue response even when old browser contro
+  assert.equal(context.apiSupplierStatusText(info),'Awaiting API connection');
+ });
+ 
++test('profile readiness and brand catalogue connection remain separate for multi-account suppliers',()=>{
++ const state={gameCatalogue:{profiles:[{profileId:'jili_myr_1to1',providerId:'jili',launchReady:false},{profileId:'jili_my1_1to100',providerId:'jili',launchReady:true}],providers:[{id:'jili',connectionVerified:true,catalogueSynced:true,platformLaunchReady:true}]}},context={state};
++ vm.runInNewContext(extract('function apiSupplierState(','function apiSupplierStatusText('),context);
++ const normal=context.apiSupplierState({id:'jili_myr_1to1',providerId:'jili'});assert.equal(normal.connected,true);assert.equal(normal.platformLaunchReady,false);
++ const hundred=context.apiSupplierState({id:'jili_my1_1to100',providerId:'jili'});assert.equal(hundred.connected,true);assert.equal(hundred.platformLaunchReady,true);
++ state.gameCatalogue.profiles[0].connectionVerified=false;assert.equal(context.apiSupplierState({id:'jili_myr_1to1',providerId:'jili'}).connected,false);
++});
++
+ test('customer payment cards follow readiness and preserve their selected provider',()=>{
+  const buttons=['vpay','gspay','1mpay','manual-bank'].map(code=>{const el=new Element('button');el.dataset.paymentChannel=code;el.label=new Element('small');el.querySelector=()=>el.label;el.addEventListener=(name,handler)=>{assert.equal(name,'click');el.click=handler;};return el;});
+  const state={lang:'en',user:null,paymentChannels:{vpay:'closed',gspay:'suspended','1mpay':'closed','manual-bank':'active'},paymentStatus:{orderReady:true},gspayStatus:{orderReady:true},oneMpayStatus:{orderReady:false}},calls=[];
+diff --git a/tests/game-launch.test.mjs b/tests/game-launch.test.mjs
+index 69a40f837bd733edb73876a456714d2df2a88379..d8b98415d2dbda3157dd65605c4a1424b85ec8f0 100644
+--- a/tests/game-launch.test.mjs
++++ b/tests/game-launch.test.mjs
+@@ -173,7 +173,7 @@ test('configuration and legacy flags cannot create game acceptance evidence',asy
+    const extra={megaSettlementVerified:value,megaLiveGamesEnabled:'true',megaTransfersEnabled:'true'};
+    const selected=await h.request('/api/games?provider=megah5',{extra}),provider=selected.data.providers.find(item=>item.id==='megah5');
+    assert.equal(provider.walletReady,true);assert.equal(provider.launchVerified,false);assert.equal(provider.walletVerified,false);assert.equal(provider.settlementVerified,false);
+-   assert.equal(provider.platformLaunchReady,false);assert.equal(provider.capabilityReason,'acceptance_pending');assert.ok(selected.data.games.every(game=>game.playable===false));
++   assert.equal(provider.platformLaunchReady,false);assert.equal(provider.capabilityReason,'session_closure_contract_unavailable');assert.ok(selected.data.games.every(game=>game.playable===false));
+    assert.equal((await h.launch(extra)).status,503);
+   }
+   assert.equal(h.calls.length,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);
+diff --git a/tests/jdb-wallet-api.test.mjs b/tests/jdb-wallet-api.test.mjs
+index 41ed8a07088b09ac9b48d25e33170173ddb368ef..148c08cd41441bfc4ed8048696383f1233630fc6 100644
+--- a/tests/jdb-wallet-api.test.mjs
++++ b/tests/jdb-wallet-api.test.mjs
+@@ -73,6 +73,44 @@ test('production acceptance cannot fund a game absent from the fresh JDB catalog
+   assert.equal(result.status,409);assert.equal(result.body.code,'GAME_CATALOGUE_UNAVAILABLE');assert.equal(h.factory.calls.length,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM game_wallet_sessions').get().n,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);
+  }finally{h.close();}
+ });
++
++test('one accepted provider becomes runtime-ready without requiring every other brand or probing from health',async()=>{
++ const h=fixture();try{
++  h.slot.mode='production';h.slot.qaMemberIds=[];await h.acceptJdb();
++  const before=await h.request(null,'/health');assert.equal(before.body.providerAcceptance.liveProfileCount,0);
++  const catalogue=await h.request('alice','/api/games?provider=jdb&profileId=jdb_myr');assert.equal(catalogue.body.games[0].playable,true);
++  const calls=h.factory.calls.length,health=await h.request(null,'/health');
++  assert.equal(health.body.providerAcceptance.liveProfileCount,1);assert.equal(health.body.liveGames,false);assert.equal(h.factory.calls.length,calls);
++  const wallet=await h.request('alice','/api/game-wallet?profileId=jdb_myr');assert.equal(wallet.body.liveReady,true);assert.equal(wallet.body.launchVerified,true);assert.equal(wallet.body.settlementVerified,true);
++  h.config.newGameLaunchesEnabled='false';const paused=await h.request(null,'/health');assert.equal(paused.body.providerAcceptance.liveProfileCount,0);assert.equal(h.factory.calls.length,calls);
++ }finally{h.close();}
++});
++
++test('changing runtime credentials invalidates the observed readiness without an external request',async()=>{
++ const h=fixture();try{
++  h.slot.mode='production';h.slot.qaMemberIds=[];await h.acceptJdb();await h.request('alice','/api/games?provider=jdb&profileId=jdb_myr');
++  const calls=h.factory.calls.length;h.connection.aesKey='newKey12345678901';
++  const health=await h.request(null,'/health');assert.equal(health.body.providerAcceptance.liveProfileCount,0);assert.equal(h.factory.calls.length,calls);
++ }finally{h.close();}
++});
++
++test('the general runtime secret supports the existing account contract and invalid JSON cannot fall back silently',async()=>{
++ const h=fixture();try{
++  const missing=await h.request('alice','/api/game-launch','POST',{profileId:'jdb_myr',providerId:'jdb',gameCode:'0:100',idempotencyKey:'bad-general-config'},{gameTransferProfilesJson:'{invalid'});
++  assert.equal(missing.status,503);assert.equal(h.factory.calls.length,0);
++  const valid=await h.request('alice','/api/game-launch','POST',{profileId:'jdb_myr',providerId:'jdb',gameCode:'0:100',idempotencyKey:'valid-general-config'},{jdbTransferProfilesJson:'',gameTransferProfilesJson:JSON.stringify(h.document)});
++  assert.equal(valid.status,200,JSON.stringify(valid));assert.equal(valid.body.profileId,'jdb_myr');assert.equal(h.factory.calls.filter(p=>p.action===19&&p.amount>0).length,1);
++ }finally{h.close();}
++});
++
++test('runtime seeding never overwrites a conflicting account ratio to make a launch pass',async()=>{
++ const h=fixture();try{
++  h.sqlite.exec("INSERT INTO game_provider_profiles(id,provider_id,display_name,adapter_key,wallet_mode,balance_class,currency,unit_numerator,unit_denominator,environment,status,created_at,updated_at) VALUES('jdb_myr','jdb','Conflicting account','jdb','transfer','cash','MYR',100,1,'production','uat',0,0)");
++  const result=await h.launch();assert.equal(result.status,409);assert.equal(result.body.code,'GAME_PROFILE_RECONCILIATION_REQUIRED');
++  assert.equal(h.sqlite.prepare('SELECT unit_numerator FROM game_provider_profiles WHERE id=?').get('jdb_myr').unit_numerator,100);
++  assert.equal(h.factory.calls.length,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);
++ }finally{h.close();}
++});
+ test('unapproved API hosts, missing closure evidence and other members cannot submit money',async()=>{
+  for(const change of [h=>h.slot.approvedApiOrigins=[],h=>h.slot.sessionClosureVerified=false,h=>h.slot.qaMemberIds=['bob']]){const h=fixture();try{change(h);const result=await h.launch();assert.equal(result.status,503);assert.equal(h.factory.calls.length,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);}finally{h.close();}}
+ });
+diff --git a/tests/lobby-render.test.mjs b/tests/lobby-render.test.mjs
+index a27e043f223614eebe074920894a75e78fe74c34..47217a042404d684d1916bb2c81aabb219f57b3e 100644
+--- a/tests/lobby-render.test.mjs
++++ b/tests/lobby-render.test.mjs
+@@ -23,7 +23,7 @@ function supplierConstants(){
+ function renderPlatformStatus(providerId='jili',control='active',connected=true,retainedCatalogue=false){
+  const ids={providers:new Element(),gamesStatus:new Element(),clearProviderFilter:new Element(),lobbyGameCount:new Element(),lobbyProviderCount:new Element(),search:new Element('input')};
+  const entries=supplierConstants().entries,games=connected||retainedCatalogue?[{provider:providerId,providerName:'JILI',gameCode:'J-1',name:'One title',nameZh:'',category:'1',status:retainedCatalogue?'suspended':'active',maintenance:retainedCatalogue,accessZone:'paid',playable:false,imageUrl:`/assets/providers/${providerId}.webp`}]:[],state={lang:'en',gameCategory:'HOT',gameAccessZone:'ALL',gameLimit:12,selectedCatalogProvider:providerId,selectedCatalogProviderName:null,supplierControls:{[providerId]:control},games,gameLaunchBusy:false,favoriteGames:[],gameCatalogue:{selectedProvider:providerId,providers:connected?[{id:providerId,connectionVerified:true,catalogueSynced:true,platformLaunchReady:false}]:retainedCatalogue?[{id:providerId,connectionVerified:false,catalogueSynced:false,platformLaunchReady:false}]:[],games}};
+- const start=source.indexOf('function publicGameCard('),end=source.indexOf('\nfunction renderCarousel()',start),context={state,document:{createElement:tag=>new Element(tag)},apiSupplierEntries:entries,apiSupplierCategoryIds:supplierConstants().categories,GAME_PLATFORM_COUNT:entries.length,$:id=>ids[id],clear:element=>element.replaceChildren(),supplierEntriesForCategory:()=>entries,apiSupplierState:entry=>({connected:entry.id===providerId&&connected,platformLaunchReady:false,maintenance:entry.id===providerId&&control==='suspended'}),supplierArtwork:entry=>{const el=new Element('img');el.src=`/assets/providers/${entry.id}.webp`;return el;},node:(tag,css='',text='')=>{const el=new Element(tag);el.className=css;el.textContent=String(text);return el;},renderApiSupplierButtons(){},normalizedGameCategory:()=>"SLOT",favoriteGameKeys:()=>new Set(),gameIdentity:game=>`${game.provider}:${game.gameCode}`,toggleFavoriteGame(){},startGame(){}};
++ const start=source.indexOf('function publicGameCard('),end=source.indexOf('\nfunction renderCarousel()',start),context={state,gameProfileProviderId:entry=>String(entry.providerId||entry.id),document:{createElement:tag=>new Element(tag)},apiSupplierEntries:entries,apiSupplierCategoryIds:supplierConstants().categories,GAME_PLATFORM_COUNT:entries.length,$:id=>ids[id],clear:element=>element.replaceChildren(),supplierEntriesForCategory:()=>entries,apiSupplierState:entry=>({connected:entry.id===providerId&&connected,platformLaunchReady:false,maintenance:entry.id===providerId&&control==='suspended'}),supplierArtwork:entry=>{const el=new Element('img');el.src=`/assets/providers/${entry.id}.webp`;return el;},node:(tag,css='',text='')=>{const el=new Element(tag);el.className=css;el.textContent=String(text);return el;},renderApiSupplierButtons(){},normalizedGameCategory:()=>"SLOT",favoriteGameKeys:()=>new Set(),gameIdentity:game=>`${game.provider}:${game.gameCode}`,toggleFavoriteGame(){},startGame(){}};
+  vm.runInNewContext(`${source.slice(start,end)}\nrenderCatalog();`,context);return ids;
+ }
+ 
+@@ -51,7 +51,7 @@ test('customer rendering expands only the selected supplier into safe game cards
+  const start=source.indexOf('function publicGameCard('),end=source.indexOf('\nfunction renderCarousel()',start),renderSource=source.slice(start,end),openStart=source.indexOf('function openCatalogProvider('),openEnd=source.indexOf('\nfunction openProviderBonus',openStart),openSource=source.slice(openStart,openEnd);
+  assert.match(renderSource,/game-card|gameCode|state\.games|startGame/);
+  assert.match(openSource,/loadGameCatalogue\(profileId\)/);assert.match(openSource,/loadGameWallet\(profileId\)/);
+- assert.match(html,/选择一家后，只展开该厂商已连接的游戏/);assert.doesNotMatch(html,/mini-game-grid|platformMiniGames/i);
++ assert.match(html,/Choose a provider to view its games and account options/);assert.doesNotMatch(html,/mini-game-grid|platformMiniGames/i);
+ });
+ 
+ test('every returned game can fall back from catalogue artwork to provider artwork and the global cover',()=>{
+@@ -250,7 +250,7 @@ test('37 supplied API providers have independent customer and backoffice button
+  assert.doesNotMatch(source,/supplierExpanded|apiSupplierToggle|paymentDialog/);
+  assert.doesNotMatch(style,/state-button|api-supplier-toggle|payment-dialog/);
+  assert.match(html,/id="apiSupplierCountLabel"/);
+- assert.match(source,/gameProfileCounts/);assert.match(source,/independent entries/);assert.match(html,/id="lobbyBrandCount"/);
++ assert.match(source,/gameProfileCounts/);assert.match(source,/independent game providers/);assert.match(html,/id="lobbyBrandCount"/);
+  assert.match(source,/const apiSupplierCategoryIds=Object\.freeze/);
+  assert.match(source,/button\.onclick=\(\)=>openCatalogProvider\(entry\.id,entry\.name\)/);
+ });
+@@ -273,6 +273,21 @@ test('server game profiles create independent entries for duplicate provider acc
+  context.syncProfiles({selectedProfileId:'jili_myr_1',profiles:[{profileId:'jili_myr_1',providerId:'jili',displayName:'JILI MYR 1:1',currency:'MYR',position:1}]});assert.equal(context.profileEntries().length,7,'a selected-profile response must not collapse the lobby registry');assert.equal(context.profileEntries()[0].name,'JILI MYR 1:1');
+ });
+ 
++test('one provider card retains separate account choices without selecting another account automatically',()=>{
++ const start=source.indexOf('const apiSupplierEntries=Object.freeze(['),end=source.indexOf('function supplierFavoriteKeys',start),state={gameProfiles:[],favoriteProviders:[],providerAccountSelections:{}},context={state};
++ vm.runInNewContext(`${source.slice(start,end)}\nthis.syncProfiles=syncGameProfiles;this.brandEntries=providerBrandEntries;`,context);
++ context.syncProfiles({profiles:[
++  {profileId:'jili_myr_1to1',providerId:'jili',displayName:'JILI MYR 1:1',position:1,launchReady:false},
++  {profileId:'jili_my1_1to100',providerId:'jili',displayName:'JILI MY1 1:100',position:2,launchReady:true,unitScale:100},
++  {profileId:'918kiss_normal_myr',providerId:'918kissh5',displayName:'918KISS Normal',position:3},
++  {profileId:'918kiss_free_myr',providerId:'918kissh5',displayName:'918KISS Free',position:4},
++ ]});
++ const brands=context.brandEntries();assert.equal(brands.length,2);assert.equal(brands[0].name,'JILI');assert.equal(brands[0].profiles.length,2);
++ assert.equal(brands[0].id,'jili_myr_1to1','readiness must not silently switch a member to the 1:100 account');
++ state.providerAccountSelections.jili='jili_my1_1to100';assert.equal(context.brandEntries()[0].id,'jili_my1_1to100');
++ state.providerAccountSelections.jili='918kiss_free_myr';assert.equal(context.brandEntries()[0].id,'jili_myr_1to1','a foreign provider account cannot replace the selected brand');
++});
++
+ test('owner can publish multiple lobby ads while the main banner keeps rotating',()=>{
+  assert.match(html,/MASTER7 company advertising/);
+  assert.match(html,/MASTER7 PROMOTION/);
+diff --git a/tests/megah5-wallet.test.mjs b/tests/megah5-wallet.test.mjs
+index eb49fcb97919cdaf14ca50d652c9500dc760e5a4..49b5ed548dc7ec4d8ad12b18571c8f18ce131f99 100644
+--- a/tests/megah5-wallet.test.mjs
++++ b/tests/megah5-wallet.test.mjs
+@@ -7,6 +7,7 @@ import {
+  megaWalletConfigured,
+  megaWalletCapabilities,
+  megaWalletLiveReady,
++ memberMegaWalletState,
+  prepareMegaWallet,
+  recoverMegaWallet,
+  settleMegaWallet,
+@@ -94,6 +95,60 @@ test('launch transfers the member balance once and reuses the active session',as
+  }finally{h.close();}
+ });
+ 
++function verifiedClosureContext(h,patch={}){
++ const transport=h.context.fetchImpl;
++ return {...h.context,closureContractVerified:true,
++  closeSession:async input=>({state:'closed',receipt:{...input,providerClosureReference:'SYNTHETIC-CLOSE-1',allIssuedLaunchesInvalidated:true,pendingRounds:0,lateResultsFinal:true,...patch}}),
++  fetchImpl:async(url,options)=>{const response=await transport(url,options);if(new URL(url).pathname.endsWith('/withdraw'))h.provider.balance='0.00';return response;},
++ };
++}
++
++test('MegaH5 acceptance is evidence-driven and a settlement switch cannot replace a closure contract',async()=>{
++ const h=harness();try{
++  const accepted={...verifiedClosureContext(h),acceptance:{catalogue:true,launch:true,wallet:true,settlement:true,recovery:true}};
++  const ready=await megaWalletCapabilities(accepted);assert.equal(ready.launchVerified,true);assert.equal(ready.walletVerified,true);assert.equal(ready.settlementVerified,true);assert.equal(ready.capabilityReason,'ready');
++  const missing=await megaWalletCapabilities({...accepted,closureContractVerified:false});assert.equal(missing.settlementVerified,false);assert.equal(missing.capabilityReason,'session_closure_contract_unavailable');
++  const flagsOnly=await megaWalletCapabilities({...verifiedClosureContext(h),settlementVerified:'true'});assert.equal(flagsOnly.launchVerified,false);assert.equal(flagsOnly.walletVerified,false);assert.equal(flagsOnly.settlementVerified,false);
++ }finally{h.close();}
++});
++
++test('provider-proven closure returns a launched MegaH5 balance once, even while new games are paused',async()=>{
++ const h=harness();try{
++  const c=verifiedClosureContext(h),prepared=await prepareMegaWallet(c,'55021'),attempt=await claimMegaLaunch(c,prepared.sessionId,'55021');await markMegaLaunchIssued(c,attempt.id,prepared.sessionId);
++  const readable=await memberMegaWalletState(c);assert.equal(readable.session.settlementBlocked,false,'a verified closer must expose the existing settle action');
++  h.provider.balance='15.75';c.newGameLaunchesEnabled='false';
++  const settled=await settleMegaWallet(c,prepared.sessionId);assert.equal(settled.session.resultMinor,'-425');assert.equal((await withdrawalWalletState(h.db,'member')).availableMinor,'1575');
++  assert.equal(h.sqlite.prepare('SELECT state FROM megah5_launch_operations WHERE id=?').get(attempt.id).state,'closed');
++  assert.equal(h.sqlite.prepare("SELECT COUNT(*) n FROM audit WHERE event='megah5_session_closed'").get().n,1);
++  await recoverMegaWallet(c,prepared.sessionId);assert.equal(h.calls.filter(x=>x.path.endsWith('/withdraw')).length,1);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM game_wallet_ledger').get().n,1);
++ }finally{h.close();}
++});
++
++for(const patch of [{pendingRounds:1},{allIssuedLaunchesInvalidated:false},{lateResultsFinal:false},{providerPlayerId:'foreign-player'},{launchOperationId:'foreign-launch'}])test(`unproven or foreign closure keeps a launched MegaH5 wallet reserved: ${JSON.stringify(patch)}`,async()=>{
++ const h=harness();try{
++  const c=verifiedClosureContext(h,patch),prepared=await prepareMegaWallet(c,'55021'),attempt=await claimMegaLaunch(c,prepared.sessionId,'55021');await markMegaLaunchIssued(c,attempt.id,prepared.sessionId);h.provider.balance='15.75';
++  await assert.rejects(()=>settleMegaWallet(c,prepared.sessionId),e=>e instanceof MegaWalletError&&e.status===409);
++  assert.equal(h.calls.filter(x=>x.path.endsWith('/withdraw')).length,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,1);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM game_wallet_ledger').get().n,0);
++ }finally{h.close();}
++});
++
++test('a closed state without its durable supplier receipt cannot free a wallet',async()=>{
++ const h=harness();try{
++  const prepared=await prepareMegaWallet(h.context,'55021'),attempt=await claimMegaLaunch(h.context,prepared.sessionId,'55021');await markMegaLaunchIssued(h.context,attempt.id,prepared.sessionId);
++  h.sqlite.prepare("UPDATE megah5_launch_operations SET state='closed' WHERE id=?").run(attempt.id);
++  await assert.rejects(()=>settleMegaWallet(h.context,prepared.sessionId),e=>e instanceof MegaWalletError&&e.status===409);
++  await clearStaleReservation(h.db,'member');assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,1);assert.equal((await withdrawalWalletState(h.db,'member')).reconciliationRequired,true);
++ }finally{h.close();}
++});
++
++test('a successful withdrawal acknowledgement with remaining game funds cannot finalize a launched wallet',async()=>{
++ const h=harness();try{
++  const c={...verifiedClosureContext(h),fetchImpl:h.context.fetchImpl},prepared=await prepareMegaWallet(c,'55021'),attempt=await claimMegaLaunch(c,prepared.sessionId,'55021');await markMegaLaunchIssued(c,attempt.id,prepared.sessionId);h.provider.balance='15.75';
++  await assert.rejects(()=>settleMegaWallet(c,prepared.sessionId),e=>e instanceof MegaWalletError&&e.status===409);
++  assert.equal(h.calls.filter(x=>x.path.endsWith('/withdraw')).length,1);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,1);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM game_wallet_ledger').get().n,0);
++ }finally{h.close();}
++});
++
+ test('settlement returns the provider balance and books the game result once',async()=>{
+  const h=harness();try{
+   await prepareMegaWallet(h.context,'55021');h.provider.balance='15.50';
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index d3eae40a9d54907f298f067b4bc2503fde0859aa..ede4f5b75868e9cbd97d130fe0610bf1627c0d35 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.146-member-front-clarity';
++const release='17.0.0-selfbuilt.147-game-runtime-repair';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{
+diff --git a/tests/provider-transfer-wallet.test.mjs b/tests/provider-transfer-wallet.test.mjs
+index 77c9f3d5662a663dc02629754e6a5fa37cf02c71..425bf177cd33da75a24f3cfd8372bf81d0c764de 100644
+--- a/tests/provider-transfer-wallet.test.mjs
++++ b/tests/provider-transfer-wallet.test.mjs
+@@ -5,6 +5,8 @@ import {readdirSync,readFileSync} from 'node:fs';
+ import {launchTransferWallet,settleTransferWallet,recoverTransferWallet,memberTransferWallet,ProviderTransferError} from '../lib/provider-transfer-wallet.ts';
+ import {withdrawalWalletState,clearStaleReservation} from '../lib/withdrawals.ts';
+ import {memberMegaWalletState} from '../lib/megah5-wallet.ts';
++import {getGameProviderProfile} from '../lib/game-provider-registry.ts';
++import {walletMinorToGameAmount,gameAmountToWalletMinor} from '../lib/game-unit-conversion.ts';
+ 
+ function harness(){
+  const sqlite=new DatabaseSync(':memory:');for(const name of readdirSync(new URL('../drizzle',import.meta.url)).filter(x=>x.endsWith('.sql')).sort())sqlite.exec(readFileSync(new URL('../drizzle/'+name,import.meta.url),'utf8'));
+@@ -32,6 +34,52 @@ function harness(){
+ }
+ const rejects=code=>e=>e instanceof ProviderTransferError&&e.code===code;
+ 
++for(const profileId of ['jili_my1_1to100','918kiss_normal_my1_1to100'])test(`${profileId}: game points settle into MYR once without multiplying the cash ledger`,async()=>{
++ const h=harness();try{
++  const p={...getGameProviderProfile(profileId),walletMode:'transfer'},base=h.ctx().adapter,points=new Map(),wire=[];
++  h.sqlite.prepare("INSERT INTO game_provider_profiles(id,provider_id,display_name,adapter_key,wallet_mode,balance_class,currency,unit_numerator,unit_denominator,environment,status,created_at,updated_at) VALUES(?,?,?,?,'transfer','cash','MYR',100,1,'uat','uat',0,0)").run(p.profileId,p.providerId,p.displayName,p.adapterKey);
++  const adapter={...base,key:p.adapterKey,
++   async depositToGame(c,input){const receipt=await base.depositToGame(c,input);points.set(input.providerPlayerId,walletMinorToGameAmount(input.amountMinor,p.unitScale));wire.push({direction:'deposit',gameAmount:points.get(input.providerPlayerId),cashMinor:input.amountMinor});return receipt;},
++   async queryBalance(c,input){const cash=gameAmountToWalletMinor(points.get(input.providerPlayerId)??'0',p.unitScale);return {...cash,currency:'MYR'};},
++   async withdrawFromGame(c,input){wire.push({direction:'withdrawal',gameAmount:walletMinorToGameAmount(input.amountMinor,p.unitScale),cashMinor:input.amountMinor});const receipt=await base.withdrawFromGame(c,input);points.set(input.providerPlayerId,'0');return receipt;},
++  },c={...h.ctx(),profile:p,adapter};
++  await launchTransferWallet(c,h.input());const s=h.latest();
++  assert.equal((await withdrawalWalletState(h.db,'alice')).availableMinor,'0');
++  assert.deepEqual(wire[0],{direction:'deposit',gameAmount:'2000.00',cashMinor:'2000'});
++  assert.equal((await memberTransferWallet(c)).gameUnitsPerMYR,100);
++  points.set(s.player_id,'1575.00');
++  await settleTransferWallet(c,s.id);await recoverTransferWallet(c,s.id);
++  assert.equal((await withdrawalWalletState(h.db,'alice')).availableMinor,'1575');
++  assert.deepEqual(wire[1],{direction:'withdrawal',gameAmount:'1575.00',cashMinor:'1575'});
++  assert.equal(wire.length,2);assert.equal(h.sqlite.prepare('SELECT amount_minor FROM game_wallet_ledger WHERE session_id=?').get(s.id).amount_minor,-425);
++  assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);
++  assert.deepEqual(h.sqlite.prepare('PRAGMA foreign_key_check').all(),[]);
++ }finally{h.close();}
++});
++
++test('a changed account ratio blocks settlement and preserves its cash reservation',async()=>{
++ const h=harness();try{
++  const p={...getGameProviderProfile('jili_my1_1to100'),walletMode:'transfer'},c={...h.ctx(),profile:p,adapter:{...h.ctx().adapter,key:p.adapterKey}};
++  h.sqlite.prepare("INSERT INTO game_provider_profiles(id,provider_id,display_name,adapter_key,wallet_mode,balance_class,currency,unit_numerator,unit_denominator,environment,status,created_at,updated_at) VALUES(?,?,?,?,'transfer','cash','MYR',100,1,'uat','uat',0,0)").run(p.profileId,p.providerId,p.displayName,p.adapterKey);
++  await launchTransferWallet(c,h.input());const s=h.latest(),calls=h.state.calls.length;
++  h.sqlite.prepare('UPDATE game_provider_profiles SET unit_numerator=1 WHERE id=?').run(p.profileId);
++  await assert.rejects(()=>settleTransferWallet(c,s.id),rejects('GAME_PROFILE_RECONCILIATION_REQUIRED'));
++  assert.equal(h.state.calls.length,calls);assert.equal((await withdrawalWalletState(h.db,'alice')).reconciliationRequired,true);
++  await clearStaleReservation(h.db,'alice');assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,1);
++  h.sqlite.prepare('UPDATE game_provider_profiles SET unit_numerator=100 WHERE id=?').run(p.profileId);
++  await settleTransferWallet(c,s.id);assert.equal((await withdrawalWalletState(h.db,'alice')).availableMinor,'2000');
++ }finally{h.close();}
++});
++
++test('free-credit and spoofed ratio profiles cannot enter the cash transfer engine',async()=>{
++ const h=harness();try{
++  const free={...getGameProviderProfile('918kiss_free_myr'),walletMode:'transfer'};
++  await assert.rejects(()=>launchTransferWallet({...h.ctx(),profile:free},h.input()),rejects('GAME_TRANSFER_PROFILE_UNAVAILABLE'));
++  await assert.rejects(()=>launchTransferWallet({...h.ctx(),profile:{...h.ctx().profile,unitScale:100}},h.input()),rejects('GAME_TRANSFER_PROFILE_UNAVAILABLE'));
++  assert.equal(h.state.calls.length,0);assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);
++ }finally{h.close();}
++});
++
+ test('transfer wallet posts a settled profit once and uses the original member ledger',async()=>{
+  const h=harness();try{
+   const c=h.ctx(),launch=await launchTransferWallet(c,h.input());assert.equal(launch.profileId,'jdb_myr');assert.equal(h.state.calls.filter(x=>x[0]==='deposit').length,1);

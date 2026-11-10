@@ -1,0 +1,152 @@
+{
+  "release": "17.0.0-selfbuilt.147-game-runtime-repair",
+  "preparedAt": "2026-11-10T03:36:45.416765+00:00",
+  "sourceCommit": "70cc0015aeca2d6d6a9aba37e15a39ddebea1c33",
+  "archive": {
+    "sha256": "e17175cd729611d5e00531ed8877316ccda74deabf9ba5a25a2817d3560ffc42",
+    "bytes": 7095587,
+    "files": 669,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "lib/game-profile-units.ts",
+      "lib/game-provider-runtime.ts",
+      "lib/mega-session-closure.ts"
+    ],
+    "changed": [
+      ".env.example",
+      "app/api/[...path]/route.ts",
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "lib/backend.ts",
+      "lib/game-provider-acceptance.ts",
+      "lib/game-provider-adapter.ts",
+      "lib/game-provider-registry.ts",
+      "lib/megah5-wallet.ts",
+      "lib/production-acceptance.ts",
+      "lib/provider-transfer-wallet.ts",
+      "lib/provider-wallet-consistency.ts",
+      "lib/render-env.ts",
+      "lib/wallet-guard.ts",
+      "lib/withdrawals.ts",
+      "package.json",
+      "public/assets/app.js",
+      "public/assets/member-refresh.css",
+      "public/service-worker.js",
+      "scripts/verify-isolated-postgres-megah5-launch.mjs",
+      "scripts/verify-isolated-postgres-provider-wallet.mjs",
+      "tests/automatic-availability-ui.test.mjs",
+      "tests/game-launch.test.mjs",
+      "tests/jdb-wallet-api.test.mjs",
+      "tests/lobby-render.test.mjs",
+      "tests/megah5-wallet.test.mjs",
+      "tests/official-entries-probe.test.mjs",
+      "tests/provider-transfer-wallet.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "maintenance": 12,
+    "releaseProbes": 27,
+    "regression": 1277,
+    "renderDatabase": 3,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "isolatedPostgresProviderWallet": 7,
+    "isolatedPostgresMegaLaunch": 9,
+    "browser": {
+      "testType": "isolated layout fixture; no real login, payment, game launch or wallet mutation",
+      "results": [
+        {
+          "viewport": 360,
+          "heroHeight": 397,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "providerCards": 37,
+          "jiliVariants": 2,
+          "independentAccountSelection": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        },
+        {
+          "viewport": 390,
+          "heroHeight": 377,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "providerCards": 37,
+          "jiliVariants": 2,
+          "independentAccountSelection": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        },
+        {
+          "viewport": 430,
+          "heroHeight": 371,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "providerCards": 37,
+          "jiliVariants": 2,
+          "independentAccountSelection": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        },
+        {
+          "viewport": 1280,
+          "heroHeight": 314,
+          "depositAboveFold": true,
+          "depositNavigation": true,
+          "fourPaymentProfiles": true,
+          "withdrawNavigation": true,
+          "providerCards": 37,
+          "jiliVariants": 2,
+          "independentAccountSelection": true,
+          "horizontalOverflow": false,
+          "jsErrors": []
+        }
+      ],
+      "mutatingRequests": []
+    }
+  },
+  "predeployBackup": {
+    "sha256": "104d3ece785120481d7264dc69756ff0c41020505d71fa314ccfc24aef8107fb",
+    "tableCount": 71,
+    "records": 466,
+    "postgresRestoreVerified": true,
+    "persistentWrites": false,
+    "foreignKeyViolations": 0
+  },
+  "scope": "shared game runtime/accounting repair; per-brand customer entry grouping; supplier protocol implementation and activation remain separately verified",
+  "implementedProtocolInventory": [
+    "megah5",
+    "jdb"
+  ],
+  "remaining": {
+    "notAllPlanItemsComplete": true,
+    "additionalProviderAdapters": "JILI/918KISS and other unimplemented merchant protocols remain blocked pending account-specific contracts and implementation",
+    "megaH5ProductionClosure": "server closure interface is implemented and synthetic-tested; no production supplier closure implementation installed",
+    "jdbMerchantAuthorization": "latest deployed gateway check returned provider 9001; unresolved",
+    "productionAcceptedProfiles": 0,
+    "actualGameLaunchesDuringThisWork": 0,
+    "realMoneyTransfersDuringThisWork": 0
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "gameCredentials": false,
+    "activationFlags": false,
+    "billingPlans": false,
+    "dns": false,
+    "schemaMigrations": false
+  },
+  "candidateLive": false
+}
