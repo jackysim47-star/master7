@@ -646,6 +646,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         }
         return send(res, 200, {
           provider: 'jili', account: accountName, currency: 'MYR', ratio: account.ratio,
+          complete: true,
           games: normalizeJiliGames(result.data.Data),
         }, cors);
       }

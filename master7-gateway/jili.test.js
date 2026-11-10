@@ -42,6 +42,7 @@ test('JILI 1:1 and 1:100 select separate credentials and only call GetGameList',
     const data = await res.json();
     assert.equal(res.status,200);assert.equal(data.ratio,ratio);assert.equal(data.currency,'MYR');
     assert.equal(data.games[0].nameZh,'样本');assert.equal(data.games[0].gameCode,'1');
+    assert.equal(data.complete,true);assert.equal(data.games[0].maintenance,true);
     assert.equal(JSON.stringify(data).includes('private-data'),false);
     const request = requests.at(-1), params = new URLSearchParams(request.options.body);
     assert.equal(request.url,'https://wb-api-2.jiscc77s.com/api1/GetGameList');
@@ -83,10 +84,11 @@ test('JILI normalizes only contract-valid unique game rows', () => {
     name: { 'en-US': ' Royal Fishing ', 'zh-CN': '钱龙捕鱼', 'zh-TW': '錢龍捕魚' },
     GameCategoryId: 5,
     JP: false,
-  }]), [{ gameCode: '101', name: 'Royal Fishing', nameZh: '钱龙捕鱼', category: '5', jackpot: false }]);
+  }]), [{ gameCode: '101', name: 'Royal Fishing', nameZh: '钱龙捕鱼', category: '5', jackpot: false, maintenance: true }]);
 
   const valid = id => ({ GameId: id, name: { 'en-US': `Game ${id}` }, GameCategoryId: 1, JP: true });
   for (const rows of [
+    [{ GameId: 0, name: { 'en-US': 'Zero ID' }, GameCategoryId: 1, JP: false }],
     [{ name: { 'en-US': 'Missing ID' }, GameCategoryId: 1, JP: false }],
     [{ GameId: 1, name: { 'en-US': '' }, GameCategoryId: 1, JP: false }],
     [{ GameId: 1, name: { 'en-US': 'Game' }, GameCategoryId: '1', JP: false }],

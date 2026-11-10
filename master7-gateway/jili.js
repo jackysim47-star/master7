@@ -44,13 +44,15 @@ function jiliCatalogueBody(agentId, agentKey, now) {
 }
 
 // Legacy GetGameList contract 3.1.6.1 requires typed identity, name, category
-// and jackpot fields. Reject ambiguous rows instead of publishing empty IDs.
+// and jackpot fields, but exposes no per-title availability signal. Reject
+// ambiguous rows and publish every title under maintenance until a separately
+// accepted merchant contract provides a trustworthy availability field.
 function normalizeJiliGames(rows) {
   if (!Array.isArray(rows) || rows.length > MAX_GAMES) fail('jili_invalid_response');
   const seen = new Set();
   return rows.map(row => {
     if (!row || typeof row !== 'object' || Array.isArray(row)
-        || !Number.isSafeInteger(row.GameId) || row.GameId < 0
+        || !Number.isSafeInteger(row.GameId) || row.GameId <= 0
         || !row.name || typeof row.name !== 'object' || Array.isArray(row.name)
         || !Number.isSafeInteger(row.GameCategoryId) || row.GameCategoryId < 0
         || typeof row.JP !== 'boolean') {
@@ -65,6 +67,7 @@ function normalizeJiliGames(rows) {
       nameZh: gameName(row.name['zh-CN']),
       category: String(row.GameCategoryId),
       jackpot: row.JP,
+      maintenance: true,
     };
   });
 }
