@@ -59,7 +59,7 @@ test('JDB catalogue sends only Action 49 and projects public catalogue fields', 
   assert.deepEqual({ provider: result.provider, count: result.count }, { provider: 'jdb', count: 3 });
   assert.deepEqual(result.games[0], {
     gameCode: '0:14093', name: 'Dragon Soar', category: 'SLOT', gameType: 0, machineType: 14093,
-    maintenance: false, imageUrl: 'https://images.example/slot.png',
+    maintenance: false, imageUrl: null,
   });
   assert.equal(result.games[1].gameCode, '7:7001');
   assert.equal(result.games[1].category, 'FISH');

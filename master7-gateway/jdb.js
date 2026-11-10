@@ -112,14 +112,6 @@ async function boundedJson(response) {
   }
 }
 
-function imageUrl(value) {
-  if (typeof value !== 'string' || !value) return null;
-  try {
-    const url = new URL(value);
-    return url.protocol === 'https:' && !url.username && !url.password && !url.hash ? url.href : null;
-  } catch { return null; }
-}
-
 function normalizeGames(groups) {
   if (!Array.isArray(groups) || groups.length > 1000) fail('jdb_invalid_response');
   const games = [];
@@ -156,7 +148,9 @@ function normalizeGames(groups) {
         // does not prove the title is available. Only an explicit false/0 can
         // open a catalogue title; every unknown value remains fail-closed.
         maintenance: row.maintenance !== false && row.maintenance !== 0,
-        imageUrl: imageUrl(row.image),
+        // No supplier-approved artwork host is recorded. Do not reflect a
+        // provider-controlled URL through the public catalogue response.
+        imageUrl: null,
       });
     }
   }

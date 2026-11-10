@@ -190,7 +190,10 @@ function parseMetaCatalogueResponse(value) {
       gameCode: game.GameCode,
       name: game.GameName,
       gameType: game.GameType,
-      imageUrl: game.ImageUrl || null,
+      // No supplier-approved artwork origin has been recorded. Keep the
+      // remote value out of the public gateway response until that contract
+      // is reviewed; the portal uses its bundled provider artwork.
+      imageUrl: null,
       hasDemo: game.HasDemo,
       // GetGameList v3.4.8 has no title-availability field. Keep every title
       // closed until a separately reviewed supplier contract proves one.

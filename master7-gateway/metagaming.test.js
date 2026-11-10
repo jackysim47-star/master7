@@ -115,7 +115,7 @@ test('META catalogue parser projects only documented public game fields', () => 
   });
   assert.deepEqual(parsed.games, [{
     gameCode: '10001', name: 'Example Slot', gameType: 1,
-    imageUrl: 'https://cdn.example.test/10001.png', hasDemo: true, maintenance: true,
+    imageUrl: null, hasDemo: true, maintenance: true,
   }]);
   assert.equal(JSON.stringify(parsed).includes('must-not-leak'), false);
   assert.throws(() => parseMetaCatalogueResponse({

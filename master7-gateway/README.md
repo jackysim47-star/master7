@@ -11,6 +11,22 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. A callback POST remains closed until that provider's signed callback contract is implemented; a reachability endpoint never claims transaction readiness.
 
+## Version 1.17.0: provider catalogue safety
+
+EPICWIN Normal MYR and Free MYR catalogue accounts now have independent,
+strictly validated request and response boundaries. Malformed, duplicate or
+oversized catalogues fail closed, remote artwork is not trusted, and every
+title remains unavailable because the supplied contract does not establish a
+per-title availability signal.
+
+META GAMING likewise keeps both catalogue accounts isolated and marks unknown
+title availability out of service. Provider HTTP 403 responses are classified
+without exposing upstream bodies or credentials. JDB catalogue titles now
+default to maintenance when the provider omits an explicit availability field.
+
+This version adds no player, Play, wallet, transfer, settlement or recovery
+route and does not enable any real-money switch.
+
 ## Version 1.16.0: 918KISS catalogue-boundary hardening
 
 The three 918KISS H5 catalogue accounts remain isolated as Normal MYR,
