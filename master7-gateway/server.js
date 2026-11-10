@@ -12,6 +12,7 @@ const {
   paymentStatusPayload,
 } = require('./gspay');
 const { jiliCatalogueBody, normalizeJiliGames } = require('./jili');
+const { parseEpicwinCatalogueResponse } = require('./epicwin');
 const { parseKissh5CatalogueResponse } = require('./kissh5');
 const { venusCatalogue } = require('./venus');
 const { rsghubCatalogue } = require('./rsghub');
@@ -641,19 +642,17 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
             Lang: 'en-us',
           }),
         });
-        let kissh5Catalogue = null;
-        if (result.ok && provider === '918kissh5') {
-          try { kissh5Catalogue = parseKissh5CatalogueResponse(result.data); }
+        let catalogue = null;
+        if (result.ok) {
+          try {
+            catalogue = provider === '918kissh5'
+              ? parseKissh5CatalogueResponse(result.data)
+              : parseEpicwinCatalogueResponse(result.data);
+          }
           catch { /* A malformed success response cannot publish a partial catalogue. */ }
         }
-        const legacyStatus = Number(result.data?.Status);
-        const providerStatus = provider === '918kissh5'
-          ? (Number.isSafeInteger(result.data?.Status) ? result.data.Status : null)
-          : (Number.isSafeInteger(legacyStatus) ? legacyStatus : null);
-        if (!result.ok
-            || (provider === '918kissh5'
-              ? !kissh5Catalogue?.ok
-              : providerStatus !== 200 || !Array.isArray(result.data?.Game))) {
+        const providerStatus = Number.isSafeInteger(result.data?.Status) ? result.data.Status : null;
+        if (!result.ok || !catalogue?.ok) {
           return send(res, 502, {
             error: 'provider_catalogue_failed',
             provider,
@@ -665,12 +664,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           provider,
           account: accountName,
           currency: account.currency,
-          games: provider === '918kissh5' ? kissh5Catalogue.games : result.data.Game.map(game => ({
-            gameCode: String(game.GameCode || ''),
-            name: String(game.GameName || game.Name || ''),
-            category: String(game.GameType ?? ''),
-            imageUrl: typeof game.ImageUrl === 'string' && game.ImageUrl.startsWith('https://') ? game.ImageUrl : null,
-          })),
+          games: catalogue.games,
         }, cors);
       }
 

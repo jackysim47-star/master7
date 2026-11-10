@@ -385,7 +385,7 @@ test('EPICWIN and KISSH5 catalogue profiles keep credentials and currencies sepa
       sent={url,headers:options.headers,body:JSON.parse(options.body)};
       const game = provider === '918kissh5'
         ? {GameCode:'1',GameName:'Sample',GameType:1,ImageUrl:'https://gth.kissh5.com/thumbs/web/1.png',IsActive:true,IsH5Support:true,Maintenance:false,private:'hidden'}
-        : {GameCode:'1',GameName:'Sample',GameType:1,ImageUrl:'https://example.test/a.png',private:'hidden'};
+        : {GameCode:'1',GameName:'Sample',GameType:1,ImageUrl:'https://unverified.example.test/a.png',private:'hidden'};
       return new Response(JSON.stringify({Status:200,Game:[game],SecretKey:secret}));
     };
     const res=await run(makeApp({env,fetchImpl,now}),'/providers/'+provider+'/games?account='+account);
@@ -394,8 +394,8 @@ test('EPICWIN and KISSH5 catalogue profiles keep credentials and currencies sepa
     assert.equal(sent.body.OperatorId,id);assert.equal(sent.body.Currency,currency);
     assert.equal(sent.body.Signature,megaSignature('GetGameList','2026-10-12T22:00:00Z',id,secret));
     assert.match(sent.headers['User-Agent'], /^MASTER7-Integration-Gateway\//);
-    assert.equal(data.games[0].imageUrl,provider==='918kissh5'?'https://gth.kissh5.com/thumbs/web/1.png':'https://example.test/a.png');
-    if(provider==='918kissh5')assert.equal(data.games[0].maintenance,false);
+    assert.equal(data.games[0].imageUrl,provider==='918kissh5'?'https://gth.kissh5.com/thumbs/web/1.png':null);
+    assert.equal(data.games[0].maintenance,provider!=='918kissh5');
     assert.ok(!JSON.stringify(data).includes(secret));assert.ok(!JSON.stringify(data).includes('hidden'));
     assert.equal(data.currency,currency);
   }
