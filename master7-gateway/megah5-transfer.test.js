@@ -111,7 +111,9 @@ test('MegaH5 transfer status uses the provider-documented signature and enum', a
   const env = { ...baseEnv, MEGA_TRANSFER_STATUS_ENABLED: 'true' };
   const app = makeApp({ env, now: () => fixed, fetchImpl: async (url, options) => {
     sent = { url, body: JSON.parse(options.body) };
-    return Response.json({ Status: 200, Description: 'Success', Trans: { TranId: '123' } });
+    return Response.json({ Status: 200, Description: 'Success',
+      ResponseDateTime: '2026-11-06 02:30:00',
+      Trans: { TranId: '123', Amount: '20.00', PrevBalance: '0', NewBalance: '20.00' } });
   } });
   const response = await request(app, '/platform/megah5/transfer-status', {
     token: walletToken,
@@ -136,7 +138,8 @@ test('MegaH5 deposit and withdrawal require canonical positive amounts and sign 
   const env = { ...baseEnv, MEGA_TRANSFERS_ENABLED: 'true' };
   const app = makeApp({ env, now: () => fixed, fetchImpl: async (url, options) => {
     sent.push({ url, body: JSON.parse(options.body) });
-    return Response.json({ Status: 200, Description: 'Success', CurrentBalance: 1, Currency: 'MYR' });
+    return Response.json({ Status: 200, Description: 'Success',
+      ResponseDateTime: '2026-11-06 02:30:00', CurrentBalance: 1, Currency: 'MYR' });
   } });
   for (const [path, method, amount, referenceId] of [
     ['/platform/megah5/deposit', 'Deposit', '20.00', 'dep-20261106-1'],
@@ -177,6 +180,75 @@ test('invalid MegaH5 transfer values never reach the provider', async () => {
     assert.equal(response.status, 400);
   }
   assert.equal(calls, 0);
+});
+
+test('invalid MegaH5 session fields never reach the provider', async () => {
+  let calls = 0;
+  const app = makeApp({ env: baseEnv, fetchImpl: async () => {
+    calls++;
+    throw new Error('must not call provider');
+  } });
+  for (const body of [
+    { playerId: 'member_1', ip: '203.0.113.8' },
+    { playerId: 'member_1', gameCode: '../55021', ip: '203.0.113.8' },
+    { playerId: 'member_1', gameCode: 55021, ip: '203.0.113.8' },
+    { playerId: 'member_1', gameCode: '55021', ip: '999.0.0.1' },
+    { playerId: 'member_1', gameCode: '55021', ip: '203.00.113.8' },
+    { playerId: 'member_1', gameCode: '55021', ip: '203.0.113.8', lang: 'EN-US' },
+    { playerId: 'member_1', gameCode: '55021', ip: '203.0.113.8', demo: 'false' },
+  ]) {
+    const response = await request(app, '/platform/megah5/session', { token: gameToken, body });
+    assert.equal(response.status, 400, JSON.stringify(body));
+  }
+  assert.equal(calls, 0);
+});
+
+test('invalid MegaH5 return URL configuration never reaches the provider', async () => {
+  let calls = 0;
+  const app = makeApp({ env: { ...baseEnv, REDIRECT_URL: 'http://portal.example.test/return' },
+    fetchImpl: async () => { calls++; throw new Error('must not call provider'); } });
+  const response = await request(app, '/platform/megah5/session', {
+    token: gameToken,
+    body: { playerId: 'member_1', gameCode: '55021', ip: '203.0.113.8' },
+  });
+  assert.equal(response.status, 503);
+  assert.equal(response.data.error, 'megah5_session_configuration_invalid');
+  assert.equal(calls, 0);
+});
+
+test('malformed MegaH5 success responses fail closed at the gateway boundary', async () => {
+  let calls = 0;
+  const env = { ...baseEnv, MEGA_TRANSFERS_ENABLED: 'true', MEGA_TRANSFER_STATUS_ENABLED: 'true' };
+  const common = { Status: 200, Description: 'Success', ResponseDateTime: '2026-11-06 02:30:00' };
+  const app = makeApp({ env, fetchImpl: async url => {
+    calls++;
+    if (url.endsWith('/GameLogin')) return Response.json({ ...common, Url: 'http://insecure.example.test/session' });
+    if (url.endsWith('/CheckBalance')) return Response.json({ ...common, CurrentBalance: 'not-a-number', Currency: 'MYR' });
+    if (url.endsWith('/Deposit')) return Response.json({ ...common, CurrentBalance: '1.00', Currency: 'USD' });
+    if (url.endsWith('/Withdraw')) return Response.json({ ...common, CurrentBalance: {}, Currency: 'MYR' });
+    if (url.endsWith('/CheckTransferStatus')) return Response.json({ ...common,
+      Trans: { TranId: '123', Amount: 'not-a-number', PrevBalance: '0', NewBalance: '1' } });
+    throw new Error('unexpected route');
+  } });
+  const cases = [
+    ['/platform/megah5/session', gameToken,
+      { playerId: 'member_1', gameCode: '55021', ip: '203.0.113.8' }, 'megah5_launch_response_invalid'],
+    ['/platform/megah5/balance', gameToken,
+      { playerId: 'member_1' }, 'megah5_balance_response_invalid'],
+    ['/platform/megah5/deposit', walletToken,
+      { playerId: 'member_1', amount: '1.00', referenceId: 'deposit-1' }, 'megah5_transfer_response_invalid'],
+    ['/platform/megah5/withdraw', walletToken,
+      { playerId: 'member_1', amount: '1.00', referenceId: 'withdraw-1' }, 'megah5_transfer_response_invalid'],
+    ['/platform/megah5/transfer-status', walletToken,
+      { playerId: 'member_1', referenceId: 'deposit-1', transferType: 'deposit' },
+      'megah5_transfer_status_response_invalid'],
+  ];
+  for (const [path, token, body, error] of cases) {
+    const response = await request(app, path, { token, body });
+    assert.equal(response.status, 502, path);
+    assert.equal(response.data.error, error, path);
+  }
+  assert.equal(calls, cases.length);
 });
 
 test('MegaH5 transfer readiness stays unverified even when configuration switches are on', () => {

@@ -122,7 +122,8 @@ test('MegaH5 catalog signs the documented fields', async () => {
   let request;
   const fetchImpl = async (url, options) => {
     request = { url, options, body: JSON.parse(options.body) };
-    return new Response(JSON.stringify({ Status: 200, Game: [] }), { status: 200 });
+    return Response.json({ Status: 200, Description: 'Success',
+      ResponseDateTime: '2026-10-12T10:00:00Z', Game: [] });
   };
   const env = { MEGA_OPERATOR_ID: 'master7', MEGA_SECRET_KEY: 'secret', MEGA_BASE_URL: 'https://provider.test/api', CURRENCY: 'MYR' };
   const fixed = new Date('2026-10-12T10:00:00Z');
@@ -133,13 +134,79 @@ test('MegaH5 catalog signs the documented fields', async () => {
   assert.equal(request.body.Signature, megaSignature('GetGameList', '2026-10-12T10:00:00Z', 'master7', 'secret'));
 });
 
+function megaGame(overrides = {}) {
+  return {
+    GameCode: '55021',
+    GameName: 'Fixture game',
+    GameType: 1,
+    HasDemo: true,
+    ImageUrl: 'https://gth.megah5.com/thumbs/55021.png',
+    Brand: 'Fixture brand',
+    ...overrides,
+  };
+}
+
+test('MegaH5 catalogue validates every row and returns only public game fields', async () => {
+  const upstream = {
+    Status: 200,
+    Description: 'Success',
+    ResponseDateTime: '2026-11-10T06:00:00Z',
+    Game: [megaGame({ ProviderSecret: 'must-never-leave-gateway' })],
+    InternalAccount: 'must-never-leave-gateway',
+  };
+  const response = await run(makeApp({
+    env: { MEGA_OPERATOR_ID: 'master7', MEGA_SECRET_KEY: 'secret', CURRENCY: 'MYR' },
+    fetchImpl: async () => Response.json(upstream),
+  }), '/providers/megah5/games');
+  const data = await response.json();
+  assert.equal(response.status, 200);
+  assert.deepEqual(Object.keys(data.result.Game[0]).sort(), [
+    'Brand', 'GameCode', 'GameName', 'GameType', 'HasDemo', 'ImageUrl',
+  ].sort());
+  assert.equal(JSON.stringify(data).includes('must-never-leave-gateway'), false);
+});
+
+test('malformed or duplicate MegaH5 catalogue rows fail closed and are not cached', async () => {
+  let calls = 0;
+  const responses = [
+    { Status: 200, Description: 'Success', ResponseDateTime: '2026-11-10T06:00:00Z',
+      Game: [megaGame(), megaGame({ GameId: 55022 })] },
+    { Status: 200, Description: 'Success', ResponseDateTime: '2026-11-10T06:00:01Z',
+      Game: [megaGame()] },
+  ];
+  const app = makeApp({
+    env: { MEGA_OPERATOR_ID: 'master7', MEGA_SECRET_KEY: 'secret', CURRENCY: 'MYR' },
+    fetchImpl: async () => Response.json(responses[calls++]),
+  });
+  const invalid = await run(app, '/providers/megah5/games');
+  assert.equal(invalid.status, 502);
+  assert.equal((await invalid.json()).error, 'megah5_catalogue_invalid');
+  const repaired = await run(app, '/providers/megah5/games');
+  assert.equal(repaired.status, 200);
+  assert.equal(calls, 2);
+});
+
+test('MegaH5 catalogue rejection does not expose the provider body', async () => {
+  const response = await run(makeApp({
+    env: { MEGA_OPERATOR_ID: 'master7', MEGA_SECRET_KEY: 'secret', CURRENCY: 'MYR' },
+    fetchImpl: async () => Response.json({ Status: 403, Description: 'private provider account detail',
+      ResponseDateTime: '2026-11-10T06:00:00Z', DebugToken: 'private-debug-token' }),
+  }), '/providers/megah5/games');
+  const data = await response.json();
+  assert.equal(response.status, 502);
+  assert.equal(data.error, 'megah5_catalogue_rejected');
+  assert.equal(data.providerStatus, 403);
+  assert.equal(JSON.stringify(data).includes('private'), false);
+});
+
 test('platform game credential can create only a MegaH5 session', async () => {
   const token = 'platform-game-peer-credential-'.padEnd(48, 'x');
   let request;
   const fixed = new Date('2026-11-06T01:00:00Z');
   const fetchImpl = async (url, options) => {
     request = { url, body: JSON.parse(options.body) };
-    return Response.json({ Status: 200, Url: 'https://launch.example.test/session' });
+    return Response.json({ Status: 200, Description: 'Success',
+      ResponseDateTime: '2026-11-06 01:00:00', Url: 'https://launch.example.test/session' });
   };
   const env = { PLATFORM_GAME_TOKEN: token, MEGA_OPERATOR_ID: 'master7', MEGA_SECRET_KEY: 'secret',
     MEGA_PROVIDER_MAPPING_VERIFIED: 'true', CURRENCY: 'MYR' };
@@ -170,7 +237,8 @@ test('platform game credential can query only a MegaH5 player balance', async ()
   const fixed = new Date('2026-11-06T01:05:00Z');
   const fetchImpl = async (url, options) => {
     request = { url, body: JSON.parse(options.body) };
-    return Response.json({ Status: 200, CurrentBalance: 0, Currency: 'MYR' });
+    return Response.json({ Status: 200, Description: 'Success',
+      ResponseDateTime: '2026-11-06 01:05:00', CurrentBalance: 0, Currency: 'MYR' });
   };
   const env = { PLATFORM_GAME_TOKEN: token, MEGA_OPERATOR_ID: 'master7', MEGA_SECRET_KEY: 'secret',
     MEGA_PROVIDER_MAPPING_VERIFIED: 'true' };

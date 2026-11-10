@@ -17,6 +17,16 @@ const { rsghubCatalogue } = require('./rsghub');
 const { jdbCatalogue } = require('./jdb');
 const { pragmaticCatalogue } = require('./pragmatic');
 const {
+  parseMegaBalanceResponse,
+  parseMegaCatalogueResponse,
+  parseMegaLaunchResponse,
+  parseMegaTransferStatusResponse,
+  validMegaGameCode,
+  validMegaIpv4,
+  validMegaLanguage,
+  validMegaRedirectUrl,
+} = require('./megah5');
+const {
   buildMetaRequest,
   metaAccount,
   parseMetaCatalogueResponse,
@@ -498,10 +508,22 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
       }
 
       if (req.method === 'GET' && url.pathname === '/providers/megah5/games') {
-        const result = await cached('mega-games', () => mega('GetGameList', { Lang: 'en-us', Currency: currency }), value =>
-          value.ok && Number(value.data?.Status) === 200);
-        const providerOK = Number(result.data && result.data.Status) === 200;
-        return send(res, result.ok && providerOK ? 200 : 502, { provider: 'megah5', upstreamStatus: result.status, result: result.data }, cors);
+        const result = await cached('mega-games', () => mega('GetGameList', { Lang: 'en-us', Currency: currency }), value => {
+          try { return value.ok && parseMegaCatalogueResponse(value.data).ok; }
+          catch { return false; }
+        });
+        let parsed;
+        try { parsed = parseMegaCatalogueResponse(result.data); }
+        catch {
+          return send(res, 502, { error: 'megah5_catalogue_invalid', provider: 'megah5',
+            upstreamStatus: result.status }, cors);
+        }
+        if (!result.ok || !parsed.ok) {
+          return send(res, 502, { error: 'megah5_catalogue_rejected', provider: 'megah5',
+            upstreamStatus: result.status, providerStatus: parsed.status }, cors);
+        }
+        return send(res, 200, { provider: 'megah5', upstreamStatus: result.status,
+          result: parsed.publicResult }, cors);
       }
 
       if (req.method === 'GET' && url.pathname === '/providers/metagaming/games') {
@@ -1196,20 +1218,39 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         }
         const payload = await body(req);
         const playerId = String(payload.playerId || '');
-        const gameCode = String(payload.gameCode || '0');
+        const gameCode = typeof payload.gameCode === 'string' ? payload.gameCode : '';
         const ip = String(payload.ip || '');
-        if (!validMegaPlayerId(playerId) || !/^\d{1,3}(?:\.\d{1,3}){3}$/.test(ip)) return send(res, 400, { error: 'invalid_session_input' });
+        const lang = payload.lang === undefined ? 'en-us' : payload.lang;
+        const demo = payload.demo === undefined ? false : payload.demo;
+        const redirectUrl = String(env.REDIRECT_URL || DEFAULT_PORTAL_ORIGIN);
+        if (!validMegaPlayerId(playerId) || !validMegaGameCode(gameCode)
+            || !validMegaIpv4(ip) || !validMegaLanguage(lang) || typeof demo !== 'boolean') {
+          return send(res, 400, { error: 'invalid_session_input' });
+        }
+        if (!validMegaRedirectUrl(redirectUrl)) {
+          return send(res, 503, { error: 'megah5_session_configuration_invalid' });
+        }
         const result = await mega('GameLogin', {
           PlayerId: playerId,
           Ip: ip,
           GameCode: gameCode,
           Currency: currency,
-          Lang: String(payload.lang || 'en-us'),
-          RedirectUrl: String(env.REDIRECT_URL || DEFAULT_PORTAL_ORIGIN),
-          LaunchDemo: Boolean(payload.demo),
+          Lang: lang,
+          RedirectUrl: redirectUrl,
+          LaunchDemo: demo,
         });
-        const providerOK = Number(result.data && result.data.Status) === 200;
-        return send(res, result.ok && providerOK ? 200 : 502, { provider: 'megah5', upstreamStatus: result.status, result: result.data });
+        let parsed;
+        try { parsed = parseMegaLaunchResponse(result.data); }
+        catch {
+          return send(res, 502, { error: 'megah5_launch_response_invalid', provider: 'megah5',
+            upstreamStatus: result.status });
+        }
+        if (!result.ok || !parsed.ok) {
+          return send(res, 502, { error: 'megah5_launch_rejected', provider: 'megah5',
+            upstreamStatus: result.status, providerStatus: parsed.status });
+        }
+        return send(res, 200, { provider: 'megah5', upstreamStatus: result.status,
+          result: parsed.publicResult });
       }
 
       if (req.method === 'POST' && url.pathname === '/platform/megah5/balance') {
@@ -1221,8 +1262,18 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         const playerId = String(payload.playerId || '');
         if (!validMegaPlayerId(playerId)) return send(res, 400, { error: 'invalid_player_id' });
         const result = await mega('CheckBalance', { PlayerId: playerId });
-        const providerOK = Number(result.data && result.data.Status) === 200;
-        return send(res, result.ok && providerOK ? 200 : 502, { provider: 'megah5', upstreamStatus: result.status, result: result.data });
+        let parsed;
+        try { parsed = parseMegaBalanceResponse(result.data, currency); }
+        catch {
+          return send(res, 502, { error: 'megah5_balance_response_invalid', provider: 'megah5',
+            upstreamStatus: result.status });
+        }
+        if (!result.ok || !parsed.ok) {
+          return send(res, 502, { error: 'megah5_balance_rejected', provider: 'megah5',
+            upstreamStatus: result.status, providerStatus: parsed.status });
+        }
+        return send(res, 200, { provider: 'megah5', upstreamStatus: result.status,
+          result: parsed.publicResult });
       }
 
       if (req.method === 'POST' && url.pathname === '/platform/megah5/transfer-status') {
@@ -1245,10 +1296,18 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           ReferenceId: referenceId,
           TransferType: transferType,
         });
-        const providerOK = Number(result.data && result.data.Status) === 200;
-        return send(res, result.ok && providerOK ? 200 : 502, {
-          provider: 'megah5', operation: 'transfer_status', upstreamStatus: result.status, result: result.data,
-        });
+        let parsed;
+        try { parsed = parseMegaTransferStatusResponse(result.data); }
+        catch {
+          return send(res, 502, { error: 'megah5_transfer_status_response_invalid', provider: 'megah5',
+            operation: 'transfer_status', upstreamStatus: result.status });
+        }
+        if (!result.ok || !parsed.ok) {
+          return send(res, 502, { error: 'megah5_transfer_status_rejected', provider: 'megah5',
+            operation: 'transfer_status', upstreamStatus: result.status, providerStatus: parsed.status });
+        }
+        return send(res, 200, { provider: 'megah5', operation: 'transfer_status',
+          upstreamStatus: result.status, result: parsed.publicResult });
       }
 
       const megaTransferMatch = url.pathname.match(/^\/platform\/megah5\/(deposit|withdraw)$/);
@@ -1269,10 +1328,18 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         }
         const method = operation === 'deposit' ? 'Deposit' : 'Withdraw';
         const result = await mega(method, { PlayerId: playerId, Amount: amount, ReferenceId: referenceId });
-        const providerOK = Number(result.data && result.data.Status) === 200;
-        return send(res, result.ok && providerOK ? 200 : 502, {
-          provider: 'megah5', operation, referenceId, upstreamStatus: result.status, result: result.data,
-        });
+        let parsed;
+        try { parsed = parseMegaBalanceResponse(result.data, currency); }
+        catch {
+          return send(res, 502, { error: 'megah5_transfer_response_invalid', provider: 'megah5',
+            operation, referenceId, upstreamStatus: result.status });
+        }
+        if (!result.ok || !parsed.ok) {
+          return send(res, 502, { error: 'megah5_transfer_rejected', provider: 'megah5', operation,
+            referenceId, upstreamStatus: result.status, providerStatus: parsed.status });
+        }
+        return send(res, 200, { provider: 'megah5', operation, referenceId,
+          upstreamStatus: result.status, result: parsed.publicResult });
       }
 
       return send(res, 404, { error: 'not_found' }, cors);
