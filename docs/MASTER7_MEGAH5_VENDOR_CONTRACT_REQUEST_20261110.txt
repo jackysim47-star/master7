@@ -6,12 +6,17 @@ Current verified state:
 
 - The catalogue endpoint returns 166 games with unique, non-empty game codes.
 - Platform credentials and game/wallet tokens are configured.
-- The platform has not verified that this merchant account belongs to the advertised MegaH5 brand and upstream operator.
+- The MegaH5 brand feed through the META GAMING opgateway family is proven,
+  but this historic merchant account has not been bound to the supplier's
+  normal or free-credit production entitlement.
 - Member Play, session, balance and all money actions remain closed until the items below are confirmed and tested.
 
 Please provide or confirm in writing:
 
-1. The exact legal/provider brand and upstream operator attached to this merchant account, including the approved merchant/account identifier and game catalogue entitlement. Confirm whether the legacy name “MegaH5” is the correct public brand for this account.
+1. The exact normal or free-credit production account bound to this historic
+   merchant, including its approved operator identifier, MYR Fund Transfer
+   entitlement and MegaH5 catalogue rights. Confirm that it must remain
+   separate from the two newer META account profiles.
 2. The approved production and UAT API base endpoints, API version and exact methods for game catalogue, player registration or session, GameLogin, CheckBalance, Deposit, Withdraw and CheckTransferStatus. Identify any obsolete methods that must not be used.
 3. The full authentication and signing contract: required headers and fields, ordered signing string, hashing/encryption algorithm, timestamp/timezone rule, nonce/replay rules and response-signature verification. Credentials must be sent only through the agreed secure channel, not ordinary chat or email.
 4. The terminal, pending and retryable meaning of every response and error code for launch, balance, deposit, withdrawal and transaction status. State how an HTTP timeout or unknown result must be recovered without resubmitting a money action.

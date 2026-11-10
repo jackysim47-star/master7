@@ -1,0 +1,534 @@
+diff --git a/.env.example b/.env.example
+index ccff8d2..938808f 100644
+--- a/.env.example
++++ b/.env.example
+@@ -71,6 +71,9 @@ WHATSAPP_WORKER_BATCH_SIZE=10
+ GAME_GATEWAY_URL=https://master7-integration-gateway.onrender.com
+ GAME_GATEWAY_TOKEN=
+ GAME_GATEWAY_WALLET_TOKEN=
++# Exact supplier-approved HTTPS origins returned by MegaH5 GameLogin. Keep an
++# empty list until the merchant contract identifies the production origins.
++MEGAH5_LAUNCH_ORIGINS_JSON=[]
+ # Server-only compiled adapter configuration. Never expose this JSON to browsers.
+ # JILI account units, closure finality and merchant evidence need independent
+ # confirmation. See docs/MASTER7_JILI_TRANSFER_WALLET_148.md.
+diff --git a/app/api/[...path]/route.ts b/app/api/[...path]/route.ts
+index 06e9817..4d7b641 100644
+--- a/app/api/[...path]/route.ts
++++ b/app/api/[...path]/route.ts
+@@ -11,6 +11,6 @@ function hostedIdentityHeadersTrusted(config:Record<string,string>){
+  // request headers, so OAI identity headers must never authenticate there.
+  return !config.RENDER_EXTERNAL_URL&&config.OAI_HOSTED_IDENTITY_TRUSTED==='true';
+ }
+-async function dispatch(req:Request){if(!env.DB)return Response.json({error:'Database unavailable'},{status:503});const config=env as unknown as Record<string,string>;return handle(req,{db:env.DB,identity:await getChatGPTUser({trustedHeaders:hostedIdentityHeadersTrusted(config)}),ownerEmail:config.OWNER_EMAIL??'',manualComplianceEnforced:config.PORTAL_MANUAL_COMPLIANCE_ENFORCED,newDepositsEnabled:config.PORTAL_NEW_DEPOSITS_ENABLED,newGameLaunchesEnabled:config.PORTAL_NEW_GAME_LAUNCHES_ENABLED,newPayoutsEnabled:config.PORTAL_NEW_PAYOUTS_ENABLED,ownerLoginId:config.OWNER_LOGIN_ID,allowedOrigins:trustedOrigins(config),jdbTransferProfilesJson:config.JDB_TRANSFER_PROFILES_JSON,gameTransferProfilesJson:config.GAME_TRANSFER_PROFILES_JSON,gameGatewayUrl:config.GAME_GATEWAY_URL,gameGatewayToken:config.GAME_GATEWAY_TOKEN,gameGatewayWalletToken:config.GAME_GATEWAY_WALLET_TOKEN,megaTransfersEnabled:config.PORTAL_MEGA_TRANSFERS_ENABLED,megaLiveGamesEnabled:config.PORTAL_MEGA_LIVE_GAMES_ENABLED,megaSettlementVerified:config.PORTAL_MEGA_SETTLEMENT_VERIFIED,vpayGatewayUrl:config.VPAY_GATEWAY_URL,vpayOrderToken:config.VPAY_ORDER_TOKEN,vpayQueryToken:config.VPAY_QUERY_TOKEN,vpayCallbackToken:config.VPAY_CALLBACK_TOKEN,vpayPayoutToken:config.VPAY_PAYOUT_TOKEN,vpayPayoutEnabled:config.VPAY_PAYOUT_ENABLED,vpayOrdersEnabled:config.VPAY_ORDERS_ENABLED,vpayMode:config.VPAY_MODE,vpayTraderId:config.VPAY_TRADER_ID,vpayReturnUrl:config.VPAY_RETURN_URL,vpayRecoveryEnabled:config.VPAY_RECOVERY_ENABLED,gspayApiBase:config.GSPAY_API_BASE_URL,gspayAuthKey:config.GSPAY_AUTH_KEY,gspaySecretKey:config.GSPAY_SECRET_KEY,gspayCallbackToken:config.GSPAY_CALLBACK_TOKEN,gspayOrdersEnabled:config.GSPAY_ORDERS_ENABLED,gspayReturnUrl:config.GSPAY_RETURN_URL,gspayRecoveryEnabled:config.GSPAY_RECOVERY_ENABLED,gspayBalanceEnabled:config.GSPAY_BALANCE_QUERY_ENABLED,gspayPayoutEnabled:config.GSPAY_PAYOUT_ENABLED,gspayPayoutIpWhitelistConfirmed:config.GSPAY_PAYOUT_IP_WHITELIST_CONFIRMED,gspayPayoutBankTargetsJson:config.GSPAY_BANK_TARGETS_JSON,gspayUsdtApiBase:config.GSPAY_USDT_API_BASE_URL,gspayUsdtAuthKey:config.GSPAY_USDT_AUTH_KEY,gspayUsdtSecretKey:config.GSPAY_USDT_SECRET_KEY,gspayUsdtCallbackToken:config.GSPAY_USDT_CALLBACK_TOKEN,gspayUsdtOrdersEnabled:config.GSPAY_USDT_ORDERS_ENABLED,gspayUsdtReturnUrl:config.GSPAY_USDT_RETURN_URL,gspayUsdtCallbackUrl:config.GSPAY_USDT_CALLBACK_URL,gspayUsdtRecoveryEnabled:config.GSPAY_USDT_RECOVERY_ENABLED,gspayUsdtBalanceEnabled:config.GSPAY_USDT_BALANCE_QUERY_ENABLED,gspayUsdtContractVerified:config.GSPAY_USDT_CONTRACT_VERIFIED,gspayUsdtAssetNetwork:config.GSPAY_USDT_ASSET_NETWORK,gspayUsdtCurrencyScale:config.GSPAY_USDT_CURRENCY_SCALE,gspayUsdtCheckoutOrigin:config.GSPAY_USDT_CHECKOUT_ORIGIN,paymentRecoveryToken:config.PAYMENT_RECOVERY_TOKEN,backupJobToken:config.BACKUP_JOB_TOKEN,depositIncidentTokenHash:config.PORTAL_DEPOSIT_FORENSICS_TOKEN_HASH,depositIncidentExpiresAt:Number(config.PORTAL_DEPOSIT_FORENSICS_EXPIRES_AT??0),ownerSetupHash:config.OWNER_SETUP_TOKEN_HASH,ownerSetupExpires:Number(config.OWNER_SETUP_EXPIRES_AT??0),ownerResetHash:config.OWNER_RESET_TOKEN_HASH,ownerResetExpires:Number(config.OWNER_RESET_EXPIRES_AT??0),ownerResetIssuedAt:Number(config.OWNER_RESET_ISSUED_AT??0),anchorApiBaseUrl:config.ANCHOR_SMS_API_BASE_URL,anchorUsername:config.ANCHOR_SMS_USERNAME,anchorPassword:config.ANCHOR_SMS_PASSWORD,anchorSenderId:config.ANCHOR_SMS_SENDER_ID,otpHashSecret:config.OTP_HASH_SECRET,withdrawalDataKey:config.WITHDRAWAL_DATA_KEY,oneMpayApiBase:config.ONE_MPAY_API_BASE_URL,oneMpayMerchant:config.ONE_MPAY_MERCHANT,oneMpaySecretKey:config.ONE_MPAY_SECRET_KEY,oneMpayOrdersEnabled:config.ONE_MPAY_ORDERS_ENABLED,oneMpayCallbackUrl:config.ONE_MPAY_CALLBACK_URL,oneMpayReturnUrl:config.ONE_MPAY_RETURN_URL,oneMpayDiagnosticToken:config.ONE_MPAY_DIAGNOSTICS_TOKEN,oneMpayRecoveryEnabled:config.ONE_MPAY_RECOVERY_ENABLED,rectangleApiBase:config.RECTANGLE_API_BASE_URL,rectangleOperatorCode:config.RECTANGLE_OPERATOR_CODE,rectangleApiKey:config.RECTANGLE_API_KEY,godeeApiBase:config.GODEE_API_BASE_URL,godeeOperatorId:config.GODEE_OPERATOR_ID,godeeApiKey:config.GODEE_API_KEY,gameSyncToken:config.GAME_CATALOGUE_SYNC_TOKEN,accountingJobToken:config.ACCOUNTING_JOB_TOKEN,telegramBotToken:config.TELEGRAM_BOT_TOKEN,telegramAdminChatId:config.TELEGRAM_ADMIN_CHAT_ID,whatsappEnabled:config.WHATSAPP_SENDING_ENABLED,whatsappGraphApiVersion:config.WHATSAPP_GRAPH_API_VERSION,whatsappPhoneNumberId:config.WHATSAPP_PHONE_NUMBER_ID,whatsappWabaId:config.WHATSAPP_WABA_ID,whatsappAccessToken:config.WHATSAPP_ACCESS_TOKEN,whatsappAppSecret:config.WHATSAPP_APP_SECRET,whatsappWebhookVerifyToken:config.WHATSAPP_WEBHOOK_VERIFY_TOKEN,whatsappBusinessNumber:config.WHATSAPP_BUSINESS_NUMBER,whatsappTemplateName:config.WHATSAPP_TEMPLATE_NAME,whatsappTemplateLanguage:config.WHATSAPP_TEMPLATE_LANGUAGE,whatsappRecipientLimit:config.WHATSAPP_RECIPIENT_LIMIT,whatsappWorkerToken:config.WHATSAPP_WORKER_TOKEN,whatsappWorkerBatchSize:config.WHATSAPP_WORKER_BATCH_SIZE,supportAiEnabled:config.SUPPORT_AI_ENABLED,supportAiApiBaseUrl:config.SUPPORT_AI_API_BASE_URL,supportAiApiKey:config.SUPPORT_AI_API_KEY,supportAiModel:config.SUPPORT_AI_MODEL});}
++async function dispatch(req:Request){if(!env.DB)return Response.json({error:'Database unavailable'},{status:503});const config=env as unknown as Record<string,string>;return handle(req,{db:env.DB,identity:await getChatGPTUser({trustedHeaders:hostedIdentityHeadersTrusted(config)}),ownerEmail:config.OWNER_EMAIL??'',manualComplianceEnforced:config.PORTAL_MANUAL_COMPLIANCE_ENFORCED,newDepositsEnabled:config.PORTAL_NEW_DEPOSITS_ENABLED,newGameLaunchesEnabled:config.PORTAL_NEW_GAME_LAUNCHES_ENABLED,newPayoutsEnabled:config.PORTAL_NEW_PAYOUTS_ENABLED,ownerLoginId:config.OWNER_LOGIN_ID,allowedOrigins:trustedOrigins(config),jdbTransferProfilesJson:config.JDB_TRANSFER_PROFILES_JSON,gameTransferProfilesJson:config.GAME_TRANSFER_PROFILES_JSON,gameGatewayUrl:config.GAME_GATEWAY_URL,gameGatewayToken:config.GAME_GATEWAY_TOKEN,gameGatewayWalletToken:config.GAME_GATEWAY_WALLET_TOKEN,megaLaunchOriginsJson:config.MEGAH5_LAUNCH_ORIGINS_JSON,megaTransfersEnabled:config.PORTAL_MEGA_TRANSFERS_ENABLED,megaLiveGamesEnabled:config.PORTAL_MEGA_LIVE_GAMES_ENABLED,megaSettlementVerified:config.PORTAL_MEGA_SETTLEMENT_VERIFIED,vpayGatewayUrl:config.VPAY_GATEWAY_URL,vpayOrderToken:config.VPAY_ORDER_TOKEN,vpayQueryToken:config.VPAY_QUERY_TOKEN,vpayCallbackToken:config.VPAY_CALLBACK_TOKEN,vpayPayoutToken:config.VPAY_PAYOUT_TOKEN,vpayPayoutEnabled:config.VPAY_PAYOUT_ENABLED,vpayOrdersEnabled:config.VPAY_ORDERS_ENABLED,vpayMode:config.VPAY_MODE,vpayTraderId:config.VPAY_TRADER_ID,vpayReturnUrl:config.VPAY_RETURN_URL,vpayRecoveryEnabled:config.VPAY_RECOVERY_ENABLED,gspayApiBase:config.GSPAY_API_BASE_URL,gspayAuthKey:config.GSPAY_AUTH_KEY,gspaySecretKey:config.GSPAY_SECRET_KEY,gspayCallbackToken:config.GSPAY_CALLBACK_TOKEN,gspayOrdersEnabled:config.GSPAY_ORDERS_ENABLED,gspayReturnUrl:config.GSPAY_RETURN_URL,gspayRecoveryEnabled:config.GSPAY_RECOVERY_ENABLED,gspayBalanceEnabled:config.GSPAY_BALANCE_QUERY_ENABLED,gspayPayoutEnabled:config.GSPAY_PAYOUT_ENABLED,gspayPayoutIpWhitelistConfirmed:config.GSPAY_PAYOUT_IP_WHITELIST_CONFIRMED,gspayPayoutBankTargetsJson:config.GSPAY_BANK_TARGETS_JSON,gspayUsdtApiBase:config.GSPAY_USDT_API_BASE_URL,gspayUsdtAuthKey:config.GSPAY_USDT_AUTH_KEY,gspayUsdtSecretKey:config.GSPAY_USDT_SECRET_KEY,gspayUsdtCallbackToken:config.GSPAY_USDT_CALLBACK_TOKEN,gspayUsdtOrdersEnabled:config.GSPAY_USDT_ORDERS_ENABLED,gspayUsdtReturnUrl:config.GSPAY_USDT_RETURN_URL,gspayUsdtCallbackUrl:config.GSPAY_USDT_CALLBACK_URL,gspayUsdtRecoveryEnabled:config.GSPAY_USDT_RECOVERY_ENABLED,gspayUsdtBalanceEnabled:config.GSPAY_USDT_BALANCE_QUERY_ENABLED,gspayUsdtContractVerified:config.GSPAY_USDT_CONTRACT_VERIFIED,gspayUsdtAssetNetwork:config.GSPAY_USDT_ASSET_NETWORK,gspayUsdtCurrencyScale:config.GSPAY_USDT_CURRENCY_SCALE,gspayUsdtCheckoutOrigin:config.GSPAY_USDT_CHECKOUT_ORIGIN,paymentRecoveryToken:config.PAYMENT_RECOVERY_TOKEN,backupJobToken:config.BACKUP_JOB_TOKEN,depositIncidentTokenHash:config.PORTAL_DEPOSIT_FORENSICS_TOKEN_HASH,depositIncidentExpiresAt:Number(config.PORTAL_DEPOSIT_FORENSICS_EXPIRES_AT??0),ownerSetupHash:config.OWNER_SETUP_TOKEN_HASH,ownerSetupExpires:Number(config.OWNER_SETUP_EXPIRES_AT??0),ownerResetHash:config.OWNER_RESET_TOKEN_HASH,ownerResetExpires:Number(config.OWNER_RESET_EXPIRES_AT??0),ownerResetIssuedAt:Number(config.OWNER_RESET_ISSUED_AT??0),anchorApiBaseUrl:config.ANCHOR_SMS_API_BASE_URL,anchorUsername:config.ANCHOR_SMS_USERNAME,anchorPassword:config.ANCHOR_SMS_PASSWORD,anchorSenderId:config.ANCHOR_SMS_SENDER_ID,otpHashSecret:config.OTP_HASH_SECRET,withdrawalDataKey:config.WITHDRAWAL_DATA_KEY,oneMpayApiBase:config.ONE_MPAY_API_BASE_URL,oneMpayMerchant:config.ONE_MPAY_MERCHANT,oneMpaySecretKey:config.ONE_MPAY_SECRET_KEY,oneMpayOrdersEnabled:config.ONE_MPAY_ORDERS_ENABLED,oneMpayCallbackUrl:config.ONE_MPAY_CALLBACK_URL,oneMpayReturnUrl:config.ONE_MPAY_RETURN_URL,oneMpayDiagnosticToken:config.ONE_MPAY_DIAGNOSTICS_TOKEN,oneMpayRecoveryEnabled:config.ONE_MPAY_RECOVERY_ENABLED,rectangleApiBase:config.RECTANGLE_API_BASE_URL,rectangleOperatorCode:config.RECTANGLE_OPERATOR_CODE,rectangleApiKey:config.RECTANGLE_API_KEY,godeeApiBase:config.GODEE_API_BASE_URL,godeeOperatorId:config.GODEE_OPERATOR_ID,godeeApiKey:config.GODEE_API_KEY,gameSyncToken:config.GAME_CATALOGUE_SYNC_TOKEN,accountingJobToken:config.ACCOUNTING_JOB_TOKEN,telegramBotToken:config.TELEGRAM_BOT_TOKEN,telegramAdminChatId:config.TELEGRAM_ADMIN_CHAT_ID,whatsappEnabled:config.WHATSAPP_SENDING_ENABLED,whatsappGraphApiVersion:config.WHATSAPP_GRAPH_API_VERSION,whatsappPhoneNumberId:config.WHATSAPP_PHONE_NUMBER_ID,whatsappWabaId:config.WHATSAPP_WABA_ID,whatsappAccessToken:config.WHATSAPP_ACCESS_TOKEN,whatsappAppSecret:config.WHATSAPP_APP_SECRET,whatsappWebhookVerifyToken:config.WHATSAPP_WEBHOOK_VERIFY_TOKEN,whatsappBusinessNumber:config.WHATSAPP_BUSINESS_NUMBER,whatsappTemplateName:config.WHATSAPP_TEMPLATE_NAME,whatsappTemplateLanguage:config.WHATSAPP_TEMPLATE_LANGUAGE,whatsappRecipientLimit:config.WHATSAPP_RECIPIENT_LIMIT,whatsappWorkerToken:config.WHATSAPP_WORKER_TOKEN,whatsappWorkerBatchSize:config.WHATSAPP_WORKER_BATCH_SIZE,supportAiEnabled:config.SUPPORT_AI_ENABLED,supportAiApiBaseUrl:config.SUPPORT_AI_API_BASE_URL,supportAiApiKey:config.SUPPORT_AI_API_KEY,supportAiModel:config.SUPPORT_AI_MODEL});}
+ export const GET=dispatch;
+ export const POST=dispatch;
+diff --git a/app/portal.html b/app/portal.html
+index 1d7721c..10373d9 100644
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,33 +15,33 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.150-jili-safety">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.150-jili-safety">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.150-jili-safety">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.150-jili-safety">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.150-jili-safety">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.150-jili-safety">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.150-jili-safety">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.150-jili-safety">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.150-jili-safety">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.150-jili-safety">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.150-jili-safety">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.150-jili-safety">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.150-jili-safety">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.150-jili-safety">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.150-jili-safety" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.150-jili-safety" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.150-jili-safety" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.150-jili-safety" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.150-jili-safety" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.150-jili-safety" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.150-jili-safety" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.150-jili-safety" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.150-jili-safety" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.150-jili-safety" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.150-jili-safety" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.150-jili-safety" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.150-jili-safety" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.151-megah5-safety">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.151-megah5-safety">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.151-megah5-safety">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.151-megah5-safety">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.151-megah5-safety">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.151-megah5-safety">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.151-megah5-safety">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.151-megah5-safety">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.151-megah5-safety">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.151-megah5-safety">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.151-megah5-safety">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.151-megah5-safety">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.151-megah5-safety">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.151-megah5-safety">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.151-megah5-safety" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · 热门游戏、专属优惠与会员服务</div>
+diff --git a/docs/CURRENT_DEPLOYMENT.md b/docs/CURRENT_DEPLOYMENT.md
+index 734767c..a8609d9 100644
+--- a/docs/CURRENT_DEPLOYMENT.md
++++ b/docs/CURRENT_DEPLOYMENT.md
+@@ -1,8 +1,25 @@
+ # MASTER7 deployment handover
+ 
+-Candidate source: `17.0.0-selfbuilt.150-jili-safety`.
+-
+-Baseline: live `17.0.0-selfbuilt.149-meta-catalogue-isolation`, deployment `dep-dbpado142hec73c2rpqg`, publication commit `f4a1ed036496cc85ea99568e8de773f1ff67ba0f`.
++Candidate source: `17.0.0-selfbuilt.151-megah5-safety`.
++
++Baseline: live `17.0.0-selfbuilt.150-jili-safety`, deployment
++`dep-dbpbei8m7kps73aejtrg`, publication commit
++`6aed6a0eb0ba7b9af4893c1712310313be2a61c9`.
++
++Legacy MegaH5 is now treated as a MegaH5 brand feed through the META GAMING
++opgateway while its historic account remains isolated from the newer META
++normal and free-credit profiles. The gateway strictly validates and projects
++the 166-game catalogue, GameLogin, balance and transfer response boundaries.
++Malformed success bodies, duplicate games, unsafe URLs, wrong currencies and
++invalid transaction records fail closed. Raw supplier fields are no longer
++returned to the portal.
++
++The live feed currently supplies an unconfirmed schedule-shaped `Maintenance`
++value. Version 151 marks every such title unavailable instead of guessing its
++meaning. Portal GameLogin also requires a server-only list of exact
++supplier-approved HTTPS launch origins; an empty or invalid list blocks before
++wallet reservation or supplier traffic. These controls do not enable Play,
++transfers, settlement or recovery.
+ 
+ META GAMING now has two isolated, read-only catalogue profiles for the Normal
+ MYR and Free Credit MYR accounts. Their gateway paths, cache keys, catalogue
+@@ -16,7 +33,13 @@ JILI now has a legacy transfer protocol, executable adapter, per-account runtime
+ 
+ Migration `0120-provider-wallet-sweeps` adds immutable withdrawal-mode and adapter-contract fingerprints to operation rows. Existing operations default to their previous exact-amount protocol. Platform cash remains MYR sen; supplier units convert once at the adapter boundary. The backup schema is now 0120 and explicitly accepts 0119 archives. Restores include the new snapshots.
+ 
+-The executable protocol inventory is MegaH5, JDB and the new JILI implementation (four listed account profiles). JILI's merchant contract remains incomplete: the legacy specification is secondary, account amount units and closure finality are unconfirmed, no runtime secret was installed and no production acceptance was recorded. Implementation counts are not playable-game counts. 918KISS and the other merchant protocols remain unimplemented. MegaH5 has no production closure implementation. JDB's last supplier response was 9001.
++The executable protocol inventory is MegaH5, JDB and JILI (four listed account
++profiles). Implementation counts are not playable-game counts. MegaH5 still
++lacks an accepted production merchant binding, approved launch origins,
++PullLog/FlagLog wager ingestion and a complete round-closure/finality process.
++JILI's account units and closure finality remain unconfirmed. 918KISS and the
++other merchant protocols remain unimplemented. JDB's last supplier response
++was 9001.
+ 
+ There are 37 brand entries and 42 separate listed account profiles; production accepted profiles remain zero. No real game launch or real-money transfer occurred in this work. Payment work is paused; activation flags, credentials, pricing, instances and DNS are unchanged.
+ 
+diff --git a/docs/MASTER7_MEGAH5_SAFETY_151.md b/docs/MASTER7_MEGAH5_SAFETY_151.md
+new file mode 100644
+index 0000000..f12659c
+--- /dev/null
++++ b/docs/MASTER7_MEGAH5_SAFETY_151.md
+@@ -0,0 +1,46 @@
++# MASTER7 v151 MegaH5 safety release
++
++Date: 2026-11-10 UTC
++
++## Scope
++
++This release hardens the legacy `megah5_myr` boundary without enabling member
++Play or provider money movement. Payment-provider work is unchanged.
++
++## Implemented
++
++- Strict gateway parsing for the MegaH5 catalogue, GameLogin, balance,
++  Deposit, Withdraw and CheckTransferStatus responses.
++- Bounded public catalogue projection with unique game codes and no unknown
++  supplier fields.
++- Strict game code, IPv4, language, boolean demo and HTTPS redirect checks.
++- Exact server-side launch-origin allowlist in the portal. Missing, malformed,
++  wildcard or duplicate origins fail closed before a wallet reservation or
++  supplier request.
++- Fail-closed game availability. A title is available only when the supplier
++  explicitly reports active, H5-capable and outside maintenance.
++- Durable unknown-state handling remains in place for ambiguous launch or
++  transfer outcomes; recovery must query the original reference.
++
++## Verified evidence
++
++- The read-only supplier catalogue returned 166 unique, non-empty game codes.
++- The feed identifies MegaH5 brands through the META GAMING opgateway family.
++- Gateway tests: 129/129 passed before release packaging.
++- Portal MegaH5 tests: 81/81 passed; the complete portal suite passed 1318/1318
++  before release packaging.
++- No member launch or supplier money method was called during live inspection.
++
++## Still closed
++
++- `MEGA_PROVIDER_MAPPING_VERIFIED=false`.
++- MegaH5 transfer and transfer-status switches are off.
++- Portal Play, wallet, settlement and recovery acceptance are not recorded.
++- The supplier has not confirmed the historic account's production entitlement,
++  its normal/free-credit binding, approved launch origins or the meaning of the
++  current `Maintenance` value.
++- PullLog/FlagLog wager ingestion, unfinished-round closure, late-wager
++  finality and real wallet-to-ledger reconciliation are not accepted.
++
++The catalogue may be shown as read-only. The profile must remain non-playable
++until the missing supplier contract and controlled end-to-end evidence exist.
+diff --git a/lib/backend.ts b/lib/backend.ts
+index 1b4103c..2610993 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -15,7 +15,7 @@ import {gspayUsdtCapabilitySnapshot,handleGSPayUsdtStatus} from './gspay-usdt.ts
+ import {approveWithdrawal,cancelWithdrawal,getWithdrawalBanks,listAdminWithdrawals,listMemberWithdrawals,submitWithdrawal} from './withdrawals.ts';
+ import {manualBankPayoutGet,manualBankPayoutPost} from './manual-bank-payouts.ts';
+ import { manualBankGet, manualBankPost,manualBankAvailability } from './manual-bank.ts';
+-import {MegaWalletError,adminMegaWalletSessions,megaWalletCapabilities,megaWalletConfigured,memberMegaWalletState,prepareMegaWallet,recoverMegaWallet,settleMegaWallet,claimMegaLaunch,markMegaLaunchIssued,markMegaLaunchUnknown,type MegaWalletContext,type MegaWalletCapability} from './megah5-wallet.ts';
++import {MegaWalletError,adminMegaWalletSessions,megaLaunchOriginAllowed,megaWalletCapabilities,megaWalletConfigured,memberMegaWalletState,prepareMegaWallet,recoverMegaWallet,settleMegaWallet,claimMegaLaunch,markMegaLaunchIssued,markMegaLaunchUnknown,type MegaWalletContext,type MegaWalletCapability} from './megah5-wallet.ts';
+ import {adminProfileGameWallets,memberProfileGameWallet} from './game-wallet-records.ts';
+ import {BACKUP_FORMAT,BACKUP_SCHEMA_SHA256,BACKUP_SCHEMA_VERSION,BACKUP_TABLES} from './encrypted-backup.ts';
+ import {BACKUP_PUBLIC_KEY_SHA256} from './backup-public-key.ts';
+@@ -38,7 +38,7 @@ import {generateSupportReply,SUPPORT_ASSISTANT_NAME,supportAiProviderStatus,type
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.150-jili-safety';
++export const RELEASE = '17.0.0-selfbuilt.151-megah5-safety';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+@@ -54,14 +54,14 @@ async function depositControls(db:D1Database){
+  const values=new Map(result.results.map(row=>[row.id,row.value]));
+  return Object.fromEntries(depositControlProviders.map(provider=>{const key='deposit_control:'+provider,value=values.get(key);return [provider,!values.has(key)||value==='auto'?'auto':'paused'];})) as Record<DepositControlProvider,'auto'|'paused'>;
+ }
+-export type Context={db:D1Database;identity:Identity|null;ownerEmail:string;manualComplianceEnforced?:string;newDepositsEnabled?:string;newGameLaunchesEnabled?:string;newPayoutsEnabled?:string;ownerLoginId?:string;allowedOrigins?:string[];gameGatewayUrl?:string;gameGatewayToken?:string;gameGatewayWalletToken?:string;jdbTransferProfilesJson?:string;gameTransferProfilesJson?:string;providerTransferFetch?:typeof fetch;megaTransfersEnabled?:string;megaLiveGamesEnabled?:string;megaSettlementVerified?:string;megaSessionCloser?:MegaSessionCloser;megaClosureContractVerified?:boolean;gameGatewayFetch?:typeof fetch;gameArtFetch?:typeof fetch;vpayGatewayUrl?:string;vpayOrderToken?:string;vpayQueryToken?:string;vpayCallbackToken?:string;vpayPayoutToken?:string;vpayPayoutEnabled?:string;vpayOrdersEnabled?:string;vpayMode?:string;vpayTraderId?:string;vpayReturnUrl?:string;vpayRecoveryEnabled?:string;vpayFetch?:typeof fetch;gspayApiBase?:string;gspayAuthKey?:string;gspaySecretKey?:string;gspayCallbackToken?:string;gspayOrdersEnabled?:string;gspayReturnUrl?:string;gspayRecoveryEnabled?:string;gspayBalanceEnabled?:string;gspayPayoutEnabled?:string;gspayPayoutIpWhitelistConfirmed?:string;gspayPayoutBankTargetsJson?:string;gspayUsdtApiBase?:string;gspayUsdtAuthKey?:string;gspayUsdtSecretKey?:string;gspayUsdtCallbackToken?:string;gspayUsdtOrdersEnabled?:string;gspayUsdtReturnUrl?:string;gspayUsdtCallbackUrl?:string;gspayUsdtRecoveryEnabled?:string;gspayUsdtBalanceEnabled?:string;gspayUsdtContractVerified?:string;gspayUsdtAssetNetwork?:string;gspayUsdtCurrencyScale?:string;gspayUsdtCheckoutOrigin?:string;paymentRecoveryToken?:string;backupJobToken?:string;depositIncidentTokenHash?:string;depositIncidentExpiresAt?:number;gspayFetch?:typeof fetch;ownerSetupHash?:string;ownerSetupExpires?:number;ownerResetHash?:string;ownerResetExpires?:number;ownerResetIssuedAt?:number;anchorApiBaseUrl?:string;anchorUsername?:string;anchorPassword?:string;anchorSenderId?:string;otpHashSecret?:string;smsFetch?:typeof fetch;withdrawalDataKey?:string;oneMpayApiBase?:string;oneMpayMerchant?:string;oneMpaySecretKey?:string;oneMpayOrdersEnabled?:string;oneMpayCallbackUrl?:string;oneMpayReturnUrl?:string;oneMpayDiagnosticToken?:string;oneMpayRecoveryEnabled?:string;oneMpayFetch?:typeof fetch;rectangleApiBase?:string;rectangleOperatorCode?:string;rectangleApiKey?:string;godeeApiBase?:string;godeeOperatorId?:string;godeeApiKey?:string;gameCatalogueFetch?:typeof fetch;gameSyncToken?:string;accountingJobToken?:string;telegramBotToken?:string;telegramAdminChatId?:string;telegramFetch?:typeof fetch;whatsappEnabled?:string;whatsappGraphApiVersion?:string;whatsappPhoneNumberId?:string;whatsappWabaId?:string;whatsappAccessToken?:string;whatsappAppSecret?:string;whatsappWebhookVerifyToken?:string;whatsappBusinessNumber?:string;whatsappTemplateName?:string;whatsappTemplateLanguage?:string;whatsappRecipientLimit?:string;whatsappWorkerToken?:string;whatsappWorkerBatchSize?:string;whatsappFetch?:typeof fetch;supportAiEnabled?:string;supportAiApiBaseUrl?:string;supportAiApiKey?:string;supportAiModel?:string;supportAiFetch?:typeof fetch};
++export type Context={db:D1Database;identity:Identity|null;ownerEmail:string;manualComplianceEnforced?:string;newDepositsEnabled?:string;newGameLaunchesEnabled?:string;newPayoutsEnabled?:string;ownerLoginId?:string;allowedOrigins?:string[];gameGatewayUrl?:string;gameGatewayToken?:string;gameGatewayWalletToken?:string;megaLaunchOriginsJson?:string;jdbTransferProfilesJson?:string;gameTransferProfilesJson?:string;providerTransferFetch?:typeof fetch;megaTransfersEnabled?:string;megaLiveGamesEnabled?:string;megaSettlementVerified?:string;megaSessionCloser?:MegaSessionCloser;megaClosureContractVerified?:boolean;gameGatewayFetch?:typeof fetch;gameArtFetch?:typeof fetch;vpayGatewayUrl?:string;vpayOrderToken?:string;vpayQueryToken?:string;vpayCallbackToken?:string;vpayPayoutToken?:string;vpayPayoutEnabled?:string;vpayOrdersEnabled?:string;vpayMode?:string;vpayTraderId?:string;vpayReturnUrl?:string;vpayRecoveryEnabled?:string;vpayFetch?:typeof fetch;gspayApiBase?:string;gspayAuthKey?:string;gspaySecretKey?:string;gspayCallbackToken?:string;gspayOrdersEnabled?:string;gspayReturnUrl?:string;gspayRecoveryEnabled?:string;gspayBalanceEnabled?:string;gspayPayoutEnabled?:string;gspayPayoutIpWhitelistConfirmed?:string;gspayPayoutBankTargetsJson?:string;gspayUsdtApiBase?:string;gspayUsdtAuthKey?:string;gspayUsdtSecretKey?:string;gspayUsdtCallbackToken?:string;gspayUsdtOrdersEnabled?:string;gspayUsdtReturnUrl?:string;gspayUsdtCallbackUrl?:string;gspayUsdtRecoveryEnabled?:string;gspayUsdtBalanceEnabled?:string;gspayUsdtContractVerified?:string;gspayUsdtAssetNetwork?:string;gspayUsdtCurrencyScale?:string;gspayUsdtCheckoutOrigin?:string;paymentRecoveryToken?:string;backupJobToken?:string;depositIncidentTokenHash?:string;depositIncidentExpiresAt?:number;gspayFetch?:typeof fetch;ownerSetupHash?:string;ownerSetupExpires?:number;ownerResetHash?:string;ownerResetExpires?:number;ownerResetIssuedAt?:number;anchorApiBaseUrl?:string;anchorUsername?:string;anchorPassword?:string;anchorSenderId?:string;otpHashSecret?:string;smsFetch?:typeof fetch;withdrawalDataKey?:string;oneMpayApiBase?:string;oneMpayMerchant?:string;oneMpaySecretKey?:string;oneMpayOrdersEnabled?:string;oneMpayCallbackUrl?:string;oneMpayReturnUrl?:string;oneMpayDiagnosticToken?:string;oneMpayRecoveryEnabled?:string;oneMpayFetch?:typeof fetch;rectangleApiBase?:string;rectangleOperatorCode?:string;rectangleApiKey?:string;godeeApiBase?:string;godeeOperatorId?:string;godeeApiKey?:string;gameCatalogueFetch?:typeof fetch;gameSyncToken?:string;accountingJobToken?:string;telegramBotToken?:string;telegramAdminChatId?:string;telegramFetch?:typeof fetch;whatsappEnabled?:string;whatsappGraphApiVersion?:string;whatsappPhoneNumberId?:string;whatsappWabaId?:string;whatsappAccessToken?:string;whatsappAppSecret?:string;whatsappWebhookVerifyToken?:string;whatsappBusinessNumber?:string;whatsappTemplateName?:string;whatsappTemplateLanguage?:string;whatsappRecipientLimit?:string;whatsappWorkerToken?:string;whatsappWorkerBatchSize?:string;whatsappFetch?:typeof fetch;supportAiEnabled?:string;supportAiApiBaseUrl?:string;supportAiApiKey?:string;supportAiModel?:string;supportAiFetch?:typeof fetch};
+ function vpaySettings(c:Context,user:User|null,acceptance?:{realPaymentVerified:boolean;settlementVerified:boolean}){return {...vpayPayoutSettings(c),user,orderToken:c.vpayOrderToken,queryToken:c.vpayQueryToken,enabled:c.vpayOrdersEnabled,newDepositsEnabled:c.newDepositsEnabled,mode:c.vpayMode,portalOrigins:c.allowedOrigins,returnUrl:c.vpayReturnUrl,recoveryEnabled:c.vpayRecoveryEnabled,acceptance};}
+ function vpayPayoutSettings(c:Context){return {db:c.db,gatewayUrl:c.vpayGatewayUrl,payoutToken:c.vpayPayoutToken,callbackToken:c.vpayCallbackToken,payoutEnabled:c.vpayPayoutEnabled,newPayoutsEnabled:c.newPayoutsEnabled,vpayTraderId:c.vpayTraderId,withdrawalDataKey:c.withdrawalDataKey,fetchImpl:c.vpayFetch};}
+ function gspaySettings(c:Context,user:User|null,acceptance?:{realPaymentVerified:boolean;settlementVerified:boolean}){return {db:c.db,user,apiBase:c.gspayApiBase,authKey:c.gspayAuthKey,secretKey:c.gspaySecretKey,callbackToken:c.gspayCallbackToken,enabled:c.gspayOrdersEnabled,newDepositsEnabled:c.newDepositsEnabled,portalOrigins:c.allowedOrigins,returnUrl:c.gspayReturnUrl,recoveryEnabled:c.gspayRecoveryEnabled,balanceEnabled:c.gspayBalanceEnabled,payoutEnabled:c.gspayPayoutEnabled,newPayoutsEnabled:c.newPayoutsEnabled,payoutIpWhitelistConfirmed:c.gspayPayoutIpWhitelistConfirmed,payoutBankTargetsJson:c.gspayPayoutBankTargetsJson,withdrawalDataKey:c.withdrawalDataKey,acceptance,fetchImpl:c.gspayFetch};}
+ function gspayUsdtSettings(c:Context){return {apiBase:c.gspayUsdtApiBase,authKey:c.gspayUsdtAuthKey,secretKey:c.gspayUsdtSecretKey,callbackToken:c.gspayUsdtCallbackToken,ordersEnabled:c.gspayUsdtOrdersEnabled,returnUrl:c.gspayUsdtReturnUrl,callbackUrl:c.gspayUsdtCallbackUrl,recoveryEnabled:c.gspayUsdtRecoveryEnabled,balanceEnabled:c.gspayUsdtBalanceEnabled,contractVerified:c.gspayUsdtContractVerified,assetNetwork:c.gspayUsdtAssetNetwork,currencyScale:c.gspayUsdtCurrencyScale,checkoutOrigin:c.gspayUsdtCheckoutOrigin};}
+ async function withdrawalSettings(c:Context,user:User|null){const bank=await manualBankAvailability({db:c.db,user,newDepositsEnabled:c.newDepositsEnabled,newPayoutsEnabled:c.newPayoutsEnabled});const gspay=gspaySettings(c,user),vpay=vpayPayoutSettings(c),[gspayReady,vpayReady]=await Promise.all([gspayPayoutAvailability(gspay),vpayPayoutAvailability(vpay)]);return {db:c.db,user,dataKey:c.withdrawalDataKey,payouts:{manual_bank:{enabled:user?.role==='owner'?bank.payoutGateOpen:bank.payoutEnabled,allowsMember:async(id:string)=>(await manualBankAvailability({db:c.db,user:user?{...user,id}:null,newPayoutsEnabled:c.newPayoutsEnabled})).payoutEnabled,reason:bank.payoutEnabled?'Manual bank transfer after owner approval':'Company-bank withdrawals are temporarily unavailable',submit:async()=>({status:'processing' as const})},vpay:{enabled:vpayReady.enabled,reason:vpayReady.reason,supportsBank:vpayPayoutSupportsBank,submit:(input:any)=>submitVPayPayout(input,vpay)},gspay:{enabled:gspayReady.enabled,reason:gspayReady.reason,submit:(input:any)=>submitGSPayPayout(input,gspay)},'1mpay':{enabled:false,reason:'Payout bank codes and final callback states are not verified',submit:async()=>({status:'review' as const})}}};}
+ function oneMpaySettings(c:Context,user:User|null,acceptance?:{realPaymentVerified:boolean;settlementVerified:boolean}){return {db:c.db,user,apiBase:c.oneMpayApiBase,merchant:c.oneMpayMerchant,secretKey:c.oneMpaySecretKey,enabled:c.oneMpayOrdersEnabled,newDepositsEnabled:c.newDepositsEnabled,portalOrigins:c.allowedOrigins,callbackUrl:c.oneMpayCallbackUrl,returnUrl:c.oneMpayReturnUrl,diagnosticToken:c.oneMpayDiagnosticToken,recoveryEnabled:c.oneMpayRecoveryEnabled,acceptance,fetchImpl:c.oneMpayFetch};}
+-function megaWalletSettings(c:Context,user:User):MegaWalletContext{return {db:c.db,user,gatewayUrl:c.gameGatewayUrl,gameToken:c.gameGatewayToken,walletToken:c.gameGatewayWalletToken,enabled:c.megaTransfersEnabled,liveGamesEnabled:c.megaLiveGamesEnabled,newGameLaunchesEnabled:c.newGameLaunchesEnabled,settlementVerified:c.megaSettlementVerified,closeSession:c.megaSessionCloser,closureContractVerified:c.megaClosureContractVerified,fetchImpl:c.gameGatewayFetch};}
++function megaWalletSettings(c:Context,user:User):MegaWalletContext{return {db:c.db,user,gatewayUrl:c.gameGatewayUrl,gameToken:c.gameGatewayToken,walletToken:c.gameGatewayWalletToken,launchOriginsJson:c.megaLaunchOriginsJson,enabled:c.megaTransfersEnabled,liveGamesEnabled:c.megaLiveGamesEnabled,newGameLaunchesEnabled:c.newGameLaunchesEnabled,settlementVerified:c.megaSettlementVerified,closeSession:c.megaSessionCloser,closureContractVerified:c.megaClosureContractVerified,fetchImpl:c.gameGatewayFetch};}
+ async function transferSettings(c:Context,user:User,profile:RegisteredGameProviderProfile):Promise<ProviderTransferContext>{
+  const acceptance=await getGameProviderAcceptanceReadiness(c.db),profileAcceptance=acceptance.profiles.find(item=>item.profileId===profile.profileId),runtime=gameTransferRuntime(c,profile.profileId,user.id,profileAcceptance?.evidenceAccepted===true);
+  if(!runtime||!runtime.recoveryEnabled)throw new ProviderTransferError(503,'GAME_TRANSFER_PROFILE_UNAVAILABLE');
+@@ -101,7 +101,7 @@ function cachedCatalogueCapability(c:Context):MegaWalletCapability{
+ // observation made by the customer/catalogue path, and fail closed on restart,
+ // credential changes or expiry. This is capability evidence, never settlement QA.
+ const gameAvailabilityObservations=new WeakMap<object,{key:string;expiresAt:number;ready:boolean;capability?:MegaWalletCapability;closer?:MegaSessionCloser}>();
+-function gameAvailabilityKey(c:Context){return createHash('sha256').update(JSON.stringify([c.gameGatewayUrl,c.gameGatewayToken,c.gameGatewayWalletToken,c.newGameLaunchesEnabled,c.megaClosureContractVerified,!!c.megaSessionCloser])).digest('hex');}
++function gameAvailabilityKey(c:Context){return createHash('sha256').update(JSON.stringify([c.gameGatewayUrl,c.gameGatewayToken,c.gameGatewayWalletToken,c.megaLaunchOriginsJson,c.newGameLaunchesEnabled,c.megaClosureContractVerified,!!c.megaSessionCloser])).digest('hex');}
+ function observeGameAvailability(c:Context,ready:boolean,capability?:MegaWalletCapability){gameAvailabilityObservations.set(c.db,{key:gameAvailabilityKey(c),expiresAt:Date.now()+30_000,ready,capability,closer:c.megaSessionCloser});}
+ function observedGameAvailability(c:Context){const observation=gameAvailabilityObservations.get(c.db);return observation?.key===gameAvailabilityKey(c)&&observation.expiresAt>Date.now()&&observation.closer===c.megaSessionCloser&&observation.ready===true;}
+ const transferAvailabilityObservations=new WeakMap<object,Map<string,{key:string;expiresAt:number;ready:boolean}>>();
+@@ -518,7 +518,7 @@ async function launchMegaH5(req:Request,c:Context,u:User,d:any){
+   const raw=await response.text();if(Buffer.byteLength(raw)>65536)throw new ApiError(502,'MegaH5 launch response is invalid');let result:any;try{result=JSON.parse(raw);}catch{throw new ApiError(502,'MegaH5 launch response is invalid');}
+   if(result?.provider!=='megah5'||![200,'200'].includes(result?.result?.Status))throw new ApiError(502,'MegaH5 launch response is unconfirmed');
+   const urlValue=result?.result?.Url??result?.result?.URL??result?.result?.GameUrl??result?.result?.GameURL;let launchUrl:URL;try{launchUrl=new URL(String(urlValue??''));}catch{throw new ApiError(502,'MegaH5 launch URL is missing');}
+-  if(launchUrl.protocol!=='https:'||launchUrl.username||launchUrl.password||launchUrl.hash)throw new ApiError(502,'MegaH5 launch URL is invalid');
++  if(!megaLaunchOriginAllowed(c.megaLaunchOriginsJson,launchUrl))throw new ApiError(502,'MegaH5 launch URL is invalid');
+   await markMegaLaunchIssued(walletContext,launch.id,prepared.sessionId);
+   await auditStmt(c.db,u,'game_launch_created',`megah5:${gameCode}`).run();return json({provider:'megah5',profileId:'megah5_myr',gameCode,launchUrl:launchUrl.href,walletVerified:prepared.walletVerified,walletSessionId:prepared.sessionId,settlementBlocked:!(c.megaClosureContractVerified===true&&typeof c.megaSessionCloser==='function'),amountInGameMinor:prepared.amountOutMinor});
+  }catch(error){
+diff --git a/lib/megah5-wallet.ts b/lib/megah5-wallet.ts
+index e4ec215..2e47d29 100644
+--- a/lib/megah5-wallet.ts
++++ b/lib/megah5-wallet.ts
+@@ -7,6 +7,7 @@ type Member={id:string;username:string;role:string;approved:number};
+ export type MegaWalletContext={
+  db:D1Database;user:Member;gatewayUrl?:string;gameToken?:string;walletToken?:string;
+  enabled?:string;liveGamesEnabled?:string;newGameLaunchesEnabled?:string;settlementVerified?:string;fetchImpl?:typeof fetch;
++ launchOriginsJson?:string;
+  acceptance?:MegaAcceptanceCapabilities;closeSession?:MegaSessionCloser;closureContractVerified?:boolean;
+ };
+ 
+@@ -25,6 +26,23 @@ export class MegaWalletError extends Error{
+ }
+ 
+ const tokenReady=(value?:string)=>typeof value==='string'&&Buffer.byteLength(value)>=32&&Buffer.byteLength(value)<=1024;
++export function megaLaunchOrigins(value?:string){
++ if(typeof value!=='string'||Buffer.byteLength(value)>4096)return null;
++ let raw:unknown;try{raw=JSON.parse(value);}catch{return null;}
++ if(!Array.isArray(raw)||raw.length===0||raw.length>50)return null;
++ const origins=new Set<string>();
++ for(const item of raw){
++  if(typeof item!=='string'||item!==item.trim()||Buffer.byteLength(item)>512)return null;
++  let url:URL;try{url=new URL(item);}catch{return null;}
++  if(url.protocol!=='https:'||url.username||url.password||url.pathname!=='/'||url.search||url.hash||!url.hostname||url.hostname.includes('*'))return null;
++  if(origins.has(url.origin))return null;origins.add(url.origin);
++ }
++ return origins;
++}
++export function megaLaunchOriginAllowed(value:string|undefined,url:URL){
++ const origins=megaLaunchOrigins(value);
++ return origins?.has(url.origin)===true&&url.protocol==='https:'&&!url.username&&!url.password&&!url.hash;
++}
+ export function megaWalletConfigured(c:MegaWalletContext){
+  return c.gatewayUrl===gatewayOrigin&&tokenReady(c.gameToken)&&tokenReady(c.walletToken)&&c.gameToken!==c.walletToken;
+ }
+@@ -32,6 +50,7 @@ export type MegaWalletCapability={availabilityMode:'automatic';readOnlyAvailabil
+ export async function megaWalletCapabilities(c:MegaWalletContext):Promise<MegaWalletCapability>{
+  const result:MegaWalletCapability={availabilityMode:'automatic',readOnlyAvailability:true,configured:megaWalletConfigured(c),launchReady:false,walletReady:false,catalogueVerified:false,recoveryVerified:false,launchVerified:false,walletVerified:false,settlementVerified:false,capabilitySource:'gateway_configuration',capabilityReason:'connection_not_configured'};
+  if(!result.configured)return result;
++ if(!megaLaunchOrigins(c.launchOriginsJson))return {...result,capabilityReason:'launch_origin_allowlist_unavailable'};
+  // This existing endpoint reads gateway configuration only. It never creates a
+  // player, launches a game or transfers money, and is not an acceptance test.
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),5000);
+diff --git a/lib/production-acceptance.ts b/lib/production-acceptance.ts
+index 3fbd900..014ad06 100644
+--- a/lib/production-acceptance.ts
++++ b/lib/production-acceptance.ts
+@@ -10,7 +10,7 @@ export const PAYMENT_ACCEPTANCE_CAPABILITIES=Object.freeze([
+  'order','payment','callback','query_recovery','wallet_credit','merchant_settlement',
+ ] as const);
+ 
+-export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.150-jili-safety' as const;
++export const PRODUCTION_ACCEPTANCE_ROLLBACK_SUBJECT='rollback_rehearsal_17.0.0-selfbuilt.151-megah5-safety' as const;
+ 
+ export const PRODUCTION_ACCEPTANCE_REQUIREMENTS=Object.freeze([
+  {category:'domain',subjectId:'www.master7.best',capabilities:['dns_tls_routing']},
+diff --git a/lib/render-env.ts b/lib/render-env.ts
+index 74ac747..58c0502 100644
+--- a/lib/render-env.ts
++++ b/lib/render-env.ts
+@@ -19,6 +19,7 @@ export const env = {
+   GAME_TRANSFER_PROFILES_JSON: process.env.GAME_TRANSFER_PROFILES_JSON,
+   GAME_GATEWAY_TOKEN: process.env.GAME_GATEWAY_TOKEN,
+   GAME_GATEWAY_WALLET_TOKEN: process.env.GAME_GATEWAY_WALLET_TOKEN,
++  MEGAH5_LAUNCH_ORIGINS_JSON: process.env.MEGAH5_LAUNCH_ORIGINS_JSON,
+   PORTAL_MEGA_TRANSFERS_ENABLED: process.env.PORTAL_MEGA_TRANSFERS_ENABLED,
+   PORTAL_MEGA_LIVE_GAMES_ENABLED: process.env.PORTAL_MEGA_LIVE_GAMES_ENABLED,
+   PORTAL_MEGA_SETTLEMENT_VERIFIED: process.env.PORTAL_MEGA_SETTLEMENT_VERIFIED,
+diff --git a/package.json b/package.json
+index 448cd0c..edd9cd6 100644
+--- a/package.json
++++ b/package.json
+@@ -20,14 +20,14 @@
+     "test:all": "node --test --test-concurrency=4 tests/*.test.mjs",
+     "typecheck:render": "tsc --noEmit -p tsconfig.render.json",
+     "verify:render": "npm run test:maintenance && npm run test:release-probe && npm run test:all && npm run typecheck:render && npm run lint && npm run test:render-db && npm run build:render",
+-    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.150-jili-safety node scripts/production-readiness-probe.mjs",
+-    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.150-jili-safety node scripts/postgres-readiness-gate.mjs",
++    "probe:production": "EXPECTED_RELEASE_PREFIX=17.0.0-selfbuilt.151-megah5-safety node scripts/production-readiness-probe.mjs",
++    "probe:database": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.151-megah5-safety node scripts/postgres-readiness-gate.mjs",
+     "accounting:close": "node scripts/accounting-close.mjs",
+     "backup:restore-dry-run": "node scripts/postgres-restore-dry-run.mjs",
+     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate",
+-    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.150-jili-safety node scripts/probe-official-entries.mjs",
++    "probe:entries": "MASTER7_EXPECTED_RELEASE=17.0.0-selfbuilt.151-megah5-safety node scripts/probe-official-entries.mjs",
+     "test:manual-bank-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-manual-bank.mjs",
+     "test:provider-wallet-postgres": "node --experimental-transform-types --test scripts/verify-isolated-postgres-provider-wallet.mjs"
+   },
+diff --git a/public/service-worker.js b/public/service-worker.js
+index c73e9a5..4f9bd6c 100644
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.150-jili-safety';
++const CACHE='master7-shell-17.0.0-selfbuilt.151-megah5-safety';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff --git a/tests/api.test.mjs b/tests/api.test.mjs
+index 918ae81..683c7a7 100644
+--- a/tests/api.test.mjs
++++ b/tests/api.test.mjs
+@@ -157,7 +157,7 @@ test('V17 hosted portal: identity, authorization, persistence and operations',as
+   sqlite.prepare("INSERT INTO game_visibility(provider_id,game_code,visible,status,image_data,category_override,updated_by,updated_at) VALUES('megah5','55021',1,'active','','','owner',0) ON CONFLICT(provider_id,game_code) DO UPDATE SET visible=1,status='active'").run();
+   const token='g'.repeat(48),walletToken='w'.repeat(48),paths=[];
+   const gameGatewayFetch=async(url)=>{const path=new URL(url).pathname;paths.push(path);if(path==='/readiness')return Response.json(megaCapabilityFixture());if(path==='/providers/megah5/games')return Response.json({provider:'megah5',result:{Status:200,Game:[{GameCode:'55021',GameName:'Ocean Quest',GameType:'2'}]}});throw Error('Unexpected game or wallet operation');};
+-  const base={gameGatewayUrl:'https://master7-integration-gateway.onrender.com',gameGatewayToken:token,gameGatewayWalletToken:walletToken,megaTransfersEnabled:'true',gameGatewayFetch},extra={...base,megaLiveGamesEnabled:'true',megaSettlementVerified:'true'};
++  const base={gameGatewayUrl:'https://master7-integration-gateway.onrender.com',gameGatewayToken:token,gameGatewayWalletToken:walletToken,megaLaunchOriginsJson:'["https://launch.example.test"]',megaTransfersEnabled:'true',gameGatewayFetch},extra={...base,megaLiveGamesEnabled:'true',megaSettlementVerified:'true'};
+   const forwarded={'x-forwarded-for':'203.0.113.8'};
+   assert.equal((await call('alice','/api/game-launch','POST',{gameCode:'55021'},forwarded,extra)).status,400);
+   assert.equal((await call('alice','/api/game-launch','POST',{providerId:'venus',gameCode:'55021'},forwarded,extra)).status,503);
+diff --git a/tests/game-launch.test.mjs b/tests/game-launch.test.mjs
+index 3e41850..212e42e 100644
+--- a/tests/game-launch.test.mjs
++++ b/tests/game-launch.test.mjs
+@@ -34,7 +34,7 @@ function harness(){
+  sqlite.prepare("INSERT INTO deposit_orders(id,user_id,request_key,fingerprint,provider,amount_minor,currency,trade_code,status,created_at,updated_at) VALUES('fixture-credit','member','fixture-credit-key','fixture','manual_bank',2000,'MYR','fixture','credited',0,0)").run();
+  sqlite.prepare("INSERT INTO wallet_ledger(id,order_id,user_id,account_code,amount_minor,currency,created_at) VALUES('fixture-member','fixture-credit','member','member',2000,'MYR',0),('fixture-clearing','fixture-credit','member','provider_clearing',-2000,'MYR',0)").run();
+  const calls=[],capabilityCalls=[],catalogueCalls=[];
+- const fixture={sessionStatus:200,capability:megaCapabilityFixture()};
++ const fixture={sessionStatus:200,sessionUrl:'https://launch.example.test/session',capability:megaCapabilityFixture()};
+  const fetchImpl=async(url,init)=>{
+   const parsed=new URL(url),path=parsed.pathname;
+   if(path==='/readiness'){capabilityCalls.push({path,method:init.method,headers:new Headers(init.headers)});return Response.json(fixture.capability);}
+@@ -52,21 +52,30 @@ function harness(){
+   }
+   calls.push({path,method:init.method,authorization:new Headers(init.headers).get('authorization'),body:init.body?JSON.parse(init.body):null});
+   if(path==='/providers/megah5/games')return Response.json({provider:'megah5',result:{Status:200,Game:[{GameCode:'55021',GameName:'Ocean Quest',GameType:'2'}]}});
+-  if(path==='/platform/megah5/session')return Response.json({provider:'megah5',upstreamStatus:200,result:{Status:fixture.sessionStatus,Url:'https://launch.example.test/session'}});
++  if(path==='/platform/megah5/session')return Response.json({provider:'megah5',upstreamStatus:200,result:{Status:fixture.sessionStatus,Url:fixture.sessionUrl}});
+   if(path==='/platform/megah5/balance')return Response.json({provider:'megah5',result:{Status:200,CurrentBalance:'0.00',Currency:'MYR'}});
+   if(path==='/platform/megah5/deposit')return Response.json({provider:'megah5',operation:'deposit',referenceId:JSON.parse(init.body).referenceId,result:{Status:200}});
+   throw Error('Unexpected fixture gateway call: '+path);
+  };
+- const context={db,identity:{userId:'member',email:'member@example.test'},ownerEmail:'owner@example.test',newGameLaunchesEnabled:'true',gameGatewayUrl:gateway,gameGatewayToken:gameToken,gameGatewayWalletToken:walletToken,megaTransfersEnabled:'true',megaLiveGamesEnabled:'true',megaSettlementVerified:'true',gameGatewayFetch:fetchImpl};
++ const context={db,identity:{userId:'member',email:'member@example.test'},ownerEmail:'owner@example.test',newGameLaunchesEnabled:'true',gameGatewayUrl:gateway,gameGatewayToken:gameToken,gameGatewayWalletToken:walletToken,megaLaunchOriginsJson:'["https://launch.example.test"]',megaTransfersEnabled:'true',megaLiveGamesEnabled:'true',megaSettlementVerified:'true',gameGatewayFetch:fetchImpl};
+  async function request(path,{method='GET',data,extra={}}={}){
+   const response=await handle(new Request('https://portal.example.test'+path,{method,headers:{'content-type':'application/json',origin:'https://portal.example.test','x-csrf-token':'fixture-csrf','x-forwarded-for':'203.0.113.8'},...(data?{body:JSON.stringify(data)}:{})}),{...context,...extra});
+   return {status:response.status,data:await response.json()};
+  }
+  const launch=extra=>request('/api/game-launch',{method:'POST',data:{providerId:'megah5',gameCode:'55021'},extra});
+- const prepareWallet=()=>prepareMegaWallet({db,user:{id:'member',username:'member@example.test',role:'member',approved:1},gatewayUrl:gateway,gameToken,walletToken,newGameLaunchesEnabled:context.newGameLaunchesEnabled,fetchImpl},'55021');
++ const prepareWallet=()=>prepareMegaWallet({db,user:{id:'member',username:'member@example.test',role:'member',approved:1},gatewayUrl:gateway,gameToken,walletToken,launchOriginsJson:context.megaLaunchOriginsJson,newGameLaunchesEnabled:context.newGameLaunchesEnabled,fetchImpl},'55021');
+  return {sqlite,db,calls,capabilityCalls,catalogueCalls,fixture,context,request,launch,prepareWallet,close:()=>sqlite.close()};
+ }
+ 
++function acceptMega(h){
++ for(const [index,capability] of ['catalogue','launch','wallet','settlement','recovery'].entries()){
++  const id=`fixture-megah5-${capability}`;
++  h.sqlite.prepare(`INSERT INTO game_provider_acceptance_events(id,profile_id,revision,capability,environment,result,evidence_sha256,evidence_reference,verified_by,observed_at,recorded_at) VALUES(?, 'megah5_myr',1,?,'production','passed',?,?,'member',1,1)`).run(id,capability,String(index+1).repeat(64),`fixture/${capability}`);
++  h.sqlite.prepare("INSERT INTO game_provider_acceptance_current(profile_id,capability,environment,event_id) VALUES('megah5_myr',?,'production',?)").run(capability,id);
++ }
++}
++const verifiedClosure={megaClosureContractVerified:true,megaSessionCloser:async input=>({state:'closed',receipt:{...input,providerClosureReference:'FIXTURE-CLOSE-1',allIssuedLaunchesInvalidated:true,pendingRounds:0,lateResultsFinal:true}})};
++
+ test('cached capability and game directory stay unplayable without verified acceptance',async()=>{
+  const h=harness();try{
+   const summary=await h.request('/api/games');assert.equal(summary.status,200);assert.equal(h.capabilityCalls.length,0);
+@@ -165,6 +174,38 @@ test('unverified acceptance blocks the public launch before any wallet transfer'
+  }finally{h.close();}
+ });
+ 
++test('a production-accepted launch still requires a reviewed exact origin allowlist before any wallet call',async()=>{
++ for(const origins of [undefined,'[]','["http://launch.example.test"]','["https://*.example.test"]']){
++  const h=harness();try{
++   acceptMega(h);const result=await h.launch({...verifiedClosure,megaLaunchOriginsJson:origins});
++   assert.equal(result.status,503,String(origins));assert.match(result.data.error,/capability is unavailable/);
++   assert.equal(h.capabilityCalls.length,0);assert.equal(h.calls.length,0);
++   assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM game_wallet_sessions').get().n,0);
++   assert.equal(h.sqlite.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);
++  }finally{h.close();}
++ }
++});
++
++test('a production-accepted launch returns only a URL from the reviewed exact origin',async()=>{
++ const h=harness();try{
++  acceptMega(h);const result=await h.launch(verifiedClosure);
++  assert.equal(result.status,200,JSON.stringify(result));assert.equal(result.data.launchUrl,'https://launch.example.test/session');
++  assert.deepEqual(h.calls.map(call=>call.path),['/platform/megah5/balance','/platform/megah5/deposit','/platform/megah5/session']);
++  assert.equal(h.sqlite.prepare("SELECT state FROM megah5_launch_operations").get().state,'issued');
++ }finally{h.close();}
++});
++
++test('an unapproved HTTPS GameLogin origin is withheld and leaves the funded attempt recoverable',async()=>{
++ const h=harness();try{
++  acceptMega(h);h.fixture.sessionUrl='https://launch.example.test.evil.invalid/session';
++  const result=await h.launch(verifiedClosure);assert.equal(result.status,502);assert.match(result.data.error,/launch URL is invalid/);assert.equal(result.data.launchUrl,undefined);
++  assert.deepEqual(h.calls.map(call=>call.path),['/platform/megah5/balance','/platform/megah5/deposit','/platform/megah5/session']);
++  assert.equal(h.sqlite.prepare("SELECT state FROM megah5_launch_operations").get().state,'unknown');
++  assert.equal(h.sqlite.prepare("SELECT status FROM game_wallet_sessions").get().status,'active');
++  assert.equal(h.sqlite.prepare("SELECT COUNT(*) n FROM wallet_reservations WHERE kind='game'").get().n,1);
++ }finally{h.close();}
++});
++
+ test('a stale session identifier cannot settle or recover the member’s current game',async()=>{
+  const h=harness();try{
+   assert.equal((await h.prepareWallet()).walletVerified,true);const before=h.calls.length;
+diff --git a/tests/game-profile-wallet-reservation.test.mjs b/tests/game-profile-wallet-reservation.test.mjs
+index 367a931..630a31b 100644
+--- a/tests/game-profile-wallet-reservation.test.mjs
++++ b/tests/game-profile-wallet-reservation.test.mjs
+@@ -136,7 +136,7 @@ test('an existing generic reservation prevents a second MegaH5 wallet transfer',
+   if(path.endsWith('/deposit')){deposits++;return Response.json({provider:'megah5',result:{Status:200}});}
+   throw new Error('unexpected fixture call');
+  };
+- const context={db,user:{id:'member',username:'member',role:'member',approved:1},gatewayUrl:'https://master7-integration-gateway.onrender.com',gameToken:'g'.repeat(48),walletToken:'w'.repeat(48),newGameLaunchesEnabled:'true',fetchImpl};
++ const context={db,user:{id:'member',username:'member',role:'member',approved:1},gatewayUrl:'https://master7-integration-gateway.onrender.com',gameToken:'g'.repeat(48),walletToken:'w'.repeat(48),launchOriginsJson:'["https://launch.example.test"]',newGameLaunchesEnabled:'true',fetchImpl};
+  await assert.rejects(prepareMegaWallet(context,'55021'),error=>error instanceof MegaWalletError&&error.status===409);
+  assert.equal(balances,0);assert.equal(deposits,0);
+  assert.equal(sqlite.prepare("SELECT COUNT(*) n FROM wallet_reservations WHERE reference_id='session1'").get().n,1);
+diff --git a/tests/maintenance-game.test.mjs b/tests/maintenance-game.test.mjs
+index fb5ceb1..8e67718 100644
+--- a/tests/maintenance-game.test.mjs
++++ b/tests/maintenance-game.test.mjs
+@@ -54,13 +54,13 @@ function harness(){
+   if(path==='/platform/megah5/transfer-status')return Response.json({provider:'megah5',operation:'transfer_status',result:{Status:200,Description:'Success',Trans:{Amount:provider.statusAmount,Currency:'MYR'}}});
+   throw new Error(`Unexpected fixture gateway call: ${path}`);
+  };
+- const context={db,identity:{userId:'member',email:'member@example.test'},ownerEmail:'owner@example.test',newGameLaunchesEnabled:'false',gameGatewayUrl:gateway,gameGatewayToken:gameToken,gameGatewayWalletToken:walletToken,megaTransfersEnabled:'true',megaLiveGamesEnabled:'true',megaSettlementVerified:'true',gameGatewayFetch:fetchImpl};
++ const context={db,identity:{userId:'member',email:'member@example.test'},ownerEmail:'owner@example.test',newGameLaunchesEnabled:'false',gameGatewayUrl:gateway,gameGatewayToken:gameToken,gameGatewayWalletToken:walletToken,megaLaunchOriginsJson:'["https://launch.example.test"]',megaTransfersEnabled:'true',megaLiveGamesEnabled:'true',megaSettlementVerified:'true',gameGatewayFetch:fetchImpl};
+  async function request(path,{method='GET',data}={}){
+   const response=await handle(new Request('https://portal.example.test'+path,{method,headers:{'content-type':'application/json',origin:'https://portal.example.test','x-csrf-token':'fixture-csrf','x-forwarded-for':'203.0.113.8'},...(data===undefined?{}:{body:JSON.stringify(data)})}),context);
+   return {status:response.status,data:await response.json()};
+  }
+  const launch=()=>request('/api/game-launch',{method:'POST',data:{providerId:'megah5',gameCode:'55021'}});
+- const directContext=()=>({db,user:{id:'member',username:'member@example.test',role:'member',approved:1},gatewayUrl:gateway,gameToken,walletToken,newGameLaunchesEnabled:context.newGameLaunchesEnabled,fetchImpl});
++ const directContext=()=>({db,user:{id:'member',username:'member@example.test',role:'member',approved:1},gatewayUrl:gateway,gameToken,walletToken,launchOriginsJson:context.megaLaunchOriginsJson,newGameLaunchesEnabled:context.newGameLaunchesEnabled,fetchImpl});
+  return {sqlite,db,provider,calls,context,request,launch,directContext,close:()=>sqlite.close()};
+ }
+ 
+diff --git a/tests/megah5-wallet.test.mjs b/tests/megah5-wallet.test.mjs
+index 4e2d3ab..57d3485 100644
+--- a/tests/megah5-wallet.test.mjs
++++ b/tests/megah5-wallet.test.mjs
+@@ -4,6 +4,7 @@ import {DatabaseSync} from 'node:sqlite';
+ import {readFileSync} from 'node:fs';
+ import {
+  MegaWalletError,
++ megaLaunchOrigins,
+  megaWalletConfigured,
+  megaWalletCapabilities,
+  megaWalletLiveReady,
+@@ -59,10 +60,15 @@ function harness(){
+   if(path.endsWith('/transfer-status'))return Response.json({provider:provider.statusProvider,operation:'transfer_status',result:{Status:200,Description:'Success',Trans:{Amount:provider.statusAmount,Currency:provider.statusCurrency,...provider.statusPatch}},...provider.statusEnvelopePatch});
+   throw new Error(`unexpected path ${path}`);
+  };
+- const context={db,user:{id:'member',username:'member@example.test',role:'member',approved:1},gatewayUrl,gameToken,walletToken,enabled:'true',liveGamesEnabled:'true',newGameLaunchesEnabled:'true',settlementVerified:'true',fetchImpl};
++ const context={db,user:{id:'member',username:'member@example.test',role:'member',approved:1},gatewayUrl,gameToken,walletToken,launchOriginsJson:'["https://launch.example.test"]',enabled:'true',liveGamesEnabled:'true',newGameLaunchesEnabled:'true',settlementVerified:'true',fetchImpl};
+  return {sqlite,db,provider,calls,context,close:()=>sqlite.close()};
+ }
+ 
++test('launch origin configuration accepts exact HTTPS origins and rejects ambiguous values',()=>{
++ assert.deepEqual([...megaLaunchOrigins('["https://launch.example.test","https://games.example.test:8443/"]')],['https://launch.example.test','https://games.example.test:8443']);
++ for(const value of [undefined,'', '{}','[]','["http://launch.example.test"]','["https://user:pass@launch.example.test"]','["https://launch.example.test/path"]','["https://launch.example.test?next=1"]','["https://*.example.test"]','["https://launch.example.test","https://launch.example.test/"]'])assert.equal(megaLaunchOrigins(value),null,String(value));
++});
++
+ test('wallet uses real connection capability while legacy flags never attest settlement or block recovery',async()=>{
+  const h=harness();try{
+   const automatic={...h.context,enabled:'false',liveGamesEnabled:'false',settlementVerified:'false'};
+@@ -76,6 +82,10 @@ test('wallet uses real connection capability while legacy flags never attest set
+    await assert.rejects(()=>prepareMegaWallet(invalid,'55021'),error=>error instanceof MegaWalletError&&error.status===503);
+   }
+   assert.equal(calls,0);
++  const missingOrigins={...h.context,launchOriginsJson:undefined,fetchImpl:async()=>{calls++;throw Error('must not call');}};
++  assert.equal(megaWalletConfigured(missingOrigins),true);
++  const blocked=await megaWalletCapabilities(missingOrigins);assert.equal(blocked.walletReady,false);assert.equal(blocked.launchReady,false);assert.equal(blocked.capabilityReason,'launch_origin_allowlist_unavailable');
++  await assert.rejects(()=>prepareMegaWallet(missingOrigins,'55021'),error=>error instanceof MegaWalletError&&error.status===503);assert.equal(calls,0);
+   await prepareMegaWallet(automatic,'55021');h.provider.balance='20.00';
+   assert.equal((await settleMegaWallet(automatic)).status,'settled');
+  }finally{h.close();}
+diff --git a/tests/official-entries-probe.test.mjs b/tests/official-entries-probe.test.mjs
+index bc70e3f..4ac9084 100644
+--- a/tests/official-entries-probe.test.mjs
++++ b/tests/official-entries-probe.test.mjs
+@@ -2,7 +2,7 @@ import test from 'node:test';
+ import assert from 'node:assert/strict';
+ import {probeOfficialEntries,OFFICIAL_ENTRIES} from '../scripts/probe-official-entries.mjs';
+ 
+-const release='17.0.0-selfbuilt.150-jili-safety';
++const release='17.0.0-selfbuilt.151-megah5-safety';
+ function response(url){return url.pathname==='/health/live'?Response.json({status:'ok',database:'ready',scope:'portal-liveness',release}):new Response('<title>MASTER7 · Premium Game Lobby</title>',{headers:{'content-type':'text/html'}});}
+ 
+ test('fixed official entry probe sends GET only, omits credentials and never claims financial acceptance',async()=>{

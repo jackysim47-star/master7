@@ -1,0 +1,71 @@
+{
+  "release": "17.0.0-selfbuilt.151-megah5-safety",
+  "preparedAt": "2026-11-10T06:44:06.399129+00:00",
+  "sourceCommit": "e8446275f33252a0e1c3c3d8421a485e6e5ab7df",
+  "baselineSourceCommit": "52b60da36b33b5900b7f82c5514d1d8a2c18fd85",
+  "baselineRelease": "17.0.0-selfbuilt.150-jili-safety",
+  "archive": {
+    "sha256": "97ee131edb51d49f7f4a630f59a1b79d10b9383d2e6799aba86d89de61fb1d40",
+    "bytes": 7122908,
+    "files": 679,
+    "entries": 740,
+    "byteIdenticalIndependentArchives": true,
+    "cleanExtractionMatchesSource": true,
+    "links": 0
+  },
+  "changes": {
+    "added": [
+      "docs/MASTER7_MEGAH5_SAFETY_151.md"
+    ],
+    "changed": [
+      ".env.example",
+      "app/api/[...path]/route.ts",
+      "app/portal.html",
+      "docs/CURRENT_DEPLOYMENT.md",
+      "lib/backend.ts",
+      "lib/megah5-wallet.ts",
+      "lib/production-acceptance.ts",
+      "lib/render-env.ts",
+      "package.json",
+      "public/service-worker.js",
+      "tests/api.test.mjs",
+      "tests/game-launch.test.mjs",
+      "tests/game-profile-wallet-reservation.test.mjs",
+      "tests/maintenance-game.test.mjs",
+      "tests/megah5-wallet.test.mjs",
+      "tests/official-entries-probe.test.mjs"
+    ],
+    "deleted": []
+  },
+  "validation": {
+    "fullRegression": 1318,
+    "maintenance": 12,
+    "releaseProbe": 27,
+    "focusedMegaH5": 81,
+    "renderDatabase": 3,
+    "gatewayTests": 129,
+    "failed": 0,
+    "typecheck": true,
+    "lint": true,
+    "renderBuild": true,
+    "supplierTests": "read-only MegaH5 catalogue probes only; no launch, balance, transfer or settlement acceptance"
+  },
+  "megah5": {
+    "liveCatalogueCount": 166,
+    "catalogueUniqueCodes": 166,
+    "strictGatewayProjection": true,
+    "exactLaunchOriginAllowlist": true,
+    "unknownAvailabilityPolicy": "maintenance_true",
+    "providerMappingVerified": false,
+    "productionAcceptedProfiles": 0
+  },
+  "configurationChanges": {
+    "paymentCredentials": false,
+    "paymentFlags": false,
+    "gameMoneyFlags": false,
+    "runtimeSecrets": false,
+    "dns": false,
+    "schemaMigrations": []
+  },
+  "candidateLive": false
+}

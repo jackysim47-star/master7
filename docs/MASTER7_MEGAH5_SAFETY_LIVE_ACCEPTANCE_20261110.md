@@ -11,6 +11,9 @@ This record covers read-only catalogue, readiness and portal checks for the lega
 - Gateway `/health` returned HTTP 200 and identified gateway version `1.14.0`.
 - Gateway `/providers/megah5/games` returned HTTP 200 with upstream HTTP status 200 and provider status 200.
 - The live catalogue contained 166 games: 166 non-empty unique game codes, 166 unique game IDs and no empty game names.
+- Supplier-linked v3.4.8 material and the exact staging opgateway host prove that
+  this is a MegaH5 brand feed through the META GAMING protocol family. Live
+  rows also identify MegaH5/LGMegaH5/MegaH5Arc and use MegaH5 artwork.
 - Gateway readiness reported credentials, game token and wallet token configured.
 - Portal `/health/live` returned HTTP 200 with its database ready.
 - Portal `/api/games?profile=megah5_myr` returned the same 166-game catalogue and reported it fresh and connected.
@@ -22,7 +25,9 @@ This record covers read-only catalogue, readiness and portal checks for the lega
 
 ## Not verified
 
-- The legal and technical mapping between the legacy merchant account, the advertised MegaH5 brand and the upstream API operator.
+- Whether the historic merchant account is the supplier's normal or
+  free-credit account, and whether that exact account has production MYR Fund
+  Transfer entitlement. It must remain isolated from both newer profiles.
 - Production game launch, token creation, return URL and session closure.
 - Player balance, deposit, withdrawal, transaction query, settlement and recovery.
 - Amount units, decimals, MYR conversion and any game-credit scale.
@@ -37,6 +42,6 @@ No supplier launch or money action was executed during this acceptance check, so
 
 ## Acceptance decision
 
-The live catalogue and fail-closed controls are accepted for read-only operation. Legacy MegaH5 production play and wallet operation are **not accepted**. Play and all money actions must remain closed until the merchant-to-provider mapping and full supplier contract are confirmed, both Render Singapore CIDRs are allowlisted, and a controlled end-to-end acceptance produces durable evidence.
+The live catalogue and fail-closed controls are accepted for read-only operation. Legacy MegaH5 production play and wallet operation are **not accepted**. Play and all money actions must remain closed until the exact merchant-account entitlement and full supplier contract are confirmed, both Render Singapore CIDRs are allowlisted, and a controlled end-to-end acceptance produces durable evidence.
 
 No payment-provider configuration was changed by this work.
