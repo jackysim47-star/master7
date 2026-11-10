@@ -1,0 +1,314 @@
+{
+  "status": "verified",
+  "coverageComplete": true,
+  "missingTables": [],
+  "readConsistency": "transaction_snapshot",
+  "format": "MASTER7-ENCRYPTED-BACKUP-1",
+  "release": "17.0.0-selfbuilt.163-coba8-front-end-registered",
+  "schemaVersion": "0120-provider-wallet-sweeps",
+  "schemaSha256": "5cbc5cd93db13ecf862ffac30bcbb38d9a2f2f90d75e2ae1550299b22bc7e3eb",
+  "backupFile": "master7-encrypted-backup-v163-20261110T111847175Z.json",
+  "backupSha256": "5f462f487b9e55b8dc412e8a43bbe223eefb6c719d0f73c667f0cf0f5adfab9a",
+  "createdAt": "2026-11-10T11:18:47.175Z",
+  "verifiedAt": "2026-11-10T11:19:16.833Z",
+  "publicKeySha256": "922c18278bcd0521b73eb40166e3a111765157e4f0179fa18b07bb53cb151359",
+  "plaintextSha256": "397ea6442234fd679a18167cef09d8b3b912bf90b62d1f72e3eac586692465bb",
+  "tableCount": 71,
+  "totalRecords": 497,
+  "tables": [
+    {
+      "name": "users",
+      "rows": 7
+    },
+    {
+      "name": "password_credentials",
+      "rows": 7
+    },
+    {
+      "name": "referral_codes",
+      "rows": 6
+    },
+    {
+      "name": "referral_relationships",
+      "rows": 0
+    },
+    {
+      "name": "marketing_contacts",
+      "rows": 0
+    },
+    {
+      "name": "marketing_campaigns",
+      "rows": 0
+    },
+    {
+      "name": "marketing_deliveries",
+      "rows": 0
+    },
+    {
+      "name": "deposit_orders",
+      "rows": 12
+    },
+    {
+      "name": "wallet_ledger",
+      "rows": 0
+    },
+    {
+      "name": "wallet_reservations",
+      "rows": 0
+    },
+    {
+      "name": "game_wallet_sessions",
+      "rows": 0
+    },
+    {
+      "name": "game_wallet_ledger",
+      "rows": 0
+    },
+    {
+      "name": "company_bank_accounts",
+      "rows": 0
+    },
+    {
+      "name": "manual_deposit_requests",
+      "rows": 0
+    },
+    {
+      "name": "announcements",
+      "rows": 0
+    },
+    {
+      "name": "audit",
+      "rows": 268
+    },
+    {
+      "name": "providers",
+      "rows": 5
+    },
+    {
+      "name": "tickets",
+      "rows": 0
+    },
+    {
+      "name": "replies",
+      "rows": 0
+    },
+    {
+      "name": "ticket_reads",
+      "rows": 0
+    },
+    {
+      "name": "settings",
+      "rows": 11
+    },
+    {
+      "name": "lobby_ads",
+      "rows": 0
+    },
+    {
+      "name": "benefit_rules",
+      "rows": 1
+    },
+    {
+      "name": "game_visibility",
+      "rows": 3
+    },
+    {
+      "name": "custom_game_cards",
+      "rows": 0
+    },
+    {
+      "name": "payment_channel_controls",
+      "rows": 5
+    },
+    {
+      "name": "brand_directory_entries",
+      "rows": 76
+    },
+    {
+      "name": "api_supplier_artwork",
+      "rows": 0
+    },
+    {
+      "name": "portal_schema_migrations",
+      "rows": 35
+    },
+    {
+      "name": "portal_status_snapshots",
+      "rows": 17
+    },
+    {
+      "name": "withdrawal_requests",
+      "rows": 0
+    },
+    {
+      "name": "game_catalogue_cache",
+      "rows": 21
+    },
+    {
+      "name": "accounting_daily_snapshots",
+      "rows": 5
+    },
+    {
+      "name": "accounting_snapshot_adjustments",
+      "rows": 0
+    },
+    {
+      "name": "accounting_late_adjustments",
+      "rows": 0
+    },
+    {
+      "name": "accounting_job_runs",
+      "rows": 5
+    },
+    {
+      "name": "benefit_claims",
+      "rows": 0
+    },
+    {
+      "name": "voucher_manual_reviews",
+      "rows": 0
+    },
+    {
+      "name": "voucher_manual_play_events",
+      "rows": 0
+    },
+    {
+      "name": "commission_periods",
+      "rows": 0
+    },
+    {
+      "name": "commission_entries",
+      "rows": 0
+    },
+    {
+      "name": "turnover_obligations",
+      "rows": 0
+    },
+    {
+      "name": "wallet_posting_intents",
+      "rows": 0
+    },
+    {
+      "name": "payment_recovery_leases",
+      "rows": 7
+    },
+    {
+      "name": "provider_payout_controls",
+      "rows": 4
+    },
+    {
+      "name": "provider_payouts",
+      "rows": 0
+    },
+    {
+      "name": "rewards_checkins",
+      "rows": 0
+    },
+    {
+      "name": "rewards_points_ledger",
+      "rows": 0
+    },
+    {
+      "name": "responsible_play_profiles",
+      "rows": 1
+    },
+    {
+      "name": "responsible_play_deposit_reservations",
+      "rows": 0
+    },
+    {
+      "name": "marketing_webhook_events",
+      "rows": 0
+    },
+    {
+      "name": "manual_compliance_reviews",
+      "rows": 1
+    },
+    {
+      "name": "manual_compliance_events",
+      "rows": 0
+    },
+    {
+      "name": "game_provider_profiles",
+      "rows": 0
+    },
+    {
+      "name": "game_provider_players",
+      "rows": 0
+    },
+    {
+      "name": "game_provider_sessions",
+      "rows": 0
+    },
+    {
+      "name": "game_wallet_transfers",
+      "rows": 0
+    },
+    {
+      "name": "game_rounds",
+      "rows": 0
+    },
+    {
+      "name": "game_transactions",
+      "rows": 0
+    },
+    {
+      "name": "game_wallet_postings",
+      "rows": 0
+    },
+    {
+      "name": "game_callback_receipts",
+      "rows": 0
+    },
+    {
+      "name": "game_wager_sync_cursors",
+      "rows": 0
+    },
+    {
+      "name": "game_recovery_leases",
+      "rows": 0
+    },
+    {
+      "name": "megah5_launch_operations",
+      "rows": 0
+    },
+    {
+      "name": "game_provider_acceptance_events",
+      "rows": 0
+    },
+    {
+      "name": "game_provider_acceptance_current",
+      "rows": 0
+    },
+    {
+      "name": "manual_bank_transactions",
+      "rows": 0
+    },
+    {
+      "name": "provider_wallet_operations",
+      "rows": 0
+    },
+    {
+      "name": "public_contact_revisions",
+      "rows": 0
+    },
+    {
+      "name": "production_acceptance_events",
+      "rows": 0
+    },
+    {
+      "name": "production_acceptance_current",
+      "rows": 0
+    }
+  ],
+  "excludedTables": {
+    "password_sessions": 0,
+    "otp_challenges": 0,
+    "rate_limits": 0,
+    "responsible_play_locks": 0,
+    "member_wallet_guards": 0
+  },
+  "foreignKeyViolations": 0,
+  "restoreTarget": "isolated PostgreSQL transaction on 127.0.0.1/master7_restore_v163",
+  "persistentWrites": false
+}

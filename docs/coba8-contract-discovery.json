@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2026-11-10T10:51:32Z",
+  "scope": "read-only contract discovery",
+  "credentialsStored": false,
+  "result": "blocked_no_contract",
+  "confirmedHosts": [
+    "coba8.com",
+    "api.coba8.com",
+    "api2.coba8.com",
+    "wap.coba8.com",
+    "www.coba8.com",
+    "cf.coba8.com"
+  ],
+  "access": {
+    "directHttp": "cloudflare_403",
+    "firecrawl": "all_engines_failed",
+    "connectedBrowser": "unavailable",
+    "publicOfficialDocs": "not_found"
+  },
+  "contract": {
+    "merchantCredentialPresence": "owner_supplied_not_validated",
+    "baseUrls": "missing",
+    "authentication": "missing",
+    "ipAllowlist": "missing",
+    "catalogue": "missing",
+    "player": "missing",
+    "launch": "missing",
+    "wallet": "missing",
+    "transfer": "missing",
+    "wagerSettlement": "missing",
+    "callbacks": "missing",
+    "idempotency": "missing",
+    "errorsRetries": "missing",
+    "uatAcceptance": "missing"
+  },
+  "runtimeDecision": {
+    "adapterImplemented": false,
+    "launchReady": false,
+    "playable": false,
+    "providerCallsMade": false,
+    "moneyCallsMade": false
+  }
+}

@@ -1,0 +1,315 @@
+{
+  "observedAt": "2026-11-10T11:22:33.450Z",
+  "serviceId": "srv-dbl0iv7f3r2c73848ei0",
+  "deployId": "dep-dbpfq2jncjis738plndg",
+  "publicationCommit": "260656ae08d209f4cf57eb78cd7d274099ccb608",
+  "release": "17.0.0-selfbuilt.163-coba8-front-end-registered",
+  "deployStatus": "live",
+  "deployFinishedAt": "2026-11-10T11:18:08.317754Z",
+  "routes": [
+    {
+      "path": "/health/live",
+      "status": 200,
+      "location": ""
+    },
+    {
+      "path": "/health",
+      "status": 200,
+      "location": ""
+    },
+    {
+      "path": "/",
+      "status": 303,
+      "location": "/signin"
+    },
+    {
+      "path": "/signin",
+      "status": 200,
+      "location": ""
+    },
+    {
+      "path": "/register",
+      "status": 200,
+      "location": ""
+    },
+    {
+      "path": "/admin",
+      "status": 200,
+      "location": ""
+    },
+    {
+      "path": "/api/games",
+      "status": 200,
+      "location": ""
+    },
+    {
+      "path": "/api/games?profileId=coba8_myr",
+      "status": 200,
+      "location": ""
+    },
+    {
+      "path": "/assets/providers/coba8.webp",
+      "status": 200,
+      "location": ""
+    }
+  ],
+  "health": {
+    "status": "ok",
+    "release": "17.0.0-selfbuilt.163-coba8-front-end-registered",
+    "sourceRelease": "17.0.0-selfbuilt.163-coba8-front-end-registered",
+    "database": "ready",
+    "newDepositsEnabled": true,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "manualBankReady": false,
+    "transactionsEnabled": false,
+    "realPayments": false,
+    "providerOrdersEnabled": {
+      "vpay": false,
+      "1mpay": false,
+      "gspay": false,
+      "gspay_usdt": false,
+      "gspay_plus": false
+    },
+    "backupReady": true,
+    "restoreReady": false,
+    "liveGames": false,
+    "anyGamePlayable": false,
+    "productionReady": false
+  },
+  "games": {
+    "mode": "provider-platforms",
+    "profileBrandCount": 38,
+    "profileCount": 43,
+    "implementedProfileCount": 6,
+    "launchReadyProfileCount": 0,
+    "verifiedProfileCount": 0,
+    "playable": false,
+    "liveReady": false,
+    "platformCount": 38,
+    "totalGameCount": 0,
+    "cachedGameCount": 769,
+    "cobaProviders": [
+      {
+        "id": "coba8",
+        "name": "COBA8",
+        "position": 38,
+        "connectionVerified": false,
+        "catalogueSynced": false,
+        "complete": false,
+        "stale": true,
+        "checkedAt": 0,
+        "catalogueCacheStatus": "missing",
+        "catalogueCacheFresh": false,
+        "cachedGameCount": 0,
+        "availabilityMode": "automatic",
+        "readOnlyAvailability": true,
+        "operationalStatus": "awaiting_api",
+        "platformStatus": "awaiting_api",
+        "platformLaunchReady": false,
+        "launchReady": false,
+        "walletReady": false,
+        "launchVerified": false,
+        "walletVerified": false,
+        "settlementVerified": false,
+        "capabilitySource": "adapter_inventory",
+        "capabilityReason": "launch_wallet_adapter_not_implemented",
+        "rankingCategory": "HOT",
+        "rankingSource": "owner_curated",
+        "profiles": [
+          {
+            "profileId": "coba8_myr",
+            "providerId": "coba8",
+            "displayName": "COBA8 · MYR",
+            "walletMode": "unknown",
+            "currency": "MYR",
+            "unitScale": 1,
+            "position": 43,
+            "implemented": false,
+            "enabled": false,
+            "launchReady": false,
+            "walletReady": false,
+            "recoveryReady": false,
+            "launchVerified": false,
+            "walletVerified": false,
+            "settlementVerified": false,
+            "capabilityReason": "contract_missing",
+            "status": "unavailable",
+            "catalogueProfileBound": false
+          }
+        ],
+        "profileCount": 1
+      }
+    ],
+    "cobaProfiles": [
+      {
+        "profileId": "coba8_myr",
+        "providerId": "coba8",
+        "displayName": "COBA8 · MYR",
+        "walletMode": "unknown",
+        "currency": "MYR",
+        "unitScale": 1,
+        "position": 43,
+        "implemented": false,
+        "enabled": false,
+        "launchReady": false,
+        "walletReady": false,
+        "recoveryReady": false,
+        "launchVerified": false,
+        "walletVerified": false,
+        "settlementVerified": false,
+        "capabilityReason": "contract_missing",
+        "status": "unavailable",
+        "catalogueProfileBound": false
+      }
+    ],
+    "statusCounts": [
+      {
+        "status": "unavailable",
+        "count": 43
+      }
+    ]
+  },
+  "coba8Selected": {
+    "selectedProvider": "coba8",
+    "selectedProfileId": "coba8_myr",
+    "selectedPlatform": {
+      "id": "coba8",
+      "name": "COBA8",
+      "position": 38,
+      "connectionVerified": false,
+      "catalogueSynced": false,
+      "complete": false,
+      "stale": true,
+      "checkedAt": 0,
+      "catalogueCacheStatus": "missing",
+      "catalogueCacheFresh": false,
+      "cachedGameCount": 0,
+      "availabilityMode": "automatic",
+      "readOnlyAvailability": true,
+      "operationalStatus": "awaiting_api",
+      "platformStatus": "awaiting_api",
+      "platformLaunchReady": false,
+      "launchReady": false,
+      "walletReady": false,
+      "launchVerified": false,
+      "walletVerified": false,
+      "settlementVerified": false,
+      "capabilitySource": "adapter_inventory",
+      "capabilityReason": "launch_wallet_adapter_not_implemented",
+      "rankingCategory": "HOT",
+      "rankingSource": "owner_curated",
+      "profiles": [
+        {
+          "profileId": "coba8_myr",
+          "providerId": "coba8",
+          "displayName": "COBA8 · MYR",
+          "walletMode": "unknown",
+          "currency": "MYR",
+          "unitScale": 1,
+          "position": 43,
+          "implemented": false,
+          "enabled": false,
+          "launchReady": false,
+          "walletReady": false,
+          "recoveryReady": false,
+          "launchVerified": false,
+          "walletVerified": false,
+          "settlementVerified": false,
+          "capabilityReason": "contract_missing",
+          "status": "unavailable",
+          "catalogueProfileBound": false
+        }
+      ],
+      "profileCount": 1
+    },
+    "games": [],
+    "totalGameCount": 0,
+    "playable": false,
+    "liveReady": false,
+    "launchProvider": null,
+    "profiles": [
+      {
+        "profileId": "coba8_myr",
+        "providerId": "coba8",
+        "displayName": "COBA8 · MYR",
+        "walletMode": "unknown",
+        "currency": "MYR",
+        "unitScale": 1,
+        "position": 43,
+        "implemented": false,
+        "enabled": false,
+        "launchReady": false,
+        "walletReady": false,
+        "recoveryReady": false,
+        "launchVerified": false,
+        "walletVerified": false,
+        "settlementVerified": false,
+        "capabilityReason": "contract_missing",
+        "status": "unavailable",
+        "catalogueProfileBound": false
+      }
+    ]
+  },
+  "coba8Frontend": {
+    "providerTileCount": 38,
+    "cobaTileCount": 1,
+    "tile": {
+      "index": 37,
+      "providerId": "coba8",
+      "profileId": "coba8_myr",
+      "text": "38COBA8Coming soonMYR · Provider contract pending",
+      "imageSrc": "https://master7-v17-staging.onrender.com/assets/providers/coba8.webp",
+      "imageAlt": "COBA8 game platform",
+      "ariaLabel": "COBA8 game entry · Coming soon",
+      "buttonClass": "api-supplier-button pending",
+      "playLabelCount": 0
+    },
+    "cobaPlayLabelCount": 0,
+    "neutralArtStatus": 200,
+    "neutralArtFormat": "WebP 800x600",
+    "neutralArtSha256": "3d94e16cc81db2c83c71067e023e537d386ffcf3974c7b91dd09ca6faa9a51ed",
+    "neutralArtSource": "MASTER7-owned neutral lobby artwork; no supplier logo or official supplier art claimed"
+  },
+  "mobile": {
+    "renderMode": "anonymous shell plus public GET-only loadPublic; no session or write",
+    "status": 200,
+    "finalUrl": "https://master7-v17-staging.onrender.com/signin",
+    "viewport": {
+      "width": 393,
+      "height": 852,
+      "scrollWidth": 393,
+      "scrollHeight": 5905
+    },
+    "hasHorizontalOverflow": false,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "badResponseCount": 0,
+    "requestFailures": [
+      {
+        "url": "https://master7-v17-staging.onrender.com/assets/guide-demo-not-official.mp4",
+        "failure": "net::ERR_ABORTED"
+      }
+    ],
+    "nonemptyBrokenImageCount": 0,
+    "releaseAssetCount": 27
+  },
+  "credentialDeliveryScan": {
+    "scannedTextFileCount": 34,
+    "scannedTextBytes": 1395513,
+    "coba8CredentialLiteralHitCount": 0,
+    "coba8CredentialLiteralHits": [],
+    "gameApiForbiddenCredentialKeyCount": 0,
+    "gameApiForbiddenCredentialKeys": [],
+    "conclusion": "no delivered COBA8 credential/token value detected"
+  },
+  "renderLogs": {
+    "startTime": "2026-11-10T11:16:26Z",
+    "queriedAt": "2026-11-10T11:22:33.450Z",
+    "appErrorCriticalCount": 0,
+    "appWarningCount": 0,
+    "request5xxCount": 0,
+    "hasMore": false
+  },
+  "safety": "Read-only production checks only; no account, payment, payout, provider, game-launch, wallet, configuration or acceptance write."
+}

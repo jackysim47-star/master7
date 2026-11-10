@@ -1,0 +1,92 @@
+{
+  "evidenceVersion": 1,
+  "release": "17.0.0-selfbuilt.163-coba8-front-end-registered",
+  "deploy": {
+    "id": "dep-dbpfq2jncjis738plndg",
+    "publicationCommit": "260656ae08d209f4cf57eb78cd7d274099ccb608",
+    "sourceCommit": "b6f204df8c772cdb270dba069ddb0045d061a3f4",
+    "status": "live"
+  },
+  "capturedAt": "2026-11-10T11:18:47.175Z",
+  "verifiedAt": "2026-11-10T11:19:16.833Z",
+  "backup": {
+    "filename": "master7-encrypted-backup-v163-20261110T111847175Z.json",
+    "sha256": "5f462f487b9e55b8dc412e8a43bbe223eefb6c719d0f73c667f0cf0f5adfab9a",
+    "format": "MASTER7-ENCRYPTED-BACKUP-1",
+    "readConsistency": "transaction_snapshot",
+    "schemaVersion": "0120-provider-wallet-sweeps",
+    "schemaSha256": "5cbc5cd93db13ecf862ffac30bcbb38d9a2f2f90d75e2ae1550299b22bc7e3eb",
+    "publicKeySha256": "922c18278bcd0521b73eb40166e3a111765157e4f0179fa18b07bb53cb151359",
+    "tableCount": 71,
+    "totalRecords": 497
+  },
+  "sqlite": {
+    "filename": "v163-20261110T111847175Z.sqlite-receipt.json",
+    "sha256": "d9c55badaf4c2f5899da75b893b52d679cd3acaa1b44977b14d63c1336cb6e90",
+    "status": "verified",
+    "coverageComplete": true,
+    "foreignKeyViolations": 0,
+    "tableCount": 71,
+    "totalRecords": 497
+  },
+  "postgres": {
+    "filename": "v163-20261110T111847175Z.postgres-receipt.json",
+    "sha256": "51ce29f210e8d26b4076f810328c92c7bafd4c4e769b91f197a6cdad7b0519ec",
+    "status": "verified",
+    "coverageComplete": true,
+    "readConsistency": "transaction_snapshot",
+    "persistentWrites": false,
+    "foreignKeyViolations": 0,
+    "tableCount": 71,
+    "totalRecords": 497,
+    "restoreTarget": "isolated PostgreSQL 18 rollback-only transaction",
+    "postRollbackUserTables": 0,
+    "containerRemoved": true
+  },
+  "recording": {
+    "requestFilename": "v163-20261110T111847175Z.record-request.json",
+    "requestSha256": "0ba77f575e12cb9b3724332e6f7a5279730098a21da1cb026769d949927e2203",
+    "responseFilename": "v163-20261110T111847175Z.record-response.json",
+    "responseSha256": "606ca17f4a9cdf0fe6cd3bc84963838f7f4395bede0491ff5d566ca8f2810c9a",
+    "response": {
+      "status": "ok",
+      "verified": true
+    }
+  },
+  "liveReadinessAfterRecording": {
+    "backupReady": true,
+    "restoreReady": true,
+    "backupCreatedAt": "2026-11-10T11:18:47.175Z",
+    "restoreVerifiedAt": "2026-11-10T11:19:16.833Z",
+    "productionReady": false,
+    "transactionsEnabled": false,
+    "realPayments": false,
+    "liveGames": false,
+    "newGameLaunchesEnabled": false,
+    "newPayoutsEnabled": false,
+    "readinessBlockers": [
+      "deposit_provider_not_ready",
+      "payout_provider_not_ready",
+      "payment_settlement_not_verified",
+      "game_launch_or_settlement_not_ready",
+      "official_domain_tls_not_verified",
+      "credential_rotation_not_verified",
+      "production_signoff_not_verified"
+    ]
+  },
+  "regression": {
+    "command": "node --test tests/backup-restore-rehearsal.test.mjs tests/postgres-restore-safety.test.mjs tests/backup-job-api.test.mjs",
+    "logFilename": "v163-20261110T111847175Z.recovery-tests.log",
+    "logSha256": "dc84cd55bfdf66510ddcba7229f144f3f5c8f35727cc1df019eae995b21e3375",
+    "passed": 23,
+    "failed": 0
+  },
+  "safety": {
+    "productionDataWrites": "backup audit + recovery evidence only",
+    "restorePersistentWrites": false,
+    "paymentCalls": 0,
+    "gameLaunchCalls": 0,
+    "providerCalls": 0,
+    "payoutCalls": 0
+  }
+}
