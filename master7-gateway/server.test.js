@@ -141,7 +141,8 @@ test('platform game credential can create only a MegaH5 session', async () => {
     request = { url, body: JSON.parse(options.body) };
     return Response.json({ Status: 200, Url: 'https://launch.example.test/session' });
   };
-  const env = { PLATFORM_GAME_TOKEN: token, MEGA_OPERATOR_ID: 'master7', MEGA_SECRET_KEY: 'secret', CURRENCY: 'MYR' };
+  const env = { PLATFORM_GAME_TOKEN: token, MEGA_OPERATOR_ID: 'master7', MEGA_SECRET_KEY: 'secret',
+    MEGA_PROVIDER_MAPPING_VERIFIED: 'true', CURRENCY: 'MYR' };
   const payload = { playerId: 'member_123', gameCode: '55021', ip: '203.0.113.8', lang: 'en-us' };
   const denied = await run(makeApp({ env, fetchImpl, now: () => fixed }), '/platform/megah5/session', {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
@@ -171,7 +172,8 @@ test('platform game credential can query only a MegaH5 player balance', async ()
     request = { url, body: JSON.parse(options.body) };
     return Response.json({ Status: 200, CurrentBalance: 0, Currency: 'MYR' });
   };
-  const env = { PLATFORM_GAME_TOKEN: token, MEGA_OPERATOR_ID: 'master7', MEGA_SECRET_KEY: 'secret' };
+  const env = { PLATFORM_GAME_TOKEN: token, MEGA_OPERATOR_ID: 'master7', MEGA_SECRET_KEY: 'secret',
+    MEGA_PROVIDER_MAPPING_VERIFIED: 'true' };
   const denied = await run(makeApp({ env, fetchImpl, now: () => fixed }), '/platform/megah5/balance', {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playerId: 'member_123' }),
   });

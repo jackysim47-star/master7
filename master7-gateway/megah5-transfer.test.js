@@ -16,6 +16,7 @@ const baseEnv = {
   MEGA_OPERATOR_ID: 'master7',
   MEGA_SECRET_KEY: 'provider-fixture-secret-key',
   MEGA_BASE_URL: 'https://provider.example.test/api/opgateway/v1/op',
+  MEGA_PROVIDER_MAPPING_VERIFIED: 'true',
   CURRENCY: 'MYR',
 };
 
@@ -75,6 +76,34 @@ test('MegaH5 money and transfer-status routes make zero provider calls while swi
     assert.equal(response.status, 503, path);
   }
   assert.equal(calls, 0);
+});
+
+test('MegaH5 player, balance and transfer routes make zero provider calls until mapping is verified', async () => {
+  let calls = 0;
+  const env = {
+    ...baseEnv,
+    MEGA_PROVIDER_MAPPING_VERIFIED: 'false',
+    MEGA_TRANSFERS_ENABLED: 'true',
+    MEGA_TRANSFER_STATUS_ENABLED: 'true',
+  };
+  const app = makeApp({ env, fetchImpl: async () => { calls++; throw new Error('must not call provider'); } });
+  for (const [path, token, body] of [
+    ['/platform/megah5/session', gameToken, { playerId: 'member_1', gameCode: '55021', ip: '203.0.113.8' }],
+    ['/platform/megah5/balance', gameToken, { playerId: 'member_1' }],
+    ['/platform/megah5/deposit', walletToken, { playerId: 'member_1', amount: '1.00', referenceId: 'deposit-1' }],
+    ['/platform/megah5/withdraw', walletToken, { playerId: 'member_1', amount: '1.00', referenceId: 'withdraw-1' }],
+    ['/platform/megah5/transfer-status', walletToken, { playerId: 'member_1', referenceId: 'deposit-1', transferType: 'deposit' }],
+  ]) {
+    const response = await request(app, path, { token, body });
+    assert.equal(response.status, 503, path);
+    assert.equal(response.data.error, 'megah5_provider_mapping_unverified', path);
+  }
+  assert.equal(calls, 0);
+  const readiness = megah5TransferReadiness(env);
+  assert.equal(readiness.providerMappingVerified, false);
+  assert.equal(readiness.channels.session.configurationReady, false);
+  assert.equal(readiness.channels.balance.configurationReady, false);
+  assert.ok(readiness.channels.deposit.blockers.includes('provider_mapping_unverified'));
 });
 
 test('MegaH5 transfer status uses the provider-documented signature and enum', async () => {
@@ -157,6 +186,8 @@ test('MegaH5 transfer readiness stays unverified even when configuration switche
   assert.equal(ready.mode, 'fund_transfer');
   assert.equal(ready.walletTokenConfigured, true);
   assert.equal(ready.channels.status.configurationReady, true);
+  assert.equal(ready.channels.session.configurationReady, true);
+  assert.equal(ready.channels.balance.configurationReady, true);
   assert.equal(ready.channels.deposit.configurationReady, true);
   assert.equal(ready.channels.withdrawal.configurationReady, true);
   assert.equal(ready.channels.deposit.productionQa, 'not_verified');

@@ -17,6 +17,12 @@ const { rsghubCatalogue } = require('./rsghub');
 const { jdbCatalogue } = require('./jdb');
 const { pragmaticCatalogue } = require('./pragmatic');
 const {
+  buildMetaRequest,
+  metaAccount,
+  parseMetaCatalogueResponse,
+  publicMetaAccountStatus,
+} = require('./metagaming');
+const {
   configuredUrl,
   gamePeerCredential,
   gameWalletCredential,
@@ -27,6 +33,7 @@ const {
   peerCredential,
   vpayReadiness,
   integrationReadiness,
+  megah5ProviderMappingVerified,
   officialVpayPaymentForwardUrl,
   officialVpayReturnUrl,
 } = require('./readiness');
@@ -430,6 +437,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           readiness: `${base}/readiness`,
           endpoints: {
             megah5Games: `${base}/providers/megah5/games`,
+            metaGamingGames: `${base}/providers/metagaming/games?account=normal`,
             evo888h5Games: `${base}/providers/evo888h5/games`,
             epicwinGames: `${base}/providers/epicwin/games`,
             kissh5Games: `${base}/providers/918kissh5/games`,
@@ -459,6 +467,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
             evo888h5: Boolean(env.EVO_API_TOKEN),
             venus: Boolean(env.VENUS_SITE_CODE && env.VENUS_API_KEY),
             megah5: Boolean(env.MEGA_OPERATOR_ID && env.MEGA_SECRET_KEY),
+            metaGaming: publicMetaAccountStatus(env),
             epicwin: Object.fromEntries(Object.entries(catalogueProfiles.epicwin.accounts).map(([name, account]) => [name, Boolean(account.id && account.secret)])),
             kissh5: Object.fromEntries(Object.entries(catalogueProfiles['918kissh5'].accounts).map(([name, account]) => [name, Boolean(account.id && account.secret)])),
             clotplay: Boolean(clotplayToken),
@@ -493,6 +502,47 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           value.ok && Number(value.data?.Status) === 200);
         const providerOK = Number(result.data && result.data.Status) === 200;
         return send(res, result.ok && providerOK ? 200 : 502, { provider: 'megah5', upstreamStatus: result.status, result: result.data }, cors);
+      }
+
+      if (req.method === 'GET' && url.pathname === '/providers/metagaming/games') {
+        const accountName = url.searchParams.get('account') || 'normal';
+        if (!['normal', 'free'].includes(accountName)) {
+          return send(res, 400, { error: 'invalid_catalogue_account' }, cors);
+        }
+        let account;
+        try { account = metaAccount(env, accountName); }
+        catch { return send(res, 503, { error: 'metagaming_catalogue_not_configured', account: accountName }, cors); }
+        const requestPayload = buildMetaRequest('GetGameList', {
+          operatorId: account.operatorId,
+          secretKey: account.secretKey,
+          now: now(),
+        });
+        const result = await cached(`metagaming-games-${accountName}`, () => upstream(`${account.baseUrl}/GetGameList`, {
+          method: 'POST',
+          redirect: 'error',
+          headers: { Accept: 'application/json', 'Content-Type': 'application/json', 'User-Agent': PROVIDER_USER_AGENT },
+          body: JSON.stringify(requestPayload),
+        }), value => {
+          try { return value.ok && parseMetaCatalogueResponse(value.data).ok; }
+          catch { return false; }
+        });
+        let parsed;
+        try { parsed = parseMetaCatalogueResponse(result.data); }
+        catch {
+          return send(res, 502, { error: 'metagaming_catalogue_invalid', account: accountName,
+            upstreamStatus: result.status }, cors);
+        }
+        if (!result.ok || !parsed.ok) {
+          return send(res, 502, { error: 'metagaming_catalogue_failed', account: accountName,
+            upstreamStatus: result.status, providerStatus: parsed.status }, cors);
+        }
+        return send(res, 200, {
+          provider: 'metagaming',
+          apiVersion: '3.4.8',
+          account: accountName,
+          currency: account.currency,
+          games: parsed.games,
+        }, cors);
       }
 
       if (req.method === 'GET' && url.pathname === '/providers/venus/games') {
@@ -1147,6 +1197,9 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
       if (req.method === 'POST' && ['/admin/megah5/session', '/platform/megah5/session'].includes(url.pathname)) {
         const platformRequest = url.pathname === '/platform/megah5/session';
         if (platformRequest ? !isGamePeer(req) : !isAdmin(req)) return send(res, 401, { error: 'unauthorized' });
+        if (!megah5ProviderMappingVerified(env)) {
+          return send(res, 503, { error: 'megah5_provider_mapping_unverified' });
+        }
         const payload = await body(req);
         const playerId = String(payload.playerId || '');
         const gameCode = String(payload.gameCode || '0');
@@ -1167,6 +1220,9 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
 
       if (req.method === 'POST' && url.pathname === '/platform/megah5/balance') {
         if (!isGamePeer(req)) return send(res, 401, { error: 'unauthorized' });
+        if (!megah5ProviderMappingVerified(env)) {
+          return send(res, 503, { error: 'megah5_provider_mapping_unverified' });
+        }
         const payload = await body(req);
         const playerId = String(payload.playerId || '');
         if (!validMegaPlayerId(playerId)) return send(res, 400, { error: 'invalid_player_id' });
@@ -1177,6 +1233,9 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
 
       if (req.method === 'POST' && url.pathname === '/platform/megah5/transfer-status') {
         if (!isGameWalletPeer(req)) return send(res, 401, { error: 'unauthorized' });
+        if (!megah5ProviderMappingVerified(env)) {
+          return send(res, 503, { error: 'megah5_provider_mapping_unverified' });
+        }
         if (!megah5TransferReadiness(env).channels.status.configurationReady) {
           return send(res, 503, { error: 'megah5_transfer_status_disabled' });
         }
@@ -1201,6 +1260,9 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
       const megaTransferMatch = url.pathname.match(/^\/platform\/megah5\/(deposit|withdraw)$/);
       if (req.method === 'POST' && megaTransferMatch) {
         if (!isGameWalletPeer(req)) return send(res, 401, { error: 'unauthorized' });
+        if (!megah5ProviderMappingVerified(env)) {
+          return send(res, 503, { error: 'megah5_provider_mapping_unverified' });
+        }
         const operation = megaTransferMatch[1];
         const readiness = megah5TransferReadiness(env).channels[operation === 'deposit' ? 'deposit' : 'withdrawal'];
         if (!readiness.configurationReady) return send(res, 503, { error: 'megah5_transfers_disabled' });

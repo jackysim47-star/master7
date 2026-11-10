@@ -11,6 +11,29 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. A callback POST remains closed until that provider's signed callback contract is implemented; a reachability endpoint never claims transaction readiness.
 
+## Version 1.14.0: META GAMING catalogue boundary and legacy mapping gate
+
+`GET /providers/metagaming/games?account=normal|free` implements only the
+read-only `GetGameList` request from the supplier-linked META GAMING API v3.4.8.
+Normal and free-credit accounts use separate base URL, operator ID, secret and
+currency settings. Responses are strictly validated and reduced to public game
+metadata; credentials and unrecognized provider fields are never returned.
+
+Player creation, launch, balance, deposit, withdrawal, transfer status,
+KickPlayer, unfinished-round, report and FlagLog routes are not implemented in
+this candidate. Their reserved switches default to false, their peer tokens are
+isolated by capability, and readiness continues to report `route_not_implemented`
+even if a switch is changed. `KickPlayer` is temporary under the official
+contract and must never be treated as proof of round, wallet or settlement
+closure. See `METAGAMING.md`.
+
+The older `/platform/megah5/session`, `/balance`, `/deposit`, `/withdraw` and
+`/transfer-status` routes now also require
+`MEGA_PROVIDER_MAPPING_VERIFIED=true`. It defaults to false and blocks provider
+traffic until the exact legacy brand/account mapping is independently confirmed.
+The legacy `/providers/megah5/games` catalogue remains readable and otherwise
+keeps its existing request and response behavior.
+
 ## Version 1.13.1: JDB protocol compatibility
 
 The JDB Action 49 catalogue request now follows the current official transfer

@@ -1,5 +1,7 @@
 'use strict';
 
+const { publicMetaAccountStatus } = require('./metagaming');
+
 // These are configuration gates, not a provider availability or QA attestation.
 // Public callback bases are origins; return/forward/provider URLs keep paths and
 // query strings. Never apply the origin-only rule to a signed provider request.
@@ -55,8 +57,12 @@ const VPAY_PEERS = ['PLATFORM_CALLBACK_TOKEN', 'PLATFORM_QUERY_TOKEN', 'PLATFORM
   'PLATFORM_PAYOUT_TOKEN'];
 const GSPAY_PEERS = ['PLATFORM_GSPAY_CALLBACK_TOKEN', 'PLATFORM_GSPAY_QUERY_TOKEN', 'PLATFORM_GSPAY_ORDER_TOKEN'];
 const GAME_PEERS = ['PLATFORM_GAME_TOKEN', 'PLATFORM_GAME_WALLET_TOKEN'];
+const META_GAMING_PEERS = ['PLATFORM_METAGAMING_PLAYER_TOKEN', 'PLATFORM_METAGAMING_WALLET_TOKEN',
+  'PLATFORM_METAGAMING_RECOVERY_TOKEN', 'PLATFORM_METAGAMING_REPORT_TOKEN'];
+const META_GAMING_SECRETS = ['META_GAMING_NORMAL_SECRET_KEY', 'META_GAMING_FREE_SECRET_KEY'];
 const PRIVILEGED_CREDENTIALS = ['GATEWAY_ADMIN_TOKEN', ...VPAY_PEERS, ...GSPAY_PEERS, ...GAME_PEERS,
-  'VPAY_API_TOKEN', 'GSPAY_OPERATOR_AUTH_KEY', 'GSPAY_OPERATOR_SECRET_KEY', 'MEGA_SECRET_KEY'];
+  ...META_GAMING_PEERS, 'VPAY_API_TOKEN', 'GSPAY_OPERATOR_AUTH_KEY', 'GSPAY_OPERATOR_SECRET_KEY',
+  'MEGA_SECRET_KEY', ...META_GAMING_SECRETS];
 
 function isolatedCredential(env, name, allowed) {
   if (!allowed.includes(name)) return '';
@@ -83,10 +89,20 @@ function gameWalletCredential(env) {
   return isolatedCredential(env, 'PLATFORM_GAME_WALLET_TOKEN', GAME_PEERS);
 }
 
+function metaGamingPeerCredential(env, name) {
+  return isolatedCredential(env, name, META_GAMING_PEERS);
+}
+
+function megah5ProviderMappingVerified(env = {}) {
+  return String(env.MEGA_PROVIDER_MAPPING_VERIFIED || '').toLowerCase() === 'true';
+}
+
 function megah5TransferReadiness(env = {}) {
   const credentialsConfigured = /^[A-Za-z0-9._$?-]{1,20}$/.test(String(env.MEGA_OPERATOR_ID || '').trim())
     && providerCredential(String(env.MEGA_SECRET_KEY || ''));
+  const gameTokenConfigured = Boolean(gamePeerCredential(env));
   const walletTokenConfigured = Boolean(gameWalletCredential(env));
+  const providerMappingVerified = megah5ProviderMappingVerified(env);
   const switches = {
     status: String(env.MEGA_TRANSFER_STATUS_ENABLED || '').toLowerCase() === 'true',
     transfers: String(env.MEGA_TRANSFERS_ENABLED || '').toLowerCase() === 'true',
@@ -95,6 +111,7 @@ function megah5TransferReadiness(env = {}) {
     const blockers = [];
     if (!credentialsConfigured) blockers.push('provider_credentials_missing_or_invalid');
     if (!walletTokenConfigured) blockers.push('platform_game_wallet_token_missing_or_aliased');
+    if (!providerMappingVerified) blockers.push('provider_mapping_unverified');
     if (!enabled) blockers.push('transaction_switch_off');
     return {
       enabled,
@@ -104,15 +121,78 @@ function megah5TransferReadiness(env = {}) {
       liveReady: false,
     };
   };
+  const gameChannel = () => {
+    const blockers = [];
+    if (!credentialsConfigured) blockers.push('provider_credentials_missing_or_invalid');
+    if (!gameTokenConfigured) blockers.push('platform_game_token_missing_or_aliased');
+    if (!providerMappingVerified) blockers.push('provider_mapping_unverified');
+    return {
+      enabled: providerMappingVerified,
+      configurationReady: blockers.length === 0,
+      blockers,
+      productionQa: 'not_verified',
+      liveReady: false,
+    };
+  };
   return {
     mode: 'fund_transfer',
     credentialsConfigured,
+    gameTokenConfigured,
     walletTokenConfigured,
+    providerMappingVerified,
     switches,
     channels: {
+      session: gameChannel(),
+      balance: gameChannel(),
       status: channel(switches.status),
       deposit: channel(switches.transfers),
       withdrawal: channel(switches.transfers),
+    },
+  };
+}
+
+function metaGamingReadiness(env = {}) {
+  const accounts = publicMetaAccountStatus(env);
+  const anyAccountConfigured = Object.values(accounts).some(account => account.configured);
+  const specifications = {
+    player: ['META_GAMING_PLAYER_ENABLED', 'PLATFORM_METAGAMING_PLAYER_TOKEN'],
+    launch: ['META_GAMING_LAUNCH_ENABLED', 'PLATFORM_METAGAMING_PLAYER_TOKEN'],
+    balance: ['META_GAMING_BALANCE_ENABLED', 'PLATFORM_METAGAMING_PLAYER_TOKEN'],
+    transfer: ['META_GAMING_TRANSFER_ENABLED', 'PLATFORM_METAGAMING_WALLET_TOKEN'],
+    transferStatus: ['META_GAMING_TRANSFER_STATUS_ENABLED', 'PLATFORM_METAGAMING_WALLET_TOKEN'],
+    kick: ['META_GAMING_KICK_ENABLED', 'PLATFORM_METAGAMING_RECOVERY_TOKEN'],
+    unfinishedRound: ['META_GAMING_UNFINISHED_ROUND_ENABLED', 'PLATFORM_METAGAMING_RECOVERY_TOKEN'],
+    report: ['META_GAMING_REPORT_ENABLED', 'PLATFORM_METAGAMING_REPORT_TOKEN'],
+    flagLog: ['META_GAMING_FLAG_LOG_ENABLED', 'PLATFORM_METAGAMING_REPORT_TOKEN'],
+  };
+  const capabilities = Object.fromEntries(Object.entries(specifications).map(([name, [flag, token]]) => {
+    const enabled = String(env[flag] || '').toLowerCase() === 'true';
+    const peerConfigured = Boolean(metaGamingPeerCredential(env, token));
+    const blockers = [];
+    if (!anyAccountConfigured) blockers.push('provider_account_missing_or_invalid');
+    if (!peerConfigured) blockers.push('isolated_peer_token_missing_or_aliased');
+    if (!enabled) blockers.push('capability_switch_off');
+    // This candidate deliberately exposes the catalogue only. A capability
+    // cannot become callable merely by changing environment variables.
+    blockers.push('route_not_implemented');
+    return [name, {
+      enabled, peerConfigured, routeImplemented: false, configurationReady: false,
+      blockers, productionQa: 'not_verified', liveReady: false,
+    }];
+  }));
+  return {
+    scope: 'catalogue_only',
+    apiVersion: '3.4.8',
+    accounts,
+    catalogue: Object.fromEntries(Object.entries(accounts).map(([name, account]) => [name, {
+      configurationReady: account.configured,
+      productionQa: 'not_verified',
+      liveReady: false,
+    }])),
+    capabilities,
+    closurePolicy: {
+      kickPlayerFinal: false,
+      reason: 'KickPlayer is temporary and cannot prove round, wallet, or settlement closure',
     },
   };
 }
@@ -230,6 +310,7 @@ function integrationReadiness(env = {}) {
     gameCallbacks: Object.fromEntries(['cosmoplay', 'creative-gaming', 'pgsoft', 'spade-gaming']
       .map(provider => [provider, { reachableRoute: true, businessReady: false, reason: 'callback_contract_not_active' }])),
     megah5Transfer: megah5TransferReadiness(env),
+    metaGaming: metaGamingReadiness(env),
     vpay: vpayReadiness(env),
     gspay: gspayReadiness(env),
   };
@@ -242,7 +323,10 @@ module.exports = {
   gspayPeerCredential,
   gspayReadiness,
   integrationReadiness,
+  megah5ProviderMappingVerified,
   megah5TransferReadiness,
+  metaGamingPeerCredential,
+  metaGamingReadiness,
   normalizeHttpsUrl,
   officialVpayPaymentForwardUrl,
   officialVpayReturnUrl,
