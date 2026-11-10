@@ -11,6 +11,20 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. A callback POST remains closed until that provider's signed callback contract is implemented; a reachability endpoint never claims transaction readiness.
 
+## Version 1.19.0: catalogue integrity and profile isolation
+
+JILI 1:1 and 1:100 catalogue reads now use separate bounded cache keys and
+cache only sanitized, complete success projections. Unknown title availability
+stays in maintenance, invalid game ID zero is rejected, and malformed base URLs
+fail as configuration errors before any supplier request.
+
+JDB and RSGHub catalogue successes now explicitly attest completeness. RSGHub
+also verifies response timestamps, rejects unsafe names and withholds remote
+artwork until the supplier confirms an approved image origin.
+
+This version adds no player, Play, wallet, transfer, settlement or recovery
+route and does not enable any real-money switch.
+
 ## Version 1.18.0: supplier catalogue boundary safety
 
 EVO888H5, CLOTPLAY, Pragmatic Play and Venus Gaming catalogue responses now
