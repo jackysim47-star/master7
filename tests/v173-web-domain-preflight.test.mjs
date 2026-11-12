@@ -82,6 +82,7 @@ test('rejects arbitrary hosts and invalid release before networking', async () =
   const fetchImpl = async () => { calls++; throw Error('Must not fetch'); };
   await assert.rejects(checkDomains({ hosts: [{ hostname: 'attacker.invalid', kind: 'other' }], resolvers, fetchImpl }), /hostnames/);
   await assert.rejects(checkDomains({ expectedRelease: 'secret\nheader', resolvers, fetchImpl }), /expectedRelease/);
+  await assert.rejects(checkDomains({ expectedRelease: '17.0.0-selfbuilt.173-unapproved-variant', resolvers, fetchImpl }), /expectedRelease/);
   await assert.rejects(checkDomains({ timeoutMs: 0, resolvers, fetchImpl }), /timeoutMs/);
   assert.equal(calls, 0);
 });
