@@ -20,7 +20,15 @@ concurrency:
 jobs:
   unit-tests:
     name: Offline domain preflight unit tests
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            node: '22'
+          - os: windows-latest
+            node: '24'
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 5
     steps:
       - name: Check out the proposed changes
@@ -28,7 +36,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: ${{ matrix.node }}
       - name: Verify syntax
         run: |
           node --check scripts/v173-web-domain-preflight.mjs

@@ -1,5 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { checkDomains, HOSTS, EXPECTED_RELEASE } from '../scripts/v173-web-domain-preflight.mjs';
 
 const resolvers = {
@@ -136,4 +138,18 @@ test('an HTTPS fetch that ignores AbortSignal still times out and cannot block t
   assert.equal(report.networkProbePassed, false);
   assert.equal(report.productionApproved, false);
   assert.ok(Date.now() - started < 2_000);
+});
+
+
+test('CLI --help starts directly on Windows and Linux paths without network calls', () => {
+  const scriptPath = fileURLToPath(new URL('../scripts/v173-web-domain-preflight.mjs', import.meta.url));
+  const child = spawnSync(process.execPath, [scriptPath, '--help'], {
+    encoding: 'utf8', timeout: 3000,
+    env: { ...process.env, NODE_TLS_REJECT_UNAUTHORIZED: '1' },
+  });
+  assert.equal(child.error, undefined);
+  assert.equal(child.status, 0, child.stderr);
+  assert.match(child.stdout, /MASTER7 V173 read-only/);
+  assert.match(child.stdout, /never logs in/);
+  assert.equal(child.stderr, '');
 });

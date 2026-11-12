@@ -6,6 +6,8 @@
  * A passing result is NOT permission to go live or proof of authentication.
  */
 import { Resolver } from 'node:dns/promises';
+import { resolve as resolvePath } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 export const EXPECTED_RELEASE = '17.0.0-selfbuilt.173-staff-setup-route';
 export const HOSTS = Object.freeze([
@@ -226,12 +228,17 @@ export async function checkDomains({
   };
 }
 
-if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) {
-  checkDomains().then(result => {
-    console.log(JSON.stringify(result, null, 2));
-    if (!result.networkProbePassed) process.exitCode = 1;
-  }, error => {
-    console.error(`Preflight could not start: ${error.message}`);
-    process.exitCode = 2;
-  });
+if (process.argv[1] && import.meta.url === pathToFileURL(resolvePath(process.argv[1])).href) {
+  if (process.argv.includes('--help')) {
+    console.log('MASTER7 V173 read-only DNS and HTTPS preflight.');
+    console.log('Checks only the fixed website hostnames; never logs in, sends transactions, or alters infrastructure.');
+  } else {
+    checkDomains().then(result => {
+      console.log(JSON.stringify(result, null, 2));
+      if (!result.networkProbePassed) process.exitCode = 1;
+    }, error => {
+      console.error(`Preflight could not start: ${error.message}`);
+      process.exitCode = 2;
+    });
+  }
 }
