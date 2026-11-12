@@ -40,25 +40,51 @@ function examineEntry(response, origin) {
   return { status, result: 'unexpected_http_status' };
 }
 
-async function readSmallText(response, maxBytes = MAX_BYTES) {
-  const len = response.headers.get('content-length');
-  if (len && Number(len) > maxBytes) return { ok: false, reason: 'response_too_large' };
-  if (!response.body) return { ok: true, text: '' };
-  const reader = response.body.getReader();
-  const chunks = [];
-  let total = 0;
-  try {
-    for (;;) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      total += value.byteLength;
-      if (total > maxBytes) return { ok: false, reason: 'response_too_large' };
-      chunks.push(value);
+async function readSmallText(response, maxBytes = MAX_BYTES, timeoutMs = DEFAULT_TIMEOUT_MS) {
+  let reader;
+  let timeout;
+  const cutoff = new Promise(resolve => {
+    timeout = setTimeout(() => resolve({ ok: false, reason: 'response_timeout' }), timeoutMs);
+  });
+  const read = (async () => {
+    try {
+      const len = response.headers.get('content-length');
+      if (len && Number(len) > maxBytes) return { ok: false, reason: 'response_too_large' };
+      if (!response.body) return { ok: true, text: '' };
+      reader = response.body.getReader();
+      const chunks = [];
+      let total = 0;
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        total += value.byteLength;
+        if (total > maxBytes) return { ok: false, reason: 'response_too_large' };
+        chunks.push(value);
+      }
+      const joined = new Uint8Array(total);
+      let offset = 0;
+      for (const chunk of chunks) { joined.set(chunk, offset); offset += chunk.byteLength; }
+      return { ok: true, text: new TextDecoder().decode(joined) };
+    } catch {
+      return { ok: false, reason: 'response_unreadable' };
     }
-    const joined = new Uint8Array(total); let offset = 0;
-    for (const chunk of chunks) { joined.set(chunk, offset); offset += chunk.byteLength; }
-    return { ok: true, text: new TextDecoder().decode(joined) };
-  } finally { try { await reader.cancel(); } catch { /* best-effort cleanup */ } }
+  })();
+  try {
+    return await Promise.race([read, cutoff]);
+  } finally {
+    clearTimeout(timeout);
+    // Never wait for body cancellation: a broken stream must not stall the preflight.
+    try {
+      if (reader) void reader.cancel().catch(() => {});
+      else if (response.body) void response.body.cancel().catch(() => {});
+    } catch { /* best-effort cleanup */ }
+  }
+}
+
+function discardResponseBody(response) {
+  // The public page itself is deliberately not downloaded or processed.
+  try { if (response?.body) void response.body.cancel().catch(() => {}); }
+  catch { /* best-effort cleanup */ }
 }
 
 async function safeGet(url, fetchImpl, timeoutMs) {
@@ -115,13 +141,15 @@ export async function checkDomains({
     if (dnsResolved) {
       const pageGet = await safeGet(`${origin}/`, fetchImpl, timeoutMs);
       entry = pageGet.error ? { status: null, result: pageGet.error } : examineEntry(pageGet.response, origin);
+      discardResponseBody(pageGet.response);
       const liveGet = await safeGet(`${origin}/health/live`, fetchImpl, timeoutMs);
       if (liveGet.error) {
         health = { status: null, result: liveGet.error };
       } else if (liveGet.response.status !== 200) {
         health = { status: liveGet.response.status, result: 'health_http_not_200' };
+        discardResponseBody(liveGet.response);
       } else {
-        const body = await readSmallText(liveGet.response);
+        const body = await readSmallText(liveGet.response, MAX_BYTES, timeoutMs);
         if (!body.ok) health = { status: 200, result: body.reason };
         else {
           try {

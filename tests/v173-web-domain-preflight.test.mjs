@@ -77,3 +77,28 @@ test('rejects arbitrary hosts and invalid release before networking', async () =
   await assert.rejects(checkDomains({ timeoutMs: 0, resolvers, fetchImpl }), /timeoutMs/);
   assert.equal(calls, 0);
 });
+
+
+test('a stalled health response body times out without hanging or reporting success', async () => {
+  const healthWithStalledBody = new Response(new ReadableStream({
+    start(controller) { controller.enqueue(new TextEncoder().encode('{"release":')); },
+    // Intentionally never close the stream or produce the remaining JSON.
+  }), { status: 200, headers: { 'content-type': 'application/json' } });
+  const started = Date.now();
+  const report = await checkDomains({
+    hosts: [HOSTS[0]], resolvers, timeoutMs: 100,
+    fetchImpl: async url => new URL(url).pathname === '/' ? new Response('ok') : healthWithStalledBody,
+  });
+  assert.equal(report.findings[0].health.result, 'response_timeout');
+  assert.equal(report.networkProbePassed, false);
+  assert.ok(Date.now() - started < 2_000);
+});
+
+test('oversized health bodies are rejected and cannot produce a passing result', async () => {
+  const report = await checkDomains({ hosts: [HOSTS[0]], resolvers,
+    fetchImpl: async url => new URL(url).pathname === '/' ? new Response('ok') :
+      new Response('x'.repeat(5_000), { headers: { 'content-type': 'application/json' } }),
+  });
+  assert.equal(report.findings[0].health.result, 'response_too_large');
+  assert.equal(report.networkProbePassed, false);
+});
