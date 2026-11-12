@@ -47,10 +47,16 @@ test('forwards to a different origin fail, redirect never followed', async () =>
   assert.ok(!JSON.stringify(report).includes('private=secret'));
 });
 
-test('same-origin redirect is recorded but does not prove final page availability', async () => {
-  const report = await checkDomains({ resolvers, hosts: [HOSTS[1]], fetchImpl: async raw =>
-    new URL(raw).pathname === '/' ? new Response(null, { status: 303, headers: { Location: '/admin' } }) : health() });
-  assert.equal(report.findings[0].entry.result, 'same_origin_redirect_not_followed');
+test('a same-origin redirect loop does not prove entry availability', async () => {
+  const paths = [];
+  const report = await checkDomains({ resolvers, hosts: [HOSTS[1]], fetchImpl: async raw => {
+    const url = new URL(raw);
+    paths.push(url.pathname);
+    return url.pathname === '/health/live' ? health() :
+      new Response(null, { status: 303, headers: { Location: '/admin' } });
+  } });
+  assert.deepEqual(paths, ['/', '/admin', '/health/live']);
+  assert.equal(report.findings[0].entry.result, 'entry_redirect_loop');
   assert.equal(report.networkProbePassed, false);
 });
 
@@ -190,5 +196,50 @@ test('blank or non-HTML entry responses fail even when V173 health succeeds', as
     assert.equal(report.findings[0].entry.result, expected);
     assert.equal(report.networkProbePassed, false);
     assert.equal(report.productionApproved, false);
+  }
+});
+
+
+test('legitimate anonymous customer and staff entry redirects are verified safely', async () => {
+  for (const [host, path] of [[HOSTS[0], '/signin'], [HOSTS[1], '/admin']]) {
+    const calls = [];
+    const report = await checkDomains({
+      resolvers, hosts: [host], fetchImpl: async (raw, options) => {
+        const u = new URL(raw);
+        calls.push({ path: u.pathname, options });
+        if (u.pathname === '/') return new Response(null, { status: 303, headers: { Location: path } });
+        if (u.pathname === '/health/live') return health();
+        return new Response('<!doctype html><title>Sign in</title>', { status: 200,
+          headers: { 'content-type': 'text/html; charset=utf-8' } });
+      },
+    });
+    assert.deepEqual(calls.map(x => x.path), ['/', path, '/health/live']);
+    assert.ok(calls.every(x => x.options.method === 'GET' && x.options.redirect === 'manual' &&
+      x.options.credentials === 'omit' && x.options.body === undefined));
+    assert.equal(report.findings[0].entry.result, 'same_origin_entry_verified');
+    assert.equal(report.networkProbePassed, true);
+    assert.equal(report.productionApproved, false);
+    assert.equal(report.findings[0].authenticatedAccessTested, false);
+  }
+});
+
+test('unapproved paths, query secrets and external redirects are never followed', async () => {
+  const locations = ['/logout', '/staff-setup#secret', '/signin?token=private', '/admin/other',
+    'https://attacker.invalid/admin', '//attacker.invalid/signin'];
+  for (const location of locations) {
+    const calls = [];
+    const report = await checkDomains({
+      resolvers, hosts: [HOSTS[0]], fetchImpl: async raw => {
+        const u = new URL(raw);
+        calls.push(u.pathname);
+        return u.pathname === '/health/live' ? health() :
+          new Response(null, { status: 303, headers: { Location: location } });
+      },
+    });
+    assert.deepEqual(calls, ['/', '/health/live']);
+    assert.equal(report.networkProbePassed, false);
+    assert.ok(['unapproved_entry_redirect', 'external_redirect_blocked'].includes(report.findings[0].entry.result));
+    assert.ok(!JSON.stringify(report).includes('secret'));
+    assert.ok(!JSON.stringify(report).includes('private'));
   }
 });

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * MASTER7 V173: non-transactional website infrastructure read-only preflight.
- * DNS resolution and public GET / + GET /health/live only. No logins, POST,
- * callbacks, cookies, payment routes, game routes, mutations, or redirects.
+ * DNS and anonymous GET /, approved /signin or /admin entry, and /health/live. No logins, POST,
+ * callbacks, cookies, payment routes, game routes, mutations, or external redirects.
  * A passing result is NOT permission to go live or proof of authentication.
  */
 import { Resolver } from 'node:dns/promises';
@@ -158,6 +158,39 @@ async function safeGet(url, fetchImpl, timeoutMs) {
   }
 }
 
+
+// The anonymous V173 home entry intentionally redirects to /signin.
+// Follow only one approved path on the exact same HTTPS origin. No cookies,
+// query strings, setup secrets, external redirect or business route is followed.
+async function inspectAnonymousEntry(origin, fetchImpl, timeoutMs) {
+  const initial = await safeGet(origin + '/', fetchImpl, timeoutMs);
+  if (initial.error) return { status: null, result: initial.error };
+  const first = examineEntry(initial.response, origin);
+  const location = initial.response.headers.get('location');
+  discardResponseBody(initial.response);
+  if (first.result !== 'same_origin_redirect_not_followed') return first;
+
+  let target;
+  try { target = new URL(location, origin + '/'); }
+  catch { return { status: first.status, result: 'invalid_entry_redirect' }; }
+  if (target.origin !== origin ||
+      !['/signin', '/admin'].includes(target.pathname) ||
+      target.search || target.hash || target.username || target.password) {
+    return { status: first.status, result: 'unapproved_entry_redirect' };
+  }
+  const followed = await safeGet(target.href, fetchImpl, timeoutMs);
+  if (followed.error) return { status: null, result: followed.error };
+  const final = examineEntry(followed.response, origin);
+  discardResponseBody(followed.response);
+  return {
+    status: final.status,
+    result: final.result === 'direct_http_success' ? 'same_origin_entry_verified'
+      : final.result === 'same_origin_redirect_not_followed' ? 'entry_redirect_loop'
+      : final.result,
+  };
+}
+
+
 export async function checkDomains({
   hosts = HOSTS, expectedRelease = EXPECTED_RELEASE,
   resolvers = null,
@@ -195,9 +228,7 @@ export async function checkDomains({
     let entry = { status: null, result: 'not_checked_no_dns' };
     let health = { status: null, result: 'not_checked_no_dns' };
     if (dnsResolved) {
-      const pageGet = await safeGet(`${origin}/`, fetchImpl, timeoutMs);
-      entry = pageGet.error ? { status: null, result: pageGet.error } : examineEntry(pageGet.response, origin);
-      discardResponseBody(pageGet.response);
+      entry = await inspectAnonymousEntry(origin, fetchImpl, timeoutMs);
       const liveGet = await safeGet(`${origin}/health/live`, fetchImpl, timeoutMs);
       if (liveGet.error) {
         health = { status: null, result: liveGet.error };
@@ -222,7 +253,7 @@ export async function checkDomains({
     }
     findings.push({ hostname, kind, dns, entry, health,
       // A redirect still requires a separate domain/entry acceptance.
-      networkProbePassed: dnsResolved && entry.result === 'direct_http_success' && health.result === 'v173_database_ready',
+      networkProbePassed: dnsResolved && ['direct_http_success', 'same_origin_entry_verified'].includes(entry.result) && health.result === 'v173_database_ready',
       tlsCertificateChainAudited: false,
       authenticatedAccessTested: false,
     });
