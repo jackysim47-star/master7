@@ -62,7 +62,15 @@ async function readBoundedDns(hostname, injectedResolvers, dnsTimeoutMs) {
 
 function examineEntry(response, origin) {
   const status = response.status;
-  if (status >= 200 && status < 300) return { status, result: 'direct_http_success' };
+  if (status === 200) {
+    // Do not accept a blank 204 or a JSON/plain-text error document as a website page.
+    const contentType = response.headers.get('content-type') || '';
+    if (!/^text\/html(?:\s*;|$)/i.test(contentType)) {
+      return { status, result: 'unexpected_content_type' };
+    }
+    return { status, result: 'direct_http_success' };
+  }
+  if (status >= 200 && status < 300) return { status, result: 'unexpected_http_status' };
   if (status >= 300 && status < 400) {
     const loc = response.headers.get('location');
     let local = false;

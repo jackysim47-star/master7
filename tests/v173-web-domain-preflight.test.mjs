@@ -15,7 +15,7 @@ test('fixed hostnames, anonymous GET only, never enables production state', asyn
   const calls = [];
   const report = await checkDomains({ resolvers, fetchImpl: async (raw, options) => {
     calls.push({ url: new URL(raw), options });
-    return new URL(raw).pathname === '/health/live' ? health() : new Response('Public entry', { status: 200 });
+    return new URL(raw).pathname === '/health/live' ? health() : new Response('Public entry', { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
   } });
   assert.equal(report.findings.length, 3);
   assert.deepEqual(report.findings.map(x => x.hostname), HOSTS.map(x => x.hostname));
@@ -168,6 +168,27 @@ test('a spoofed health document missing the official liveness scope is never acc
     });
     assert.equal(report.networkProbePassed, false);
     assert.equal(report.findings[0].health.result, 'not_expected_release_or_database');
+    assert.equal(report.productionApproved, false);
+  }
+});
+
+
+test('blank or non-HTML entry responses fail even when V173 health succeeds', async () => {
+  const entries = [
+    { response: new Response(null, { status: 204 }), expected: 'unexpected_http_status' },
+    { response: new Response('plain text', { status: 200 }), expected: 'unexpected_content_type' },
+    { response: Response.json({ status: 'ok' }), expected: 'unexpected_content_type' },
+  ];
+  for (const { response, expected } of entries) {
+    const report = await checkDomains({
+      resolvers,
+      hosts: [HOSTS[0]],
+      fetchImpl: async url => new URL(url).pathname === '/'
+        ? response.clone()
+        : health(),
+    });
+    assert.equal(report.findings[0].entry.result, expected);
+    assert.equal(report.networkProbePassed, false);
     assert.equal(report.productionApproved, false);
   }
 });
