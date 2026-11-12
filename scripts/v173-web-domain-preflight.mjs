@@ -199,8 +199,8 @@ export async function checkDomains({
   if (process.env.NODE_TLS_REJECT_UNAUTHORIZED === '0') {
     throw new Error('TLS verification disabled: preflight must not run');
   }
-  if (!/^17\.0\.0-selfbuilt\.173-[a-z0-9-]+$/.test(expectedRelease)) {
-    throw new Error('Invalid V173 expectedRelease');
+  if (expectedRelease !== EXPECTED_RELEASE) {
+    throw new Error('Invalid V173 expectedRelease: exact release lock required');
   }
   if (!Number.isInteger(timeoutMs) || timeoutMs < 100 || timeoutMs > 30_000) {
     throw new Error('Invalid timeoutMs');
