@@ -118,3 +118,22 @@ test('unresponsive DNS queries are bounded and never trigger HTTPS requests', as
   assert.equal(report.networkProbePassed, false);
   assert.ok(Date.now() - started < 2_000);
 });
+
+
+test('an HTTPS fetch that ignores AbortSignal still times out and cannot block the audit', async () => {
+  let calls = 0;
+  const fetchImpl = async () => {
+    calls++;
+    return new Promise(() => {});
+  };
+  const started = Date.now();
+  const report = await checkDomains({
+    hosts: [HOSTS[0]], resolvers, timeoutMs: 100, fetchImpl,
+  });
+  assert.equal(calls, 2);
+  assert.equal(report.findings[0].entry.result, 'TIMEOUT');
+  assert.equal(report.findings[0].health.result, 'TIMEOUT');
+  assert.equal(report.networkProbePassed, false);
+  assert.equal(report.productionApproved, false);
+  assert.ok(Date.now() - started < 2_000);
+});

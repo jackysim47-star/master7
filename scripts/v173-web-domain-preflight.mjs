@@ -119,16 +119,33 @@ function discardResponseBody(response) {
 
 async function safeGet(url, fetchImpl, timeoutMs) {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    const response = await fetchImpl(url, {
-      method: 'GET', redirect: 'manual', credentials: 'omit',
-      headers: { Accept: new URL(url).pathname === '/health/live' ? 'application/json' : 'text/html' },
-      signal: controller.signal,
-    });
+  let timer;
+  let settled = false;
+  // AbortController alone cannot bound a fetch implementation that ignores abort.
+  // Race against an independent deadline so the report always completes.
+  const request = Promise.resolve().then(() => fetchImpl(url, {
+    method: 'GET', redirect: 'manual', credentials: 'omit',
+    headers: { Accept: new URL(url).pathname === '/health/live' ? 'application/json' : 'text/html' },
+    signal: controller.signal,
+  })).then(response => {
+    // A late response belongs to an expired request. Never process it.
+    if (settled) {
+      discardResponseBody(response);
+      return { response: null, error: 'TIMEOUT' };
+    }
     return { response, error: null };
-  } catch (error) { return { response: null, error: errorCode(error) }; }
-  finally { clearTimeout(timeout); }
+  }, error => ({ response: null, error: errorCode(error) }));
+  const deadline = new Promise(resolve => {
+    timer = setTimeout(() => {
+      controller.abort();
+      resolve({ response: null, error: 'TIMEOUT' });
+    }, timeoutMs);
+  });
+  try { return await Promise.race([request, deadline]); }
+  finally {
+    settled = true;
+    clearTimeout(timer);
+  }
 }
 
 export async function checkDomains({
