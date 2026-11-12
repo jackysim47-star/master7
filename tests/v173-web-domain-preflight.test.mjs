@@ -102,3 +102,19 @@ test('oversized health bodies are rejected and cannot produce a passing result',
   assert.equal(report.findings[0].health.result, 'response_too_large');
   assert.equal(report.networkProbePassed, false);
 });
+
+
+test('unresponsive DNS queries are bounded and never trigger HTTPS requests', async () => {
+  let requests = 0;
+  const hangs = async () => new Promise(() => {});
+  const started = Date.now();
+  const report = await checkDomains({
+    hosts: [HOSTS[0]], dnsTimeoutMs: 100,
+    resolvers: { a: hangs, aaaa: hangs, cname: hangs },
+    fetchImpl: async () => { requests++; throw new Error('HTTPS not allowed without DNS'); },
+  });
+  assert.equal(requests, 0);
+  assert.equal(report.findings[0].dns.missingReason, 'DNS_TIMEOUT');
+  assert.equal(report.networkProbePassed, false);
+  assert.ok(Date.now() - started < 2_000);
+});

@@ -5,7 +5,7 @@
  * callbacks, cookies, payment routes, game routes, mutations, or redirects.
  * A passing result is NOT permission to go live or proof of authentication.
  */
-import { resolve4, resolve6, resolveCname } from 'node:dns/promises';
+import { Resolver } from 'node:dns/promises';
 
 export const EXPECTED_RELEASE = '17.0.0-selfbuilt.173-staff-setup-route';
 export const HOSTS = Object.freeze([
@@ -16,6 +16,7 @@ export const HOSTS = Object.freeze([
 
 const MAX_BYTES = 4_096;
 const DEFAULT_TIMEOUT_MS = 6_000;
+const DEFAULT_DNS_TIMEOUT_MS = 2_000;
 
 function errorCode(error) {
   const code = typeof error?.code === 'string' ? error.code : '';
@@ -26,6 +27,35 @@ function errorCode(error) {
 async function optionalResolve(resolver, host) {
   try { return { values: await resolver(host), reason: null }; }
   catch (error) { return { values: [], reason: errorCode(error) }; }
+}
+
+
+async function readBoundedDns(hostname, injectedResolvers, dnsTimeoutMs) {
+  // Own a resolver instance so pending system DNS requests can be cancelled.
+  const resolver = injectedResolvers ? null : new Resolver();
+  const resolvers = injectedResolvers || {
+    a: resolver.resolve4.bind(resolver),
+    aaaa: resolver.resolve6.bind(resolver),
+    cname: resolver.resolveCname.bind(resolver),
+  };
+  const unavailable = { values: [], reason: 'DNS_TIMEOUT' };
+  let timer;
+  const deadline = new Promise(resolve => {
+    timer = setTimeout(() => resolve([unavailable, unavailable, unavailable]), dnsTimeoutMs);
+  });
+  try {
+    return await Promise.race([
+      Promise.all([
+        optionalResolve(resolvers.a, hostname),
+        optionalResolve(resolvers.aaaa, hostname),
+        optionalResolve(resolvers.cname, hostname),
+      ]),
+      deadline,
+    ]);
+  } finally {
+    clearTimeout(timer);
+    if (resolver) resolver.cancel();
+  }
 }
 
 function examineEntry(response, origin) {
@@ -103,8 +133,8 @@ async function safeGet(url, fetchImpl, timeoutMs) {
 
 export async function checkDomains({
   hosts = HOSTS, expectedRelease = EXPECTED_RELEASE,
-  resolvers = { a: resolve4, aaaa: resolve6, cname: resolveCname },
-  fetchImpl = fetch, timeoutMs = DEFAULT_TIMEOUT_MS,
+  resolvers = null,
+  fetchImpl = fetch, timeoutMs = DEFAULT_TIMEOUT_MS, dnsTimeoutMs = DEFAULT_DNS_TIMEOUT_MS,
 } = {}) {
   if (process.env.NODE_TLS_REJECT_UNAUTHORIZED === '0') {
     throw new Error('TLS verification disabled: preflight must not run');
@@ -115,17 +145,16 @@ export async function checkDomains({
   if (!Number.isInteger(timeoutMs) || timeoutMs < 100 || timeoutMs > 30_000) {
     throw new Error('Invalid timeoutMs');
   }
+  if (!Number.isInteger(dnsTimeoutMs) || dnsTimeoutMs < 100 || dnsTimeoutMs > 30_000) {
+    throw new Error('Invalid dnsTimeoutMs');
+  }
   if (!Array.isArray(hosts) || hosts.length === 0 || !hosts.every(h =>
     HOSTS.some(allowed => allowed.hostname === h.hostname && allowed.kind === h.kind))) {
     throw new Error('Only fixed, approved website hostnames can be checked');
   }
   const findings = [];
   for (const { hostname, kind } of hosts) {
-    const [a, aaaa, cname] = await Promise.all([
-      optionalResolve(resolvers.a, hostname),
-      optionalResolve(resolvers.aaaa, hostname),
-      optionalResolve(resolvers.cname, hostname),
-    ]);
+    const [a, aaaa, cname] = await readBoundedDns(hostname, resolvers, dnsTimeoutMs);
     const dnsResolved = a.values.length > 0 || aaaa.values.length > 0;
     const dns = {
       resolved: dnsResolved,
