@@ -9,7 +9,7 @@ const resolvers = {
   aaaa: async () => { throw Object.assign(new Error('DNS error'), { code: 'ENODATA' }); },
   cname: async () => ['example.onrender.com'],
 };
-const health = () => Response.json({ release: EXPECTED_RELEASE, database: 'ready' });
+const health = () => Response.json({ status: 'ok', scope: 'portal-liveness', release: EXPECTED_RELEASE, database: 'ready' });
 
 test('fixed hostnames, anonymous GET only, never enables production state', async () => {
   const calls = [];
@@ -152,4 +152,22 @@ test('CLI --help starts directly on Windows and Linux paths without network call
   assert.match(child.stdout, /MASTER7 V173 read-only/);
   assert.match(child.stdout, /never logs in/);
   assert.equal(child.stderr, '');
+});
+
+test('a spoofed health document missing the official liveness scope is never accepted', async () => {
+  const fakeBodies = [
+    { release: EXPECTED_RELEASE, database: 'ready' },
+    { status: 'error', scope: 'portal-liveness', release: EXPECTED_RELEASE, database: 'ready' },
+    { status: 'ok', scope: 'fake-service', release: EXPECTED_RELEASE, database: 'ready' },
+    { status: 'ok', scope: 'portal-liveness', release: EXPECTED_RELEASE, database: 'unavailable' },
+  ];
+  for (const payload of fakeBodies) {
+    const report = await checkDomains({
+      resolvers, hosts: [HOSTS[0]],
+      fetchImpl: async url => new URL(url).pathname === '/' ? new Response('ok') : Response.json(payload),
+    });
+    assert.equal(report.networkProbePassed, false);
+    assert.equal(report.findings[0].health.result, 'not_expected_release_or_database');
+    assert.equal(report.productionApproved, false);
+  }
 });

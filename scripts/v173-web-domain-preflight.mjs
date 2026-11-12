@@ -204,7 +204,9 @@ export async function checkDomains({
             const parsed = JSON.parse(body.text);
             health = {
               status: 200,
-              result: parsed?.release === expectedRelease && parsed?.database === 'ready' ? 'v173_database_ready' : 'not_expected_release_or_database',
+              result: parsed?.status === 'ok' && parsed?.scope === 'portal-liveness' &&
+                parsed?.release === expectedRelease && parsed?.database === 'ready'
+                ? 'v173_database_ready' : 'not_expected_release_or_database',
             };
           } catch { health = { status: 200, result: 'health_invalid_json' }; }
         }
