@@ -37,20 +37,3 @@ services:
         value: "false"
       - key: PORTAL_NEW_PAYOUTS_ENABLED
         value: "false"
-
-  # Cost reduction: restore the existing staging service to its verified paid baseline.
-  # No database removal, no free sleeping compute, and no new service.
-  - type: web
-    name: master7-v17-staging
-    runtime: node
-    region: singapore
-    repo: https://github.com/jackysim47-star/master7
-    branch: codex/v17-render-staging-20261104
-    autoDeployTrigger: "off"
-    plan: 1c-2g
-    numInstances: 1
-    healthCheckPath: /health/live
-    buildCommand: >-
-      set -e; mkdir -p .render-v17; tar -xzf master7-v17-render-staging.tar.gz -C .render-v17; cd .render-v17/master7-v17-render-staging; corepack pnpm install --frozen-lockfile; corepack pnpm run test:render-db; corepack pnpm run build:render
-    startCommand: >-
-      cd .render-v17/master7-v17-render-staging && node scripts/start-render.mjs
