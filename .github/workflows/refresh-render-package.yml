@@ -7,6 +7,7 @@ on:
     paths:
       - app/portal.html
       - public/assets/template-v173.css
+      - .github/render-package-overlay.tar.gz
       - .github/workflows/refresh-render-package.yml
 
 permissions:
@@ -31,6 +32,7 @@ jobs:
           package_dir="$work_dir/master7-v17-render-staging"
           install -D -m 0644 app/portal.html "$package_dir/app/portal.html"
           install -D -m 0644 public/assets/template-v173.css "$package_dir/public/assets/template-v173.css"
+          tar -xzf .github/render-package-overlay.tar.gz -C "$package_dir"
           tar -czf "$work_dir/render-package.tar.gz" -C "$work_dir" master7-v17-render-staging
           if cmp -s "$work_dir/render-package.tar.gz" master7-v17-render-staging.tar.gz; then
             echo "Render package is already current."

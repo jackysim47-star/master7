@@ -258,7 +258,7 @@
 
     <section id="lobby" class="section active">
       <section class="member-wallet member-home-wallet surface stack" id="memberWallet" hidden aria-labelledby="memberWalletTitle">
-        <div class="wallet-heading"><div><p class="eyebrow">MEMBER WALLET · MYR</p><h2 id="memberWalletTitle" data-i18n="memberWalletTitle">My wallet</h2><p id="walletNotice" class="muted" role="status" aria-live="polite">Sign in with an approved member account to view wallet status.</p></div><button id="refreshWallet" type="button" class="button button-outline">Refresh wallet</button></div>
+        <div class="wallet-heading"><div><p class="eyebrow">PORTAL WALLET · MYR</p><h2 id="memberWalletTitle" data-i18n="memberWalletTitle">Portal wallet</h2><p id="walletNotice" class="muted" role="status" aria-live="polite">Sign in with an approved member account to view wallet status.</p></div><button id="refreshWallet" type="button" class="button button-outline">Refresh wallet</button></div>
         <div class="wallet-balance"><span data-i18n="availableBalance">Available balance</span><strong id="walletBalance">—</strong></div>
         <div class="wallet-primary-actions wallet-quick-grid" role="group" aria-label="Wallet actions">
           <button id="walletDepositAction" type="button" class="wallet-primary-action active"><span aria-hidden="true">↓</span><strong data-i18n="quickDeposit">Deposit</strong><small>Top up</small></button>
@@ -428,10 +428,10 @@
     </section>
 
     <section id="support" class="section">
-      <div class="section-header"><div><p class="eyebrow">AI SUPPORT CENTER</p><h1 data-i18n="supportTitle">Support center</h1><p class="muted" data-i18n="supportIntro">Stephanie AI support replies first; backoffice staff can continue in the same ticket.</p></div></div>
+      <div class="section-header"><div><p class="eyebrow">AI SUPPORT CENTER</p><h1 data-i18n="supportTitle">Support center</h1><p class="muted" data-i18n="supportIntro">Stephanie AI support replies first; the Master Admin can continue in the same ticket.</p></div></div>
       <article class="stephanie-intro" aria-label="Stephanie MASTER7 AI customer support">
         <div class="stephanie-avatar" aria-hidden="true"><span>👩🏻‍💼</span><b>AI</b></div>
-        <div><p class="eyebrow">STEPHANIE · MASTER7 AI SUPPORT</p><h2>Hello, I am Stephanie</h2><p>I can help with common questions in English, Chinese and Bahasa Melayu. Payment, withdrawal, account security and complaint cases remain available for staff review.</p><div class="stephanie-chips"><span>AI assistance</span><span>Three languages</span><span>Staff follow-up</span></div></div>
+        <div><p class="eyebrow">STEPHANIE · MASTER7 AI SUPPORT</p><h2>Hello, I am Stephanie</h2><p>I can help with common questions in English, Chinese and Bahasa Melayu. Payment, withdrawal, account security and complaint cases remain available for Master Admin review.</p><div class="stephanie-chips"><span>AI assistance</span><span>Three languages</span><span>Master Admin follow-up</span></div></div>
         <p class="stephanie-safety">Never send a password, OTP, full bank account number or API key.</p>
       </article>
       <div class="two-col">
@@ -828,7 +828,7 @@
           <details class="commission-guide contact-guide"><summary>功能说明 · Setup guide</summary><p data-social-key="noAutoAds">这里保存联系方式和 Pixel 设置；广告素材、受众、预算及发布仍在官方广告平台完成。系统不会自行花费广告费。</p></details>
         </section>
         <section class="surface stack admin-feature-cover support-admin-cover" id="supportOperationsPanel" hidden data-owner-only aria-labelledby="supportOperationsTitle">
-          <div class="wallet-records-heading admin-feature-cover-head"><div><p class="eyebrow">STEPHANIE AI · AUTOMATIC / HUMAN</p><h2 id="supportOperationsTitle">Stephanie · MASTER7 AI 客服</h2><p class="muted">Stephanie 会先回复会员工单；涉及资金、安全和投诉时，系统保留后台人员审核、回复与关闭流程。</p></div><span id="supportEffectiveStatus" class="status pending admin-cover-state">CHECKING</span></div>
+          <div class="wallet-records-heading admin-feature-cover-head"><div><p class="eyebrow">STEPHANIE AI · AUTOMATIC / HUMAN</p><h2 id="supportOperationsTitle">Stephanie · MASTER7 AI 客服</h2><p class="muted">Stephanie 会先回复会员工单；涉及资金、安全和投诉时，系统保留 Master Admin 审核、回复与关闭流程。</p></div><span id="supportEffectiveStatus" class="status pending admin-cover-state">CHECKING</span></div>
           <form id="supportAutomationForm" class="commission-card"><div class="commission-fields two"><label class="social-toggle"><input id="supportAiEnabled" type="checkbox"><span>Enable automatic first reply</span></label><label class="social-toggle"><input id="supportHumanHandoff" type="checkbox"><span>Human handoff required</span></label></div><button class="button button-primary" type="submit">Save support settings</button></form>
           <div id="supportAutomationSummary" class="stats"></div><p id="supportAutomationNotice" class="verification-note">正在检查外部 AI 与安全规则 fallback；服务器密钥不会显示在网页。</p>
         </section>
@@ -850,12 +850,14 @@
           <div id="productionAcceptanceRequirements" class="readiness-list"></div>
           <form id="productionAcceptanceForm" class="commission-card" hidden data-owner-only>
             <h3>域名、凭据、支付与签收证据</h3>
-            <div class="commission-fields two"><label>验收项目<select id="productionAcceptanceRequirement" required></select></label><label>结果<select id="productionAcceptanceResult" required><option value="passed">PASS</option><option value="failed">FAIL</option><option value="revoked">REVOKED</option></select></label><label>证据编号<input id="productionAcceptanceReference" required maxlength="200" placeholder="ticket:case-123"></label><label>证据 SHA-256<input id="productionAcceptanceDigest" pattern="[a-f0-9]{64}" maxlength="64" placeholder="64 lowercase hex"></label><label>或选择证据文件（不会上传）<input id="productionAcceptanceFile" type="file"></label></div>
+            <p id="productionAcceptanceEnvironmentNotice" class="verification-note pending">UAT 只记录测试环境观察，不会开启充值或提款；Production 仍需完整付款、结算、域名和最终签收证据。</p>
+            <div class="commission-fields two"><label>证据环境<select id="productionAcceptanceEnvironment" required><option value="uat">UAT / 测试</option><option value="production">Production / 生产</option></select></label><label>验收项目<select id="productionAcceptanceRequirement" required></select></label><label>结果<select id="productionAcceptanceResult" required><option value="passed">PASS</option><option value="failed">FAIL</option><option value="revoked">REVOKED</option></select></label><label>证据编号<input id="productionAcceptanceReference" required maxlength="200" placeholder="payment-uat:case-123"></label><label>证据 SHA-256<input id="productionAcceptanceDigest" pattern="[a-f0-9]{64}" maxlength="64" placeholder="64 lowercase hex"></label><label>或选择证据文件（不会上传）<input id="productionAcceptanceFile" type="file"></label></div>
             <button class="button button-primary" type="submit">记录验收事件</button><p id="productionAcceptanceFormStatus" class="verification-note"></p>
           </form>
           <form id="gameAcceptanceForm" class="commission-card" hidden data-owner-only>
             <h3>游戏厂家 Profile 证据</h3>
-            <div class="commission-fields two"><label>Profile<select id="gameAcceptanceProfile" required></select></label><label>能力<select id="gameAcceptanceCapability" required><option value="catalogue">Catalogue</option><option value="launch">Launch</option><option value="wallet">Wallet</option><option value="settlement">Settlement</option><option value="recovery">Recovery</option></select></label><label>结果<select id="gameAcceptanceResult" required><option value="passed">PASS</option><option value="failed">FAIL</option><option value="revoked">REVOKED</option></select></label><label>证据编号<input id="gameAcceptanceReference" required maxlength="200" placeholder="provider-uat:case-123"></label><label>证据 SHA-256<input id="gameAcceptanceDigest" pattern="[a-f0-9]{64}" maxlength="64" placeholder="64 lowercase hex"></label><label>或选择证据文件（不会上传）<input id="gameAcceptanceFile" type="file"></label></div>
+            <p id="gameAcceptanceEnvironmentNotice" class="verification-note pending">UAT 只记录测试环境观察，不会开启生产游戏；Production 也必须满足厂家、钱包、结算、恢复和最终签收条件。</p>
+            <div class="commission-fields two"><label>证据环境<select id="gameAcceptanceEnvironment" required><option value="uat">UAT / 测试</option><option value="production">Production / 生产</option></select></label><label>Profile<select id="gameAcceptanceProfile" required></select></label><label>能力<select id="gameAcceptanceCapability" required><option value="catalogue">Catalogue</option><option value="launch">Launch</option><option value="wallet">Wallet</option><option value="settlement">Settlement</option><option value="recovery">Recovery</option></select></label><label>结果<select id="gameAcceptanceResult" required><option value="passed">PASS</option><option value="failed">FAIL</option><option value="revoked">REVOKED</option></select></label><label>证据编号<input id="gameAcceptanceReference" required maxlength="200" placeholder="provider-uat:case-123"></label><label>证据 SHA-256<input id="gameAcceptanceDigest" pattern="[a-f0-9]{64}" maxlength="64" placeholder="64 lowercase hex"></label><label>或选择证据文件（不会上传）<input id="gameAcceptanceFile" type="file"></label></div>
             <button class="button button-primary" type="submit">记录 Profile 验收事件</button><p id="gameAcceptanceFormStatus" class="verification-note"></p>
           </form>
           <div id="gameAcceptanceSummary" class="stats"></div>

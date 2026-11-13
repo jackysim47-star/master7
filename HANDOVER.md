@@ -1,5 +1,25 @@
 # Wallet deposit, withdrawal and company-bank handover — 5 November 2026
 
+## V173 Master Admin / UAT scope candidate — 13 November 2026 MYT
+
+- Candidate baseline: `17.0.0-selfbuilt.173-staff-setup-route`; the tracked
+  Render package SHA-256 is
+  `19dd5737aa7fd0f9bb61d170406048470cce6c4fc0d7d69750c5043c800dbeee`.
+- MYR production acceptance is scoped to VPay MYR, GSPAY MYR and 1MPAY MYR;
+  GSPAY USDT remains separate and GSPAY+ remains outside the formal scope.
+- The customer cash balance is labelled `主钱包 / Portal wallet / Dompet
+  utama`; provider transfer and settlement remains the separate Game wallet.
+- Internal authorization remains `owner`, while the interface displays
+  `Master Admin`. Stephanie keeps sensitive finance, security and complaint
+  cases local for Master Admin review.
+- Maintenance 12/12, release probe 27/27, full regression 1457/1457, Render DB
+  3/3, typecheck, lint and Render build pass.
+- This is a source and package candidate, not a deployment receipt. Game
+  acceptance remains 0/43 and MYR payment acceptance remains 0/3. Production
+  transaction switches stay closed until external UAT, credential rotation,
+  DNS/TLS, monitoring, rollback and Owner/Operations signoff are complete.
+- Detailed handover: `docs/MASTER7_V173_MASTER_ADMIN_UAT_SCOPE_20261113.md`.
+
 ## Payout safety and support release — 6 November 2026
 
 Live release: `17.0.0-selfbuilt.69-payout-safe-support`.
