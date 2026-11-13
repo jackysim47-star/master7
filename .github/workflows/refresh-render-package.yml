@@ -1,0 +1,44 @@
+name: Refresh Render V17 package
+
+on:
+  push:
+    branches:
+      - codex/v17-render-staging-20261104
+    paths:
+      - app/portal.html
+      - public/assets/template-v173.css
+      - .github/workflows/refresh-render-package.yml
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout staging branch
+        uses: actions/checkout@v4
+        with:
+          ref: codex/v17-render-staging-20261104
+          fetch-depth: 0
+
+      - name: Overlay the verified V173 template into the Render package
+        shell: bash
+        run: |
+          set -euo pipefail
+          work_dir="$(mktemp -d)"
+          tar -xzf master7-v17-render-staging.tar.gz -C "$work_dir"
+          package_dir="$work_dir/master7-v17-render-staging"
+          install -D -m 0644 app/portal.html "$package_dir/app/portal.html"
+          install -D -m 0644 public/assets/template-v173.css "$package_dir/public/assets/template-v173.css"
+          tar -czf "$work_dir/render-package.tar.gz" -C "$work_dir" master7-v17-render-staging
+          if cmp -s "$work_dir/render-package.tar.gz" master7-v17-render-staging.tar.gz; then
+            echo "Render package is already current."
+            exit 0
+          fi
+          mv "$work_dir/render-package.tar.gz" master7-v17-render-staging.tar.gz
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add master7-v17-render-staging.tar.gz
+          git commit -m "chore: refresh Render staging package [skip ci]"
+          git push origin HEAD:codex/v17-render-staging-20261104
