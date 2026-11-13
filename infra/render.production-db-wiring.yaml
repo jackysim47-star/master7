@@ -16,7 +16,7 @@ services:
     numInstances: 1
     healthCheckPath: /health/live
     domains:
-      - www.master7.best
+      - www.master7.site
     buildCommand: >-
       set -e; mkdir -p .render-v17; tar -xzf master7-v17-render-staging.tar.gz -C .render-v17; install -D -m 0644 production/lib/portal-host-routing.ts .render-v17/master7-v17-render-staging/lib/portal-host-routing.ts; install -D -m 0644 production/tests/portal-host-routing.test.mjs .render-v17/master7-v17-render-staging/tests/portal-host-routing.test.mjs; cd .render-v17/master7-v17-render-staging; corepack pnpm install --frozen-lockfile; corepack pnpm run test:render-db; corepack pnpm run build:render
     startCommand: >-
