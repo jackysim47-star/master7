@@ -2,7 +2,8 @@
 # Existing service: srv-dbrkn8rl550s73cnur8g
 # Existing database: dpg-dbrkmih5efls73d6vm0g-a
 # The existing database is referenced, not declared or recreated.
-# Preserve current compute/autoscaling and omitted environment variables.
+# Preserve selected compute plan, single instance, and omitted environment variables.
+# Autoscaling is currently disabled; do not enable it during database wiring.
 # Application source remains release/v17.3-production.
 services:
   - type: web
@@ -12,11 +13,7 @@ services:
     repo: https://github.com/jackysim47-star/master7
     branch: release/v17.3-production
     autoDeployTrigger: "off"
-    scaling:
-      minInstances: 1
-      maxInstances: 10
-      targetCPUPercent: 90
-      targetMemoryPercent: 90
+    numInstances: 1
     healthCheckPath: /health/live
     buildCommand: >-
       set -e; mkdir -p .render-v17; tar -xzf master7-v17-render-staging.tar.gz -C .render-v17; install -D -m 0644 production/lib/portal-host-routing.ts .render-v17/master7-v17-render-staging/lib/portal-host-routing.ts; install -D -m 0644 production/tests/portal-host-routing.test.mjs .render-v17/master7-v17-render-staging/tests/portal-host-routing.test.mjs; cd .render-v17/master7-v17-render-staging; corepack pnpm install --frozen-lockfile; corepack pnpm run test:render-db; corepack pnpm run build:render
