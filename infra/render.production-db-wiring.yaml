@@ -1,0 +1,30 @@
+# MASTER7 V17 production-only database wiring and liveness configuration.
+# Existing service: srv-dbrkn8rl550s73cnur8g
+# Existing database: dpg-dbrkmih5efls73d6vm0g-a
+# The existing database is referenced, not declared or recreated.
+# Preserve current compute/autoscaling and omitted environment variables.
+# Application source remains release/v17.3-production.
+services:
+  - type: web
+    name: master7-v17-production
+    runtime: node
+    region: singapore
+    repo: https://github.com/jackysim47-star/master7
+    branch: release/v17.3-production
+    autoDeployTrigger: "off"
+    healthCheckPath: /health/live
+    buildCommand: >-
+      set -e; mkdir -p .render-v17; tar -xzf master7-v17-render-staging.tar.gz -C .render-v17; install -D -m 0644 production/lib/portal-host-routing.ts .render-v17/master7-v17-render-staging/lib/portal-host-routing.ts; install -D -m 0644 production/tests/portal-host-routing.test.mjs .render-v17/master7-v17-render-staging/tests/portal-host-routing.test.mjs; cd .render-v17/master7-v17-render-staging; corepack pnpm install --frozen-lockfile; corepack pnpm run test:render-db; corepack pnpm run build:render
+    startCommand: >-
+      cd .render-v17/master7-v17-render-staging && node scripts/start-render.mjs
+    envVars:
+      - key: PORTAL_POSTGRES_URL
+        fromDatabase:
+          name: master7-cloud-production-db
+          property: connectionString
+      - key: PORTAL_NEW_DEPOSITS_ENABLED
+        value: "false"
+      - key: PORTAL_NEW_GAME_LAUNCHES_ENABLED
+        value: "false"
+      - key: PORTAL_NEW_PAYOUTS_ENABLED
+        value: "false"
