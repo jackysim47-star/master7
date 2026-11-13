@@ -1,0 +1,194 @@
+/* MASTER7 V173 screenshot template layer.
+   Visual-only: no routes, IDs, API calls, wallet state or provider state are changed. */
+:root {
+  --m7-sky: #eaf8fc;
+  --m7-teal-950: #063d4b;
+  --m7-teal-900: #075b68;
+  --m7-teal-700: #078b96;
+  --m7-teal-500: #16c3c2;
+  --m7-gold: #efc865;
+  --m7-gold-deep: #b98524;
+  --m7-ink: #123f50;
+  --m7-muted: #557888;
+  --m7-border: #b7dce6;
+  --m7-card: rgba(255, 255, 255, .96);
+}
+
+body:not(.auth-entry) {
+  color-scheme: light;
+  color: var(--m7-ink);
+  background:
+    radial-gradient(ellipse 46% 24% at 93% 2%, rgba(255, 221, 128, .34), transparent 72%),
+    radial-gradient(ellipse 48% 30% at 4% 0%, rgba(54, 213, 222, .28), transparent 72%),
+    linear-gradient(180deg, #f8feff 0%, var(--m7-sky) 58%, #ffffff 100%);
+}
+
+body:not(.auth-entry) .demo-ribbon {
+  padding: 5px 14px;
+  color: #fff8df;
+  background: linear-gradient(90deg, var(--m7-teal-950), var(--m7-teal-700), var(--m7-teal-950));
+  border-color: rgba(239, 200, 101, .55);
+  letter-spacing: .06em;
+}
+
+body:not(.auth-entry) .topbar {
+  min-height: 64px;
+  padding: 9px clamp(14px, 3vw, 42px);
+  color: #fff;
+  background: linear-gradient(105deg, #064653 0%, #087c88 44%, #0d5f78 72%, #063b4c 100%);
+  border-bottom: 1px solid rgba(239, 200, 101, .72);
+  box-shadow: 0 5px 24px rgba(4, 85, 103, .22);
+}
+body:not(.auth-entry) .brand { color: #fff; text-shadow: 0 2px 14px rgba(0, 0, 0, .28); }
+body:not(.auth-entry) .brand-logo { width: 43px; height: 43px; filter: drop-shadow(0 4px 12px rgba(239, 200, 101, .48)); }
+body:not(.auth-entry) .brand small { color: #d5f7f5; }
+body:not(.auth-entry) .topbar .nav-button,
+body:not(.auth-entry) .topbar .button-ghost { color: #e9ffff; }
+body:not(.auth-entry) .topbar .nav-button.active,
+body:not(.auth-entry) .topbar .nav-button:hover { color: #fff7d5; background: rgba(255, 255, 255, .12); border-color: rgba(255, 255, 255, .3); }
+body:not(.auth-entry) .top-actions select { color: var(--m7-ink); background: #fff; border-color: rgba(239, 200, 101, .8); }
+body:not(.auth-entry) .top-actions .button-primary { color: #49340a; background: linear-gradient(135deg, #fff2ad, #efc45a 58%, #d99e2f); border-color: #fff0a5; box-shadow: 0 3px 0 #966b1b, 0 8px 20px rgba(0, 0, 0, .17); }
+
+body:not(.auth-entry) .portal-sidebar {
+  color: #eaffff;
+  background: linear-gradient(180deg, #075261, #063d4b 70%, #052c3a);
+  border-right: 1px solid rgba(239, 200, 101, .45);
+  box-shadow: 8px 0 28px rgba(4, 76, 90, .2);
+}
+body:not(.auth-entry) .portal-sidebar-heading { color: #b9eef0; }
+body:not(.auth-entry) .sidebar-nav-button,
+body:not(.auth-entry) .sidebar-game-filter { color: #d3f5f4; }
+body:not(.auth-entry) .sidebar-nav-button.active,
+body:not(.auth-entry) .sidebar-nav-button:hover,
+body:not(.auth-entry) .sidebar-game-filter.active,
+body:not(.auth-entry) .sidebar-game-filter:hover { color: #fff7d1; background: linear-gradient(90deg, #0aa7a8, #08737f); border-color: rgba(239, 200, 101, .75); box-shadow: inset 4px 0 #f4d273, 0 7px 18px rgba(0, 0, 0, .14); }
+body:not(.auth-entry) .sidebar-icon { color: #fff0a9; background: rgba(1, 50, 63, .55); border-color: rgba(239, 200, 101, .5); }
+body:not(.auth-entry) .sidebar-foot { color: #bde7e6; border-color: rgba(255, 255, 255, .17); }
+
+body:not(.auth-entry) .page { padding-top: clamp(18px, 3vw, 32px); }
+body:not(.auth-entry) .section-header { color: var(--m7-ink); }
+body:not(.auth-entry) .section-header h1,
+body:not(.auth-entry) .section-header h2,
+body:not(.auth-entry) .surface h2,
+body:not(.auth-entry) .surface h3 { color: var(--m7-ink); }
+body:not(.auth-entry) .eyebrow { color: var(--m7-gold-deep); }
+body:not(.auth-entry) .muted,
+body:not(.auth-entry) .intro,
+body:not(.auth-entry) .section-header p,
+body:not(.auth-entry) .surface label,
+body:not(.auth-entry) .feature p,
+body:not(.auth-entry) .game-card p { color: var(--m7-muted); }
+
+/* Member landing / lobby: use the existing premium artwork as a light hero banner. */
+body:not(.auth-entry) #home > .hero {
+  position: relative;
+  min-height: 318px;
+  overflow: hidden;
+  align-items: center;
+  border: 1px solid #8bd8df;
+  border-radius: 24px;
+  background: linear-gradient(90deg, rgba(4, 83, 101, .97) 0%, rgba(5, 117, 128, .84) 42%, rgba(5, 78, 98, .32) 74%, rgba(5, 53, 70, .78) 100%), url('/assets/master7-casino-lobby-premium.webp') center / cover;
+  box-shadow: 0 18px 38px rgba(4, 87, 107, .2), inset 0 1px rgba(255, 255, 255, .48);
+}
+body:not(.auth-entry) #home > .hero::after {
+  content: ""; position: absolute; inset: auto -4% -38% 40%; height: 80%; pointer-events: none;
+  background: radial-gradient(ellipse, rgba(244, 205, 100, .35), transparent 68%); filter: blur(8px);
+}
+body:not(.auth-entry) .hero-copy { position: relative; z-index: 1; max-width: 54%; padding: clamp(22px, 4vw, 52px); }
+body:not(.auth-entry) .hero h1 { color: #fff; font-size: clamp(30px, 4.5vw, 58px); text-shadow: 0 4px 18px rgba(0, 0, 0, .28); }
+body:not(.auth-entry) .hero h1 em { color: #ffe49a; }
+body:not(.auth-entry) .hero .intro { color: #e8ffff; max-width: 500px; }
+body:not(.auth-entry) .hero .eyebrow { color: #ffdc79; }
+body:not(.auth-entry) .hero-display { position: relative; z-index: 1; background: transparent; }
+body:not(.auth-entry) .hero-monogram { filter: drop-shadow(0 15px 25px rgba(0, 0, 0, .34)); }
+body:not(.auth-entry) .version-panel { color: #fff; background: rgba(3, 62, 78, .74); border-color: rgba(255, 224, 133, .8); backdrop-filter: blur(10px); }
+body:not(.auth-entry) .version-panel b { color: #ffe28b; }
+body:not(.auth-entry) .hero-actions .button-outline { color: #fff; background: rgba(0, 57, 75, .35); border-color: rgba(255, 255, 255, .7); }
+
+body:not(.auth-entry) .feature-grid { gap: 12px; margin-top: 16px; }
+body:not(.auth-entry) .feature,
+body:not(.auth-entry) .surface,
+body:not(.auth-entry) .payment-lobby,
+body:not(.auth-entry) .member-wallet,
+body:not(.auth-entry) .provider-directory-lobby,
+body:not(.auth-entry) .featured-games-panel,
+body:not(.auth-entry) .bonus-brand-lobby {
+  color: var(--m7-ink); background: var(--m7-card); border-color: var(--m7-border); border-radius: 16px; box-shadow: 0 8px 24px rgba(12, 105, 128, .1);
+}
+body:not(.auth-entry) .feature { border-top: 3px solid var(--m7-gold); }
+body:not(.auth-entry) .feature-icon { color: var(--m7-teal-700); }
+body:not(.auth-entry) .section-header,
+body:not(.auth-entry) #lobby > .section-header {
+  border-color: #9ed8e2; background: linear-gradient(110deg, #d8f5f8, #fff 68%, #fff5d3); box-shadow: 0 8px 22px rgba(9, 103, 123, .1);
+}
+body:not(.auth-entry) .lobby-hero { border-radius: 20px; }
+body:not(.auth-entry) .casino-trust-row span,
+body:not(.auth-entry) .lobby-live-summary span { color: var(--m7-teal-900); border-color: #acdbe2; background: rgba(255, 255, 255, .75); }
+body:not(.auth-entry) .lobby-live-summary strong { color: var(--m7-teal-700); }
+body:not(.auth-entry) .api-supplier-lobby { border-color: var(--m7-border); background: linear-gradient(135deg, #fff, #e8f9fc); }
+body:not(.auth-entry) .api-supplier-button,
+body:not(.auth-entry) .api-supplier-admin-button,
+body:not(.auth-entry) .provider-directory-card,
+body:not(.auth-entry) .game-card,
+body:not(.auth-entry) .stat,
+body:not(.auth-entry) .payment-option,
+body:not(.auth-entry) .wallet-balance,
+body:not(.auth-entry) .ticket,
+body:not(.auth-entry) .wallet-record-row {
+  color: var(--m7-ink); background: linear-gradient(145deg, #fff, #eaf9fc); border-color: #b6dce5; box-shadow: 0 4px 12px rgba(11, 101, 124, .08);
+}
+body:not(.auth-entry) .api-supplier-button:hover,
+body:not(.auth-entry) .provider-directory-card:hover,
+body:not(.auth-entry) .game-card:hover { border-color: var(--m7-gold); box-shadow: 0 10px 24px rgba(11, 104, 124, .16); }
+body:not(.auth-entry) .button-primary { color: #4b3507; background: linear-gradient(135deg, #fff0a7, #edc258 60%, #d99c2a); border-color: #fff1a8; box-shadow: 0 3px 0 #a47721, 0 8px 18px rgba(178, 128, 28, .22); }
+body:not(.auth-entry) .button-outline,
+body:not(.auth-entry) .button-ghost { color: var(--m7-teal-900); background: #effcff; border-color: #8fcbd7; }
+body:not(.auth-entry) input,
+body:not(.auth-entry) textarea,
+body:not(.auth-entry) select { color: var(--m7-ink); background: #fff; border-color: #a9d3de; }
+body:not(.auth-entry) input:focus,
+body:not(.auth-entry) textarea:focus,
+body:not(.auth-entry) select:focus { border-color: var(--m7-teal-500); box-shadow: 0 0 0 3px rgba(22, 195, 194, .16); }
+body:not(.auth-entry) .game-category-chip.active,
+body:not(.auth-entry) .game-zone-chip.active { color: #fff; border-color: var(--m7-teal-700); background: linear-gradient(120deg, #087984, #0eb4ad); }
+
+/* Backoffice: bright operations cards with a teal command shell, matching the supplied admin reference. */
+body:not(.auth-entry).admin-mode { background: linear-gradient(180deg, #f2fcfe, #e4f6fa 60%, #fff); }
+body:not(.auth-entry).admin-mode .topbar { background: linear-gradient(105deg, #064653, #078c96 48%, #075d77); }
+body:not(.auth-entry).admin-mode .page { padding-top: 20px; }
+body:not(.auth-entry).admin-mode .admin-commandbar { min-height: 58px; border-color: #9bd5dc; border-radius: 15px; background: linear-gradient(105deg, #075261, #0b8c94 62%, #096477); box-shadow: 0 10px 26px rgba(5, 79, 96, .2); }
+body:not(.auth-entry).admin-mode .admin-command-title strong { color: #fff; }
+body:not(.auth-entry).admin-mode .admin-command-title small { color: #c8f4f0; }
+body:not(.auth-entry).admin-mode .admin-command-mark { color: #6a4a06; background: linear-gradient(145deg, #fff0a4, #dca432); border-color: #fff0a4; box-shadow: 0 0 18px rgba(255, 221, 108, .42); }
+body:not(.auth-entry).admin-mode .admin-status-chip { color: #eaffff; background: rgba(1, 62, 73, .54); border-color: rgba(174, 244, 239, .48); }
+body:not(.auth-entry).admin-mode .admin-internal-sidebar { border-color: #8ecfd8; border-radius: 16px; background: linear-gradient(180deg, #075467, #063e4c); box-shadow: 0 10px 24px rgba(5, 77, 94, .16); }
+body:not(.auth-entry).admin-mode .admin-internal-sidebar .admin-sidebar-heading { color: #ffdc78; border-color: rgba(255, 255, 255, .16); }
+body:not(.auth-entry).admin-mode .admin-internal-sidebar a { color: #def9f7; }
+body:not(.auth-entry).admin-mode .admin-internal-sidebar a:hover,
+body:not(.auth-entry).admin-mode .admin-internal-sidebar a:focus-visible { color: #fff4c2; background: linear-gradient(90deg, #08a7a7, #087481); border-color: rgba(255, 222, 113, .76); }
+body:not(.auth-entry).admin-mode .admin-content { color: var(--m7-ink); }
+body:not(.auth-entry).admin-mode .admin-content > .surface,
+body:not(.auth-entry).admin-mode .admin-content > section.surface,
+body:not(.auth-entry).admin-mode .admin-content > div.surface,
+body:not(.auth-entry).admin-mode .admin-content > .ad-manager,
+body:not(.auth-entry).admin-mode .admin-content > .benefit-manager { color: var(--m7-ink); background: rgba(255, 255, 255, .97); border-color: #b1dce5; border-radius: 16px; box-shadow: 0 9px 24px rgba(10, 101, 123, .1); }
+body:not(.auth-entry).admin-mode .admin-dashboard-heading h2,
+body:not(.auth-entry).admin-mode .admin-panel-heading h2 { color: var(--m7-ink); }
+body:not(.auth-entry).admin-mode .admin-live-pill { color: #087b70; background: #e7fbf3; border-color: #83d4b5; }
+body:not(.auth-entry).admin-mode .admin-kpi-grid .stat { border-top: 3px solid var(--m7-gold); }
+body:not(.auth-entry).admin-mode .admin-kpi-grid .stat strong { color: var(--m7-teal-900); }
+body:not(.auth-entry).admin-mode .admin-kpi-grid .stat::after { background: linear-gradient(145deg, #fff1ac, #e0ad3d); border-color: #f7d980; }
+body:not(.auth-entry).admin-mode .admin-trend-chart { min-height: 250px; border-color: #a7d6df; background-color: #f3fcfe; background-image: linear-gradient(#a7d6df55 1px, transparent 1px), linear-gradient(90deg, #a7d6df55 1px, transparent 1px); }
+body:not(.auth-entry).admin-mode .admin-trend-empty { color: #6a8994; }
+body:not(.auth-entry).admin-mode .admin-content th { color: #fff; background: var(--m7-teal-900); }
+body:not(.auth-entry).admin-mode .admin-content td { color: var(--m7-ink); border-color: #d5e8ed; }
+
+@media (max-width: 760px) {
+  body:not(.auth-entry) #home > .hero { min-height: 370px; }
+  body:not(.auth-entry) .hero-copy { max-width: 100%; padding: 24px 20px; align-self: flex-start; }
+  body:not(.auth-entry) .hero-display { position: absolute; right: -35px; bottom: -10px; width: 48%; opacity: .72; }
+  body:not(.auth-entry) .hero h1 { font-size: 32px; }
+  body:not(.auth-entry).admin-mode .admin-commandbar { border-radius: 12px; }
+  body:not(.auth-entry).admin-mode .admin-content > .surface,
+  body:not(.auth-entry).admin-mode .admin-content > section.surface { border-radius: 13px; }
+}
