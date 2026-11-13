@@ -24,6 +24,13 @@ services:
         fromDatabase:
           name: master7-cloud-production-db
           property: connectionString
+      # Render's private Postgres endpoint uses a self-signed certificate.
+      # This requires TLS with no plaintext fallback, but does not authenticate
+      # the server certificate. Apply only after Owner approval of this policy.
+      - key: PGSSLMODE
+        value: "require"
+      - key: PGSSL_REJECT_UNAUTHORIZED
+        value: "false"
       - key: PORTAL_NEW_DEPOSITS_ENABLED
         value: "false"
       - key: PORTAL_NEW_GAME_LAUNCHES_ENABLED
