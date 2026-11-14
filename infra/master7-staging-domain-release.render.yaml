@@ -9,11 +9,6 @@ services:
     repo: https://github.com/jackysim47-star/master7
     branch: codex/v17-render-staging-20261104
     autoDeployTrigger: 'off'
-    scaling:
-      minInstances: 10
-      maxInstances: 100
-      targetCPUPercent: 90
-      targetMemoryPercent: 90
     previews:
       generation: automatic
     renderSubdomainPolicy: enabled
