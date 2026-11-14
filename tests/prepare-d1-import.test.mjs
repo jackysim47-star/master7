@@ -76,6 +76,22 @@ test('stages an encrypted synthetic backup with FK, count, ledger and transient 
   assert.ok(sql.includes('PRAGMA defer_foreign_keys=ON'));
   assert.ok(!sql.includes('synthetic-session'));
   assert.ok(sql.includes('synthetic-credit'));
+  const schema = readFileSync(join(output, 'schema.sql'), 'utf8');
+  assert.ok(!/^[ \t]*(?:BEGIN|COMMIT);/m.test(schema));
+  assert.equal(createHash('sha256').update(schema).digest('hex'), manifest.rehearsalSchemaSqlSha256);
+  const remoteShape = new DatabaseSync(':memory:');
+  try {
+    remoteShape.exec('PRAGMA foreign_keys=ON');
+    remoteShape.exec(`BEGIN;\n${schema}\nCOMMIT;`);
+    const objects = db => db.prepare("SELECT type,name,tbl_name,sql FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' ORDER BY type,name").all();
+    assert.deepEqual(objects(remoteShape), objects(sqlite));
+    remoteShape.exec(`BEGIN;\n${sql}\nCOMMIT;`);
+    assert.equal(remoteShape.prepare('SELECT COUNT(*) AS n FROM users').get().n, 2);
+    assert.equal(remoteShape.prepare('SELECT SUM(amount_minor) AS n FROM wallet_ledger').get().n, 0);
+    assert.deepEqual(remoteShape.prepare('PRAGMA foreign_key_check').all(), []);
+    assert.throws(() => remoteShape.exec(schema), /malformed JSON/);
+    assert.equal(remoteShape.prepare('SELECT COUNT(*) AS n FROM users').get().n, 2);
+  } finally { remoteShape.close(); }
   const nonFresh = new DatabaseSync(':memory:');
   try {
     nonFresh.exec('PRAGMA foreign_keys=ON');

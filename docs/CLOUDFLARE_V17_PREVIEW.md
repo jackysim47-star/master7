@@ -41,6 +41,14 @@ The script reuses the release's encrypted-backup verifier, pins its contract and
 
 **The staged SQL contains plaintext customer and financial data.** It is written with private filesystem permissions and must never enter GitHub, chat, or a shared folder. The script does not contact D1. Apply it only to a newly created, isolated D1 rehearsal database with the exact source migrations; Cloudflare supports `wrangler d1 execute DATABASE --remote --file=import.sql`, but remote import and data parity remain separate operator steps. The script currently stops if the SQL exceeds 64 MiB or one statement exceeds 95 KiB; larger backups need an explicit foreign-key-safe chunk plan. Do not use the live preview database as a rehearsal target.
 
+For a completely empty rehearsal database, apply the generated `schema.sql` first. It removes standalone SQLite transaction wrappers because D1 owns the transaction, preserves triggers, and defers foreign keys. Local validation compares every schema object with the original pinned migrations. An empty-database guard rejects a populated schema. This file is for rehearsals only: it does not populate Wrangler's migration history and must not be used as an in-place upgrade. See <https://developers.cloudflare.com/d1/best-practices/import-export-data/>.
+
+A Render Recovery `.dir.tar.gz` export is a PostgreSQL directory archive, not the encrypted application JSON accepted by this helper. Restore and validate that archive in isolated PostgreSQL and explicitly convert it before attempting a D1 import.
+
+## Remote synthetic rehearsal (2026-11-14)
+
+The separate `master7-v17-rehearsal-20261114` D1 database applied the normalized 55-migration schema (317 statements), then the synthetic backup import (252 statements). All 75 imported table counts and three ledger counts/sums matched. Foreign-key violations were zero; all five excluded transient tables were empty. The fixture contained two synthetic users, one synthetic deposit and two balancing ledger entries. No real transactions or production customer data were used. The preview database still had zero users and deposits afterward. This verifies the small synthetic path only; production backup acquisition, full data reconciliation and cutover remain outstanding.
+
 ## Domain cutover blocker (2026-11-14 read-only check)
 
 `master7.best` and `master7.site` are still pending in Cloudflare. Public nameservers remain Spaceship `launch1.spaceship.net` and `launch2.spaceship.net`. Parent-zone DS records exist for both domains while Cloudflare DNSSEC is disabled; switching nameservers before removing stale DS records and allowing their TTL to expire can cause DNSSEC validation failures. Three current A records have been copied as DNS-only into the pending zones (`master7.best` apex, `master7.site` apex, `www.master7.site`). Confirm all DNS records, DS removal, delegation, TLS and origin routing before any cutover. No registrar change is part of this PR.

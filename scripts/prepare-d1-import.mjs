@@ -86,10 +86,21 @@ const migrations = readdirSync(migrationDir).filter(name => /^\d{4}_.+\.sql$/.te
 if (hash(migrations.map(name => `${name}:${hash(readFileSync(join(migrationDir, name)))}`).join('\n')) !== migrationSha) {
   throw new Error('D1 migration files changed; review target schema before staging data');
 }
-const createSchema = () => {
+// D1 owns the transaction. Only strip standalone wrappers in the pinned
+// migrations; BEGIN/END inside triggers must remain intact.
+const rehearsalSchema = [
+  '-- Empty rehearsal schema only; not an in-place upgrade.',
+  "SELECT CASE WHEN (SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name NOT IN ('_cf_KV','d1_migrations'))=0 THEN 1 ELSE json_extract('MASTER7_SCHEMA_TARGET_IS_NOT_EMPTY','$.abort') END;",
+  'PRAGMA defer_foreign_keys=ON;',
+  ...migrations.map(name => `-- ${name}\n${readFileSync(join(migrationDir, name), 'utf8')
+    .replace(/^[ \t]*(?:BEGIN|COMMIT);[ \t]*\r?$/gm, '')
+    .replace(/^[ \t]*PRAGMA foreign_keys=(?:OFF|ON);[ \t]*\r?$/gm, '')}`),
+].join('\n') + '\n';
+const createSchema = (forD1 = false) => {
   const db = new DatabaseSync(':memory:');
   db.exec('PRAGMA foreign_keys=ON');
-  for (const migration of migrations) db.exec(readFileSync(join(migrationDir, migration), 'utf8'));
+  if (forD1) db.exec(`BEGIN;\n${rehearsalSchema}\nCOMMIT;`);
+  else for (const migration of migrations) db.exec(readFileSync(join(migrationDir, migration), 'utf8'));
   return db;
 };
 const baseline = createSchema();
@@ -149,8 +160,12 @@ sql += 'PRAGMA foreign_key_check;\n';
 
 // Exercise the exact generated SQL against an isolated SQLite schema. D1 runs
 // imported SQL in an implicit transaction, so the rehearsal wraps it locally.
-const staged = createSchema();
+const staged = createSchema(true);
 try {
+  const schemaObjects = db => db.prepare("SELECT type,name,tbl_name,sql FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' ORDER BY type,name").all();
+  if (JSON.stringify(schemaObjects(staged)) !== JSON.stringify(schemaObjects(baseline))) {
+    throw new Error('D1 rehearsal schema differs from the pinned SQLite schema');
+  }
   staged.exec(`BEGIN;\n${sql}\nCOMMIT;`);
   if (staged.prepare('PRAGMA foreign_key_check').all().length) throw new Error('Local foreign-key check failed');
   for (const table of BACKUP_TABLES) {
@@ -174,6 +189,7 @@ const outputManifest = {
   tables: manifest.map(item => ({ name: item.name, rows: item.rows, sha256: item.sha256,
     targetBaselineRows: baselineCounts[item.name], imported: !skipped.has(item.name) })),
   chunks: parts, ledger: expectedLedger, importSqlSha256: hash(sql),
+  rehearsalSchemaSqlSha256: hash(rehearsalSchema),
   localDryRun: { foreignKeyViolations: 0, rowCountsMatched: true, ledgerSumsMatched: true },
 };
 const postflight = ["PRAGMA foreign_key_check;",
@@ -182,6 +198,7 @@ const postflight = ["PRAGMA foreign_key_check;",
 ].join('\n') + '\n';
 mkdirSync(out, { mode: 0o700 }); // refuse existing directories and prevent accidental overwrite
 try {
+  writeFileSync(join(out, 'schema.sql'), rehearsalSchema, { mode: 0o600, flag: 'wx' });
   writeFileSync(join(out, 'import.sql'), sql, { mode: 0o600, flag: 'wx' });
   writeFileSync(join(out, 'manifest.json'), `${JSON.stringify(outputManifest, null, 2)}\n`, { mode: 0o600, flag: 'wx' });
   writeFileSync(join(out, 'postflight.sql'), postflight, { mode: 0o600, flag: 'wx' });
