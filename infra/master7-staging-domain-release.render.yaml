@@ -1,0 +1,21 @@
+# Release the official MASTER7 domains from the staging service.
+# Existing environment variables, secrets, compute plan, scaling, and database
+# wiring are intentionally omitted so Render preserves them unchanged.
+services:
+  - type: web
+    name: master7-v17-staging
+    runtime: node
+    region: singapore
+    repo: https://github.com/jackysim47-star/master7
+    branch: codex/v17-render-staging-20261104
+    autoDeployTrigger: 'off'
+    previews:
+      generation: automatic
+    renderSubdomainPolicy: enabled
+    buildCommand: >-
+      set -e; mkdir -p .render-v17; tar -xzf master7-v17-render-staging.tar.gz -C .render-v17;
+      cd .render-v17/master7-v17-render-staging; corepack pnpm install --frozen-lockfile;
+      corepack pnpm run test:render-db; corepack pnpm run build:render
+    startCommand: cd .render-v17/master7-v17-render-staging && node scripts/start-render.mjs
+    healthCheckPath: /health/live
+    domains: []
