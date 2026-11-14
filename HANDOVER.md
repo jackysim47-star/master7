@@ -1,5 +1,21 @@
 # Wallet deposit, withdrawal and company-bank handover — 5 November 2026
 
+## V174 public UAT preview — 14 November 2026 MYT
+
+- Release: `17.0.0-selfbuilt.174-uat-preview`.
+- `/uat-preview` is an unauthenticated, read-only view of the current health,
+  OTP, three primary MYR payment profiles and game-profile acceptance status.
+- The page uses only `GET /health`, `GET /api/payment-channels` and
+  `GET /api/games`. It cannot create orders, move wallet balances, launch a
+  provider game, place a wager or submit a withdrawal.
+- The member sign-in page links to the preview so the Owner can inspect the
+  platform without a customer account. Search indexing is disabled.
+- Existing fail-closed controls remain unchanged. This release does not
+  represent supplier UAT, merchant settlement acceptance or production GO.
+- Local verification passed: maintenance `12/12`, release probe `27/27`, full
+  regression `1461/1461`, Render DB `3/3`, TypeScript, ESLint and the Render
+  production build. No live provider transaction was performed.
+
 ## V173 Master Admin / UAT scope candidate — 13 November 2026 MYT
 
 - Candidate baseline: `17.0.0-selfbuilt.173-staff-setup-route`; the tracked
