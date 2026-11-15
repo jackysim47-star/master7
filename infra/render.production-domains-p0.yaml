@@ -1,0 +1,22 @@
+# MASTER7 P0: bind the existing Production service to the two official origins.
+# Manual infrastructure preview only. Preserve all existing secrets and database wiring.
+# Source service ID: srv-dbrkn8rl550s73cnur8g. No database or extra service is declared.
+services:
+  - type: web
+    name: master7-v17-production
+    runtime: node
+    region: singapore
+    plan: free
+    repo: https://github.com/jackysim47-star/master7
+    branch: release/v17.3-production
+    autoDeployTrigger: "off"
+    numInstances: 1
+    renderSubdomainPolicy: enabled
+    healthCheckPath: /health/live
+    buildCommand: >-
+      set -e; mkdir -p .render-v17; tar -xzf master7-v17-render-staging.tar.gz -C .render-v17; install -D -m 0644 production/lib/portal-host-routing.ts .render-v17/master7-v17-render-staging/lib/portal-host-routing.ts; install -D -m 0644 production/tests/portal-host-routing.test.mjs .render-v17/master7-v17-render-staging/tests/portal-host-routing.test.mjs; cd .render-v17/master7-v17-render-staging; corepack pnpm install --frozen-lockfile; corepack pnpm run test:render-db; corepack pnpm run build:render
+    startCommand: >-
+      cd .render-v17/master7-v17-render-staging && node scripts/start-render.mjs
+    domains:
+      - www.master7.best
+      - www.master7.site
