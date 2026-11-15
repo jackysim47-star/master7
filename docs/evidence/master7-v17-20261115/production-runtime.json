@@ -1,0 +1,20 @@
+{
+  "environment": "production",
+  "observed_at_myt": "2026-11-15T13:27:35+08:00",
+  "service": "master7-v17-production",
+  "service_id": "srv-dbrkn8rl550s73cnur8g",
+  "release": "17.0.0-selfbuilt.174-uat-preview",
+  "git_commit": "753ca2f4282f9270140fdac41a0fdbe128844c64",
+  "deploy_id": "dep-dbs8ou67bikc73eu6bj0",
+  "deploy_status": "live",
+  "health_status": "ok",
+  "database": "ready",
+  "read_only": true,
+  "new_deposits_enabled": false,
+  "new_game_launches_enabled": false,
+  "new_payouts_enabled": false,
+  "transactions_enabled": false,
+  "real_payments": false,
+  "production_ready": false,
+  "result": "PASS_INFRASTRUCTURE_ONLY"
+}

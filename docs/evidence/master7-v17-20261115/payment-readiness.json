@@ -1,0 +1,15 @@
+{
+  "environment": "production",
+  "observed_at_myt": "2026-11-15T13:27:35+08:00",
+  "read_only": true,
+  "new_deposits_enabled": false,
+  "transactions_enabled": false,
+  "real_payments": false,
+  "primary_payment_ready": false,
+  "profiles": {
+    "vpay_myr": false,
+    "gspay_myr": false,
+    "onempay_myr": false
+  },
+  "result": "BLOCKED_0_OF_3"
+}

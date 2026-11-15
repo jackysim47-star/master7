@@ -1,0 +1,5 @@
+profile_id,provider_id,provider_name,currency,implemented,configured,enabled,real_payment_verified,settlement_verified,live_ready,status,blockers
+vpay_myr,vpay,VPay,MYR,true,false,false,false,false,false,unavailable,deposit_configuration_incomplete;new_deposits_paused;profile_orders_disabled
+gspay_myr,gspay,GSPAY+ MYR,MYR,true,false,false,false,false,false,unavailable,deposit_configuration_incomplete;new_deposits_paused;profile_orders_disabled
+gspay_usdt,gspay_usdt,GSPAY+ USDT,USDT,false,false,false,false,false,false,unavailable,profile_credentials_incomplete;profile_endpoints_unverified;asset_network_or_scale_unverified;provider_contract_unverified;deposit_adapter_not_implemented;submission_disabled
+onempay_myr,1mpay,1MPAY,MYR,true,false,false,false,false,false,unavailable,deposit_configuration_incomplete;new_deposits_paused;profile_orders_disabled

@@ -1,5 +1,20 @@
 # Wallet deposit, withdrawal and company-bank handover — 5 November 2026
 
+## Authoritative licensed-integrator handover — 15 November 2026 MYT
+
+- The current source of truth is
+  `docs/MASTER7_V17_LICENSED_INTEGRATOR_HANDOVER_20261115.md`.
+- Current production release: `17.0.0-selfbuilt.174-uat-preview`, Git commit
+  `753ca2f4282f9270140fdac41a0fdbe128844c64`, Render deploy
+  `dep-dbs8ou67bikc73eu6bj0`.
+- The server and production database are healthy, but the platform remains
+  `PRODUCTION NO-GO`: official domains are not accepted, MYR payments are
+  `0/3`, game profiles are `0/43`, OTP is not ready, and all transaction
+  switches remain disabled.
+- Older sections below are historical implementation evidence. They must not
+  be used to infer current payment, game, domain, credential, or sign-off
+  readiness.
+
 ## V174 public UAT preview — 14 November 2026 MYT
 
 - Release: `17.0.0-selfbuilt.174-uat-preview`.
