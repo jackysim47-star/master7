@@ -530,6 +530,7 @@
           <section class="finance-bank-card" id="financeCenterBank" aria-label="Bank and deposit status"></section>
           <div><div class="wallet-records-heading"><div><h3>财务项目与资料来源</h3><p class="muted">只有已连接且已验收的来源会进入确认金额。</p></div></div><div id="financeCenterSources" class="finance-source-wrap"></div></div>
           <div><div class="wallet-records-heading"><div><h3>三方对账状态</h3><p class="muted">会员钱包、支付商结算单和公司银行流水分别核对。</p></div></div><div id="financeCenterReconciliation" class="finance-reconcile-grid"></div></div>
+          <div><div class="wallet-records-heading"><div><h3>对账运行与 Owner 复核</h3><p class="muted">这里只显示对账差异并保存复核备注；不会修改余额、入账、验收或生产状态。</p></div><span class="tiny-label">READ-ONLY FINANCIAL DATA</span></div><p id="financeReconciliationRunStatus" class="verification-note pending">等待读取已保存的对账运行。</p><div id="financeReconciliationRuns" class="finance-run-list"></div></div>
         </section>
         <section class="surface stack" id="accountingPanel" hidden aria-labelledby="accountingTitle">
           <div class="wallet-records-heading"><div><p class="eyebrow">SETTLED CASHFLOW · MYT</p><h2 id="accountingTitle">公司已结算现金流</h2><p class="muted">MYT 每日 00:05 自动封存上一日：已入账充值减已付款提款。这里不是利润表，不含福利、佣金、游戏盈亏、厂家费、退款或公司开支。</p></div><button id="refreshAccounting" type="button" class="button button-outline">刷新账目</button></div>
