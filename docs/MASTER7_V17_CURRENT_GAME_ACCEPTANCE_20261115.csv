@@ -1,0 +1,44 @@
+profile_id,provider_id,display_name,currency,unit_scale,wallet_mode,implemented,enabled,catalogue_ready,launch_ready,wallet_ready,recovery_ready,settlement_verified,status,blocker
+megah5_myr,megah5,MegaH5 · MYR,MYR,1,transfer,true,false,false,false,false,false,false,unavailable,catalogue_not_ready
+jili_myr_1to1,jili,JILI · MYR 1:1,MYR,1,transfer,true,false,false,false,false,false,false,unavailable,implemented_not_accepted
+jili_my1_1to100,jili,JILI · MY1 1:100,MYR,100,transfer,true,false,false,false,false,false,false,unavailable,implemented_not_accepted
+918kiss_normal_myr,918kissh5,918KISS H5 · Normal MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,adapter_unimplemented
+918kiss_normal_my1_1to100,918kissh5,918KISS H5 · Normal MY1 1:100,MYR,100,unknown,false,false,false,false,false,false,false,unavailable,adapter_unimplemented
+918kiss_free_myr,918kissh5,918KISS H5 · Free Credit MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,adapter_unimplemented
+metagaming_normal_myr,metagaming,META GAMING · Normal MYR,MYR,1,transfer,true,false,false,false,false,false,false,unavailable,implemented_not_accepted
+metagaming_free_myr,metagaming,META GAMING · Free Credit MYR,MYR,1,transfer,true,false,false,false,false,false,false,unavailable,implemented_not_accepted
+epicwin_normal_myr,epicwin,EPICWIN · Normal MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,adapter_unimplemented
+epicwin_free_myr,epicwin,EPICWIN · Free Credit MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,adapter_unimplemented
+gameplay_myr,gameplay,GAMEPLAY INTERACTIVE · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+lionking_myr,lionking,LION KING · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+suncity_myr,suncity,SUNCITY · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+pgsoft_myr,pgsoft,PGSOFT · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+gfg_myr,gfg,GFG / G4 · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+sagaming_myr,sagaming,SA GAMING · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+ps9_myr,ps9,PS9 · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+dragoonsoft_myr,dragoonsoft,DRAGOONSOFT · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+jdb_myr,jdb,JDB · MYR,MYR,1,transfer,true,false,false,false,false,false,false,unavailable,implemented_not_accepted
+bg_myr,bg,BG · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+allbet_myr,allbet,ALLBET · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+quickspin_myr,quickspin,QUICKSPIN · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+astar_myr,astar,ASTAR · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+fuma_myr,fuma,FUMA · MYR,MYR,1,transfer,false,false,false,false,false,false,false,unavailable,contract_missing
+yl_myr,yl,YL · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+funky_myr,funky,FUNKY · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+gamitech_myr,gamitech,GAMITECH · MYR,MYR,1,transfer,false,false,false,false,false,false,false,unavailable,contract_missing
+spadegaming_myr,spadegaming,SPADE GAMING · MYR,MYR,1,transfer,false,false,false,false,false,false,false,unavailable,contract_missing
+turbo_myr,turbo,TURBO · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+ct855_myr,ct855,CT855 · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+pragmaticplay_myr,pragmaticplay,PRAGMATIC PLAY · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+joker_myr,joker,JOKER · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+cg_myr,cg,CG · MYR,MYR,1,transfer,false,false,false,false,false,false,false,unavailable,contract_missing
+atg_myr,atg,ATG · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+rectangle_myr,rectangle,RECTANGLE · MYR,MYR,1,transfer,false,false,false,false,false,false,false,unavailable,contract_missing
+m8bet_myr,m8bet,M8BET · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+awc_myr,awc,AWC · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+evo888h5_myr,evo888h5,EVO888H5 · MYR,MYR,1,transfer,false,false,false,false,false,false,false,unavailable,contract_missing
+cosmoplay_myr,cosmoplay,COSMOPLAY · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+geminiupdown_myr,geminiupdown,GEMINI UPDOWN · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing
+venus_myr,venus,VENUS GAMING · MYR,MYR,1,transfer,false,false,false,false,false,false,false,unavailable,contract_missing
+clotplay_myr,clotplay,CLOTPLAY · MYR,MYR,1,transfer,false,false,false,false,false,false,false,unavailable,contract_missing
+coba8_myr,coba8,COBA8 · MYR,MYR,1,unknown,false,false,false,false,false,false,false,unavailable,contract_missing

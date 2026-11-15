@@ -1,0 +1,18 @@
+{
+  "environment": "production",
+  "observed_at_myt": "2026-11-15T13:27:35+08:00",
+  "probes": [
+    {
+      "domain": "www.master7.best",
+      "result": "UNREACHABLE",
+      "accepted": false
+    },
+    {
+      "domain": "www.master7.site",
+      "http_status": 302,
+      "location": "https://master7-v17-staging.onrender.com/admin",
+      "accepted": false
+    }
+  ],
+  "result": "BLOCKED"
+}

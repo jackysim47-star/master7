@@ -1,0 +1,11 @@
+{
+  "environment": "production",
+  "observed_at_myt": "2026-11-15T13:27:35+08:00",
+  "profile_count": 43,
+  "implemented_profile_count": 6,
+  "verified_profile_count": 0,
+  "launch_ready_profile_count": 0,
+  "playable": false,
+  "live_ready": false,
+  "result": "BLOCKED_0_OF_43"
+}
