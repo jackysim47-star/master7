@@ -355,11 +355,20 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         && values.every(value => typeof value === 'string' && ['1', '2', '3', '4', '5', '7'].includes(value))) tradeCodes = values;
     } catch {}
     const returnUrl = vpayReturnUrl;
+    const readiness = vpayReadiness(env);
+    const modeReady = ['uat', 'production'].includes(String(env.VPAY_MODE || 'uat'));
+    // Existing-order lookup and signed callbacks survive a pause on new orders.
+    // These are configuration capabilities, never supplier acceptance evidence.
+    const queryReady = modeReady && readiness.credentialsConfigured
+      && Boolean(walletPeerCredential('PLATFORM_QUERY_TOKEN'));
+    const callbacksReady = modeReady && readiness.channels.payment.blockers
+      .every(blocker => blocker === 'transaction_switch_off');
     return {
       provider: 'vpay', traderId: vpayTraderId, mode: String(env.VPAY_MODE || 'uat'),
       configured: Boolean(vpayTraderId && vpayApiToken),
-      paymentReady: vpayReadiness(env).channels.payment.configurationReady && tradeCodes.length > 0
+      paymentReady: readiness.channels.payment.configurationReady && tradeCodes.length > 0
         && configuredUrl(returnUrl) && Boolean(walletPeerCredential('PLATFORM_ORDER_TOKEN')) && Boolean(walletPeerCredential('PLATFORM_QUERY_TOKEN')),
+      queryReady, callbacksReady,
       tradeCodes, notifyUrl: callbackUrls().vpayPayment, returnUrl,
     };
   }

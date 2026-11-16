@@ -155,6 +155,7 @@ test('configuration returns canonical peer URLs and invalid origins stay unready
   assert.equal(response.status, 200);
   assert.deepEqual(JSON.parse(response.text), {
     provider: 'vpay', traderId: '123456', mode: 'uat', configured: true, paymentReady: true,
+    queryReady: true, callbacksReady: true,
     tradeCodes: ['2'], notifyUrl: 'https://gateway.example.test/callbacks/vpay/payment',
     returnUrl: 'https://www.master7.best/payment/return',
   });
@@ -165,6 +166,39 @@ test('configuration returns canonical peer URLs and invalid origins stay unready
     const result = JSON.parse((await request(unready, '/platform/vpay/config', { token: queryToken })).text);
     assert.equal(result.paymentReady, false, value);
     assert.equal(vpayReadiness({ ...base, PUBLIC_BASE_URL: value }).channels.payment.configurationReady, false, value);
+  }
+});
+
+test('paused VPay creation preserves independently configured query and callback routes', async () => {
+  const env = {
+    GATEWAY_ROLE: 'payment', GATEWAY_ADMIN_TOKEN: adminToken,
+    PLATFORM_QUERY_TOKEN: queryToken, PLATFORM_ORDER_TOKEN: orderToken,
+    PLATFORM_CALLBACK_TOKEN: callbackToken, VPAY_TRADER_ID: '123456',
+    VPAY_API_TOKEN: 'fixture-provider-key', VPAY_MODE: 'uat',
+    VPAY_ORDERS_ENABLED: 'false', VPAY_ENABLED_TRADE_CODES: '["2"]',
+    PUBLIC_BASE_URL: 'https://gateway.example.test',
+    VPAY_PAYMENT_FORWARD_URL: 'https://www.master7.best/api/payment-callbacks/vpay/payment',
+    VPAY_RETURN_URL: 'https://www.master7.best/payment/return',
+  };
+  let calls = 0;
+  const app = makeApp({ env, fetchImpl: async () => { calls++; throw Error('no external request'); } });
+  const config = JSON.parse((await request(app, '/platform/vpay/config', { token: queryToken })).text);
+  assert.equal(config.paymentReady, false);
+  assert.equal(config.queryReady, true);
+  assert.equal(config.callbacksReady, true);
+  assert.equal((await request(app, '/platform/vpay/order', { method: 'POST', token: orderToken, body: {} })).status, 503);
+  assert.equal(calls, 0);
+  for (const [change, expectedStatus] of [
+    [{ PLATFORM_CALLBACK_TOKEN: queryToken }, 401],
+    [{ VPAY_PAYMENT_FORWARD_URL: 'https://attacker.example.test/callback' }, 200],
+  ]) {
+    const other = makeApp({ env: { ...env, ...change }, fetchImpl: async () => { throw Error('no external request'); } });
+    const response = await request(other, '/platform/vpay/config', { token: queryToken });
+    assert.equal(response.status, expectedStatus);
+    if (expectedStatus === 401) continue;
+    const result = JSON.parse(response.text);
+    assert.equal(result.paymentReady, false);
+    assert.equal(result.callbacksReady, false);
   }
 });
 
