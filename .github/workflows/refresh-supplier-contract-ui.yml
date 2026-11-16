@@ -1,0 +1,45 @@
+name: Refresh supplier contract UI package
+
+on:
+  push:
+    branches:
+      - codex/v174-supplier-contract-ui-20261116
+    paths:
+      - .github/supplier-contract-ui/**
+      - .github/workflows/refresh-supplier-contract-ui.yml
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout supplier contract UI candidate
+        uses: actions/checkout@v4
+        with:
+          ref: codex/v174-supplier-contract-ui-20261116
+          fetch-depth: 0
+
+      - name: Rebuild the Render package with the verified Owner UI overlay
+        shell: bash
+        run: |
+          set -euo pipefail
+          work_dir="$(mktemp -d)"
+          tar -xzf master7-v17-render-staging.tar.gz -C "$work_dir"
+          package_dir="$work_dir/master7-v17-render-staging"
+          install -D -m 0600 .github/supplier-contract-ui/public/assets/acceptance-blockers.js "$package_dir/public/assets/acceptance-blockers.js"
+          install -D -m 0600 .github/supplier-contract-ui/public/assets/acceptance-blockers.css "$package_dir/public/assets/acceptance-blockers.css"
+          install -D -m 0600 .github/supplier-contract-ui/tests/admin-acceptance-blockers.test.mjs "$package_dir/tests/admin-acceptance-blockers.test.mjs"
+          printf '%s  %s\n' \
+            '9aea1a5f2a60b0ea5c70df15a92f3aca18c9b90325cc04efc2ed80cbdcb4c4f2' "$package_dir/public/assets/acceptance-blockers.js" \
+            '24ee22bc66fa49e4b435faef60525c963fbff8ad378e327716a373dbd96f7cb3' "$package_dir/public/assets/acceptance-blockers.css" \
+            '77ced0cd61f1b05a84ad26ce596731d914b7f3fe9714ac8c79b86c3f6eb1a6a2' "$package_dir/tests/admin-acceptance-blockers.test.mjs" | sha256sum -c -
+          tar --sort=name --mtime='@0' --owner=0 --group=0 --numeric-owner -czf "$work_dir/render-package.tar.gz" -C "$work_dir" master7-v17-render-staging
+          echo 'fdffc6d57f047313a372b602503e18a320f2c817bb340edd936666f6194343b5  '"$work_dir/render-package.tar.gz" | sha256sum -c -
+          mv "$work_dir/render-package.tar.gz" master7-v17-render-staging.tar.gz
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add master7-v17-render-staging.tar.gz
+          git commit -m "chore: refresh supplier contract UI package [skip ci]"
+          git push origin HEAD:codex/v174-supplier-contract-ui-20261116

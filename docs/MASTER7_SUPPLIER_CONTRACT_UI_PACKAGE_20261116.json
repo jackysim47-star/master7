@@ -1,0 +1,35 @@
+{
+  "scope": "supplier-contract-ui",
+  "date": "2026-11-16",
+  "parentStagingCandidate": "2bfb11d0ba099da0d5bea01b24ea08c2686b6013",
+  "candidatePackage": "master7-v17-render-staging.tar.gz",
+  "candidatePackageSha256": "fdffc6d57f047313a372b602503e18a320f2c817bb340edd936666f6194343b5",
+  "modifiedPackageFiles": [
+    "public/assets/acceptance-blockers.js",
+    "public/assets/acceptance-blockers.css",
+    "tests/admin-acceptance-blockers.test.mjs"
+  ],
+  "verification": {
+    "focusedTests": "11/11",
+    "fullRegression": "1577/1577",
+    "renderD1": "3/3",
+    "typescript": "pass",
+    "eslint": "pass",
+    "renderBuild": "pass",
+    "reExtractedPackageFocusedTests": "11/11"
+  },
+  "impact": {
+    "publicApi": "none",
+    "database": "none",
+    "environment": "none",
+    "financialState": "none",
+    "acceptanceState": "none"
+  },
+  "acceptance": {
+    "payments": "0/3",
+    "suppliers": "0/43",
+    "liveConnections": 0,
+    "productionSignoff": false,
+    "productionStatus": "NO-GO"
+  }
+}

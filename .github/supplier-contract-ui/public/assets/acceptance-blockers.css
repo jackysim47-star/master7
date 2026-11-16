@@ -1,0 +1,54 @@
+.acceptance-blockers{display:grid;gap:18px;margin-top:18px;padding-top:18px;border-top:1px solid rgba(130,158,218,.18)}
+.acceptance-blockers-head{display:grid;gap:6px}
+.acceptance-blockers-head h2,.acceptance-blockers h3{margin:0}
+.acceptance-summary{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin:0;padding:10px 12px;border:1px solid rgba(88,218,205,.24);border-radius:10px;background:rgba(22,82,80,.15);color:#bffcf5;font-size:12px;font-weight:700}
+.acceptance-summary-live{display:inline-flex;min-height:32px;align-items:center;padding:6px 10px;border:1px solid #42d59c;border-radius:999px;color:#8dffe0;background:rgba(34,116,89,.2);white-space:nowrap}
+.acceptance-summary-live.is-zero{border-color:#e4b968;color:#ffd98f;background:rgba(110,74,18,.24)}
+.acceptance-load-warning{margin:0;padding:10px 12px;border:1px solid rgba(228,185,104,.4);border-radius:10px;background:rgba(85,60,15,.2);color:#f1cd89;font-size:12px}
+.acceptance-blockers>.acceptance-section{min-width:0;max-width:100%}
+.acceptance-section>summary{cursor:pointer;margin:0;padding:10px 12px;border:1px solid rgba(130,158,218,.2);border-radius:10px;color:#f1f5ff;font-size:14px;font-weight:800;list-style-position:inside}
+.acceptance-section[open]>summary{margin-bottom:10px;border-color:rgba(88,218,205,.28);background:rgba(22,82,80,.09)}
+.acceptance-matrix-scroll{width:100%;min-width:0;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain}
+.acceptance-matrix-table{width:100%;min-width:1340px;border-collapse:separate;border-spacing:0;table-layout:fixed;font-size:11px}
+.acceptance-matrix-table th,.acceptance-matrix-table td{padding:8px 5px;border-bottom:1px solid rgba(130,158,218,.14);text-align:center;vertical-align:middle}
+.acceptance-matrix-table th:first-child{width:225px;text-align:left;overflow-wrap:anywhere}
+.acceptance-matrix-table th:last-child{width:165px}
+.acceptance-matrix-table thead th{position:sticky;top:0;z-index:1;background:#0b1221;color:#aebad2;font-size:10px;font-weight:750;letter-spacing:.045em;text-transform:uppercase}
+.acceptance-matrix-table tbody th strong,.acceptance-matrix-table tbody th small{display:block}
+.acceptance-matrix-table tbody th strong{color:#f1f5ff;font-size:11px}
+.acceptance-matrix-table tbody th small{margin-top:3px;color:#8291ad;font-size:9px;font-weight:500;line-height:1.35}
+.acceptance-state{display:inline-flex;min-height:30px;width:100%;align-items:center;justify-content:center;gap:6px;padding:5px 7px;border:1px solid currentColor;border-radius:9px;background:rgba(255,255,255,.025);font-size:10px;font-weight:750;line-height:1.2;white-space:normal}
+.acceptance-state::before{width:7px;height:7px;border-radius:999px;background:currentColor;box-shadow:0 0 8px currentColor;content:"";flex:0 0 auto}
+.acceptance-state.is-verified{color:#42d59c}
+.acceptance-state.is-available{color:#55ddd0}
+.acceptance-state.is-info{color:#8db7ef}
+.acceptance-state.is-pending{color:#e4b968}
+.acceptance-state.is-blocked{color:#e4b968}
+.acceptance-blocker-cell{overflow-wrap:anywhere}
+.contract-diagnostic{margin-top:6px;text-align:left}
+.contract-diagnostic-summary{cursor:pointer;color:#f1cd89;font-size:9px;font-weight:800;line-height:1.35}
+.contract-diagnostic-fields{display:block;max-height:120px;margin-top:6px;overflow:auto;padding:7px;border:1px solid rgba(228,185,104,.22);border-radius:7px;background:rgba(85,60,15,.14);color:#d8e0ef;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:8px;font-weight:500;line-height:1.5;white-space:normal}
+.payment-blockers-table{min-width:1460px}
+@media(max-width:640px){
+ .acceptance-blockers{gap:14px;margin-top:14px;padding-top:14px}
+ .acceptance-summary{align-items:stretch;font-size:13px;line-height:1.45}
+ .acceptance-summary>span{flex:1 1 100%}
+ .acceptance-summary-live{justify-content:center;width:100%;font-size:13px;white-space:normal}
+ .acceptance-section>summary{font-size:15px;line-height:1.35}
+ .acceptance-matrix-scroll{overflow:visible}
+ .acceptance-matrix-table,.payment-blockers-table{display:block;min-width:0;font-size:13px}
+ .acceptance-matrix-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+ .acceptance-matrix-table tbody{display:grid;gap:12px}
+ .acceptance-matrix-table tbody tr{display:grid;grid-template-columns:1fr;overflow:hidden;border:1px solid rgba(130,158,218,.24);border-radius:14px;background:rgba(8,16,31,.62);box-shadow:0 8px 24px rgba(0,0,0,.14)}
+ .acceptance-matrix-table tbody th:first-child{display:block;width:auto;padding:13px 14px;border-bottom:1px solid rgba(88,218,205,.22);background:rgba(22,82,80,.12);text-align:left}
+ .acceptance-matrix-table tbody th strong{font-size:14px;line-height:1.35}
+ .acceptance-matrix-table tbody th small{margin-top:5px;font-size:11px}
+ .acceptance-matrix-table tbody td{display:grid;grid-template-columns:minmax(106px,38%) minmax(0,1fr);gap:10px;align-items:center;padding:8px 11px;text-align:left}
+ .acceptance-matrix-table tbody td::before{content:attr(data-label);color:#aebad2;font-size:11px;font-weight:800;line-height:1.25;text-transform:none}
+ .acceptance-state{min-height:34px;width:100%;justify-content:flex-start;padding:7px 9px;font-size:11px;overflow-wrap:anywhere}
+ .contract-diagnostic-summary{font-size:11px}
+ .contract-diagnostic-fields{max-height:180px;font-size:10px}
+}
+
+
+.acceptance-matrix-scroll:focus-visible{outline:2px solid #61eee4;outline-offset:2px}
