@@ -1,0 +1,199 @@
+--- a/lib/vpay.ts
++++ b/lib/vpay.ts
+@@ -7,7 +7,7 @@
+ import {claimPaymentRecovery,escalateExhaustedPaymentRecoveries,finishPaymentRecovery,recoveryCandidates} from './payment-recovery.ts';
+ import {DepositReportInputError,readDepositReport} from './deposit-report.ts';
+ import {readDepositTrace} from './deposit-trace.ts';
+-import {matchesCustomerPortalEndpoint} from './portal-origin.mjs';
++import {matchesCustomerPortalEndpoint,stagingPortalOrigin} from './portal-origin.mjs';
+ 
+ type Member = { id: string; username: string; role: string; approved: number; csrf: string };
+ export type VPayContext = {
+@@ -33,7 +33,19 @@
+ };
+ 
+ const gatewayOrigin = 'https://master7-integration-gateway.onrender.com';
+-const callbackUrl = gatewayOrigin + '/callbacks/vpay/payment';
++const uatGatewayOrigin = 'https://master7-payment-uat.onrender.com';
++function resolveGatewayOrigin(c:VPayContext):string|null {
++  if(c.gatewayUrl===gatewayOrigin)return gatewayOrigin;
++  // A separate exact origin is allowed only for the isolated Staging UAT
++  // context. Never accept arbitrary URLs or route a production portal to UAT.
++  const stagingOnly=c.portalOrigins===undefined||Array.isArray(c.portalOrigins)
++    &&c.portalOrigins.length>0&&c.portalOrigins.every(origin=>origin===stagingPortalOrigin);
++  return c.gatewayUrl===uatGatewayOrigin&&c.mode==='uat'&&stagingOnly
++    &&c.returnUrl===stagingPortalOrigin+'/payment/return'?uatGatewayOrigin:null;
++}
++const gatewayCallbackUrl=(c:VPayContext)=>{
++  const origin=resolveGatewayOrigin(c);return origin?origin+'/callbacks/vpay/payment':null;
++};
+ const json = (body: unknown, status = 200) => Response.json(body, { status, headers: { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } });
+ const text = (body: string, status = 200) => new Response(body, { status, headers: { 'Cache-Control': 'no-store', 'Content-Type': 'text/plain; charset=utf-8', 'X-Content-Type-Options': 'nosniff' } });
+ const digest = (value: string) => createHash('sha256').update(value).digest('hex');
+@@ -43,7 +55,7 @@
+   return a.length === b.length && timingSafeEqual(a, b);
+ };
+ function enabled(c: VPayContext) {
+-  const gateway = c.gatewayUrl === gatewayOrigin;
++  const gateway = resolveGatewayOrigin(c)!==null;
+   const tokens = tokenReady(c.orderToken) && tokenReady(c.queryToken) && tokenReady(c.callbackToken)
+     && new Set([c.orderToken, c.queryToken, c.callbackToken]).size === 3;
+   const returnUrl = matchesCustomerPortalEndpoint(c.returnUrl, c.portalOrigins, '/payment/return');
+@@ -73,12 +85,14 @@
+ }
+ 
+ async function gatewayJson(c: VPayContext, path: string, token: string, method = 'GET', body?: unknown) {
++  const selectedOrigin=resolveGatewayOrigin(c);
++  if(!selectedOrigin)throw Error('VPAY_GATEWAY_NOT_CONFIGURED');
+   const fetcher = c.fetchImpl ?? fetch, controller = new AbortController(), timer = setTimeout(() => controller.abort(), 10000);
+   try {
+-    const response = await fetcher(new URL(path, gatewayOrigin), { method, redirect: 'error', signal: controller.signal,
++    const response = await fetcher(new URL(path, selectedOrigin), { method, redirect: 'error', signal: controller.signal,
+       headers: { Accept: 'application/json', Authorization: `Bearer ${token}`, ...(body ? { 'Content-Type': 'application/json' } : {}) },
+       ...(body ? { body: JSON.stringify(body) } : {}) });
+-    if (response.redirected || response.url && response.url !== new URL(path, gatewayOrigin).href || !/^application\/json(?:;|$)/i.test(response.headers.get('content-type') ?? '')) { await response.body?.cancel(); throw new PaymentRequestError({kind:'GATEWAY_RESPONSE',httpStatus:response.status}); }
++    if (response.redirected || response.url && response.url !== new URL(path, selectedOrigin).href || !/^application\/json(?:;|$)/i.test(response.headers.get('content-type') ?? '')) { await response.body?.cancel(); throw new PaymentRequestError({kind:'GATEWAY_RESPONSE',httpStatus:response.status}); }
+     const raw = await response.text(); if (raw.length > 65536) throw Error('GATEWAY_RESPONSE_TOO_LARGE');
+     const value = JSON.parse(raw); if (!value || typeof value !== 'object' || Array.isArray(value)) throw Error('GATEWAY_RESPONSE_INVALID');
+     if(!response.ok){const v=value as Record<string,any>,upstream=Number(v.upstreamStatus),allowed=['unauthorized','vpay_orders_disabled','invalid_vpay_order','vpay_payment_configuration_incomplete','upstream_timeout','internal_error','vpay_invalid_signature','vpay_order_not_found','vpay_invalid_credentials','vpay_query_rejected'],providerTradeNo=opaque(v.result?.data?.trade_no);throw new PaymentRequestError({kind:'GATEWAY_HTTP',httpStatus:response.status,...(Number.isInteger(upstream)&&upstream>=100&&upstream<600?{upstreamStatus:upstream}:{}),providerCode:safeProviderCode(v.result?.code),...(providerTradeNo?{providerTradeNo}:{}),...(paymentUrlHost(v.result?.data?.pay_url)?{checkoutHost:paymentUrlHost(v.result.data.pay_url)}:{}),gatewayError:allowed.includes(v.error)?v.error:undefined});}
+@@ -97,7 +111,7 @@
+  try{
+   const config=await gatewayJson(c,'/platform/vpay/config',c.queryToken!);
+   const contractReady=config.provider==='vpay'&&config.mode===c.mode
+-   &&config.traderId===c.vpayTraderId&&config.notifyUrl===callbackUrl&&config.returnUrl===c.returnUrl
++   &&config.traderId===c.vpayTraderId&&config.notifyUrl===gatewayCallbackUrl(c)&&config.returnUrl===c.returnUrl
+    &&Array.isArray(config.tradeCodes);
+   const capabilities=remoteMaintenanceCapabilities(config);
+   const queryReady=contractReady&&capabilities.queryReady,callbacksReady=contractReady&&capabilities.callbacksReady;
+@@ -183,7 +197,7 @@
+   if (!amount || !requestKey || !tradeCode || !payerName) return json({ error: 'Invalid MYR order' }, 400);
+   const config = await gatewayJson(c, '/platform/vpay/config', c.queryToken!);
+   const maintenance=remoteMaintenanceCapabilities(config);
+-  if (config.provider !== 'vpay' || config.mode !== c.mode || config.paymentReady !== true || !maintenance.queryReady || !maintenance.callbacksReady || config.traderId !== c.vpayTraderId || !Array.isArray(config.tradeCodes) || !config.tradeCodes.includes(tradeCode) || config.notifyUrl !== callbackUrl || config.returnUrl !== c.returnUrl) return json({ error: 'VPAY_GATEWAY_NOT_READY' }, 503);
++  if (config.provider !== 'vpay' || config.mode !== c.mode || config.paymentReady !== true || !maintenance.queryReady || !maintenance.callbacksReady || config.traderId !== c.vpayTraderId || !Array.isArray(config.tradeCodes) || !config.tradeCodes.includes(tradeCode) || config.notifyUrl !== gatewayCallbackUrl(c) || config.returnUrl !== c.returnUrl) return json({ error: 'VPAY_GATEWAY_NOT_READY' }, 503);
+   const fingerprint = digest(JSON.stringify({ amount, tradeCode, payerName, currency: 'MYR', mode: c.mode }));
+   const id = crypto.randomUUID(), timestamp = Math.floor(Date.now() / 1000);
+   await c.db.prepare("INSERT INTO deposit_orders(id,user_id,request_key,fingerprint,provider,amount_minor,currency,trade_code,status,created_at,updated_at) VALUES(?,?,?,?,? ,?,'MYR',?,'pending',?,?) ON CONFLICT(user_id,request_key) DO NOTHING")
+@@ -245,7 +259,7 @@
+  * concurrent workers. Never binds a reference, reconciles, updates or credits. */
+ export async function readVPayDepositProviderEvidence(c:VPayContext){
+  const resultBase={readOnly:true,provider:'vpay',providerQueriesExecuted:0,repairsExecuted:false,walletCreditExecuted:false};
+- const configured=c.gatewayUrl===gatewayOrigin&&tokenReady(c.queryToken)&&typeof c.vpayTraderId==='string'&&/^[1-9]\d{0,11}$/.test(c.vpayTraderId)&&c.queryToken!==c.orderToken&&c.queryToken!==c.callbackToken;
++ const configured=resolveGatewayOrigin(c)!==null&&tokenReady(c.queryToken)&&typeof c.vpayTraderId==='string'&&/^[1-9]\d{0,11}$/.test(c.vpayTraderId)&&c.queryToken!==c.orderToken&&c.queryToken!==c.callbackToken;
+  if(!configured)return {...resultBase,configured:false,truncated:false,items:[]};
+  const result=await c.db.prepare("SELECT id,user_id,amount_minor,currency,provider_trade_no,status FROM deposit_orders WHERE provider='vpay' ORDER BY created_at,id LIMIT 11").all<{id:string;user_id:string;amount_minor:string;currency:string;provider_trade_no:string|null;status:string}>();
+  if(!Array.isArray(result.results))throw Error('Incident orders unavailable');
+--- a/tests/vpay-portal.test.mjs
++++ b/tests/vpay-portal.test.mjs
+@@ -14,7 +14,9 @@
+ const queryToken='query-token-'.padEnd(40,'q');
+ const callbackToken='callback-token-'.padEnd(40,'c');
+ 
+-function fixture(t,{status='created'}={}){
++function fixture(t,{status='created',isolatedUat=false}={}){
++ const selectedGateway=isolatedUat?'https://master7-payment-uat.onrender.com':gateway;
++ const selectedMode=isolatedUat?'uat':'production';
+  const sql=new DatabaseSync(':memory:');sql.exec('PRAGMA foreign_keys=ON');
+  for(const file of readdirSync(new URL('../drizzle/',import.meta.url)).filter(file=>file.endsWith('.sql')).sort())sql.exec(readFileSync(new URL('../drizzle/'+file,import.meta.url),'utf8'));
+  for(const id of ['alice','bob'])sql.prepare('INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES(?,?,\'member\',1,?,0)').run(id,id,'csrf-'+id);
+@@ -29,9 +31,9 @@
+  }
+  const db={prepare:text=>new Statement(text),async batch(statements){sql.exec('BEGIN');try{const results=statements.map(statement=>sql.prepare(statement.text).run(...statement.args));sql.exec('COMMIT');return results;}catch(error){sql.exec('ROLLBACK');throw error;}}};
+  const state={queries:0,configReads:0,queryPatch:data=>data,configPatch:data=>data,failQuery:false,requests:[]};
+- const context={db,user:null,gatewayUrl:gateway,orderToken,queryToken,callbackToken,enabled:'true',newDepositsEnabled:'true',mode:'production',vpayTraderId:traderId,returnUrl:'https://master7-v17-staging.onrender.com/payment/return',fetchImpl:async(input,init)=>{
+-  const url=new URL(String(input));assert.equal(url.origin,gateway);
+-  if(url.pathname==='/platform/vpay/config'){state.configReads++;assert.equal(init.method,'GET');assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+queryToken);return Response.json(state.configPatch({provider:'vpay',mode:'production',paymentReady:true,traderId,notifyUrl:gateway+'/callbacks/vpay/payment',returnUrl:context.returnUrl,tradeCodes:['2']}));}
++ const context={db,user:null,gatewayUrl:selectedGateway,orderToken,queryToken,callbackToken,enabled:'true',newDepositsEnabled:'true',mode:selectedMode,vpayTraderId:traderId,returnUrl:'https://master7-v17-staging.onrender.com/payment/return',fetchImpl:async(input,init)=>{
++  const url=new URL(String(input));assert.equal(url.origin,selectedGateway);
++  if(url.pathname==='/platform/vpay/config'){state.configReads++;assert.equal(init.method,'GET');assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+queryToken);return Response.json(state.configPatch({provider:'vpay',mode:selectedMode,paymentReady:true,traderId,notifyUrl:selectedGateway+'/callbacks/vpay/payment',returnUrl:context.returnUrl,tradeCodes:['2']}));}
+   state.queries++;assert.equal(url.pathname,'/platform/vpay/order-query');assert.equal(init.method,'POST');assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+queryToken);
+   if(state.failQuery)throw Error('synthetic provider timeout');
+   const request=JSON.parse(init.body);state.requests.push(request);assert.equal(request.outTradeNo,orderId);if(Object.hasOwn(request,'tradeNo'))assert.equal(request.tradeNo,tradeNo);
+@@ -52,6 +54,26 @@
+  assert.equal(f.sql.prepare("SELECT COUNT(*) count FROM audit WHERE event='vpay_callback_authenticated' AND target=?").get(f.orderId).count,1);
+  assert.deepEqual(await f.callback(),{status:200,body:'SUCCESS'});assert.equal(f.state.queries,1);assert.equal(f.sql.prepare('SELECT COUNT(*) count FROM wallet_ledger').get().count,2);
+  assert.equal(f.sql.prepare("SELECT COUNT(*) count FROM audit WHERE event='vpay_callback_authenticated' AND target=?").get(f.orderId).count,1);
++});
++test('isolated UAT repeated callbacks credit one balanced ledger through the UAT gateway only',async t=>{
++ const f=fixture(t,{isolatedUat:true});
++ const responses=await Promise.all([f.callback(),f.callback(),f.callback()]);
++ assert.ok(responses.every(r=>r.status===200&&r.body==='SUCCESS'));
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,2);
++ assert.equal(f.sql.prepare('SELECT SUM(amount_minor) n FROM wallet_ledger').get().n,0);
++ assert.equal(f.sql.prepare("SELECT amount_minor FROM wallet_ledger WHERE account_code='member'").get().amount_minor,2000);
++});
++test('isolated UAT unknown payment stays uncredited until a later independently queried callback',async t=>{
++ const f=fixture(t,{isolatedUat:true,status:'unknown'});
++ f.state.failQuery=true;assert.equal((await f.callback()).status,502);
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);
++ // Recreate the request context to model a new process with persisted state.
++ const persisted={...f.context};f.state.failQuery=false;
++ const request=()=>new Request(origin+'/api/payment-callbacks/vpay/payment',{method:'POST',headers:{Authorization:'Bearer '+callbackToken,'Content-Type':'application/json'},body:JSON.stringify({out_trade_no:f.orderId,trade_no:f.tradeNo,amount:'20.00',state:'3',trader_id:traderId})});
++ assert.equal((await handleVPay(request(),persisted)).status,200);
++ assert.equal((await handleVPay(request(),{...persisted})).status,200);
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,2);
++ assert.equal(f.sql.prepare('SELECT SUM(amount_minor) n FROM wallet_ledger').get().n,0);
+ });
+ test('VPay successful deposit updates only the paying member wallet and records',async t=>{
+  const f=fixture(t);assert.equal((await f.callback()).status,200);
+--- /dev/null
++++ b/tests/vpay-uat-isolation.test.mjs
+@@ -0,0 +1,58 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {handleVPay,vpayOrdersConfigured} from '../lib/vpay.ts';
++
++const staging='https://master7-v17-staging.onrender.com';
++const gateway='https://master7-payment-uat.onrender.com';
++const legacy='https://master7-integration-gateway.onrender.com';
++function fixture(patch={},remotePatch={}){
++  const requests=[];
++  const c={user:null,db:{prepare(){return {bind(){return {first:async()=>({status:'paused'})};}};}},
++    gatewayUrl:gateway,mode:'uat',portalOrigins:[staging],returnUrl:staging+'/payment/return',
++    orderToken:'o'.repeat(48),queryToken:'q'.repeat(48),callbackToken:'c'.repeat(48),
++    vpayTraderId:'1234',enabled:'false',newDepositsEnabled:'false',recoveryEnabled:'false',
++    fetchImpl:async(input,init)=>{
++      requests.push(String(input));
++      assert.equal(String(input),c.gatewayUrl+'/platform/vpay/config');
++      assert.equal(init.redirect,'error');
++      assert.equal(init.headers.Authorization,'Bearer '+c.queryToken);
++      return Response.json({provider:'vpay',mode:c.mode,traderId:c.vpayTraderId,
++        paymentReady:false,queryReady:true,callbacksReady:true,tradeCodes:['2'],
++        notifyUrl:c.gatewayUrl+'/callbacks/vpay/payment',returnUrl:c.returnUrl,...remotePatch});
++    },...patch};
++  return {c,requests,async status(){return (await handleVPay(new Request(staging+'/api/payments/vpay/status'),c)).json();}};
++}
++test('isolated UAT uses its exact gateway while maintenance remains independent of closed orders',async()=>{
++  const f=fixture(),s=await f.status();
++  assert.equal(s.programReady,true);assert.equal(s.queryReady,true);assert.equal(s.callbacksReady,true);
++  assert.equal(s.orderReady,false);assert.equal(s.recoveryReady,false);assert.equal(s.payoutReady,false);
++  assert.equal(s.realPaymentVerified,false);assert.equal(s.settlementVerified,false);assert.equal(s.liveReady,false);
++  assert.deepEqual(f.requests,[gateway+'/platform/vpay/config']);
++});
++for(const [name,patch] of [
++  ['production mode',{mode:'production'}],
++  ['production portal',{portalOrigins:['https://www.master7.best']}],
++  ['mixed origins',{portalOrigins:[staging,'https://www.master7.best']}],
++  ['empty origins',{portalOrigins:[]}],
++  ['production return',{returnUrl:'https://www.master7.best/payment/return'}],
++  ['arbitrary host',{gatewayUrl:'https://attacker.example'}],
++  ['prefix host',{gatewayUrl:gateway+'.attacker.example'}],
++  ['userinfo',{gatewayUrl:'https://attacker@master7-payment-uat.onrender.com'}],
++  ['port',{gatewayUrl:gateway+':443'}],
++  ['path',{gatewayUrl:gateway+'/api'}],
++  ['aliased credentials',{callbackToken:'q'.repeat(48)}],
++])test('UAT isolation fails closed before network access: '+name,async()=>{
++  const f=fixture(patch),s=await f.status();assert.equal(vpayOrdersConfigured(f.c),false);
++  assert.equal(s.programReady,false);assert.equal(s.orderReady,false);assert.deepEqual(f.requests,[]);
++});
++for(const [field,value] of [['mode','production'],['traderId','other'],
++  ['notifyUrl',legacy+'/callbacks/vpay/payment'],['returnUrl','https://www.master7.best/payment/return']])
++  test('UAT rejects a remote contract mismatch: '+field,async()=>{
++    const s=await fixture({}, {[field]:value}).status();
++    assert.equal(s.queryReady,false);assert.equal(s.callbacksReady,false);assert.equal(s.orderReady,false);
++  });
++test('legacy production gateway remains backwards compatible',async()=>{
++  const s=await fixture({gatewayUrl:legacy,mode:'production',portalOrigins:['https://www.master7.best'],returnUrl:'https://www.master7.best/payment/return'}).status();
++  assert.equal(s.programReady,true);assert.equal(s.queryReady,true);assert.equal(s.callbacksReady,true);
++  assert.equal(s.orderReady,false);
++});
