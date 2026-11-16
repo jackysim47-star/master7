@@ -51,7 +51,7 @@ test('authenticated wallet configuration pins the merchant, environment, activat
  const app=makeApp({env:readyEnv,fetchImpl:async()=>{throw Error('No supplier request for configuration');}});
  for(const token of [undefined,orderToken,env.GATEWAY_ADMIN_TOKEN])assert.equal((await request(app,'/platform/vpay/config',token,{},'GET')).status,401);
  const result=await request(app,'/platform/vpay/config',peer,{},'GET');assert.equal(result.status,200);
- assert.deepEqual(result.body,{provider:'vpay',traderId:'123456',mode:'uat',configured:true,paymentReady:true,tradeCodes:['2'],notifyUrl:draft.notifyUrl,returnUrl:draft.callbackUrl});
+ assert.deepEqual(result.body,{provider:'vpay',traderId:'123456',mode:'uat',configured:true,paymentReady:true,queryReady:true,callbacksReady:true,tradeCodes:['2'],notifyUrl:draft.notifyUrl,returnUrl:draft.callbackUrl});
  for(const secret of [peer,orderToken,env.VPAY_API_TOKEN,readyEnv.PLATFORM_CALLBACK_TOKEN])assert(!JSON.stringify(result.body).includes(secret));
 });
 test('order-only credential creates through server-selected methods and callback URLs and cannot query, withdraw or inspect balances',async()=>{
