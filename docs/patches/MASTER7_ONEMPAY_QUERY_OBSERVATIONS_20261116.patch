@@ -1,0 +1,222 @@
+--- a/lib/onempay.ts
++++ b/lib/onempay.ts
+@@ -5,6 +5,7 @@
+ import {automaticDepositCapability,automaticPaymentStatus,unavailableBalanceCapability} from './payment-capabilities.ts';
+ import {providerPayoutCapabilities} from './payout-state.ts';
+ import {customerPortalOriginForEndpoint} from './portal-origin.mjs';
++import {ONE_MPAY_QUERY_EVENT,createOneMpayQueryObservation} from './onempay-query-observation.ts';
+ 
+ // 1MPay API Specification 1.3, sections 4, 7 and 8. This module creates
+ // customer checkout pages and verifies deposits. It never invokes /payout.
+@@ -89,6 +90,7 @@
+  // authenticated HTTPS query can establish success. Late success after timeout
+  // remains eligible; failure never deletes the order or its financial history.
+  if(String(query.status).trim().toLowerCase()!=='successful'){
++  const observation=createOneMpayQueryObservation(order.id,trxno,query.status);
+   // The provider's terminal failure vocabulary is not verified. Pending or
+   // other non-success never reopens an uncredited order. If a previously
+   // credited order can no longer be confirmed, preserve its ledger but freeze
+@@ -96,6 +98,10 @@
+   await c.db.batch([
+    ...walletGuardStatements(c.db,order.user_id),
+    c.db.prepare("UPDATE deposit_orders SET updated_at=updated_at WHERE id=? AND provider='1mpay' AND user_id=? AND amount_minor=CAST(? AS BIGINT) AND currency='MYR'").bind(order.id,order.user_id,String(order.amount_minor)),
++   // Record only allowlisted status metadata after all query bindings passed.
++   // A changed provider reference cannot receive a stale observation. One row
++   // per order/reference/status bounds retries without logging signing inputs.
++   c.db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,user_id,?,?,? FROM deposit_orders WHERE id=? AND provider='1mpay' AND user_id=? AND amount_minor=CAST(? AS BIGINT) AND currency='MYR' AND (provider_trade_no IS NULL OR provider_trade_no=?) ON CONFLICT(id) DO NOTHING").bind(observation.auditId,ONE_MPAY_QUERY_EVENT,JSON.stringify(observation.detail),timestamp,order.id,order.user_id,String(order.amount_minor),trxno),
+    c.db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,user_id,'1mpay_query_conflict_review',id,? FROM deposit_orders WHERE id=? AND provider='1mpay' AND user_id=? AND amount_minor=CAST(? AS BIGINT) AND currency='MYR' AND status='credited' AND provider_trade_no=? ON CONFLICT(id) DO NOTHING").bind('1mpay-query-review-'+digest(String(order.id)).slice(0,48),timestamp,order.id,order.user_id,String(order.amount_minor),trxno),
+    c.db.prepare("UPDATE deposit_orders SET status='review',updated_at=? WHERE id=? AND provider='1mpay' AND user_id=? AND amount_minor=CAST(? AS BIGINT) AND currency='MYR' AND status='credited' AND provider_trade_no=?").bind(timestamp,order.id,order.user_id,String(order.amount_minor),trxno),
+    c.db.prepare("UPDATE deposit_orders SET provider_trade_no=COALESCE(provider_trade_no,?),updated_at=? WHERE id=? AND provider='1mpay' AND user_id=? AND amount_minor=CAST(? AS BIGINT) AND currency='MYR' AND status NOT IN ('credited','review') AND (provider_trade_no IS NULL OR provider_trade_no=?)").bind(trxno,timestamp,order.id,order.user_id,String(order.amount_minor),trxno),
+--- /dev/null
++++ b/lib/onempay-query-observation.ts
+@@ -0,0 +1,24 @@
++import {createHash} from 'node:crypto';
++
++export const ONE_MPAY_QUERY_EVENT='1mpay_query_observed';
++const statuses=new Set(['pending','fail','failed','timeout','unrecognized']);
++const digest=(value:string)=>createHash('sha256').update(value).digest('hex');
++
++/** A bound HTTPS query observation is not a terminal provider decision. */
++export function createOneMpayQueryObservation(orderId:string,reference:string,value:unknown){
++ const normalized=String(value).trim().toLowerCase();
++ const providerStatus=statuses.has(normalized)?normalized:'unrecognized';
++ return {
++  auditId:'1mpay-query-observed-'+digest(`${orderId}:${reference}:${providerStatus}`).slice(0,40),
++  detail:{provider:'1mpay',orderId,providerStatus,providerReferenceSha256:digest(reference),finalityVerified:false},
++ };
++}
++
++export function readOneMpayQueryObservation(value:unknown,order:{id:string;provider:string;provider_trade_no:string|null}){
++ if(!value||typeof value!=='object'||Array.isArray(value)||order.provider!=='1mpay'||!order.provider_trade_no)return null;
++ const data=value as Record<string,unknown>;
++ if(data.provider!=='1mpay'||data.orderId!==order.id||data.finalityVerified!==false
++  ||typeof data.providerStatus!=='string'||!statuses.has(data.providerStatus)
++  ||data.providerReferenceSha256!==digest(order.provider_trade_no))return null;
++ return {providerStatus:data.providerStatus,finalityVerified:false,requiresReconciliation:true};
++}
+--- a/lib/deposit-trace.ts
++++ b/lib/deposit-trace.ts
+@@ -1,4 +1,5 @@
+ import { PAYMENT_RECOVERY_MAX_ATTEMPTS } from './payment-recovery.ts';
++import {ONE_MPAY_QUERY_EVENT,readOneMpayQueryObservation} from './onempay-query-observation.ts';
+ 
+ /** Owner-only callers may inspect stored evidence. No provider or ledger writes. */
+ type OrderRow={id:string;user_id:string;username:string|null;provider:string;amount_minor:string;currency:string;status:string;provider_trade_no:string|null;checkout_recorded:number|string;created_at:number;updated_at:number};
+@@ -26,6 +27,10 @@
+  if(!value||typeof value!=='object'||Array.isArray(value))return null;
+  const data=value as Record<string,unknown>;
+  if(data.orderId!==order.id)return null;
++ if(row.event===ONE_MPAY_QUERY_EVENT){
++  const observation=readOneMpayQueryObservation(data,order);
++  return observation?{event:row.event,createdAt:Number(row.created_at),kind:'PROVIDER_QUERY_NON_SUCCESS',...observation}:null;
++ }
+  if(row.event==='payment_order_diagnostic'){
+   if(data.provider!==order.provider)return null;
+   const kind=typeof data.kind==='string'&&allowedKinds.has(data.kind)?data.kind:'UNAVAILABLE';
+@@ -46,7 +51,7 @@
+  const [ledgerResult,auditResult,diagnosticResult,lease]=await Promise.all([
+   db.prepare('SELECT id,user_id,account_code,CAST(amount_minor AS TEXT) amount_minor,currency,created_at FROM wallet_ledger WHERE order_id=? ORDER BY created_at,id LIMIT 11').bind(order.id).all<LedgerRow>(),
+   db.prepare(`SELECT event,target,created_at FROM audit WHERE target=? AND event IN (${directEvents.map(()=>'?').join(',')}) ORDER BY created_at DESC,id DESC LIMIT 101`).bind(order.id,...directEvents).all<AuditRow>(),
+-  db.prepare("SELECT event,target,created_at FROM audit WHERE user_id=? AND event IN ('payment_order_diagnostic','1mpay_recovery_review') AND target LIKE ? ORDER BY created_at DESC,id DESC LIMIT 101").bind(order.user_id,`%${order.id}%`).all<AuditRow>(),
++  db.prepare("SELECT event,target,created_at FROM audit WHERE user_id=? AND event IN ('payment_order_diagnostic','1mpay_recovery_review','1mpay_query_observed') AND target LIKE ? ORDER BY created_at DESC,id DESC LIMIT 101").bind(order.user_id,`%${order.id}%`).all<AuditRow>(),
+   ['vpay','gspay'].includes(order.provider)?db.prepare('SELECT attempts,last_checked_at FROM payment_recovery_leases WHERE provider=? AND order_id=?').bind(order.provider,order.id).first<LeaseRow>():Promise.resolve(null),
+  ]);
+  const ledger=ledgerResult.results??[],entries=ledger.slice(0,10),member=ledger.find(row=>row.account_code==='member'),clearing=ledger.find(row=>row.account_code==='provider_clearing');
+--- a/lib/deposit-incident-evidence.ts
++++ b/lib/deposit-incident-evidence.ts
+@@ -1,5 +1,6 @@
+ import {createHash,timingSafeEqual} from 'node:crypto';
+ import {definitivePaymentRejectionFacts} from './payment-diagnostics.ts';
++import {ONE_MPAY_QUERY_EVENT,readOneMpayQueryObservation} from './onempay-query-observation.ts';
+ 
+ type Row=Record<string,unknown>;
+ type Client={query(sql:string,values?:unknown[]):Promise<{rows:Row[]}>;release(destroy?:boolean):unknown};
+@@ -32,14 +33,17 @@
+   const candidates=(await client.query('SELECT id,user_id,provider,CAST(amount_minor AS TEXT) AS amount_minor,currency,status,provider_trade_no,checkout_url,created_at,updated_at FROM deposit_orders ORDER BY created_at,id LIMIT $1',[LIMIT+1])).rows;
+   const orders=candidates.slice(0,LIMIT),ids=orders.map(x=>String(x.id)),users=[...new Set(orders.map(x=>String(x.user_id)))];
+   const ledger=ids.length?(await client.query('SELECT id,order_id,user_id,account_code,CAST(amount_minor AS TEXT) AS amount_minor,currency,created_at FROM wallet_ledger WHERE order_id=ANY($1::text[]) ORDER BY order_id,account_code,id',[ids])).rows:[];
+-  const audits=ids.length?(await client.query('SELECT id,user_id,event,target,created_at FROM audit WHERE event=ANY($1::text[]) AND (target=ANY($2::text[]) OR user_id=ANY($3::text[])) ORDER BY created_at DESC,id DESC LIMIT $4',[paymentEvents,ids,users,AUDIT_LIMIT+1])).rows:[];
++  const audits=ids.length?(await client.query('SELECT id,user_id,event,target,created_at FROM audit WHERE event=ANY($1::text[]) AND (target=ANY($2::text[]) OR user_id=ANY($3::text[])) ORDER BY created_at DESC,id DESC LIMIT $4',[[...paymentEvents,ONE_MPAY_QUERY_EVENT],ids,users,AUDIT_LIMIT+1])).rows:[];
+   const manual=ids.length?(await client.query('SELECT deposit_order_id,(reviewed_by IS NOT NULL) AS review_recorded,created_at,updated_at FROM manual_deposit_requests WHERE deposit_order_id=ANY($1::text[]) ORDER BY deposit_order_id',[ids])).rows:[];
+   const events=new Map<string,Row[]>(),diagnostics=new Map<string,Row[]>();
+   for(const a of audits.slice(0,AUDIT_LIMIT)){
+    const detail=object(a.target),orderId=detail?.orderId??a.target;if(typeof orderId!=='string'||!ids.includes(orderId))continue;
+    const order=orders.find(o=>o.id===orderId);if(!order||(order.user_id!==a.user_id&&!String(a.event).startsWith('manual_bank_deposit_')))continue;
++   const observation=a.event===ONE_MPAY_QUERY_EVENT?readOneMpayQueryObservation(detail,{id:String(order.id),provider:String(order.provider),provider_trade_no:typeof order.provider_trade_no==='string'?order.provider_trade_no:null}):null;
++   if(a.event===ONE_MPAY_QUERY_EVENT&&!observation)continue;
+    const event={id:String(a.id),event:String(a.event),createdAt:at(a.created_at)};
+    events.set(orderId,[...(events.get(orderId)??[]),event]);
++   if(observation)diagnostics.set(orderId,[...(diagnostics.get(orderId)??[]),{...event,kind:'PROVIDER_QUERY_NON_SUCCESS',...observation}]);
+    if(a.event==='payment_order_diagnostic'&&detail&&detail.provider===order.provider){
+     const safe:Row={...event};
+     if(typeof detail.kind==='string'&&/^[A-Z_]{1,50}$/.test(detail.kind))safe.kind=detail.kind;
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -518,6 +518,7 @@
+   host.append(node("h3","",`订单证据 · ${order.id}`),node("p","",`${order.username||order.userId||"会员未记录"} · ${paymentProviderLabel(order.provider)} · ${order.currency==="MYR"?moneyMinor(order.amountMinor):order.currency+" "+String(order.amountMinor)+" minor units"} · ${order.status}`),node("p","",`厂家单号：${order.providerTradeNo||"未记录"}；厂家付款结果：未核实`),node("p","",`回调：${callbackText}`),node("p","",`钱包账本：${ledgerText}${ledger.reviewRequired?" · 需要复核":""}`));
+   for(const entry of ledger.entries||[])host.append(node("p","muted",`${entry.accountCode} · ${entry.currency==="MYR"?moneyMinor(entry.amountMinor):entry.currency+" "+entry.amountMinor+" minor units"} · ${entry.memberMatches?"会员一致":"会员不一致"} · ${entry.id}`));
+   const records=data.audit?.records||[],diagnostics=data.audit?.diagnostics||[];if(records.length||diagnostics.length)host.append(node("p","muted",`已记录事件：${[...records,...diagnostics].map(item=>item.event+(item.kind?` (${item.kind}${item.httpStatus?`, HTTP ${item.httpStatus}`:""}${item.providerCode!==null&&item.providerCode!==undefined?`, 厂家码 ${item.providerCode}`:""})`:"")).join("、")}${data.audit?.truncated?" · 记录已截断":""}`));
++  for(const item of diagnostics)if(item.kind==="PROVIDER_QUERY_NON_SUCCESS")host.append(node("p","muted",`厂家查询记录：${item.providerStatus}；本条记录最终性未确认，请结合当前订单状态及厂家报表核对。`));
+   const recovery=data.recovery||{};host.append(node("p","muted",recovery.status==="recorded"?`补查任务记录：${recovery.attempts} 次；记录不证明厂家付款成功。`:"没有可确认的补查结果记录。"),node("p","muted","订单证据为只读记录；付款是否成功需与厂家交易核对。"));
+   if(["vpay","gspay","1mpay"].includes(order.provider)){
+    const queryButton=node("button","button button-outline small","人工查单 / 对账");queryButton.type="button";queryButton.onclick=async()=>{if(!confirm("只查询这笔已有订单并记录审计；不会创建新订单。继续？"))return;queryButton.disabled=true;try{const result=await api("/api/admin/deposits/query","POST",{provider:order.provider,orderId:order.id,confirm:true,reason:"Owner initiated provider order reconciliation"});notification(`查单完成：${result.status||"已返回"}`);await renderDepositTrace(order.id);}catch(error){notification(error?.message||"查单失败，请稍后重试。");}finally{queryButton.disabled=false;}};host.append(queryButton);
+--- a/tests/onempay-recovery.test.mjs
++++ b/tests/onempay-recovery.test.mjs
+@@ -44,6 +44,45 @@
+  const f=fixture(t),id=f.insert();f.state.status='Failed';
+  const pending=await recoverOneMpayDeposits(f.context,25,1000);assert.equal(pending.pending,1);assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(id).status,'unknown');assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);
+  f.state.status='Successful';const credited=await recoverOneMpayDeposits(f.context,25,Math.floor(Date.now()/1000)+120);assert.equal(credited.credited,1);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,2);
++});
++
++test('bound non-success queries are durably observed once without declaring failure or changing funds',async t=>{
++ const f=fixture(t),id=f.insert();f.state.status='Fail';
++ const start=Math.floor(Date.now()/1000)+120;
++ for(const at of [start,start+120,start+240]){const result=await recoverOneMpayDeposits(f.context,25,at);assert.equal(result.pending,1);}
++ const rows=f.sql.prepare("SELECT target FROM audit WHERE event='1mpay_query_observed'").all();assert.equal(rows.length,1);
++ const observed=JSON.parse(rows[0].target);assert.equal(observed.orderId,id);assert.equal(observed.provider,'1mpay');assert.equal(observed.providerStatus,'fail');assert.equal(observed.finalityVerified,false);
++ assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(id).status,'unknown');
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);
++ assert.doesNotMatch(rows[0].target,/fixture-secret|TRX-RECOVERY|TESTMERCHANT|token/);
++});
++
++test('observed fail remains eligible for one late successful credit',async t=>{
++ const f=fixture(t),id=f.insert(),start=Math.floor(Date.now()/1000)+120;f.state.status='Fail';await recoverOneMpayDeposits(f.context,25,start);
++ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit WHERE event='1mpay_query_observed'").get().n,1);
++ f.state.status='Successful';await recoverOneMpayDeposits(f.context,25,start+120);await recoverOneMpayDeposits(f.context,25,start+240);
++ assert.equal(f.sql.prepare('SELECT status FROM deposit_orders WHERE id=?').get(id).status,'credited');
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,2);
++ assert.equal(f.sql.prepare('SELECT SUM(amount_minor) n FROM wallet_ledger').get().n,0);
++});
++
++test('unknown provider vocabulary is bounded and redacted in observations',async t=>{
++ const f=fixture(t);f.insert();f.state.status='DO-NOT-STORE-SECRET';await recoverOneMpayDeposits(f.context,25,1000);
++ const rows=f.sql.prepare("SELECT target FROM audit WHERE event='1mpay_query_observed'").all();assert.equal(rows.length,1);
++ assert.equal(JSON.parse(rows[0].target).providerStatus,'unrecognized');assert.doesNotMatch(rows[0].target,/DO-NOT-STORE-SECRET/);
++});
++
++test('binding mismatch and a concurrently rebound reference cannot acquire a query observation',async t=>{
++ for(const mode of ['amount','reference'])await t.test(mode,async sub=>{
++  const f=fixture(sub),id=f.insert();f.state.status='Fail';f.state.patch=value=>{
++   if(mode==='amount')return {...value,amount:'21.00'};
++   f.sql.prepare("UPDATE deposit_orders SET provider_trade_no='TRX-NEW',updated_at=1001 WHERE id=?").run(id);return value;
++  };
++  await recoverOneMpayDeposits(f.context,25,1000);
++  assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM audit WHERE event='1mpay_query_observed'").get().n,0);
++  assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);
++ });
+ });
+ 
+ test('non-success recovery preserves a usable created checkout and a failed decision',async t=>{
+--- a/tests/deposit-trace.test.mjs
++++ b/tests/deposit-trace.test.mjs
+@@ -2,6 +2,7 @@
+ import assert from 'node:assert/strict';
+ import {DatabaseSync} from 'node:sqlite';
+ import {readFileSync,readdirSync} from 'node:fs';
++import {createHash} from 'node:crypto';
+ import {handleVPay} from '../lib/vpay.ts';
+ import {handle} from '../lib/backend.ts';
+ 
+@@ -29,6 +30,20 @@
+  t.after(()=>sql.close());return {sql,db,activity,order,ledger,audit,call,freeze};
+ }
+ const path=id=>'/api/admin/deposits/trace?orderId='+encodeURIComponent(id);
++
++test('owner trace shows a bound non-success observation without exposing raw evidence or asserting finality',async t=>{
++ const f=fixture(t);f.order('query-observed','1mpay','unknown');f.order('other-provider','vpay','unknown');
++ const fact={provider:'1mpay',orderId:'query-observed',providerStatus:'fail',finalityVerified:false,providerReferenceSha256:createHash('sha256').update('trade-query-observed').digest('hex'),secret:'do-not-expose'};
++ f.audit('query-observation','1mpay_query_observed',JSON.stringify(fact));
++ f.audit('wrong-reference','1mpay_query_observed',JSON.stringify({...fact,providerStatus:'timeout',providerReferenceSha256:'0'.repeat(64)}));
++ f.audit('wrong-provider','1mpay_query_observed',JSON.stringify({...fact,orderId:'other-provider'}));
++ f.freeze();const data=(await f.call(path('query-observed'))).data;
++ const observations=data.audit.diagnostics.filter(x=>x.kind==='PROVIDER_QUERY_NON_SUCCESS');assert.equal(observations.length,1);
++ assert.equal(observations[0].providerStatus,'fail');assert.equal(observations[0].finalityVerified,false);assert.equal(observations[0].requiresReconciliation,true);
++ assert.equal(data.order.status,'unknown');assert.equal(data.providerPayment,'unverified');assert.equal(data.callback.status,'unknown');assert.equal(data.ledger.status,'no_entries');
++ assert.doesNotMatch(JSON.stringify(data),/do-not-expose|providerReferenceSha256/);
++ assert.equal((await f.call(path('other-provider'))).data.audit.diagnostics.length,0);assert.equal(f.activity.writes,0);assert.equal(f.activity.network,0);
++});
+ 
+ test('owner trace exposes only matching order and sanitized evidence without provider requests or writes',async t=>{
+  const f=fixture(t);f.order('order-a');f.order('order-ab');
+--- a/tests/deposit-incident-evidence.test.mjs
++++ b/tests/deposit-incident-evidence.test.mjs
+@@ -15,6 +15,18 @@
+ }
+ const event=(detail,more={})=>({id:'diagnostic-id',user_id:'member-one',event:'payment_order_diagnostic',target:JSON.stringify(detail),created_at:stamp+1,...more});
+ const leg=(account,amount,more={})=>({id:'ledger-'+account,order_id:'old-order',user_id:'member-one',account_code:account,amount_minor:String(amount),currency:'MYR',created_at:stamp+1,...more});
++
++test('incident evidence retains bound non-success observations without claiming finality or payment',async()=>{
++ const fact={provider:'1mpay',orderId:'old-order',providerStatus:'fail',finalityVerified:false,providerReferenceSha256:createHash('sha256').update('trx-fixture').digest('hex'),secret:'EXCLUDED-SYNTHETIC-KEY'};
++ const audits=[event(fact,{id:'observed',event:'1mpay_query_observed'}),event({...fact,finalityVerified:true},{id:'invalid-finality',event:'1mpay_query_observed'}),event({...fact,providerReferenceSha256:'0'.repeat(64)},{id:'stale-reference',event:'1mpay_query_observed'})];
++ const f=fixture({orders:[order('old-order',{provider:'1mpay',provider_trade_no:'trx-fixture'})],audits});
++ const item=(await readDepositIncidentSnapshot(f.pool)).items[0];
++ assert.equal(item.auditEvents.length,1);assert.equal(item.diagnostics.length,1);assert.equal(item.diagnostics[0].providerStatus,'fail');
++ assert.equal(item.diagnostics[0].finalityVerified,false);assert.equal(item.diagnostics[0].requiresReconciliation,true);
++ assert.equal(item.status,'unknown');assert.equal(item.providerPaymentVerified,false);assert.equal(item.callbackEvidence,'no_dedicated_callback_evidence');
++ assert.doesNotMatch(JSON.stringify(item),/EXCLUDED-SYNTHETIC-KEY|providerReferenceSha256|stale-reference|invalid-finality/);
++ assert.ok(f.calls.every(c=>!/^INSERT|^UPDATE|^DELETE/.test(c.sql)));
++});
+ 
+ test('incident authorization requires a separate exact bearer and a bounded unexpired lifetime',()=>{
+  assert.equal(authorizeDepositIncidentRead('Bearer '+token,hash,stamp+60,stamp),true);

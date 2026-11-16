@@ -1,0 +1,21 @@
+{
+  "baselineSha": "840057b73074bea9684a012e2a102fbb971e8a0b",
+  "baselinePackageSha256": "12825bf2cde607ac61dcac323de23a8c075c1dd82c38844359f92505948ff82c",
+  "candidatePackageSha256": "ddb2216092c716590989c21c609e43feb5e44d51f77c6f7d8ab7de3464bc2984",
+  "changedMembers": [
+    "master7-v17-render-staging/lib/deposit-incident-evidence.ts",
+    "master7-v17-render-staging/lib/deposit-trace.ts",
+    "master7-v17-render-staging/lib/onempay-query-observation.ts",
+    "master7-v17-render-staging/lib/onempay.ts",
+    "master7-v17-render-staging/public/assets/app.js",
+    "master7-v17-render-staging/tests/deposit-incident-evidence.test.mjs",
+    "master7-v17-render-staging/tests/deposit-trace.test.mjs",
+    "master7-v17-render-staging/tests/onempay-recovery.test.mjs"
+  ],
+  "allOtherMembersUnchanged": true,
+  "databaseMigrations": false,
+  "customerApiChanges": false,
+  "providerContractChanges": false,
+  "financialPolicyChanged": false,
+  "officialUat": false
+}
