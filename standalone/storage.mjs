@@ -24,7 +24,12 @@ if(storageKind==='sqlite'){
  if(!['postgres:','postgresql:'].includes(parsed.protocol))throw Error('PORTAL_POSTGRES_URL must be a Postgres connection string.');
  for(const key of [...parsed.searchParams.keys()])if(key.toLowerCase().startsWith('ssl'))parsed.searchParams.delete(key);
  const ca=process.env.PORTAL_POSTGRES_CA_FILE?readFileSync(process.env.PORTAL_POSTGRES_CA_FILE,'utf8'):undefined;
- pool=new Pool({connectionString:parsed.toString(),ssl:{rejectUnauthorized:true,...(ca?{ca}:{})},max:2,connectionTimeoutMillis:10000,idleTimeoutMillis:10000,statement_timeout:10000});
+ const renderInternalPreview=process.env.PORTAL_POSTGRES_TLS_MODE==='render-internal';
+ // Render same-region internal Postgres connections are on a private network and
+ // use a self-signed certificate when TLS is enabled. The isolated UI preview
+ // explicitly opts out of TLS; the default and all production paths still verify.
+ const ssl=renderInternalPreview?false:{rejectUnauthorized:true,...(ca?{ca}:{})};
+ pool=new Pool({connectionString:parsed.toString(),ssl,max:2,connectionTimeoutMillis:10000,idleTimeoutMillis:10000,statement_timeout:10000});
  pool.on('error',()=>console.error('Database connection failed.'));
 }
 // Application-owned SQL only; bind values separately, preserving quoted question marks.
