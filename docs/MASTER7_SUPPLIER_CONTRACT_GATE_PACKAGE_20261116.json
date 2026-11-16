@@ -1,0 +1,22 @@
+{
+  "scope": "supplier-contract-gate",
+  "date": "2026-11-16",
+  "baselineCommit": "72d9937",
+  "candidatePackage": "master7-v17-render-staging.tar.gz",
+  "candidatePackageSha256": "b475c54a13b50606fbcee94939ca99033e2da70a64f31b623e74b68947ca78b4",
+  "verification": {
+    "focusedTests": "69/69",
+    "fullRegression": "1576/1576",
+    "renderD1": "3/3",
+    "typescript": "pass",
+    "eslint": "pass",
+    "renderBuild": "pass"
+  },
+  "acceptance": {
+    "payments": "0/3",
+    "suppliers": "0/43",
+    "liveConnections": 0,
+    "productionSignoff": false,
+    "productionStatus": "NO-GO"
+  }
+}
