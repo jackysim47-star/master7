@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "releaseVersion": "17.0.0-selfbuilt.174-uat-preview",
+  "environment": "uat",
+  "totalPaymentGateways": 3,
+  "policy": {
+    "independentAcceptance": true,
+    "inheritanceAllowed": false,
+    "acceptedRequiresOfficialEvidence": true,
+    "liveRequiresProductionSignoff": true
+  },
+  "gateways": [
+    {
+      "sequence": 1,
+      "providerProfile": "gspay_myr",
+      "manifest": "gspay_myr.json",
+      "intakeStatus": "OFFICIAL_EVIDENCE_REQUIRED",
+      "uatVerified": false,
+      "accepted": false,
+      "live": false
+    },
+    {
+      "sequence": 2,
+      "providerProfile": "onempay_myr",
+      "manifest": "onempay_myr.json",
+      "intakeStatus": "OFFICIAL_EVIDENCE_REQUIRED",
+      "uatVerified": false,
+      "accepted": false,
+      "live": false
+    },
+    {
+      "sequence": 3,
+      "providerProfile": "vpay_myr",
+      "manifest": "vpay_myr.json",
+      "intakeStatus": "OFFICIAL_EVIDENCE_REQUIRED",
+      "uatVerified": false,
+      "accepted": false,
+      "live": false
+    }
+  ]
+}

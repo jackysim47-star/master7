@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "releaseVersion": "17.0.0-selfbuilt.174-uat-preview",
+  "generatedAt": "2026-11-16T10:56:14Z",
+  "baseCommit": "e7d5f30be93f86fec31b620fadacfd516297ac23",
+  "artifact": {
+    "path": "master7-v17-render-staging.tar.gz",
+    "sha256": "6b0c5a2abebd3bca51c6b5d933d268819b2c179d191a505e3673e0da5019d4fa"
+  },
+  "scope": {
+    "supplierManifests": 43,
+    "paymentManifests": 3,
+    "supplierGatewayEntriesExcluded": [
+      "lebet",
+      "spribe_myr"
+    ],
+    "uatReady": 0,
+    "accepted": 0,
+    "live": 0,
+    "productionReady": false
+  },
+  "change": {
+    "profileIdentifierCompatibility": [
+      "918kiss_normal_myr",
+      "918kiss_normal_my1_1to100",
+      "918kiss_free_myr"
+    ],
+    "securityBoundaryUnchanged": true,
+    "productionFlagsChanged": false
+  },
+  "verification": {
+    "fullRegression": {
+      "passed": 1535,
+      "failed": 0
+    },
+    "uatPackageTests": {
+      "passed": 9,
+      "failed": 0
+    },
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "renderBuild": "PASS",
+    "candidateArchiveRetest": "PASS"
+  }
+}

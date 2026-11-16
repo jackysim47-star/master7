@@ -1,0 +1,26 @@
+--- a/lib/uat-package.ts
++++ b/lib/uat-package.ts
+@@ -23,0 +24 @@
++const providerProfileIdentifier=(value:unknown):value is string=>typeof value==='string'&&/^[a-z0-9][a-z0-9_]{1,95}$/.test(value);
+@@ -50 +51 @@
+- if(!identifier(input.providerProfile))throw new Error('UAT provider profile is invalid');
++ if(!providerProfileIdentifier(input.providerProfile))throw new Error('UAT provider profile is invalid');
+@@ -61 +62 @@
+- const providerProfile=identifier(input.providerProfile)?input.providerProfile:null;if(!providerProfile)blockers.push('invalid_provider_profile');
++ const providerProfile=providerProfileIdentifier(input.providerProfile)?input.providerProfile:null;if(!providerProfile)blockers.push('invalid_provider_profile');
+--- a/tests/uat-package.test.mjs
++++ b/tests/uat-package.test.mjs
+@@ -40,0 +41,13 @@
++test('registered supplier profile IDs may start with a digit',()=>{
++ for(const providerProfile of ['918kiss_normal_myr','918kiss_normal_my1_1to100','918kiss_free_myr']){
++  const manifest=complete({kind:'game',providerProfile,releaseVersion:'17.0.0-selfbuilt.174-uat-preview'});
++  const result=validateUatPackageManifest(manifest);
++  assert.equal(result.schemaValid,true,providerProfile);
++  assert.equal(result.readyForRestrictedUat,true,providerProfile);
++  assert.equal(result.providerProfile,providerProfile);
++  assert.equal(result.accepted,false);
++  assert.equal(result.live,false);
++  assert.equal(result.productionReady,false);
++ }
++});
++

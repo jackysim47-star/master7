@@ -15,6 +15,11 @@ Rules:
 - JILI 1:1 and JILI 1:100 remain independent. The 1:100 manifest additionally
   requires unit-scale and rounding evidence.
 - GSPAY MYR, 1MPay MYR, and VPay MYR remain independent acceptance targets.
+- The 43 Supplier manifests are listed in `supplier-queue.json`. Lebet and
+  `spribe_myr` are gateway entries and are deliberately excluded from the
+  Supplier acceptance count.
+- The three MYR Payment manifests are listed in `payment-queue.json` in the
+  approved order: GSPAY MYR, 1MPay MYR, then VPay MYR.
 - A successful package check means only “ready for restricted UAT”. It never
   means Accepted, Live, or Production Ready.
 
@@ -24,5 +29,6 @@ Validate from the extracted V174 source directory:
 pnpm uat:package-check -- /path/to/manifest.json
 ```
 
-All five committed templates must currently exit non-zero because they contain
-no official evidence.
+All 43 Supplier templates and all three Payment templates must currently exit
+non-zero because they contain no official evidence. Queue files are indexes and
+must not be passed to the manifest validator.
