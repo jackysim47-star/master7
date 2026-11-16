@@ -18,7 +18,7 @@ function run(source,overrides={},existing=false){
  const original=Buffer.from('existing database sentinel');
  if(existing)writeFileSync(file,original);
  const env={...process.env};
- for(const name of [...markers.map(([name])=>name),'PORTAL_POSTGRES_URL','PORTAL_TEST_POSTGRES','PORTAL_TEST_POSTGRES_PATH','PUBLIC_ORIGIN','PORTAL_ALLOWED_ORIGINS','PORTAL_POSTGRES_CA_FILE'])delete env[name];
+ for(const name of [...markers.map(([name])=>name),'PORTAL_POSTGRES_URL','PORTAL_TEST_POSTGRES','PORTAL_TEST_POSTGRES_PATH','PUBLIC_ORIGIN','PORTAL_ALLOWED_ORIGINS','PORTAL_POSTGRES_CA_FILE','PORTAL_POSTGRES_TLS_MODE','PORTAL_UI_PREVIEW'])delete env[name];
  Object.assign(env,{NODE_ENV:'test',PORTAL_DATABASE:file},overrides);
  try{
   const result=spawnSync(process.execPath,['--input-type=module','-e',source],{env,encoding:'utf8',timeout:10000});
@@ -46,6 +46,14 @@ test('production rejects whitespace database configuration without exposing it',
  const result=run("await import('./standalone/storage.mjs')",{NODE_ENV:'production',PORTAL_POSTGRES_URL:'  '});
  assert.notEqual(result.status,0);
  assert.match(result.stderr,/Production requires PORTAL_POSTGRES_URL/);
+});
+
+test('Render internal Postgres mode is restricted to the isolated UI preview',()=>{
+ let result=run("await import('./standalone/storage.mjs')",{NODE_ENV:'production',PORTAL_POSTGRES_URL:`postgresql://fixture:${secret}@127.0.0.1/fixture`,PORTAL_POSTGRES_TLS_MODE:'render-internal'});
+ assert.notEqual(result.status,0);
+ assert.match(result.stderr,/restricted to the isolated UI preview/);
+ result=run("await import('./standalone/storage.mjs')",{NODE_ENV:'production',PORTAL_POSTGRES_URL:`postgresql://fixture:${secret}@127.0.0.1/fixture`,PORTAL_POSTGRES_TLS_MODE:'render-internal',PORTAL_UI_PREVIEW:'1'});
+ assert.equal(result.status,0,result.stderr);
 });
 
 test('listen host defaults to loopback locally and all interfaces when hosted',()=>{
