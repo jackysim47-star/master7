@@ -11,6 +11,16 @@ Implemented:
 
 Provider secrets are supplied only through Render environment variables. A callback POST remains closed until that provider's signed callback contract is implemented; a reachability endpoint never claims transaction readiness.
 
+## Version 1.21.0: independent payment and game roles
+
+Set `GATEWAY_ROLE=payment` or `GATEWAY_ROLE=game` to run one responsibility per
+Render service. Payment instances expose only VPay/GSPAY routes; game instances
+expose only supplier catalogue, session, wallet and game callback routes. The
+default `all` role preserves the existing combined deployment for rollback.
+Health, readiness and endpoint inventories are filtered to the active role, and
+cross-role requests fail closed before authorization or provider traffic. This
+separation does not enable any transaction switch or change UAT status.
+
 ## Version 1.19.0: catalogue integrity and profile isolation
 
 JILI 1:1 and 1:100 catalogue reads now use separate bounded cache keys and

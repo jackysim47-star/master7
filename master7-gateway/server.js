@@ -69,6 +69,55 @@ const META_PROFILE_ACCOUNTS = Object.freeze({
   metagaming_normal_myr: 'normal',
   metagaming_free_myr: 'free',
 });
+const GATEWAY_ROLES = new Set(['all', 'payment', 'game']);
+
+function gatewayRole(env = {}) {
+  const role = String(env.GATEWAY_ROLE || 'all').trim().toLowerCase();
+  if (!GATEWAY_ROLES.has(role)) {
+    throw new Error('Gateway role must be one of: all, payment, game');
+  }
+  return role;
+}
+
+function routeRole(pathname) {
+  if (/^\/(?:providers|callbacks|platform|admin)\/(?:vpay|gspay|1mpay)(?:\/|$)/.test(pathname)) {
+    return 'payment';
+  }
+  if (/^\/providers\//.test(pathname)
+      || /^\/callbacks\/(?:cosmoplay|creative-gaming|pgsoft|spade-gaming)(?:\/|$)/.test(pathname)
+      || /^\/(?:platform|admin)\/(?:metagaming|megah5|evo888h5)(?:\/|$)/.test(pathname)) {
+    return 'game';
+  }
+  return 'shared';
+}
+
+function roleAllows(role, target) {
+  return role === 'all' || target === 'shared' || role === target;
+}
+
+function roleServiceName(role) {
+  return role === 'all' ? 'master7-integration-gateway' : `master7-${role}-gateway`;
+}
+
+function roleReadiness(role, env) {
+  const readiness = integrationReadiness(env);
+  if (role === 'all') return { role, ...readiness };
+  const common = {
+    role,
+    scope: readiness.scope,
+    productionQa: readiness.productionQa,
+    liveReady: false,
+  };
+  if (role === 'payment') {
+    return { ...common, vpay: readiness.vpay, gspay: readiness.gspay };
+  }
+  return {
+    ...common,
+    gameCallbacks: readiness.gameCallbacks,
+    megah5Transfer: readiness.megah5Transfer,
+    metaGaming: readiness.metaGaming,
+  };
+}
 
 function browserOrigins(env) {
   const configured = env.ALLOWED_ORIGINS !== undefined
@@ -150,6 +199,7 @@ function gspayEnvelopePayload(value) {
 }
 
 function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new Date() } = {}) {
+  const role = gatewayRole(env);
   const currency = String(env.CURRENCY || 'MYR').toUpperCase();
   const publicBase = normalizeHttpsUrl(env.PUBLIC_BASE_URL, { originOnly: true });
   const allowedOrigins = browserOrigins(env);
@@ -463,6 +513,75 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     };
   }
 
+  function publicCallbackUrls() {
+    const all = callbackUrls();
+    if (role === 'payment') {
+      return {
+        vpayPayment: all.vpayPayment,
+        vpayWithdrawal: all.vpayWithdrawal,
+        gspayPayment: all.gspayPayment,
+        gspayDuitNow: all.gspayDuitNow,
+      };
+    }
+    if (role === 'game') {
+      return Object.fromEntries(PROVIDERS.map(name => [name, all[name]]));
+    }
+    return all;
+  }
+
+  function publicEndpoints(base) {
+    const game = {
+      megah5Games: `${base}/providers/megah5/games`,
+      metaGamingGames: `${base}/providers/metagaming/games?account=normal`,
+      evo888h5Games: `${base}/providers/evo888h5/games`,
+      epicwinGames: `${base}/providers/epicwin/games`,
+      kissh5Games: `${base}/providers/918kissh5/games`,
+      clotplayGames: `${base}/providers/clotplay/games`,
+      jiliGames: `${base}/providers/jili/games?account=1to1`,
+      venusGames: `${base}/providers/venus/games`,
+      rsghubGames: `${base}/providers/rsghub/games`,
+      jdbGames: `${base}/providers/jdb/games`,
+      pragmaticPlayGames: `${base}/providers/pragmaticplay/games`,
+      callbacks: `${base}/callbacks`,
+    };
+    const payment = {
+      vpayStatus: `${base}/providers/vpay/status`,
+      gspayStatus: `${base}/providers/gspay/status`,
+    };
+    if (role === 'payment') return payment;
+    if (role === 'game') return game;
+    return { ...game, ...payment };
+  }
+
+  function configuredProviders() {
+    const game = {
+      evo888h5: Boolean(env.EVO_API_TOKEN),
+      venus: Boolean(env.VENUS_SITE_CODE && env.VENUS_API_KEY),
+      megah5: Boolean(env.MEGA_OPERATOR_ID && env.MEGA_SECRET_KEY),
+      metaGaming: publicMetaAccountStatus(env),
+      epicwin: Object.fromEntries(Object.entries(catalogueProfiles.epicwin.accounts)
+        .map(([name, account]) => [name, Boolean(account.id && account.secret)])),
+      kissh5: Object.fromEntries(Object.entries(catalogueProfiles['918kissh5'].accounts)
+        .map(([name, account]) => [name, Boolean(account.id && account.secret)])),
+      clotplay: Boolean(clotplayToken),
+      jili: Object.fromEntries(Object.entries(jiliAccounts)
+        .map(([name, account]) => [name, Boolean(account.id && account.secret)])),
+      rsghub: Boolean(env.RSGHUB_CLIENT_ID && env.RSGHUB_CLIENT_SECRET
+        && env.RSGHUB_DES_KEY && env.RSGHUB_DES_IV && env.RSGHUB_SYSTEM_CODE),
+      jdb: Boolean(env.JDB_BASE_URL && env.JDB_DC && env.JDB_AES_KEY
+        && env.JDB_AES_IV && env.JDB_AGENT_ID),
+      pragmaticplay: Boolean(env.PRAGMATIC_BASE_URL && env.PRAGMATIC_SECURE_LOGIN
+        && env.PRAGMATIC_SECRET_KEY),
+    };
+    const payment = {
+      vpay: Boolean(vpayTraderId && vpayApiToken),
+      gspay: gspayReadiness(env).credentialsConfigured,
+    };
+    if (role === 'payment') return payment;
+    if (role === 'game') return game;
+    return { ...game, ...payment };
+  }
+
   return async function handler(req, res) {
     // Generated locally: never trust a client-supplied request ID in audit output.
     res.setHeader('X-Request-Id', crypto.randomUUID());
@@ -475,6 +594,11 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     // Set once so validation errors, admin denials and text callbacks also
     // preserve the same exact-origin policy. CORS never replaces authorization.
     for (const [name, value] of Object.entries(cors)) res.setHeader(name, value);
+    const url = new URL(req.url, 'http://localhost');
+    const targetRole = routeRole(url.pathname);
+    if (!roleAllows(role, targetRole)) {
+      return send(res, 404, { error: 'gateway_role_route_not_available', role, routeRole: targetRole });
+    }
     if (req.method === 'OPTIONS') {
       const method = String(req.headers['access-control-request-method'] || '').toUpperCase();
       const requestedHeaders = String(req.headers['access-control-request-headers'] || '')
@@ -487,72 +611,41 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
       return res.end();
     }
 
-    const url = new URL(req.url, 'http://localhost');
     try {
       if (req.method === 'GET' && url.pathname === '/') {
         const base = publicBase || 'https://master7-integration-gateway.onrender.com';
         return send(res, 200, {
           ok: true,
-          service: 'MASTER7 API',
+          service: roleServiceName(role),
+          role,
           version: VERSION,
           status: 'online',
           currency,
           mode: String(env.GATEWAY_MODE || 'uat'),
           health: `${base}/health`,
           readiness: `${base}/readiness`,
-          endpoints: {
-            megah5Games: `${base}/providers/megah5/games`,
-            metaGamingGames: `${base}/providers/metagaming/games?account=normal`,
-            evo888h5Games: `${base}/providers/evo888h5/games`,
-            epicwinGames: `${base}/providers/epicwin/games`,
-            kissh5Games: `${base}/providers/918kissh5/games`,
-            clotplayGames: `${base}/providers/clotplay/games`,
-            jiliGames: `${base}/providers/jili/games?account=1to1`,
-            venusGames: `${base}/providers/venus/games`,
-            rsghubGames: `${base}/providers/rsghub/games`,
-            jdbGames: `${base}/providers/jdb/games`,
-            pragmaticPlayGames: `${base}/providers/pragmaticplay/games`,
-            vpayStatus: `${base}/providers/vpay/status`,
-            gspayStatus: `${base}/providers/gspay/status`,
-            callbacks: `${base}/callbacks`,
-          },
+          endpoints: publicEndpoints(base),
         }, cors);
       }
 
       if (req.method === 'GET' && url.pathname === '/health') {
         return send(res, 200, {
           ok: true,
-          service: 'master7-integration-gateway',
+          service: roleServiceName(role),
+          role,
           version: VERSION,
           currency,
           mode: String(env.GATEWAY_MODE || 'uat'),
           readiness: { scope: 'process_health_only', productionQa: 'not_verified', liveReady: false },
           browserAccess: { allowedOrigins: [...allowedOrigins], credentials: false },
-          configured: {
-            evo888h5: Boolean(env.EVO_API_TOKEN),
-            venus: Boolean(env.VENUS_SITE_CODE && env.VENUS_API_KEY),
-            megah5: Boolean(env.MEGA_OPERATOR_ID && env.MEGA_SECRET_KEY),
-            metaGaming: publicMetaAccountStatus(env),
-            epicwin: Object.fromEntries(Object.entries(catalogueProfiles.epicwin.accounts).map(([name, account]) => [name, Boolean(account.id && account.secret)])),
-            kissh5: Object.fromEntries(Object.entries(catalogueProfiles['918kissh5'].accounts).map(([name, account]) => [name, Boolean(account.id && account.secret)])),
-            clotplay: Boolean(clotplayToken),
-            jili: Object.fromEntries(Object.entries(jiliAccounts).map(([name, account]) => [name, Boolean(account.id && account.secret)])),
-            rsghub: Boolean(env.RSGHUB_CLIENT_ID && env.RSGHUB_CLIENT_SECRET
-              && env.RSGHUB_DES_KEY && env.RSGHUB_DES_IV && env.RSGHUB_SYSTEM_CODE),
-            jdb: Boolean(env.JDB_BASE_URL && env.JDB_DC && env.JDB_AES_KEY
-              && env.JDB_AES_IV && env.JDB_AGENT_ID),
-            pragmaticplay: Boolean(env.PRAGMATIC_BASE_URL && env.PRAGMATIC_SECURE_LOGIN
-              && env.PRAGMATIC_SECRET_KEY),
-            vpay: Boolean(vpayTraderId && vpayApiToken),
-            gspay: gspayReadiness(env).credentialsConfigured,
-          },
-          callbackUrls: callbackUrls(),
+          configured: configuredProviders(),
+          callbackUrls: publicCallbackUrls(),
         }, cors);
       }
 
       if (req.method === 'GET' && url.pathname === '/readiness') {
-        return send(res, 200, { service: 'master7-integration-gateway', version: VERSION,
-          checkedAt: now().toISOString(), ...integrationReadiness(env) }, cors);
+        return send(res, 200, { service: roleServiceName(role), version: VERSION,
+          checkedAt: now().toISOString(), ...roleReadiness(role, env) }, cors);
       }
 
       if (req.method === 'GET' && url.pathname === '/providers/evo888h5/games') {
@@ -780,7 +873,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
       }
 
       if (req.method === 'GET' && url.pathname === '/callbacks') {
-        return send(res, 200, { currency, callbackUrls: callbackUrls() }, cors);
+        return send(res, 200, { currency, callbackUrls: publicCallbackUrls() }, cors);
       }
 
       if (req.method === 'GET' && url.pathname === '/diagnostics/egress-ip') {
@@ -1537,7 +1630,8 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
 function start(env = process.env) {
   const port = Number(env.PORT || 3000);
   const server = http.createServer(makeApp({ env }));
-  server.listen(port, '0.0.0.0', () => console.log(`master7-integration-gateway ${VERSION} listening on ${port}`));
+  const service = roleServiceName(gatewayRole(env));
+  server.listen(port, '0.0.0.0', () => console.log(`${service} ${VERSION} listening on ${port}`));
   return server;
 }
 

@@ -24,6 +24,60 @@ test('health exposes readiness without secrets', async () => {
   assert.equal(JSON.stringify(data).includes('secret'), false);
 });
 
+test('gateway role isolates payment and game routes without changing the default role', async () => {
+  const payment = makeApp({ env: { GATEWAY_ROLE: 'payment' } });
+  const paymentHealth = await run(payment, '/health');
+  assert.equal(paymentHealth.status, 200);
+  const paymentHealthBody = await paymentHealth.json();
+  assert.equal(paymentHealthBody.role, 'payment');
+  assert.deepEqual(Object.keys(paymentHealthBody.callbackUrls).sort(), [
+    'gspayDuitNow', 'gspayPayment', 'vpayPayment', 'vpayWithdrawal',
+  ]);
+  assert.equal((await run(payment, '/providers/vpay/status')).status, 200);
+  assert.equal((await run(payment, '/providers/megah5/games')).status, 404);
+
+  const game = makeApp({ env: { GATEWAY_ROLE: 'game' } });
+  const gameHealth = await run(game, '/health');
+  assert.equal(gameHealth.status, 200);
+  const gameHealthBody = await gameHealth.json();
+  assert.equal(gameHealthBody.role, 'game');
+  assert.deepEqual(Object.keys(gameHealthBody.callbackUrls).sort(), [
+    'cosmoplay', 'creative-gaming', 'pgsoft', 'spade-gaming',
+  ]);
+  assert.equal((await run(game, '/providers/vpay/status')).status, 404);
+  assert.notEqual((await run(game, '/providers/megah5/games')).status, 404);
+
+  const combined = makeApp({ env: {} });
+  assert.equal((await run(combined, '/providers/vpay/status')).status, 200);
+  assert.notEqual((await run(combined, '/providers/megah5/games')).status, 404);
+});
+
+test('gateway role filters its public endpoint and readiness inventories', async () => {
+  const paymentRoot = await run(makeApp({ env: { GATEWAY_ROLE: 'payment' } }), '/');
+  const payment = await paymentRoot.json();
+  assert.deepEqual(Object.keys(payment.endpoints).sort(), ['gspayStatus', 'vpayStatus']);
+  const paymentReadiness = await (await run(makeApp({ env: { GATEWAY_ROLE: 'payment' } }), '/readiness')).json();
+  assert.equal(paymentReadiness.role, 'payment');
+  assert.ok(paymentReadiness.vpay);
+  assert.ok(paymentReadiness.gspay);
+  assert.equal('megah5Transfer' in paymentReadiness, false);
+
+  const gameRoot = await run(makeApp({ env: { GATEWAY_ROLE: 'game' } }), '/');
+  const game = await gameRoot.json();
+  assert.equal('vpayStatus' in game.endpoints, false);
+  assert.equal('gspayStatus' in game.endpoints, false);
+  assert.ok(game.endpoints.megah5Games);
+  const gameReadiness = await (await run(makeApp({ env: { GATEWAY_ROLE: 'game' } }), '/readiness')).json();
+  assert.equal(gameReadiness.role, 'game');
+  assert.ok(gameReadiness.megah5Transfer);
+  assert.equal('vpay' in gameReadiness, false);
+  assert.equal('gspay' in gameReadiness, false);
+});
+
+test('invalid gateway roles fail closed during startup', () => {
+  assert.throws(() => makeApp({ env: { GATEWAY_ROLE: 'everything' } }), /gateway role/i);
+});
+
 const DIRECT_PORTAL_ORIGIN = 'https://master7-v17-staging.onrender.com';
 const PLATFORM_ORIGINS = [
   'https://master7.best',
