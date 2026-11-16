@@ -14,12 +14,13 @@ const importStorage=`
  await sql.close();
 `;
 
-async function runStorage(url,source=importStorage,{render=false,ca=false}={}){
+async function runStorage(url,source=importStorage,{render=false,ca=false,internalPreview=false}={}){
  const directory=mkdtempSync(join(tmpdir(),'portal-storage-config-'));
  const database=join(directory,'must-not-create.sqlite');
  const env={...process.env,NODE_ENV:'test',PORTAL_POSTGRES_URL:url,PORTAL_DATABASE:database,PORTAL_STORAGE_TEST_MODULE:storageModule};
  delete env.RENDER;delete env.PORTAL_TEST_POSTGRES;delete env.PORTAL_TEST_POSTGRES_PATH;delete env.PORTAL_POSTGRES_CA_FILE;
  if(render)env.RENDER='true';
+ if(internalPreview){env.PORTAL_POSTGRES_TLS_MODE='render-internal';env.PORTAL_UI_PREVIEW='1';}
  if(ca){env.PORTAL_POSTGRES_CA_FILE=join(directory,'fixture-ca.pem');writeFileSync(env.PORTAL_POSTGRES_CA_FILE,'test-only CA contents');}
  try{
   // Keep synthetic credentials in the environment, never in source printed by an uncaught stack.
@@ -36,6 +37,20 @@ async function runStorage(url,source=importStorage,{render=false,ca=false}={}){
   return result;
  }finally{rmSync(directory,{recursive:true,force:true});}
 }
+
+test('isolated UI preview may use Render internal Postgres without TLS',async()=>{
+ const source=`
+  import assert from 'node:assert/strict';
+  import {createRequire} from 'node:module';
+  const require=createRequire(import.meta.url),pg=require('pg'),RealPool=pg.Pool;
+  let options;
+  pg.Pool=class extends RealPool{constructor(config){super(config);options=config;}};
+  const {sql,storageKind}=await import(process.env.PORTAL_STORAGE_TEST_MODULE);
+  try{assert.equal(storageKind,'postgres');assert.equal(options.ssl,false);}finally{await sql.close();}
+ `;
+ const result=await runStorage('postgresql://fixture-user:synthetic-secret@127.0.0.1:5432/fixture',source,{internalPreview:true});
+ assert.equal(result.status,0,result.stderr);
+});
 
 const marker='synthetic-secret-do-not-log-73916';
 const malformed=[
