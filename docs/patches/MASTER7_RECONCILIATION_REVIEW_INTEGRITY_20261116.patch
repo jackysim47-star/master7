@@ -1,0 +1,105 @@
+--- a/lib/reconciliation-review.ts
++++ b/lib/reconciliation-review.ts
+@@ -14,6 +14,7 @@
+ 
+ type ReviewRow={id:string;run_id:string;revision:number|string;decision:ReconciliationReviewDecision;note:string;evidence_reference:string;request_key:string;reviewed_by:string;reviewed_at:number|string};
+ type ReportIntegrityRow=Pick<RunRow,'run_id'|'report_sha256'|'schema_version'|'source_commit'|'mapping_version'|'rule_version'|'internal_snapshot_id'|'period_start'|'period_end_exclusive'|'result'|'internal_count'|'external_count'|'matched_count'|'discrepancy_count'|'report_json'>;
++const reportIntegrityColumns=['run_id','report_sha256','schema_version','source_commit','mapping_version','rule_version','internal_snapshot_id','period_start','period_end_exclusive','result','internal_count','external_count','matched_count','discrepancy_count','report_json'] as const;
+ 
+ export class ReconciliationReviewError extends Error{
+  status:number;code:string;
+@@ -44,6 +45,11 @@
+  const report=parsed as ReturnType<typeof reconcileStatements>,counts=report.counts,period=report.period;
+  if(report.schemaVersion!==row.schema_version||report.runId!==row.run_id||report.sourceCommit!==row.source_commit||report.mappingVersion!==row.mapping_version||report.ruleVersion!==row.rule_version||report.internalSnapshotId!==row.internal_snapshot_id||period?.startUtc!==row.period_start||period?.endUtcExclusive!==row.period_end_exclusive||report.result!==row.result||counts?.internal!==Number(row.internal_count)||counts?.external!==Number(row.external_count)||counts?.matched!==Number(row.matched_count)||counts?.discrepancies!==Number(row.discrepancy_count)||report.scope!=='canonical_input_comparison_only'||!Array.isArray(report.financialActions)||report.financialActions.length!==0||report.ownerReview!=='pending')fail(409,'RECONCILIATION_INTEGRITY_ERROR','Stored reconciliation report metadata does not match');
+  return report;
++}
++async function reviewableReport(db:D1Database,selectedRun:string){
++ const row=await db.prepare(`SELECT ${reportIntegrityColumns.join(',')} FROM reconciliation_runs WHERE run_id=?`).bind(selectedRun).first<ReportIntegrityRow>();
++ if(!row)return fail(404,'RUN_NOT_FOUND','Reconciliation run not found');
++ storedReport(row);return row;
+ }
+ function result(row:RunRow,includeReport=false){
+  const review=row.review_id?{id:row.review_id,revision:Number(row.review_revision),decision:row.review_decision,note:row.review_note,evidenceReference:row.review_evidence_reference,reviewedBy:row.reviewed_by,reviewedAt:Number(row.reviewed_at)}:null;
+@@ -91,7 +97,7 @@
+ export async function recordReconciliationReview(db:D1Database,actor:ReconciliationReviewActor,input:Record<string,unknown>,at=Math.floor(Date.now()/1000)){
+  ownerAccess(actor);
+  if(Object.keys(input).some(key=>!['runId','expectedRevision','decision','note','evidenceReference','requestKey'].includes(key)))fail(400,'INVALID_FIELDS','Only reconciliation review fields are accepted');
+- if(!runId(input.runId))fail(400,'INVALID_RUN_ID','Invalid reconciliation run ID');const selectedRun=input.runId;
++ if(!runId(input.runId))return fail(400,'INVALID_RUN_ID','Invalid reconciliation run ID');const selectedRun=input.runId;
+  const expectedRevision=Number(input.expectedRevision);if(!Number.isSafeInteger(expectedRevision)||expectedRevision<0)fail(400,'INVALID_EXPECTED_REVISION','Expected review revision is required');
+  const requestedDecision=input.decision;
+  if(requestedDecision!=='acknowledged'&&requestedDecision!=='needs_follow_up')fail(400,'INVALID_DECISION','Review decision must be acknowledged or needs_follow_up');
+@@ -99,17 +105,18 @@
+  const note=typeof input.note==='string'?input.note.trim():'';if(note.length<5||note.length>500||/[\u0000-\u001f\u007f]/u.test(note))fail(400,'INVALID_NOTE','Review note must contain 5 to 500 safe characters');
+  const evidenceReference=typeof input.evidenceReference==='string'?input.evidenceReference.trim():'';if(!reference(evidenceReference))fail(400,'INVALID_EVIDENCE_REFERENCE','Evidence reference must be a non-secret identifier');
+  if(!requestKey(input.requestKey))fail(400,'INVALID_REQUEST_KEY','Review request key must contain 16 to 80 safe characters');const selectedRequestKey=input.requestKey;
++ const run=await reviewableReport(db,selectedRun);
+  const values={decision,note,evidenceReference},replay=await db.prepare('SELECT * FROM reconciliation_review_events WHERE run_id=? AND request_key=?').bind(selectedRun,selectedRequestKey).first<ReviewRow>();
+  if(replay){if(!sameReview(replay,values,actor))fail(409,'REVIEW_REQUEST_CONFLICT','Review request key was already used with different values');return reviewResult(replay,true);}
+- const run=await db.prepare('SELECT run_id FROM reconciliation_runs WHERE run_id=?').bind(selectedRun).first<{run_id:string}>();if(!run)fail(404,'RUN_NOT_FOUND','Reconciliation run not found');
+  const latest=await db.prepare('SELECT revision FROM reconciliation_review_events WHERE run_id=? ORDER BY revision DESC LIMIT 1').bind(selectedRun).first<{revision:number|string}>(),currentRevision=Number(latest?.revision??0);if(expectedRevision!==currentRevision)fail(409,'STALE_REVIEW','Review changed; refresh and try again');
+  const id=randomUUID(),revision=expectedRevision+1,auditId=`reconciliation-review:${id}`,auditTarget=JSON.stringify({runId:selectedRun,revision,decision});
+  try{await db.batch([
+   db.prepare(`INSERT INTO reconciliation_review_events(id,run_id,revision,decision,note,evidence_reference,request_key,reviewed_by,reviewed_at)
+-   SELECT ?,?,?,?,?,?,?,?,? WHERE ?=COALESCE((SELECT MAX(revision) FROM reconciliation_review_events WHERE run_id=?),0)`).bind(id,selectedRun,revision,decision,note,evidenceReference,selectedRequestKey,actor.id,at,expectedRevision,selectedRun),
++   SELECT ?,?,?,?,?,?,?,?,? WHERE ?=COALESCE((SELECT MAX(revision) FROM reconciliation_review_events WHERE run_id=?),0)
++   AND EXISTS(SELECT 1 FROM reconciliation_runs WHERE ${reportIntegrityColumns.map(column=>`${column}=?`).join(' AND ')})`).bind(id,selectedRun,revision,decision,note,evidenceReference,selectedRequestKey,actor.id,at,expectedRevision,selectedRun,...reportIntegrityColumns.map(column=>run[column])),
+   db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,?,'reconciliation_owner_review_recorded',?,? FROM reconciliation_review_events WHERE id=? ON CONFLICT(id) DO NOTHING").bind(auditId,actor.id,auditTarget,at,id),
+  ]);}catch(error){
+-  const existing=await db.prepare('SELECT * FROM reconciliation_review_events WHERE run_id=? AND request_key=?').bind(selectedRun,selectedRequestKey).first<ReviewRow>();if(existing){if(!sameReview(existing,values,actor))fail(409,'REVIEW_REQUEST_CONFLICT','Review request key was already used with different values');return reviewResult(existing,true);}const detail=String(error instanceof Error?error.message:error);if(/unique|duplicate/i.test(detail))fail(409,'STALE_REVIEW','Review changed; refresh and try again');throw error;
++  const existing=await db.prepare('SELECT * FROM reconciliation_review_events WHERE run_id=? AND request_key=?').bind(selectedRun,selectedRequestKey).first<ReviewRow>();if(existing){await reviewableReport(db,selectedRun);if(!sameReview(existing,values,actor))fail(409,'REVIEW_REQUEST_CONFLICT','Review request key was already used with different values');return reviewResult(existing,true);}const detail=String(error instanceof Error?error.message:error);if(/unique|duplicate/i.test(detail))fail(409,'STALE_REVIEW','Review changed; refresh and try again');throw error;
+  }
+- const saved=await db.prepare('SELECT * FROM reconciliation_review_events WHERE id=?').bind(id).first<ReviewRow>();if(!saved)return fail(409,'STALE_REVIEW','Review changed; refresh and try again');return reviewResult(saved,false);
++ const saved=await db.prepare('SELECT * FROM reconciliation_review_events WHERE id=?').bind(id).first<ReviewRow>();if(!saved){await reviewableReport(db,selectedRun);return fail(409,'STALE_REVIEW','Review changed; refresh and try again');}return reviewResult(saved,false);
+ }
+--- a/tests/reconciliation-review.test.mjs
++++ b/tests/reconciliation-review.test.mjs
+@@ -72,3 +72,48 @@
+  await assert.rejects(()=>getReconciliationRuns(db,actor(),{runId:run.runId}),error=>error instanceof ReconciliationReviewError&&error.status===409&&error.code==='RECONCILIATION_INTEGRITY_ERROR');
+  assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM reconciliation_review_events').get().n,0);
+ });
++
++test('Owner cannot acknowledge a report whose stored bytes no longer match its digest',async t=>{
++ const {sqlite,db}=fixture(t),run=await recordReconciliationRun(db,actor(),{input:input(),evidenceReference:'uat:vpay:statement-1'},100);
++ const payload={runId:run.runId,expectedRevision:0,decision:'acknowledged',note:'Owner checked the source references.',evidenceReference:'owner:review:integrity',requestKey:'review-integrity-0001'};
++ const stored=sqlite.prepare('SELECT report_json FROM reconciliation_runs WHERE run_id=?').get(run.runId).report_json;
++ sqlite.prepare('UPDATE reconciliation_runs SET report_json=? WHERE run_id=?').run(stored+' ',run.runId);
++ await assert.rejects(()=>recordReconciliationReview(db,actor(),payload,110),error=>error instanceof ReconciliationReviewError&&error.status===409&&error.code==='RECONCILIATION_INTEGRITY_ERROR');
++ assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM reconciliation_review_events').get().n,0);
++ assert.equal(sqlite.prepare("SELECT COUNT(*) n FROM audit WHERE event='reconciliation_owner_review_recorded'").get().n,0);
++ assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);
++});
++
++test('Owner cannot review a report whose persisted metadata conflicts with the report',async t=>{
++ const {sqlite,db}=fixture(t),run=await recordReconciliationRun(db,actor(),{input:input(),evidenceReference:'uat:vpay:statement-1'},100);
++ sqlite.prepare("UPDATE reconciliation_runs SET mapping_version='tampered-map' WHERE run_id=?").run(run.runId);
++ await assert.rejects(()=>recordReconciliationReview(db,actor(),{runId:run.runId,expectedRevision:0,decision:'needs_follow_up',note:'Owner requires external statement evidence.',evidenceReference:'owner:review:metadata',requestKey:'review-integrity-0002'},110),error=>error instanceof ReconciliationReviewError&&error.status===409&&error.code==='RECONCILIATION_INTEGRITY_ERROR');
++ assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM reconciliation_review_events').get().n,0);
++ assert.equal(sqlite.prepare("SELECT COUNT(*) n FROM audit WHERE event='reconciliation_owner_review_recorded'").get().n,0);
++});
++
++test('review retry does not hide report corruption after the original acknowledgement',async t=>{
++ const {sqlite,db}=fixture(t),run=await recordReconciliationRun(db,actor(),{input:input(),evidenceReference:'uat:vpay:statement-1'},100);
++ const payload={runId:run.runId,expectedRevision:0,decision:'acknowledged',note:'Owner checked the original report.',evidenceReference:'owner:review:retry',requestKey:'review-integrity-0003'};
++ await recordReconciliationReview(db,actor(),payload,110);
++ const stored=sqlite.prepare('SELECT report_json FROM reconciliation_runs WHERE run_id=?').get(run.runId).report_json;
++ sqlite.prepare('UPDATE reconciliation_runs SET report_json=? WHERE run_id=?').run(stored+' ',run.runId);
++ await assert.rejects(()=>recordReconciliationReview(db,actor(),payload,111),error=>error instanceof ReconciliationReviewError&&error.status===409&&error.code==='RECONCILIATION_INTEGRITY_ERROR');
++ assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM reconciliation_review_events').get().n,1);
++ assert.equal(sqlite.prepare("SELECT COUNT(*) n FROM audit WHERE event='reconciliation_owner_review_recorded'").get().n,1);
++ assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);
++});
++
++for(const field of ['report_json','mapping_version'])test(`report ${field} change between validation and insertion cannot create an Owner review`,async t=>{
++ const {sqlite,db}=fixture(t),run=await recordReconciliationRun(db,actor(),{input:input(),evidenceReference:'uat:vpay:statement-1'},100);
++ const batch=db.batch;
++ db.batch=async list=>{
++  if(field==='report_json')sqlite.prepare("UPDATE reconciliation_runs SET report_json=report_json||' ' WHERE run_id=?").run(run.runId);
++  else sqlite.prepare("UPDATE reconciliation_runs SET mapping_version='changed-before-commit' WHERE run_id=?").run(run.runId);
++  return batch(list);
++ };
++ await assert.rejects(()=>recordReconciliationReview(db,actor(),{runId:run.runId,expectedRevision:0,decision:'acknowledged',note:'Owner checked the original report.',evidenceReference:'owner:review:race',requestKey:'review-integrity-race'},110),error=>error instanceof ReconciliationReviewError&&error.status===409&&error.code==='RECONCILIATION_INTEGRITY_ERROR');
++ assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM reconciliation_review_events').get().n,0);
++ assert.equal(sqlite.prepare("SELECT COUNT(*) n FROM audit WHERE event='reconciliation_owner_review_recorded'").get().n,0);
++ assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);
++});

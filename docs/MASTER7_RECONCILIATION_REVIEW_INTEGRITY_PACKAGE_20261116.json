@@ -1,0 +1,16 @@
+{
+  "baselineGitSha": "103e40f104e72f930896654def3f6ff878e24f6c",
+  "baselinePackageSha256": "ddb2216092c716590989c21c609e43feb5e44d51f77c6f7d8ab7de3464bc2984",
+  "candidatePackageSha256": "48aee824ab6dfec29178c82d6eb5d31249bff92aa3d0599d2b46e2bb4f9f740d",
+  "changedArchiveMembers": [
+    "master7-v17-render-staging/lib/reconciliation-review.ts",
+    "master7-v17-render-staging/tests/reconciliation-review.test.mjs"
+  ],
+  "unchangedArchiveMembers": 791,
+  "allOtherMembersUnchanged": true,
+  "databaseMigrations": false,
+  "publicRoutesChanged": false,
+  "walletOrBalanceLogicChanged": false,
+  "providerContractsChanged": false,
+  "acceptanceChanged": false
+}
