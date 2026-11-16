@@ -1,0 +1,77 @@
+--- a/lib/vpay.ts
++++ b/lib/vpay.ts
+@@ -88,0 +89,5 @@
++function remoteMaintenanceCapabilities(config:Record<string,any>){
++ const legacyReady=config.queryReady===undefined&&config.callbacksReady===undefined&&config.paymentReady===true;
++ return {queryReady:config.queryReady===true||legacyReady,callbacksReady:config.callbacksReady===true||legacyReady};
++}
++
+@@ -90 +95 @@
+- const programReady=enabled(c),unavailable={programReady,orderReady:false,queryReady:false,callbacksReady:false,tradeCodes:[] as string[]};
++ const programReady=enabled(c),unavailable={programReady,remoteOrderReady:false,orderReady:false,queryReady:false,callbacksReady:false,tradeCodes:[] as string[]};
+@@ -94 +99 @@
+-  const ready=config.provider==='vpay'&&config.mode===c.mode&&config.paymentReady===true
++  const contractReady=config.provider==='vpay'&&config.mode===c.mode
+@@ -97,2 +102,5 @@
+-  const tradeCodes=ready?[...new Set<string>(config.tradeCodes.filter((code:unknown)=>['1','2','3','4','5','7'].includes(String(code))).map(String))]:[];
+-  return {programReady,orderReady:ready&&tradeCodes.length>0&&c.enabled==='true'&&c.newDepositsEnabled==='true',queryReady:ready,callbacksReady:ready,tradeCodes};
++  const capabilities=remoteMaintenanceCapabilities(config);
++  const queryReady=contractReady&&capabilities.queryReady,callbacksReady=contractReady&&capabilities.callbacksReady;
++  const tradeCodes=contractReady?[...new Set<string>(config.tradeCodes.filter((code:unknown)=>['1','2','3','4','5','7'].includes(String(code))).map(String))]:[];
++  const remoteOrderReady=config.paymentReady===true&&queryReady&&callbacksReady&&tradeCodes.length>0;
++  return {programReady,remoteOrderReady,orderReady:remoteOrderReady&&c.enabled==='true'&&c.newDepositsEnabled==='true',queryReady,callbacksReady,tradeCodes};
+@@ -103 +111 @@
+- const availability=await vpayDepositAvailability(c);return availability.queryReady&&availability.tradeCodes.length>0;
++ const availability=await vpayDepositAvailability(c);return availability.remoteOrderReady;
+@@ -129 +137 @@
+-    const availability=await vpayDepositAvailability(c),capabilities=vpayCapabilitySnapshot(c,channel?.status==='active',availability.queryReady&&availability.tradeCodes.length>0);
++    const {remoteOrderReady,...availability}=await vpayDepositAvailability(c),capabilities=vpayCapabilitySnapshot(c,channel?.status==='active',remoteOrderReady);
+@@ -177 +185,2 @@
+-  if (config.provider !== 'vpay' || config.mode !== c.mode || config.paymentReady !== true || config.traderId !== c.vpayTraderId || !Array.isArray(config.tradeCodes) || !config.tradeCodes.includes(tradeCode) || config.notifyUrl !== callbackUrl || config.returnUrl !== c.returnUrl) return json({ error: 'VPAY_GATEWAY_NOT_READY' }, 503);
++  const maintenance=remoteMaintenanceCapabilities(config);
++  if (config.provider !== 'vpay' || config.mode !== c.mode || config.paymentReady !== true || !maintenance.queryReady || !maintenance.callbacksReady || config.traderId !== c.vpayTraderId || !Array.isArray(config.tradeCodes) || !config.tradeCodes.includes(tradeCode) || config.notifyUrl !== callbackUrl || config.returnUrl !== c.returnUrl) return json({ error: 'VPAY_GATEWAY_NOT_READY' }, 503);
+--- a/tests/payment-auto-availability.test.mjs
++++ b/tests/payment-auto-availability.test.mjs
+@@ -55,0 +56,22 @@
++test('VPay gateway maintenance preserves query and callback status without advertising new orders',async t=>{
++ const f=fixture(t);f.state.configPatch=value=>({...value,paymentReady:false,queryReady:true,callbacksReady:true});
++ const status=await f.call('/api/payments/vpay/status');assert.equal(status.status,200);
++ assert.equal(status.data.queryReady,true);assert.equal(status.data.callbacksReady,true);assert.equal(status.data.orderReady,false);
++ const health=await f.call('/health');assert.equal(health.data.providerOrdersEnabled.vpay,false);
++ const created=await f.create('vpay');assert.ok(created.status>=400);assert.equal(f.state.orders.vpay,0);
++});
++
++for(const capability of ['queryReady','callbacksReady'])test(`VPay explicit ${capability}=false cannot inherit legacy readiness`,async t=>{
++ const f=fixture(t);f.state.configPatch=value=>({...value,queryReady:true,callbacksReady:true,[capability]:false});
++ const status=await f.call('/api/payments/vpay/status');assert.equal(status.data[capability],false);assert.equal(status.data.orderReady,false);
++ const created=await f.create('vpay');assert.ok(created.status>=400);assert.equal(f.state.orders.vpay,0);
++});
++
++test('VPay partially upgraded capability replies fail closed without downgrading to the legacy contract',async t=>{
++ for(const patch of [{queryReady:true},{callbacksReady:true},{queryReady:'true',callbacksReady:true},{queryReady:true,callbacksReady:null}]){
++  const f=fixture(t);f.state.configPatch=value=>({...value,...patch});
++  const status=await f.call('/api/payments/vpay/status');assert.equal(status.data.orderReady,false);
++  const created=await f.create('vpay');assert.ok(created.status>=400);assert.equal(f.state.orders.vpay,0);
++ }
++});
++
+--- a/tests/vpay-portal.test.mjs
++++ b/tests/vpay-portal.test.mjs
+@@ -31 +31 @@
+- const state={queries:0,configReads:0,queryPatch:data=>data,failQuery:false,requests:[]};
++ const state={queries:0,configReads:0,queryPatch:data=>data,configPatch:data=>data,failQuery:false,requests:[]};
+@@ -34 +34 @@
+-  if(url.pathname==='/platform/vpay/config'){state.configReads++;assert.equal(init.method,'GET');assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+queryToken);return Response.json({provider:'vpay',mode:'production',paymentReady:true,traderId,notifyUrl:gateway+'/callbacks/vpay/payment',returnUrl:context.returnUrl,tradeCodes:['2']});}
++  if(url.pathname==='/platform/vpay/config'){state.configReads++;assert.equal(init.method,'GET');assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+queryToken);return Response.json(state.configPatch({provider:'vpay',mode:'production',paymentReady:true,traderId,notifyUrl:gateway+'/callbacks/vpay/payment',returnUrl:context.returnUrl,tradeCodes:['2']}));}
+@@ -225,0 +226,11 @@
++test('gateway maintenance capability keeps existing payment verification and duplicate callback posting safe',async t=>{
++ const f=fixture(t);f.context.enabled='false';f.context.newDepositsEnabled='false';
++ f.state.configPatch=data=>({...data,paymentReady:false,queryReady:true,callbacksReady:true});
++ const status=await handleVPay(new Request(origin+'/api/payments/vpay/status'),f.context),body=await status.json();
++ assert.equal(body.queryReady,true);assert.equal(body.callbacksReady,true);assert.equal(body.orderReady,false);assert.equal(body.liveReady,false);
++ assert.deepEqual(await f.callback(),{status:200,body:'SUCCESS'});
++ assert.deepEqual(await f.callback(),{status:200,body:'SUCCESS'});
++ assert.equal(f.state.queries,1);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,2);
++ assert.equal(f.sql.prepare('SELECT SUM(amount_minor) n FROM wallet_ledger').get().n,0);
++});
++
