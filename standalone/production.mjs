@@ -12,6 +12,9 @@ export function validateStorageConfig(env=process.env){
  if(env.PORTAL_TEST_POSTGRES==='1'&&isProduction(env))throw Error('The embedded Postgres test driver cannot be used in production.');
  if(isProduction(env)&&!env.PORTAL_POSTGRES_URL?.trim())throw Error('Production requires PORTAL_POSTGRES_URL; refusing ephemeral SQLite storage.');
  if(Object.hasOwn(env,'PORTAL_POSTGRES_URL')&&!env.PORTAL_POSTGRES_URL?.trim())throw Error('PORTAL_POSTGRES_URL is empty.');
+ const postgresTlsMode=String(env.PORTAL_POSTGRES_TLS_MODE||'verify').trim();
+ if(!new Set(['verify','render-internal']).has(postgresTlsMode))throw Error('PORTAL_POSTGRES_TLS_MODE must be verify or render-internal.');
+ if(postgresTlsMode==='render-internal'&&env.PORTAL_UI_PREVIEW!=='1')throw Error('render-internal Postgres mode is restricted to the isolated UI preview.');
 }
 
 export function configuredWebOrigin(value,name,{production=false}={}){
