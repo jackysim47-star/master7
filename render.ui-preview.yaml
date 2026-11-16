@@ -1,0 +1,29 @@
+databases:
+  - name: master7-ui-preview-db
+    plan: free
+    region: singapore
+    postgresMajorVersion: 18
+
+services:
+  - type: web
+    name: master7-ui-preview
+    runtime: node
+    region: singapore
+    plan: free
+    autoDeployTrigger: off
+    buildCommand: npm ci --include=dev && npm run build && npm test
+    startCommand: PUBLIC_ORIGIN="$RENDER_EXTERNAL_URL" node standalone/server.mjs
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "24.19.0"
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: "0.0.0.0"
+      - key: PORTAL_HOSTING_REGION
+        value: singapore
+      - key: PORTAL_POSTGRES_URL
+        fromDatabase:
+          name: master7-ui-preview-db
+          property: connectionString
