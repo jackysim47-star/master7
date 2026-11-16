@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "payment",
+  "providerProfile": "gspay_myr",
+  "environment": "uat",
+  "releaseVersion": "17.0.0-selfbuilt.174-uat-preview",
+  "authorizedUat": false,
+  "officialContactVerified": false,
+  "whitelistConfirmed": false,
+  "testFundsType": "provider_test_credit",
+  "requiredEvidence": [
+    "official_api_document",
+    "api_version_and_environment",
+    "authentication_and_signature",
+    "timestamp_and_replay_contract",
+    "credential_rotation_evidence",
+    "order_contract",
+    "return_url_contract",
+    "callback_contract",
+    "duplicate_callback_and_idempotency_contract",
+    "query_and_recovery_contract",
+    "amount_member_currency_binding_contract",
+    "wallet_credit_contract",
+    "manual_review_contract",
+    "payout_and_status_query_contract",
+    "settlement_and_reconciliation_contract",
+    "test_account_and_credit_authorization",
+    "authorized_uat_scope",
+    "provider_uat_evidence"
+  ],
+  "evidence": {}
+}
