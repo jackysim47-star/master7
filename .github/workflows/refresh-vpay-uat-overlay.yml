@@ -1,0 +1,43 @@
+name: Refresh VPay UAT payout package
+
+on:
+  push:
+    branches:
+      - codex/v174-reconciliation-review-integrity-20261116
+    paths:
+      - .github/vpay-uat/**
+      - .github/workflows/refresh-vpay-uat-overlay.yml
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout V174 staging candidate
+        uses: actions/checkout@v4
+        with:
+          ref: codex/v174-reconciliation-review-integrity-20261116
+          fetch-depth: 0
+
+      - name: Apply the verified isolated VPay payout overlay
+        shell: bash
+        run: |
+          set -euo pipefail
+          work_dir="$(mktemp -d)"
+          tar -xzf master7-v17-render-staging.tar.gz -C "$work_dir"
+          package_dir="$work_dir/master7-v17-render-staging"
+          patch -d "$package_dir" -p1 < .github/vpay-uat/vpay-uat.patch
+          printf '%s  %s\n' \
+            '3ca714eef5b7791fa3c65968155d3b7a8e780fb177b8dec007929f9827876314' "$package_dir/lib/backend.ts" \
+            'f7f6b6bc2b6738ce2e19446a6b4986ba8790172b9c92be34bc8cc024f2a3ad29' "$package_dir/lib/vpay-payout.ts" \
+            'b651b14399ea3cf6331bf7b6a2ae7bb0e4393334fd903a8ebe99400b6bbdefe7' "$package_dir/tests/vpay-payout.test.mjs" | sha256sum -c -
+          tar --sort=name --mtime='@0' --owner=0 --group=0 --numeric-owner -czf "$work_dir/render-package.tar.gz" -C "$work_dir" master7-v17-render-staging
+          echo 'f05c72597b2cf3d22afd480a46d982b5af107f7eeb807f8dbaaca1486afd1fcb  '"$work_dir/render-package.tar.gz" | sha256sum -c -
+          mv "$work_dir/render-package.tar.gz" master7-v17-render-staging.tar.gz
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add master7-v17-render-staging.tar.gz
+          git commit -m "chore: refresh VPay UAT payout package [skip ci]"
+          git push origin HEAD:codex/v174-reconciliation-review-integrity-20261116
