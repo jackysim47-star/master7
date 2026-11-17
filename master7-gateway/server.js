@@ -368,7 +368,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
       && /^\d{1,7}\.\d{2}$/.test(amount) && Number(amount) > 0
       && ['1', '2', '3', '4', '5', '7'].includes(tradeCode)
       && Number.isSafeInteger(expiresAt) && expiresAt > nowSeconds && expiresAt <= nowSeconds + 3600;
-    return { required, ready, memberId, orderId, amount, tradeCode, expiresAt: Number.isSafeInteger(expiresAt) ? expiresAt : null };
+    return { required, ready, memberId, orderId, amount, tradeCode, expiresAt: Number.isSafeInteger(expiresAt) && expiresAt > 0 ? expiresAt : null };
   }
 
   function walletPaymentConfiguration() {
