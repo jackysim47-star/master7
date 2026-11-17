@@ -378,6 +378,26 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     return { required, ready, memberId, orderId, amount, tradeCode, expiresAt: Number.isSafeInteger(expiresAt) && expiresAt > 0 ? expiresAt : null };
   }
 
+  function vpayUatPayoutGate() {
+    const required = publicBase === VPAY_UAT_GATEWAY_ORIGIN && String(env.VPAY_MODE || 'uat') === 'uat';
+    if (!required) return { required: false, ready: true, expiresAt: null };
+    const memberId = String(env.VPAY_UAT_PAYOUT_MEMBER_ID || '');
+    const withdrawalId = String(env.VPAY_UAT_WITHDRAWAL_ID || '');
+    const payoutId = String(env.VPAY_UAT_PAYOUT_ID || '');
+    const amount = String(env.VPAY_UAT_PAYOUT_AMOUNT || '');
+    const expiresAt = Number(env.VPAY_UAT_PAYOUT_EXPIRES_AT || 0);
+    const nowSeconds = Math.floor(now().getTime() / 1000);
+    const ready = /^[A-Za-z0-9:_-]{3,100}$/.test(memberId)
+      && /^[A-Za-z0-9_-]{8,80}$/.test(withdrawalId)
+      && /^[A-Za-z0-9_-]{8,50}$/.test(payoutId)
+      && /^\d{1,7}\.\d{2}$/.test(amount) && Number(amount) > 0
+      && Number.isSafeInteger(expiresAt) && expiresAt > nowSeconds && expiresAt <= nowSeconds + 3600;
+    return {
+      required, ready, memberId, withdrawalId, payoutId, amount,
+      expiresAt: Number.isSafeInteger(expiresAt) && expiresAt > 0 ? expiresAt : null,
+    };
+  }
+
   function vpayCallbackSourceAllowlist() {
     const required = publicBase === VPAY_UAT_GATEWAY_ORIGIN && String(env.VPAY_MODE || 'uat') === 'uat';
     if (!required) return { required: false, ready: true, addresses: new Set() };
@@ -418,6 +438,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     const returnUrl = vpayReturnUrl;
     const readiness = vpayReadiness(env);
     const uatOrderGate = vpayUatOrderGate();
+    const uatPayoutGate = vpayUatPayoutGate();
     const callbackSourceAllowlist = vpayCallbackSourceAllowlist();
     const modeReady = ['uat', 'production'].includes(String(env.VPAY_MODE || 'uat'));
     // Existing-order lookup and signed callbacks survive a pause on new orders.
@@ -439,6 +460,9 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
       uatOrderGateRequired: uatOrderGate.required,
       uatOrderGateReady: uatOrderGate.ready,
       uatOrderExpiresAt: uatOrderGate.expiresAt,
+      uatPayoutGateRequired: uatPayoutGate.required,
+      uatPayoutGateReady: uatPayoutGate.ready,
+      uatPayoutExpiresAt: uatPayoutGate.expiresAt,
       callbackSourceAllowlistRequired: callbackSourceAllowlist.required,
       callbackSourceAllowlistReady: callbackSourceAllowlist.ready,
       tradeCodes, notifyUrl: callbackUrls().vpayPayment, returnUrl,
@@ -1479,6 +1503,15 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           || !/^[A-Za-z0-9_-]{8,50}$/.test(refId)
           || (walletPayout && (payload.contract !== 'vpay-payout-v1' || payload.currency !== 'MYR'))) {
           return send(res, 400, { error: 'invalid_vpay_withdrawal' });
+        }
+        const uatPayoutGate = vpayUatPayoutGate();
+        if (walletPayout && uatPayoutGate.required) {
+          if (!uatPayoutGate.ready) return send(res, 503, { error: 'vpay_uat_payout_gate_closed' });
+          if (payload.memberId !== uatPayoutGate.memberId
+            || payload.withdrawalId !== uatPayoutGate.withdrawalId
+            || refId !== uatPayoutGate.payoutId || amount !== uatPayoutGate.amount) {
+            return send(res, 403, { error: 'vpay_uat_payout_scope_mismatch' });
+          }
         }
         if (!vpayReadiness(env).channels.withdrawal.configurationReady) {
           return send(res, 503, { error: 'vpay_withdrawal_configuration_incomplete' });
