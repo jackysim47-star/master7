@@ -7,6 +7,7 @@ on:
     paths:
       - .github/vpay-uat/**
       - .github/vpay-auto-tune.patch
+      - .github/vpay-uat-order-gate.patch
       - .github/workflows/refresh-vpay-uat-overlay.yml
 
 permissions:
@@ -41,22 +42,35 @@ jobs:
               '84dfe4da22a404a09bd97ab95b114ce5bfc9fa79dd5c871def9fce2543c84ac2' "$package_dir/lib/vpay.ts" \
               '28da5af175eaaecaa5f66c95890a1e716674f9db5e5b188f9bc7c1c42971b0cc' "$package_dir/tests/vpay-uat-isolation.test.mjs" | sha256sum -c --status
           }
+          order_gate_ready() {
+            printf '%s  %s\n' \
+              'accaec29cdf56aa9006e7786d55d4e61a0f5a57bc93967ba635d087b070bd19d' "$package_dir/lib/vpay.ts" \
+              'fc2e9797a1e8e5d98d6ea694650432661af7768fd1c8546f582664da522b0200' "$package_dir/lib/backend.ts" \
+              'be3f2916ad0745049c85ab71c3d93c81bf11c5b94121d0e12650f9cb1f9db277' "$package_dir/lib/render-env-map.mjs" \
+              '9ecf65cc084ae9dddc40adbd317fc15ee02d31f91f3705614204353fc8f65f2a' "$package_dir/app/api/[...path]/route.ts" \
+              'fbfdd50829bb2635c1f7020502dec5edf20a2eb103db3d5f19fd78d22cda93cb' "$package_dir/tests/api.test.mjs" \
+              '436633afb6a5b9cdb5c87d5db660930ffa1ee0ee1339193b25b091b7f00fffec' "$package_dir/tests/render-env-map.test.mjs" | sha256sum -c --status
+          }
 
-          if ! old_overlay_ready; then
-            patch -d "$package_dir" -p1 < .github/vpay-uat/vpay-uat.patch
-          fi
-          if ! auto_tune_ready; then
-            patch -d "$package_dir" -p1 < .github/vpay-auto-tune.patch
+          if ! order_gate_ready; then
+            if ! old_overlay_ready; then
+              patch -d "$package_dir" -p1 < .github/vpay-uat/vpay-uat.patch
+            fi
+            if ! auto_tune_ready; then
+              patch -d "$package_dir" -p1 < .github/vpay-auto-tune.patch
+            fi
+            old_overlay_ready
+            auto_tune_ready
+            patch -d "$package_dir" -p1 < .github/vpay-uat-order-gate.patch
           fi
 
-          old_overlay_ready
-          auto_tune_ready
+          order_gate_ready
           tar --sort=name --mtime='@0' --owner=0 --group=0 --numeric-owner -czf "$work_dir/render-package.tar.gz" -C "$work_dir" master7-v17-render-staging
-          echo '800d92eb52e83d05dcf73916f39a7185bea31b6920977f8413d621ccbb2e1cfe  '"$work_dir/render-package.tar.gz" | sha256sum -c -
+          echo '087c7d2444b4cfad998edeb107a5e82716b837f22bf4da7bed997592827737a5  '"$work_dir/render-package.tar.gz" | sha256sum -c -
           mv "$work_dir/render-package.tar.gz" master7-v17-render-staging.tar.gz
 
           if git diff --quiet -- master7-v17-render-staging.tar.gz; then
-            echo "Render package already matches the verified VPay Auto Tune candidate."
+            echo "Render package already matches the verified VPay UAT safety-gate candidate."
             exit 0
           fi
 
