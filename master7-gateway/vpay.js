@@ -57,18 +57,20 @@ function verifyVpayNotification(payload, apiToken) {
 }
 
 function normalizeVpayBalance(payload) {
-  const value = payload?.balance;
-  let amount;
-  if (typeof value === 'number') {
-    if (!Number.isFinite(value) || value < 0 || value > 999999999999.99
-        || Math.round(value * 100) !== value * 100) return null;
-    amount = value.toFixed(2);
-  } else if (typeof value === 'string' && value === value.trim()
-      && /^(?:0|[1-9]\d{0,11})(?:\.\d{1,2})?$/.test(value)) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return null;
+  const amount = value => {
+    if (typeof value !== 'string' || value !== value.trim()
+        || !/^(?:0|[1-9]\d{0,11})(?:\.\d{1,2})?$/.test(value)) return null;
     const [whole, fraction = ''] = value.split('.');
-    amount = `${whole}.${fraction.padEnd(2, '0')}`;
-  } else return null;
-  return { currency: 'MYR', balance: amount };
+    return `${whole}.${fraction.padEnd(2, '0')}`;
+  };
+  // VPay's official TRADER_BALANCE contract returns these three fields.
+  // Expose only the available merchant balance and never the raw response.
+  const total = amount(payload.trader_balance);
+  const available = amount(payload.trader_real_balance);
+  const frozen = amount(payload.freeze_balance);
+  if (!total || !available || !frozen) return null;
+  return { currency: 'MYR', balance: available };
 }
 
 module.exports = {

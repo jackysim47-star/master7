@@ -89,11 +89,11 @@ test('one-time UAT credential check is token-gated, read-only, redacted and unav
 });
 test('balance-only credential exposes a normalized read-only MYR balance without granting transaction scopes',async()=>{
  const balanceEnv={...readyEnv,PLATFORM_BALANCE_TOKEN:balanceToken,VPAY_BALANCE_QUERY_ENABLED:'true'};let calls=0;
- const app=makeApp({env:balanceEnv,fetchImpl:async(_url,options)=>{calls++;assert.equal(JSON.parse(options.body).action,'TRADER_BALANCE');return Response.json({code:0,data:{balance:'98765.4',internal_note:'must-not-leak'}});}});
+ const app=makeApp({env:balanceEnv,fetchImpl:async(_url,options)=>{calls++;assert.equal(JSON.parse(options.body).action,'TRADER_BALANCE');return Response.json({code:0,data:{trader_balance:'98765.40',trader_real_balance:'98760.4',freeze_balance:'5.00',internal_note:'must-not-leak'}});}});
  for(const token of [undefined,peer,orderToken,payoutToken,balanceEnv.GATEWAY_ADMIN_TOKEN])assert.equal((await request(app,'/platform/vpay/balance',token,{})).status,401);
  assert.equal(calls,0);
  const result=await request(app,'/platform/vpay/balance',balanceToken,{});assert.equal(result.status,200);
- assert.deepEqual(result.body,{provider:'vpay',currency:'MYR',balance:'98765.40',readOnly:true,verified:false,settlementVerified:false});assert.equal(calls,1);
+ assert.deepEqual(result.body,{provider:'vpay',currency:'MYR',balance:'98760.40',readOnly:true,verified:false,settlementVerified:false});assert.equal(calls,1);
  const config=await request(app,'/platform/vpay/config',peer,{},'GET');assert.equal(config.status,200);assert.equal(config.body.balanceReady,true);
  for(const path of ['/platform/vpay/order','/platform/vpay/order-query','/platform/vpay/withdrawal','/admin/vpay/balance'])assert.equal((await request(app,path,balanceToken,{})).status,401);
  assert.equal(calls,1);
@@ -101,11 +101,18 @@ test('balance-only credential exposes a normalized read-only MYR balance without
 test('balance scope fails closed when disabled or when the provider response is not canonical',async()=>{
  let calls=0;const disabled=makeApp({env:{...readyEnv,PLATFORM_BALANCE_TOKEN:balanceToken,VPAY_BALANCE_QUERY_ENABLED:'false'},fetchImpl:async()=>{calls++;throw Error('must not call provider');}});
  assert.equal((await request(disabled,'/platform/vpay/balance',balanceToken,{})).status,503);assert.equal(calls,0);
- for(const balance of ['-1.00','01.00','1.001',null]){
-  const app=makeApp({env:{...readyEnv,PLATFORM_BALANCE_TOKEN:balanceToken,VPAY_BALANCE_QUERY_ENABLED:'true'},fetchImpl:async()=>{calls++;return Response.json({code:0,data:{balance}});}});
+ for(const data of [
+  {trader_balance:'10.00',trader_real_balance:'-1.00',freeze_balance:'0.00'},
+  {trader_balance:'10.00',trader_real_balance:'01.00',freeze_balance:'0.00'},
+  {trader_balance:'10.00',trader_real_balance:'1.001',freeze_balance:'0.00'},
+  {trader_balance:'10.00',trader_real_balance:null,freeze_balance:'0.00'},
+  {trader_balance:'10.00',trader_real_balance:'10.00'},
+  {balance:'10.00'},
+ ]){
+  const app=makeApp({env:{...readyEnv,PLATFORM_BALANCE_TOKEN:balanceToken,VPAY_BALANCE_QUERY_ENABLED:'true'},fetchImpl:async()=>{calls++;return Response.json({code:0,data});}});
   assert.equal((await request(app,'/platform/vpay/balance',balanceToken,{})).status,502);
  }
- assert.equal(calls,4);
+ assert.equal(calls,6);
 });
 test('order-only credential creates through server-selected methods and callback URLs and cannot query, withdraw or inspect balances',async()=>{
  let upstream,calls=0;const app=makeApp({env:readyEnv,fetchImpl:async(url,options)=>{calls++;upstream=JSON.parse(options.body);return Response.json({code:0,data:{trade_no:'provider_1'}});}});
