@@ -1,0 +1,260 @@
+diff -ruN '--exclude=node_modules' '--exclude=.next' '--exclude=.output' a/drizzle/0127_vpay_provider_money_id.sql b/drizzle/0127_vpay_provider_money_id.sql
+--- a/drizzle/0127_vpay_provider_money_id.sql	1970-01-01 08:00:00.000000000 +0800
++++ b/drizzle/0127_vpay_provider_money_id.sql	2026-11-18 01:35:16.264118279 +0800
+@@ -0,0 +1,5 @@
++-- Keep the provider's money_id separate from our existing out_money_id.
++-- Historical payouts remain nullable until an authenticated callback binds it.
++ALTER TABLE provider_payouts ADD COLUMN provider_money_id TEXT;
++CREATE UNIQUE INDEX provider_payout_money_id ON provider_payouts(provider_id,provider_money_id)
++ WHERE provider_money_id IS NOT NULL;
+diff -ruN '--exclude=node_modules' '--exclude=.next' '--exclude=.output' a/lib/backend.ts b/lib/backend.ts
+--- a/lib/backend.ts	1970-01-01 08:00:00.000000000 +0800
++++ b/lib/backend.ts	2026-11-18 01:45:51.249869892 +0800
+@@ -44,7 +44,7 @@
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.175-vpay-button-polish';
++export const RELEASE = '17.0.0-selfbuilt.176-vpay-payout-references';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+diff -ruN '--exclude=node_modules' '--exclude=.next' '--exclude=.output' a/lib/render-migrations.mjs b/lib/render-migrations.mjs
+--- a/lib/render-migrations.mjs	1970-01-01 08:00:00.000000000 +0800
++++ b/lib/render-migrations.mjs	2026-11-18 01:35:17.100078383 +0800
+@@ -1267,6 +1267,14 @@
+  await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[WITHDRAWAL_DESTINATION_METHODS_MIGRATION]);return true;
+ }
+ 
++export const VPAY_PROVIDER_MONEY_ID_MIGRATION='0127-vpay-provider-money-id';
++async function applyVPayProviderMoneyIdMigration(client){
++ const applied=await client.query('SELECT version FROM portal_schema_migrations WHERE version=$1',[VPAY_PROVIDER_MONEY_ID_MIGRATION]);if(applied.rows.length)return false;
++ await client.query('ALTER TABLE provider_payouts ADD COLUMN IF NOT EXISTS provider_money_id TEXT');
++ await client.query('CREATE UNIQUE INDEX IF NOT EXISTS provider_payout_money_id ON provider_payouts(provider_id,provider_money_id) WHERE provider_money_id IS NOT NULL');
++ await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[VPAY_PROVIDER_MONEY_ID_MIGRATION]);return true;
++}
++
+ export async function initializePortalDatabase(pool, schema, directoryEntries, options = {}) {
+   const client = await pool.connect();
+   try {
+@@ -1316,6 +1324,7 @@
+     await applyManualBankAuditEvidenceIndexMigration(client);
+     await applyPrivilegedStaffPasswordBoundaryMigration(client);
+ 	    await applyReconciliationOwnerReviewMigration(client);
++    await applyVPayProviderMoneyIdMigration(client);
+     const criticalDatabaseGuards = await assertCriticalDatabaseGuards(client,{schemaName:expectedSchema});
+     const rows = seedRows(directoryEntries);
+     await client.query(
+diff -ruN '--exclude=node_modules' '--exclude=.next' '--exclude=.output' a/lib/vpay-payout.ts b/lib/vpay-payout.ts
+--- a/lib/vpay-payout.ts	1970-01-01 08:00:00.000000000 +0800
++++ b/lib/vpay-payout.ts	2026-11-18 01:35:17.852042502 +0800
+@@ -22,7 +22,7 @@
+ const callbackPath='/api/payment-callbacks/vpay/withdrawal';
+ const bankCodes:Record<string,string>={
+  maybank:'MBB',cimb:'CIMB',public_bank:'PBB',rhb:'RHB',hong_leong:'HLB',ambank:'AMB',
+- bank_islam:'ISLAM',bank_rakyat:'KRYT',bsn:'BSN',alliance:'ALB',affin:'AFB',ocbc:'OCBC',
++ bank_islam:'ISLAM',bsn:'BSN',alliance:'ALB',affin:'AFB',ocbc:'OCBC',
+  uob:'UOB',hsbc:'HSBC',standard_chartered:'SCB',agrobank:'AGRO',bank_muamalat:'BMM',
+ };
+ const json=(value:unknown,status=200)=>Response.json(value,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
+@@ -90,6 +90,19 @@
+   WHERE p.id=? AND p.provider_id='vpay' AND w.provider_id='vpay'`).bind(payoutId).first<any>();
+ }
+ 
++// Bind the provider ID once, under the same member lock as settlement. The
++// callback can arrive before the create response; either may establish it.
++async function bindProviderMoneyId(c:VPayPayoutContext,payout:any,moneyId:string){
++ const [bound]=await payoutBatch(c,payout.user_id,[c.db.prepare(`UPDATE provider_payouts
++  SET provider_money_id=COALESCE(provider_money_id,?),updated_at=?
++  WHERE id=? AND provider_id='vpay' AND status IN ('submitting','processing','succeeded','review')
++   AND (provider_money_id IS NULL OR provider_money_id=?)
++   AND NOT EXISTS (SELECT 1 FROM provider_payouts other WHERE other.provider_id='vpay' AND other.provider_money_id=? AND other.id<>?)
++   AND EXISTS (SELECT 1 FROM withdrawal_requests w WHERE w.id=provider_payouts.withdrawal_id AND w.user_id=?)`)
++  .bind(moneyId,Math.floor(Date.now()/1000),payout.id,moneyId,moneyId,payout.id,payout.user_id)]);
++ return changeCount(bound)>0;
++}
++
+ function secrets(c:VPayPayoutContext,payout:any){
+  try{const accountHolder=decryptWithdrawalValue(String(payout.account_holder_encrypted),c.withdrawalDataKey),accountNumber=decryptWithdrawalValue(String(payout.account_number_encrypted),c.withdrawalDataKey);return accountHolder&&/^\d{6,20}$/.test(accountNumber)?{accountHolder,accountNumber}:null;}catch{return null;}
+ }
+@@ -203,7 +216,9 @@
+  try{
+   const response=await gateway(c,'/platform/vpay/withdrawal',{contract:'vpay-payout-v1',currency:'MYR',...(gate.required?{memberId:gate.memberId,withdrawalId:payout.withdrawal_id}:{}),refId:payout.id,amount,bankName:mapped,accountName:bound.accountHolder,accountNumber:bound.accountNumber}),envelope=response.data?.result,data=envelope?.data,returned=reference(data?.out_money_id);
+   if(!response.ok){if([400,401,403,503].includes(response.status)||(response.data?.provider==='vpay'&&envelope?.code!==undefined))return failed(c,payout,'provider_submission_rejected');throw Error('PAYOUT_SUBMISSION_UNKNOWN');}
+-  if((envelope?.code!==0&&envelope?.code!=='0')||returned!==payout.id||!reference(data?.money_id))return toReview(c,payout,'create_binding_mismatch');
++  const moneyId=reference(data?.money_id);
++  if((envelope?.code!==0&&envelope?.code!=='0')||returned!==payout.id||!moneyId)return toReview(c,payout,'create_binding_mismatch');
++  if(!await bindProviderMoneyId(c,payout,moneyId))return toReview(c,payout,'provider_money_id_mismatch');
+   await payoutBatch(c,payout.user_id,[c.db.prepare("UPDATE provider_payouts SET status='processing',create_outcome='accepted',provider_reference=?,last_error_code=NULL,updated_at=? WHERE id=? AND status='submitting' AND EXISTS (SELECT 1 FROM withdrawal_requests w WHERE w.id=provider_payouts.withdrawal_id AND w.user_id=?)").bind(returned,Math.floor(Date.now()/1000),payout.id,payout.user_id)]);
+   try{return await reconcile(c,payout.id);}catch{return {status:'processing',providerReference:returned};}
+  }catch{
+@@ -221,8 +236,9 @@
+  const url=new URL(req.url);if(url.pathname!==callbackPath)return null;if(req.method==='GET')return json({ok:true,provider:'vpay',callback:'withdrawal',active:configured(c),settlementVerified:false});if(req.method!=='POST')return json({error:'Method not allowed'},405);
+  if(!configured(c))return ack('UNAVAILABLE',503);const authorization=req.headers.get('authorization')??'',given=authorization.startsWith('Bearer ')?authorization.slice(7):'';if(!constantEqual(given,c.callbackToken!))return ack('UNAUTHORIZED',401);
+  let data:any;try{data=await req.json();}catch{return ack('INVALID',400);}if(!data||typeof data!=='object'||Array.isArray(data))return ack('INVALID',400);
+- const payoutId=reference(data.out_money_id),amount=moneyMinor(data.amount),state=String(data.state??'');if(!payoutId||!amount||!['1','2','3','4','5','6'].includes(state)||String(data.trader_id)!==c.vpayTraderId)return ack('INVALID',400);
++ const payoutId=reference(data.out_money_id),moneyId=reference(data.money_id),amount=moneyMinor(data.amount),state=String(data.state??'');if(!payoutId||!moneyId||!amount||!['1','2','3','4','5','6'].includes(state)||String(data.trader_id)!==c.vpayTraderId)return ack('INVALID',400);
+  const payout=await payoutRecord(c,payoutId);if(!payout)return ack('UNKNOWN',404);if(String(payout.amount_minor)!==amount)return ack('REVIEW',409);
++ if(!await bindProviderMoneyId(c,payout,moneyId)){await toReview(c,payout,'provider_money_id_mismatch');return ack('REVIEW',409);}
+  const eventHash=createHash('sha256').update(JSON.stringify({payoutId,amount,state,moneyId:String(data.money_id??'')})).digest('hex');await c.db.prepare("UPDATE provider_payouts SET last_event_hash=?,updated_at=? WHERE id=? AND status<>'reversed'").bind(eventHash,Math.floor(Date.now()/1000),payout.id).run();
+  try{const result=state==='5'?await toReview(c,payout,'provider_exception_callback'):await reconcile(c,payout.id);return result.status==='review'&&state!=='5'?ack('REVIEW',503):ack();}catch{return ack('PENDING',503);}
+ }
+diff -ruN '--exclude=node_modules' '--exclude=.next' '--exclude=.output' a/lib/withdrawals.ts b/lib/withdrawals.ts
+--- a/lib/withdrawals.ts	1970-01-01 08:00:00.000000000 +0800
++++ b/lib/withdrawals.ts	2026-11-18 01:35:18.620005849 +0800
+@@ -29,7 +29,7 @@
+ const cleanAccount=(value:unknown)=>{const account=typeof value==='string'?value.replace(/[\s-]/g,''):'';return /^\d{6,20}$/.test(account)?account:null;};
+ const destinationType=(x:any):'bank'|'ewallet'=>x.destination_type==='ewallet'?'ewallet':'bank';
+ const record=(x:any)=>{const method=destinationType(x),last4=method==='ewallet'?x.ewallet_account_last4:x.account_last4;return {id:x.id,userId:x.user_id,username:x.username??undefined,providerId:x.provider_id,providerName:x.provider_name,destinationType:method,destinationMethod:method==='ewallet'?'E-Wallet':'Bank Account',bankCode:method==='bank'?x.bank_code:undefined,bankName:method==='bank'?x.bank_name:undefined,ewalletCode:method==='ewallet'?x.ewallet_code:undefined,ewalletName:method==='ewallet'?x.ewallet_name:undefined,destinationNumber:`•••• ${last4}`,accountNumber:`•••• ${last4}`,accountLast4:last4,amountMinor:String(x.amount_minor),currency:x.currency,status:x.status,ownerNote:x.owner_note,createdAt:Number(x.created_at),updatedAt:Number(x.updated_at)};};
+-const ownerBaseRecord=(x:any)=>{const redacted:Record<string,unknown>={...record(x),payoutId:x.payout_id,payoutStatus:x.payout_status,payoutReference:x.payout_reference,companyBankId:x.manual_bank_account_id,bankTransactionId:x.provider_id==='manual_bank'?x.payout_reference:undefined,auditReference:`MASTER7 ${x.id}`,reviewStatus:x.status};delete redacted.accountNumber;delete redacted.destinationNumber;return redacted;};
++const ownerBaseRecord=(x:any)=>{const redacted:Record<string,unknown>={...record(x),payoutId:x.payout_id,payoutStatus:x.payout_status,payoutReference:x.payout_reference,providerMoneyId:x.provider_id==='vpay'?x.provider_money_id:undefined,companyBankId:x.manual_bank_account_id,bankTransactionId:x.provider_id==='manual_bank'?x.payout_reference:undefined,auditReference:`MASTER7 ${x.id}`,reviewStatus:x.status};delete redacted.accountNumber;delete redacted.destinationNumber;return redacted;};
+ // The owner needs the recipient name and account suffix for a human review,
+ // never the full account number. Decrypt both fields only to validate that the
+ // server-side approval fingerprint still describes readable, matching data.
+@@ -44,7 +44,7 @@
+ 
+ // The owner must approve precisely the recipient and amount displayed on the list.
+ export const approvalFingerprint=(x:any)=>createHash('sha256').update(JSON.stringify(destinationType(x)==='bank'?[x.id,x.payout_id,x.user_id,x.provider_id,x.request_key,String(x.amount_minor),x.currency,x.bank_code,x.account_holder_encrypted,x.account_number_encrypted,x.payout_fingerprint,String(x.compliance_version)]:[x.id,x.payout_id,x.user_id,x.provider_id,x.request_key,String(x.amount_minor),x.currency,'ewallet',x.ewallet_code,x.account_holder_encrypted,x.ewallet_account_encrypted,x.payout_fingerprint,String(x.compliance_version)])).digest('hex');
+-export const approvalQuery=`SELECT w.*,u.username,p.id payout_id,p.fingerprint payout_fingerprint,p.status payout_status,p.create_outcome payout_outcome,p.provider_reference payout_reference,p.manual_bank_account_id,c.version compliance_version,
++export const approvalQuery=`SELECT w.*,u.username,p.id payout_id,p.fingerprint payout_fingerprint,p.status payout_status,p.create_outcome payout_outcome,p.provider_reference payout_reference,p.provider_money_id,p.manual_bank_account_id,c.version compliance_version,
+  CASE WHEN c.identity_status='passed' AND c.aml_status='passed' AND w.status='pending' AND p.status='prepared' AND p.create_outcome='not_submitted' AND p.provider_reference IS NULL
+  AND p.provider_id=w.provider_id AND p.request_key=w.request_key AND p.amount_minor=w.amount_minor AND p.currency=w.currency
+  AND EXISTS (SELECT 1 FROM wallet_reservations r WHERE r.kind='withdrawal' AND r.reference_id=w.id AND r.user_id=w.user_id AND r.amount_minor=w.amount_minor)
+diff -ruN '--exclude=node_modules' '--exclude=.next' '--exclude=.output' a/public/service-worker.js b/public/service-worker.js
+--- a/public/service-worker.js	1970-01-01 08:00:00.000000000 +0800
++++ b/public/service-worker.js	2026-11-18 01:45:51.961835979 +0800
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.175-vpay-button-polish';
++const CACHE='master7-shell-17.0.0-selfbuilt.176-vpay-payout-references';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+diff -ruN '--exclude=node_modules' '--exclude=.next' '--exclude=.output' a/scripts/verify-isolated-postgres-payouts.mjs b/scripts/verify-isolated-postgres-payouts.mjs
+--- a/scripts/verify-isolated-postgres-payouts.mjs	1970-01-01 08:00:00.000000000 +0800
++++ b/scripts/verify-isolated-postgres-payouts.mjs	2026-11-18 01:36:44.971890409 +0800
+@@ -26,6 +26,9 @@
+  assert.equal(identity.rows[0].name,'master7_v18_payout_test');assert.equal(identity.rows[0].tables,0,'test database must be empty');
+  const schema=await readFile(new URL('../db/render-schema.sql',import.meta.url),'utf8'),directory=JSON.parse(await readFile(new URL('../db/vendor-directory.json',import.meta.url),'utf8'));
+  await initializePortalDatabase(pool,schema,directory);
++ await initializePortalDatabase(pool,schema,directory);
++ assert.equal((await pool.query("SELECT COUNT(*)::int n FROM portal_schema_migrations WHERE version='0127-vpay-provider-money-id'")).rows[0].n,1);
++ assert.equal((await pool.query("SELECT indisunique AND indisvalid AND indisready AS ready FROM pg_index WHERE indexrelid='provider_payout_money_id'::regclass")).rows[0].ready,true);
+  process.env.PORTAL_POSTGRES_URL=connection;process.env.PGSSLMODE='disable';globalThis.fetch=async()=>{throw Error('Unexpected external request');};
+  const db=new RenderD1Compat();
+  await pool.query("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES ('test-owner','test-owner','owner',1,'test',0)");
+@@ -59,6 +62,23 @@
+  function gspayContext(fetchImpl){return {db,apiBase:'https://api.thegspay.com',authKey,secretKey,returnUrl:'https://master7-v17-staging.onrender.com/payment/return',withdrawalDataKey:dataKey,fetchImpl};}
+  const vpayReply=(id,state)=>Response.json({provider:'vpay',result:{code:0,data:{out_money_id:id,state,amount:'20.00'}}});
+  const gspayReply=(id,reference,completed,success)=>Response.json({code:200,data:JSON.stringify([{payout_id:reference,transaction_id:id,account_name:'Synthetic User',account_number:'123456789012',amount:'20.00',completed,payout_success:success,signature:gspayPayoutResultSignature(reference,'123456789012','20.00',id,secretKey)}])});
++ await t.test('VPay persists distinct provider IDs and rejects duplicate or conflicting bindings on PostgreSQL',async()=>{
++  const f=await seed('vpay-money-id','vpay','prepared');await approveFixture(f);let queryState='1',queries=0;
++  const c=vpayContext(async(input,init)=>{const body=JSON.parse(init.body);if(new URL(String(input)).pathname==='/platform/vpay/withdrawal')return Response.json({provider:'vpay',result:{code:0,data:{money_id:'provider_money_001',out_money_id:body.refId}}});queries++;return vpayReply(body.outMoneyId,queryState);});
++  const submit=fixture=>submitVPayPayout({payoutId:fixture.payout,withdrawalId:fixture.withdrawal,userId:fixture.user,accountHolder:'Synthetic User',accountNumber:'123456789012',bankCode:'maybank',amountMinor:'2000'},c);
++  assert.equal((await submit(f)).status,'processing');
++  const row=(await pool.query('SELECT provider_reference,provider_money_id FROM provider_payouts WHERE id=$1',[f.payout])).rows[0];
++  assert.equal(row.provider_reference,f.payout);assert.equal(row.provider_money_id,'provider_money_001');
++  const callback=moneyId=>handleVPayPayoutCallback(new Request('https://portal.example.test/api/payment-callbacks/vpay/withdrawal',{method:'POST',headers:{Authorization:'Bearer '+c.callbackToken,'Content-Type':'application/json'},body:JSON.stringify({trader_id:'123',out_money_id:f.payout,money_id:moneyId,state:queryState,amount:'20.00'})}),c);
++  queryState='3';assert.equal((await callback('provider_money_001')).status,200);assert.equal((await callback('provider_money_001')).status,200);
++  assert.equal((await state(f)).balance,'8000');assert.equal((await state(f)).reservations,0);
++  const before=queries;assert.equal((await callback('provider_money_other')).status,409);assert.equal(queries,before);
++  assert.equal((await state(f)).payout,'review');assert.equal((await state(f)).balance,'8000');
++  const duplicate=await seed('vpay-duplicate-money','vpay','prepared');await approveFixture(duplicate);
++  assert.equal((await submit(duplicate)).status,'review');assert.equal(queries,before);
++  assert.equal((await state(duplicate)).reservations,1);
++  assert.equal((await pool.query("SELECT COUNT(*)::int n FROM provider_payouts WHERE provider_money_id='provider_money_001'")).rows[0].n,1);
++ });
+  for(const provider of ['vpay','gspay'])for(const first of ['success','failure'])await t.test(`${provider} ${first} before a conflicting late response`,async()=>{
+   const f=await seed(`${provider}-${first}`,provider),one=gate(),two=gate();let calls=0;
+   const fetchImpl=async()=>{const n=++calls,g=n===1?one:two;g.signal();await g.wait;const success=n===1?first==='success':first!=='success';return provider==='vpay'?vpayReply(f.payout,success?'3':'2'):gspayReply(f.payout,provider==='gspay'&&first==='success'?'12340001':'12340002',true,success);};
+diff -ruN '--exclude=node_modules' '--exclude=.next' '--exclude=.output' a/tests/render-migrations.test.mjs b/tests/render-migrations.test.mjs
+--- a/tests/render-migrations.test.mjs	1970-01-01 08:00:00.000000000 +0800
++++ b/tests/render-migrations.test.mjs	2026-11-18 01:35:56.090220390 +0800
+@@ -70,6 +70,20 @@
+   release() { this.released = true; }
+ }
+ 
++test('VPay provider money ID migration is additive and only runs once at startup',async()=>{
++ const client=new FakePgClient(),pool={connect:async()=>client};
++ await initializePortalDatabase(pool,'SELECT 1;',[]);
++ const column='ALTER TABLE provider_payouts ADD COLUMN IF NOT EXISTS provider_money_id TEXT';
++ const index='CREATE UNIQUE INDEX IF NOT EXISTS provider_payout_money_id ON provider_payouts(provider_id,provider_money_id) WHERE provider_money_id IS NOT NULL';
++ assert.ok(client.applied.has('0127-vpay-provider-money-id'));
++ const position=client.events.findIndex(event=>event.sql===column);
++ assert.ok(position>client.events.findIndex(event=>event.sql==='BEGIN'));
++ assert.ok(position<client.events.findIndex(event=>event.sql==='COMMIT'));
++ await initializePortalDatabase(pool,'SELECT 1;',[]);
++ assert.equal(client.events.filter(event=>event.sql===column).length,1);
++ assert.equal(client.events.filter(event=>event.sql===index).length,1);
++});
++
+ test('Render startup status migration is transactional, idempotent and rolls back a failed catalog seed', async t => {
+   const client = new FakePgClient();
+   const pool = { connect: async () => client };
+diff -ruN '--exclude=node_modules' '--exclude=.next' '--exclude=.output' a/tests/vpay-payout.test.mjs b/tests/vpay-payout.test.mjs
+--- a/tests/vpay-payout.test.mjs	1970-01-01 08:00:00.000000000 +0800
++++ b/tests/vpay-payout.test.mjs	2026-11-18 01:34:29.034373178 +0800
+@@ -17,7 +17,7 @@
+  const state={submits:0,queries:0,payoutState:'3',amount:'20.00',gatewayOrigins:[]};
+  const config={db,identity:{userId:'alice',email:'alice@example.test'},ownerEmail:'',allowedOrigins,newPayoutsEnabled,withdrawalDataKey:dataKey,vpayGatewayUrl:gatewayUrl,vpayPayoutToken:payoutToken,vpayCallbackToken:callbackToken,vpayPayoutEnabled:enabled?'true':'false',vpayTraderId:'3647',vpayMode:mode,vpayReturnUrl:returnUrl,...(uatGate?{vpayUatPayoutMemberId:uat.memberId,vpayUatWithdrawalId:uat.withdrawalId,vpayUatPayoutId:uat.payoutId,vpayUatPayoutAmountMinor:uat.amountMinor,vpayUatPayoutExpiresAt:uat.expiresAt}:{}),vpayFetch:async(input,init)=>{
+   const url=new URL(String(input)),body=JSON.parse(init.body);state.gatewayOrigins.push(url.origin);assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+payoutToken);
+-  if(url.pathname==='/platform/vpay/withdrawal'){state.submits++;assert.deepEqual(body,{contract:'vpay-payout-v1',currency:'MYR',...(uatGate?{memberId:uat.memberId,withdrawalId:uat.withdrawalId}:{}),refId:body.refId,amount:'20.00',bankName:'MBB',accountName:'Alice Example',accountNumber:'123456789012'});return Response.json({provider:'vpay',upstreamStatus:200,result:{code:0,data:{money_id:'provider_123',out_money_id:body.refId}}});}
++  if(url.pathname==='/platform/vpay/withdrawal'){state.submits++;assert.deepEqual(body,{contract:'vpay-payout-v1',currency:'MYR',...(uatGate?{memberId:uat.memberId,withdrawalId:uat.withdrawalId}:{}),refId:body.refId,amount:'20.00',bankName:'MBB',accountName:'Alice Example',accountNumber:'123456789012'});if(state.createHook)await state.createHook();return Response.json({provider:'vpay',upstreamStatus:200,result:{code:0,data:{money_id:'provider_123',out_money_id:body.refId}}});}
+   assert.equal(url.pathname,'/platform/vpay/withdrawal-query');state.queries++;const queryState=state.payoutState;if(state.queryHook)await state.queryHook(queryState);return Response.json({provider:'vpay',upstreamStatus:200,result:{code:0,data:{out_money_id:body.outMoneyId,state:queryState,amount:state.amount,service_fee:'0.50'}}});
+  }};
+  async function call(path,{who='alice',method='GET',data,headers={},extra={}}={}){const response=await handle(new Request(portalOrigin+path,{method,headers:{Origin:portalOrigin,'Content-Type':'application/json','X-CSRF-Token':'csrf-'+who,...headers},...(data===undefined?{}:{body:JSON.stringify(data)})}),{...config,identity:who?{userId:who,email:who+'@example.test'}:null,...extra});return {status:response.status,data:response.headers.get('content-type')?.includes('json')?await response.json():await response.text()};}
+@@ -41,6 +41,55 @@
+ 
+ test('VPay payout is closed until its separate switch is enabled',async t=>{const f=fixture(t,{enabled:false}),result=await f.createAndApprove({method:'POST',data:f.payload()});assert.equal(result.status,503);assert.equal(f.state.submits,0);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM withdrawal_requests').get().n,0);});
+ 
++test('VPay stores its provider money ID separately and repeated callbacks preserve one debit',async t=>{
++ const f=fixture(t);await f.createAndApprove({method:'POST',data:f.payload()});
++ const payout=f.sql.prepare('SELECT id,provider_reference,provider_money_id FROM provider_payouts').get();
++ assert.equal(payout.provider_money_id,'provider_123');assert.equal(payout.provider_reference,payout.id);
++ for(let i=0;i<2;i++)assert.deepEqual(await f.callback(),{status:200,data:'SUCCESS'});
++ const list=await f.call('/api/admin/withdrawals',{who:'owner'});assert.equal(list.data.items[0].providerMoneyId,'provider_123');
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM withdrawal_requests WHERE status=\'paid\'').get().n,1);
++ assert.equal((await f.call('/api/wallet')).data.balanceMinor,'8000');
++});
++
++test('VPay rejects undocumented Bank Rakyat mapping before reserving or submitting funds',async t=>{
++ const f=fixture(t),result=await f.call('/api/withdrawals',{method:'POST',data:f.payload({bankCode:'bank_rakyat'})});
++ assert.equal(result.status,400);assert.equal(f.state.submits,0);
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);
++});
++
++test('VPay callback with another provider money ID requires review and preserves held funds',async t=>{
++ const f=fixture(t);f.state.payoutState='1';await f.createAndApprove({method:'POST',data:f.payload()});
++ const before=f.state.queries;f.state.payoutState='3';assert.equal((await f.callback({money_id:'provider_other'})).status,409);
++ assert.equal(f.state.queries,before);assert.equal(f.sql.prepare('SELECT provider_money_id FROM provider_payouts').get().provider_money_id,'provider_123');
++ assert.equal(f.sql.prepare('SELECT status FROM provider_payouts').get().status,'review');
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,1);
++ assert.equal((await f.call('/api/wallet')).data.balanceMinor,'10000');
++});
++
++test('VPay binds a provider money ID from a callback when the create response was lost',async t=>{
++ const f=fixture(t);f.state.payoutState='1';await f.createAndApprove({method:'POST',data:f.payload()});
++ f.sql.prepare("UPDATE provider_payouts SET provider_money_id=NULL,create_outcome='unknown'").run();
++ for(const money_id of [undefined,'','bad/id'])assert.equal((await f.callback({money_id})).status,400);
++ f.state.payoutState='3';assert.equal((await f.callback()).status,200);
++ assert.equal(f.sql.prepare('SELECT provider_money_id FROM provider_payouts').get().provider_money_id,'provider_123');
++});
++
++test('VPay does not reuse one provider money ID for two payouts',async t=>{
++ const f=fixture(t);await f.createAndApprove({method:'POST',data:f.payload()});
++ const second=await f.createAndApprove({method:'POST',data:f.payload({requestKey:'vpay-payout-request-0002'})});
++ assert.equal(second.data.status,'review');assert.equal(f.state.queries,1);
++ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM provider_payouts WHERE provider_money_id='provider_123'").get().n,1);
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,1);
++});
++
++for(const conflicting of [false,true])test(`VPay callback arriving before the create response ${conflicting?'rejects a conflicting':'preserves the same'} provider money ID`,async t=>{
++ const f=fixture(t);f.state.createHook=async()=>{assert.equal((await f.callback({money_id:conflicting?'provider_other':'provider_123'})).status,200);};
++ const result=await f.createAndApprove({method:'POST',data:f.payload()});
++ assert.equal(result.data.status,conflicting?'review':'paid');
++ assert.equal(f.sql.prepare('SELECT provider_money_id FROM provider_payouts').get().provider_money_id,conflicting?'provider_other':'provider_123');
++ assert.equal((await f.call('/api/wallet')).data.balanceMinor,'8000');
++});
++
+ test('isolated Staging VPay payout uses only the exact UAT Gateway',async t=>{
+  const f=fixture(t,{gatewayUrl:uatGateway,portalOrigin:stagingOrigin,mode:'uat'}),result=await f.createAndApprove({method:'POST',data:f.payload()});
+  assert.equal(result.status,202);assert.equal(result.data.status,'paid');assert.deepEqual([...new Set(f.state.gatewayOrigins)],[uatGateway]);
