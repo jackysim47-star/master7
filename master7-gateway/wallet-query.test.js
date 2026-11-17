@@ -61,6 +61,18 @@ test('isolated UAT can advertise an approved channel while orders stay paused an
  const production=await request(makeApp({env:{...uatEnv,VPAY_MODE:'production'},fetchImpl:async()=>{throw Error('Configuration must not call supplier');}}),'/platform/vpay/config',peer,{},'GET');
  assert.equal(production.status,200);assert.deepEqual(production.body.tradeCodes,[]);assert.equal(production.body.paymentReady,false);
 });
+test('one-time UAT credential check is token-gated, read-only, redacted and unavailable in production',async()=>{
+ const diagnosticToken='synthetic-vpay-diagnostic-token-at-least-32-bytes';let calls=0;
+ const diagnosticEnv={...readyEnv,VPAY_ORDERS_ENABLED:'false',VPAY_DIAGNOSTIC_TOKEN:diagnosticToken};
+ const fetchImpl=async(_url,options)=>{calls++;assert.equal(JSON.parse(options.body).action,'TRADER_BALANCE');return Response.json({code:0,data:{balance:'98765.43'}});};
+ const app=makeApp({env:diagnosticEnv,fetchImpl});
+ assert.equal((await request(app,'/diagnostics/vpay/credentials',undefined,{},'POST')).status,401);
+ assert.equal((await request(app,'/diagnostics/vpay/credentials','wrong-token',{},'POST')).status,401);assert.equal(calls,0);
+ const checked=await request(app,'/diagnostics/vpay/credentials',diagnosticToken,{},'POST');
+ assert.equal(checked.status,200);assert.deepEqual(checked.body,{provider:'vpay',upstreamStatus:200,providerCode:'0',credentialStatus:'accepted'});assert.equal(calls,1);assert(!JSON.stringify(checked.body).includes('98765.43'));
+ const production=makeApp({env:{...diagnosticEnv,VPAY_MODE:'production'},fetchImpl});
+ assert.equal((await request(production,'/diagnostics/vpay/credentials',diagnosticToken,{},'POST')).status,404);assert.equal(calls,1);
+});
 test('order-only credential creates through server-selected methods and callback URLs and cannot query, withdraw or inspect balances',async()=>{
  let upstream,calls=0;const app=makeApp({env:readyEnv,fetchImpl:async(url,options)=>{calls++;upstream=JSON.parse(options.body);return Response.json({code:0,data:{trade_no:'provider_1'}});}});
  const result=await request(app,'/platform/vpay/order',orderToken,draft);assert.equal(result.status,200);assert.equal(calls,1);
