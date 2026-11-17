@@ -1496,7 +1496,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         const refId = String(payload.refId || '');
         const supportedBanks = new Set(['MBB', 'CIMB', 'HLB', 'RHB', 'PBB', 'AMB', 'BSN', 'ISLAM',
           'HSBC', 'SCB', 'UOB', 'OCBC', 'ALB', 'AFB', 'BMM', 'GXB', 'TNG', 'RJHIB', 'DuitNow',
-          'BOOSTB', 'BOOST', 'SPP', 'AGRO', 'RYT', 'KRYT']);
+          'BOOSTB', 'BOOST', 'SPP', 'AGRO']);
         if (!/^\d{1,7}\.\d{2}$/.test(amount) || !supportedBanks.has(bankName)
           || Number(amount) <= 0
           || accountName.length < 1 || accountName.length > 100 || !/^[A-Za-z0-9-]{4,40}$/.test(accountNumber)

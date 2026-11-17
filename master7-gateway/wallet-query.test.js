@@ -193,7 +193,7 @@ test('isolated UAT payout gate binds one member, withdrawal, payout, amount and 
 test('payout scope rejects unsupported banks, non-canonical amounts, missing contracts and aliased credentials',async()=>{
  let calls=0;const fetchImpl=async()=>{calls++;throw Error('Must not call supplier');};const draft={contract:'vpay-payout-v1',currency:'MYR',refId:'payout_1',amount:'10.00',bankName:'MBB',accountName:'FIXTURE USER',accountNumber:'12345678'};
  const app=makeApp({env:payoutEnv,fetchImpl});
- for(const change of [{bankName:'MBSB'},{amount:'10'},{amount:'10.001'},{contract:'wrong'},{currency:'USD'}])assert.equal((await request(app,'/platform/vpay/withdrawal',payoutToken,{...draft,...change})).status,400);
+ for(const change of [{bankName:'MBSB'},{bankName:'RYT'},{bankName:'KRYT'},{amount:'10'},{amount:'10.001'},{contract:'wrong'},{currency:'USD'}])assert.equal((await request(app,'/platform/vpay/withdrawal',payoutToken,{...draft,...change})).status,400);
  const aliased=makeApp({env:{...payoutEnv,PLATFORM_PAYOUT_TOKEN:payoutEnv.PLATFORM_ORDER_TOKEN},fetchImpl});assert.equal((await request(aliased,'/platform/vpay/withdrawal',payoutEnv.PLATFORM_ORDER_TOKEN,draft)).status,401);
  assert.equal(calls,0);
 });
