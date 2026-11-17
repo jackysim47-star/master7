@@ -56,10 +56,26 @@ function verifyVpayNotification(payload, apiToken) {
   return safeEqual(signWithDateTime(payload, apiToken, dateTime), supplied);
 }
 
+function normalizeVpayBalance(payload) {
+  const value = payload?.balance;
+  let amount;
+  if (typeof value === 'number') {
+    if (!Number.isFinite(value) || value < 0 || value > 999999999999.99
+        || Math.round(value * 100) !== value * 100) return null;
+    amount = value.toFixed(2);
+  } else if (typeof value === 'string' && value === value.trim()
+      && /^(?:0|[1-9]\d{0,11})(?:\.\d{1,2})?$/.test(value)) {
+    const [whole, fraction = ''] = value.split('.');
+    amount = `${whole}.${fraction.padEnd(2, '0')}`;
+  } else return null;
+  return { currency: 'MYR', balance: amount };
+}
+
 module.exports = {
   canonicalize,
   formatVpayDateTime,
   md5Upper,
+  normalizeVpayBalance,
   signWithDateTime,
   verifyVpayNotification,
   vpaySignature,

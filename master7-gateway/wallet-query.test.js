@@ -5,6 +5,7 @@ const http = require('node:http');
 const { makeApp } = require('./server');
 const peer = 'synthetic-read-only-wallet-query-credential';
 const payoutToken = 'synthetic-payout-only-wallet-credential-32-bytes';
+const balanceToken = 'synthetic-balance-only-wallet-credential-32-bytes';
 const env = { PLATFORM_QUERY_TOKEN: peer, GATEWAY_ADMIN_TOKEN: 'synthetic-admin-token-with-at-least-32-bytes', VPAY_TRADER_ID: '123456', VPAY_API_TOKEN: 'synthetic-test-only-provider-key' };
 async function request(app, path, token, payload={outTradeNo:'order_1',tradeNo:'provider_1'},method='POST'){
  const server=http.createServer(app);await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
@@ -37,7 +38,7 @@ test('query failures expose a fixed diagnostic class without trusting arbitrary 
 });
 test('query-only credentials cannot create, withdraw, inspect merchant balance or use admin APIs',async()=>{
  let calls=0;const app=makeApp({env,fetchImpl:async()=>{calls++;throw Error('Must not call supplier');}});
- for(const path of ['/platform/vpay/order','/admin/vpay/order','/admin/vpay/withdrawal','/admin/vpay/balance','/admin/vpay/order-query','/admin/vpay/withdrawal-query','/admin/mega/balance']){
+ for(const path of ['/platform/vpay/order','/platform/vpay/balance','/admin/vpay/order','/admin/vpay/withdrawal','/admin/vpay/balance','/admin/vpay/order-query','/admin/vpay/withdrawal-query','/admin/mega/balance']){
   const result=await request(app,path,peer);assert([401,404].includes(result.status),path+': '+result.status);
  }
  assert.equal(calls,0);
@@ -51,7 +52,7 @@ test('authenticated wallet configuration pins the merchant, environment, activat
  const app=makeApp({env:readyEnv,fetchImpl:async()=>{throw Error('No supplier request for configuration');}});
  for(const token of [undefined,orderToken,env.GATEWAY_ADMIN_TOKEN])assert.equal((await request(app,'/platform/vpay/config',token,{},'GET')).status,401);
  const result=await request(app,'/platform/vpay/config',peer,{},'GET');assert.equal(result.status,200);
- assert.deepEqual(result.body,{provider:'vpay',traderId:'123456',mode:'uat',configured:true,paymentReady:true,queryReady:true,callbacksReady:true,uatOrderGateRequired:false,uatOrderGateReady:true,uatOrderExpiresAt:null,callbackSourceAllowlistRequired:false,callbackSourceAllowlistReady:true,tradeCodes:['2'],notifyUrl:draft.notifyUrl,returnUrl:draft.callbackUrl});
+ assert.deepEqual(result.body,{provider:'vpay',traderId:'123456',mode:'uat',configured:true,paymentReady:true,queryReady:true,callbacksReady:true,balanceReady:false,uatOrderGateRequired:false,uatOrderGateReady:true,uatOrderExpiresAt:null,callbackSourceAllowlistRequired:false,callbackSourceAllowlistReady:true,tradeCodes:['2'],notifyUrl:draft.notifyUrl,returnUrl:draft.callbackUrl});
  for(const secret of [peer,orderToken,env.VPAY_API_TOKEN,readyEnv.PLATFORM_CALLBACK_TOKEN])assert(!JSON.stringify(result.body).includes(secret));
 });
 test('isolated UAT can advertise an approved channel while orders stay paused and production ignores the UAT fallback',async()=>{
@@ -86,11 +87,31 @@ test('one-time UAT credential check is token-gated, read-only, redacted and unav
  const production=makeApp({env:{...diagnosticEnv,VPAY_MODE:'production'},fetchImpl});
  assert.equal((await request(production,'/diagnostics/vpay/credentials',diagnosticToken,{},'POST')).status,404);assert.equal(calls,1);
 });
+test('balance-only credential exposes a normalized read-only MYR balance without granting transaction scopes',async()=>{
+ const balanceEnv={...readyEnv,PLATFORM_BALANCE_TOKEN:balanceToken,VPAY_BALANCE_QUERY_ENABLED:'true'};let calls=0;
+ const app=makeApp({env:balanceEnv,fetchImpl:async(_url,options)=>{calls++;assert.equal(JSON.parse(options.body).action,'TRADER_BALANCE');return Response.json({code:0,data:{balance:'98765.4',internal_note:'must-not-leak'}});}});
+ for(const token of [undefined,peer,orderToken,payoutToken,balanceEnv.GATEWAY_ADMIN_TOKEN])assert.equal((await request(app,'/platform/vpay/balance',token,{})).status,401);
+ assert.equal(calls,0);
+ const result=await request(app,'/platform/vpay/balance',balanceToken,{});assert.equal(result.status,200);
+ assert.deepEqual(result.body,{provider:'vpay',currency:'MYR',balance:'98765.40',readOnly:true,verified:false,settlementVerified:false});assert.equal(calls,1);
+ const config=await request(app,'/platform/vpay/config',peer,{},'GET');assert.equal(config.status,200);assert.equal(config.body.balanceReady,true);
+ for(const path of ['/platform/vpay/order','/platform/vpay/order-query','/platform/vpay/withdrawal','/admin/vpay/balance'])assert.equal((await request(app,path,balanceToken,{})).status,401);
+ assert.equal(calls,1);
+});
+test('balance scope fails closed when disabled or when the provider response is not canonical',async()=>{
+ let calls=0;const disabled=makeApp({env:{...readyEnv,PLATFORM_BALANCE_TOKEN:balanceToken,VPAY_BALANCE_QUERY_ENABLED:'false'},fetchImpl:async()=>{calls++;throw Error('must not call provider');}});
+ assert.equal((await request(disabled,'/platform/vpay/balance',balanceToken,{})).status,503);assert.equal(calls,0);
+ for(const balance of ['-1.00','01.00','1.001',null]){
+  const app=makeApp({env:{...readyEnv,PLATFORM_BALANCE_TOKEN:balanceToken,VPAY_BALANCE_QUERY_ENABLED:'true'},fetchImpl:async()=>{calls++;return Response.json({code:0,data:{balance}});}});
+  assert.equal((await request(app,'/platform/vpay/balance',balanceToken,{})).status,502);
+ }
+ assert.equal(calls,4);
+});
 test('order-only credential creates through server-selected methods and callback URLs and cannot query, withdraw or inspect balances',async()=>{
  let upstream,calls=0;const app=makeApp({env:readyEnv,fetchImpl:async(url,options)=>{calls++;upstream=JSON.parse(options.body);return Response.json({code:0,data:{trade_no:'provider_1'}});}});
  const result=await request(app,'/platform/vpay/order',orderToken,draft);assert.equal(result.status,200);assert.equal(calls,1);
  assert.equal(upstream.action,'TRADER_ORDER');assert.equal(upstream.trader_id,'123456');assert.equal(upstream.notify_url,draft.notifyUrl);assert.equal(upstream.callback_url,draft.callbackUrl);assert.equal(upstream.trade_code,'2');
- for(const path of ['/platform/vpay/order-query','/admin/vpay/order','/admin/vpay/withdrawal','/admin/vpay/balance'])assert.equal((await request(app,path,orderToken)).status,401);
+ for(const path of ['/platform/vpay/order-query','/platform/vpay/balance','/admin/vpay/order','/admin/vpay/withdrawal','/admin/vpay/balance'])assert.equal((await request(app,path,orderToken)).status,401);
  assert.equal(calls,1);
 });
 test('wallet creation rejects unconfirmed channels, callback changes, missing config and wrong scopes before sending',async()=>{
@@ -128,7 +149,7 @@ test('payout-only credential submits and queries a bound MYR withdrawal without 
  const submitted=await request(app,'/platform/vpay/withdrawal',payoutToken,{contract:'vpay-payout-v1',currency:'MYR',refId:'payout_1',amount:'10.00',bankName:'MBB',accountName:'FIXTURE USER',accountNumber:'12345678'});assert.equal(submitted.status,200);
  assert.equal(upstream[0].action,'MONEY_OUT');assert.equal(upstream[0].notify_url,payoutEnv.PUBLIC_BASE_URL+'/callbacks/vpay/withdrawal');
  const queried=await request(app,'/platform/vpay/withdrawal-query',payoutToken,{contract:'vpay-payout-query-v1',outMoneyId:'payout_1'});assert.equal(queried.status,200);assert.equal(upstream[1].action,'MONEY_GET');
- for(const path of ['/platform/vpay/order','/platform/vpay/order-query','/admin/vpay/balance'])assert.equal((await request(app,path,payoutToken)).status,401);
+ for(const path of ['/platform/vpay/order','/platform/vpay/order-query','/platform/vpay/balance','/admin/vpay/balance'])assert.equal((await request(app,path,payoutToken)).status,401);
  assert.equal(upstream.length,2);
 });
 

@@ -3,7 +3,7 @@
 const http = require('node:http');
 const crypto = require('node:crypto');
 const net = require('node:net');
-const { verifyVpayNotification, vpaySignature } = require('./vpay');
+const { normalizeVpayBalance, verifyVpayNotification, vpaySignature } = require('./vpay');
 const {
   paymentOrderRequest,
   paymentOrderResponse,
@@ -299,6 +299,12 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     return Boolean(expected) && safeEqual(expected, supplied);
   }
 
+  function isWalletBalancePeer(req) {
+    const expected = walletPeerCredential('PLATFORM_BALANCE_TOKEN');
+    const supplied = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
+    return Boolean(expected) && safeEqual(expected, supplied);
+  }
+
   function isGspayPeer(req, name) {
     const expected = gspayPeerCredential(env, name);
     const supplied = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
@@ -427,6 +433,9 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         && callbackSourceAllowlist.ready
         && configuredUrl(returnUrl) && Boolean(walletPeerCredential('PLATFORM_ORDER_TOKEN')) && Boolean(walletPeerCredential('PLATFORM_QUERY_TOKEN')),
       queryReady, callbacksReady,
+      balanceReady: readiness.credentialsConfigured
+        && String(env.VPAY_BALANCE_QUERY_ENABLED || '').toLowerCase() === 'true'
+        && Boolean(walletPeerCredential('PLATFORM_BALANCE_TOKEN')),
       uatOrderGateRequired: uatOrderGate.required,
       uatOrderGateReady: uatOrderGate.ready,
       uatOrderExpiresAt: uatOrderGate.expiresAt,
@@ -1393,6 +1402,29 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           provider: 'vpay',
           upstreamStatus: result.status,
           result: result.data,
+        });
+      }
+
+      if (req.method === 'POST' && url.pathname === '/platform/vpay/balance') {
+        if (!isWalletBalancePeer(req)) return send(res, 401, { error: 'unauthorized' });
+        if (String(env.VPAY_BALANCE_QUERY_ENABLED || '').toLowerCase() !== 'true') {
+          await body(req);
+          return send(res, 503, { error: 'vpay_balance_query_disabled' });
+        }
+        const payload = await body(req);
+        if (Object.keys(payload).length !== 0) return send(res, 400, { error: 'invalid_vpay_balance_query' });
+        const result = await vpay('TRADER_BALANCE');
+        const providerOK = result.data?.code === 0 || result.data?.code === '0';
+        const balance = providerOK ? normalizeVpayBalance(result.data?.data) : null;
+        if (!result.ok || !providerOK || !balance) {
+          return send(res, 502, {
+            error: balance ? 'vpay_balance_query_failed' : 'vpay_invalid_balance_response',
+            provider: 'vpay', upstreamStatus: result.status,
+          });
+        }
+        return send(res, 200, {
+          provider: 'vpay', ...balance, readOnly: true,
+          verified: false, settlementVerified: false,
         });
       }
 
