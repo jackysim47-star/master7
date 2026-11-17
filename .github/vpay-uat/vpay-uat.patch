@@ -1,0 +1,107 @@
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -63,7 +63,7 @@
+ type UploadPolicyContext={uploadApprovalMode?:string;assetAutoApproval?:string;receiptAutoApproval?:string};
+ export type Context=UploadPolicyContext & {db:D1Database;identity:Identity|null;ownerEmail:string;manualComplianceEnforced?:string;newDepositsEnabled?:string;newGameLaunchesEnabled?:string;newPayoutsEnabled?:string;ownerLoginId?:string;allowedOrigins?:string[];gameGatewayUrl?:string;gameGatewayToken?:string;gameGatewayWalletToken?:string;megaLaunchOriginsJson?:string;jdbTransferProfilesJson?:string;gameTransferProfilesJson?:string;providerTransferFetch?:typeof fetch;megaTransfersEnabled?:string;megaLiveGamesEnabled?:string;megaSettlementVerified?:string;megaSessionCloser?:MegaSessionCloser;megaClosureContractVerified?:boolean;gameGatewayFetch?:typeof fetch;gameArtFetch?:typeof fetch;vpayGatewayUrl?:string;vpayOrderToken?:string;vpayQueryToken?:string;vpayCallbackToken?:string;vpayPayoutToken?:string;vpayPayoutEnabled?:string;vpayOrdersEnabled?:string;vpayMode?:string;vpayTraderId?:string;vpayReturnUrl?:string;vpayRecoveryEnabled?:string;vpayFetch?:typeof fetch;gspayApiBase?:string;gspayAuthKey?:string;gspaySecretKey?:string;gspayCallbackToken?:string;gspayOrdersEnabled?:string;gspayReturnUrl?:string;gspayRecoveryEnabled?:string;gspayBalanceEnabled?:string;gspayPayoutEnabled?:string;gspayPayoutIpWhitelistConfirmed?:string;gspayPayoutBankTargetsJson?:string;gspayUsdtApiBase?:string;gspayUsdtAuthKey?:string;gspayUsdtSecretKey?:string;gspayUsdtCallbackToken?:string;gspayUsdtOrdersEnabled?:string;gspayUsdtReturnUrl?:string;gspayUsdtCallbackUrl?:string;gspayUsdtRecoveryEnabled?:string;gspayUsdtBalanceEnabled?:string;gspayUsdtContractVerified?:string;gspayUsdtAssetNetwork?:string;gspayUsdtCurrencyScale?:string;gspayUsdtCheckoutOrigin?:string;paymentRecoveryToken?:string;backupJobToken?:string;depositIncidentTokenHash?:string;depositIncidentExpiresAt?:number;gspayFetch?:typeof fetch;ownerSetupHash?:string;ownerSetupExpires?:number;ownerResetHash?:string;ownerResetExpires?:number;ownerResetIssuedAt?:number;anchorApiBaseUrl?:string;anchorUsername?:string;anchorPassword?:string;anchorSenderId?:string;otpHashSecret?:string;smsFetch?:typeof fetch;withdrawalDataKey?:string;oneMpayApiBase?:string;oneMpayMerchant?:string;oneMpaySecretKey?:string;oneMpayOrdersEnabled?:string;oneMpayCallbackUrl?:string;oneMpayReturnUrl?:string;oneMpayDiagnosticToken?:string;oneMpayRecoveryEnabled?:string;oneMpayFetch?:typeof fetch;rectangleApiBase?:string;rectangleOperatorCode?:string;rectangleApiKey?:string;godeeApiBase?:string;godeeOperatorId?:string;godeeApiKey?:string;gameCatalogueFetch?:typeof fetch;gameSyncToken?:string;accountingJobToken?:string;telegramBotToken?:string;telegramAdminChatId?:string;telegramFetch?:typeof fetch;whatsappEnabled?:string;whatsappGraphApiVersion?:string;whatsappPhoneNumberId?:string;whatsappWabaId?:string;whatsappAccessToken?:string;whatsappAppSecret?:string;whatsappWebhookVerifyToken?:string;whatsappBusinessNumber?:string;whatsappTemplateName?:string;whatsappTemplateLanguage?:string;whatsappRecipientLimit?:string;whatsappWorkerToken?:string;whatsappWorkerBatchSize?:string;whatsappFetch?:typeof fetch;supportAiEnabled?:string;supportAiApiBaseUrl?:string;supportAiApiKey?:string;supportAiModel?:string;supportAiFetch?:typeof fetch};
+ function vpaySettings(c:Context,user:User|null,acceptance?:{realPaymentVerified:boolean;settlementVerified:boolean}){return {...vpayPayoutSettings(c),user,orderToken:c.vpayOrderToken,queryToken:c.vpayQueryToken,enabled:c.vpayOrdersEnabled,newDepositsEnabled:c.newDepositsEnabled,mode:c.vpayMode,portalOrigins:c.allowedOrigins,returnUrl:c.vpayReturnUrl,recoveryEnabled:c.vpayRecoveryEnabled,acceptance};}
+-function vpayPayoutSettings(c:Context){return {db:c.db,gatewayUrl:c.vpayGatewayUrl,payoutToken:c.vpayPayoutToken,callbackToken:c.vpayCallbackToken,payoutEnabled:c.vpayPayoutEnabled,newPayoutsEnabled:c.newPayoutsEnabled,vpayTraderId:c.vpayTraderId,withdrawalDataKey:c.withdrawalDataKey,fetchImpl:c.vpayFetch};}
++function vpayPayoutSettings(c:Context){return {db:c.db,gatewayUrl:c.vpayGatewayUrl,payoutToken:c.vpayPayoutToken,callbackToken:c.vpayCallbackToken,payoutEnabled:c.vpayPayoutEnabled,newPayoutsEnabled:c.newPayoutsEnabled,vpayTraderId:c.vpayTraderId,withdrawalDataKey:c.withdrawalDataKey,mode:c.vpayMode,portalOrigins:c.allowedOrigins,returnUrl:c.vpayReturnUrl,fetchImpl:c.vpayFetch};}
+ function gspaySettings(c:Context,user:User|null,acceptance?:{realPaymentVerified:boolean;settlementVerified:boolean}){return {db:c.db,user,apiBase:c.gspayApiBase,authKey:c.gspayAuthKey,secretKey:c.gspaySecretKey,callbackToken:c.gspayCallbackToken,enabled:c.gspayOrdersEnabled,newDepositsEnabled:c.newDepositsEnabled,portalOrigins:c.allowedOrigins,returnUrl:c.gspayReturnUrl,recoveryEnabled:c.gspayRecoveryEnabled,balanceEnabled:c.gspayBalanceEnabled,payoutEnabled:c.gspayPayoutEnabled,newPayoutsEnabled:c.newPayoutsEnabled,payoutIpWhitelistConfirmed:c.gspayPayoutIpWhitelistConfirmed,payoutBankTargetsJson:c.gspayPayoutBankTargetsJson,withdrawalDataKey:c.withdrawalDataKey,acceptance,fetchImpl:c.gspayFetch};}
+ function gspayUsdtSettings(c:Context){return {apiBase:c.gspayUsdtApiBase,authKey:c.gspayUsdtAuthKey,secretKey:c.gspayUsdtSecretKey,callbackToken:c.gspayUsdtCallbackToken,ordersEnabled:c.gspayUsdtOrdersEnabled,returnUrl:c.gspayUsdtReturnUrl,callbackUrl:c.gspayUsdtCallbackUrl,recoveryEnabled:c.gspayUsdtRecoveryEnabled,balanceEnabled:c.gspayUsdtBalanceEnabled,contractVerified:c.gspayUsdtContractVerified,assetNetwork:c.gspayUsdtAssetNetwork,currencyScale:c.gspayUsdtCurrencyScale,checkoutOrigin:c.gspayUsdtCheckoutOrigin};}
+ async function withdrawalSettings(c:Context,user:User|null){const bank=await manualBankAvailability({db:c.db,user,newDepositsEnabled:c.newDepositsEnabled,newPayoutsEnabled:c.newPayoutsEnabled});const gspay=gspaySettings(c,user),vpay=vpayPayoutSettings(c),[gspayReady,vpayReady]=await Promise.all([gspayPayoutAvailability(gspay),vpayPayoutAvailability(vpay)]);return {db:c.db,user,dataKey:c.withdrawalDataKey,payouts:{manual_bank:{enabled:user?.role==='owner'?bank.payoutGateOpen:bank.payoutEnabled,allowsMember:async(id:string)=>(await manualBankAvailability({db:c.db,user:user?{...user,id}:null,newPayoutsEnabled:c.newPayoutsEnabled})).payoutEnabled,reason:bank.payoutEnabled?'Manual bank transfer after owner approval':'Company-bank withdrawals are temporarily unavailable',submit:async()=>({status:'processing' as const})},vpay:{enabled:vpayReady.enabled,reason:vpayReady.reason,supportsBank:vpayPayoutSupportsBank,submit:(input:any)=>submitVPayPayout(input,vpay)},gspay:{enabled:gspayReady.enabled,reason:gspayReady.reason,submit:(input:any)=>submitGSPayPayout(input,gspay)},'1mpay':{enabled:false,reason:'Payout bank codes and final callback states are not verified',submit:async()=>({status:'review' as const})}}};}
+--- a/lib/vpay-payout.ts
++++ b/lib/vpay-payout.ts
+@@ -1,9 +1,10 @@
+ import {createHash,timingSafeEqual} from 'node:crypto';
+ import {paymentCapability} from './payment-capabilities.ts';
++import {stagingPortalOrigin} from './portal-origin.mjs';
+ import {decryptWithdrawalValue,withdrawalDataKeyReady} from './withdrawal-secrets.ts';
+ import {walletGuardStatements,walletRiskFreeSql,walletAvailableSql} from './wallet-guard.ts';
+ 
+-export type VPayPayoutContext={db:D1Database;gatewayUrl?:string;payoutToken?:string;callbackToken?:string;payoutEnabled?:string;newPayoutsEnabled?:string;vpayTraderId?:string;withdrawalDataKey?:string;fetchImpl?:typeof fetch};
++export type VPayPayoutContext={db:D1Database;gatewayUrl?:string;payoutToken?:string;callbackToken?:string;payoutEnabled?:string;newPayoutsEnabled?:string;vpayTraderId?:string;withdrawalDataKey?:string;mode?:string;portalOrigins?:string[];returnUrl?:string;fetchImpl?:typeof fetch};
+ export type VPayPayoutInput={payoutId:string;withdrawalId:string;userId:string;accountHolder:string;accountNumber:string;bankCode:string;amountMinor:string};
+ type Result={status:'processing'|'succeeded'|'failed'|'review';providerReference?:string|null};
+ 
+@@ -17,6 +18,7 @@
+ function changeCount(result:unknown){const r=result as {meta?:{changes?:number};changes?:number}|undefined;return Number(r?.meta?.changes??r?.changes??0);}
+ 
+ const gatewayOrigin='https://master7-integration-gateway.onrender.com';
++const uatGatewayOrigin='https://master7-payment-uat.onrender.com';
+ const callbackPath='/api/payment-callbacks/vpay/withdrawal';
+ const bankCodes:Record<string,string>={
+  maybank:'MBB',cimb:'CIMB',public_bank:'PBB',rhb:'RHB',hong_leong:'HLB',ambank:'AMB',
+@@ -30,7 +32,12 @@
+ const moneyMinor=(value:unknown)=>{if(typeof value==='number'&&Number.isFinite(value))value=value.toFixed(2);if(typeof value!=='string'||!/^(?:0|[1-9]\d{0,6})\.\d{2}$/.test(value))return null;const [whole,fraction]=value.split('.'),minor=BigInt(whole)*100n+BigInt(fraction);return minor>0n&&minor<=1000000000n?minor.toString():null;};
+ const decimal=(minor:unknown)=>{try{const value=BigInt(String(minor));return value>0n?`${value/100n}.${String(value%100n).padStart(2,'0')}`:null;}catch{return null;}};
+ const reference=(value:unknown)=>typeof value==='string'&&/^[A-Za-z0-9_-]{8,50}$/.test(value)?value:null;
+-const configured=(c:VPayPayoutContext)=>c.gatewayUrl===gatewayOrigin&&secureToken(c.payoutToken)&&secureToken(c.callbackToken)&&c.payoutToken!==c.callbackToken&&/^\d{1,10}$/.test(c.vpayTraderId??'')&&withdrawalDataKeyReady(c.withdrawalDataKey);
++function resolveGatewayOrigin(c:VPayPayoutContext):string|null{
++ if(c.gatewayUrl===gatewayOrigin)return gatewayOrigin;
++ const stagingOnly=Array.isArray(c.portalOrigins)&&c.portalOrigins.length>0&&c.portalOrigins.every(origin=>origin===stagingPortalOrigin);
++ return c.gatewayUrl===uatGatewayOrigin&&c.mode==='uat'&&stagingOnly&&c.returnUrl===stagingPortalOrigin+'/payment/return'?uatGatewayOrigin:null;
++}
++const configured=(c:VPayPayoutContext)=>resolveGatewayOrigin(c)!==null&&secureToken(c.payoutToken)&&secureToken(c.callbackToken)&&c.payoutToken!==c.callbackToken&&/^\d{1,10}$/.test(c.vpayTraderId??'')&&withdrawalDataKeyReady(c.withdrawalDataKey);
+ 
+ export function vpayPayoutSupportsBank(bankCode:string){return Boolean(bankCodes[bankCode]);}
+ 
+@@ -46,7 +53,7 @@
+ }
+ 
+ async function gateway(c:VPayPayoutContext,path:string,payload:Record<string,unknown>){
+- if(!configured(c))throw Error('PAYOUT_NOT_CONFIGURED');const url=new URL(path,c.gatewayUrl),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
++ const selectedOrigin=resolveGatewayOrigin(c);if(!selectedOrigin||!configured(c))throw Error('PAYOUT_NOT_CONFIGURED');const url=new URL(path,selectedOrigin),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
+  try{
+   const response=await(c.fetchImpl??fetch)(url,{method:'POST',redirect:'error',signal:controller.signal,headers:{Accept:'application/json','Content-Type':'application/json',Authorization:`Bearer ${c.payoutToken}`},body:JSON.stringify(payload)});
+   const raw=await response.text();if(Buffer.byteLength(raw)>65536)throw Error('PAYOUT_RESPONSE_TOO_LARGE');let data:unknown;try{data=JSON.parse(raw);}catch{throw Error('PAYOUT_INVALID_JSON');}
+--- a/tests/vpay-payout.test.mjs
++++ b/tests/vpay-payout.test.mjs
+@@ -5,21 +5,21 @@
+ import {handle} from '../lib/backend.ts';
+ 
+ // All VPay replies are synthetic. This suite never sends a real payout.
+-const origin='https://portal.example.test',gateway='https://master7-integration-gateway.onrender.com',payoutToken='payout-token-'.padEnd(40,'p'),callbackToken='callback-token-'.padEnd(40,'c'),dataKey='withdrawal-key-'.padEnd(40,'w');
++const origin='https://portal.example.test',gateway='https://master7-integration-gateway.onrender.com',uatGateway='https://master7-payment-uat.onrender.com',stagingOrigin='https://master7-v17-staging.onrender.com',payoutToken='payout-token-'.padEnd(40,'p'),callbackToken='callback-token-'.padEnd(40,'c'),dataKey='withdrawal-key-'.padEnd(40,'w');
+ 
+-function fixture(t,{enabled=true}={}){
++function fixture(t,{enabled=true,gatewayUrl=gateway,portalOrigin=origin,mode='production',returnUrl=portalOrigin+'/payment/return',allowedOrigins=[portalOrigin]}={}){
+  const sql=new DatabaseSync(':memory:');sql.exec('PRAGMA foreign_keys=ON');for(const file of readdirSync(new URL('../drizzle/',import.meta.url)).filter(file=>file.endsWith('.sql')).sort())sql.exec(readFileSync(new URL('../drizzle/'+file,import.meta.url),'utf8'));
+  sql.exec("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES('alice','alice','member',1,'csrf-alice',0),('owner','owner','owner',1,'csrf-owner',0);UPDATE payment_channel_controls SET status='active' WHERE provider_id='vpay';INSERT INTO deposit_orders(id,user_id,request_key,fingerprint,provider,amount_minor,currency,trade_code,status,created_at,updated_at) VALUES('fund','alice','funding-request','f','vpay',10000,'MYR','2','credited',0,0);INSERT INTO wallet_ledger(id,order_id,user_id,account_code,amount_minor,currency,created_at) VALUES('member','fund','alice','member',10000,'MYR',0),('clearing','fund','alice','provider_clearing',-10000,'MYR',0)");
+  class Statement{constructor(text,args=[]){this.text=text;this.args=args;}bind(...args){return new Statement(this.text,args);}async first(){return sql.prepare(this.text).get(...this.args)??null;}async all(){return {results:sql.prepare(this.text).all(...this.args)};}async run(){return sql.prepare(this.text).run(...this.args);}}
+  const db={prepare:text=>new Statement(text),async batch(statements){sql.exec('BEGIN');try{const results=statements.map(statement=>sql.prepare(statement.text).run(...statement.args));sql.exec('COMMIT');return results;}catch(error){sql.exec('ROLLBACK');throw error;}}};
+  sql.exec("INSERT INTO manual_compliance_reviews(user_id,identity_status,aml_status,version,last_change_id,created_at,updated_at) VALUES('alice','passed','passed',1,'c',0,0)");
+- const state={submits:0,queries:0,payoutState:'3',amount:'20.00'};
+- const config={db,identity:{userId:'alice',email:'alice@example.test'},ownerEmail:'',allowedOrigins:[origin],newPayoutsEnabled:'true',withdrawalDataKey:dataKey,vpayGatewayUrl:gateway,vpayPayoutToken:payoutToken,vpayCallbackToken:callbackToken,vpayPayoutEnabled:enabled?'true':'false',vpayTraderId:'3647',vpayFetch:async(input,init)=>{
+-  const url=new URL(String(input)),body=JSON.parse(init.body);assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+payoutToken);
++ const state={submits:0,queries:0,payoutState:'3',amount:'20.00',gatewayOrigins:[]};
++ const config={db,identity:{userId:'alice',email:'alice@example.test'},ownerEmail:'',allowedOrigins,newPayoutsEnabled:'true',withdrawalDataKey:dataKey,vpayGatewayUrl:gatewayUrl,vpayPayoutToken:payoutToken,vpayCallbackToken:callbackToken,vpayPayoutEnabled:enabled?'true':'false',vpayTraderId:'3647',vpayMode:mode,vpayReturnUrl:returnUrl,vpayFetch:async(input,init)=>{
++  const url=new URL(String(input)),body=JSON.parse(init.body);state.gatewayOrigins.push(url.origin);assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+payoutToken);
+   if(url.pathname==='/platform/vpay/withdrawal'){state.submits++;assert.deepEqual(body,{contract:'vpay-payout-v1',currency:'MYR',refId:body.refId,amount:'20.00',bankName:'MBB',accountName:'Alice Example',accountNumber:'123456789012'});return Response.json({provider:'vpay',upstreamStatus:200,result:{code:0,data:{money_id:'provider_123',out_money_id:body.refId}}});}
+   assert.equal(url.pathname,'/platform/vpay/withdrawal-query');state.queries++;const queryState=state.payoutState;if(state.queryHook)await state.queryHook(queryState);return Response.json({provider:'vpay',upstreamStatus:200,result:{code:0,data:{out_money_id:body.outMoneyId,state:queryState,amount:state.amount,service_fee:'0.50'}}});
+  }};
+- async function call(path,{who='alice',method='GET',data,headers={},extra={}}={}){const response=await handle(new Request(origin+path,{method,headers:{Origin:origin,'Content-Type':'application/json','X-CSRF-Token':'csrf-'+who,...headers},...(data===undefined?{}:{body:JSON.stringify(data)})}),{...config,identity:who?{userId:who,email:who+'@example.test'}:null,...extra});return {status:response.status,data:response.headers.get('content-type')?.includes('json')?await response.json():await response.text()};}
++ async function call(path,{who='alice',method='GET',data,headers={},extra={}}={}){const response=await handle(new Request(portalOrigin+path,{method,headers:{Origin:portalOrigin,'Content-Type':'application/json','X-CSRF-Token':'csrf-'+who,...headers},...(data===undefined?{}:{body:JSON.stringify(data)})}),{...config,identity:who?{userId:who,email:who+'@example.test'}:null,...extra});return {status:response.status,data:response.headers.get('content-type')?.includes('json')?await response.json():await response.text()};}
+  async function createAndApprove(options){
+   const created=await call('/api/withdrawals',options);
+   if(created.status!==201)return created;
+@@ -40,6 +40,20 @@
+ 
+ test('VPay payout is closed until its separate switch is enabled',async t=>{const f=fixture(t,{enabled:false}),result=await f.createAndApprove({method:'POST',data:f.payload()});assert.equal(result.status,503);assert.equal(f.state.submits,0);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM withdrawal_requests').get().n,0);});
+ 
++test('isolated Staging VPay payout uses only the exact UAT Gateway',async t=>{
++ const f=fixture(t,{gatewayUrl:uatGateway,portalOrigin:stagingOrigin,mode:'uat'}),result=await f.createAndApprove({method:'POST',data:f.payload()});
++ assert.equal(result.status,202);assert.equal(result.data.status,'paid');assert.deepEqual([...new Set(f.state.gatewayOrigins)],[uatGateway]);
++});
++
++for(const scenario of [
++ {name:'production mode',options:{gatewayUrl:uatGateway,portalOrigin:stagingOrigin,mode:'production'}},
++ {name:'production portal',options:{gatewayUrl:uatGateway,portalOrigin:'https://www.master7.best',mode:'uat',returnUrl:stagingOrigin+'/payment/return'}},
++ {name:'mixed portal origins',options:{gatewayUrl:uatGateway,portalOrigin:stagingOrigin,mode:'uat',allowedOrigins:[stagingOrigin,'https://www.master7.best']}},
++])test(`isolated VPay payout rejects UAT Gateway with ${scenario.name} before network`,async t=>{
++ const f=fixture(t,scenario.options),banks=await f.call('/api/withdrawal-banks');
++ assert.equal(banks.status,200);assert.equal(banks.data.providers.find(item=>item.id==='vpay').enabled,false);assert.deepEqual(f.state.gatewayOrigins,[]);
++});
++
+ test('owner list keeps corrupt or ineligible recipient data redacted without failing the list',async t=>{
+  const f=fixture(t),created=await f.call('/api/withdrawals',{method:'POST',data:f.payload()});assert.equal(created.status,201);
+  f.sql.prepare("UPDATE withdrawal_requests SET account_number_encrypted='corrupt',status='processing' WHERE id=?").run(created.data.withdrawal.id);
