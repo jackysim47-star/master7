@@ -1,0 +1,683 @@
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -47 +47 @@
+-export const RELEASE = '17.0.0-selfbuilt.176-vpay-payout-references';
++export const RELEASE = '17.0.0-selfbuilt.177-member-services';
+@@ -338,0 +339,17 @@
++}
++const supportHandoffEvent='support_human_handoff_requested';
++async function supportHandoff(db:D1Database,ticketId:string){return !!await db.prepare('SELECT id FROM audit WHERE event=? AND target=? LIMIT 1').bind(supportHandoffEvent,ticketId).first();}
++function supportHandoffStatement(db:D1Database,user:User,ticketId:string){return db.prepare('INSERT INTO audit(id,user_id,event,target,created_at) VALUES(?,?,?,?,?) ON CONFLICT(id) DO NOTHING').bind('support_handoff_'+ticketId,user.id,supportHandoffEvent,ticketId,now());}
++async function supportAssistantStatements(db:D1Database,c:Context,user:User,ticketId:string,subject:string,message:string,stamp:number){
++ const automation=await supportAutomationSettings(db,c);
++ if(!automation.effectiveAiReply||await supportHandoff(db,ticketId))return {reply:null,statements:[] as D1PreparedStatement[]};
++ const reply=await generateSupportReply(supportAiSettings(c),subject,message),assistant='system-support-assistant';
++ // Respect an operator switching automation off or taking over during generation.
++ if(!(await supportAutomationSettings(db,c)).effectiveAiReply||await supportHandoff(db,ticketId))return {reply:null,statements:[]};
++ const statements=[
++  db.prepare("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES(?,?,'staff',1,'system-managed',0) ON CONFLICT(id) DO UPDATE SET username=excluded.username,role='staff',approved=1").bind(assistant,SUPPORT_ASSISTANT_NAME),
++  db.prepare('INSERT INTO replies(id,ticket_id,user_id,message,created_at) SELECT ?,?,?,?,? WHERE NOT EXISTS (SELECT 1 FROM audit WHERE event=? AND target=?)').bind(eventId(),ticketId,assistant,reply.message,stamp,supportHandoffEvent,ticketId),
++  auditStmt(db,user,'support_assistant_replied',`${ticketId}:${reply.engine}`),
++ ];
++ if(reply.requiresHumanHandoff)statements.push(supportHandoffStatement(db,user,ticketId));
++ return {reply,statements};
+@@ -754,0 +772 @@
++  if(p==='/api/support/status'){const a=await supportAutomationSettings(db,c);return json({aiRepliesEnabled:a.effectiveAiReply,assistantName:SUPPORT_ASSISTANT_NAME,mode:a.engine,humanHandoffAvailable:true});}
+@@ -757 +775 @@
+-   const [count,items]=await Promise.all([db.prepare(`SELECT COUNT(*) total FROM tickets t ${where}`).bind(...scopeValues).first<any>(),rows(db,`SELECT t.*,owner.username,tr.last_event_at read_event_at,tr.last_event_id read_event_id,COALESCE((SELECT r.created_at FROM replies r WHERE r.ticket_id=t.id ORDER BY r.created_at DESC,r.id DESC LIMIT 1),t.created_at) last_activity_at,COALESCE((SELECT r.id FROM replies r WHERE r.ticket_id=t.id ORDER BY r.created_at DESC,r.id DESC LIMIT 1),t.id) last_event_id,(SELECT r.created_at FROM replies r WHERE r.ticket_id=t.id AND r.user_id<>? ORDER BY r.created_at DESC,r.id DESC LIMIT 1) other_reply_at,(SELECT r.id FROM replies r WHERE r.ticket_id=t.id AND r.user_id<>? ORDER BY r.created_at DESC,r.id DESC LIMIT 1) other_reply_id,(SELECT COUNT(*) FROM replies r WHERE r.ticket_id=t.id) reply_count FROM tickets t JOIN users owner ON owner.id=t.user_id LEFT JOIN ticket_reads tr ON tr.ticket_id=t.id AND tr.user_id=? ${where} ORDER BY CASE WHEN t.status='open' THEN 0 ELSE 1 END,last_activity_at DESC,t.id DESC LIMIT ? OFFSET ?`,u.id,u.id,u.id,...scopeValues,limit,offset)]);
++   const [count,items]=await Promise.all([db.prepare(`SELECT COUNT(*) total FROM tickets t ${where}`).bind(...scopeValues).first<any>(),rows(db,`SELECT t.*,owner.username,EXISTS(SELECT 1 FROM audit handoff WHERE handoff.event='support_human_handoff_requested' AND handoff.target=t.id) human_handoff,tr.last_event_at read_event_at,tr.last_event_id read_event_id,COALESCE((SELECT r.created_at FROM replies r WHERE r.ticket_id=t.id ORDER BY r.created_at DESC,r.id DESC LIMIT 1),t.created_at) last_activity_at,COALESCE((SELECT r.id FROM replies r WHERE r.ticket_id=t.id ORDER BY r.created_at DESC,r.id DESC LIMIT 1),t.id) last_event_id,(SELECT r.created_at FROM replies r WHERE r.ticket_id=t.id AND r.user_id<>? ORDER BY r.created_at DESC,r.id DESC LIMIT 1) other_reply_at,(SELECT r.id FROM replies r WHERE r.ticket_id=t.id AND r.user_id<>? ORDER BY r.created_at DESC,r.id DESC LIMIT 1) other_reply_id,(SELECT COUNT(*) FROM replies r WHERE r.ticket_id=t.id) reply_count FROM tickets t JOIN users owner ON owner.id=t.user_id LEFT JOIN ticket_reads tr ON tr.ticket_id=t.id AND tr.user_id=? ${where} ORDER BY CASE WHEN t.status='open' THEN 0 ELSE 1 END,last_activity_at DESC,t.id DESC LIMIT ? OFFSET ?`,u.id,u.id,u.id,...scopeValues,limit,offset)]);
+@@ -759 +777 @@
+-   const result=(items as any[]).map(item=>{let externalAt=item.user_id!==u.id?Number(item.created_at):-1,externalId=item.user_id!==u.id?String(item.id):'';if(item.other_reply_at!==null&&item.other_reply_at!==undefined&&(Number(item.other_reply_at)>externalAt||Number(item.other_reply_at)===externalAt&&String(item.other_reply_id)>externalId)){externalAt=Number(item.other_reply_at);externalId=String(item.other_reply_id);}return {...item,unread:externalAt>=0&&eventAfter(externalAt,externalId,item.read_event_at,item.read_event_id),replies:replies.filter(reply=>reply.ticket_id===item.id),repliesTruncated:Number(item.reply_count)>200};});const total=Number(count?.total??0),notifications=await ticketNotificationState(db,u);
++   const result=(items as any[]).map(item=>{let externalAt=item.user_id!==u.id?Number(item.created_at):-1,externalId=item.user_id!==u.id?String(item.id):'';if(item.other_reply_at!==null&&item.other_reply_at!==undefined&&(Number(item.other_reply_at)>externalAt||Number(item.other_reply_at)===externalAt&&String(item.other_reply_id)>externalId)){externalAt=Number(item.other_reply_at);externalId=String(item.other_reply_id);}return {...item,humanHandoff:!!item.human_handoff,unread:externalAt>=0&&eventAfter(externalAt,externalId,item.read_event_at,item.read_event_id),replies:replies.filter(reply=>reply.ticket_id===item.id),repliesTruncated:Number(item.reply_count)>200};});const total=Number(count?.total??0),notifications=await ticketNotificationState(db,u);
+@@ -878 +896,2 @@
+- role(u);if(!u.approved)throw new ApiError(403,'账号待管理员审批 / Account awaiting administrator approval');
++ role(u);const supportMessageWrite=['/api/tickets','/api/tickets/reply','/api/tickets/read','/api/support/handoff'].includes(p);
++ if(!u.approved&&!supportMessageWrite)throw new ApiError(403,'账号待管理员审批 / Account awaiting administrator approval');
+@@ -939 +958,7 @@
+-  if(p==='/api/tickets'){role(u,['member']);const subject=textField(d.subject,3,120),message=textField(d.message,5,2000),id=eventId(),createdAt=now(),automation=await supportAutomationSettings(db,c),statements:any[]=[db.prepare('INSERT INTO tickets(id,user_id,subject,message,created_at) VALUES(?,?,?,?,?)').bind(id,u.id,subject,message,createdAt),auditStmt(db,u,'ticket_created',id)];let assistantReply:Awaited<ReturnType<typeof generateSupportReply>>|null=null;if(automation.effectiveAiReply){assistantReply=await generateSupportReply(supportAiSettings(c),subject,message);const assistantId='system-support-assistant';statements.push(db.prepare("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES(?,?,'staff',1,'system-managed',0) ON CONFLICT(id) DO UPDATE SET username=excluded.username,role='staff',approved=1").bind(assistantId,SUPPORT_ASSISTANT_NAME),db.prepare('INSERT INTO replies(id,ticket_id,user_id,message,created_at) VALUES(?,?,?,?,?)').bind(eventId(),id,assistantId,assistantReply.message,createdAt+1),auditStmt(db,u,'support_assistant_replied',`${id}:${assistantReply.engine}`));}await db.batch(statements);return json({status:'ok',id,automatedReply:automation.effectiveAiReply,assistantName:SUPPORT_ASSISTANT_NAME,assistantEngine:assistantReply?.engine??null,humanHandoff:automation.humanHandoff||assistantReply?.requiresHumanHandoff===true},201);}
++  if(p==='/api/tickets'){
++   role(u,['member']);const subject=textField(d.subject,3,120),message=textField(d.message,subject==='Customer chat'?1:5,2000),id=eventId(),createdAt=now(),manual=d.humanHandoff===true;
++   const statements:D1PreparedStatement[]=[db.prepare('INSERT INTO tickets(id,user_id,subject,message,created_at) VALUES(?,?,?,?,?)').bind(id,u.id,subject,message,createdAt),auditStmt(db,u,'ticket_created',id)];
++   const assistant=manual?{reply:null,statements:[]}:await supportAssistantStatements(db,c,u,id,subject,message,createdAt+1);
++   statements.push(...assistant.statements);if(manual)statements.push(supportHandoffStatement(db,u,id));await db.batch(statements);
++   return json({status:'ok',id,automatedReply:!!assistant.reply,assistantName:SUPPORT_ASSISTANT_NAME,assistantEngine:assistant.reply?.engine??null,humanHandoff:manual||assistant.reply?.requiresHumanHandoff===true},201);
++  }
+@@ -945 +970,14 @@
+- if(p==='/api/tickets/reply'){const id=idField(d.ticketId),message=textField(d.message,1,2000),ticket=await db.prepare('SELECT user_id,status,created_at,(SELECT MAX(created_at) FROM replies WHERE ticket_id=tickets.id) last_reply_at FROM tickets WHERE id=?').bind(id).first<{user_id:string;status:string;created_at:number;last_reply_at:number|null}>();if(!ticket||u.role==='member'&&ticket.user_id!==u.id)throw new ApiError(404,'Ticket not found');if(ticket.status!=='open')throw new ApiError(409,'工单已关闭 / Ticket closed');const createdAt=Math.max(now(),Number(ticket.last_reply_at??ticket.created_at)+1);await db.batch([db.prepare('INSERT INTO replies(id,ticket_id,user_id,message,created_at) VALUES(?,?,?,?,?)').bind(eventId(),id,u.id,message,createdAt),auditStmt(db,u,'ticket_replied',id)]);return json({status:'ok'});}
++ if(p==='/api/support/handoff'){
++  role(u,['member']);const id=idField(d.ticketId),ticket=await db.prepare('SELECT user_id,status FROM tickets WHERE id=?').bind(id).first<{user_id:string;status:string}>();
++  if(!ticket||ticket.user_id!==u.id)throw new ApiError(404,'Ticket not found');if(ticket.status!=='open')throw new ApiError(409,'Ticket closed');
++  await supportHandoffStatement(db,u,id).run();return json({status:'ok',humanHandoff:true});
++ }
++ if(p==='/api/tickets/reply'){
++  const id=idField(d.ticketId),message=textField(d.message,1,2000),ticket=await db.prepare('SELECT user_id,subject,status,created_at,(SELECT MAX(created_at) FROM replies WHERE ticket_id=tickets.id) last_reply_at FROM tickets WHERE id=?').bind(id).first<{user_id:string;subject:string;status:string;created_at:number;last_reply_at:number|null}>();
++  if(!ticket||u.role==='member'&&ticket.user_id!==u.id)throw new ApiError(404,'Ticket not found');if(ticket.status!=='open')throw new ApiError(409,'工单已关闭 / Ticket closed');
++  const createdAt=Math.max(now(),Number(ticket.last_reply_at??ticket.created_at)+1),manual=u.role==='member'&&d.humanHandoff===true,statements:D1PreparedStatement[]=[db.prepare('INSERT INTO replies(id,ticket_id,user_id,message,created_at) VALUES(?,?,?,?,?)').bind(eventId(),id,u.id,message,createdAt),auditStmt(db,u,'ticket_replied',id)];
++  if(manual)statements.push(supportHandoffStatement(db,u,id));
++  if(u.role==='member'&&ticket.subject==='Customer chat'&&!manual){const assistant=await supportAssistantStatements(db,c,u,id,ticket.subject,message,createdAt+1);statements.push(...assistant.statements);}
++  if(u.role!=='member')statements.push(supportHandoffStatement(db,u,id));
++  await db.batch(statements);return json({status:'ok'});
++ }
+--- a/lib/support-ai.ts
++++ b/lib/support-ai.ts
+@@ -20,0 +21,25 @@
++// These steps name real member controls. Do not ask for a transaction reference
++// when the customer simply needs help finding a page.
++function navigationGuidance(message:string,language:string):string|null{
++ const question=/怎么|如何|哪里|哪裡|在哪|不会|不會|找不到|怎样|怎樣|where|how|find|di mana|bagaimana/i.test(message);
++ let key:string|null=null;
++ if(/^(?:hi|hello|hey|你好|您好|嗨|哈啰|哈囉|hai|helo)[!！,.，。\s]*$/iu.test(message.trim()))key='hello';
++ else if(/身份|verification|verify|pengesahan/i.test(message)&&question)key='verification';
++ else if(/菜单|菜單|menu|navigation|导航|導航/i.test(message))key='menu';
++ else if(/记录|紀錄|records?|history|rekod/i.test(message)&&question)key='records';
++ else if(/充值|deposit|top.?up|tambah nilai/i.test(message)&&question)key='deposit';
++ else if(/提款|withdraw|pengeluaran/i.test(message)&&question)key='withdraw';
++ else if(/密码|密碼|password|kata laluan/i.test(message)&&question)key='security';
++ if(!key)return null;
++ const help:Record<string,Record<string,string>>={
++  hello:{zh:'你好，我是 Stephanie。你可以问我：菜单在哪里、如何申请身份审核、如何查看充值或提款记录。需要人工时，请点击聊天窗口的“转人工客服”。',en:'Hello, I am Stephanie. Ask me where to find the menu, identity verification, or deposit and withdrawal records. Choose “Request a person” in this chat if you need the team.',ms:'Hai, saya Stephanie. Tanya tentang menu, pengesahan identiti, atau rekod deposit dan pengeluaran. Pilih “Minta pegawai” untuk bantuan pasukan.'},
++  menu:{zh:'手机：点页面顶部“菜单”，钱包、提款、充值记录、身份审核和账户安全都在里面。电脑：使用左侧导航，或顶部“菜单”。钱包下方也有“身份审核”和“客服聊天”快捷入口。',en:'On mobile, tap “Menu” at the top. It contains your wallet, withdrawals, deposit records, verification and account security. On desktop, use the left navigation or the top Menu. Verification and support shortcuts also appear below your wallet.',ms:'Pada telefon, tekan “Menu” di atas untuk dompet, pengeluaran, rekod, pengesahan dan keselamatan. Pada komputer, gunakan navigasi kiri atau Menu atas. Pintasan pengesahan dan sokongan juga ada di bawah dompet.'},
++  verification:{zh:'请用会员账号登录，然后点“菜单 → 身份审核 → 申请审核”。提交后等待后台人工核验；申请不等于审核通过。请通过客服规定的核验流程处理资料，不要在聊天中发送证件号码、密码或验证码。',en:'Sign in with your member account, then choose “Menu → Identity verification → Request review”. The team must complete the manual review; submitting is not approval. Follow the support verification process and do not send document numbers, passwords or OTPs in chat.',ms:'Log masuk sebagai ahli, kemudian pilih “Menu → Pengesahan identiti → Mohon semakan”. Pasukan perlu membuat semakan manual; permintaan bukan kelulusan. Jangan hantar nombor dokumen, kata laluan atau OTP dalam sembang.'},
++  records:{zh:'查看充值记录：点“菜单 → 充值记录”，或主钱包的“记录”。查看提款记录：点“菜单 → 提款与提款记录”。状态以记录页显示为准；如果金额未更新，请提供记录编号并转人工核对。',en:'For deposit records, choose “Menu → Deposit records” or Records in the wallet. For withdrawals, choose “Menu → Withdraw & withdrawal records”. Use the status shown there; request a person with the record ID if a balance needs checking.',ms:'Untuk deposit, pilih “Menu → Rekod deposit” atau Rekod dalam dompet. Untuk pengeluaran, pilih “Menu → Pengeluaran & rekod”. Semak status sebenar di situ; berikan ID rekod kepada pegawai jika baki perlu disemak.'},
++  deposit:{zh:'点主钱包的“充值”，或“菜单 → 充值”，再选择可用付款通道。如果提示不可用，请勿重复付款；先查看充值记录或转人工客服。收款结果和钱包入账需要系统记录确认。',en:'Choose Deposit in the wallet or “Menu → Deposit”, then select an available method. If it is unavailable, do not make another payment; check your records or request a person. Payment and wallet credit require confirmation in the records.',ms:'Pilih Deposit dalam dompet atau “Menu → Deposit”, kemudian kaedah yang tersedia. Jika tidak tersedia, jangan bayar sekali lagi; semak rekod atau minta pegawai. Bayaran dan kredit dompet mesti disahkan dalam rekod.'},
++  withdraw:{zh:'点“菜单 → 提款与提款记录”。先查看可用余额、身份审核状态及通道提示，再填写本人收款资料。最低金额、手续费和是否受理必须以当前通道确认结果为准；AI 不会代你批准或提交提款。',en:'Choose “Menu → Withdraw & withdrawal records”. Check available funds, verification and channel availability before entering your own recipient details. Minimums, fees and acceptance must be confirmed by the current provider. The assistant does not approve or submit withdrawals.',ms:'Pilih “Menu → Pengeluaran & rekod”. Semak baki, pengesahan dan saluran sebelum mengisi butiran penerima sendiri. Minimum, fi dan penerimaan mesti disahkan oleh penyedia semasa. Pembantu tidak meluluskan atau menghantar pengeluaran.'},
++  security:{zh:'使用会员密码登录后，点“菜单 → 账户安全”进入修改资料或密码的页面。不要把密码、旧密码或验证码发送给客服或聊天机器人。',en:'After signing in with your member password, choose “Menu → Account security” to update your details or password. Do not send passwords or OTPs to support or a chatbot.',ms:'Selepas log masuk dengan kata laluan ahli, pilih “Menu → Keselamatan akaun” untuk mengemas kini butiran. Jangan hantar kata laluan atau OTP kepada sokongan atau bot.'}
++ };
++ return help[key][language]??help[key].en;
++}
++
+@@ -34 +59 @@
+- const input=`${subject}\n${message}`,category=categoryFor(input),language=languageFor(input),body=replies[category][language as 'zh'|'en'|'ms'];
++ const input=`${subject}\n${message}`,category=categoryFor(input),language=languageFor(input),body=navigationGuidance(message,language)??replies[category][language as 'zh'|'en'|'ms'];
+@@ -43,0 +69 @@
++ if(navigationGuidance(message,languageFor(input)))return fallback;
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -18,28 +18,30 @@
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.175-vpay-button-polish">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.175-vpay-button-polish">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.175-vpay-button-polish">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.175-vpay-button-polish">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.175-vpay-button-polish">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.175-vpay-button-polish">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.175-vpay-button-polish">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.175-vpay-button-polish">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.175-vpay-button-polish">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.175-vpay-button-polish">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.175-vpay-button-polish">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.175-vpay-button-polish">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.175-vpay-button-polish">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.175-vpay-button-polish">
+-  <link rel="stylesheet" href="/assets/template-v173.css?v=17.0.0-selfbuilt.175-vpay-button-polish">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.175-vpay-button-polish" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.175-vpay-button-polish" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.175-vpay-button-polish" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.175-vpay-button-polish" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.175-vpay-button-polish" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.175-vpay-button-polish" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.175-vpay-button-polish" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.175-vpay-button-polish" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.175-vpay-button-polish" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.175-vpay-button-polish" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.175-vpay-button-polish" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.175-vpay-button-polish" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.175-vpay-button-polish" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.177-member-services">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.177-member-services">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.177-member-services">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.177-member-services">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.177-member-services">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.177-member-services">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.177-member-services">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.177-member-services">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.177-member-services">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.177-member-services">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.177-member-services">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.177-member-services">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.177-member-services">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.177-member-services">
++  <link rel="stylesheet" href="/assets/template-v173.css?v=17.0.0-selfbuilt.177-member-services">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.177-member-services" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.177-member-services" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.177-member-services" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.177-member-services" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.177-member-services" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.177-member-services" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.177-member-services" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.177-member-services" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.177-member-services" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.177-member-services" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.177-member-services" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.177-member-services" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.177-member-services" defer></script>
++  <link rel="stylesheet" href="/assets/member-services.css?v=17.0.0-selfbuilt.177-member-services">
++  <script src="/assets/member-services.js?v=17.0.0-selfbuilt.177-member-services" defer></script>
+@@ -66,0 +69 @@
++      <button id="memberMenuToggle" class="button button-outline small" type="button" aria-controls="memberMenuDialog" aria-expanded="false" aria-haspopup="dialog" hidden><span aria-hidden="true">☰</span> <span data-member-copy="menu">Menu</span></button>
+@@ -79,0 +83,27 @@
++
++  <dialog id="memberMenuDialog" class="member-services-dialog member-menu-dialog" aria-labelledby="memberMenuTitle">
++    <header class="member-dialog-heading"><div><p class="member-dialog-eyebrow">MASTER7</p><h2 id="memberMenuTitle" data-member-copy="account">My account</h2><p id="memberMenuUsername"></p></div><button id="memberMenuClose" class="member-dialog-close" type="button" aria-label="Close menu">×</button></header>
++    <nav class="member-menu-groups" aria-label="Member account navigation">
++      <p class="member-menu-label" data-member-copy="wallet">Wallet &amp; records</p>
++      <button type="button" data-member-destination="deposit"><span aria-hidden="true">↓</span><span data-member-copy="deposit">Deposit</span><span aria-hidden="true">›</span></button>
++      <button type="button" data-member-destination="withdraw"><span aria-hidden="true">↑</span><span data-member-copy="withdraw">Withdraw &amp; withdrawal records</span><span aria-hidden="true">›</span></button>
++      <button id="memberMenuRecords" type="button"><span aria-hidden="true">≡</span><span data-member-copy="records">Deposit records</span><span aria-hidden="true">›</span></button>
++      <p class="member-menu-label" data-member-copy="account">My account</p>
++      <button type="button" data-member-destination="member-verification"><span aria-hidden="true">✓</span><span data-member-copy="verification">Identity verification</span><span aria-hidden="true">›</span></button>
++      <button id="memberMenuSecurity" type="button"><span aria-hidden="true">◇</span><span data-member-copy="security">Account security</span><span aria-hidden="true">›</span></button>
++      <button type="button" data-member-destination="responsible-play"><span aria-hidden="true">◷</span><span data-member-copy="settings">Play settings</span><span aria-hidden="true">›</span></button>
++      <p class="member-menu-label" data-member-copy="help">Help &amp; offers</p>
++      <button type="button" data-member-destination="rewards"><span aria-hidden="true">✦</span><span data-member-copy="promotions">Promotions</span><span aria-hidden="true">›</span></button>
++      <button id="memberMenuChat" type="button"><span aria-hidden="true">◌</span><span data-member-copy="chat">Chat with support</span><span aria-hidden="true">›</span></button>
++      <button type="button" data-member-destination="support"><span aria-hidden="true">▤</span><span data-member-copy="messages">All support messages</span><span aria-hidden="true">›</span></button>
++      <button id="memberMenuLogout" class="member-menu-logout" type="button"><span aria-hidden="true">↗</span><span data-member-copy="logout">Log out</span></button>
++    </nav>
++  </dialog>
++  <button id="memberChatLauncher" class="member-chat-launcher" type="button" aria-controls="memberChatDialog" aria-haspopup="dialog"><span aria-hidden="true">◌</span><span data-member-copy="chat">Chat with support</span><b data-ticket-unread hidden>0</b></button>
++  <dialog id="memberChatDialog" class="member-services-dialog member-chat-dialog" aria-labelledby="memberChatTitle">
++    <header class="member-dialog-heading"><div><p class="member-dialog-eyebrow">MASTER7 SUPPORT</p><h2 id="memberChatTitle" data-member-copy="chat">Chat with support</h2><p id="memberChatAvailability" role="status"></p></div><button id="memberChatClose" class="member-dialog-close" type="button" aria-label="Close chat">×</button></header>
++    <div class="member-chat-toolbar"><button id="memberChatRefresh" type="button" data-member-copy="refresh">Refresh conversation</button><button id="memberChatHuman" type="button" data-member-copy="human">Request a person</button></div>
++    <div id="memberChatMessages" class="member-chat-messages" role="log" aria-live="polite" aria-relevant="additions text"></div>
++    <p id="memberChatFeedback" class="member-chat-feedback" role="status"></p>
++    <form id="memberChatForm" class="member-chat-form"><label for="memberChatInput" data-member-copy="message">Your message</label><textarea id="memberChatInput" rows="2" maxlength="2000" required></textarea><div><small data-member-copy="privacy">Do not share passwords, OTPs or full bank numbers.</small><button id="memberChatSend" type="submit" data-member-copy="send">Send</button></div></form>
++  </dialog>
+@@ -268,0 +299 @@
++        <div id="memberAccountShortcuts" class="member-account-shortcuts" hidden><button type="button" data-member-destination="member-verification"><span aria-hidden="true">✓</span> <span data-member-copy="verification">Identity verification</span> <span aria-hidden="true">›</span></button><button id="memberWalletChat" type="button"><span aria-hidden="true">◌</span> <span data-member-copy="chat">Chat with support</span> <span aria-hidden="true">›</span></button></div>
+@@ -449 +480 @@
+-          <div class="admin-command-actions"><a id="adminSupportButton" class="admin-status-chip" href="#support"><span></span> Live Chat</a><button id="financialAudioToggle" class="admin-icon-button admin-sound-toggle" type="button" aria-label="Enable financial alert sound" aria-pressed="false" title="Click to enable financial alert sound">🔈</button><button id="adminNotificationButton" class="admin-icon-button" type="button" aria-label="Notifications">🔔<b id="adminNotificationCount">0</b></button><span id="adminCommandUser" class="admin-command-user">Staff</span></div>
++          <div class="admin-command-actions"><a id="adminSupportButton" class="admin-status-chip" href="#support"><span></span> Support inbox</a><button id="financialAudioToggle" class="admin-icon-button admin-sound-toggle" type="button" aria-label="Enable financial alert sound" aria-pressed="false" title="Click to enable financial alert sound">🔈</button><button id="adminNotificationButton" class="admin-icon-button" type="button" aria-label="Notifications">🔔<b id="adminNotificationCount">0</b></button><span id="adminCommandUser" class="admin-command-user">Staff</span></div>
+@@ -832,2 +863,2 @@
+-          <div class="wallet-records-heading admin-feature-cover-head"><div><p class="eyebrow">STEPHANIE AI · AUTOMATIC / HUMAN</p><h2 id="supportOperationsTitle">Stephanie · MASTER7 AI 客服</h2><p class="muted">Stephanie 会先回复会员工单；涉及资金、安全和投诉时，系统保留 Master Admin 审核、回复与关闭流程。</p></div><span id="supportEffectiveStatus" class="status pending admin-cover-state">CHECKING</span></div>
+-          <form id="supportAutomationForm" class="commission-card"><div class="commission-fields two"><label class="social-toggle"><input id="supportAiEnabled" type="checkbox"><span>Enable automatic first reply</span></label><label class="social-toggle"><input id="supportHumanHandoff" type="checkbox"><span>Human handoff required</span></label></div><button class="button button-primary" type="submit">Save support settings</button></form>
++          <div class="wallet-records-heading admin-feature-cover-head"><div><p class="eyebrow">STEPHANIE AI · AUTOMATIC / HUMAN</p><h2 id="supportOperationsTitle">Stephanie · MASTER7 AI 客服</h2><p class="muted">Stephanie 提供本站操作指引；后台可关闭自动回复，也可在同一对话接手处理。资金、安全和投诉保留人工审核。</p></div><span id="supportEffectiveStatus" class="status pending admin-cover-state">CHECKING</span></div>
++          <form id="supportAutomationForm" class="commission-card"><div class="commission-fields two"><label class="social-toggle"><input id="supportAiEnabled" type="checkbox" role="switch"><span>AI customer support · automatic replies</span></label><label class="social-toggle"><input id="supportHumanHandoff" type="checkbox"><span>Escalate cases that need a person</span></label></div><p class="muted">The switch controls automatic replies. Customers can still leave messages and request a person when it is off.</p><button class="button button-primary" type="submit">Save support settings</button></form>
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -9 +9 @@
+-  demoWarning:"MASTER7 · 热门游戏、专属优惠与会员服务",navHome:"首页",lobbyEyebrow:"游戏大厅",gamesLoading:"正在读取游戏平台…",catalogSummary:"大厅共有 {count} 家游戏平台。选择类别或厂家查看独立入口。",catalogUnavailable:"目前没有可展示的游戏平台入口。",providerAvailable:"已开放",providerBlocked:"维护中",providerUnavailable:"暂不可用",providerEmpty:"即将推出",providerNotConfigured:"即将推出",uatNotPlayable:"即将开放",maintenanceGame:"维护中",gameActivePreview:"已开放",navLobby:"游戏大厅",navDeposit:"充值",navWithdraw:"提款",withdrawTitle:"提款",withdrawIntro:"选择马来西亚银行及出款公司，再提交提款申请。",depositTitle:"充值",depositIntro:"充值选项及记录集中在此页面。",navSupport:"客服",navAdmin:"后台",language:"语言",login:"登录",logout:"退出",eyebrow:"MASTER7 · PREMIUM EXPERIENCE",heroTitle:"精彩游戏",heroAccent:"尽在 MASTER7。",heroDescription:"热门老虎机、真人、捕鱼与体育专区，尊享会员优惠与服务。",explore:"立即探索游戏",viewStatus:"查看平台状态",previewLabel:"尊贵会员平台",featureLang:"三种语言",featureLangDesc:"中文、英文、马来文切换",featureOtp:"两步验证",featureOtpDesc:"MASTER7 ID、马来西亚手机号与短信 OTP",featureStaff:"员工权限",featureStaffDesc:"管理员、员工和会员分级",featureAudit:"操作记录",featureAuditDesc:"审批和更改可追踪",announcements:"系统公告",loading:"读取中…",lobbyTitle:"游戏大厅",lobbyNotice:"38 家游戏平台按类别独立展示；内部游戏由各厂家平台提供。",searchPlaceholder:"搜索游戏平台名称",allCategories:"全部类别",slots:"老虎机",arcade:"街机",tableGames:"桌面游戏",live:"真人类",sports:"体育类",supportTitle:"客户服务中心",supportIntro:"Stephanie AI 客服会先回复，Master Admin 可在同一工单继续处理。",newTicket:"创建工单",subject:"主题",message:"内容",submitTicket:"提交客服请求",ticketLogin:"请先登录。",myTickets:"工单记录",loginFirst:"请先登录。",adminTitle:"运营管理后台",adminIntro:"管理会员、充值、提款、游戏平台、福利、广告与客服。",staffOnly:"员工权限保护",publishAnnouncement:"发布公告",publish:"发布",providerManager:"3 个免费赞助厂家位",providerManagerHint:"管理三个免费赞助位的图片；38 家游戏平台的封面与连接记录在下方查看。",memberApproval:"会员审批",auditTrail:"操作审计",adminDenied:"需要员工或管理员账号登录后才可进入。",footerDisclaimer:"会员可在一个平台查看游戏、钱包、福利、充值、提款与客服记录。",sandbox:"MASTER7 · SECURE MEMBER PORTAL",signInTitle:"会员登录",signIn:"登录",register:"注册",username:"用户名",password:"密码（最少6位）",otp:"短信验证",otpNote:"新会员注册需要短信 OTP，并在管理员批准后启用。",demoOnly:"平台入口待接通",hidden:"已隐藏",visible:"可展示",loginRequired:"请先登录。",success:"操作成功",error:"操作未完成",registerSaved:"账号已注册，等待管理员批准。",neverShare:"不要将 OTP 密钥发送给任何人。",authError:"登录失败。请检查账号、手机号、密码或审批状态。",role_owner:"管理员",role_staff:"员工",role_member:"会员",users:"账号总数",pending:"待审批",openTickets:"待处理工单",visibleProviders:"展示项目",demoFunds:"真实资金数据未连接",approve:"批准",approved:"已批准",open:"处理中",closed:"已关闭",closeTicket:"关闭",reopenTicket:"重开",itemSearchNoResults:"没有匹配的游戏平台。",noTickets:"暂无工单。",noAnnouncements:"暂无公告。",credentials:"通过会员登录安全访问本平台。",statusTitle:"V17 连接检查",statusMessage:"数据库及已配置的连接会按当前状态实时检查。",badResponse:"服务异常",noUsers:"暂无注册会员。",notReady:"未接通",save:"保存",identity:"MASTER7 ID 与手机号码"
++  demoWarning:"MASTER7 · 热门游戏、专属优惠与会员服务",navHome:"首页",lobbyEyebrow:"游戏大厅",gamesLoading:"正在读取游戏平台…",catalogSummary:"大厅共有 {count} 家游戏平台。选择类别或厂家查看独立入口。",catalogUnavailable:"目前没有可展示的游戏平台入口。",providerAvailable:"已开放",providerBlocked:"维护中",providerUnavailable:"暂不可用",providerEmpty:"即将推出",providerNotConfigured:"即将推出",uatNotPlayable:"即将开放",maintenanceGame:"维护中",gameActivePreview:"已开放",navLobby:"游戏大厅",navDeposit:"充值",navWithdraw:"提款",withdrawTitle:"提款",withdrawIntro:"选择马来西亚银行及出款公司，再提交提款申请。",depositTitle:"充值",depositIntro:"充值选项及记录集中在此页面。",navSupport:"客服",navAdmin:"后台",language:"语言",login:"登录",logout:"退出",eyebrow:"MASTER7 · PREMIUM EXPERIENCE",heroTitle:"精彩游戏",heroAccent:"尽在 MASTER7。",heroDescription:"热门老虎机、真人、捕鱼与体育专区，尊享会员优惠与服务。",explore:"立即探索游戏",viewStatus:"查看平台状态",previewLabel:"尊贵会员平台",featureLang:"三种语言",featureLangDesc:"中文、英文、马来文切换",featureOtp:"两步验证",featureOtpDesc:"MASTER7 ID、马来西亚手机号与短信 OTP",featureStaff:"员工权限",featureStaffDesc:"管理员、员工和会员分级",featureAudit:"操作记录",featureAuditDesc:"审批和更改可追踪",announcements:"系统公告",loading:"读取中…",lobbyTitle:"游戏大厅",lobbyNotice:"38 家游戏平台按类别独立展示；内部游戏由各厂家平台提供。",searchPlaceholder:"搜索游戏平台名称",allCategories:"全部类别",slots:"老虎机",arcade:"街机",tableGames:"桌面游戏",live:"真人类",sports:"体育类",supportTitle:"客户服务中心",supportIntro:"在这里留言，客服团队会在同一对话跟进。自动回复状态以聊天窗口提示为准。",newTicket:"创建工单",subject:"主题",message:"内容",submitTicket:"提交客服请求",ticketLogin:"请先登录。",myTickets:"工单记录",loginFirst:"请先登录。",adminTitle:"运营管理后台",adminIntro:"管理会员、充值、提款、游戏平台、福利、广告与客服。",staffOnly:"员工权限保护",publishAnnouncement:"发布公告",publish:"发布",providerManager:"3 个免费赞助厂家位",providerManagerHint:"管理三个免费赞助位的图片；38 家游戏平台的封面与连接记录在下方查看。",memberApproval:"会员审批",auditTrail:"操作审计",adminDenied:"需要员工或管理员账号登录后才可进入。",footerDisclaimer:"会员可在一个平台查看游戏、钱包、福利、充值、提款与客服记录。",sandbox:"MASTER7 · SECURE MEMBER PORTAL",signInTitle:"会员登录",signIn:"登录",register:"注册",username:"用户名",password:"密码（最少6位）",otp:"短信验证",otpNote:"新会员注册需要短信 OTP，并在管理员批准后启用。",demoOnly:"平台入口待接通",hidden:"已隐藏",visible:"可展示",loginRequired:"请先登录。",success:"操作成功",error:"操作未完成",registerSaved:"账号已注册，等待管理员批准。",neverShare:"不要将 OTP 密钥发送给任何人。",authError:"登录失败。请检查账号、手机号、密码或审批状态。",role_owner:"管理员",role_staff:"员工",role_member:"会员",users:"账号总数",pending:"待审批",openTickets:"待处理工单",visibleProviders:"展示项目",demoFunds:"真实资金数据未连接",approve:"批准",approved:"已批准",open:"处理中",closed:"已关闭",closeTicket:"关闭",reopenTicket:"重开",itemSearchNoResults:"没有匹配的游戏平台。",noTickets:"暂无工单。",noAnnouncements:"暂无公告。",credentials:"通过会员登录安全访问本平台。",statusTitle:"V17 连接检查",statusMessage:"数据库及已配置的连接会按当前状态实时检查。",badResponse:"服务异常",noUsers:"暂无注册会员。",notReady:"未接通",save:"保存",identity:"MASTER7 ID 与手机号码"
+@@ -13 +13 @@
+-  demoWarning:"MASTER7 · Premium games, member rewards and service",navHome:"Home",lobbyEyebrow:"GAME LOBBY",gamesLoading:"Loading game platforms…",catalogSummary:"{count} game platforms are listed in the lobby. Choose a category or provider entry.",catalogUnavailable:"No game-platform entry is currently available.",providerAvailable:"Available",providerBlocked:"Maintenance",providerUnavailable:"Temporarily unavailable",providerEmpty:"Coming soon",providerNotConfigured:"Coming soon",uatNotPlayable:"Coming soon",maintenanceGame:"Maintenance",gameActivePreview:"Active",navLobby:"Game lobby",navDeposit:"Deposit",navWithdraw:"Withdraw",withdrawTitle:"Withdraw",withdrawIntro:"Choose a Malaysian bank and an available payout company, then submit your withdrawal request.",depositTitle:"Deposit",depositIntro:"Payment options and deposit records are collected on this page.",navSupport:"Support",navAdmin:"Admin",language:"Language",login:"Sign in",logout:"Log out",eyebrow:"MASTER7 · PREMIUM EXPERIENCE",heroTitle:"Premium games",heroAccent:"One MASTER7 experience.",heroDescription:"Explore slots, live casino, fishing and sports with member rewards and service in one place.",explore:"Explore games",viewStatus:"Platform status",previewLabel:"Premium member platform",featureLang:"Three languages",featureLangDesc:"Chinese, English and Malay",featureOtp:"Two-step login",featureOtpDesc:"MASTER7 ID, Malaysian mobile and SMS OTP",featureStaff:"Staff permissions",featureStaffDesc:"Admin, staff and member roles",featureAudit:"Audit history",featureAuditDesc:"Traceable approvals and changes",announcements:"System notices",loading:"Loading…",lobbyTitle:"Game lobby",lobbyNotice:"Browse 38 independent provider platforms by category; internal games remain within each provider platform.",searchPlaceholder:"Search game platform",allCategories:"All categories",slots:"Slots",arcade:"Arcade",tableGames:"Table",live:"Live",sports:"Sports",supportTitle:"Support center",supportIntro:"Stephanie AI support replies first; the Master Admin can continue in the same ticket.",newTicket:"New ticket",subject:"Subject",message:"Message",submitTicket:"Send request",ticketLogin:"Sign in to submit a support ticket.",myTickets:"Ticket history",loginFirst:"Please sign in.",adminTitle:"Operations backoffice",adminIntro:"Manage members, deposits, withdrawals, game platforms, benefits, advertising and support.",staffOnly:"Staff access only",publishAnnouncement:"Publish announcement",publish:"Publish",providerManager:"Three free sponsored provider slots",providerManagerHint:"Manage artwork for the three free sponsored slots. View all 38 platform covers and connection records below.",memberApproval:"Member approvals",auditTrail:"Audit log",adminDenied:"Sign in with an administrator or staff account.",footerDisclaimer:"Games, wallet, benefits, deposits, withdrawals and support are available from one member platform.",sandbox:"MASTER7 · SECURE MEMBER PORTAL",signInTitle:"Member sign-in",signIn:"Sign in",register:"Register",username:"Username",password:"Password (min 6 characters)",otp:"SMS verification",otpNote:"New member registration requires SMS verification and administrator approval.",demoOnly:"Platform entry pending",hidden:"Hidden",visible:"Visible",loginRequired:"Please sign in first.",success:"Saved",error:"Action not completed",registerSaved:"Account registered, pending administrator approval.",neverShare:"Never share the OTP secret.",authError:"Sign-in failed. Check ID, mobile number, password or approval status.",role_owner:"Admin",role_staff:"Staff",role_member:"Member",users:"Total accounts",pending:"Pending approval",openTickets:"Open tickets",visibleProviders:"Catalog items",demoFunds:"Real financial data not connected",approve:"Approve",approved:"Approved",open:"Open",closed:"Closed",closeTicket:"Close",reopenTicket:"Reopen",itemSearchNoResults:"No matching game platforms.",noTickets:"No tickets yet.",noAnnouncements:"No notices yet.",credentials:"Secure member access for this platform.",statusTitle:"V17 connectivity",statusMessage:"The database and configured integrations are checked against their current state.",badResponse:"Service unavailable",noUsers:"No registered members.",notReady:"Not connected",save:"Save",identity:"MASTER7 ID and mobile number"
++  demoWarning:"MASTER7 · Premium games, member rewards and service",navHome:"Home",lobbyEyebrow:"GAME LOBBY",gamesLoading:"Loading game platforms…",catalogSummary:"{count} game platforms are listed in the lobby. Choose a category or provider entry.",catalogUnavailable:"No game-platform entry is currently available.",providerAvailable:"Available",providerBlocked:"Maintenance",providerUnavailable:"Temporarily unavailable",providerEmpty:"Coming soon",providerNotConfigured:"Coming soon",uatNotPlayable:"Coming soon",maintenanceGame:"Maintenance",gameActivePreview:"Active",navLobby:"Game lobby",navDeposit:"Deposit",navWithdraw:"Withdraw",withdrawTitle:"Withdraw",withdrawIntro:"Choose a Malaysian bank and an available payout company, then submit your withdrawal request.",depositTitle:"Deposit",depositIntro:"Payment options and deposit records are collected on this page.",navSupport:"Support",navAdmin:"Admin",language:"Language",login:"Sign in",logout:"Log out",eyebrow:"MASTER7 · PREMIUM EXPERIENCE",heroTitle:"Premium games",heroAccent:"One MASTER7 experience.",heroDescription:"Explore slots, live casino, fishing and sports with member rewards and service in one place.",explore:"Explore games",viewStatus:"Platform status",previewLabel:"Premium member platform",featureLang:"Three languages",featureLangDesc:"Chinese, English and Malay",featureOtp:"Two-step login",featureOtpDesc:"MASTER7 ID, Malaysian mobile and SMS OTP",featureStaff:"Staff permissions",featureStaffDesc:"Admin, staff and member roles",featureAudit:"Audit history",featureAuditDesc:"Traceable approvals and changes",announcements:"System notices",loading:"Loading…",lobbyTitle:"Game lobby",lobbyNotice:"Browse 38 independent provider platforms by category; internal games remain within each provider platform.",searchPlaceholder:"Search game platform",allCategories:"All categories",slots:"Slots",arcade:"Arcade",tableGames:"Table",live:"Live",sports:"Sports",supportTitle:"Support center",supportIntro:"Leave a message for support to follow up in the same conversation. Check the chat for automatic-reply availability.",newTicket:"New ticket",subject:"Subject",message:"Message",submitTicket:"Send request",ticketLogin:"Sign in to submit a support ticket.",myTickets:"Ticket history",loginFirst:"Please sign in.",adminTitle:"Operations backoffice",adminIntro:"Manage members, deposits, withdrawals, game platforms, benefits, advertising and support.",staffOnly:"Staff access only",publishAnnouncement:"Publish announcement",publish:"Publish",providerManager:"Three free sponsored provider slots",providerManagerHint:"Manage artwork for the three free sponsored slots. View all 38 platform covers and connection records below.",memberApproval:"Member approvals",auditTrail:"Audit log",adminDenied:"Sign in with an administrator or staff account.",footerDisclaimer:"Games, wallet, benefits, deposits, withdrawals and support are available from one member platform.",sandbox:"MASTER7 · SECURE MEMBER PORTAL",signInTitle:"Member sign-in",signIn:"Sign in",register:"Register",username:"Username",password:"Password (min 6 characters)",otp:"SMS verification",otpNote:"New member registration requires SMS verification and administrator approval.",demoOnly:"Platform entry pending",hidden:"Hidden",visible:"Visible",loginRequired:"Please sign in first.",success:"Saved",error:"Action not completed",registerSaved:"Account registered, pending administrator approval.",neverShare:"Never share the OTP secret.",authError:"Sign-in failed. Check ID, mobile number, password or approval status.",role_owner:"Admin",role_staff:"Staff",role_member:"Member",users:"Total accounts",pending:"Pending approval",openTickets:"Open tickets",visibleProviders:"Catalog items",demoFunds:"Real financial data not connected",approve:"Approve",approved:"Approved",open:"Open",closed:"Closed",closeTicket:"Close",reopenTicket:"Reopen",itemSearchNoResults:"No matching game platforms.",noTickets:"No tickets yet.",noAnnouncements:"No notices yet.",credentials:"Secure member access for this platform.",statusTitle:"V17 connectivity",statusMessage:"The database and configured integrations are checked against their current state.",badResponse:"Service unavailable",noUsers:"No registered members.",notReady:"Not connected",save:"Save",identity:"MASTER7 ID and mobile number"
+@@ -17 +17 @@
+-  demoWarning:"MASTER7 · Permainan premium, ganjaran ahli dan perkhidmatan",navHome:"Utama",lobbyEyebrow:"LOBI PERMAINAN",gamesLoading:"Memuatkan platform permainan…",catalogSummary:"{count} platform permainan disenaraikan. Pilih kategori atau pintu pembekal.",catalogUnavailable:"Pintu platform permainan belum tersedia.",providerAvailable:"Tersedia",providerBlocked:"Penyelenggaraan",providerUnavailable:"Tidak tersedia sementara",providerEmpty:"Akan datang",providerNotConfigured:"Akan datang",uatNotPlayable:"Akan datang",maintenanceGame:"Maintenance",gameActivePreview:"Aktif",navLobby:"Lobi permainan",navDeposit:"Deposit",navWithdraw:"Pengeluaran",withdrawTitle:"Pengeluaran",withdrawIntro:"Pilih bank Malaysia dan syarikat pembayaran yang tersedia, kemudian hantar permintaan pengeluaran.",depositTitle:"Deposit",depositIntro:"Pilihan pembayaran dan rekod deposit dikumpulkan di halaman ini.",navSupport:"Bantuan",navAdmin:"Pentadbir",language:"Bahasa",login:"Log masuk",logout:"Log keluar",eyebrow:"MASTER7 · PENGALAMAN PREMIUM",heroTitle:"Permainan premium",heroAccent:"Satu pengalaman MASTER7.",heroDescription:"Terokai slot, kasino langsung, memancing dan sukan bersama ganjaran serta khidmat ahli.",explore:"Terokai permainan",viewStatus:"Status platform",previewLabel:"Platform ahli premium",featureLang:"Tiga bahasa",featureLangDesc:"Cina, Inggeris dan Melayu",featureOtp:"Pengesahan dua langkah",featureOtpDesc:"ID MASTER7, telefon Malaysia dan OTP SMS",featureStaff:"Akses kakitangan",featureStaffDesc:"Peranan pentadbir, staf dan ahli",featureAudit:"Rekod audit",featureAuditDesc:"Kelulusan dan perubahan boleh dijejak",announcements:"Pengumuman",loading:"Memuatkan…",lobbyTitle:"Lobi permainan",lobbyNotice:"Terokai 38 platform pembekal mengikut kategori; permainan dalaman kekal dalam setiap platform pembekal.",searchPlaceholder:"Cari platform permainan",allCategories:"Semua kategori",slots:"Slot",arcade:"Arked",tableGames:"Meja",live:"Langsung",sports:"Sukan",supportTitle:"Pusat bantuan",supportIntro:"Khidmat AI Stephanie membalas dahulu; kakitangan boleh meneruskan dalam tiket yang sama.",newTicket:"Tiket baharu",subject:"Tajuk",message:"Mesej",submitTicket:"Hantar permintaan",ticketLogin:"Log masuk untuk menghantar tiket.",myTickets:"Sejarah tiket",loginFirst:"Sila log masuk dahulu.",adminTitle:"Panel pentadbiran",adminIntro:"Urus ahli, deposit, pengeluaran, platform permainan, manfaat, iklan dan bantuan.",staffOnly:"Akses staf sahaja",publishAnnouncement:"Terbit pengumuman",publish:"Terbit",providerManager:"Tiga slot pembekal tajaan percuma",providerManagerHint:"Urus imej tiga slot tajaan percuma. Lihat 38 muka depan dan rekod sambungan platform di bawah.",memberApproval:"Kelulusan ahli",auditTrail:"Log audit",adminDenied:"Log masuk sebagai pentadbir atau staf.",footerDisclaimer:"Permainan, dompet, manfaat, deposit, pengeluaran dan bantuan tersedia dalam satu platform ahli.",sandbox:"MASTER7 · PORTAL AHLI SELAMAT",signInTitle:"Log masuk ahli",signIn:"Log masuk",register:"Daftar",username:"Nama pengguna",password:"Kata laluan (minimum 6 aksara)",otp:"Pengesahan SMS",otpNote:"Pendaftaran ahli baharu memerlukan OTP SMS dan kelulusan pentadbir.",demoOnly:"Pintu platform menunggu sambungan",hidden:"Disembunyikan",visible:"Dipaparkan",loginRequired:"Sila log masuk dahulu.",success:"Berjaya disimpan",error:"Tindakan tidak selesai",registerSaved:"Akaun didaftarkan; menunggu kelulusan pentadbir.",neverShare:"Jangan kongsi rahsia OTP.",authError:"Log masuk gagal. Semak ID, nombor telefon, kata laluan atau kelulusan.",role_owner:"Pemilik",role_staff:"Staf",role_member:"Ahli",users:"Jumlah akaun",pending:"Menunggu kelulusan",openTickets:"Tiket terbuka",visibleProviders:"Item katalog",demoFunds:"Data kewangan sebenar tidak disambungkan",approve:"Lulus",approved:"Diluluskan",open:"Terbuka",closed:"Ditutup",closeTicket:"Tutup",reopenTicket:"Buka semula",itemSearchNoResults:"Tiada platform permainan yang sepadan.",noTickets:"Belum ada tiket.",noAnnouncements:"Belum ada pengumuman.",credentials:"Akses ahli selamat untuk platform ini.",statusTitle:"Sambungan V17",statusMessage:"Pangkalan data dan integrasi yang dikonfigurasikan diperiksa mengikut status semasa.",badResponse:"Perkhidmatan tidak tersedia",noUsers:"Belum ada ahli.",notReady:"Belum disambungkan",save:"Simpan",identity:"ID MASTER7 dan nombor telefon"
++  demoWarning:"MASTER7 · Permainan premium, ganjaran ahli dan perkhidmatan",navHome:"Utama",lobbyEyebrow:"LOBI PERMAINAN",gamesLoading:"Memuatkan platform permainan…",catalogSummary:"{count} platform permainan disenaraikan. Pilih kategori atau pintu pembekal.",catalogUnavailable:"Pintu platform permainan belum tersedia.",providerAvailable:"Tersedia",providerBlocked:"Penyelenggaraan",providerUnavailable:"Tidak tersedia sementara",providerEmpty:"Akan datang",providerNotConfigured:"Akan datang",uatNotPlayable:"Akan datang",maintenanceGame:"Maintenance",gameActivePreview:"Aktif",navLobby:"Lobi permainan",navDeposit:"Deposit",navWithdraw:"Pengeluaran",withdrawTitle:"Pengeluaran",withdrawIntro:"Pilih bank Malaysia dan syarikat pembayaran yang tersedia, kemudian hantar permintaan pengeluaran.",depositTitle:"Deposit",depositIntro:"Pilihan pembayaran dan rekod deposit dikumpulkan di halaman ini.",navSupport:"Bantuan",navAdmin:"Pentadbir",language:"Bahasa",login:"Log masuk",logout:"Log keluar",eyebrow:"MASTER7 · PENGALAMAN PREMIUM",heroTitle:"Permainan premium",heroAccent:"Satu pengalaman MASTER7.",heroDescription:"Terokai slot, kasino langsung, memancing dan sukan bersama ganjaran serta khidmat ahli.",explore:"Terokai permainan",viewStatus:"Status platform",previewLabel:"Platform ahli premium",featureLang:"Tiga bahasa",featureLangDesc:"Cina, Inggeris dan Melayu",featureOtp:"Pengesahan dua langkah",featureOtpDesc:"ID MASTER7, telefon Malaysia dan OTP SMS",featureStaff:"Akses kakitangan",featureStaffDesc:"Peranan pentadbir, staf dan ahli",featureAudit:"Rekod audit",featureAuditDesc:"Kelulusan dan perubahan boleh dijejak",announcements:"Pengumuman",loading:"Memuatkan…",lobbyTitle:"Lobi permainan",lobbyNotice:"Terokai 38 platform pembekal mengikut kategori; permainan dalaman kekal dalam setiap platform pembekal.",searchPlaceholder:"Cari platform permainan",allCategories:"Semua kategori",slots:"Slot",arcade:"Arked",tableGames:"Meja",live:"Langsung",sports:"Sukan",supportTitle:"Pusat bantuan",supportIntro:"Tinggalkan mesej untuk pasukan sokongan. Status balasan automatik dipaparkan dalam sembang.",newTicket:"Tiket baharu",subject:"Tajuk",message:"Mesej",submitTicket:"Hantar permintaan",ticketLogin:"Log masuk untuk menghantar tiket.",myTickets:"Sejarah tiket",loginFirst:"Sila log masuk dahulu.",adminTitle:"Panel pentadbiran",adminIntro:"Urus ahli, deposit, pengeluaran, platform permainan, manfaat, iklan dan bantuan.",staffOnly:"Akses staf sahaja",publishAnnouncement:"Terbit pengumuman",publish:"Terbit",providerManager:"Tiga slot pembekal tajaan percuma",providerManagerHint:"Urus imej tiga slot tajaan percuma. Lihat 38 muka depan dan rekod sambungan platform di bawah.",memberApproval:"Kelulusan ahli",auditTrail:"Log audit",adminDenied:"Log masuk sebagai pentadbir atau staf.",footerDisclaimer:"Permainan, dompet, manfaat, deposit, pengeluaran dan bantuan tersedia dalam satu platform ahli.",sandbox:"MASTER7 · PORTAL AHLI SELAMAT",signInTitle:"Log masuk ahli",signIn:"Log masuk",register:"Daftar",username:"Nama pengguna",password:"Kata laluan (minimum 6 aksara)",otp:"Pengesahan SMS",otpNote:"Pendaftaran ahli baharu memerlukan OTP SMS dan kelulusan pentadbir.",demoOnly:"Pintu platform menunggu sambungan",hidden:"Disembunyikan",visible:"Dipaparkan",loginRequired:"Sila log masuk dahulu.",success:"Berjaya disimpan",error:"Tindakan tidak selesai",registerSaved:"Akaun didaftarkan; menunggu kelulusan pentadbir.",neverShare:"Jangan kongsi rahsia OTP.",authError:"Log masuk gagal. Semak ID, nombor telefon, kata laluan atau kelulusan.",role_owner:"Pemilik",role_staff:"Staf",role_member:"Ahli",users:"Jumlah akaun",pending:"Menunggu kelulusan",openTickets:"Tiket terbuka",visibleProviders:"Item katalog",demoFunds:"Data kewangan sebenar tidak disambungkan",approve:"Lulus",approved:"Diluluskan",open:"Terbuka",closed:"Ditutup",closeTicket:"Tutup",reopenTicket:"Buka semula",itemSearchNoResults:"Tiada platform permainan yang sepadan.",noTickets:"Belum ada tiket.",noAnnouncements:"Belum ada pengumuman.",credentials:"Akses ahli selamat untuk platform ini.",statusTitle:"Sambungan V17",statusMessage:"Pangkalan data dan integrasi yang dikonfigurasikan diperiksa mengikut status semasa.",badResponse:"Perkhidmatan tidak tersedia",noUsers:"Belum ada ahli.",notReady:"Belum disambungkan",save:"Simpan",identity:"ID MASTER7 dan nombor telefon"
+@@ -30,3 +30,3 @@
+- zh:{supportIntro:"Stephanie AI 客服会先回复，Master Admin 可在同一工单继续处理。",ticketLogin:"已批准会员可提交问题；请勿发送密码或 OTP。"},
+- en:{supportIntro:"Stephanie AI support replies first; the Master Admin can continue in the same ticket.",ticketLogin:"Approved members can send a request. Never send a password or OTP."},
+- ms:{supportIntro:"Khidmat AI Stephanie membalas dahulu; Master Admin boleh meneruskan dalam tiket yang sama.",ticketLogin:"Ahli yang diluluskan boleh menghantar permintaan. Jangan hantar kata laluan atau OTP."}
++ zh:{supportIntro:"在这里留言，客服团队会在同一对话跟进。自动回复状态以聊天窗口提示为准。",ticketLogin:"已批准会员可提交问题；请勿发送密码或 OTP。"},
++ en:{supportIntro:"Leave a message for support to follow up in the same conversation. Check the chat for automatic-reply availability.",ticketLogin:"Approved members can send a request. Never send a password or OTP."},
++ ms:{supportIntro:"Tinggalkan mesej untuk pasukan sokongan. Status balasan automatik dipaparkan dalam sembang.",ticketLogin:"Ahli yang diluluskan boleh menghantar permintaan. Jangan hantar kata laluan atau OTP."}
+@@ -719 +719 @@
+-async function loadSupportAutomation(){if(state.user?.role!=="owner")return;const data=await api("/api/admin/support-settings"),active=data.effectiveAiReply===true,external=data.externalProviderReady===true,notice=$("supportAutomationNotice");$("supportAiEnabled").checked=!!data.aiEnabled;$("supportHumanHandoff").checked=!!data.humanHandoff;$("supportEffectiveStatus").textContent=!active?"OFF":external?"AI MODEL":"RULES FALLBACK";$("supportEffectiveStatus").className=`status ${active?"ready":"pending"}`;const host=$("supportAutomationSummary");clear(host);referralMetric(host,"Assistant",data.assistantName||"Stephanie · MASTER7 AI 客服");referralMetric(host,"Automatic first reply",active?"ON":"OFF");referralMetric(host,"External AI",external?"Connected":"Not connected");referralMetric(host,"Safe rules fallback",data.rulesFallbackReady?"Ready":"Unavailable");referralMetric(host,"Human handoff",data.humanHandoff?"ON":"OFF");if(notice){notice.className=`verification-note ${external?"ready":"pending"}`;notice.textContent=external?"✅ 外部 AI 模型已由服务器配置；资金、安全及投诉仍强制使用安全规则并交后台审核。":"外部 AI 尚未连接；Stephanie 目前使用中英马三语安全规则回复。服务器密钥不会显示在网页。";}}
++async function loadSupportAutomation(){if(state.user?.role!=="owner")return;const data=await api("/api/admin/support-settings"),active=data.effectiveAiReply===true,external=data.externalProviderReady===true,notice=$("supportAutomationNotice");$("supportAiEnabled").checked=!!data.aiEnabled;$("supportHumanHandoff").checked=!!data.humanHandoff;$("supportEffectiveStatus").textContent=!active?"OFF":external?"AI MODEL":"RULES FALLBACK";$("supportEffectiveStatus").className=`status ${active?"ready":"pending"}`;const host=$("supportAutomationSummary");clear(host);referralMetric(host,"Assistant",data.assistantName||"Stephanie · MASTER7 AI 客服");referralMetric(host,"Automatic replies",active?"ON":"OFF");referralMetric(host,"External AI",external?"Connected":"Not connected");referralMetric(host,"Safe rules fallback",data.rulesFallbackReady?"Ready":"Unavailable");referralMetric(host,"Human handoff",data.humanHandoff?"ON":"OFF");if(notice){notice.className=`verification-note ${external?"ready":"pending"}`;notice.textContent=external?"✅ 外部 AI 模型已由服务器配置；资金、安全及投诉仍强制使用安全规则并交后台审核。":"外部 AI 尚未连接；Stephanie 目前使用中英马三语安全规则回复。服务器密钥不会显示在网页。";}}
+@@ -858 +858 @@
+-function renderSession(){const u=state.user;if(typeof syncDepositTraceOwner==="function")syncDepositTraceOwner(u);if(u?.role!=="member"||!u.approved||state.gameWalletMemberId!==u.id){state.gameWallet=null;state.gameWalletMemberId=null;state.gameWalletRequestId=(Number(state.gameWalletRequestId)||0)+1;}if(u?.role!=="member"||!u.approved||state.manualBankMemberId!==u.id){state.manualBanks=[];state.manualBankMemberId=null;}renderPaymentPreview();renderDepositCashier();$("accountSecurity").hidden=!(u&&state.authMethod==="password");$("accountNotice").hidden=!u||u.approved;$("accountNotice").textContent=t("accountPending");$("loginButton").hidden=!!u;$("logoutButton").hidden=!u;$("userChip").hidden=!u;$("referralNav").hidden=false;$("referralSidebarNav").hidden=false;$("ticketForm").hidden=!!u&&u.role!=="member";document.querySelectorAll('[data-section="deposit"],[data-section="withdraw"]').forEach(el=>el.hidden=u?.role!=="member");document.querySelectorAll('[data-section="responsible-play"]').forEach(el=>el.hidden=u?.role!=="member");document.querySelectorAll('[data-section="member-verification"]').forEach(el=>el.hidden=u?.role!=="member");const canManage=!!(u&&(u.role==="owner"||u.role==="staff"));$("adminNav").hidden=!canManage;$("adminSidebarNav").hidden=!canManage;document.querySelectorAll("[data-owner-only]").forEach(el=>el.hidden=u?.role!=="owner");if((state.section==="deposit"||state.section==="withdraw")&&u?.role!=="member")selected(canManage?"admin":"lobby");else if((state.section==="responsible-play"||state.section==="member-verification")&&u?.role!=="member")selected(canManage?"admin":"lobby");if(u)$("userChip").textContent=`${u.username} · ${t("role_"+u.role)}`;else{state.ticketUnread=0;state.ticketLatestEvent=null;}renderTicketUnreadBadges();if(state.section==="admin"&&!u)renderAdmin();renderGameWallet();window.Master7Vip?.sessionChanged(u);window.Master7Rewards?.sessionChanged(u);window.Master7Engagement?.sessionChanged(u);window.Master7ResponsiblePlay?.sessionChanged(u);window.Master7ManualCompliance?.sessionChanged(u);}
++function renderSession(){const u=state.user;if(typeof syncDepositTraceOwner==="function")syncDepositTraceOwner(u);if(u?.role!=="member"||!u.approved||state.gameWalletMemberId!==u.id){state.gameWallet=null;state.gameWalletMemberId=null;state.gameWalletRequestId=(Number(state.gameWalletRequestId)||0)+1;}if(u?.role!=="member"||!u.approved||state.manualBankMemberId!==u.id){state.manualBanks=[];state.manualBankMemberId=null;}renderPaymentPreview();renderDepositCashier();$("accountSecurity").hidden=!(u&&state.authMethod==="password");$("accountNotice").hidden=!u||u.approved;$("accountNotice").textContent=t("accountPending");$("loginButton").hidden=!!u;$("logoutButton").hidden=!u;$("userChip").hidden=!u;$("referralNav").hidden=false;$("referralSidebarNav").hidden=false;$("ticketForm").hidden=!!u&&u.role!=="member";document.querySelectorAll('[data-section="deposit"],[data-section="withdraw"]').forEach(el=>el.hidden=u?.role!=="member");document.querySelectorAll('[data-section="responsible-play"]').forEach(el=>el.hidden=u?.role!=="member");document.querySelectorAll('[data-section="member-verification"]').forEach(el=>el.hidden=u?.role!=="member");const canManage=!!(u&&(u.role==="owner"||u.role==="staff"));$("adminNav").hidden=!canManage;$("adminSidebarNav").hidden=!canManage;document.querySelectorAll("[data-owner-only]").forEach(el=>el.hidden=u?.role!=="owner");if((state.section==="deposit"||state.section==="withdraw")&&u?.role!=="member")selected(canManage?"admin":"lobby");else if((state.section==="responsible-play"||state.section==="member-verification")&&u?.role!=="member")selected(canManage?"admin":"lobby");if(u)$("userChip").textContent=`${u.username} · ${t("role_"+u.role)}`;else{state.ticketUnread=0;state.ticketLatestEvent=null;}renderTicketUnreadBadges();if(state.section==="admin"&&!u)renderAdmin();renderGameWallet();window.Master7Vip?.sessionChanged(u);window.Master7Rewards?.sessionChanged(u);window.Master7Engagement?.sessionChanged(u);window.Master7ResponsiblePlay?.sessionChanged(u);window.Master7ManualCompliance?.sessionChanged(u);window.Master7MemberServices?.sessionChanged(u);}
+--- /dev/null
++++ b/public/assets/member-services.js
+@@ -0,0 +1,95 @@
++/* Member-only navigation and a real, same-origin support conversation. */
++(()=>{
++ const get=id=>document.getElementById(id),menu=get('memberMenuDialog'),chat=get('memberChatDialog'),toggle=get('memberMenuToggle');
++ if(!menu||!chat||!toggle)return;
++ const copy={
++  en:{menu:'Menu',account:'My account',wallet:'Wallet & records',deposit:'Deposit',withdraw:'Withdraw & withdrawal records',records:'Deposit records',verification:'Identity verification',security:'Account security',settings:'Play settings',help:'Help & offers',promotions:'Promotions',chat:'Chat with support',messages:'All support messages',logout:'Log out',refresh:'Refresh conversation',human:'Request a person',message:'Your message',privacy:'Do not share passwords, OTPs or full bank numbers.',send:'Send',sending:'Sending…',empty:'How can we help? Send your question below. Your conversation is saved to the support inbox.',loading:'Loading your conversation…',unavailable:'Unable to load messages. Refresh and try again.',sendFailed:'Sending was not confirmed. Refresh the conversation before sending again.',sent:'Message saved to the support inbox.',guide:'Stephanie · guided help · human follow-up available',ai:'Stephanie AI assistance · human follow-up available',manual:'Customer support · messages saved for the team',handoff:'Human support requested. The team can reply in this conversation.',you:'You',assistant:'Stephanie · AI assistant',team:'Support team',pending:'Your account is awaiting approval. You can still ask support here.',closed:'This conversation is closed. Your next message starts a new conversation.'},
++  zh:{menu:'菜单',account:'我的账户',wallet:'钱包与记录',deposit:'充值',withdraw:'提款与提款记录',records:'充值记录',verification:'身份审核',security:'账户安全',settings:'游戏设置',help:'帮助与活动',promotions:'会员活动',chat:'客服聊天',messages:'全部客服消息',logout:'退出登录',refresh:'刷新对话',human:'转人工客服',message:'你的问题',privacy:'请勿发送密码、验证码或完整银行号码。',send:'发送',sending:'发送中…',empty:'有什么可以帮你？在下方留言，对话会保存到后台客服收件箱。',loading:'正在读取对话…',unavailable:'暂时无法读取消息，请刷新后重试。',sendFailed:'发送结果尚未确认，请先刷新对话查看，避免重复发送。',sent:'消息已保存到客服收件箱。',guide:'Stephanie · 自动操作指引 · 可转人工',ai:'Stephanie AI 助手 · 可转人工跟进',manual:'客服留言 · 消息由客服团队跟进',handoff:'已请求人工客服，客服可在同一对话回复。',you:'你',assistant:'Stephanie · AI 助手',team:'客服团队',pending:'会员账号正在等待审核，仍可在这里留言询问。',closed:'本次对话已结束，再次留言将开启新对话。'},
++  ms:{menu:'Menu',account:'Akaun saya',wallet:'Dompet & rekod',deposit:'Deposit',withdraw:'Pengeluaran & rekod',records:'Rekod deposit',verification:'Pengesahan identiti',security:'Keselamatan akaun',settings:'Tetapan permainan',help:'Bantuan & tawaran',promotions:'Promosi',chat:'Sembang sokongan',messages:'Semua mesej sokongan',logout:'Log keluar',refresh:'Muat semula',human:'Minta pegawai',message:'Mesej anda',privacy:'Jangan kongsi kata laluan, OTP atau nombor bank penuh.',send:'Hantar',sending:'Menghantar…',empty:'Bagaimanakah kami boleh membantu? Hantar soalan di bawah. Perbualan disimpan dalam peti masuk sokongan.',loading:'Memuatkan perbualan…',unavailable:'Mesej tidak dapat dimuatkan. Sila cuba lagi.',sendFailed:'Penghantaran belum disahkan. Muat semula sebelum menghantar lagi.',sent:'Mesej disimpan dalam peti masuk sokongan.',guide:'Stephanie · panduan automatik · pegawai tersedia',ai:'Bantuan AI Stephanie · sokongan manusia tersedia',manual:'Khidmat pelanggan · mesej untuk pasukan',handoff:'Pegawai diminta. Pasukan boleh membalas dalam perbualan ini.',you:'Anda',assistant:'Stephanie · pembantu AI',team:'Pasukan sokongan',pending:'Akaun menunggu kelulusan. Anda masih boleh menghubungi sokongan di sini.',closed:'Perbualan ditutup. Mesej seterusnya membuka perbualan baharu.'}
++ };
++ let memberId=null,generation=0,sequence=0,current=null,busy=false,polling=false,humanRequested=false;
++ const isMember=()=>state.user?.role==='member';
++ const tr=key=>(copy[state.lang]||copy.en)[key]||key;
++ function labels(){
++  document.querySelectorAll('[data-member-copy]').forEach(node=>node.textContent=tr(node.dataset.memberCopy));
++  get('memberMenuClose').setAttribute('aria-label',tr('menu')+' ×');get('memberChatClose').setAttribute('aria-label',tr('chat')+' ×');
++ }
++ function closeMenu(){if(menu.open)menu.close();toggle.setAttribute('aria-expanded','false');}
++ function closeChat(){if(chat.open)chat.close();}
++ function openMenu(){if(!isMember())return;labels();if(!menu.open)menu.showModal();toggle.setAttribute('aria-expanded','true');get('memberMenuClose').focus();}
++ function destination(section){if(!isMember())return;closeMenu();selected(section);}
++ function feedback(text){get('memberChatFeedback').textContent=text;}
++ function controls(){get('memberChatSend').disabled=busy||!isMember();get('memberChatSend').textContent=tr(busy?'sending':'send');get('memberChatInput').disabled=!isMember();get('memberChatHuman').disabled=busy||humanRequested;}
++ function bubble(author,message,own){
++  const box=document.createElement('article'),label=document.createElement('small'),text=document.createElement('p');box.className='member-chat-bubble'+(own?' is-member':'');label.textContent=author;text.textContent=message;box.append(label,text);return box;
++ }
++ function renderConversation(ticket){
++  const host=get('memberChatMessages');host.replaceChildren();
++  if(!ticket){const text=document.createElement('p');text.className='member-chat-empty';text.textContent=tr('empty');host.append(text);return;}
++  host.append(bubble(tr('you'),ticket.message,true));
++  for(const reply of ticket.replies||[]){const own=reply.user_id===memberId,author=own?tr('you'):reply.user_id==='system-support-assistant'?tr('assistant'):(reply.username||tr('team'));host.append(bubble(author,reply.message,own));}
++  if(ticket.status==='closed')feedback(tr('closed'));
++  host.scrollTop=host.scrollHeight;
++ }
++ async function loadConversation(){
++  if(!isMember()||!chat.open)return;const account=memberId,scope=generation,request=++sequence;
++  polling=true;
++  try{
++   const [tickets,status]=await Promise.all([api('/api/tickets?page=1&limit=20'),api('/api/support/status')]);
++   if(scope!==generation||account!==memberId||request!==sequence||!isMember())return;
++   const mine=(tickets.items||[]).filter(ticket=>ticket.user_id===account&&ticket.subject==='Customer chat');
++   current=mine.find(ticket=>ticket.id===current?.id)||mine.find(ticket=>ticket.status==='open')||mine[0]||null;
++   humanRequested=humanRequested||current?.humanHandoff===true;
++   get('memberChatAvailability').textContent=tr(humanRequested?'handoff':status.aiRepliesEnabled?(status.mode==='openai_compatible'?'ai':'guide'):'manual');
++   renderConversation(current);controls();
++   if(current?.unread)await api('/api/tickets/read','POST',{ticketIds:[current.id]});
++  }catch{if(scope===generation&&account===memberId)feedback(tr('unavailable'));}
++  finally{if(request===sequence)polling=false;}
++ }
++ function openChat(){
++  if(!isMember()){if(state.user)selected('support');else showAuth('login');return;}
++  closeMenu();labels();if(!chat.open)chat.showModal();feedback(state.user.approved?'':tr('pending'));controls();
++  if(!get('memberChatMessages').childElementCount)get('memberChatMessages').textContent=tr('loading');
++  loadConversation();get('memberChatInput').focus();
++ }
++ async function sendMessage(event){
++  event.preventDefault();if(busy||!isMember())return;
++  const input=get('memberChatInput'),message=input.value.trim();if(!message||message.length>2000)return;
++  const account=memberId,scope=generation;busy=true;controls();feedback('');
++  try{
++   let response;
++   if(current?.status==='open')response=await api('/api/tickets/reply','POST',{ticketId:current.id,message,humanHandoff:humanRequested});
++   else response=await api('/api/tickets','POST',{subject:'Customer chat',message,humanHandoff:humanRequested});
++   if(account!==memberId||scope!==generation||!isMember())return;
++   if(response.id)current={id:response.id,status:'open'};
++   input.value='';feedback(tr('sent'));await loadConversation();
++  }catch{if(account===memberId&&scope===generation)feedback(tr('sendFailed'));}
++  finally{if(account===memberId&&scope===generation){busy=false;controls();}}
++ }
++ async function requestHuman(){
++  if(!isMember()||busy)return;const account=memberId,scope=generation;busy=true;controls();
++  try{
++   if(current?.status==='open')await api('/api/support/handoff','POST',{ticketId:current.id});
++   if(account!==memberId||scope!==generation)return;humanRequested=true;feedback(tr('handoff'));get('memberChatAvailability').textContent=tr('handoff');
++  }catch{if(account===memberId&&scope===generation)feedback(tr('unavailable'));}
++  finally{if(account===memberId&&scope===generation){busy=false;controls();}}
++ }
++ function sessionChanged(user){
++  const next=user?.role==='member'?user.id:null;
++  if(next!==memberId){generation++;sequence++;memberId=next;current=null;busy=false;polling=false;humanRequested=false;closeMenu();closeChat();get('memberChatInput').value='';get('memberChatMessages').replaceChildren();feedback('');}
++  toggle.hidden=!next;get('memberAccountShortcuts').hidden=!next;get('memberMenuUsername').textContent=next?String(user.username):'';
++  get('memberMenuSecurity').hidden=!next||state.authMethod!=='password';document.body.classList.toggle('member-navigation-ready',!!next);labels();controls();
++ }
++ toggle.addEventListener('click',openMenu);get('memberMenuClose').addEventListener('click',closeMenu);get('memberChatClose').addEventListener('click',closeChat);
++ menu.addEventListener('close',()=>toggle.setAttribute('aria-expanded','false'));
++ document.querySelectorAll('[data-member-destination]').forEach(button=>button.addEventListener('click',()=>destination(button.dataset.memberDestination)));
++ get('memberMenuRecords').addEventListener('click',()=>{if(!isMember())return;closeMenu();get('walletRecordsAction').click();});
++ get('memberMenuSecurity').addEventListener('click',()=>{if(!isMember()||state.authMethod!=='password')return;closeMenu();get('accountSecurity').click();});
++ get('memberMenuLogout').addEventListener('click',()=>{if(!isMember())return;closeMenu();closeChat();get('logoutButton').click();});
++ for(const id of ['memberChatLauncher','memberMenuChat','memberWalletChat'])get(id).addEventListener('click',openChat);
++ get('memberChatForm').addEventListener('submit',sendMessage);get('memberChatRefresh').addEventListener('click',loadConversation);get('memberChatHuman').addEventListener('click',requestHuman);
++ get('locale').addEventListener('change',()=>{labels();if(current)renderConversation(current);controls();if(chat.open)loadConversation();});
++ for(const dialog of [menu,chat])dialog.addEventListener('click',event=>{const r=dialog.getBoundingClientRect();if(event.target===dialog&&(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)){if(dialog===menu)closeMenu();else closeChat();}});
++ window.Master7MemberServices={sessionChanged,openMenu,openChat};sessionChanged(state.user);
++ setInterval(()=>{if(chat.open&&!polling&&!busy&&document.visibilityState==='visible')loadConversation();},10000);
++})();
+--- /dev/null
++++ b/public/assets/member-services.css
+@@ -0,0 +1,152 @@
++/* Shared customer services. Navigation never changes transaction availability. */
++:root{--service-navy:#102940;--service-blue:#176ac6;--service-ink:#19344d;--service-muted:#61768a;--service-line:#d9e5ef;--service-bg:#f3f7fb}
++.member-services-dialog{position:fixed;inset:0 0 0 auto;width:min(430px,100vw);max-width:100vw;height:100dvh;max-height:100dvh;margin:0;padding:0;border:0;border-left:1px solid var(--service-line);border-radius:0;background:#fff;color:var(--service-ink);box-shadow:-15px 0 65px #0a213849;overflow:auto;font:inherit}
++.member-services-dialog::backdrop{background:#0a1d32a6;backdrop-filter:blur(3px)}
++.member-services-dialog *{box-sizing:border-box}
++.member-dialog-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:27px 22px 22px;background:var(--service-navy);color:#fff}
++.member-dialog-heading h2{margin:3px 0 5px;color:#fff;font-size:23px;line-height:1.25}
++.member-dialog-heading p{margin:0;color:#c5d8e7;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
++.member-dialog-eyebrow{font-size:10px!important;font-weight:800;letter-spacing:.16em}
++.member-dialog-close{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;min-height:44px;padding:0;border:1px solid #ffffff50;border-radius:12px;background:#ffffff0c;color:#fff;font-size:27px;cursor:pointer}
++.member-menu-groups{display:grid;gap:4px;padding:12px 16px max(20px,env(safe-area-inset-bottom))}
++.member-menu-label{margin:16px 9px 5px;color:var(--service-muted);font-size:11px;font-weight:800;letter-spacing:.05em}
++.member-menu-groups button{display:flex;align-items:center;gap:12px;min-height:51px;padding:11px;border:1px solid transparent;border-radius:12px;background:#fff;color:var(--service-ink);text-align:left;font-family:inherit;font:600 14px/1.4 system-ui,sans-serif;cursor:pointer}
++.member-menu-groups button>span:first-child{display:grid;place-items:center;flex:0 0 31px;height:31px;border-radius:9px;background:#eaf3fc;color:var(--service-blue);font-size:20px}
++.member-menu-groups button>span:last-child:not(:first-child){margin-left:auto}
++.member-menu-groups button>span:nth-child(2){margin-left:0;flex:1}
++.member-menu-groups button:hover{background:#f0f6fc;border-color:#d6e5f5}
++.member-menu-groups .member-menu-logout{margin-top:15px;border-top:1px solid var(--service-line);border-radius:0;color:#8b3842}
++.member-menu-groups [hidden],.member-account-shortcuts[hidden],#memberMenuToggle[hidden]{display:none!important}
++body:not(.auth-entry) #memberMenuToggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;flex-shrink:0;padding:9px 13px;border:1px solid #b9d5ec;border-radius:11px;background:#edf6ff;color:#174b76;font-size:13px;font-weight:750}
++.member-account-shortcuts{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:4px}
++.member-account-shortcuts button{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:48px;padding:10px 12px;border:1px solid var(--service-line);border-radius:11px;background:#f5f9fe;color:#205c8e;text-align:left;font-family:inherit;font:600 13px/1.4 system-ui,sans-serif;cursor:pointer}
++.member-chat-launcher{position:fixed;z-index:95;right:22px;bottom:22px;display:flex;align-items:center;gap:8px;min-height:48px;max-width:calc(100vw - 24px);padding:12px 17px;border:1px solid #176ac6;border-radius:15px;background:#176ac6;color:#fff;box-shadow:0 9px 26px #163d6736;font-family:inherit;font:750 14px/1.3 system-ui,sans-serif;cursor:pointer}
++.member-chat-launcher>span:first-child{font-size:24px;line-height:1}
++.member-chat-launcher b{padding:3px 6px;border-radius:20px;background:#fff;color:#a63b46;font-size:11px}
++body.auth-entry .member-chat-launcher,body.admin-mode .member-chat-launcher{display:none}
++.member-chat-dialog[open]{display:flex;flex-direction:column;overflow:hidden}
++.member-chat-toolbar{display:flex;flex-shrink:0;justify-content:space-between;gap:8px;padding:11px 16px;border-bottom:1px solid var(--service-line);background:#fff}
++.member-chat-toolbar button{min-height:42px;padding:7px 10px;border:1px solid var(--service-line);border-radius:9px;background:#f8fbff;color:#245e91;font-family:inherit;font:600 12px/1.4 system-ui,sans-serif;cursor:pointer}
++.member-chat-messages{flex:1;min-height:80px;overflow:auto;overscroll-behavior:contain;padding:18px 16px;background:var(--service-bg)}
++.member-chat-empty{padding:20px 8px;color:var(--service-muted);font-size:14px;line-height:1.65}
++.member-chat-bubble{width:90%;margin:0 0 14px;padding:11px 13px;border:1px solid var(--service-line);border-radius:13px 13px 13px 3px;background:#fff;color:var(--service-ink);overflow-wrap:anywhere}
++.member-chat-bubble.is-member{margin-left:auto;border-color:#cce1f6;border-radius:13px 13px 3px 13px;background:#e4f0fc}
++.member-chat-bubble small{display:block;margin-bottom:5px;color:var(--service-muted);font-size:11px;font-weight:700}
++.member-chat-bubble p{margin:0;white-space:pre-wrap;color:inherit;font-size:14px;line-height:1.65}
++.member-chat-feedback{flex-shrink:0;margin:0;padding:0 16px;color:#875a20;font-size:12px;line-height:1.5}
++.member-chat-feedback:not(:empty){padding-top:10px;padding-bottom:8px}
++.member-chat-form{flex-shrink:0;display:grid;gap:8px;padding:12px 16px max(15px,env(safe-area-inset-bottom));border-top:1px solid var(--service-line);background:#fff}
++.member-chat-form label{font-size:12px;font-weight:700;color:var(--service-ink)}
++.member-chat-form textarea{width:100%;min-height:74px;max-height:150px;padding:11px;border:1px solid #bbd0e1;border-radius:11px;background:#fff;color:var(--service-ink);font:16px/1.5 system-ui,sans-serif;resize:vertical}
++.member-chat-form>div{display:flex;align-items:center;justify-content:space-between;gap:13px}
++.member-chat-form small{max-width:240px;color:var(--service-muted);font-size:10px;line-height:1.5}
++.member-chat-form button{min-height:44px;min-width:77px;padding:10px 14px;border:0;border-radius:11px;background:var(--service-blue);color:#fff;font:750 13px/1.4 system-ui,sans-serif;cursor:pointer}
++.member-services-dialog :is(button,textarea):focus-visible,#memberMenuToggle:focus-visible,.member-chat-launcher:focus-visible,.member-account-shortcuts button:focus-visible{outline:3px solid #66b0ed;outline-offset:3px}
++.member-services-dialog button:disabled{opacity:.6;cursor:wait}
++/* Front office: quiet blue/white, with brand artwork retaining its own colours. */
++body:not(.auth-entry):not(.admin-mode){background:#f3f7fb;color:var(--service-ink)}
++body:not(.auth-entry):not(.admin-mode) .topbar{background:#fff;border-bottom:1px solid var(--service-line);box-shadow:0 3px 15px #12334b0b}
++body:not(.auth-entry):not(.admin-mode) .brand span{color:#163957}
++body:not(.auth-entry):not(.admin-mode) .portal-sidebar{background:#fff;border-color:var(--service-line)}
++body:not(.auth-entry):not(.admin-mode) .portal-sidebar :is(.sidebar-nav-button,.sidebar-game-filter){color:#425f77}
++body:not(.auth-entry):not(.admin-mode) .portal-sidebar :is(.sidebar-nav-button,.sidebar-game-filter).active{background:#e7f1fc;color:#135ea7;border-color:#c8ddf3;box-shadow:inset 3px 0 #176ac6}
++body:not(.auth-entry):not(.admin-mode) .sidebar-icon{color:#176ac6;background:#edf4fb;border-color:#d7e6f3}
++body:not(.auth-entry):not(.admin-mode) .portal-sidebar-heading{color:#738698}
++body:not(.auth-entry):not(.admin-mode) .page .button-primary{background:#176ac6;border-color:#176ac6;color:#fff;box-shadow:0 4px 11px #176ac61a}
++body:not(.auth-entry):not(.admin-mode) :is(#withdraw,#support) :is(.surface,.wallet-order-form){background:#fff;color:#213e55;border-color:#d7e2ed;box-shadow:0 4px 14px #1739560b}
++body:not(.auth-entry):not(.admin-mode) :is(#withdraw,#support) :is(h1,h2,h3,label){color:#23455f}
++body:not(.auth-entry):not(.admin-mode) :is(#withdraw,#support) :is(input,select,textarea){background:#f9fbfe;color:#213e55;border-color:#c3d4e3}
++body:not(.auth-entry):not(.admin-mode) #depositCashier{background:#fff;color:#213e55;border-color:#d0e0ed;box-shadow:0 18px 65px #10294045}
++body:not(.auth-entry):not(.admin-mode) #depositCashier :is(h2,h3,label){color:#23455f}
++body:not(.auth-entry):not(.admin-mode) #depositCashier :is(.eyebrow,.muted){color:#60778c}
++body:not(.auth-entry):not(.admin-mode) #depositCashier .verification-note{background:#edf5fd;border-color:#cbdfee;color:#3c607c}
++body:not(.auth-entry):not(.admin-mode) #depositCashier .cashier-status{background:#edf5fd;border-color:#cbdfee;color:#3c607c}
++body:not(.auth-entry):not(.admin-mode) #depositCashier :is(.brand-mini,.close){background:#edf5fd;border-color:#cbdfee;color:#245d8a}
++body:not(.auth-entry):not(.admin-mode) #depositCashier .wallet-order-form{background:#fff;border:0;color:#213e55}
++body:not(.auth-entry):not(.admin-mode) #depositCashier :is(input,select){background:#f9fbfe;color:#213e55;border-color:#c3d4e3}
++body:not(.auth-entry):not(.admin-mode) #depositCashier :is(#depositCashierRetry,#depositCashierRecords,.cashier-payment-link){background:#edf5fd;border-color:#b7d2e8;color:#245d8a;box-shadow:none}
++body:not(.auth-entry) .demo-ribbon{background:#164774;color:#eaf4fc;border-color:#245a87}
++/* Back office: the same palette, denser information, dark navigation only. */
++body.admin-mode{background:#f1f5fa;color:#203c54}
++body.admin-mode .topbar{background:#122b43;border-color:#26445f;box-shadow:none}
++body.admin-mode .admin-commandbar{background:#fff;border-color:#d7e2ed;color:#213e55;box-shadow:0 4px 14px #1c3d5b0a}
++body.admin-mode .admin-internal-sidebar{background:#142d44!important;border-color:#29455e;box-shadow:none}
++body.admin-mode .admin-internal-sidebar a{color:#c8d8e5}
++body.admin-mode .admin-internal-sidebar a.active{background:#254c70;color:#fff;border-color:#39678f;box-shadow:inset 3px 0 #71aee3}
++body.admin-mode .admin-internal-sidebar a::after{display:none}
++body.admin-mode .admin-internal-sidebar .admin-sidebar-heading{color:#92acc1;border-color:#29465e}
++body.admin-mode .admin-content .surface,body.admin-mode .admin-kpi-card,body.admin-mode .admin-content .commission-card{background:#fff!important;border-color:#d7e2ed;color:#203c54;box-shadow:0 5px 16px #18385408}
++body.admin-mode .admin-content :is(h1,h2,h3,h4,strong,label){color:#23455f}
++body.admin-mode .admin-content .muted{color:#647d92}
++body.admin-mode .admin-content :is(input,select,textarea){background:#f9fbfe;color:#213e55;border-color:#c3d4e3}
++body.admin-mode .admin-content table{background:#fff;color:#23455f}
++body.admin-mode .admin-content th{background:#edf3f9;color:#4a657c}
++body.admin-mode .admin-content td{border-color:#e0e8f0}
++/* Override the older theme at equal specificity, including its compact type. */
++body:not(.auth-entry) #userChip{display:inline-flex;align-items:center;min-height:40px;max-width:180px;padding:8px 11px;border:1px solid #d6e3ee;border-radius:10px;background:#eef4fa;color:#345570;font-size:12px;line-height:1.3;overflow-wrap:anywhere}
++body:not(.auth-entry) #logoutButton{min-width:68px;min-height:42px;color:#28597e;background:#edf4fa;border-color:#c9ddea;font-size:12px}
++body:not(.auth-entry).admin-mode{--text:#213e55;--muted:#60778c;--line:#d7e2ed;background:#f1f5fa}
++body:not(.auth-entry).admin-mode .topbar{background:#122b43;border-color:#29455f}
++body:not(.auth-entry).admin-mode .admin-commandbar{min-height:64px;padding:12px 16px;background:#fff;border-color:#d7e2ed;box-shadow:0 3px 14px #1535500b}
++body:not(.auth-entry).admin-mode .admin-command-title strong{color:#203e57;font-size:14px}
++body:not(.auth-entry).admin-mode .admin-command-title small{color:#667e93;font-size:11px}
++body:not(.auth-entry).admin-mode .admin-command-mark{background:#e8f2fc;border-color:#c9dfef;color:#176ac6;box-shadow:none}
++body:not(.auth-entry).admin-mode .admin-status-chip{min-height:38px;padding:9px 12px;background:#edf5fc;border-color:#c7dded;color:#205d8a;font-size:12px}
++body:not(.auth-entry).admin-mode .admin-internal-sidebar{background:#142d44!important;border-color:#29455e}
++body:not(.auth-entry).admin-mode .admin-internal-sidebar .admin-sidebar-heading{color:#9eb7ca;border-color:#29465e;font-size:10px}
++body:not(.auth-entry).admin-mode .admin-internal-sidebar a{min-height:42px;color:#d8e6ef;font-size:13px;line-height:1.4}
++body:not(.auth-entry).admin-mode .admin-internal-sidebar a:is(.active,:hover,:focus-visible){background:#254c70;color:#fff;border-color:#39678f}
++body:not(.auth-entry).admin-mode .admin-internal-sidebar a::after{display:none}
++body:not(.auth-entry).admin-mode .admin-content{color:#213e55;font-size:14px}
++body:not(.auth-entry).admin-mode .admin-content :is(.surface,.stat,.commission-card,.commission-console,.ad-manager,.benefit-manager,.finance-center-hero,.finance-metric,.wallet-order-form){background:#fff!important;border:1px solid #d7e2ed!important;color:#213e55;box-shadow:0 4px 14px #17395608}
++body:not(.auth-entry).admin-mode .admin-content>.surface{padding:20px;border-radius:14px!important}
++body:not(.auth-entry).admin-mode .admin-dashboard-heading,body:not(.auth-entry).admin-mode .admin-feature-cover-head{min-height:95px;padding:18px 20px!important;background:#eaf2fa!important;border:1px solid #cfdeed;border-radius:12px;box-shadow:none}
++body:not(.auth-entry).admin-mode .admin-content :is(h1,h2,h3,h4,strong,label){color:#213e55}
++body:not(.auth-entry).admin-mode .admin-content h2,body:not(.auth-entry).admin-mode .admin-feature-cover-head h2{font-size:20px!important;line-height:1.35}
++body:not(.auth-entry).admin-mode .admin-content h3{font-size:16px;line-height:1.4}
++body:not(.auth-entry).admin-mode .admin-content p,body:not(.auth-entry).admin-mode .admin-content .muted,body:not(.auth-entry).admin-mode .admin-feature-cover-head .muted{font-size:13px!important;line-height:1.65;color:#60778c}
++body:not(.auth-entry).admin-mode .admin-content :is(label,small){font-size:12px;line-height:1.5}
++body:not(.auth-entry).admin-mode .admin-content .eyebrow{font-size:10px!important;color:#54738d;letter-spacing:.12em}
++body:not(.auth-entry).admin-mode .admin-kpi-grid{gap:12px}
++body:not(.auth-entry).admin-mode .admin-kpi-grid .stat{min-height:100px;padding:17px;border-radius:12px;border-top:3px solid #86aed3!important}
++body:not(.auth-entry).admin-mode .admin-content .stat{box-shadow:0 3px 12px #1739560b!important}
++body:not(.auth-entry).admin-mode .admin-kpi-grid .stat::after{display:none}
++body:not(.auth-entry).admin-mode .admin-kpi-grid .stat strong{color:#194c78;font-size:26px;line-height:1.2}
++body:not(.auth-entry).admin-mode .admin-kpi-grid .stat span{max-width:100%;font-size:11px;color:#667e93;line-height:1.5}
++body:not(.auth-entry).admin-mode .admin-trend-chart{border-color:#d5e2ef;background-color:#f8fbfe;background-image:linear-gradient(#dce6ef90 1px,transparent 1px),linear-gradient(90deg,#dce6ef90 1px,transparent 1px)}
++body:not(.auth-entry).admin-mode .admin-content :is(.commission-guide,.feature-guide,.admin-feature-guide,details){background:#f2f7fc;border-color:#d4e2ee;color:#355770;box-shadow:none}
++body:not(.auth-entry).admin-mode .admin-content :is(input:not([type=checkbox]):not([type=radio]),select,textarea){min-height:42px;padding:10px 12px;background:#f9fbfe;color:#213e55;border-color:#c3d4e3;font-size:14px}
++body:not(.auth-entry).admin-mode .admin-content textarea{min-height:90px}
++body:not(.auth-entry).admin-mode .admin-content .button,body:not(.auth-entry).admin-mode .admin-content button:not(.close):not(.admin-menu-close){min-height:40px;padding:9px 13px;font-size:13px}
++body:not(.auth-entry).admin-mode .admin-content .button-primary{background:#176ac6;border-color:#176ac6;color:#fff;box-shadow:none}
++body:not(.auth-entry).admin-mode .admin-content .button-outline{background:#f4f8fd;border-color:#c7dbea;color:#285f8d}
++body:not(.auth-entry).admin-mode .admin-content th{background:#eaf2fa;color:#3e607b;font-size:12px;padding:12px}
++body:not(.auth-entry).admin-mode .admin-content td{color:#294a63;font-size:13px;padding:12px;border-color:#e0e8f0}
++body:not(.auth-entry).admin-mode .admin-live-pill.offline{background:#fff1ee;border-color:#e6b7b1;color:#9b4036}
++body:not(.auth-entry).admin-mode .admin-live-pill.offline span{background:#bf5b4c;box-shadow:none}
++@media(max-width:1000px){
++ body:not(.auth-entry).admin-mode .admin-internal-sidebar{z-index:121;top:0;height:100dvh;max-height:100dvh;border-radius:0;padding-top:65px!important}
++ body:not(.auth-entry).admin-mode .admin-menu-backdrop{z-index:120}
++ body:not(.auth-entry).admin-mode .admin-menu-close{width:44px;height:44px;z-index:1}
++ body.admin-menu-open{overflow:hidden}
++}
++@media(max-width:760px){
++ body.member-navigation-ready .top-actions :is(#userChip,#accountSecurity,#logoutButton){display:none!important}
++ body:not(.auth-entry) #memberMenuToggle{min-width:75px;padding:8px 10px;font-size:12px}
++ .member-chat-launcher{right:12px;bottom:calc(91px + env(safe-area-inset-bottom));min-height:44px;padding:9px 13px;font-size:12px}
++ .member-account-shortcuts{grid-template-columns:1fr}
++ .member-dialog-heading{padding-top:max(20px,env(safe-area-inset-top))}
++ .member-services-dialog{width:min(430px,100vw)}
++ body:not(.auth-entry).admin-mode .admin-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
++ body:not(.auth-entry).admin-mode .admin-kpi-grid .stat{min-height:100px;padding:13px}
++ body:not(.auth-entry).admin-mode .admin-content>.surface{padding:14px}
++ body:not(.auth-entry).admin-mode .admin-commandbar{padding:9px;gap:8px}
++ body:not(.auth-entry).admin-mode .admin-command-title strong{font-size:12px}
++ body:not(.auth-entry).admin-mode .admin-command-actions{flex-wrap:wrap;gap:5px}
++ body:not(.auth-entry).admin-mode .admin-status-chip{padding:8px;font-size:11px}
++ body:not(.auth-entry).admin-mode #userChip{display:none}
++ body:not(.auth-entry).admin-mode .top-actions #logoutButton{width:auto;min-width:66px;padding:8px;font-size:12px;color:#28597e}
++ body:not(.auth-entry).admin-mode .top-actions #logoutButton::before{content:none}
++}
++@media(min-width:761px){.member-chat-dialog{inset:auto 22px 22px auto;height:min(690px,calc(100dvh - 44px));max-height:calc(100dvh - 44px);border:1px solid var(--service-line);border-radius:20px}}
++@media(prefers-reduced-motion:reduce){.member-services-dialog,.member-chat-launcher{scroll-behavior:auto;transition:none;animation:none}}
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1 +1 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.176-vpay-payout-references';
++const CACHE='master7-shell-17.0.0-selfbuilt.177-member-services';
+--- /dev/null
++++ b/tests/member-support-chat.test.mjs
+@@ -0,0 +1,64 @@
++import {test} from 'node:test';
++import assert from 'node:assert/strict';
++import {DatabaseSync} from 'node:sqlite';
++import {readFileSync,readdirSync} from 'node:fs';
++import {handle} from '../lib/backend.ts';
++
++function fixture(t){
++ const sql=new DatabaseSync(':memory:');for(const name of readdirSync(new URL('../drizzle/',import.meta.url)).filter(x=>x.endsWith('.sql')).sort())sql.exec(readFileSync(new URL('../drizzle/'+name,import.meta.url),'utf8'));
++ for(const [id,role] of [['alice','member'],['bob','member'],['owner','owner'],['agent','staff']])sql.prepare('INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES(?,?,?,1,?,0)').run(id,id,role,'csrf-'+id);
++ class Statement{constructor(text,args=[]){this.text=text;this.args=args;}bind(...args){return new Statement(this.text,args);}async first(){return sql.prepare(this.text).get(...this.args)??null;}async all(){return {results:sql.prepare(this.text).all(...this.args)};}async run(){return sql.prepare(this.text).run(...this.args);}}
++ const db={prepare:text=>new Statement(text),async batch(statements){sql.exec('BEGIN');try{const result=statements.map(s=>sql.prepare(s.text).run(...s.args));sql.exec('COMMIT');return result;}catch(e){sql.exec('ROLLBACK');throw e;}}};
++ async function call(who,path,method='GET',data,extra={}){const response=await handle(new Request('https://portal.example.test'+path,{method,headers:{Origin:'https://portal.example.test','Content-Type':'application/json','X-CSRF-Token':'csrf-'+who},...(data===undefined?{}:{body:JSON.stringify(data)})}),{db,identity:who?{userId:who,email:who+'@example.test'}:null,ownerEmail:'',...extra});return {status:response.status,data:await response.json()};}
++ t.after(()=>sql.close());return {sql,call};
++}
++
++test('a short Chinese chat reaches the admin inbox and admin reply returns to the right member',async t=>{
++ const f=fixture(t),created=await f.call('alice','/api/tickets','POST',{subject:'Customer chat',message:'你好'});assert.equal(created.status,201);
++ const id=created.data.id,inbox=await f.call('owner','/api/tickets');assert.equal(inbox.status,200);assert.equal(inbox.data.items.find(x=>x.id===id).message,'你好');
++ assert.equal((await f.call('bob','/api/tickets')).data.items.length,0);
++ assert.equal((await f.call('bob','/api/tickets/reply','POST',{ticketId:id,message:'Wrong member'})).status,404);
++ assert.equal((await f.call('agent','/api/tickets')).status,401,'retired staff accounts remain blocked');
++ assert.equal((await f.call('owner','/api/tickets/reply','POST',{ticketId:id,message:'客服已收到，会在这里回复你。'})).status,200);
++ const thread=(await f.call('alice','/api/tickets')).data.items[0];assert.match(thread.replies.at(-1).message,/客服已收到/);
++ assert.equal((await f.call('alice','/api/tickets/notifications')).data.unread,1);
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);
++});
++
++test('pending members can ask support while financial writes remain blocked',async t=>{
++ const f=fixture(t);f.sql.prepare("UPDATE users SET approved=0 WHERE id='alice'").run();
++ const chat=await f.call('alice','/api/tickets','POST',{subject:'Customer chat',message:'你好'});assert.equal(chat.status,201);
++ assert.equal((await f.call('alice','/api/support/handoff','POST',{ticketId:chat.data.id})).status,200);
++ assert.equal((await f.call('alice','/api/tickets/reply','POST',{ticketId:chat.data.id,message:'请协助审核'})).status,200);
++ assert.equal((await f.call('alice','/api/payments/vpay/order','POST',{})).status,403);
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);
++});
++
++test('turning automation off during generation suppresses the delayed reply',async t=>{
++ const f=fixture(t);let start,finish;const started=new Promise(resolve=>{start=resolve;}),provider=new Promise(resolve=>{finish=resolve;});
++ const pending=f.call('alice','/api/tickets','POST',{subject:'Customer chat',message:'Which languages can support use?'},{supportAiEnabled:'true',supportAiApiBaseUrl:'https://ai.example.test/v1',supportAiApiKey:'test-key-that-is-long-enough-123456',supportAiModel:'test-model',supportAiFetch:async()=>{start();return provider;}});
++ await started;await f.call('owner','/api/admin/support-settings','POST',{aiEnabled:false,humanHandoff:true});finish(Response.json({choices:[{message:{content:'Support can help in three languages.'}}]}));
++ const response=await pending;assert.equal(response.status,201);assert.equal(response.data.automatedReply,false);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM replies').get().n,0);
++});
++
++test('AI teaches the actual verification entry on a customer follow-up',async t=>{
++ const f=fixture(t),created=await f.call('alice','/api/tickets','POST',{subject:'Customer chat',message:'你好'});
++ const response=await f.call('alice','/api/tickets/reply','POST',{ticketId:created.data.id,message:'身份审核在哪里？'});assert.equal(response.status,200);
++ const replies=(await f.call('alice','/api/tickets')).data.items[0].replies;
++ assert.equal(replies.at(-1).user_id,'system-support-assistant');assert.match(replies.at(-1).message,/菜单/);assert.match(replies.at(-1).message,/申请审核/);
++});
++
++test('owner AI switch and per-conversation human handoff both stop automated replies',async t=>{
++ const f=fixture(t),status=await f.call(null,'/api/support/status');assert.equal(status.status,200);assert.equal(status.data.aiRepliesEnabled,true);assert.ok(!JSON.stringify(status.data).includes('apiKey'));
++ const created=await f.call('alice','/api/tickets','POST',{subject:'Customer chat',message:'Hello'}),id=created.data.id;
++ assert.equal((await f.call('bob','/api/support/handoff','POST',{ticketId:id})).status,404);
++ assert.equal((await f.call('alice','/api/support/handoff','POST',{ticketId:id})).status,200);
++ const count=f.sql.prepare("SELECT COUNT(*) n FROM replies WHERE user_id='system-support-assistant'").get().n;
++ assert.equal((await f.call('alice','/api/tickets/reply','POST',{ticketId:id,message:'Please let an agent help.'})).status,200);
++ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM replies WHERE user_id='system-support-assistant'").get().n,count);
++ assert.equal((await f.call('alice','/api/tickets')).data.items[0].humanHandoff,true);
++ assert.equal((await f.call('alice','/api/admin/support-settings','POST',{aiEnabled:false,humanHandoff:true})).status,403);
++ assert.equal((await f.call('owner','/api/admin/support-settings','POST',{aiEnabled:false,humanHandoff:true})).status,200);
++ assert.equal((await f.call(null,'/api/support/status')).data.aiRepliesEnabled,false);
++ const manual=await f.call('bob','/api/tickets','POST',{subject:'Customer chat',message:'Help'});assert.equal(manual.status,201);assert.equal(manual.data.automatedReply,false);
++});
+--- a/tests/support-ai.test.mjs
++++ b/tests/support-ai.test.mjs
+@@ -33 +33 @@
+- const reply=await generateSupportReply({...configured,fetchImpl:async(url,init)=>{request={url:String(url),init,body:JSON.parse(String(init.body))};return Response.json({choices:[{message:{content:'Please share the page name and the message shown. A staff member can follow up if records are needed.'}}]});}},'General help','Where can I find the menu? Reference 123456789012');
++ const reply=await generateSupportReply({...configured,fetchImpl:async(url,init)=>{request={url:String(url),init,body:JSON.parse(String(init.body))};return Response.json({choices:[{message:{content:'Please share the page name and the message shown. A staff member can follow up if records are needed.'}}]});}},'General help','What languages does support use? Reference 123456789012');
+@@ -48 +48 @@
+- const reply=await generateSupportReply({...configured,fetchImpl:async()=>new Response('bad gateway',{status:502})},'General question','Please help with the menu');
++ const reply=await generateSupportReply({...configured,fetchImpl:async()=>new Response('bad gateway',{status:502})},'General question','What languages does support use?');
+--- a/tests/support-ai-surface.test.mjs
++++ b/tests/support-ai-surface.test.mjs
+@@ -16 +16 @@
+- assert.match(app,/supportIntro:"Stephanie AI support replies first; the Master Admin can continue in the same ticket/);
++ assert.match(app,/supportIntro:"Leave a message for support to follow up in the same conversation/);
+--- a/tests/api.test.mjs
++++ b/tests/api.test.mjs
+@@ -75 +75 @@
+- await t.test('the pre-existing owner remains owner while new hosted members wait',async()=>{for(const who of ['owner','alice','bob','employee'])sessions[who]=(await call(who,'/api/session')).data;assert.equal(sessions.owner.user.role,'owner');assert.equal(sessions.alice.user.role,'member');assert.equal(sessions.alice.user.approved,false);assert.equal((await call('alice','/api/tickets','POST',{subject:'Help me',message:'Need assistance'})).status,403);});
++ await t.test('the pre-existing owner remains owner while new hosted members wait',async()=>{for(const who of ['owner','alice','bob','employee'])sessions[who]=(await call(who,'/api/session')).data;assert.equal(sessions.owner.user.role,'owner');assert.equal(sessions.alice.user.role,'member');assert.equal(sessions.alice.user.approved,false);const pendingSupport=await call('alice','/api/tickets','POST',{subject:'Help me',message:'Need assistance'});assert.equal(pendingSupport.status,201);assert.equal((await call('alice','/api/payments/vpay/order','POST',{})).status,403);sqlite.prepare('DELETE FROM replies WHERE ticket_id=?').run(pendingSupport.data.id);sqlite.prepare('DELETE FROM tickets WHERE id=?').run(pendingSupport.data.id);});
+@@ -230 +230 @@
+-  let externalCalls=0;const external=await call('alice','/api/tickets','POST',{subject:'Menu location',message:'Where can I find the provider menu?'},{},{supportAiEnabled:'true',supportAiApiBaseUrl:'https://ai.example.test/v1',supportAiApiKey:'test-key-that-is-long-enough-123456',supportAiModel:'support-model',supportAiFetch:async()=>{externalCalls++;return Response.json({choices:[{message:{content:'Open the game lobby and choose a provider category. Staff can help if the menu is unavailable.'}}]});}});assert.equal(external.status,201);assert.equal(external.data.assistantEngine,'openai_compatible');assert.equal(externalCalls,1);const externalTicket=(await call('alice','/api/tickets')).data.items.find(item=>item.id===external.data.id);assert.equal(externalTicket.replies[0].username,'Stephanie · MASTER7 AI 客服');assert.match(externalTicket.replies[0].message,/Open the game lobby/);
++  let externalCalls=0;const external=await call('alice','/api/tickets','POST',{subject:'General help',message:'Which languages does support use?'},{},{supportAiEnabled:'true',supportAiApiBaseUrl:'https://ai.example.test/v1',supportAiApiKey:'test-key-that-is-long-enough-123456',supportAiModel:'support-model',supportAiFetch:async()=>{externalCalls++;return Response.json({choices:[{message:{content:'Support can help in English, Chinese and Bahasa Melayu.'}}]});}});assert.equal(external.status,201);assert.equal(external.data.assistantEngine,'openai_compatible');assert.equal(externalCalls,1);const externalTicket=(await call('alice','/api/tickets')).data.items.find(item=>item.id===external.data.id);assert.equal(externalTicket.replies[0].username,'Stephanie · MASTER7 AI 客服');assert.match(externalTicket.replies[0].message,/English, Chinese and Bahasa Melayu/);
+--- /dev/null
++++ b/scripts/verify-member-services-browser.mjs
+@@ -0,0 +1,84 @@
++// Isolated UI verification. Uses real backend queries in a temporary SQLite DB.
++// The cookie below selects synthetic identities; this does not test login/OTP.
++import assert from 'node:assert/strict';
++import {createServer} from 'node:https';
++import {execFileSync} from 'node:child_process';
++import {DatabaseSync} from 'node:sqlite';
++import {readFileSync,readdirSync,mkdirSync,mkdtempSync,rmSync} from 'node:fs';
++import {resolve,extname} from 'node:path';
++import {handle} from '../lib/backend.ts';
++
++const root=resolve(import.meta.dirname,'..'),output=process.env.MEMBER_UI_OUTPUT||'/dev/shm/master7-member-ui';mkdirSync(output,{recursive:true});
++const {chromium}=await import(process.env.PLAYWRIGHT_MODULE||'playwright');
++const sql=new DatabaseSync(':memory:');
++for(const name of readdirSync(resolve(root,'drizzle')).filter(x=>x.endsWith('.sql')).sort())sql.exec(readFileSync(resolve(root,'drizzle',name),'utf8'));
++for(const [id,role] of [['alice','member'],['bob','member'],['owner','owner']])sql.prepare('INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES(?,?,?,1,?,0)').run(id,id,role,'csrf-'+id);
++class Statement{constructor(text,args=[]){this.text=text;this.args=args;}bind(...args){return new Statement(this.text,args);}async first(){return sql.prepare(this.text).get(...this.args)??null;}async all(){return {results:sql.prepare(this.text).all(...this.args)};}async run(){return sql.prepare(this.text).run(...this.args);}}
++const db={prepare:text=>new Statement(text),async batch(statements){sql.exec('BEGIN');try{const result=statements.map(s=>sql.prepare(s.text).run(...s.args));sql.exec('COMMIT');return result;}catch(e){sql.exec('ROLLBACK');throw e;}}};
++const tlsDir=mkdtempSync('/dev/shm/master7-ui-tls-');
++execFileSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',tlsDir+'/key.pem','-out',tlsDir+'/cert.pem','-days','1','-subj','/CN=127.0.0.1'],{stdio:'ignore'});
++const server=createServer({key:readFileSync(tlsDir+'/key.pem'),cert:readFileSync(tlsDir+'/cert.pem')},async(req,res)=>{
++ try{
++  const origin='https://127.0.0.1:'+server.address().port,url=new URL(req.url,origin);
++  if(url.pathname.startsWith('/api/')){
++   const id=/m7fixture=(alice|bob|owner)/.exec(req.headers.cookie||'')?.[1],chunks=[];for await(const chunk of req)chunks.push(chunk);
++   const response=await handle(new Request(url,{method:req.method,headers:req.headers,...(['GET','HEAD'].includes(req.method)?{}:{body:Buffer.concat(chunks)})}),{db,identity:id?{userId:id,email:id+'@example.test'}:null,ownerEmail:'',newDepositsEnabled:'false',newPayoutsEnabled:'false',newGameLaunchesEnabled:'false'});
++   let data=await response.text();if(url.pathname.startsWith('/api/tickets')&&req.method==='POST')console.log('CHAT_HTTP',url.pathname,response.status,data.slice(0,350));if(url.pathname==='/api/session'){const session=JSON.parse(data);if(session.user)session.authMethod='password';data=JSON.stringify(session);}
++   res.writeHead(response.status,Object.fromEntries(response.headers));res.end(data);return;
++  }
++  const file=url.pathname.startsWith('/assets/')||['/manifest.webmanifest','/service-worker.js','/offline.html'].includes(url.pathname)?resolve(root,'public','.'+url.pathname):resolve(root,'app/portal.html');
++  if(!file.startsWith(root+'/')){res.writeHead(403);res.end();return;}
++  const mime={'.js':'text/javascript','.css':'text/css','.html':'text/html','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml','.webmanifest':'application/manifest+json'};
++  res.writeHead(200,{'Content-Type':mime[extname(file)]||'application/octet-stream','Cache-Control':'no-store'});res.end(readFileSync(file));
++ }catch(e){res.writeHead(500);res.end(String(e));}
++});
++await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
++const origin='https://127.0.0.1:'+server.address().port,browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
++const errors=[];let contexts=[];
++async function pageFor(user,width,height){
++ const context=await browser.newContext({viewport:{width,height},serviceWorkers:'block',ignoreHTTPSErrors:true});contexts.push(context);
++ await context.route('**/*',route=>new URL(route.request().url()).origin===origin?route.continue():route.abort());
++ if(user)await context.addCookies([{name:'m7fixture',value:user,url:origin}]);
++ const page=await context.newPage();page.on('pageerror',e=>{errors.push(e.message);console.log('PAGE_ERROR',e.message);});await page.goto(origin+(user==='owner'?'/admin':'/lobby'),{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>typeof state!=='undefined'&&state.user?.role===(location.pathname==='/admin'?'owner':'member'),{},{timeout:15000});console.log('READY',user,width);return page;
++}
++async function noOverflow(page){assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'page must fit viewport');}
++try{
++ const phone=await pageFor('alice',390,844);
++ await phone.locator('#memberMenuToggle').waitFor({state:'visible'});await noOverflow(phone);
++ await phone.screenshot({path:output+'/member-phone.png'});
++ await phone.evaluate(()=>openDepositCashier('vpay'));await phone.locator('#depositCashier[open]').waitFor();await phone.screenshot({path:output+'/member-phone-cashier.png'});await phone.keyboard.press('Escape');
++ await phone.locator('#memberMenuToggle').click();await phone.locator('#memberMenuDialog[open]').waitFor();
++ assert.equal(await phone.locator('#memberMenuDialog [data-member-destination="admin"]').count(),0);
++ await phone.screenshot({path:output+'/member-phone-menu.png'});
++ await phone.keyboard.press('Escape');assert.equal(await phone.locator('#memberMenuToggle').getAttribute('aria-expanded'),'false');await phone.locator('#memberMenuToggle').click();
++ await phone.locator('#memberMenuDialog [data-member-destination="member-verification"]').click();await phone.locator('#manualComplianceRequest').waitFor({state:'visible'});
++ await phone.locator('#memberChatLauncher').click();await phone.locator('#memberChatInput').fill('你好');await phone.locator('#memberChatSend').click();
++ await phone.waitForFunction(()=>document.getElementById('memberChatMessages').textContent.includes('你可以问我'));
++ await phone.locator('#memberChatInput').fill('身份审核在哪里？');await phone.locator('#memberChatSend').click();
++ await phone.waitForFunction(()=>document.getElementById('memberChatMessages').textContent.includes('菜单 → 身份审核'));
++ await phone.screenshot({path:output+'/member-phone-chat.png'});
++ const owner=await pageFor('owner',1440,1000);
++ await owner.evaluate(()=>selected('support'));await owner.waitForFunction(()=>document.getElementById('tickets').textContent.includes('你好'));
++ const ticket=sql.prepare("SELECT id FROM tickets WHERE user_id='alice'").get();
++ await phone.locator('#memberChatHuman').click();await phone.waitForFunction(()=>document.getElementById('memberChatFeedback').textContent.includes('Human support requested'));
++ const posted=await owner.evaluate(async id=>api('/api/tickets/reply','POST',{ticketId:id,message:'客服已收到你的留言，会在这里跟进。'}),ticket.id);assert.equal(posted.status,'ok');
++ await phone.locator('#memberChatRefresh').click();await phone.waitForFunction(()=>document.getElementById('memberChatMessages').textContent.includes('客服已收到你的留言'));
++ await owner.evaluate(()=>selected('admin'));await owner.locator('.admin-internal-sidebar').waitFor({state:'visible'});await noOverflow(owner);await owner.screenshot({path:output+'/admin-desktop.png'});
++ const palette=await owner.locator('#adminStats .stat').first().evaluate(el=>({background:getComputedStyle(el).backgroundColor,font:getComputedStyle(el.querySelector('strong')).fontSize}));assert.equal(palette.background,'rgb(255, 255, 255)');assert.ok(parseFloat(palette.font)>=22);
++ await owner.setViewportSize({width:390,height:844});await owner.waitForFunction(()=>document.querySelector('.admin-internal-sidebar').getBoundingClientRect().right<=0);await noOverflow(owner);await owner.screenshot({path:output+'/admin-phone.png'});await owner.locator('#adminMenuToggle').click();await owner.waitForFunction(()=>Math.abs(document.querySelector('.admin-internal-sidebar').getBoundingClientRect().left)<1);await owner.screenshot({path:output+'/admin-phone-menu.png'});await owner.locator('#adminMenuClose').click();await owner.setViewportSize({width:1440,height:1000});
++ await owner.evaluate(()=>loadSupportAutomation());await owner.locator('#supportAiEnabled').waitFor({state:'attached'});assert.equal(await owner.locator('#supportAiEnabled').isChecked(),true);
++ await owner.evaluate(()=>api('/api/admin/support-settings','POST',{aiEnabled:false,humanHandoff:true}));
++ assert.equal((await phone.evaluate(()=>api('/api/support/status'))).aiRepliesEnabled,false);
++ const desktop=await pageFor('bob',1440,1000);await noOverflow(desktop);await desktop.screenshot({path:output+'/member-desktop.png'});
++ await desktop.locator('#memberChatLauncher').click();assert.ok(!(await desktop.locator('#memberChatMessages').innerText()).includes('你好'));
++ await desktop.locator('#memberChatInput').fill('Hello');await desktop.locator('#memberChatSend').click();await desktop.waitForFunction(()=>document.getElementById('memberChatFeedback').textContent.includes('Message saved'));
++ assert.equal(sql.prepare("SELECT COUNT(*) n FROM replies r JOIN tickets t ON t.id=r.ticket_id WHERE t.user_id='bob'").get().n,0);
++ await phone.evaluate(()=>{state.user={id:'bob',username:'bob',role:'member',approved:true};window.Master7MemberServices.sessionChanged(state.user);});
++ assert.equal(await phone.locator('#memberChatDialog').evaluate(el=>el.open),false);assert.equal(await phone.locator('#memberChatMessages').innerText(),'');
++ await desktop.locator('#memberChatClose').click();await desktop.setViewportSize({width:360,height:800});await desktop.locator('#locale').selectOption('zh');await noOverflow(desktop);await desktop.locator('#memberMenuToggle').click();assert.equal(await desktop.locator('#memberMenuTitle').innerText(),'我的账户');await desktop.keyboard.press('Escape');
++ await desktop.locator('#locale').selectOption('ms');await desktop.locator('#memberMenuToggle').click();assert.equal(await desktop.locator('#memberMenuTitle').innerText(),'Akaun saya');await desktop.keyboard.press('Escape');
++ await desktop.evaluate(()=>{state.user=null;window.Master7MemberServices.sessionChanged(null);});assert.equal(await desktop.locator('#memberMenuToggle').isVisible(),false);assert.equal(await desktop.locator('#memberChatMessages').innerText(),'');
++ assert.equal(sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);
++ assert.deepEqual(errors,[],'no uncaught browser errors');
++ console.log(JSON.stringify({passed:true,viewports:['360×800','390×844','1440×1000'],inboxRoundTrip:true,humanHandoff:true,aiOff:true,crossMemberIsolation:true,languages:['en','zh','ms'],walletWrites:0,output}));
++}finally{for(const context of contexts)await context.close();await browser.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));sql.close();rmSync(tlsDir,{recursive:true,force:true});}
+--- /dev/null
++++ b/docs/MEMBER_SERVICES_177.md
+@@ -0,0 +1,29 @@
++# Member services and presentation — release 177
++
++This change repairs missing mobile account navigation and connects a visible customer conversation to the existing same-environment support inbox. The frontend and backend use one blue, navy and white palette, with readable admin cards, forms and tables. It does not connect separate Staging and Production databases.
++
++| Customer entry | Customer can see | Backoffice counterpart |
++| --- | --- | --- |
++| Menu / wallet | Own balance and deposit records | Deposit reports and reconciliation remain admin-only |
++| Withdraw | Own withdrawal form, availability and records | Approval, provider submission and settlement remain admin-only |
++| Identity verification | Own status and request-review action | Identity and AML decisions remain owner-only |
++| Account security | Own password account settings | Other members and administrative credentials stay private |
++| Promotions / play settings | Published offers and own controls | Offer configuration and operational controls stay private |
++| Floating support button / Menu | Own saved conversation, automated guidance, manual handoff and replies | Support inbox shows the same ticket and author history |
++| AI customer support switch | Public effective mode only | Owner controls automatic replies; credentials stay server-only |
++
++The member menu contains a fixed allowlist. Financial totals for other members, API settings, keys, audits, commissions administration, provider balances, maintenance and transaction switches are not added to it.
++
++The chat accepts short greetings, handles Chinese/English/Malay navigation questions with grounded instructions for actual controls, and supports follow-up questions. Human handoff persists on the conversation. Owner replies also take over the conversation. Automatic replies stop when disabled, including a delayed generation that has not yet been saved. Turning automatic replies off leaves messaging available. Pending members can contact support using authenticated, CSRF-protected, rate-limited support endpoints; financial approval gates are unchanged. Retired staff logins remain blocked.
++
++The existing external-model adapter is preserved. `GET /api/support/status` distinguishes `built_in_rules_v2` guidance from `openai_compatible` availability and from automation being off. No model credential is created, exposed or written by this release. A rules guide must not be described as a newly connected external model.
++
++Verification includes real backend SQL tests for member isolation, inbox round trip, short messages, manual handoff, pending-member restrictions, automation off and delayed generation; full regression tests; TypeScript; lint; Render build; and an isolated Chromium run at 360×800, 390×844 and 1440×1000. The browser fixture uses synthetic users with real backend queries and SQLite, not real customer logins, OTP or Production data. It verifies three UI languages, native member dialog dismissal, admin mobile drawer, readable dashboard cards and zero wallet journal writes. Run with `PLAYWRIGHT_MODULE=<installed playwright entry> node scripts/verify-member-services-browser.mjs`.
++
++Research informing the navigation/chat design:
++
++- [NN/g: Hamburger Menus and Hidden Navigation Hurt UX Metrics](https://www.nngroup.com/articles/hamburger-menus/)
++- [NN/g: Mobile navigation visibility](https://www.nngroup.com/articles/find-navigation-mobile-even-hamburger/)
++- [Intercom: Messenger updates](https://www.intercom.com/help/en/articles/9319961-updates-to-the-messenger)
++
++Deployment scope: existing Staging portal only. No domain, provider, real-payment, payout or game-launch switch changes.
