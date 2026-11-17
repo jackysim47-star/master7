@@ -1,4 +1,4 @@
-name: Refresh VPay UAT payout package
+name: Refresh VPay UAT package
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
       - codex/v174-reconciliation-review-integrity-20261116
     paths:
       - .github/vpay-uat/**
+      - .github/vpay-auto-tune.patch
       - .github/workflows/refresh-vpay-uat-overlay.yml
 
 permissions:
@@ -21,23 +22,46 @@ jobs:
           ref: codex/v174-reconciliation-review-integrity-20261116
           fetch-depth: 0
 
-      - name: Apply the verified isolated VPay payout overlay
+      - name: Apply verified VPay UAT overlays
         shell: bash
         run: |
           set -euo pipefail
           work_dir="$(mktemp -d)"
           tar -xzf master7-v17-render-staging.tar.gz -C "$work_dir"
           package_dir="$work_dir/master7-v17-render-staging"
-          patch -d "$package_dir" -p1 < .github/vpay-uat/vpay-uat.patch
-          printf '%s  %s\n' \
-            '3ca714eef5b7791fa3c65968155d3b7a8e780fb177b8dec007929f9827876314' "$package_dir/lib/backend.ts" \
-            'f7f6b6bc2b6738ce2e19446a6b4986ba8790172b9c92be34bc8cc024f2a3ad29' "$package_dir/lib/vpay-payout.ts" \
-            'b651b14399ea3cf6331bf7b6a2ae7bb0e4393334fd903a8ebe99400b6bbdefe7' "$package_dir/tests/vpay-payout.test.mjs" | sha256sum -c -
+
+          old_overlay_ready() {
+            printf '%s  %s\n' \
+              '3ca714eef5b7791fa3c65968155d3b7a8e780fb177b8dec007929f9827876314' "$package_dir/lib/backend.ts" \
+              'f7f6b6bc2b6738ce2e19446a6b4986ba8790172b9c92be34bc8cc024f2a3ad29' "$package_dir/lib/vpay-payout.ts" \
+              'b651b14399ea3cf6331bf7b6a2ae7bb0e4393334fd903a8ebe99400b6bbdefe7' "$package_dir/tests/vpay-payout.test.mjs" | sha256sum -c --status
+          }
+          auto_tune_ready() {
+            printf '%s  %s\n' \
+              '84dfe4da22a404a09bd97ab95b114ce5bfc9fa79dd5c871def9fce2543c84ac2' "$package_dir/lib/vpay.ts" \
+              '28da5af175eaaecaa5f66c95890a1e716674f9db5e5b188f9bc7c1c42971b0cc' "$package_dir/tests/vpay-uat-isolation.test.mjs" | sha256sum -c --status
+          }
+
+          if ! old_overlay_ready; then
+            patch -d "$package_dir" -p1 < .github/vpay-uat/vpay-uat.patch
+          fi
+          if ! auto_tune_ready; then
+            patch -d "$package_dir" -p1 < .github/vpay-auto-tune.patch
+          fi
+
+          old_overlay_ready
+          auto_tune_ready
           tar --sort=name --mtime='@0' --owner=0 --group=0 --numeric-owner -czf "$work_dir/render-package.tar.gz" -C "$work_dir" master7-v17-render-staging
-          echo 'f05c72597b2cf3d22afd480a46d982b5af107f7eeb807f8dbaaca1486afd1fcb  '"$work_dir/render-package.tar.gz" | sha256sum -c -
+          echo '800d92eb52e83d05dcf73916f39a7185bea31b6920977f8413d621ccbb2e1cfe  '"$work_dir/render-package.tar.gz" | sha256sum -c -
           mv "$work_dir/render-package.tar.gz" master7-v17-render-staging.tar.gz
+
+          if git diff --quiet -- master7-v17-render-staging.tar.gz; then
+            echo "Render package already matches the verified VPay Auto Tune candidate."
+            exit 0
+          fi
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add master7-v17-render-staging.tar.gz
-          git commit -m "chore: refresh VPay UAT payout package [skip ci]"
+          git commit -m "chore: refresh VPay UAT auto-tune package [skip ci]"
           git push origin HEAD:codex/v174-reconciliation-review-integrity-20261116
