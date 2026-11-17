@@ -267,6 +267,12 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     return expected.length >= 32 && safeEqual(expected, supplied);
   }
 
+  function isVpayDiagnosticPeer(req) {
+    const expected = String(env.VPAY_DIAGNOSTIC_TOKEN || '');
+    const supplied = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
+    return expected.length >= 32 && safeEqual(expected, supplied);
+  }
+
   // A wallet query credential may confirm an existing payment, but may not
   // create orders, read the merchant balance, withdraw or access game admins.
   function walletPeerCredential(name) {
@@ -1320,6 +1326,21 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           provider: 'vpay',
           upstreamStatus: result.status,
           result: result.data,
+        });
+      }
+
+      if (req.method === 'POST' && url.pathname === '/diagnostics/vpay/credentials') {
+        if (String(env.VPAY_MODE || 'uat') !== 'uat') return send(res, 404, { error: 'not_found' });
+        if (!isVpayDiagnosticPeer(req)) return send(res, 401, { error: 'unauthorized' });
+        const result = await vpay('TRADER_BALANCE');
+        const providerOK = result.data?.code === 0 || result.data?.code === '0';
+        const providerCode = String(result.data?.code ?? 'invalid_json');
+        const message = String(result.data?.msg || '').toLowerCase();
+        const credentialStatus = providerOK ? 'accepted'
+          : /invalid (?:api )?(?:key|token|credential)/.test(message) ? 'rejected_credentials'
+          : /sign/.test(message) ? 'rejected_signature' : 'provider_rejected';
+        return send(res, result.ok && providerOK ? 200 : 502, {
+          provider: 'vpay', upstreamStatus: result.status, providerCode, credentialStatus,
         });
       }
 
