@@ -2,6 +2,7 @@
 
 const http = require('node:http');
 const crypto = require('node:crypto');
+const net = require('node:net');
 const { verifyVpayNotification, vpaySignature } = require('./vpay');
 const {
   paymentOrderRequest,
@@ -371,6 +372,29 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     return { required, ready, memberId, orderId, amount, tradeCode, expiresAt: Number.isSafeInteger(expiresAt) && expiresAt > 0 ? expiresAt : null };
   }
 
+  function vpayCallbackSourceAllowlist() {
+    const required = publicBase === VPAY_UAT_GATEWAY_ORIGIN && String(env.VPAY_MODE || 'uat') === 'uat';
+    if (!required) return { required: false, ready: true, addresses: new Set() };
+    let values;
+    try { values = JSON.parse(String(env.VPAY_CALLBACK_SOURCE_IPS || '[]')); }
+    catch { return { required, ready: false, addresses: new Set() }; }
+    if (!Array.isArray(values) || values.length < 1 || values.length > 16
+        || new Set(values).size !== values.length
+        || values.some(value => typeof value !== 'string' || value !== value.trim() || net.isIP(value) === 0)) {
+      return { required, ready: false, addresses: new Set() };
+    }
+    return { required, ready: true, addresses: new Set(values) };
+  }
+
+  function vpayCallbackSource(req) {
+    // Render's public edge supplies X-Forwarded-For and documents the first
+    // entry as the original client. Do not accept a later allowlisted hop.
+    const forwarded = req.headers['x-forwarded-for'];
+    if (typeof forwarded !== 'string') return '';
+    const source = forwarded.split(',', 1)[0].trim();
+    return net.isIP(source) ? source : '';
+  }
+
   function walletPaymentConfiguration() {
     const parseTradeCodes = value => {
       try {
@@ -387,22 +411,26 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     const returnUrl = vpayReturnUrl;
     const readiness = vpayReadiness(env);
     const uatOrderGate = vpayUatOrderGate();
+    const callbackSourceAllowlist = vpayCallbackSourceAllowlist();
     const modeReady = ['uat', 'production'].includes(String(env.VPAY_MODE || 'uat'));
     // Existing-order lookup and signed callbacks survive a pause on new orders.
     // These are configuration capabilities, never supplier acceptance evidence.
     const queryReady = modeReady && readiness.credentialsConfigured
       && Boolean(walletPeerCredential('PLATFORM_QUERY_TOKEN'));
-    const callbacksReady = modeReady && readiness.channels.payment.blockers
-      .every(blocker => blocker === 'transaction_switch_off');
+    const callbacksReady = modeReady && callbackSourceAllowlist.ready
+      && readiness.channels.payment.blockers.every(blocker => blocker === 'transaction_switch_off');
     return {
       provider: 'vpay', traderId: vpayTraderId, mode: String(env.VPAY_MODE || 'uat'),
       configured: Boolean(vpayTraderId && vpayApiToken),
       paymentReady: readiness.channels.payment.configurationReady && tradeCodes.length > 0 && uatOrderGate.ready
+        && callbackSourceAllowlist.ready
         && configuredUrl(returnUrl) && Boolean(walletPeerCredential('PLATFORM_ORDER_TOKEN')) && Boolean(walletPeerCredential('PLATFORM_QUERY_TOKEN')),
       queryReady, callbacksReady,
       uatOrderGateRequired: uatOrderGate.required,
       uatOrderGateReady: uatOrderGate.ready,
       uatOrderExpiresAt: uatOrderGate.expiresAt,
+      callbackSourceAllowlistRequired: callbackSourceAllowlist.required,
+      callbackSourceAllowlistReady: callbackSourceAllowlist.ready,
       tradeCodes, notifyUrl: callbackUrls().vpayPayment, returnUrl,
     };
   }
@@ -1130,6 +1158,14 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
       }
       if (vpayCallbackMatch && req.method === 'POST') {
         if (!vpayTraderId || !vpayApiToken) return send(res, 503, { error: 'vpay_not_configured' });
+        const callbackSourceAllowlist = vpayCallbackSourceAllowlist();
+        if (!callbackSourceAllowlist.ready) {
+          return send(res, 503, { error: 'vpay_callback_allowlist_not_configured' });
+        }
+        if (callbackSourceAllowlist.required
+            && !callbackSourceAllowlist.addresses.has(vpayCallbackSource(req))) {
+          return send(res, 403, { error: 'vpay_callback_source_denied' });
+        }
         const payload = await body(req);
         if (String(payload.trader_id || '') !== vpayTraderId || !verifyVpayNotification(payload, vpayApiToken)) {
           return send(res, 401, { error: 'invalid_vpay_signature' });

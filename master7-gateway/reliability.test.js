@@ -216,3 +216,49 @@ test('failed acknowledgement stays retryable and only later durable acknowledgem
   assert.equal((await request(app,'/callbacks/vpay/payment',payload)).text,'SUCCESS');
   assert.equal(attempts,2);
 });
+
+test('isolated VPay UAT callbacks fail closed unless the exact source allowlist is valid', async () => {
+  const uat = {
+    ...env,
+    VPAY_MODE: 'uat',
+    PUBLIC_BASE_URL: 'https://master7-payment-uat.onrender.com',
+  };
+  for (const value of [undefined, '', 'not-json', '[]', '["20.6.12.104","20.6.12.104"]',
+    '["20.6.12.104 "]', '["20.6.12.999"]', '{"ip":"20.6.12.104"}']) {
+    let calls = 0;
+    const configured = value === undefined ? uat : { ...uat, VPAY_CALLBACK_SOURCE_IPS: value };
+    const app = makeApp({ env: configured, fetchImpl: async () => { calls++; return new Response('SUCCESS'); } });
+    const response = await request(app, '/callbacks/vpay/payment', notification(), {
+      'X-Forwarded-For': '20.6.12.104',
+    });
+    assert.equal(response.status, 503, String(value));
+    assert.equal(calls, 0);
+  }
+});
+
+test('isolated VPay UAT callbacks accept only the first exact allowlisted Render client IP', async () => {
+  const sources = ['20.6.12.104', '4.194.234.217', '40.90.160.132'];
+  const uat = {
+    ...env,
+    VPAY_MODE: 'uat',
+    PUBLIC_BASE_URL: 'https://master7-payment-uat.onrender.com',
+    VPAY_CALLBACK_SOURCE_IPS: JSON.stringify(sources),
+  };
+  let calls = 0;
+  const app = makeApp({ env: uat, fetchImpl: async () => { calls++; return new Response('SUCCESS'); } });
+  for (const source of sources) {
+    const response = await request(app, '/callbacks/vpay/payment', notification(), {
+      'X-Forwarded-For': `${source}, 198.51.100.10`,
+    });
+    assert.equal(response.status, 200);
+    assert.equal(response.text, 'SUCCESS');
+  }
+  assert.equal(calls, sources.length);
+  for (const header of [undefined, '198.51.100.10', '198.51.100.10, 20.6.12.104',
+    'unknown, 20.6.12.104', '20.6.12.104:443']) {
+    const extra = header === undefined ? {} : { 'X-Forwarded-For': header };
+    const response = await request(app, '/callbacks/vpay/payment', notification(), extra);
+    assert.equal(response.status, 403, String(header));
+  }
+  assert.equal(calls, sources.length);
+});

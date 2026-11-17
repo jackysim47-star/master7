@@ -157,6 +157,7 @@ test('configuration returns canonical peer URLs and invalid origins stay unready
     provider: 'vpay', traderId: '123456', mode: 'uat', configured: true, paymentReady: true,
     queryReady: true, callbacksReady: true,
     uatOrderGateRequired: false, uatOrderGateReady: true, uatOrderExpiresAt: null,
+    callbackSourceAllowlistRequired: false, callbackSourceAllowlistReady: true,
     tradeCodes: ['2'], notifyUrl: 'https://gateway.example.test/callbacks/vpay/payment',
     returnUrl: 'https://www.master7.best/payment/return',
   });

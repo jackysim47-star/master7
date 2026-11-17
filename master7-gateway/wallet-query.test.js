@@ -51,7 +51,7 @@ test('authenticated wallet configuration pins the merchant, environment, activat
  const app=makeApp({env:readyEnv,fetchImpl:async()=>{throw Error('No supplier request for configuration');}});
  for(const token of [undefined,orderToken,env.GATEWAY_ADMIN_TOKEN])assert.equal((await request(app,'/platform/vpay/config',token,{},'GET')).status,401);
  const result=await request(app,'/platform/vpay/config',peer,{},'GET');assert.equal(result.status,200);
- assert.deepEqual(result.body,{provider:'vpay',traderId:'123456',mode:'uat',configured:true,paymentReady:true,queryReady:true,callbacksReady:true,uatOrderGateRequired:false,uatOrderGateReady:true,uatOrderExpiresAt:null,tradeCodes:['2'],notifyUrl:draft.notifyUrl,returnUrl:draft.callbackUrl});
+ assert.deepEqual(result.body,{provider:'vpay',traderId:'123456',mode:'uat',configured:true,paymentReady:true,queryReady:true,callbacksReady:true,uatOrderGateRequired:false,uatOrderGateReady:true,uatOrderExpiresAt:null,callbackSourceAllowlistRequired:false,callbackSourceAllowlistReady:true,tradeCodes:['2'],notifyUrl:draft.notifyUrl,returnUrl:draft.callbackUrl});
  for(const secret of [peer,orderToken,env.VPAY_API_TOKEN,readyEnv.PLATFORM_CALLBACK_TOKEN])assert(!JSON.stringify(result.body).includes(secret));
 });
 test('isolated UAT can advertise an approved channel while orders stay paused and production ignores the UAT fallback',async()=>{
@@ -63,7 +63,7 @@ test('isolated UAT can advertise an approved channel while orders stay paused an
 });
 test('isolated UAT order gate binds one member, order, amount, channel and one-hour window before supplier access',async()=>{
  const nowSeconds=1_800_000_000,expiresAt=nowSeconds+600,uatOrigin='https://master7-payment-uat.onrender.com',portalOrigin='https://master7-v17-staging.onrender.com';
- const uatEnv={...readyEnv,PUBLIC_BASE_URL:uatOrigin,VPAY_PAYMENT_FORWARD_URL:portalOrigin+'/api/payment-callbacks/vpay/payment',VPAY_RETURN_URL:portalOrigin+'/payment/return',VPAY_UAT_MEMBER_ID:'local:test-member',VPAY_UAT_ORDER_ID:'vpay_uat_order_00000001',VPAY_UAT_AMOUNT:'1.00',VPAY_UAT_TRADE_CODE:'2',VPAY_UAT_EXPIRES_AT:String(expiresAt)};
+ const uatEnv={...readyEnv,PUBLIC_BASE_URL:uatOrigin,VPAY_PAYMENT_FORWARD_URL:portalOrigin+'/api/payment-callbacks/vpay/payment',VPAY_RETURN_URL:portalOrigin+'/payment/return',VPAY_CALLBACK_SOURCE_IPS:'["20.6.12.104","4.194.234.217","40.90.160.132"]',VPAY_UAT_MEMBER_ID:'local:test-member',VPAY_UAT_ORDER_ID:'vpay_uat_order_00000001',VPAY_UAT_AMOUNT:'1.00',VPAY_UAT_TRADE_CODE:'2',VPAY_UAT_EXPIRES_AT:String(expiresAt)};
  const draft={outTradeNo:'vpay_uat_order_00000001',memberId:'local:test-member',title:'MASTER7 deposit',amount:'1.00',tradeCode:'2',payerName:'UAT MEMBER',notifyUrl:uatOrigin+'/callbacks/vpay/payment',callbackUrl:portalOrigin+'/payment/return'};
  let calls=0;const fetchImpl=async(_url,options)=>{calls++;assert.equal(JSON.parse(options.body).action,'TRADER_ORDER');return Response.json({code:0,data:{trade_no:'provider_uat_1'}});};
  const closedEnv={...uatEnv,VPAY_UAT_MEMBER_ID:'',VPAY_UAT_ORDER_ID:'',VPAY_UAT_AMOUNT:'',VPAY_UAT_TRADE_CODE:'',VPAY_UAT_EXPIRES_AT:''};
