@@ -1,0 +1,11 @@
+--- a/lib/vpay.ts
++++ b/lib/vpay.ts
+@@ -133,7 +133,7 @@
+   const queryReady=contractReady&&capabilities.queryReady,callbacksReady=contractReady&&capabilities.callbacksReady;
+   const tradeCodes=contractReady?[...new Set<string>(config.tradeCodes.filter((code:unknown)=>['1','2','3','4','5','7'].includes(String(code))).map(String))]:[];
+   const gatewayContractReady=contractReady&&queryReady&&callbacksReady&&tradeCodes.length>0;
+-  const remoteUatGateRequired=config.uatOrderGateRequired===true,uatOrderGateReady=!remoteUatGateRequired||config.uatOrderGateReady===true,uatOrderExpiresAt=Number.isSafeInteger(Number(config.uatOrderExpiresAt))?Number(config.uatOrderExpiresAt):null;
++  const remoteUatGateRequired=config.uatOrderGateRequired===true,uatOrderGateReady=!remoteUatGateRequired||config.uatOrderGateReady===true,remoteUatExpiry=Number(config.uatOrderExpiresAt),uatOrderExpiresAt=Number.isSafeInteger(remoteUatExpiry)&&remoteUatExpiry>0?remoteUatExpiry:null;
+   const remoteOrderReady=config.paymentReady===true&&gatewayContractReady&&uatOrderGateReady;
+   return {programReady,gatewayContractReady,remoteOrderReady,orderReady:remoteOrderReady&&c.enabled==='true'&&c.newDepositsEnabled==='true',queryReady,callbacksReady,uatOrderGateRequired:remoteUatGateRequired,uatOrderGateReady,uatOrderExpiresAt,tradeCodes};
+  }catch{return unavailable;}
