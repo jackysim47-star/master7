@@ -348,12 +348,18 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
   }
 
   function walletPaymentConfiguration() {
-    let tradeCodes = [];
-    try {
-      const values = JSON.parse(env.VPAY_ENABLED_TRADE_CODES || '[]');
-      if (Array.isArray(values) && values.length && new Set(values).size === values.length
-        && values.every(value => typeof value === 'string' && ['1', '2', '3', '4', '5', '7'].includes(value))) tradeCodes = values;
-    } catch {}
+    const parseTradeCodes = value => {
+      try {
+        const values = JSON.parse(value || '[]');
+        return Array.isArray(values) && new Set(values).size === values.length
+          && values.every(code => typeof code === 'string' && ['1', '2', '3', '4', '5', '7'].includes(code)) ? values : null;
+      } catch { return null; }
+    };
+    const configuredTradeCodes = parseTradeCodes(env.VPAY_ENABLED_TRADE_CODES);
+    let tradeCodes = configuredTradeCodes || [];
+    if (configuredTradeCodes?.length === 0 && String(env.VPAY_MODE || 'uat') === 'uat') {
+      tradeCodes = parseTradeCodes(env.VPAY_UAT_ENABLED_TRADE_CODES) || [];
+    }
     const returnUrl = vpayReturnUrl;
     const readiness = vpayReadiness(env);
     const modeReady = ['uat', 'production'].includes(String(env.VPAY_MODE || 'uat'));
