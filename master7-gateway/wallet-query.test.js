@@ -54,6 +54,13 @@ test('authenticated wallet configuration pins the merchant, environment, activat
  assert.deepEqual(result.body,{provider:'vpay',traderId:'123456',mode:'uat',configured:true,paymentReady:true,queryReady:true,callbacksReady:true,tradeCodes:['2'],notifyUrl:draft.notifyUrl,returnUrl:draft.callbackUrl});
  for(const secret of [peer,orderToken,env.VPAY_API_TOKEN,readyEnv.PLATFORM_CALLBACK_TOKEN])assert(!JSON.stringify(result.body).includes(secret));
 });
+test('isolated UAT can advertise an approved channel while orders stay paused and production ignores the UAT fallback',async()=>{
+ const uatEnv={...readyEnv,VPAY_ORDERS_ENABLED:'false',VPAY_ENABLED_TRADE_CODES:'[]',VPAY_UAT_ENABLED_TRADE_CODES:'["2"]'};
+ const uat=await request(makeApp({env:uatEnv,fetchImpl:async()=>{throw Error('Configuration must not call supplier');}}),'/platform/vpay/config',peer,{},'GET');
+ assert.equal(uat.status,200);assert.equal(uat.body.paymentReady,false);assert.equal(uat.body.queryReady,true);assert.equal(uat.body.callbacksReady,true);assert.deepEqual(uat.body.tradeCodes,['2']);
+ const production=await request(makeApp({env:{...uatEnv,VPAY_MODE:'production'},fetchImpl:async()=>{throw Error('Configuration must not call supplier');}}),'/platform/vpay/config',peer,{},'GET');
+ assert.equal(production.status,200);assert.deepEqual(production.body.tradeCodes,[]);assert.equal(production.body.paymentReady,false);
+});
 test('order-only credential creates through server-selected methods and callback URLs and cannot query, withdraw or inspect balances',async()=>{
  let upstream,calls=0;const app=makeApp({env:readyEnv,fetchImpl:async(url,options)=>{calls++;upstream=JSON.parse(options.body);return Response.json({code:0,data:{trade_no:'provider_1'}});}});
  const result=await request(app,'/platform/vpay/order',orderToken,draft);assert.equal(result.status,200);assert.equal(calls,1);
