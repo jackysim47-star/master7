@@ -236,7 +236,7 @@ test('isolated VPay UAT callbacks fail closed unless the exact source allowlist 
   }
 });
 
-test('isolated VPay UAT callbacks accept only the first exact allowlisted Render client IP', async () => {
+test('isolated VPay UAT callbacks accept only the rightmost exact Render-observed client IP', async () => {
   const sources = ['20.6.12.104', '4.194.234.217', '40.90.160.132'];
   const uat = {
     ...env,
@@ -248,14 +248,14 @@ test('isolated VPay UAT callbacks accept only the first exact allowlisted Render
   const app = makeApp({ env: uat, fetchImpl: async () => { calls++; return new Response('SUCCESS'); } });
   for (const source of sources) {
     const response = await request(app, '/callbacks/vpay/payment', notification(), {
-      'X-Forwarded-For': `${source}, 198.51.100.10`,
+      'X-Forwarded-For': `198.51.100.10, ${source}`,
     });
     assert.equal(response.status, 200);
     assert.equal(response.text, 'SUCCESS');
   }
   assert.equal(calls, sources.length);
-  for (const header of [undefined, '198.51.100.10', '198.51.100.10, 20.6.12.104',
-    'unknown, 20.6.12.104', '20.6.12.104:443']) {
+  for (const header of [undefined, '198.51.100.10', '20.6.12.104, 198.51.100.10',
+    '20.6.12.104, unknown', '20.6.12.104:443']) {
     const extra = header === undefined ? {} : { 'X-Forwarded-For': header };
     const response = await request(app, '/callbacks/vpay/payment', notification(), extra);
     assert.equal(response.status, 403, String(header));

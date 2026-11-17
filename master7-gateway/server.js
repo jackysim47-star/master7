@@ -387,11 +387,12 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
   }
 
   function vpayCallbackSource(req) {
-    // Render's public edge supplies X-Forwarded-For and documents the first
-    // entry as the original client. Do not accept a later allowlisted hop.
+    // Render appends the edge-observed client to X-Forwarded-For. A caller can
+    // supply earlier entries, so only the rightmost value crosses this trust
+    // boundary. This behavior is also verified against the deployed UAT edge.
     const forwarded = req.headers['x-forwarded-for'];
     if (typeof forwarded !== 'string') return '';
-    const source = forwarded.split(',', 1)[0].trim();
+    const source = forwarded.split(',').at(-1).trim();
     return net.isIP(source) ? source : '';
   }
 
