@@ -36,6 +36,21 @@ test('query failures expose a fixed diagnostic class without trusting arbitrary 
   const app=makeApp({env,fetchImpl:async()=>Response.json({code:-1,msg})});const r=await request(app,'/platform/vpay/order-query',peer,{outTradeNo:'order_1'});assert.equal(r.status,502);assert.equal(r.body.error,expected);assert.equal(r.body.result.code,-1);
  }
 });
+test('order failures expose a fixed diagnostic class for UAT troubleshooting',async()=>{
+ for(const [msg,expected] of [
+  ['Invalid signature.','vpay_invalid_signature'],
+  ['Invalid API Key','vpay_invalid_credentials'],
+  ['IP address is not in whitelist','vpay_ip_not_allowed'],
+  ['Amount is below the minimum','vpay_amount_rejected'],
+  ['Payment channel is not available','vpay_channel_rejected'],
+  ['Merchant collection permission is not enabled','vpay_order_permission_rejected'],
+  ['unrecognized synthetic message','vpay_order_rejected'],
+ ]){
+  const app=makeApp({env:readyEnv,fetchImpl:async()=>Response.json({code:-1,msg})});
+  const result=await request(app,'/platform/vpay/order',orderToken,draft);
+  assert.equal(result.status,502);assert.equal(result.body.error,expected);assert.equal(result.body.result.code,-1);
+ }
+});
 test('query-only credentials cannot create, withdraw, inspect merchant balance or use admin APIs',async()=>{
  let calls=0;const app=makeApp({env,fetchImpl:async()=>{calls++;throw Error('Must not call supplier');}});
  for(const path of ['/platform/vpay/order','/platform/vpay/balance','/admin/vpay/order','/admin/vpay/withdrawal','/admin/vpay/balance','/admin/vpay/order-query','/admin/vpay/withdrawal-query','/admin/mega/balance']){
