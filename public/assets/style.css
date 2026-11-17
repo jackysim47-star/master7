@@ -1768,7 +1768,79 @@ body.admin-mode .ops-ai-hero,body.admin-mode .finance-center-hero{background:lin
 .cashier-status{margin:18px 0;padding:13px 15px;border-radius:10px;background:var(--panel-2);line-height:1.65;font-size:14px}
 .cashier-status.pending{border:1px solid var(--line)}.cashier-status.ready{border:1px solid #3a8972}
 .deposit-cashier .wallet-order-form{margin:18px 0 0;padding:0;border:0;background:none}
-.deposit-cashier .wallet-order-form>button[type=submit]{min-height:48px;width:100%;margin-top:10px}
-.deposit-cashier [role=status]{overflow-wrap:anywhere}.deposit-cashier .cashier-payment-link{display:block;margin-top:12px;text-align:center}
+.deposit-cashier .wallet-order-form>button[type=submit]{
+  position:relative;
+  min-height:52px;
+  width:100%;
+  margin-top:12px;
+  overflow:hidden;
+  border:1px solid #6be6df;
+  border-radius:14px;
+  background:linear-gradient(115deg,#087f88 0%,#14aaa8 50%,#397fbd 100%);
+  box-shadow:inset 0 1px 0 #ffffff45,0 10px 24px #0db7b52e,0 3px 0 #062d3a;
+  color:#fff;
+  letter-spacing:.02em;
+  transition:transform .16s ease,box-shadow .16s ease,filter .16s ease;
+}
+.deposit-cashier .wallet-order-form>button[type=submit]:hover:not(:disabled){
+  filter:brightness(1.08);
+  transform:translateY(-1px);
+  box-shadow:inset 0 1px 0 #ffffff55,0 13px 30px #0db7b540,0 3px 0 #062d3a;
+}
+.deposit-cashier .wallet-order-form>button[type=submit]:active:not(:disabled){
+  transform:translateY(1px);
+  box-shadow:inset 0 1px 0 #ffffff30,0 6px 14px #0db7b526,0 1px 0 #062d3a;
+}
+.deposit-cashier .wallet-order-form>button[type=submit]:focus-visible,
+.deposit-cashier #depositCashierRetry:focus-visible,
+.deposit-cashier #depositCashierRecords:focus-visible,
+.deposit-cashier .cashier-payment-link:focus-visible{
+  outline:3px solid #80fff4;
+  outline-offset:3px;
+}
+.deposit-cashier [role=status]{overflow-wrap:anywhere}
+.deposit-cashier .cashier-payment-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  margin-top:12px;
+  padding:9px 15px;
+  border:1px solid #3b6175;
+  border-radius:999px;
+  background:#0d1d2a;
+  color:#ddf7f5;
+  font-weight:750;
+  text-align:center;
+  box-shadow:0 5px 14px #00000024;
+}
+.deposit-cashier #depositCashierRetry,
+.deposit-cashier #depositCashierRecords{
+  min-height:48px;
+  width:100%;
+  border:1px solid #3d6679;
+  border-radius:14px;
+  background:linear-gradient(145deg,#122738,#0b1824);
+  color:#e4fbfa;
+  box-shadow:inset 0 1px 0 #ffffff12,0 7px 18px #00000024;
+  transition:border-color .16s ease,background .16s ease,transform .16s ease;
+}
+.deposit-cashier #depositCashierRetry:hover,
+.deposit-cashier #depositCashierRecords:hover,
+.deposit-cashier .cashier-payment-link:hover{
+  border-color:#55cfc9;
+  background:#132d3b;
+  transform:translateY(-1px);
+}
+.deposit-cashier #depositCashierRetry:active,
+.deposit-cashier #depositCashierRecords:active,
+.deposit-cashier .cashier-payment-link:active{transform:translateY(1px)}
 .cashier-footer{margin-top:20px;padding-top:14px;border-top:1px solid var(--line)}
-@media(max-width:600px){#deposit #paymentButtons{grid-template-columns:1fr}#deposit #paymentButtons .payment-option{min-height:112px}.deposit-cashier{padding:17px}.cashier-bank-option .payment-state{margin-left:0}}
+@media(max-width:600px){
+  #deposit #paymentButtons{grid-template-columns:1fr}
+  #deposit #paymentButtons .payment-option{min-height:112px}
+  .deposit-cashier{padding:17px}
+  .deposit-cashier .wallet-order-form>button[type=submit]{min-height:54px}
+  .deposit-cashier #depositCashierRetry,.deposit-cashier #depositCashierRecords{min-height:50px}
+  .cashier-bank-option .payment-state{margin-left:0}
+}
