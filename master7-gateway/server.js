@@ -65,6 +65,7 @@ const { version: VERSION } = require('./package.json');
 const PROVIDERS = ['cosmoplay', 'creative-gaming', 'pgsoft', 'spade-gaming'];
 const PROVIDER_USER_AGENT = `MASTER7-Integration-Gateway/${VERSION}`;
 const DEFAULT_PORTAL_ORIGIN = 'https://master7-v17-staging.onrender.com';
+const VPAY_UAT_GATEWAY_ORIGIN = 'https://master7-payment-uat.onrender.com';
 const META_PROFILE_ACCOUNTS = Object.freeze({
   metagaming_normal_myr: 'normal',
   metagaming_free_myr: 'free',
@@ -353,6 +354,23 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     return metaGamingReadiness(env).capabilities[capability]?.configurationReady === true;
   }
 
+  function vpayUatOrderGate() {
+    const required = publicBase === VPAY_UAT_GATEWAY_ORIGIN && String(env.VPAY_MODE || 'uat') === 'uat';
+    if (!required) return { required: false, ready: true, expiresAt: null };
+    const memberId = String(env.VPAY_UAT_MEMBER_ID || '');
+    const orderId = String(env.VPAY_UAT_ORDER_ID || '');
+    const amount = String(env.VPAY_UAT_AMOUNT || '');
+    const tradeCode = String(env.VPAY_UAT_TRADE_CODE || '');
+    const expiresAt = Number(env.VPAY_UAT_EXPIRES_AT || 0);
+    const nowSeconds = Math.floor(now().getTime() / 1000);
+    const ready = /^[A-Za-z0-9:_-]{3,100}$/.test(memberId)
+      && /^[A-Za-z0-9_-]{8,50}$/.test(orderId)
+      && /^\d{1,7}\.\d{2}$/.test(amount) && Number(amount) > 0
+      && ['1', '2', '3', '4', '5', '7'].includes(tradeCode)
+      && Number.isSafeInteger(expiresAt) && expiresAt > nowSeconds && expiresAt <= nowSeconds + 3600;
+    return { required, ready, memberId, orderId, amount, tradeCode, expiresAt: Number.isSafeInteger(expiresAt) ? expiresAt : null };
+  }
+
   function walletPaymentConfiguration() {
     const parseTradeCodes = value => {
       try {
@@ -368,6 +386,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     }
     const returnUrl = vpayReturnUrl;
     const readiness = vpayReadiness(env);
+    const uatOrderGate = vpayUatOrderGate();
     const modeReady = ['uat', 'production'].includes(String(env.VPAY_MODE || 'uat'));
     // Existing-order lookup and signed callbacks survive a pause on new orders.
     // These are configuration capabilities, never supplier acceptance evidence.
@@ -378,9 +397,12 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     return {
       provider: 'vpay', traderId: vpayTraderId, mode: String(env.VPAY_MODE || 'uat'),
       configured: Boolean(vpayTraderId && vpayApiToken),
-      paymentReady: readiness.channels.payment.configurationReady && tradeCodes.length > 0
+      paymentReady: readiness.channels.payment.configurationReady && tradeCodes.length > 0 && uatOrderGate.ready
         && configuredUrl(returnUrl) && Boolean(walletPeerCredential('PLATFORM_ORDER_TOKEN')) && Boolean(walletPeerCredential('PLATFORM_QUERY_TOKEN')),
       queryReady, callbacksReady,
+      uatOrderGateRequired: uatOrderGate.required,
+      uatOrderGateReady: uatOrderGate.ready,
+      uatOrderExpiresAt: uatOrderGate.expiresAt,
       tradeCodes, notifyUrl: callbackUrls().vpayPayment, returnUrl,
     };
   }
@@ -1263,6 +1285,14 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           || !['1', '2', '3', '4', '5', '7'].includes(tradeCode)
           || title.length < 1 || title.length > 100 || payerName.length < 1 || payerName.length > 30) {
           return send(res, 400, { error: 'invalid_vpay_order' });
+        }
+        const uatOrderGate = vpayUatOrderGate();
+        if (walletOrder && uatOrderGate.required) {
+          if (!uatOrderGate.ready) return send(res, 503, { error: 'vpay_uat_gate_closed' });
+          if (payload.memberId !== uatOrderGate.memberId || outTradeNo !== uatOrderGate.orderId
+            || amount !== uatOrderGate.amount || tradeCode !== uatOrderGate.tradeCode) {
+            return send(res, 403, { error: 'vpay_uat_scope_mismatch' });
+          }
         }
         if (!vpayReadiness(env).channels.payment.configurationReady) {
           return send(res, 503, { error: 'vpay_payment_configuration_incomplete' });
