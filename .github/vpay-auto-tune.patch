@@ -1,0 +1,70 @@
+--- a/lib/vpay.ts
++++ b/lib/vpay.ts
+@@ -64,10 +64,10 @@
+ function orderEnabled(c: VPayContext) { return enabled(c) && c.enabled === 'true' && c.newDepositsEnabled === 'true'; }
+ export const vpayOrdersConfigured = enabled;
+ 
+-export function vpayCapabilitySnapshot(c:VPayContext,channelActive=false,remoteReady=false){
++export function vpayCapabilitySnapshot(c:VPayContext,channelActive=false,remoteReady=false,gatewayContractReady=remoteReady){
+  const configured=enabled(c),depositEnabled=configured&&remoteReady&&c.enabled==='true'&&c.newDepositsEnabled==='true';
+  return {
+-  deposit:automaticDepositCapability({implemented:true,configured,enabled:depositEnabled,blockers:[...(!configured?['deposit_configuration_incomplete']:[]),...(configured&&!remoteReady?['gateway_contract_not_ready']:[]),...(c.newDepositsEnabled!=='true'?['new_deposits_paused']:[]),...(c.enabled!=='true'?['profile_orders_disabled']:[])]},'gateway_contract'),
++  deposit:automaticDepositCapability({implemented:true,configured,enabled:depositEnabled,blockers:[...(!configured?['deposit_configuration_incomplete']:[]),...(configured&&!gatewayContractReady?['gateway_contract_not_ready']:[]),...(c.newDepositsEnabled!=='true'?['new_deposits_paused']:[]),...(c.enabled!=='true'?['profile_orders_disabled']:[]),...(configured&&gatewayContractReady&&!remoteReady?['gateway_orders_paused']:[])]},'gateway_contract'),
+   payout:vpayPayoutCapabilitySnapshot(c,channelActive),
+   balance:unavailableBalanceCapability(),
+  };
+@@ -106,7 +106,7 @@
+ }
+ 
+ async function vpayDepositAvailability(c:VPayContext){
+- const programReady=enabled(c),unavailable={programReady,remoteOrderReady:false,orderReady:false,queryReady:false,callbacksReady:false,tradeCodes:[] as string[]};
++ const programReady=enabled(c),unavailable={programReady,gatewayContractReady:false,remoteOrderReady:false,orderReady:false,queryReady:false,callbacksReady:false,tradeCodes:[] as string[]};
+  if(!programReady)return unavailable;
+  try{
+   const config=await gatewayJson(c,'/platform/vpay/config',c.queryToken!);
+@@ -116,8 +116,9 @@
+   const capabilities=remoteMaintenanceCapabilities(config);
+   const queryReady=contractReady&&capabilities.queryReady,callbacksReady=contractReady&&capabilities.callbacksReady;
+   const tradeCodes=contractReady?[...new Set<string>(config.tradeCodes.filter((code:unknown)=>['1','2','3','4','5','7'].includes(String(code))).map(String))]:[];
+-  const remoteOrderReady=config.paymentReady===true&&queryReady&&callbacksReady&&tradeCodes.length>0;
+-  return {programReady,remoteOrderReady,orderReady:remoteOrderReady&&c.enabled==='true'&&c.newDepositsEnabled==='true',queryReady,callbacksReady,tradeCodes};
++  const gatewayContractReady=contractReady&&queryReady&&callbacksReady&&tradeCodes.length>0;
++  const remoteOrderReady=config.paymentReady===true&&gatewayContractReady;
++  return {programReady,gatewayContractReady,remoteOrderReady,orderReady:remoteOrderReady&&c.enabled==='true'&&c.newDepositsEnabled==='true',queryReady,callbacksReady,tradeCodes};
+  }catch{return unavailable;}
+ }
+ 
+@@ -148,9 +149,9 @@
+   if (path === '/api/payments/vpay/status' && req.method === 'GET') {
+     const channel = await c.db.prepare('SELECT status FROM payment_channel_controls WHERE provider_id=?').bind('vpay').first<{status:string}>();
+     // Historical channel status is still used by the separate payout capability.
+-    const {remoteOrderReady,...availability}=await vpayDepositAvailability(c),capabilities=vpayCapabilitySnapshot(c,channel?.status==='active',remoteOrderReady);
++    const {gatewayContractReady,remoteOrderReady,...availability}=await vpayDepositAvailability(c),capabilities=vpayCapabilitySnapshot(c,channel?.status==='active',remoteOrderReady,gatewayContractReady);
+     const realPaymentVerified=c.acceptance?.realPaymentVerified===true,settlementVerified=c.acceptance?.settlementVerified===true;
+-    return json({provider:'vpay',profileId:'vpay_myr',currency:'MYR',enabled:availability.orderReady,mode:availability.orderReady?c.mode:'disabled',...automaticPaymentStatus(capabilities.deposit),...availability,recoveryReady:c.recoveryEnabled==='true'&&availability.queryReady,payoutReady:capabilities.payout.enabled,balanceReady:capabilities.balance.enabled,realPayments:availability.orderReady&&c.mode==='production',realPaymentVerified,settlementVerified,liveReady:availability.orderReady&&realPaymentVerified&&settlementVerified,capabilities});
++    return json({provider:'vpay',profileId:'vpay_myr',currency:'MYR',enabled:availability.orderReady,mode:availability.orderReady?c.mode:'disabled',...automaticPaymentStatus(capabilities.deposit),gatewayContractReady,remoteOrderReady,...availability,recoveryReady:c.recoveryEnabled==='true'&&availability.queryReady,payoutReady:capabilities.payout.enabled,balanceReady:capabilities.balance.enabled,realPayments:availability.orderReady&&c.mode==='production',realPaymentVerified,settlementVerified,liveReady:availability.orderReady&&realPaymentVerified&&settlementVerified,capabilities});
+   }
+   if (path === '/api/wallet' && req.method === 'GET') {
+     if (!c.user) return json({ error: 'Sign in required' }, 401);
+--- a/tests/vpay-uat-isolation.test.mjs
++++ b/tests/vpay-uat-isolation.test.mjs
+@@ -25,10 +25,19 @@
+ test('isolated UAT uses its exact gateway while maintenance remains independent of closed orders',async()=>{
+   const f=fixture(),s=await f.status();
+   assert.equal(s.programReady,true);assert.equal(s.queryReady,true);assert.equal(s.callbacksReady,true);
++  assert.equal(s.gatewayContractReady,true);assert.equal(s.reason,'new_deposits_paused');
++  assert.ok(s.capabilities.deposit.blockers.includes('gateway_orders_paused'));
++  assert.ok(!s.capabilities.deposit.blockers.includes('gateway_contract_not_ready'));
+   assert.equal(s.orderReady,false);assert.equal(s.recoveryReady,false);assert.equal(s.payoutReady,false);
+   assert.equal(s.realPaymentVerified,false);assert.equal(s.settlementVerified,false);assert.equal(s.liveReady,false);
+   assert.deepEqual(f.requests,[gateway+'/platform/vpay/config']);
+ });
++test('isolated UAT reports only the Gateway order pause when portal order controls are open',async()=>{
++  const f=fixture({enabled:'true',newDepositsEnabled:'true'}),s=await f.status();
++  assert.equal(s.gatewayContractReady,true);assert.equal(s.remoteOrderReady,false);assert.equal(s.orderReady,false);
++  assert.equal(s.reason,'gateway_orders_paused');
++  assert.deepEqual(s.capabilities.deposit.blockers,['gateway_orders_paused']);
++});
+ for(const [name,patch] of [
+   ['production mode',{mode:'production'}],
+   ['production portal',{portalOrigins:['https://www.master7.best']}],
