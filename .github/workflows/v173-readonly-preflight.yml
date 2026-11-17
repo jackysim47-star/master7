@@ -1,0 +1,45 @@
+name: V173 Read-only Domain Preflight Tests
+
+on:
+  pull_request:
+    branches:
+      - codex/v17-render-staging-20261104
+    paths:
+      - scripts/v173-web-domain-preflight.mjs
+      - tests/v173-web-domain-preflight.test.mjs
+      - .github/workflows/v173-readonly-preflight.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: v173-readonly-preflight-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-tests:
+    name: Offline domain preflight unit tests
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            node: '22'
+          - os: windows-latest
+            node: '24'
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    steps:
+      - name: Check out the proposed changes
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Verify syntax
+        run: |
+          node --check scripts/v173-web-domain-preflight.mjs
+          node --check tests/v173-web-domain-preflight.test.mjs
+      - name: Run isolated, mocked tests only
+        run: node --test tests/v173-web-domain-preflight.test.mjs
