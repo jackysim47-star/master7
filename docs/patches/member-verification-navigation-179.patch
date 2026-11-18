@@ -1,0 +1,165 @@
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,34 +15,35 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
+-  <link rel="stylesheet" href="/assets/template-v173.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <link rel="stylesheet" href="/assets/template-v173.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <link rel="stylesheet" href="/assets/verification-navigation.css?v=17.0.0-selfbuilt.179-verification-navigation">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+@@ -69,6 +70,8 @@
+       <a id="logoutButton" aria-label="Log out" href="/signout-with-chatgpt?return_to=%2F" target="_top" class="button button-ghost small" hidden data-i18n="logout">Log out</a>
+     </div>
+   </header>
++
++  <button type="button" id="memberVerificationShortcut" class="member-verification-shortcut nav-button" data-section="member-verification" hidden><span aria-hidden="true">◇</span><span>Verification</span></button>
+ 
+   <nav class="mobile-dock" aria-label="Mobile member navigation">
+     <button type="button" class="mobile-dock-button nav-button active" data-section="lobby" data-mobile-dock-target="home" aria-current="page"><span aria-hidden="true">⌂</span><small>Home</small></button>
+--- a/tests/deposit-cashier.test.mjs
++++ b/tests/deposit-cashier.test.mjs
+@@ -35,6 +35,29 @@
+ }
+ const entries={vpay:{form:'vpayOrderForm',amount:'vpayAmount',message:'vpayOrderMessage',submit:'submitVPayOrder',url:'https://payment.vpay.club/checkout/fixture'},gspay:{form:'gspayOrderForm',amount:'gspayAmount',message:'gspayOrderMessage',submit:'submitGSPayOrder',url:'https://secured.gspay.online/channel?id=123&key=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'},'1mpay':{form:'oneMpayOrderForm',amount:'oneMpayAmount',message:'oneMpayOrderMessage',submit:'submitOneMpayOrder',url:'https://api.1mpay.net/payment/fixture'}};
+ const event={preventDefault(){}};
++test('review-required errors provide a direct, read-only route to verification in every language',()=>{
++ for(const [lang,label] of [['en','Go to verification'],['zh','前往身份审核'],['ms','Pergi ke pengesahan']]){
++  const f=fixture();f.state.lang=lang;f.nodes.get('depositCashier').showModal();
++  const key=f.context.depositAttemptFor('vpay','draft','retained-draft').requestKey;
++  const message=f.nodes.get('vpayOrderMessage');
++  f.context.presentDepositError('vpay',{status:403,code:'COMPLIANCE_REVIEW_REQUIRED'},message);
++  const action=message.children.find(child=>child.tagName==='button'&&child.textContent===label);
++  assert.ok(action,'a visible verification action is available');action.onclick();
++  assert.equal(f.state.section,'member-verification');assert.equal(f.nodes.get('depositCashier').open,false);
++  assert.equal(f.context.loadDepositAttempt('vpay').requestKey,key);assert.deepEqual(f.calls,[]);
++ }
++});
++
++test('a stale verification action cannot navigate after logout or an account switch',()=>{
++ for(const nextUser of [null,{id:'other-member',role:'member',approved:true},{id:'owner',role:'owner',approved:true}]){
++  const f=fixture(),message=f.nodes.get('vpayOrderMessage');
++  f.context.presentDepositError('vpay',{status:403,code:'COMPLIANCE_REVIEW_REQUIRED'},message);
++  const action=message.children.find(child=>child.tagName==='button'&&child.textContent==='Go to verification');
++  assert.ok(action);f.state.section='deposit';f.state.user=nextUser;action.onclick();
++  assert.equal(f.state.section,'deposit');assert.deepEqual(f.calls,[]);
++ }
++});
++
+ test('an open unavailable VPay cashier refreshes configuration without submitting or losing the draft',async()=>{
+  let enabled=false;const f=fixture({read:()=>({enabled,orderReady:enabled,queryReady:true,callbacksReady:true,tradeCodes:['2']})});
+  await f.context.openDepositCashier('vpay');assert.equal(f.nodes.get('vpayOrderForm').hidden,true);
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -44,7 +44,7 @@
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.178-vpay-cashier-refresh';
++export const RELEASE = '17.0.0-selfbuilt.179-verification-navigation';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.178-vpay-cashier-refresh';
++const CACHE='master7-shell-17.0.0-selfbuilt.179-verification-navigation';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -458,6 +458,12 @@
+  return null;
+ }
+ function appendDepositRecordsAction(host){const button=node("button","button button-outline small",cashierText("records"));button.type="button";button.onclick=openDepositRecords;host.append(document.createTextNode(" "),button);}
++function appendComplianceReviewAction(host){
++ const memberId=state.user?.role==="member"?state.user.id:null;if(!memberId)return;
++ const labels={en:"Go to verification",zh:"前往身份审核",ms:"Pergi ke pengesahan"},button=node("button","button button-primary small",labels[state.lang]||labels.en);button.type="button";
++ button.onclick=()=>{if(state.user?.role!=="member"||state.user.id!==memberId)return;const dialog=$("depositCashier");if(dialog.open)dialog.close();selected("member-verification");};
++ host.append(document.createTextNode(" "),button);
++}
+ function presentDepositResult(provider,result,message){
+  const reference=result.id?` ${cashierText("reference")}: ${result.id}`:"",terminal=["credited","failed","expired","cancelled"].includes(result.status);
+  if(terminal){clearDepositAttempt(provider);message.textContent=cashierText(result.status==="credited"?"paid":"failed")+reference;appendDepositRecordsAction(message);return;}
+@@ -482,7 +488,7 @@
+ function presentDepositError(provider,error,message){
+  const rejected=releaseDepositAttemptAfterError(provider,error),status=Number(error?.status),safeReason=typeof error?.message==="string"?error.message.replace(/[\u0000-\u001f\u007f]/g," ").slice(0,180):"",rawCode=error?.code||safeReason,code=/^[A-Z][A-Z0-9_]{1,79}$/.test(rawCode)?rawCode:"";
+  if(rejected)message.textContent=cashierText("rejected");
+- else if(code==="COMPLIANCE_REVIEW_REQUIRED")message.textContent=complianceReviewRequiredText();
++ else if(code==="COMPLIANCE_REVIEW_REQUIRED"){message.textContent=complianceReviewRequiredText();appendComplianceReviewAction(message);}
+  else if(status===401||status===403)message.textContent=cashierText(/approval|approved|审批/i.test(safeReason)?"approval":"session");
+  else if(status===409){const reason=depositConflictCopy[state.lang]?.[code]||depositConflictCopy.en[code];message.textContent=(reason||safeReason||cashierText("conflict"))+(code?` (${code})`:"");}
+  else if(status>=400&&status<500)message.textContent=safeReason||cashierText("failed");
+--- /dev/null
++++ b/public/assets/verification-navigation.css
+@@ -0,0 +1,12 @@
++.member-verification-shortcut{display:none}
++@media(max-width:760px){
++  body:not(.auth-entry):not(.admin-mode) .member-verification-shortcut:not([hidden]){
++    position:sticky;top:64px;z-index:39;display:flex;align-items:center;justify-content:center;gap:9px;
++    width:calc(100% - 24px);min-height:44px;margin:8px 12px;padding:9px 16px;border:1px solid #b8d9ed;
++    border-radius:12px;background:#edf7ff;color:#145481;font-size:14px;font-weight:750;line-height:1.4;
++    box-shadow:0 4px 12px rgba(21,76,116,.08)
++  }
++  body:not(.auth-entry):not(.admin-mode) .member-verification-shortcut:hover,
++  body:not(.auth-entry):not(.admin-mode) .member-verification-shortcut.active{background:#dcefff;color:#0d4775}
++  body:not(.auth-entry):not(.admin-mode) .member-verification-shortcut:focus-visible{outline:3px solid #146cc0;outline-offset:2px}
++}
