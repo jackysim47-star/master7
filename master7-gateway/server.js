@@ -3,7 +3,7 @@
 const http = require('node:http');
 const crypto = require('node:crypto');
 const net = require('node:net');
-const { normalizeVpayBalance, verifyVpayNotification, vpaySignature } = require('./vpay');
+const { classifyVpayOrderFailure, normalizeVpayBalance, verifyVpayNotification, vpaySignature } = require('./vpay');
 const {
   paymentOrderRequest,
   paymentOrderResponse,
@@ -1385,20 +1385,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           callback_url: returnUrl,
         });
         const providerOK = result.data?.code === 0 || result.data?.code === '0';
-        const providerMessage = typeof result.data?.msg === 'string'
-          ? result.data.msg.trim().toLowerCase().replace(/[.!?]+$/, '') : '';
-        const failureClass = /(?:invalid|wrong).*sign|sign(?:ature)?\s*(?:error|failed|invalid)|签名(?:错误|失败)/.test(providerMessage)
-          ? 'vpay_invalid_signature'
-          : /invalid\s*(?:api\s*)?(?:key|token|credential)|(?:api\s*)?(?:key|token|credential).*invalid/.test(providerMessage)
-            ? 'vpay_invalid_credentials'
-            : /(?:\bip\b.*(?:allow|white)|white\s*list|whitelist|白名单)/.test(providerMessage)
-              ? 'vpay_ip_not_allowed'
-              : /(?:amount|minimum|maximum|金额|最低|最高)/.test(providerMessage)
-                ? 'vpay_amount_rejected'
-                : /(?:channel|trade\s*code|payment\s*method|通道|支付方式)/.test(providerMessage)
-                  ? 'vpay_channel_rejected'
-                  : /(?:permission|not\s+(?:enabled|open)|disabled|merchant|trader|权限|未开通|关闭)/.test(providerMessage)
-                    ? 'vpay_order_permission_rejected' : 'vpay_order_rejected';
+        const failureClass = classifyVpayOrderFailure(result.data?.msg);
         return send(res, result.ok && providerOK ? 200 : 502, {
           ...(!providerOK ? { error: failureClass } : {}),
           provider: 'vpay',

@@ -73,7 +73,28 @@ function normalizeVpayBalance(payload) {
   return { currency: 'MYR', balance: available };
 }
 
+function classifyVpayOrderFailure(value) {
+ const message=typeof value==='string'?value.trim().toLowerCase().replace(/[.!?]+$/,''):'';
+ if(/(?:invalid|wrong).*sign|sign(?:ature)?\s*(?:error|failed|invalid)|签名(?:错误|失败)/.test(message))return 'vpay_invalid_signature';
+ if(/invalid\s*(?:api\s*)?(?:key|token|credential)|(?:api\s*)?(?:key|token|credential).*invalid/.test(message))return 'vpay_invalid_credentials';
+ const allowlist=/white[\s-]*list|allow[\s-]*list|白名单/.test(message);
+ const explicitIp=/(?:^|[^a-z0-9])ip(?:v[46])?(?:_address|address)?(?:$|[^a-z0-9])/.test(message);
+ if(allowlist){
+  if(/callback[_ -]*url|return[_ -]*url|redirect|返回|跳转/.test(message))return 'vpay_return_url_not_allowed';
+  if(/notify|notification|回调|通知/.test(message))return 'vpay_notify_url_not_allowed';
+  if(/domain|hostname|域名/.test(message))return 'vpay_domain_not_allowed';
+  if(explicitIp)return 'vpay_ip_not_allowed';
+  return 'vpay_allowlist_rejected';
+ }
+ if(explicitIp&&/not.{0,12}allow|denied|不允许|未授权/.test(message))return 'vpay_ip_not_allowed';
+ if(/(?:amount|minimum|maximum|金额|最低|最高)/.test(message))return 'vpay_amount_rejected';
+ if(/(?:channel|trade\s*code|payment\s*method|通道|支付方式)/.test(message))return 'vpay_channel_rejected';
+ if(/(?:permission|not\s+(?:enabled|open)|disabled|merchant|trader|权限|未开通|关闭)/.test(message))return 'vpay_order_permission_rejected';
+ return 'vpay_order_rejected';
+}
+
 module.exports = {
+  classifyVpayOrderFailure,
   canonicalize,
   formatVpayDateTime,
   md5Upper,
