@@ -1,0 +1,141 @@
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -321 +321 @@
+-async function openDepositCashier(provider){
++async function openDepositCashier(provider,background=false){
+@@ -326,2 +326,3 @@
+- syncDepositCashierMember();state.depositProvider=displayProvider;const cashier=cashierState(),requestId=++cashier.requestId,userId=state.user.id,restriction=activeDepositRestriction();cashier.provider=normalizedProvider;cashier.displayProvider=displayProvider;cashier.error="";cashier.loading=!!state.user.approved&&!restriction;
+- const dialog=$("depositCashier");if(!dialog.open)dialog.showModal();renderDepositCashier();if(!state.user.approved||restriction)return;
++ syncDepositCashierMember();state.depositProvider=displayProvider;const cashier=cashierState(),requestId=++cashier.requestId,userId=state.user.id,restriction=activeDepositRestriction();cashier.provider=normalizedProvider;cashier.displayProvider=displayProvider;cashier.error="";cashier.loading=!!state.user.approved&&!restriction&&!background;
++ const dialog=$("depositCashier");if(!background){if(!dialog.open)dialog.showModal();renderDepositCashier();}if(!state.user.approved||restriction)return;
++ cashier.lastStatusCheckAt=Date.now();
+@@ -333,0 +335,8 @@
++}
++let vpayCashierRefreshPending=false;
++async function refreshOpenVPayCashier(){
++ const cashier=cashierState();
++ if(vpayCashierRefreshPending||!$("depositCashier")?.open||cashier.provider!=="vpay"||cashier.loading||state.depositSubmitting||state.user?.role!=="member"||!state.user.approved||document.visibilityState==="hidden"||cashierReady("vpay")||activeDepositRestriction())return;
++ if(Date.now()-Number(cashier.lastStatusCheckAt||0)<10000)return;
++ vpayCashierRefreshPending=true;
++ try{await openDepositCashier("vpay",true);}finally{vpayCashierRefreshPending=false;}
+@@ -1389,0 +1399,3 @@
++if(typeof setInterval==="function")setInterval(refreshOpenVPayCashier,10000);
++if(typeof document.addEventListener==="function")document.addEventListener("visibilitychange",refreshOpenVPayCashier);
++if(typeof window.addEventListener==="function")window.addEventListener("focus",refreshOpenVPayCashier);
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -18,28 +18,28 @@
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.174-uat-preview">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.174-uat-preview">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.174-uat-preview">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.174-uat-preview">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.174-uat-preview">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.174-uat-preview">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.174-uat-preview">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.174-uat-preview">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.174-uat-preview">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.174-uat-preview">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.174-uat-preview">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.174-uat-preview">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.174-uat-preview">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.174-uat-preview">
+-  <link rel="stylesheet" href="/assets/template-v173.css?v=17.0.0-selfbuilt.174-uat-preview">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.174-uat-preview" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.174-uat-preview" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.174-uat-preview" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.174-uat-preview" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.174-uat-preview" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.174-uat-preview" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.174-uat-preview" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.174-uat-preview" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.174-uat-preview" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.174-uat-preview" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.174-uat-preview" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.174-uat-preview" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.174-uat-preview" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
++  <link rel="stylesheet" href="/assets/template-v173.css?v=17.0.0-selfbuilt.178-vpay-cashier-refresh">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.178-vpay-cashier-refresh" defer></script>
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1 +1 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.174-uat-preview';
++const CACHE='master7-shell-17.0.0-selfbuilt.178-vpay-cashier-refresh';
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -47 +47 @@
+-export const RELEASE = '17.0.0-selfbuilt.174-uat-preview';
++export const RELEASE = '17.0.0-selfbuilt.178-vpay-cashier-refresh';
+--- a/tests/deposit-cashier.test.mjs
++++ b/tests/deposit-cashier.test.mjs
+@@ -37,0 +38,31 @@
++test('an open unavailable VPay cashier refreshes configuration without submitting or losing the draft',async()=>{
++ let enabled=false;const f=fixture({read:()=>({enabled,orderReady:enabled,queryReady:true,callbacksReady:true,tradeCodes:['2']})});
++ await f.context.openDepositCashier('vpay');assert.equal(f.nodes.get('vpayOrderForm').hidden,true);
++ f.nodes.get('vpayAmount').value='1.00';f.nodes.get('vpayPayerName').value='Saved payer';
++ const attempt=f.context.depositAttemptFor('vpay','draft','same-draft');
++ enabled=true;f.context.cashierState().lastStatusCheckAt=0;await f.context.refreshOpenVPayCashier();
++ assert.equal(f.nodes.get('vpayOrderForm').hidden,false);assert.equal(f.nodes.get('depositCashierRetry').hidden,true);
++ assert.equal(f.nodes.get('vpayAmount').value,'1.00');assert.equal(f.nodes.get('vpayPayerName').value,'Saved payer');
++ assert.equal(f.context.loadDepositAttempt('vpay').requestKey,attempt.requestKey);
++ assert.ok(f.calls.every(call=>call.method==='GET'));assert.deepEqual(f.navigations,[]);
++});
++
++test('VPay background refresh is quiet for closed, ready, submitting and hidden pages',async()=>{
++ const f=fixture({read:()=>({enabled:false,orderReady:false,tradeCodes:['2']})});await f.context.openDepositCashier('vpay');
++ const count=f.calls.length,tryRefresh=()=>{f.context.cashierState().lastStatusCheckAt=0;return f.context.refreshOpenVPayCashier();};
++ f.nodes.get('depositCashier').close();await tryRefresh();assert.equal(f.calls.length,count);
++ f.nodes.get('depositCashier').showModal();f.state.depositSubmitting='vpay';await tryRefresh();assert.equal(f.calls.length,count);
++ f.state.depositSubmitting=null;f.context.document.visibilityState='hidden';await tryRefresh();assert.equal(f.calls.length,count);
++ f.context.document.visibilityState='visible';f.state.paymentStatus={orderReady:true};await tryRefresh();assert.equal(f.calls.length,count);
++});
++
++test('a delayed VPay refresh cannot reopen the cashier or update another member',async()=>{
++ let release,reads=0;const f=fixture({read:()=>++reads===1?{enabled:false,orderReady:false,tradeCodes:['2']}:new Promise(resolve=>{release=resolve;})});
++ await f.context.openDepositCashier('vpay');f.context.cashierState().lastStatusCheckAt=0;
++ const pending=f.context.refreshOpenVPayCashier();await f.context.refreshOpenVPayCashier();assert.equal(reads,2);
++ f.state.user={id:'different-member',role:'member',approved:true};f.context.renderDepositCashier();
++ release({enabled:true,orderReady:true,tradeCodes:['2']});await pending;
++ assert.equal(f.nodes.get('depositCashier').open,false);assert.equal(f.state.paymentStatus.orderReady,false);
++ assert.ok(f.calls.every(call=>call.method==='GET'));
++});
++
+--- /dev/null
++++ b/docs/VPAY_CASHIER_REFRESH_178.md
+@@ -0,0 +1,11 @@
++# VPay cashier availability refresh
++
++This fix is based on the production release 174 source. It updates the open cashier's availability and asset cache version; it does not roll out the separate member-services feature branch.
++
++Previously, an unavailable VPay dialog kept its status until the customer explicitly retried or reopened it. Enabling the provider in the backoffice did not refresh an already-open dialog.
++
++An open, unavailable VPay cashier now refreshes the existing read-only status endpoint at most once every ten seconds. It also rechecks when the page becomes visible or regains focus. Ready forms, hidden pages, closed dialogs, pending submissions, unapproved accounts and responsible-play restrictions do not trigger background refresh. Requests stay serialized, late responses remain member-scoped, and the existing draft and request key are preserved. Refreshing never submits an order or navigates to checkout.
++
++The release marker, service-worker cache and versioned asset URLs are updated together so a fresh page loads the corrected client.
++
++Validation: 44 focused cashier, deposit-state and SQL-compatibility tests passed, including paused-to-enabled refresh, retained drafts and request keys, closed/hidden/submitting guards and late account-switch responses. JavaScript syntax checks passed. No live payment, callback replay or withdrawal is used for this fix. Payment configuration, balances, ledger, identity review and payout switches are unchanged.
