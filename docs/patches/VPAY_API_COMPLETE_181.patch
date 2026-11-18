@@ -1,0 +1,1008 @@
+--- a/scripts/verify-isolated-postgres-payouts.mjs
++++ b/scripts/verify-isolated-postgres-payouts.mjs
+@@ -26,6 +26,9 @@
+  assert.equal(identity.rows[0].name,'master7_v18_payout_test');assert.equal(identity.rows[0].tables,0,'test database must be empty');
+  const schema=await readFile(new URL('../db/render-schema.sql',import.meta.url),'utf8'),directory=JSON.parse(await readFile(new URL('../db/vendor-directory.json',import.meta.url),'utf8'));
+  await initializePortalDatabase(pool,schema,directory);
++ await initializePortalDatabase(pool,schema,directory);
++ assert.equal((await pool.query("SELECT COUNT(*)::int n FROM portal_schema_migrations WHERE version='0127-vpay-provider-money-id'")).rows[0].n,1);
++ assert.equal((await pool.query("SELECT indisunique AND indisvalid AND indisready AS ready FROM pg_index WHERE indexrelid='provider_payout_money_id'::regclass")).rows[0].ready,true);
+  process.env.PORTAL_POSTGRES_URL=connection;process.env.PGSSLMODE='disable';globalThis.fetch=async()=>{throw Error('Unexpected external request');};
+  const db=new RenderD1Compat();
+  await pool.query("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES ('test-owner','test-owner','owner',1,'test',0)");
+@@ -59,6 +62,23 @@
+  function gspayContext(fetchImpl){return {db,apiBase:'https://api.thegspay.com',authKey,secretKey,returnUrl:'https://master7-v17-staging.onrender.com/payment/return',withdrawalDataKey:dataKey,fetchImpl};}
+  const vpayReply=(id,state)=>Response.json({provider:'vpay',result:{code:0,data:{out_money_id:id,state,amount:'20.00'}}});
+  const gspayReply=(id,reference,completed,success)=>Response.json({code:200,data:JSON.stringify([{payout_id:reference,transaction_id:id,account_name:'Synthetic User',account_number:'123456789012',amount:'20.00',completed,payout_success:success,signature:gspayPayoutResultSignature(reference,'123456789012','20.00',id,secretKey)}])});
++ await t.test('VPay persists distinct provider IDs and rejects duplicate or conflicting bindings on PostgreSQL',async()=>{
++  const f=await seed('vpay-money-id','vpay','prepared');await approveFixture(f);let queryState='1',queries=0;
++  const c=vpayContext(async(input,init)=>{const body=JSON.parse(init.body);if(new URL(String(input)).pathname==='/platform/vpay/withdrawal')return Response.json({provider:'vpay',result:{code:0,data:{money_id:'provider_money_001',out_money_id:body.refId}}});queries++;return vpayReply(body.outMoneyId,queryState);});
++  const submit=fixture=>submitVPayPayout({payoutId:fixture.payout,withdrawalId:fixture.withdrawal,userId:fixture.user,accountHolder:'Synthetic User',accountNumber:'123456789012',bankCode:'maybank',amountMinor:'2000'},c);
++  assert.equal((await submit(f)).status,'processing');
++  const row=(await pool.query('SELECT provider_reference,provider_money_id FROM provider_payouts WHERE id=$1',[f.payout])).rows[0];
++  assert.equal(row.provider_reference,f.payout);assert.equal(row.provider_money_id,'provider_money_001');
++  const callback=moneyId=>handleVPayPayoutCallback(new Request('https://portal.example.test/api/payment-callbacks/vpay/withdrawal',{method:'POST',headers:{Authorization:'Bearer '+c.callbackToken,'Content-Type':'application/json'},body:JSON.stringify({trader_id:'123',out_money_id:f.payout,money_id:moneyId,state:queryState,amount:'20.00'})}),c);
++  queryState='3';assert.equal((await callback('provider_money_001')).status,200);assert.equal((await callback('provider_money_001')).status,200);
++  assert.equal((await state(f)).balance,'8000');assert.equal((await state(f)).reservations,0);
++  const before=queries;assert.equal((await callback('provider_money_other')).status,409);assert.equal(queries,before);
++  assert.equal((await state(f)).payout,'review');assert.equal((await state(f)).balance,'8000');
++  const duplicate=await seed('vpay-duplicate-money','vpay','prepared');await approveFixture(duplicate);
++  assert.equal((await submit(duplicate)).status,'review');assert.equal(queries,before);
++  assert.equal((await state(duplicate)).reservations,1);
++  assert.equal((await pool.query("SELECT COUNT(*)::int n FROM provider_payouts WHERE provider_money_id='provider_money_001'")).rows[0].n,1);
++ });
+  for(const provider of ['vpay','gspay'])for(const first of ['success','failure'])await t.test(`${provider} ${first} before a conflicting late response`,async()=>{
+   const f=await seed(`${provider}-${first}`,provider),one=gate(),two=gate();let calls=0;
+   const fetchImpl=async()=>{const n=++calls,g=n===1?one:two;g.signal();await g.wait;const success=n===1?first==='success':first!=='success';return provider==='vpay'?vpayReply(f.payout,success?'3':'2'):gspayReply(f.payout,provider==='gspay'&&first==='success'?'12340001':'12340002',true,success);};
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,35 +15,35 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <link rel="stylesheet" href="/assets/template-v173.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <link rel="stylesheet" href="/assets/verification-navigation.css?v=17.0.0-selfbuilt.180-member-recovery">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <link rel="stylesheet" href="/assets/template-v173.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <link rel="stylesheet" href="/assets/verification-navigation.css?v=17.0.0-selfbuilt.181-vpay-api-complete">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.181-vpay-api-complete" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.181-vpay-api-complete" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.181-vpay-api-complete" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.181-vpay-api-complete" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.181-vpay-api-complete" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.181-vpay-api-complete" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.181-vpay-api-complete" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.181-vpay-api-complete" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.181-vpay-api-complete" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.181-vpay-api-complete" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.181-vpay-api-complete" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.181-vpay-api-complete" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.181-vpay-api-complete" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+--- a/app/api/[...path]/route.ts
++++ b/app/api/[...path]/route.ts
+@@ -17,7 +17,7 @@
+ export function createDispatcher(dependencies:Pick<Context,'megaSessionCloser'|'megaClosureContractVerified'|'gameGatewayFetch'>={}){
+  const megaSessionCloser=dependencies.megaClosureContractVerified===true&&typeof dependencies.megaSessionCloser==='function'?dependencies.megaSessionCloser:undefined;
+  const gameGatewayFetch=dependencies.gameGatewayFetch;
+- return async function dispatch(req:Request){if(!env.DB)return Response.json({error:'Database unavailable'},{status:503});const config=env as unknown as Record<string,string>;return handle(req,{db:env.DB,identity:await getChatGPTUser({trustedHeaders:hostedIdentityHeadersTrusted(config)}),ownerEmail:config.OWNER_EMAIL??'',manualComplianceEnforced:config.PORTAL_MANUAL_COMPLIANCE_ENFORCED,newDepositsEnabled:config.PORTAL_NEW_DEPOSITS_ENABLED,newGameLaunchesEnabled:config.PORTAL_NEW_GAME_LAUNCHES_ENABLED,newPayoutsEnabled:config.PORTAL_NEW_PAYOUTS_ENABLED,ownerLoginId:config.OWNER_LOGIN_ID,allowedOrigins:trustedOrigins(config),jdbTransferProfilesJson:config.JDB_TRANSFER_PROFILES_JSON,gameTransferProfilesJson:config.GAME_TRANSFER_PROFILES_JSON,gameGatewayUrl:config.GAME_GATEWAY_URL,gameGatewayToken:config.GAME_GATEWAY_TOKEN,gameGatewayWalletToken:config.GAME_GATEWAY_WALLET_TOKEN,megaLaunchOriginsJson:config.MEGAH5_LAUNCH_ORIGINS_JSON,megaTransfersEnabled:config.PORTAL_MEGA_TRANSFERS_ENABLED,megaLiveGamesEnabled:config.PORTAL_MEGA_LIVE_GAMES_ENABLED,megaSettlementVerified:config.PORTAL_MEGA_SETTLEMENT_VERIFIED,megaSessionCloser,megaClosureContractVerified:megaSessionCloser!==undefined,gameGatewayFetch,vpayGatewayUrl:config.VPAY_GATEWAY_URL,vpayOrderToken:config.VPAY_ORDER_TOKEN,vpayQueryToken:config.VPAY_QUERY_TOKEN,vpayCallbackToken:config.VPAY_CALLBACK_TOKEN,vpayPayoutToken:config.VPAY_PAYOUT_TOKEN,vpayPayoutEnabled:config.VPAY_PAYOUT_ENABLED,vpayOrdersEnabled:config.VPAY_ORDERS_ENABLED,vpayMode:config.VPAY_MODE,vpayTraderId:config.VPAY_TRADER_ID,vpayReturnUrl:config.VPAY_RETURN_URL,vpayRecoveryEnabled:config.VPAY_RECOVERY_ENABLED,gspayApiBase:config.GSPAY_API_BASE_URL,gspayAuthKey:config.GSPAY_AUTH_KEY,gspaySecretKey:config.GSPAY_SECRET_KEY,gspayCallbackToken:config.GSPAY_CALLBACK_TOKEN,gspayOrdersEnabled:config.GSPAY_ORDERS_ENABLED,gspayReturnUrl:config.GSPAY_RETURN_URL,gspayRecoveryEnabled:config.GSPAY_RECOVERY_ENABLED,gspayBalanceEnabled:config.GSPAY_BALANCE_QUERY_ENABLED,gspayPayoutEnabled:config.GSPAY_PAYOUT_ENABLED,gspayPayoutIpWhitelistConfirmed:config.GSPAY_PAYOUT_IP_WHITELIST_CONFIRMED,gspayPayoutBankTargetsJson:config.GSPAY_BANK_TARGETS_JSON,gspayUsdtApiBase:config.GSPAY_USDT_API_BASE_URL,gspayUsdtAuthKey:config.GSPAY_USDT_AUTH_KEY,gspayUsdtSecretKey:config.GSPAY_USDT_SECRET_KEY,gspayUsdtCallbackToken:config.GSPAY_USDT_CALLBACK_TOKEN,gspayUsdtOrdersEnabled:config.GSPAY_USDT_ORDERS_ENABLED,gspayUsdtReturnUrl:config.GSPAY_USDT_RETURN_URL,gspayUsdtCallbackUrl:config.GSPAY_USDT_CALLBACK_URL,gspayUsdtRecoveryEnabled:config.GSPAY_USDT_RECOVERY_ENABLED,gspayUsdtContractVerified:config.GSPAY_USDT_CONTRACT_VERIFIED,gspayUsdtAssetNetwork:config.GSPAY_USDT_ASSET_NETWORK,gspayUsdtCurrencyScale:config.GSPAY_USDT_CURRENCY_SCALE,gspayUsdtCheckoutOrigin:config.GSPAY_USDT_CHECKOUT_ORIGIN,paymentRecoveryToken:config.PAYMENT_RECOVERY_TOKEN,backupJobToken:config.BACKUP_JOB_TOKEN,depositIncidentTokenHash:config.PORTAL_DEPOSIT_FORENSICS_TOKEN_HASH,depositIncidentExpiresAt:Number(config.PORTAL_DEPOSIT_FORENSICS_EXPIRES_AT??0),ownerSetupHash:config.OWNER_SETUP_TOKEN_HASH,ownerSetupExpires:Number(config.OWNER_SETUP_EXPIRES_AT??0),ownerResetHash:config.OWNER_RESET_TOKEN_HASH,ownerResetExpires:Number(config.OWNER_RESET_EXPIRES_AT??0),ownerResetIssuedAt:Number(config.OWNER_RESET_ISSUED_AT??0),anchorApiBaseUrl:config.ANCHOR_SMS_API_BASE_URL,anchorUsername:config.ANCHOR_SMS_USERNAME,anchorPassword:config.ANCHOR_SMS_PASSWORD,anchorSenderId:config.ANCHOR_SMS_SENDER_ID,otpHashSecret:config.OTP_HASH_SECRET,withdrawalDataKey:config.WITHDRAWAL_DATA_KEY,oneMpayApiBase:config.ONE_MPAY_API_BASE_URL,oneMpayMerchant:config.ONE_MPAY_MERCHANT,oneMpaySecretKey:config.ONE_MPAY_SECRET_KEY,oneMpayOrdersEnabled:config.ONE_MPAY_ORDERS_ENABLED,oneMpayCallbackUrl:config.ONE_MPAY_CALLBACK_URL,oneMpayReturnUrl:config.ONE_MPAY_RETURN_URL,oneMpayDiagnosticToken:config.ONE_MPAY_DIAGNOSTICS_TOKEN,oneMpayRecoveryEnabled:config.ONE_MPAY_RECOVERY_ENABLED,rectangleApiBase:config.RECTANGLE_API_BASE_URL,rectangleOperatorCode:config.RECTANGLE_OPERATOR_CODE,rectangleApiKey:config.RECTANGLE_API_KEY,godeeApiBase:config.GODEE_API_BASE_URL,godeeOperatorId:config.GODEE_OPERATOR_ID,godeeApiKey:config.GODEE_API_KEY,gameSyncToken:config.GAME_CATALOGUE_SYNC_TOKEN,accountingJobToken:config.ACCOUNTING_JOB_TOKEN,telegramBotToken:config.TELEGRAM_BOT_TOKEN,telegramAdminChatId:config.TELEGRAM_ADMIN_CHAT_ID,whatsappEnabled:config.WHATSAPP_SENDING_ENABLED,whatsappGraphApiVersion:config.WHATSAPP_GRAPH_API_VERSION,whatsappPhoneNumberId:config.WHATSAPP_PHONE_NUMBER_ID,whatsappWabaId:config.WHATSAPP_WABA_ID,whatsappAccessToken:config.WHATSAPP_ACCESS_TOKEN,whatsappAppSecret:config.WHATSAPP_APP_SECRET,whatsappWebhookVerifyToken:config.WHATSAPP_WEBHOOK_VERIFY_TOKEN,whatsappBusinessNumber:config.WHATSAPP_BUSINESS_NUMBER,whatsappTemplateName:config.WHATSAPP_TEMPLATE_NAME,whatsappTemplateLanguage:config.WHATSAPP_TEMPLATE_LANGUAGE,whatsappRecipientLimit:config.WHATSAPP_RECIPIENT_LIMIT,whatsappWorkerToken:config.WHATSAPP_WORKER_TOKEN,whatsappWorkerBatchSize:config.WHATSAPP_WORKER_BATCH_SIZE,uploadApprovalMode:config.MASTER7_UPLOAD_APPROVAL_MODE,assetAutoApproval:config.MASTER7_ASSET_AUTO_APPROVAL,receiptAutoApproval:config.MASTER7_RECEIPT_AUTO_APPROVAL,supportAiEnabled:firstConfigured(config.OPENAI_ENABLED,config.SUPPORT_AI_ENABLED),supportAiApiBaseUrl:firstConfigured(config.OPENAI_API_BASE_URL,config.SUPPORT_AI_API_BASE_URL),supportAiApiKey:firstConfigured(config.OPENAI_API_KEY,config.SUPPORT_AI_API_KEY),supportAiModel:firstConfigured(config.OPENAI_MODEL,config.SUPPORT_AI_MODEL)});};
++ return async function dispatch(req:Request){if(!env.DB)return Response.json({error:'Database unavailable'},{status:503});const config=env as unknown as Record<string,string>;return handle(req,{db:env.DB,identity:await getChatGPTUser({trustedHeaders:hostedIdentityHeadersTrusted(config)}),ownerEmail:config.OWNER_EMAIL??'',manualComplianceEnforced:config.PORTAL_MANUAL_COMPLIANCE_ENFORCED,newDepositsEnabled:config.PORTAL_NEW_DEPOSITS_ENABLED,newGameLaunchesEnabled:config.PORTAL_NEW_GAME_LAUNCHES_ENABLED,newPayoutsEnabled:config.PORTAL_NEW_PAYOUTS_ENABLED,ownerLoginId:config.OWNER_LOGIN_ID,allowedOrigins:trustedOrigins(config),jdbTransferProfilesJson:config.JDB_TRANSFER_PROFILES_JSON,gameTransferProfilesJson:config.GAME_TRANSFER_PROFILES_JSON,gameGatewayUrl:config.GAME_GATEWAY_URL,gameGatewayToken:config.GAME_GATEWAY_TOKEN,gameGatewayWalletToken:config.GAME_GATEWAY_WALLET_TOKEN,megaLaunchOriginsJson:config.MEGAH5_LAUNCH_ORIGINS_JSON,megaTransfersEnabled:config.PORTAL_MEGA_TRANSFERS_ENABLED,megaLiveGamesEnabled:config.PORTAL_MEGA_LIVE_GAMES_ENABLED,megaSettlementVerified:config.PORTAL_MEGA_SETTLEMENT_VERIFIED,megaSessionCloser,megaClosureContractVerified:megaSessionCloser!==undefined,gameGatewayFetch,vpayGatewayUrl:config.VPAY_GATEWAY_URL,vpayOrderToken:config.VPAY_ORDER_TOKEN,vpayQueryToken:config.VPAY_QUERY_TOKEN,vpayCallbackToken:config.VPAY_CALLBACK_TOKEN,vpayPayoutToken:config.VPAY_PAYOUT_TOKEN,vpayPayoutEnabled:config.VPAY_PAYOUT_ENABLED,vpayOrdersEnabled:config.VPAY_ORDERS_ENABLED,vpayMode:config.VPAY_MODE,vpayBalanceToken:config.VPAY_BALANCE_TOKEN,vpayBalanceEnabled:config.VPAY_BALANCE_QUERY_ENABLED,vpayUatMemberId:config.VPAY_UAT_MEMBER_ID,vpayUatOrderId:config.VPAY_UAT_ORDER_ID,vpayUatAmountMinor:config.VPAY_UAT_AMOUNT_MINOR,vpayUatTradeCode:config.VPAY_UAT_TRADE_CODE,vpayUatExpiresAt:config.VPAY_UAT_EXPIRES_AT,vpayUatPayoutMemberId:config.VPAY_UAT_PAYOUT_MEMBER_ID,vpayUatWithdrawalId:config.VPAY_UAT_WITHDRAWAL_ID,vpayUatPayoutId:config.VPAY_UAT_PAYOUT_ID,vpayUatPayoutAmountMinor:config.VPAY_UAT_PAYOUT_AMOUNT_MINOR,vpayUatPayoutExpiresAt:config.VPAY_UAT_PAYOUT_EXPIRES_AT,vpayTraderId:config.VPAY_TRADER_ID,vpayReturnUrl:config.VPAY_RETURN_URL,vpayRecoveryEnabled:config.VPAY_RECOVERY_ENABLED,gspayApiBase:config.GSPAY_API_BASE_URL,gspayAuthKey:config.GSPAY_AUTH_KEY,gspaySecretKey:config.GSPAY_SECRET_KEY,gspayCallbackToken:config.GSPAY_CALLBACK_TOKEN,gspayOrdersEnabled:config.GSPAY_ORDERS_ENABLED,gspayReturnUrl:config.GSPAY_RETURN_URL,gspayRecoveryEnabled:config.GSPAY_RECOVERY_ENABLED,gspayBalanceEnabled:config.GSPAY_BALANCE_QUERY_ENABLED,gspayPayoutEnabled:config.GSPAY_PAYOUT_ENABLED,gspayPayoutIpWhitelistConfirmed:config.GSPAY_PAYOUT_IP_WHITELIST_CONFIRMED,gspayPayoutBankTargetsJson:config.GSPAY_BANK_TARGETS_JSON,gspayUsdtApiBase:config.GSPAY_USDT_API_BASE_URL,gspayUsdtAuthKey:config.GSPAY_USDT_AUTH_KEY,gspayUsdtSecretKey:config.GSPAY_USDT_SECRET_KEY,gspayUsdtCallbackToken:config.GSPAY_USDT_CALLBACK_TOKEN,gspayUsdtOrdersEnabled:config.GSPAY_USDT_ORDERS_ENABLED,gspayUsdtReturnUrl:config.GSPAY_USDT_RETURN_URL,gspayUsdtCallbackUrl:config.GSPAY_USDT_CALLBACK_URL,gspayUsdtRecoveryEnabled:config.GSPAY_USDT_RECOVERY_ENABLED,gspayUsdtContractVerified:config.GSPAY_USDT_CONTRACT_VERIFIED,gspayUsdtAssetNetwork:config.GSPAY_USDT_ASSET_NETWORK,gspayUsdtCurrencyScale:config.GSPAY_USDT_CURRENCY_SCALE,gspayUsdtCheckoutOrigin:config.GSPAY_USDT_CHECKOUT_ORIGIN,paymentRecoveryToken:config.PAYMENT_RECOVERY_TOKEN,backupJobToken:config.BACKUP_JOB_TOKEN,depositIncidentTokenHash:config.PORTAL_DEPOSIT_FORENSICS_TOKEN_HASH,depositIncidentExpiresAt:Number(config.PORTAL_DEPOSIT_FORENSICS_EXPIRES_AT??0),ownerSetupHash:config.OWNER_SETUP_TOKEN_HASH,ownerSetupExpires:Number(config.OWNER_SETUP_EXPIRES_AT??0),ownerResetHash:config.OWNER_RESET_TOKEN_HASH,ownerResetExpires:Number(config.OWNER_RESET_EXPIRES_AT??0),ownerResetIssuedAt:Number(config.OWNER_RESET_ISSUED_AT??0),anchorApiBaseUrl:config.ANCHOR_SMS_API_BASE_URL,anchorUsername:config.ANCHOR_SMS_USERNAME,anchorPassword:config.ANCHOR_SMS_PASSWORD,anchorSenderId:config.ANCHOR_SMS_SENDER_ID,otpHashSecret:config.OTP_HASH_SECRET,withdrawalDataKey:config.WITHDRAWAL_DATA_KEY,oneMpayApiBase:config.ONE_MPAY_API_BASE_URL,oneMpayMerchant:config.ONE_MPAY_MERCHANT,oneMpaySecretKey:config.ONE_MPAY_SECRET_KEY,oneMpayOrdersEnabled:config.ONE_MPAY_ORDERS_ENABLED,oneMpayCallbackUrl:config.ONE_MPAY_CALLBACK_URL,oneMpayReturnUrl:config.ONE_MPAY_RETURN_URL,oneMpayDiagnosticToken:config.ONE_MPAY_DIAGNOSTICS_TOKEN,oneMpayRecoveryEnabled:config.ONE_MPAY_RECOVERY_ENABLED,rectangleApiBase:config.RECTANGLE_API_BASE_URL,rectangleOperatorCode:config.RECTANGLE_OPERATOR_CODE,rectangleApiKey:config.RECTANGLE_API_KEY,godeeApiBase:config.GODEE_API_BASE_URL,godeeOperatorId:config.GODEE_OPERATOR_ID,godeeApiKey:config.GODEE_API_KEY,gameSyncToken:config.GAME_CATALOGUE_SYNC_TOKEN,accountingJobToken:config.ACCOUNTING_JOB_TOKEN,telegramBotToken:config.TELEGRAM_BOT_TOKEN,telegramAdminChatId:config.TELEGRAM_ADMIN_CHAT_ID,whatsappEnabled:config.WHATSAPP_SENDING_ENABLED,whatsappGraphApiVersion:config.WHATSAPP_GRAPH_API_VERSION,whatsappPhoneNumberId:config.WHATSAPP_PHONE_NUMBER_ID,whatsappWabaId:config.WHATSAPP_WABA_ID,whatsappAccessToken:config.WHATSAPP_ACCESS_TOKEN,whatsappAppSecret:config.WHATSAPP_APP_SECRET,whatsappWebhookVerifyToken:config.WHATSAPP_WEBHOOK_VERIFY_TOKEN,whatsappBusinessNumber:config.WHATSAPP_BUSINESS_NUMBER,whatsappTemplateName:config.WHATSAPP_TEMPLATE_NAME,whatsappTemplateLanguage:config.WHATSAPP_TEMPLATE_LANGUAGE,whatsappRecipientLimit:config.WHATSAPP_RECIPIENT_LIMIT,whatsappWorkerToken:config.WHATSAPP_WORKER_TOKEN,whatsappWorkerBatchSize:config.WHATSAPP_WORKER_BATCH_SIZE,uploadApprovalMode:config.MASTER7_UPLOAD_APPROVAL_MODE,assetAutoApproval:config.MASTER7_ASSET_AUTO_APPROVAL,receiptAutoApproval:config.MASTER7_RECEIPT_AUTO_APPROVAL,supportAiEnabled:firstConfigured(config.OPENAI_ENABLED,config.SUPPORT_AI_ENABLED),supportAiApiBaseUrl:firstConfigured(config.OPENAI_API_BASE_URL,config.SUPPORT_AI_API_BASE_URL),supportAiApiKey:firstConfigured(config.OPENAI_API_KEY,config.SUPPORT_AI_API_KEY),supportAiModel:firstConfigured(config.OPENAI_MODEL,config.SUPPORT_AI_MODEL)});};
+ }
+ const dispatch=createDispatcher();
+ export const GET=dispatch;
+--- a/tests/vpay-payout.test.mjs
++++ b/tests/vpay-payout.test.mjs
+@@ -3,23 +3,25 @@
+ import {DatabaseSync} from 'node:sqlite';
+ import {readFileSync,readdirSync} from 'node:fs';
+ import {handle} from '../lib/backend.ts';
++import {vpayPayoutSupportsBank} from '../lib/vpay-payout.ts';
+ 
+ // All VPay replies are synthetic. This suite never sends a real payout.
+-const origin='https://portal.example.test',gateway='https://master7-integration-gateway.onrender.com',payoutToken='payout-token-'.padEnd(40,'p'),callbackToken='callback-token-'.padEnd(40,'c'),dataKey='withdrawal-key-'.padEnd(40,'w');
++const origin='https://portal.example.test',gateway='https://master7-integration-gateway.onrender.com',uatGateway='https://master7-payment-uat.onrender.com',stagingOrigin='https://master7-v17-staging.onrender.com',payoutToken='payout-token-'.padEnd(40,'p'),callbackToken='callback-token-'.padEnd(40,'c'),dataKey='withdrawal-key-'.padEnd(40,'w');
+ 
+-function fixture(t,{enabled=true}={}){
++function fixture(t,{enabled=true,gatewayUrl=gateway,portalOrigin=origin,mode='production',returnUrl=portalOrigin+'/payment/return',allowedOrigins=[portalOrigin],newPayoutsEnabled='true',uatGate=gatewayUrl===uatGateway&&mode==='uat'}={}){
+  const sql=new DatabaseSync(':memory:');sql.exec('PRAGMA foreign_keys=ON');for(const file of readdirSync(new URL('../drizzle/',import.meta.url)).filter(file=>file.endsWith('.sql')).sort())sql.exec(readFileSync(new URL('../drizzle/'+file,import.meta.url),'utf8'));
+  sql.exec("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES('alice','alice','member',1,'csrf-alice',0),('owner','owner','owner',1,'csrf-owner',0);UPDATE payment_channel_controls SET status='active' WHERE provider_id='vpay';INSERT INTO deposit_orders(id,user_id,request_key,fingerprint,provider,amount_minor,currency,trade_code,status,created_at,updated_at) VALUES('fund','alice','funding-request','f','vpay',10000,'MYR','2','credited',0,0);INSERT INTO wallet_ledger(id,order_id,user_id,account_code,amount_minor,currency,created_at) VALUES('member','fund','alice','member',10000,'MYR',0),('clearing','fund','alice','provider_clearing',-10000,'MYR',0)");
+  class Statement{constructor(text,args=[]){this.text=text;this.args=args;}bind(...args){return new Statement(this.text,args);}async first(){return sql.prepare(this.text).get(...this.args)??null;}async all(){return {results:sql.prepare(this.text).all(...this.args)};}async run(){return sql.prepare(this.text).run(...this.args);}}
+  const db={prepare:text=>new Statement(text),async batch(statements){sql.exec('BEGIN');try{const results=statements.map(statement=>sql.prepare(statement.text).run(...statement.args));sql.exec('COMMIT');return results;}catch(error){sql.exec('ROLLBACK');throw error;}}};
+  sql.exec("INSERT INTO manual_compliance_reviews(user_id,identity_status,aml_status,version,last_change_id,created_at,updated_at) VALUES('alice','passed','passed',1,'c',0,0)");
+- const state={submits:0,queries:0,payoutState:'3',amount:'20.00'};
+- const config={db,identity:{userId:'alice',email:'alice@example.test'},ownerEmail:'',allowedOrigins:[origin],newPayoutsEnabled:'true',withdrawalDataKey:dataKey,vpayGatewayUrl:gateway,vpayPayoutToken:payoutToken,vpayCallbackToken:callbackToken,vpayPayoutEnabled:enabled?'true':'false',vpayTraderId:'3647',vpayFetch:async(input,init)=>{
+-  const url=new URL(String(input)),body=JSON.parse(init.body);assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+payoutToken);
+-  if(url.pathname==='/platform/vpay/withdrawal'){state.submits++;assert.deepEqual(body,{contract:'vpay-payout-v1',currency:'MYR',refId:body.refId,amount:'20.00',bankName:'MBB',accountName:'Alice Example',accountNumber:'123456789012'});return Response.json({provider:'vpay',upstreamStatus:200,result:{code:0,data:{money_id:'provider_123',out_money_id:body.refId}}});}
++ const uat={memberId:'alice',withdrawalId:'uat-withdrawal-00000001',payoutId:'P7uatpayout0000000000000000000001',amountMinor:'2000',expiresAt:String(Math.floor(Date.now()/1000)+600)};
++ const state={submits:0,queries:0,payoutState:'3',amount:'20.00',gatewayOrigins:[]};
++ const config={db,identity:{userId:'alice',email:'alice@example.test'},ownerEmail:'',allowedOrigins,newPayoutsEnabled,withdrawalDataKey:dataKey,vpayGatewayUrl:gatewayUrl,vpayPayoutToken:payoutToken,vpayCallbackToken:callbackToken,vpayPayoutEnabled:enabled?'true':'false',vpayTraderId:'3647',vpayMode:mode,vpayReturnUrl:returnUrl,...(uatGate?{vpayUatPayoutMemberId:uat.memberId,vpayUatWithdrawalId:uat.withdrawalId,vpayUatPayoutId:uat.payoutId,vpayUatPayoutAmountMinor:uat.amountMinor,vpayUatPayoutExpiresAt:uat.expiresAt}:{}),vpayFetch:async(input,init)=>{
++  const url=new URL(String(input)),body=JSON.parse(init.body);state.gatewayOrigins.push(url.origin);assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+payoutToken);
++  if(url.pathname==='/platform/vpay/withdrawal'){state.submits++;assert.deepEqual(body,{contract:'vpay-payout-v1',currency:'MYR',...(uatGate?{memberId:uat.memberId,withdrawalId:uat.withdrawalId}:{}),refId:body.refId,amount:'20.00',bankName:'MBB',accountName:'Alice Example',accountNumber:'123456789012'});if(state.createHook)await state.createHook();return Response.json({provider:'vpay',upstreamStatus:200,result:{code:0,data:{money_id:'provider_123',out_money_id:body.refId}}});}
+   assert.equal(url.pathname,'/platform/vpay/withdrawal-query');state.queries++;const queryState=state.payoutState;if(state.queryHook)await state.queryHook(queryState);return Response.json({provider:'vpay',upstreamStatus:200,result:{code:0,data:{out_money_id:body.outMoneyId,state:queryState,amount:state.amount,service_fee:'0.50'}}});
+  }};
+- async function call(path,{who='alice',method='GET',data,headers={},extra={}}={}){const response=await handle(new Request(origin+path,{method,headers:{Origin:origin,'Content-Type':'application/json','X-CSRF-Token':'csrf-'+who,...headers},...(data===undefined?{}:{body:JSON.stringify(data)})}),{...config,identity:who?{userId:who,email:who+'@example.test'}:null,...extra});return {status:response.status,data:response.headers.get('content-type')?.includes('json')?await response.json():await response.text()};}
++ async function call(path,{who='alice',method='GET',data,headers={},extra={}}={}){const response=await handle(new Request(portalOrigin+path,{method,headers:{Origin:portalOrigin,'Content-Type':'application/json','X-CSRF-Token':'csrf-'+who,...headers},...(data===undefined?{}:{body:JSON.stringify(data)})}),{...config,identity:who?{userId:who,email:who+'@example.test'}:null,...extra});return {status:response.status,data:response.headers.get('content-type')?.includes('json')?await response.json():await response.text()};}
+  async function createAndApprove(options){
+   const created=await call('/api/withdrawals',options);
+   if(created.status!==201)return created;
+@@ -35,10 +37,87 @@
+  }
+  const payload=(patch={})=>({providerId:'vpay',bankCode:'maybank',accountHolder:'Alice Example',accountNumber:'1234-5678-9012',amount:'20.00',requestKey:'vpay-payout-request-0001',...patch});
+  async function callback(patch={}){const payout=sql.prepare("SELECT id FROM provider_payouts WHERE provider_id='vpay'").get();return call('/api/payment-callbacks/vpay/withdrawal',{method:'POST',headers:{Authorization:'Bearer '+callbackToken},data:{trader_id:'3647',money_id:'provider_123',out_money_id:payout.id,state:state.payoutState,amount:state.amount,notify_time:'2026-11-07 12:00:00',...patch},extra:{identity:null}});}
+- t.after(()=>sql.close());return {sql,state,config,call,createAndApprove,payload,callback};
++ t.after(()=>sql.close());return {sql,state,config,uat,call,createAndApprove,payload,callback};
+ }
+ 
+ test('VPay payout is closed until its separate switch is enabled',async t=>{const f=fixture(t,{enabled:false}),result=await f.createAndApprove({method:'POST',data:f.payload()});assert.equal(result.status,503);assert.equal(f.state.submits,0);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM withdrawal_requests').get().n,0);});
++
++test('VPay stores its provider money ID separately and repeated callbacks preserve one debit',async t=>{
++ const f=fixture(t);await f.createAndApprove({method:'POST',data:f.payload()});
++ const payout=f.sql.prepare('SELECT id,provider_reference,provider_money_id FROM provider_payouts').get();
++ assert.equal(payout.provider_money_id,'provider_123');assert.equal(payout.provider_reference,payout.id);
++ for(let i=0;i<2;i++)assert.deepEqual(await f.callback(),{status:200,data:'SUCCESS'});
++ const list=await f.call('/api/admin/withdrawals',{who:'owner'});assert.equal(list.data.items[0].providerMoneyId,'provider_123');
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM withdrawal_requests WHERE status=\'paid\'').get().n,1);
++ assert.equal((await f.call('/api/wallet')).data.balanceMinor,'8000');
++});
++
++test('VPay rejects unsupported banks before reserving or submitting funds',async t=>{
++ const f=fixture(t),result=await f.call('/api/withdrawals',{method:'POST',data:f.payload({bankCode:'mbsb'})});
++ assert.equal(result.status,400);assert.equal(f.state.submits,0);
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,0);
++});
++
++test('VPay callback with another provider money ID requires review and preserves held funds',async t=>{
++ const f=fixture(t);f.state.payoutState='1';await f.createAndApprove({method:'POST',data:f.payload()});
++ const before=f.state.queries;f.state.payoutState='3';assert.equal((await f.callback({money_id:'provider_other'})).status,409);
++ assert.equal(f.state.queries,before);assert.equal(f.sql.prepare('SELECT provider_money_id FROM provider_payouts').get().provider_money_id,'provider_123');
++ assert.equal(f.sql.prepare('SELECT status FROM provider_payouts').get().status,'review');
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,1);
++ assert.equal((await f.call('/api/wallet')).data.balanceMinor,'10000');
++});
++
++test('VPay binds a provider money ID from a callback when the create response was lost',async t=>{
++ const f=fixture(t);f.state.payoutState='1';await f.createAndApprove({method:'POST',data:f.payload()});
++ f.sql.prepare("UPDATE provider_payouts SET provider_money_id=NULL,create_outcome='unknown'").run();
++ for(const money_id of [undefined,'','bad/id'])assert.equal((await f.callback({money_id})).status,400);
++ f.state.payoutState='3';assert.equal((await f.callback()).status,200);
++ assert.equal(f.sql.prepare('SELECT provider_money_id FROM provider_payouts').get().provider_money_id,'provider_123');
++});
++
++test('VPay does not reuse one provider money ID for two payouts',async t=>{
++ const f=fixture(t);await f.createAndApprove({method:'POST',data:f.payload()});
++ const second=await f.createAndApprove({method:'POST',data:f.payload({requestKey:'vpay-payout-request-0002'})});
++ assert.equal(second.data.status,'review');assert.equal(f.state.queries,1);
++ assert.equal(f.sql.prepare("SELECT COUNT(*) n FROM provider_payouts WHERE provider_money_id='provider_123'").get().n,1);
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,1);
++});
++
++for(const conflicting of [false,true])test(`VPay callback arriving before the create response ${conflicting?'rejects a conflicting':'preserves the same'} provider money ID`,async t=>{
++ const f=fixture(t);f.state.createHook=async()=>{assert.equal((await f.callback({money_id:conflicting?'provider_other':'provider_123'})).status,200);};
++ const result=await f.createAndApprove({method:'POST',data:f.payload()});
++ assert.equal(result.data.status,conflicting?'review':'paid');
++ assert.equal(f.sql.prepare('SELECT provider_money_id FROM provider_payouts').get().provider_money_id,conflicting?'provider_other':'provider_123');
++ assert.equal((await f.call('/api/wallet')).data.balanceMinor,'8000');
++});
++
++test('isolated Staging VPay payout uses only the exact UAT Gateway',async t=>{
++ const f=fixture(t,{gatewayUrl:uatGateway,portalOrigin:stagingOrigin,mode:'uat'}),result=await f.createAndApprove({method:'POST',data:f.payload()});
++ assert.equal(result.status,202);assert.equal(result.data.status,'paid');assert.deepEqual([...new Set(f.state.gatewayOrigins)],[uatGateway]);
++});
++
++test('isolated UAT opens one fixed payout while global payouts stay paused and rejects every other scope',async t=>{
++ const f=fixture(t,{gatewayUrl:uatGateway,portalOrigin:stagingOrigin,mode:'uat',newPayoutsEnabled:'false'});
++ assert.equal((await f.call('/api/withdrawal-banks')).data.providers.find(item=>item.id==='vpay').enabled,true);
++ f.sql.prepare("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES('bob','bob','member',1,'csrf-bob',0)").run();
++ const denied=await f.call('/api/withdrawals',{who:'bob',method:'POST',data:f.payload({requestKey:'vpay-payout-bob-000001'})});assert.equal(denied.status,403);assert.equal(denied.data.code,'VPAY_UAT_PAYOUT_MEMBER_DENIED');
++ const wrongAmount=await f.call('/api/withdrawals',{method:'POST',data:f.payload({amount:'21.00'})});assert.equal(wrongAmount.status,400);assert.equal(wrongAmount.data.code,'VPAY_UAT_PAYOUT_SCOPE_MISMATCH');
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM withdrawal_requests').get().n,0);assert.equal(f.state.submits,0);
++ const first=await f.createAndApprove({method:'POST',data:f.payload()});assert.equal(first.status,202);assert.equal(first.data.status,'paid');
++ const stored=f.sql.prepare('SELECT w.id,p.id payout_id FROM withdrawal_requests w JOIN provider_payouts p ON p.withdrawal_id=w.id').get();assert.equal(stored.id,f.uat.withdrawalId);assert.equal(stored.payout_id,f.uat.payoutId);
++ const replay=await f.call('/api/withdrawals',{method:'POST',data:f.payload()});assert.equal(replay.status,200);assert.equal(replay.data.status,'paid');
++ const rebound=await f.call('/api/withdrawals',{method:'POST',data:f.payload({requestKey:'vpay-payout-request-0002'})});assert.equal(rebound.status,409);assert.equal(rebound.data.code,'VPAY_UAT_PAYOUT_ALREADY_BOUND');
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM withdrawal_requests').get().n,1);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM provider_payouts').get().n,1);assert.equal(f.state.submits,1);assert.equal(f.state.queries,1);
++});
++
++for(const scenario of [
++ {name:'production mode',options:{gatewayUrl:uatGateway,portalOrigin:stagingOrigin,mode:'production'}},
++ {name:'production portal',options:{gatewayUrl:uatGateway,portalOrigin:'https://www.master7.best',mode:'uat',returnUrl:stagingOrigin+'/payment/return'}},
++ {name:'mixed portal origins',options:{gatewayUrl:uatGateway,portalOrigin:stagingOrigin,mode:'uat',allowedOrigins:[stagingOrigin,'https://www.master7.best']}},
++])test(`isolated VPay payout rejects UAT Gateway with ${scenario.name} before network`,async t=>{
++ const f=fixture(t,scenario.options),banks=await f.call('/api/withdrawal-banks');
++ assert.equal(banks.status,200);assert.equal(banks.data.providers.find(item=>item.id==='vpay').enabled,false);assert.deepEqual(f.state.gatewayOrigins,[]);
++});
+ 
+ test('owner list keeps corrupt or ineligible recipient data redacted without failing the list',async t=>{
+  const f=fixture(t),created=await f.call('/api/withdrawals',{method:'POST',data:f.payload()});assert.equal(created.status,201);
+@@ -112,3 +191,8 @@
+  const blocked=await f.call('/api/withdrawals',{method:'POST',data:f.payload({requestKey:'vpay-payout-request-0002'})});assert.equal(blocked.status,503);assert.equal(f.state.submits,1);
+  f.state.payoutState='3';assert.equal((await f.callback()).status,200);assert.equal((await f.callback()).status,200);assert.equal(f.sql.prepare('SELECT status FROM withdrawal_requests').get().status,'paid');assert.equal((await f.call('/api/wallet')).data.balanceMinor,'8000');
+ });
++
++// Current official docs accept integer or up to two decimal digits for replies.
++test('documented Bank Rakyat mapping is available',()=>{assert.equal(vpayPayoutSupportsBank('bank_rakyat'),true);});
++for(const amount of ['20','20.0',20])test(`VPay accepts an exact documented amount representation: ${amount}`,async t=>{const f=fixture(t);f.state.amount=amount;const result=await f.createAndApprove({method:'POST',data:f.payload()});assert.equal(result.data.status,'paid');assert.equal((await f.call('/api/wallet')).data.balanceMinor,'8000');assert.deepEqual(await f.callback(),{status:200,data:'SUCCESS'});});
++for(const amount of ['20.001',20.001,'2e1','020.00'])test(`VPay rejects a non-exact amount without debiting: ${amount}`,async t=>{const f=fixture(t);f.state.amount=amount;const result=await f.createAndApprove({method:'POST',data:f.payload()});assert.equal(result.data.status,'review');assert.equal((await f.call('/api/wallet')).data.balanceMinor,'10000');assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_reservations').get().n,1);});
+--- a/tests/vpay-portal.test.mjs
++++ b/tests/vpay-portal.test.mjs
+@@ -2,7 +2,7 @@
+ import assert from 'node:assert/strict';
+ import {DatabaseSync} from 'node:sqlite';
+ import {readFileSync,readdirSync} from 'node:fs';
+-import {handleVPay,refreshVPayOrder,recoverVPayDeposits} from '../lib/vpay.ts';
++import {handleVPay,refreshVPayOrder,recoverVPayDeposits,queryVPayBalance} from '../lib/vpay.ts';
+ import {handle} from '../lib/backend.ts';
+ import {PAYMENT_RECOVERY_MAX_ATTEMPTS,escalateExhaustedPaymentRecoveries} from '../lib/payment-recovery.ts';
+ 
+@@ -13,11 +13,15 @@
+ const orderToken='order-token-'.padEnd(40,'o');
+ const queryToken='query-token-'.padEnd(40,'q');
+ const callbackToken='callback-token-'.padEnd(40,'c');
+-
+-function fixture(t,{status='created'}={}){
++const balanceToken='balance-token-'.padEnd(40,'b');
++
++function fixture(t,{status='created',isolatedUat=false}={}){
++ const selectedGateway=isolatedUat?'https://master7-payment-uat.onrender.com':gateway;
++ const selectedMode=isolatedUat?'uat':'production';
+  const sql=new DatabaseSync(':memory:');sql.exec('PRAGMA foreign_keys=ON');
+  for(const file of readdirSync(new URL('../drizzle/',import.meta.url)).filter(file=>file.endsWith('.sql')).sort())sql.exec(readFileSync(new URL('../drizzle/'+file,import.meta.url),'utf8'));
+  for(const id of ['alice','bob'])sql.prepare('INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES(?,?,\'member\',1,?,0)').run(id,id,'csrf-'+id);
++ sql.prepare("INSERT INTO users(id,username,role,approved,csrf,created_at) VALUES('owner','owner','owner',1,'csrf-owner',0)").run();
+  const orderId='fixture-vpay-order',tradeNo='fixture-vpay-trade';
+  sql.prepare("INSERT INTO deposit_orders(id,user_id,request_key,fingerprint,provider,amount_minor,currency,trade_code,status,provider_trade_no,created_at,updated_at) VALUES(?,?,?,?,'vpay',2000,'MYR','2',?,?,0,0)").run(orderId,'alice','fixture-vpay-request','fixture-fingerprint',status,tradeNo);
+  class Statement{
+@@ -29,9 +33,9 @@
+  }
+  const db={prepare:text=>new Statement(text),async batch(statements){sql.exec('BEGIN');try{const results=statements.map(statement=>sql.prepare(statement.text).run(...statement.args));sql.exec('COMMIT');return results;}catch(error){sql.exec('ROLLBACK');throw error;}}};
+  const state={queries:0,configReads:0,queryPatch:data=>data,configPatch:data=>data,failQuery:false,requests:[]};
+- const context={db,user:null,gatewayUrl:gateway,orderToken,queryToken,callbackToken,enabled:'true',newDepositsEnabled:'true',mode:'production',vpayTraderId:traderId,returnUrl:'https://master7-v17-staging.onrender.com/payment/return',fetchImpl:async(input,init)=>{
+-  const url=new URL(String(input));assert.equal(url.origin,gateway);
+-  if(url.pathname==='/platform/vpay/config'){state.configReads++;assert.equal(init.method,'GET');assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+queryToken);return Response.json(state.configPatch({provider:'vpay',mode:'production',paymentReady:true,traderId,notifyUrl:gateway+'/callbacks/vpay/payment',returnUrl:context.returnUrl,tradeCodes:['2']}));}
++ const context={db,user:null,gatewayUrl:selectedGateway,orderToken,queryToken,callbackToken,enabled:'true',newDepositsEnabled:'true',mode:selectedMode,vpayTraderId:traderId,returnUrl:'https://master7-v17-staging.onrender.com/payment/return',fetchImpl:async(input,init)=>{
++  const url=new URL(String(input));assert.equal(url.origin,selectedGateway);
++  if(url.pathname==='/platform/vpay/config'){state.configReads++;assert.equal(init.method,'GET');assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+queryToken);return Response.json(state.configPatch({provider:'vpay',mode:selectedMode,paymentReady:true,traderId,notifyUrl:selectedGateway+'/callbacks/vpay/payment',returnUrl:context.returnUrl,tradeCodes:['2']}));}
+   state.queries++;assert.equal(url.pathname,'/platform/vpay/order-query');assert.equal(init.method,'POST');assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+queryToken);
+   if(state.failQuery)throw Error('synthetic provider timeout');
+   const request=JSON.parse(init.body);state.requests.push(request);assert.equal(request.outTradeNo,orderId);if(Object.hasOwn(request,'tradeNo'))assert.equal(request.tradeNo,tradeNo);
+@@ -52,6 +56,26 @@
+  assert.equal(f.sql.prepare("SELECT COUNT(*) count FROM audit WHERE event='vpay_callback_authenticated' AND target=?").get(f.orderId).count,1);
+  assert.deepEqual(await f.callback(),{status:200,body:'SUCCESS'});assert.equal(f.state.queries,1);assert.equal(f.sql.prepare('SELECT COUNT(*) count FROM wallet_ledger').get().count,2);
+  assert.equal(f.sql.prepare("SELECT COUNT(*) count FROM audit WHERE event='vpay_callback_authenticated' AND target=?").get(f.orderId).count,1);
++});
++test('isolated UAT repeated callbacks credit one balanced ledger through the UAT gateway only',async t=>{
++ const f=fixture(t,{isolatedUat:true});
++ const responses=await Promise.all([f.callback(),f.callback(),f.callback()]);
++ assert.ok(responses.every(r=>r.status===200&&r.body==='SUCCESS'));
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,2);
++ assert.equal(f.sql.prepare('SELECT SUM(amount_minor) n FROM wallet_ledger').get().n,0);
++ assert.equal(f.sql.prepare("SELECT amount_minor FROM wallet_ledger WHERE account_code='member'").get().amount_minor,2000);
++});
++test('isolated UAT unknown payment stays uncredited until a later independently queried callback',async t=>{
++ const f=fixture(t,{isolatedUat:true,status:'unknown'});
++ f.state.failQuery=true;assert.equal((await f.callback()).status,502);
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);
++ // Recreate the request context to model a new process with persisted state.
++ const persisted={...f.context};f.state.failQuery=false;
++ const request=()=>new Request(origin+'/api/payment-callbacks/vpay/payment',{method:'POST',headers:{Authorization:'Bearer '+callbackToken,'Content-Type':'application/json'},body:JSON.stringify({out_trade_no:f.orderId,trade_no:f.tradeNo,amount:'20.00',state:'3',trader_id:traderId})});
++ assert.equal((await handleVPay(request(),persisted)).status,200);
++ assert.equal((await handleVPay(request(),{...persisted})).status,200);
++ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,2);
++ assert.equal(f.sql.prepare('SELECT SUM(amount_minor) n FROM wallet_ledger').get().n,0);
+ });
+ test('VPay successful deposit updates only the paying member wallet and records',async t=>{
+  const f=fixture(t);assert.equal((await f.callback()).status,200);
+@@ -220,7 +244,30 @@
+ 
+ test('VPay profile switch blocks new orders while query and callback capability remain ready',async t=>{
+  const f=fixture(t);f.context.enabled='false';const response=await handleVPay(new Request(origin+'/api/payments/vpay/status'),f.context),status=await response.json();
+- assert.equal(status.orderReady,false);assert.equal(status.queryReady,true);assert.equal(status.callbacksReady,true);assert.equal(status.recoveryReady,false);assert.equal(status.payoutReady,false);assert.equal(status.balanceReady,false);assert.equal(status.reason,'profile_orders_disabled');assert.equal(status.capabilities.deposit.configured,true);assert.equal(status.capabilities.deposit.enabled,false);assert.equal(status.capabilities.payout.submissionEnabled,false);assert.equal(status.capabilities.balance.implemented,false);assert.equal(status.availabilityMode,'automatic');assert.equal(status.readOnly,true);assert.equal(f.state.queries,0);assert.equal(f.state.configReads,1);
++ assert.equal(status.orderReady,false);assert.equal(status.queryReady,true);assert.equal(status.callbacksReady,true);assert.equal(status.recoveryReady,false);assert.equal(status.payoutReady,false);assert.equal(status.balanceReady,false);assert.equal(status.reason,'profile_orders_disabled');assert.equal(status.capabilities.deposit.configured,true);assert.equal(status.capabilities.deposit.enabled,false);assert.equal(status.capabilities.payout.submissionEnabled,false);assert.equal(status.capabilities.balance.implemented,true);assert.equal(status.capabilities.balance.configured,false);assert.equal(status.availabilityMode,'automatic');assert.equal(status.readOnly,true);assert.equal(f.state.queries,0);assert.equal(f.state.configReads,1);
++});
++
++test('VPay balance query is owner-only, isolated, read-only and never marks settlement verified',async t=>{
++ const f=fixture(t);let calls=0;const context={...f.context,user:{id:'owner',username:'owner',role:'owner',approved:1,csrf:'csrf-owner'},balanceToken,balanceEnabled:'true',fetchImpl:async(input,init)=>{
++  calls++;assert.equal(new URL(String(input)).pathname,'/platform/vpay/balance');assert.equal(init.method,'POST');assert.equal(new Headers(init.headers).get('authorization'),'Bearer '+balanceToken);
++  return Response.json({provider:'vpay',currency:'MYR',balance:'123.40',readOnly:true,verified:false,settlementVerified:false});
++ }};
++ let response=await queryVPayBalance({...context,balanceEnabled:'false'});assert.equal(response.status,503);assert.equal(calls,0);
++ response=await queryVPayBalance(context);assert.equal(response.status,200);assert.deepEqual(await response.json(),{provider:'vpay',currency:'MYR',balance:'123.40',readOnly:true,verified:false,settlementVerified:false});assert.equal(calls,1);
++ response=await queryVPayBalance({...context,user:{id:'alice',username:'alice',role:'member',approved:1,csrf:'csrf-alice'}});assert.equal(response.status,403);assert.equal(calls,1);
++ const invalid=await queryVPayBalance({...context,fetchImpl:async()=>Response.json({provider:'vpay',currency:'MYR',balance:'123.4',readOnly:true,verified:false,settlementVerified:false})});assert.equal(invalid.status,502);
++});
++
++test('VPay status enables only the separate read-only balance capability after the gateway confirms it',async t=>{
++ const f=fixture(t);f.context.balanceToken=balanceToken;f.context.balanceEnabled='true';f.state.configPatch=data=>({...data,balanceReady:true});
++ const response=await handleVPay(new Request(origin+'/api/payments/vpay/status'),f.context),status=await response.json();
++ assert.equal(status.balanceReady,true);assert.equal(status.capabilities.balance.implemented,true);assert.equal(status.capabilities.balance.configured,true);assert.equal(status.capabilities.balance.enabled,true);assert.equal(status.capabilities.balance.verified,false);assert.equal(status.capabilities.balance.settlementVerified,false);
++});
++
++test('Owner VPay balance route remains behind Origin and CSRF checks',async t=>{
++ const f=fixture(t);let calls=0;const config={db:f.context.db,identity:{userId:'owner',email:'owner@example.test'},ownerEmail:'owner@example.test',allowedOrigins:[origin],vpayGatewayUrl:gateway,vpayBalanceToken:balanceToken,vpayBalanceEnabled:'true',vpayMode:'production',vpayTraderId:traderId,vpayReturnUrl:f.context.returnUrl,vpayFetch:async()=>{calls++;return Response.json({provider:'vpay',currency:'MYR',balance:'123.40',readOnly:true,verified:false,settlementVerified:false});}};
++ let response=await handle(new Request(origin+'/api/admin/payments/vpay/balance',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json','X-CSRF-Token':'bad'},body:'{}'}),config);assert.equal(response.status,403);assert.equal(calls,0);
++ response=await handle(new Request(origin+'/api/admin/payments/vpay/balance',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json','X-CSRF-Token':'csrf-owner'},body:'{}'}),config);assert.equal(response.status,200);const body=await response.json();assert.equal(body.balance,'123.40');assert.equal(body.verified,false);assert.equal(calls,1);
+ });
+ 
+ test('gateway maintenance capability keeps existing payment verification and duplicate callback posting safe',async t=>{
+--- a/tests/render-migrations.test.mjs
++++ b/tests/render-migrations.test.mjs
+@@ -69,6 +69,20 @@
+   }
+   release() { this.released = true; }
+ }
++
++test('VPay provider money ID migration is additive and only runs once at startup',async()=>{
++ const client=new FakePgClient(),pool={connect:async()=>client};
++ await initializePortalDatabase(pool,'SELECT 1;',[]);
++ const column='ALTER TABLE provider_payouts ADD COLUMN IF NOT EXISTS provider_money_id TEXT';
++ const index='CREATE UNIQUE INDEX IF NOT EXISTS provider_payout_money_id ON provider_payouts(provider_id,provider_money_id) WHERE provider_money_id IS NOT NULL';
++ assert.ok(client.applied.has('0127-vpay-provider-money-id'));
++ const position=client.events.findIndex(event=>event.sql===column);
++ assert.ok(position>client.events.findIndex(event=>event.sql==='BEGIN'));
++ assert.ok(position<client.events.findIndex(event=>event.sql==='COMMIT'));
++ await initializePortalDatabase(pool,'SELECT 1;',[]);
++ assert.equal(client.events.filter(event=>event.sql===column).length,1);
++ assert.equal(client.events.filter(event=>event.sql===index).length,1);
++});
+ 
+ test('Render startup status migration is transactional, idempotent and rolls back a failed catalog seed', async t => {
+   const client = new FakePgClient();
+--- a/tests/render-env-map.test.mjs
++++ b/tests/render-env-map.test.mjs
+@@ -14,6 +14,19 @@
+   "VPAY_TRADER_ID",
+   "VPAY_RETURN_URL",
+   "VPAY_RECOVERY_ENABLED",
++  "VPAY_BALANCE_TOKEN",
++  "VPAY_BALANCE_QUERY_ENABLED",
++  "VPAY_UAT_MEMBER_ID",
++  "VPAY_UAT_ORDER_ID",
++  "VPAY_UAT_AMOUNT_MINOR",
++  "VPAY_UAT_TRADE_CODE",
++  "VPAY_UAT_EXPIRES_AT",
++  "VPAY_UAT_PAYOUT_MEMBER_ID",
++  "VPAY_UAT_WITHDRAWAL_ID",
++  "VPAY_UAT_PAYOUT_ID",
++  "VPAY_UAT_PAYOUT_AMOUNT_MINOR",
++  "VPAY_UAT_PAYOUT_EXPIRES_AT",
++
+ ];
+ 
+ test("maps the server-side VPay settings without changing their values", () => {
+--- a/lib/vpay.ts
++++ b/lib/vpay.ts
+@@ -2,12 +2,12 @@
+ import { createHash, timingSafeEqual } from 'node:crypto';
+ import { withdrawalWalletState } from './withdrawals.ts';
+ import {PaymentRequestError,definitivePaymentRejection,reconcileHistoricalPaymentRejections,recordPaymentDiagnostic,safeProviderCode,paymentUrlHost} from './payment-diagnostics.ts';
+-import {automaticDepositCapability,automaticPaymentStatus,unavailableBalanceCapability} from './payment-capabilities.ts';
++import {automaticDepositCapability,automaticPaymentStatus,paymentCapability} from './payment-capabilities.ts';
+ import {vpayPayoutCapabilitySnapshot} from './vpay-payout.ts';
+ import {claimPaymentRecovery,escalateExhaustedPaymentRecoveries,finishPaymentRecovery,recoveryCandidates} from './payment-recovery.ts';
+ import {DepositReportInputError,readDepositReport} from './deposit-report.ts';
+ import {readDepositTrace} from './deposit-trace.ts';
+-import {matchesCustomerPortalEndpoint} from './portal-origin.mjs';
++import {matchesCustomerPortalEndpoint,stagingPortalOrigin} from './portal-origin.mjs';
+ 
+ type Member = { id: string; username: string; role: string; approved: number; csrf: string };
+ export type VPayContext = {
+@@ -18,6 +18,8 @@
+   queryToken?: string;
+   callbackToken?: string;
+   payoutToken?: string;
++  balanceToken?: string;
++  balanceEnabled?: string;
+   payoutEnabled?: string;
+   newPayoutsEnabled?: string;
+   withdrawalDataKey?: string;
+@@ -28,12 +30,29 @@
+   portalOrigins?: string[];
+   returnUrl?: string;
+   recoveryEnabled?: string;
++  uatMemberId?: string;
++  uatOrderId?: string;
++  uatAmountMinor?: string;
++  uatTradeCode?: string;
++  uatExpiresAt?: string;
+   acceptance?: {realPaymentVerified:boolean;settlementVerified:boolean};
+   fetchImpl?: typeof fetch;
+ };
+ 
+ const gatewayOrigin = 'https://master7-integration-gateway.onrender.com';
+-const callbackUrl = gatewayOrigin + '/callbacks/vpay/payment';
++const uatGatewayOrigin = 'https://master7-payment-uat.onrender.com';
++function resolveGatewayOrigin(c:VPayContext):string|null {
++  if(c.gatewayUrl===gatewayOrigin)return gatewayOrigin;
++  // A separate exact origin is allowed only for the isolated Staging UAT
++  // context. Never accept arbitrary URLs or route a production portal to UAT.
++  const stagingOnly=c.portalOrigins===undefined||Array.isArray(c.portalOrigins)
++    &&c.portalOrigins.length>0&&c.portalOrigins.every(origin=>origin===stagingPortalOrigin);
++  return c.gatewayUrl===uatGatewayOrigin&&c.mode==='uat'&&stagingOnly
++    &&c.returnUrl===stagingPortalOrigin+'/payment/return'?uatGatewayOrigin:null;
++}
++const gatewayCallbackUrl=(c:VPayContext)=>{
++  const origin=resolveGatewayOrigin(c);return origin?origin+'/callbacks/vpay/payment':null;
++};
+ const json = (body: unknown, status = 200) => Response.json(body, { status, headers: { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } });
+ const text = (body: string, status = 200) => new Response(body, { status, headers: { 'Cache-Control': 'no-store', 'Content-Type': 'text/plain; charset=utf-8', 'X-Content-Type-Options': 'nosniff' } });
+ const digest = (value: string) => createHash('sha256').update(value).digest('hex');
+@@ -43,7 +62,7 @@
+   return a.length === b.length && timingSafeEqual(a, b);
+ };
+ function enabled(c: VPayContext) {
+-  const gateway = c.gatewayUrl === gatewayOrigin;
++  const gateway = resolveGatewayOrigin(c)!==null;
+   const tokens = tokenReady(c.orderToken) && tokenReady(c.queryToken) && tokenReady(c.callbackToken)
+     && new Set([c.orderToken, c.queryToken, c.callbackToken]).size === 3;
+   const returnUrl = matchesCustomerPortalEndpoint(c.returnUrl, c.portalOrigins, '/payment/return');
+@@ -52,12 +71,29 @@
+ function orderEnabled(c: VPayContext) { return enabled(c) && c.enabled === 'true' && c.newDepositsEnabled === 'true'; }
+ export const vpayOrdersConfigured = enabled;
+ 
+-export function vpayCapabilitySnapshot(c:VPayContext,channelActive=false,remoteReady=false){
++function balanceConfigured(c:VPayContext){
++ const peers=[c.orderToken,c.queryToken,c.callbackToken,c.payoutToken].filter(tokenReady);
++ return resolveGatewayOrigin(c)!==null&&tokenReady(c.balanceToken)&&!peers.includes(c.balanceToken);
++}
++
++function vpayUatOrderScope(c:VPayContext,u:Member,amount:string,tradeCode:string){
++ const required=resolveGatewayOrigin(c)===uatGatewayOrigin&&c.mode==='uat';
++ if(!required)return {required:false,ready:true,orderId:crypto.randomUUID(),expiresAt:null as number|null,gatewayMemberId:null as string|null};
++ const memberId=String(c.uatMemberId??''),orderId=String(c.uatOrderId??''),amountMinor=String(c.uatAmountMinor??''),allowedTradeCode=String(c.uatTradeCode??''),expiresAt=Number(c.uatExpiresAt??0),now=Math.floor(Date.now()/1000);
++ const ready=/^[A-Za-z0-9:_-]{3,100}$/.test(memberId)&&/^[A-Za-z0-9_-]{8,50}$/.test(orderId)&&/^[1-9]\d{0,9}$/.test(amountMinor)&&['1','2','3','4','5','7'].includes(allowedTradeCode)&&Number.isSafeInteger(expiresAt)&&expiresAt>now&&expiresAt<=now+3600;
++ if(!ready)return {required:true,ready:false,orderId:null,expiresAt:null as number|null,gatewayMemberId:null as string|null,error:json({error:'VPay UAT gate is closed',code:'VPAY_UAT_GATE_CLOSED'},503)};
++ if(u.id!==memberId&&u.username!==memberId)return {required:true,ready:true,orderId:null,expiresAt,gatewayMemberId:null as string|null,error:json({error:'VPay UAT member is not allowed',code:'VPAY_UAT_MEMBER_DENIED'},403)};
++ if(amount!==amountMinor||tradeCode!==allowedTradeCode)return {required:true,ready:true,orderId:null,expiresAt,gatewayMemberId:null as string|null,error:json({error:'VPay UAT request is outside the approved scope',code:'VPAY_UAT_SCOPE_MISMATCH'},400)};
++ return {required:true,ready:true,orderId,expiresAt,gatewayMemberId:memberId};
++}
++
++export function vpayCapabilitySnapshot(c:VPayContext,channelActive=false,remoteReady=false,gatewayContractReady=remoteReady,remoteBalanceReady=false){
+  const configured=enabled(c),depositEnabled=configured&&remoteReady&&c.enabled==='true'&&c.newDepositsEnabled==='true';
++ const balanceConfiguredLocally=balanceConfigured(c),balanceEnabled=balanceConfiguredLocally&&c.balanceEnabled==='true'&&remoteBalanceReady;
+  return {
+-  deposit:automaticDepositCapability({implemented:true,configured,enabled:depositEnabled,blockers:[...(!configured?['deposit_configuration_incomplete']:[]),...(configured&&!remoteReady?['gateway_contract_not_ready']:[]),...(c.newDepositsEnabled!=='true'?['new_deposits_paused']:[]),...(c.enabled!=='true'?['profile_orders_disabled']:[])]},'gateway_contract'),
++  deposit:automaticDepositCapability({implemented:true,configured,enabled:depositEnabled,blockers:[...(!configured?['deposit_configuration_incomplete']:[]),...(configured&&!gatewayContractReady?['gateway_contract_not_ready']:[]),...(c.newDepositsEnabled!=='true'?['new_deposits_paused']:[]),...(c.enabled!=='true'?['profile_orders_disabled']:[]),...(configured&&gatewayContractReady&&!remoteReady?['gateway_orders_paused']:[])]},'gateway_contract'),
+   payout:vpayPayoutCapabilitySnapshot(c,channelActive),
+-  balance:unavailableBalanceCapability(),
++  balance:paymentCapability({implemented:true,configured:balanceConfiguredLocally,enabled:balanceEnabled,blockers:[...(!balanceConfiguredLocally?['balance_configuration_incomplete']:[]),...(c.balanceEnabled!=='true'?['balance_query_disabled']:[]),...(balanceConfiguredLocally&&c.balanceEnabled==='true'&&!remoteBalanceReady?['gateway_balance_not_ready']:[])]}),
+  };
+ }
+ 
+@@ -73,15 +109,17 @@
+ }
+ 
+ async function gatewayJson(c: VPayContext, path: string, token: string, method = 'GET', body?: unknown) {
++  const selectedOrigin=resolveGatewayOrigin(c);
++  if(!selectedOrigin)throw Error('VPAY_GATEWAY_NOT_CONFIGURED');
+   const fetcher = c.fetchImpl ?? fetch, controller = new AbortController(), timer = setTimeout(() => controller.abort(), 10000);
+   try {
+-    const response = await fetcher(new URL(path, gatewayOrigin), { method, redirect: 'error', signal: controller.signal,
++    const response = await fetcher(new URL(path, selectedOrigin), { method, redirect: 'error', signal: controller.signal,
+       headers: { Accept: 'application/json', Authorization: `Bearer ${token}`, ...(body ? { 'Content-Type': 'application/json' } : {}) },
+       ...(body ? { body: JSON.stringify(body) } : {}) });
+-    if (response.redirected || response.url && response.url !== new URL(path, gatewayOrigin).href || !/^application\/json(?:;|$)/i.test(response.headers.get('content-type') ?? '')) { await response.body?.cancel(); throw new PaymentRequestError({kind:'GATEWAY_RESPONSE',httpStatus:response.status}); }
++    if (response.redirected || response.url && response.url !== new URL(path, selectedOrigin).href || !/^application\/json(?:;|$)/i.test(response.headers.get('content-type') ?? '')) { await response.body?.cancel(); throw new PaymentRequestError({kind:'GATEWAY_RESPONSE',httpStatus:response.status}); }
+     const raw = await response.text(); if (raw.length > 65536) throw Error('GATEWAY_RESPONSE_TOO_LARGE');
+     const value = JSON.parse(raw); if (!value || typeof value !== 'object' || Array.isArray(value)) throw Error('GATEWAY_RESPONSE_INVALID');
+-    if(!response.ok){const v=value as Record<string,any>,upstream=Number(v.upstreamStatus),allowed=['unauthorized','vpay_orders_disabled','invalid_vpay_order','vpay_payment_configuration_incomplete','upstream_timeout','internal_error','vpay_invalid_signature','vpay_order_not_found','vpay_invalid_credentials','vpay_query_rejected'],providerTradeNo=opaque(v.result?.data?.trade_no);throw new PaymentRequestError({kind:'GATEWAY_HTTP',httpStatus:response.status,...(Number.isInteger(upstream)&&upstream>=100&&upstream<600?{upstreamStatus:upstream}:{}),providerCode:safeProviderCode(v.result?.code),...(providerTradeNo?{providerTradeNo}:{}),...(paymentUrlHost(v.result?.data?.pay_url)?{checkoutHost:paymentUrlHost(v.result.data.pay_url)}:{}),gatewayError:allowed.includes(v.error)?v.error:undefined});}
++    if(!response.ok){const v=value as Record<string,any>,upstream=Number(v.upstreamStatus),allowed=['unauthorized','vpay_orders_disabled','invalid_vpay_order','vpay_payment_configuration_incomplete','upstream_timeout','internal_error','vpay_invalid_signature','vpay_order_not_found','vpay_invalid_credentials','vpay_query_rejected','vpay_ip_not_allowed','vpay_amount_rejected','vpay_channel_rejected','vpay_order_permission_rejected','vpay_order_rejected'],providerTradeNo=opaque(v.result?.data?.trade_no);throw new PaymentRequestError({kind:'GATEWAY_HTTP',httpStatus:response.status,...(Number.isInteger(upstream)&&upstream>=100&&upstream<600?{upstreamStatus:upstream}:{}),providerCode:safeProviderCode(v.result?.code),...(providerTradeNo?{providerTradeNo}:{}),...(paymentUrlHost(v.result?.data?.pay_url)?{checkoutHost:paymentUrlHost(v.result.data.pay_url)}:{}),gatewayError:allowed.includes(v.error)?v.error:undefined});}
+     return value as Record<string, any>;
+   } finally { clearTimeout(timer); }
+ }
+@@ -92,18 +130,21 @@
+ }
+ 
+ async function vpayDepositAvailability(c:VPayContext){
+- const programReady=enabled(c),unavailable={programReady,remoteOrderReady:false,orderReady:false,queryReady:false,callbacksReady:false,tradeCodes:[] as string[]};
++ const programReady=enabled(c),uatOrderGateRequired=resolveGatewayOrigin(c)===uatGatewayOrigin,unavailable={programReady,gatewayContractReady:false,remoteOrderReady:false,orderReady:false,queryReady:false,callbacksReady:false,balanceReady:false,uatOrderGateRequired,uatOrderGateReady:!uatOrderGateRequired,uatOrderExpiresAt:null as number|null,tradeCodes:[] as string[]};
+  if(!programReady)return unavailable;
+  try{
+   const config=await gatewayJson(c,'/platform/vpay/config',c.queryToken!);
+-  const contractReady=config.provider==='vpay'&&config.mode===c.mode
+-   &&config.traderId===c.vpayTraderId&&config.notifyUrl===callbackUrl&&config.returnUrl===c.returnUrl
++  const identityReady=config.provider==='vpay'&&config.mode===c.mode&&config.traderId===c.vpayTraderId;
++  const contractReady=identityReady&&config.notifyUrl===gatewayCallbackUrl(c)&&config.returnUrl===c.returnUrl
+    &&Array.isArray(config.tradeCodes);
+   const capabilities=remoteMaintenanceCapabilities(config);
+   const queryReady=contractReady&&capabilities.queryReady,callbacksReady=contractReady&&capabilities.callbacksReady;
+   const tradeCodes=contractReady?[...new Set<string>(config.tradeCodes.filter((code:unknown)=>['1','2','3','4','5','7'].includes(String(code))).map(String))]:[];
+-  const remoteOrderReady=config.paymentReady===true&&queryReady&&callbacksReady&&tradeCodes.length>0;
+-  return {programReady,remoteOrderReady,orderReady:remoteOrderReady&&c.enabled==='true'&&c.newDepositsEnabled==='true',queryReady,callbacksReady,tradeCodes};
++  const gatewayContractReady=contractReady&&queryReady&&callbacksReady&&tradeCodes.length>0;
++  const remoteUatGateRequired=config.uatOrderGateRequired===true,uatOrderGateReady=!remoteUatGateRequired||config.uatOrderGateReady===true,remoteUatExpiry=Number(config.uatOrderExpiresAt),uatOrderExpiresAt=Number.isSafeInteger(remoteUatExpiry)&&remoteUatExpiry>0?remoteUatExpiry:null;
++  const remoteOrderReady=config.paymentReady===true&&gatewayContractReady&&uatOrderGateReady;
++  const balanceReady=identityReady&&balanceConfigured(c)&&c.balanceEnabled==='true'&&config.balanceReady===true;
++  return {programReady,gatewayContractReady,remoteOrderReady,orderReady:remoteOrderReady&&c.enabled==='true'&&c.newDepositsEnabled==='true',queryReady,callbacksReady,balanceReady,uatOrderGateRequired:remoteUatGateRequired,uatOrderGateReady,uatOrderExpiresAt,tradeCodes};
+  }catch{return unavailable;}
+ }
+ 
+@@ -134,9 +175,9 @@
+   if (path === '/api/payments/vpay/status' && req.method === 'GET') {
+     const channel = await c.db.prepare('SELECT status FROM payment_channel_controls WHERE provider_id=?').bind('vpay').first<{status:string}>();
+     // Historical channel status is still used by the separate payout capability.
+-    const {remoteOrderReady,...availability}=await vpayDepositAvailability(c),capabilities=vpayCapabilitySnapshot(c,channel?.status==='active',remoteOrderReady);
++    const {gatewayContractReady,remoteOrderReady,...availability}=await vpayDepositAvailability(c),capabilities=vpayCapabilitySnapshot(c,channel?.status==='active',remoteOrderReady,gatewayContractReady,availability.balanceReady);
+     const realPaymentVerified=c.acceptance?.realPaymentVerified===true,settlementVerified=c.acceptance?.settlementVerified===true;
+-    return json({provider:'vpay',profileId:'vpay_myr',currency:'MYR',enabled:availability.orderReady,mode:availability.orderReady?c.mode:'disabled',...automaticPaymentStatus(capabilities.deposit),...availability,recoveryReady:c.recoveryEnabled==='true'&&availability.queryReady,payoutReady:capabilities.payout.enabled,balanceReady:capabilities.balance.enabled,realPayments:availability.orderReady&&c.mode==='production',realPaymentVerified,settlementVerified,liveReady:availability.orderReady&&realPaymentVerified&&settlementVerified,capabilities});
++    return json({provider:'vpay',profileId:'vpay_myr',currency:'MYR',enabled:availability.orderReady,mode:availability.orderReady?c.mode:'disabled',...automaticPaymentStatus(capabilities.deposit),gatewayContractReady,remoteOrderReady,...availability,recoveryReady:c.recoveryEnabled==='true'&&availability.queryReady,payoutReady:capabilities.payout.enabled,balanceReady:capabilities.balance.enabled,realPayments:availability.orderReady&&c.mode==='production',realPaymentVerified,settlementVerified,liveReady:availability.orderReady&&realPaymentVerified&&settlementVerified,capabilities});
+   }
+   if (path === '/api/wallet' && req.method === 'GET') {
+     if (!c.user) return json({ error: 'Sign in required' }, 401);
+@@ -167,6 +208,21 @@
+     catch(error){if(error instanceof DepositReportInputError)return json({error:error.message},400);throw error;}
+   }
+   return null;
++}
++
++function balanceDecimal(value:unknown){
++ if(typeof value!=='string'||!/^(?:0|[1-9]\d{0,11})\.\d{2}$/.test(value))return null;
++ const [whole,fraction]=value.split('.');return `${BigInt(whole)}.${fraction}`;
++}
++
++export async function queryVPayBalance(c:VPayContext){
++ const user=c.user;if(!user)return json({error:'Sign in required'},401);if(user.role!=='owner')return json({error:'Access denied'},403);
++ if(!balanceConfigured(c)||c.balanceEnabled!=='true')return json({error:'VPAY_BALANCE_QUERY_DISABLED'},503);
++ try{
++  const result=await gatewayJson(c,'/platform/vpay/balance',c.balanceToken!,'POST',{}),balance=balanceDecimal(result.balance);
++  if(result.provider!=='vpay'||result.currency!=='MYR'||result.readOnly!==true||result.verified!==false||result.settlementVerified!==false||!balance)throw Error('BALANCE_RESPONSE_INVALID');
++  return json({provider:'vpay',currency:'MYR',balance,readOnly:true,verified:false,settlementVerified:false});
++ }catch{return json({error:'VPAY_BALANCE_UNAVAILABLE'},502);}
+ }
+ 
+ export async function createVPayOrder(d: Record<string, unknown>, c: VPayContext): Promise<Response> {
+@@ -181,15 +237,20 @@
+   const tradeCode = typeof d.tradeCode === 'string' && ['1', '2', '3', '4', '5', '7'].includes(d.tradeCode) ? d.tradeCode : '';
+   const payerName = typeof d.payerName === 'string' && d.payerName.trim().length >= 1 && d.payerName.trim().length <= 30 && !/[\u0000-\u001f\u007f-\u009f]/u.test(d.payerName) ? d.payerName.trim() : '';
+   if (!amount || !requestKey || !tradeCode || !payerName) return json({ error: 'Invalid MYR order' }, 400);
++  const uatScope=vpayUatOrderScope(c,u,amount,tradeCode);if(uatScope.error)return uatScope.error;
+   const config = await gatewayJson(c, '/platform/vpay/config', c.queryToken!);
+   const maintenance=remoteMaintenanceCapabilities(config);
+-  if (config.provider !== 'vpay' || config.mode !== c.mode || config.paymentReady !== true || !maintenance.queryReady || !maintenance.callbacksReady || config.traderId !== c.vpayTraderId || !Array.isArray(config.tradeCodes) || !config.tradeCodes.includes(tradeCode) || config.notifyUrl !== callbackUrl || config.returnUrl !== c.returnUrl) return json({ error: 'VPAY_GATEWAY_NOT_READY' }, 503);
++  if (config.provider !== 'vpay' || config.mode !== c.mode || config.paymentReady !== true || !maintenance.queryReady || !maintenance.callbacksReady || config.traderId !== c.vpayTraderId || !Array.isArray(config.tradeCodes) || !config.tradeCodes.includes(tradeCode) || config.notifyUrl !== gatewayCallbackUrl(c) || config.returnUrl !== c.returnUrl || uatScope.required&&(config.uatOrderGateRequired!==true||config.uatOrderGateReady!==true||Number(config.uatOrderExpiresAt)!==uatScope.expiresAt)) return json({ error: 'VPAY_GATEWAY_NOT_READY' }, 503);
+   const fingerprint = digest(JSON.stringify({ amount, tradeCode, payerName, currency: 'MYR', mode: c.mode }));
+-  const id = crypto.randomUUID(), timestamp = Math.floor(Date.now() / 1000);
+-  await c.db.prepare("INSERT INTO deposit_orders(id,user_id,request_key,fingerprint,provider,amount_minor,currency,trade_code,status,created_at,updated_at) VALUES(?,?,?,?,? ,?,'MYR',?,'pending',?,?) ON CONFLICT(user_id,request_key) DO NOTHING")
++  const id = uatScope.orderId!, timestamp = Math.floor(Date.now() / 1000);
++  await c.db.prepare("INSERT INTO deposit_orders(id,user_id,request_key,fingerprint,provider,amount_minor,currency,trade_code,status,created_at,updated_at) VALUES(?,?,?,?,? ,?,'MYR',?,'pending',?,?) ON CONFLICT DO NOTHING")
+     .bind(id, u.id, requestKey, fingerprint, 'vpay', amount, tradeCode, timestamp, timestamp).run();
+   const order = await c.db.prepare('SELECT * FROM deposit_orders WHERE user_id=? AND request_key=?').bind(u.id, requestKey).first<any>();
+-  if (!order) return json({ error: 'Order unavailable' }, 503);
++  if (!order) {
++    const claimed=uatScope.required?await c.db.prepare('SELECT user_id,request_key FROM deposit_orders WHERE id=?').bind(id).first<{user_id:string;request_key:string}>():null;
++    if(claimed)return json({error:'VPay UAT order is already bound',code:'VPAY_UAT_ORDER_ALREADY_BOUND'},409);
++    return json({ error: 'Order unavailable' }, 503);
++  }
+   if (order.fingerprint !== fingerprint || order.provider !== 'vpay') return json({ error: 'IDEMPOTENCY_CONFLICT' }, 409);
+   const requestBound=order.user_id===u.id&&String(order.amount_minor)===amount&&order.currency==='MYR'&&order.trade_code===tradeCode;
+   if(order.status==='created'){
+@@ -206,7 +267,7 @@
+   const claim = await c.db.prepare("UPDATE deposit_orders SET status='creating',updated_at=? WHERE id=? AND status='pending' RETURNING id").bind(timestamp, order.id).first();
+   if (!claim) return json({ id: order.id, status: 'awaiting_confirmation', payUrl: null }, 202);
+   try {
+-    const created = await gatewayJson(c, '/platform/vpay/order', c.orderToken!, 'POST', { outTradeNo: order.id, title: 'MASTER7 deposit', amount: amountString(amount), tradeCode, payerName, notifyUrl: config.notifyUrl, callbackUrl: config.returnUrl });
++    const created = await gatewayJson(c, '/platform/vpay/order', c.orderToken!, 'POST', { outTradeNo: order.id, ...(uatScope.required?{memberId:uatScope.gatewayMemberId}:{}), title: 'MASTER7 deposit', amount: amountString(amount), tradeCode, payerName, notifyUrl: config.notifyUrl, callbackUrl: config.returnUrl });
+     const envelope = created.result;
+     const data = envelope?.data;
+     const payUrl = safePaymentUrl(data?.pay_url);
+@@ -245,7 +306,7 @@
+  * concurrent workers. Never binds a reference, reconciles, updates or credits. */
+ export async function readVPayDepositProviderEvidence(c:VPayContext){
+  const resultBase={readOnly:true,provider:'vpay',providerQueriesExecuted:0,repairsExecuted:false,walletCreditExecuted:false};
+- const configured=c.gatewayUrl===gatewayOrigin&&tokenReady(c.queryToken)&&typeof c.vpayTraderId==='string'&&/^[1-9]\d{0,11}$/.test(c.vpayTraderId)&&c.queryToken!==c.orderToken&&c.queryToken!==c.callbackToken;
++ const configured=resolveGatewayOrigin(c)!==null&&tokenReady(c.queryToken)&&typeof c.vpayTraderId==='string'&&/^[1-9]\d{0,11}$/.test(c.vpayTraderId)&&c.queryToken!==c.orderToken&&c.queryToken!==c.callbackToken;
+  if(!configured)return {...resultBase,configured:false,truncated:false,items:[]};
+  const result=await c.db.prepare("SELECT id,user_id,amount_minor,currency,provider_trade_no,status FROM deposit_orders WHERE provider='vpay' ORDER BY created_at,id LIMIT 11").all<{id:string;user_id:string;amount_minor:string;currency:string;provider_trade_no:string|null;status:string}>();
+  if(!Array.isArray(result.results))throw Error('Incident orders unavailable');
+--- a/lib/render-migrations.mjs
++++ b/lib/render-migrations.mjs
+@@ -1267,6 +1267,14 @@
+  await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[WITHDRAWAL_DESTINATION_METHODS_MIGRATION]);return true;
+ }
+ 
++export const VPAY_PROVIDER_MONEY_ID_MIGRATION='0127-vpay-provider-money-id';
++async function applyVPayProviderMoneyIdMigration(client){
++ const applied=await client.query('SELECT version FROM portal_schema_migrations WHERE version=$1',[VPAY_PROVIDER_MONEY_ID_MIGRATION]);if(applied.rows.length)return false;
++ await client.query('ALTER TABLE provider_payouts ADD COLUMN IF NOT EXISTS provider_money_id TEXT');
++ await client.query('CREATE UNIQUE INDEX IF NOT EXISTS provider_payout_money_id ON provider_payouts(provider_id,provider_money_id) WHERE provider_money_id IS NOT NULL');
++ await client.query("INSERT INTO portal_schema_migrations(version,applied_at) VALUES($1,CAST(EXTRACT(EPOCH FROM NOW()) AS BIGINT))",[VPAY_PROVIDER_MONEY_ID_MIGRATION]);return true;
++}
++
+ export async function initializePortalDatabase(pool, schema, directoryEntries, options = {}) {
+   const client = await pool.connect();
+   try {
+@@ -1316,6 +1324,7 @@
+     await applyManualBankAuditEvidenceIndexMigration(client);
+     await applyPrivilegedStaffPasswordBoundaryMigration(client);
+ 	    await applyReconciliationOwnerReviewMigration(client);
++    await applyVPayProviderMoneyIdMigration(client);
+     const criticalDatabaseGuards = await assertCriticalDatabaseGuards(client,{schemaName:expectedSchema});
+     const rows = seedRows(directoryEntries);
+     await client.query(
+--- a/lib/render-env-map.mjs
++++ b/lib/render-env-map.mjs
+@@ -4,12 +4,24 @@
+   "VPAY_QUERY_TOKEN",
+   "VPAY_CALLBACK_TOKEN",
+   "VPAY_PAYOUT_TOKEN",
++  "VPAY_BALANCE_TOKEN",
++  "VPAY_BALANCE_QUERY_ENABLED",
+   "VPAY_PAYOUT_ENABLED",
+   "VPAY_ORDERS_ENABLED",
+   "VPAY_MODE",
+   "VPAY_TRADER_ID",
+   "VPAY_RETURN_URL",
+   "VPAY_RECOVERY_ENABLED",
++  "VPAY_UAT_MEMBER_ID",
++  "VPAY_UAT_ORDER_ID",
++  "VPAY_UAT_AMOUNT_MINOR",
++  "VPAY_UAT_TRADE_CODE",
++  "VPAY_UAT_EXPIRES_AT",
++  "VPAY_UAT_PAYOUT_MEMBER_ID",
++  "VPAY_UAT_WITHDRAWAL_ID",
++  "VPAY_UAT_PAYOUT_ID",
++  "VPAY_UAT_PAYOUT_AMOUNT_MINOR",
++  "VPAY_UAT_PAYOUT_EXPIRES_AT",
+ ];
+ 
+ const GSPAY_ENV_KEYS = [
+--- a/lib/vpay-payout.ts
++++ b/lib/vpay-payout.ts
+@@ -1,9 +1,10 @@
+ import {createHash,timingSafeEqual} from 'node:crypto';
+ import {paymentCapability} from './payment-capabilities.ts';
++import {stagingPortalOrigin} from './portal-origin.mjs';
+ import {decryptWithdrawalValue,withdrawalDataKeyReady} from './withdrawal-secrets.ts';
+ import {walletGuardStatements,walletRiskFreeSql,walletAvailableSql} from './wallet-guard.ts';
+ 
+-export type VPayPayoutContext={db:D1Database;gatewayUrl?:string;payoutToken?:string;callbackToken?:string;payoutEnabled?:string;newPayoutsEnabled?:string;vpayTraderId?:string;withdrawalDataKey?:string;fetchImpl?:typeof fetch};
++export type VPayPayoutContext={db:D1Database;gatewayUrl?:string;payoutToken?:string;callbackToken?:string;payoutEnabled?:string;newPayoutsEnabled?:string;vpayTraderId?:string;withdrawalDataKey?:string;mode?:string;portalOrigins?:string[];returnUrl?:string;uatPayoutMemberId?:string;uatWithdrawalId?:string;uatPayoutId?:string;uatPayoutAmountMinor?:string;uatPayoutExpiresAt?:string;fetchImpl?:typeof fetch};
+ export type VPayPayoutInput={payoutId:string;withdrawalId:string;userId:string;accountHolder:string;accountNumber:string;bankCode:string;amountMinor:string};
+ type Result={status:'processing'|'succeeded'|'failed'|'review';providerReference?:string|null};
+ 
+@@ -17,6 +18,7 @@
+ function changeCount(result:unknown){const r=result as {meta?:{changes?:number};changes?:number}|undefined;return Number(r?.meta?.changes??r?.changes??0);}
+ 
+ const gatewayOrigin='https://master7-integration-gateway.onrender.com';
++const uatGatewayOrigin='https://master7-payment-uat.onrender.com';
+ const callbackPath='/api/payment-callbacks/vpay/withdrawal';
+ const bankCodes:Record<string,string>={
+  maybank:'MBB',cimb:'CIMB',public_bank:'PBB',rhb:'RHB',hong_leong:'HLB',ambank:'AMB',
+@@ -27,26 +29,54 @@
+ const ack=(value='SUCCESS',status=200)=>new Response(value,{status,headers:{'Content-Type':'text/plain; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
+ const secureToken=(value:unknown)=>typeof value==='string'&&Buffer.byteLength(value)>=32&&Buffer.byteLength(value)<=1024;
+ const constantEqual=(left:unknown,right:string)=>typeof left==='string'&&Buffer.byteLength(left)===Buffer.byteLength(right)&&timingSafeEqual(Buffer.from(left),Buffer.from(right));
+-const moneyMinor=(value:unknown)=>{if(typeof value==='number'&&Number.isFinite(value))value=value.toFixed(2);if(typeof value!=='string'||!/^(?:0|[1-9]\d{0,6})\.\d{2}$/.test(value))return null;const [whole,fraction]=value.split('.'),minor=BigInt(whole)*100n+BigInt(fraction);return minor>0n&&minor<=1000000000n?minor.toString():null;};
++const moneyMinor=(value:unknown)=>{if(typeof value==='number'&&Number.isFinite(value))value=String(value);if(typeof value!=='string'||!/^(?:0|[1-9]\d{0,6})(?:\.\d{1,2})?$/.test(value))return null;const [whole,fraction='']=value.split('.'),minor=BigInt(whole)*100n+BigInt(fraction.padEnd(2,'0'));return minor>0n&&minor<=1000000000n?minor.toString():null;};
+ const decimal=(minor:unknown)=>{try{const value=BigInt(String(minor));return value>0n?`${value/100n}.${String(value%100n).padStart(2,'0')}`:null;}catch{return null;}};
+ const reference=(value:unknown)=>typeof value==='string'&&/^[A-Za-z0-9_-]{8,50}$/.test(value)?value:null;
+-const configured=(c:VPayPayoutContext)=>c.gatewayUrl===gatewayOrigin&&secureToken(c.payoutToken)&&secureToken(c.callbackToken)&&c.payoutToken!==c.callbackToken&&/^\d{1,10}$/.test(c.vpayTraderId??'')&&withdrawalDataKeyReady(c.withdrawalDataKey);
++function resolveGatewayOrigin(c:VPayPayoutContext):string|null{
++ if(c.gatewayUrl===gatewayOrigin)return gatewayOrigin;
++ const stagingOnly=Array.isArray(c.portalOrigins)&&c.portalOrigins.length>0&&c.portalOrigins.every(origin=>origin===stagingPortalOrigin);
++ return c.gatewayUrl===uatGatewayOrigin&&c.mode==='uat'&&stagingOnly&&c.returnUrl===stagingPortalOrigin+'/payment/return'?uatGatewayOrigin:null;
++}
++const configured=(c:VPayPayoutContext)=>resolveGatewayOrigin(c)!==null&&secureToken(c.payoutToken)&&secureToken(c.callbackToken)&&c.payoutToken!==c.callbackToken&&/^\d{1,10}$/.test(c.vpayTraderId??'')&&withdrawalDataKeyReady(c.withdrawalDataKey);
++
++function vpayUatPayoutGate(c:VPayPayoutContext){
++ const required=resolveGatewayOrigin(c)===uatGatewayOrigin&&c.mode==='uat';
++ if(!required)return {required:false,ready:true,memberId:null as string|null,withdrawalId:null as string|null,payoutId:null as string|null,amountMinor:null as string|null,expiresAt:null as number|null};
++ const memberId=String(c.uatPayoutMemberId??''),withdrawalId=String(c.uatWithdrawalId??''),payoutId=String(c.uatPayoutId??''),amountMinor=String(c.uatPayoutAmountMinor??''),expiresAt=Number(c.uatPayoutExpiresAt??0),now=Math.floor(Date.now()/1000);
++ const ready=/^[A-Za-z0-9:_-]{3,100}$/.test(memberId)&&/^[A-Za-z0-9_-]{8,80}$/.test(withdrawalId)&&/^[A-Za-z0-9_-]{8,50}$/.test(payoutId)&&/^[1-9]\d{0,9}$/.test(amountMinor)&&Number.isSafeInteger(expiresAt)&&expiresAt>now&&expiresAt<=now+3600;
++ return {required,ready,memberId,withdrawalId,payoutId,amountMinor,expiresAt:Number.isSafeInteger(expiresAt)&&expiresAt>0?expiresAt:null};
++}
++
++async function uatMemberMatches(c:VPayPayoutContext,userId:string,memberId:string){
++ const member=await c.db.prepare("SELECT id,username FROM users WHERE id=? AND role='member' AND approved=1").bind(userId).first<{id:string;username:string}>();
++ return !!member&&(member.id===memberId||member.username===memberId);
++}
++
++export async function vpayPayoutAllowsMember(c:VPayPayoutContext,userId:string){
++ const gate=vpayUatPayoutGate(c);return !gate.required||(gate.ready&&gate.memberId!==null&&await uatMemberMatches(c,userId,gate.memberId));
++}
++
++export async function vpayPayoutRequestScope(c:VPayPayoutContext,userId:string,amountMinor:string){
++ const gate=vpayUatPayoutGate(c);if(!gate.required)return {allowed:true as const};
++ const allowed=gate.ready&&gate.memberId!==null&&gate.amountMinor===amountMinor&&await uatMemberMatches(c,userId,gate.memberId);
++ return allowed?{allowed:true as const,withdrawalId:gate.withdrawalId!,payoutId:gate.payoutId!}:{allowed:false as const};
++}
+ 
+ export function vpayPayoutSupportsBank(bankCode:string){return Boolean(bankCodes[bankCode]);}
+ 
+ export async function vpayPayoutAvailability(c:VPayPayoutContext){
+- const channel=await c.db.prepare("SELECT status FROM payment_channel_controls WHERE provider_id='vpay'").first<{status:string}>(),channelActive=channel?.status==='active',ready=configured(c),enabled=ready&&channelActive&&c.payoutEnabled==='true'&&c.newPayoutsEnabled==='true';
+- const reason=!ready?'Payout security or gateway configuration is incomplete':!channelActive?'Payment channel is not active':c.payoutEnabled!=='true'?'Payout submission switch is disabled':c.newPayoutsEnabled!=='true'?'New payouts are temporarily paused':'';
++ const channel=await c.db.prepare("SELECT status FROM payment_channel_controls WHERE provider_id='vpay'").first<{status:string}>(),channelActive=channel?.status==='active',ready=configured(c),gate=vpayUatPayoutGate(c),submissionOpen=gate.required?gate.ready:c.newPayoutsEnabled==='true',enabled=ready&&channelActive&&c.payoutEnabled==='true'&&submissionOpen;
++ const reason=!ready?'Payout security or gateway configuration is incomplete':!channelActive?'Payment channel is not active':c.payoutEnabled!=='true'?'Payout submission switch is disabled':gate.required&&!gate.ready?'VPay UAT payout gate is closed':c.newPayoutsEnabled!=='true'?'New payouts are temporarily paused':'';
+  return {implemented:true,configured:ready,enabled,channelActive,submissionEnabled:enabled,reason};
+ }
+ 
+ export function vpayPayoutCapabilitySnapshot(c:VPayPayoutContext,channelActive=false){
+- const ready=configured(c),enabled=ready&&channelActive&&c.payoutEnabled==='true'&&c.newPayoutsEnabled==='true';
+- return paymentCapability({implemented:true,configured:ready,enabled,submissionEnabled:enabled,blockers:[...(!ready?['payout_configuration_incomplete']:[]),...(!channelActive?['channel_not_active']:[]),...(c.payoutEnabled!=='true'?['submission_disabled']:[]),...(c.newPayoutsEnabled!=='true'?['new_payouts_paused']:[])]});
++ const ready=configured(c),gate=vpayUatPayoutGate(c),submissionOpen=gate.required?gate.ready:c.newPayoutsEnabled==='true',enabled=ready&&channelActive&&c.payoutEnabled==='true'&&submissionOpen;
++ return paymentCapability({implemented:true,configured:ready,enabled,submissionEnabled:enabled,blockers:[...(!ready?['payout_configuration_incomplete']:[]),...(!channelActive?['channel_not_active']:[]),...(c.payoutEnabled!=='true'?['submission_disabled']:[]),...(gate.required&&!gate.ready?['uat_payout_gate_closed']:[]),...(!gate.required&&c.newPayoutsEnabled!=='true'?['new_payouts_paused']:[])]});
+ }
+ 
+ async function gateway(c:VPayPayoutContext,path:string,payload:Record<string,unknown>){
+- if(!configured(c))throw Error('PAYOUT_NOT_CONFIGURED');const url=new URL(path,c.gatewayUrl),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
++ const selectedOrigin=resolveGatewayOrigin(c);if(!selectedOrigin||!configured(c))throw Error('PAYOUT_NOT_CONFIGURED');const url=new URL(path,selectedOrigin),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
+  try{
+   const response=await(c.fetchImpl??fetch)(url,{method:'POST',redirect:'error',signal:controller.signal,headers:{Accept:'application/json','Content-Type':'application/json',Authorization:`Bearer ${c.payoutToken}`},body:JSON.stringify(payload)});
+   const raw=await response.text();if(Buffer.byteLength(raw)>65536)throw Error('PAYOUT_RESPONSE_TOO_LARGE');let data:unknown;try{data=JSON.parse(raw);}catch{throw Error('PAYOUT_INVALID_JSON');}
+@@ -55,9 +85,22 @@
+ }
+ 
+ async function payoutRecord(c:VPayPayoutContext,payoutId:string){
+- return c.db.prepare(`SELECT p.*,w.user_id,w.status withdrawal_status,w.bank_code,w.account_holder_encrypted,w.account_number_encrypted,w.amount_minor withdrawal_amount_minor,w.currency withdrawal_currency,w.request_key withdrawal_request_key,w.updated_by approver_id,cr.version compliance_version,cr.identity_status,cr.aml_status
+-  FROM provider_payouts p JOIN withdrawal_requests w ON w.id=p.withdrawal_id LEFT JOIN manual_compliance_reviews cr ON cr.user_id=w.user_id
++ return c.db.prepare(`SELECT p.*,w.user_id,u.username,w.status withdrawal_status,w.bank_code,w.account_holder_encrypted,w.account_number_encrypted,w.amount_minor withdrawal_amount_minor,w.currency withdrawal_currency,w.request_key withdrawal_request_key,w.updated_by approver_id,cr.version compliance_version,cr.identity_status,cr.aml_status
++  FROM provider_payouts p JOIN withdrawal_requests w ON w.id=p.withdrawal_id JOIN users u ON u.id=w.user_id LEFT JOIN manual_compliance_reviews cr ON cr.user_id=w.user_id
+   WHERE p.id=? AND p.provider_id='vpay' AND w.provider_id='vpay'`).bind(payoutId).first<any>();
++}
++
++// Bind the provider ID once, under the same member lock as settlement. The
++// callback can arrive before the create response; either may establish it.
++async function bindProviderMoneyId(c:VPayPayoutContext,payout:any,moneyId:string){
++ const [bound]=await payoutBatch(c,payout.user_id,[c.db.prepare(`UPDATE provider_payouts
++  SET provider_money_id=COALESCE(provider_money_id,?),updated_at=?
++  WHERE id=? AND provider_id='vpay' AND status IN ('submitting','processing','succeeded','review')
++   AND (provider_money_id IS NULL OR provider_money_id=?)
++   AND NOT EXISTS (SELECT 1 FROM provider_payouts other WHERE other.provider_id='vpay' AND other.provider_money_id=? AND other.id<>?)
++   AND EXISTS (SELECT 1 FROM withdrawal_requests w WHERE w.id=provider_payouts.withdrawal_id AND w.user_id=?)`)
++  .bind(moneyId,Math.floor(Date.now()/1000),payout.id,moneyId,moneyId,payout.id,payout.user_id)]);
++ return changeCount(bound)>0;
+ }
+ 
+ function secrets(c:VPayPayoutContext,payout:any){
+@@ -136,7 +179,8 @@
+ }
+ 
+ export async function submitVPayPayout(input:VPayPayoutInput,c:VPayPayoutContext):Promise<Result>{
+- const payout=await payoutRecord(c,input.payoutId),mapped=bankCodes[input.bankCode],amount=decimal(input.amountMinor);if(!payout||!mapped||!amount)return {status:'review'};
++ const payout=await payoutRecord(c,input.payoutId),mapped=bankCodes[input.bankCode],amount=decimal(input.amountMinor),gate=vpayUatPayoutGate(c);if(!payout||!mapped||!amount)return {status:'review'};
++ if(gate.required&&(!gate.ready||gate.withdrawalId!==input.withdrawalId||gate.payoutId!==input.payoutId||gate.amountMinor!==input.amountMinor||(payout.user_id!==gate.memberId&&payout.username!==gate.memberId)))return {status:'review'};
+  const bound=secrets(c,payout);if(!bound||payout.withdrawal_id!==input.withdrawalId||payout.user_id!==input.userId||String(payout.amount_minor)!==input.amountMinor||payout.bank_code!==input.bankCode||bound.accountHolder!==input.accountHolder||bound.accountNumber!==input.accountNumber)return toReview(c,payout,'submission_binding_mismatch');
+  if(payout.status!=='prepared')return payoutResult(c,payout);
+  if(!payoutBindingValid(c,payout)||payout.identity_status!=='passed'||payout.aml_status!=='passed'||!payout.compliance_version)return {status:'review'};
+@@ -170,9 +214,11 @@
+  if(!changeCount(memberLocked)||!changeCount(ownerLocked)||!changeCount(locked)||!changeCount(complianceLocked)||!changeCount(claim))return payoutResult(c,payout);
+  if(!changeCount(processing)||!changeCount(cleared))return {status:'review' as const};
+  try{
+-  const response=await gateway(c,'/platform/vpay/withdrawal',{contract:'vpay-payout-v1',currency:'MYR',refId:payout.id,amount,bankName:mapped,accountName:bound.accountHolder,accountNumber:bound.accountNumber}),envelope=response.data?.result,data=envelope?.data,returned=reference(data?.out_money_id);
++  const response=await gateway(c,'/platform/vpay/withdrawal',{contract:'vpay-payout-v1',currency:'MYR',...(gate.required?{memberId:gate.memberId,withdrawalId:payout.withdrawal_id}:{}),refId:payout.id,amount,bankName:mapped,accountName:bound.accountHolder,accountNumber:bound.accountNumber}),envelope=response.data?.result,data=envelope?.data,returned=reference(data?.out_money_id);
+   if(!response.ok){if([400,401,403,503].includes(response.status)||(response.data?.provider==='vpay'&&envelope?.code!==undefined))return failed(c,payout,'provider_submission_rejected');throw Error('PAYOUT_SUBMISSION_UNKNOWN');}
+-  if((envelope?.code!==0&&envelope?.code!=='0')||returned!==payout.id||!reference(data?.money_id))return toReview(c,payout,'create_binding_mismatch');
++  const moneyId=reference(data?.money_id);
++  if((envelope?.code!==0&&envelope?.code!=='0')||returned!==payout.id||!moneyId)return toReview(c,payout,'create_binding_mismatch');
++  if(!await bindProviderMoneyId(c,payout,moneyId))return toReview(c,payout,'provider_money_id_mismatch');
+   await payoutBatch(c,payout.user_id,[c.db.prepare("UPDATE provider_payouts SET status='processing',create_outcome='accepted',provider_reference=?,last_error_code=NULL,updated_at=? WHERE id=? AND status='submitting' AND EXISTS (SELECT 1 FROM withdrawal_requests w WHERE w.id=provider_payouts.withdrawal_id AND w.user_id=?)").bind(returned,Math.floor(Date.now()/1000),payout.id,payout.user_id)]);
+   try{return await reconcile(c,payout.id);}catch{return {status:'processing',providerReference:returned};}
+  }catch{
+@@ -190,8 +236,9 @@
+  const url=new URL(req.url);if(url.pathname!==callbackPath)return null;if(req.method==='GET')return json({ok:true,provider:'vpay',callback:'withdrawal',active:configured(c),settlementVerified:false});if(req.method!=='POST')return json({error:'Method not allowed'},405);
+  if(!configured(c))return ack('UNAVAILABLE',503);const authorization=req.headers.get('authorization')??'',given=authorization.startsWith('Bearer ')?authorization.slice(7):'';if(!constantEqual(given,c.callbackToken!))return ack('UNAUTHORIZED',401);
+  let data:any;try{data=await req.json();}catch{return ack('INVALID',400);}if(!data||typeof data!=='object'||Array.isArray(data))return ack('INVALID',400);
+- const payoutId=reference(data.out_money_id),amount=moneyMinor(data.amount),state=String(data.state??'');if(!payoutId||!amount||!['1','2','3','4','5','6'].includes(state)||String(data.trader_id)!==c.vpayTraderId)return ack('INVALID',400);
++ const payoutId=reference(data.out_money_id),moneyId=reference(data.money_id),amount=moneyMinor(data.amount),state=String(data.state??'');if(!payoutId||!moneyId||!amount||!['1','2','3','4','5','6'].includes(state)||String(data.trader_id)!==c.vpayTraderId)return ack('INVALID',400);
+  const payout=await payoutRecord(c,payoutId);if(!payout)return ack('UNKNOWN',404);if(String(payout.amount_minor)!==amount)return ack('REVIEW',409);
++ if(!await bindProviderMoneyId(c,payout,moneyId)){await toReview(c,payout,'provider_money_id_mismatch');return ack('REVIEW',409);}
+  const eventHash=createHash('sha256').update(JSON.stringify({payoutId,amount,state,moneyId:String(data.money_id??'')})).digest('hex');await c.db.prepare("UPDATE provider_payouts SET last_event_hash=?,updated_at=? WHERE id=? AND status<>'reversed'").bind(eventHash,Math.floor(Date.now()/1000),payout.id).run();
+  try{const result=state==='5'?await toReview(c,payout,'provider_exception_callback'):await reconcile(c,payout.id);return result.status==='review'&&state!=='5'?ack('REVIEW',503):ack();}catch{return ack('PENDING',503);}
+ }
+--- a/lib/withdrawals.ts
++++ b/lib/withdrawals.ts
+@@ -10,7 +10,8 @@
+ 
+ type Member={id:string;username:string;role:string;approved:number};
+ type PayoutSubmission={status:'processing'|'succeeded'|'failed'|'review';providerReference?:string|null};
+-type PayoutAdapter={enabled:boolean;reason:string;allowsMember?:(id:string)=>Promise<boolean>;supportsBank?:(bankCode:string)=>boolean;submit:(input:{payoutId:string;withdrawalId:string;userId:string;accountHolder:string;accountNumber:string;bankCode:string;amountMinor:string})=>Promise<PayoutSubmission>};
++type PayoutRequestScope={allowed:boolean;withdrawalId?:string;payoutId?:string};
++type PayoutAdapter={enabled:boolean;reason:string;allowsMember?:(id:string)=>Promise<boolean>;requestScope?:(input:{userId:string;amountMinor:string;requestKey:string})=>Promise<PayoutRequestScope>;supportsBank?:(bankCode:string)=>boolean;submit:(input:{payoutId:string;withdrawalId:string;userId:string;accountHolder:string;accountNumber:string;bankCode:string;amountMinor:string})=>Promise<PayoutSubmission>};
+ type WithdrawalContext={db:D1Database;user:Member|null;dataKey?:string;payouts?:Partial<Record<'vpay'|'gspay'|'1mpay'|'manual_bank',PayoutAdapter>>};
+ type WithdrawalProvider={id:'vpay'|'gspay'|'1mpay'|'manual_bank';name:string;enabled:boolean;reason:string};
+ 
+@@ -28,7 +29,7 @@
+ const cleanAccount=(value:unknown)=>{const account=typeof value==='string'?value.replace(/[\s-]/g,''):'';return /^\d{6,20}$/.test(account)?account:null;};
+ const destinationType=(x:any):'bank'|'ewallet'=>x.destination_type==='ewallet'?'ewallet':'bank';
+ const record=(x:any)=>{const method=destinationType(x),last4=method==='ewallet'?x.ewallet_account_last4:x.account_last4;return {id:x.id,userId:x.user_id,username:x.username??undefined,providerId:x.provider_id,providerName:x.provider_name,destinationType:method,destinationMethod:method==='ewallet'?'E-Wallet':'Bank Account',bankCode:method==='bank'?x.bank_code:undefined,bankName:method==='bank'?x.bank_name:undefined,ewalletCode:method==='ewallet'?x.ewallet_code:undefined,ewalletName:method==='ewallet'?x.ewallet_name:undefined,destinationNumber:`•••• ${last4}`,accountNumber:`•••• ${last4}`,accountLast4:last4,amountMinor:String(x.amount_minor),currency:x.currency,status:x.status,ownerNote:x.owner_note,createdAt:Number(x.created_at),updatedAt:Number(x.updated_at)};};
+-const ownerBaseRecord=(x:any)=>{const redacted:Record<string,unknown>={...record(x),payoutId:x.payout_id,payoutStatus:x.payout_status,payoutReference:x.payout_reference,companyBankId:x.manual_bank_account_id,bankTransactionId:x.provider_id==='manual_bank'?x.payout_reference:undefined,auditReference:`MASTER7 ${x.id}`,reviewStatus:x.status};delete redacted.accountNumber;delete redacted.destinationNumber;return redacted;};
++const ownerBaseRecord=(x:any)=>{const redacted:Record<string,unknown>={...record(x),payoutId:x.payout_id,payoutStatus:x.payout_status,payoutReference:x.payout_reference,providerMoneyId:x.provider_id==='vpay'?x.provider_money_id:undefined,companyBankId:x.manual_bank_account_id,bankTransactionId:x.provider_id==='manual_bank'?x.payout_reference:undefined,auditReference:`MASTER7 ${x.id}`,reviewStatus:x.status};delete redacted.accountNumber;delete redacted.destinationNumber;return redacted;};
+ // The owner needs the recipient name and account suffix for a human review,
+ // never the full account number. Decrypt both fields only to validate that the
+ // server-side approval fingerprint still describes readable, matching data.
+@@ -43,7 +44,7 @@
+ 
+ // The owner must approve precisely the recipient and amount displayed on the list.
+ export const approvalFingerprint=(x:any)=>createHash('sha256').update(JSON.stringify(destinationType(x)==='bank'?[x.id,x.payout_id,x.user_id,x.provider_id,x.request_key,String(x.amount_minor),x.currency,x.bank_code,x.account_holder_encrypted,x.account_number_encrypted,x.payout_fingerprint,String(x.compliance_version)]:[x.id,x.payout_id,x.user_id,x.provider_id,x.request_key,String(x.amount_minor),x.currency,'ewallet',x.ewallet_code,x.account_holder_encrypted,x.ewallet_account_encrypted,x.payout_fingerprint,String(x.compliance_version)])).digest('hex');
+-export const approvalQuery=`SELECT w.*,u.username,p.id payout_id,p.fingerprint payout_fingerprint,p.status payout_status,p.create_outcome payout_outcome,p.provider_reference payout_reference,p.manual_bank_account_id,c.version compliance_version,
++export const approvalQuery=`SELECT w.*,u.username,p.id payout_id,p.fingerprint payout_fingerprint,p.status payout_status,p.create_outcome payout_outcome,p.provider_reference payout_reference,p.provider_money_id,p.manual_bank_account_id,c.version compliance_version,
+  CASE WHEN c.identity_status='passed' AND c.aml_status='passed' AND w.status='pending' AND p.status='prepared' AND p.create_outcome='not_submitted' AND p.provider_reference IS NULL
+  AND p.provider_id=w.provider_id AND p.request_key=w.request_key AND p.amount_minor=w.amount_minor AND p.currency=w.currency
+  AND EXISTS (SELECT 1 FROM wallet_reservations r WHERE r.kind='withdrawal' AND r.reference_id=w.id AND r.user_id=w.user_id AND r.amount_minor=w.amount_minor)
+@@ -148,18 +149,20 @@
+   if(!memberPhone||!submittedPhone||memberPhone!==submittedPhone)return json({error:'Use the verified phone number on your member account'},400);ewalletAccount=memberPhone;
+  }
+  if(!method||!selectedProvider||!name||!amount||!requestKey||(method==='bank'&&(!selectedBank||!bankAccount))||(method==='ewallet'&&(!selectedEwallet||!ewalletAccount)))return json({error:'Invalid withdrawal details'},400);
+- const adapter=c.payouts?.[selectedProvider.id];if(!adapter||!adapter.enabled)return json({error:`${selectedProvider.name} payout is not connected`},503);if(method==='bank'&&selectedBank&&adapter.supportsBank&&!adapter.supportsBank(selectedBank[0]))return json({error:`${selectedBank[1]} is not supported by ${selectedProvider.name}`},400);
++ const adapter=c.payouts?.[selectedProvider.id];if(!adapter||!adapter.enabled)return json({error:`${selectedProvider.name} payout is not connected`},503);if(adapter.allowsMember&&!await adapter.allowsMember(u.id))return json({error:'VPay UAT member is not allowed',code:'VPAY_UAT_PAYOUT_MEMBER_DENIED'},403);if(method==='bank'&&selectedBank&&adapter.supportsBank&&!adapter.supportsBank(selectedBank[0]))return json({error:`${selectedBank[1]} is not supported by ${selectedProvider.name}`},400);
++ const requestScope=adapter.requestScope?await adapter.requestScope({userId:u.id,amountMinor:amount,requestKey}):{allowed:true};if(!requestScope.allowed)return json({error:'VPay UAT withdrawal is outside the approved scope',code:'VPAY_UAT_PAYOUT_SCOPE_MISMATCH'},400);
+  const destinationAccount=method==='ewallet'?ewalletAccount!:bankAccount!,destinationCode=method==='ewallet'?selectedEwallet![0]:selectedBank![0],fingerprintPayload=method==='bank'?{provider:selectedProvider.id,userId:u.id,amount,bank:destinationCode,account:createHash('sha256').update(destinationAccount).digest('hex')}:{provider:selectedProvider.id,userId:u.id,amount,destinationType:method,destinationCode,account:createHash('sha256').update(destinationAccount).digest('hex')},fingerprint=createHash('sha256').update(JSON.stringify(fingerprintPayload)).digest('hex'),replay=await c.db.prepare('SELECT w.*,p.fingerprint FROM withdrawal_requests w LEFT JOIN provider_payouts p ON p.withdrawal_id=w.id WHERE w.user_id=? AND w.request_key=?').bind(u.id,requestKey).first<any>();
+  if(replay){
+   if(replay.fingerprint!==fingerprint)return json({error:'IDEMPOTENCY_CONFLICT'},409);
+   const status=replay.status==='paid'?(await verifiedPaidWithdrawal(c.db,u.id,replay.id)?'paid':'review'):replay.status==='rejected'||replay.status==='cancelled'?(await verifiedUnsubmittedCancellation(c.db,u.id,replay.id)?'failed':'review'):replay.status==='pending'?'pending':replay.status==='processing'?'processing':'review';
+   return json({status,withdrawal:{...record(replay),...(['paid','rejected','cancelled'].includes(replay.status)&&status==='review'?{status:'review'}:{})}},200);
+  }
++ if(requestScope.withdrawalId&&requestScope.payoutId){const claimed=await c.db.prepare('SELECT w.id FROM withdrawal_requests w LEFT JOIN provider_payouts p ON p.withdrawal_id=w.id WHERE w.id=? OR p.id=? LIMIT 1').bind(requestScope.withdrawalId,requestScope.payoutId).first();if(claimed)return json({error:'VPay UAT payout is already bound',code:'VPAY_UAT_PAYOUT_ALREADY_BOUND'},409);}
+  await clearStaleReservation(c.db,u.id);
+  const gameOpen=await c.db.prepare("SELECT id FROM game_wallet_sessions WHERE user_id=? AND status IN ('deposit_pending','deposit_unknown','active','withdraw_pending','withdraw_unknown','manual_review') LIMIT 1").bind(u.id).first();if(gameOpen||await hasProtectedGameReservation(c.db,u.id))return json({error:'Settle the game wallet before withdrawing'},409);
+  const open=await c.db.prepare("SELECT id FROM withdrawal_requests WHERE user_id=? AND status IN ('pending','approved','processing') LIMIT 1").bind(u.id).first();if(open)return json({error:'You already have a withdrawal being processed'},409);
+  const wallet=await withdrawalWalletState(c.db,u.id);if(BigInt(wallet.availableMinor)<BigInt(amount))return json({error:'Insufficient available balance'},409);
+- const id=crypto.randomUUID(),payoutId=`P7${crypto.randomUUID().replaceAll('-','').slice(0,30)}`,timestamp=Math.floor(Date.now()/1000);
++ const id=requestScope.withdrawalId??crypto.randomUUID(),payoutId=requestScope.payoutId??`P7${crypto.randomUUID().replaceAll('-','').slice(0,30)}`,timestamp=Math.floor(Date.now()/1000);
+  try{const created=await c.db.batch([
+   ...walletGuardStatements(c.db,u.id),
+   walletGuardedReservation(c.db,{userId:u.id,kind:'withdrawal',referenceId:id,amountMinor:amount,createdAt:timestamp}),
+@@ -176,7 +179,7 @@
+   if(!committed)return json({error:'Withdrawal needs reconciliation',code:'WALLET_RECONCILIATION_REQUIRED'},409);
+   // New requests are reserved for review. Never contact a provider here.
+   return json({status:'pending',withdrawal:{id,providerName:selectedProvider.name,destinationType:method,destinationMethod:method==='ewallet'?'E-Wallet':'Bank Account',bankName:selectedBank?.[1],ewalletName:selectedEwallet?.[1],destinationNumber:`•••• ${destinationAccount.slice(-4)}`,accountNumber:`•••• ${destinationAccount.slice(-4)}`,amountMinor:amount,currency:'MYR',status:'pending',createdAt:timestamp}},201);
+- }catch(error:any){if(String(error?.message??'').includes('UNIQUE'))return json({error:'You already have a withdrawal being processed'},409);throw error;}
++ }catch(error:any){if(String(error?.message??'').includes('UNIQUE'))return requestScope.withdrawalId?json({error:'VPay UAT payout is already bound',code:'VPAY_UAT_PAYOUT_ALREADY_BOUND'},409):json({error:'You already have a withdrawal being processed'},409);throw error;}
+ }
+ 
+ /** Claim a reviewed, immutable withdrawal once; existing/legacy requests without
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -6,8 +6,8 @@
+ import {getGameCatalogue,cachedGameArtwork,gameControlSourceIds,configuredGameCatalogueSourceIds,configuredGameCatalogueCacheKeys,defaultGameCatalogueCacheKey,gameCatalogueProfileCacheKey,gameCatalogueCacheFresh} from './game-catalogue.ts';
+ import { readLocalSession, handlePasswordAuth, AuthError, changeLocalUserRole } from './password-auth.ts';
+ import { requestOriginAllowed } from './request-origin.ts';
+-import {createVPayOrder,readVPayDepositProviderEvidence,handleVPay,vpayOrdersConfigured,vpayRemoteOrderReady,refreshVPayOrder,recoverVPayDeposits,vpayCapabilitySnapshot} from './vpay.ts';
+-import {handleVPayPayoutCallback,recoverVPayPayouts,submitVPayPayout,vpayPayoutAvailability,vpayPayoutSupportsBank} from './vpay-payout.ts';
++import {createVPayOrder,readVPayDepositProviderEvidence,handleVPay,vpayOrdersConfigured,vpayRemoteOrderReady,refreshVPayOrder,recoverVPayDeposits,vpayCapabilitySnapshot,queryVPayBalance} from './vpay.ts';
++import {handleVPayPayoutCallback,recoverVPayPayouts,submitVPayPayout,vpayPayoutAllowsMember,vpayPayoutAvailability,vpayPayoutRequestScope,vpayPayoutSupportsBank} from './vpay-payout.ts';
+ import {createOneMpayOrder,readOneMpayDepositProviderEvidence,handleOneMpay,refreshOneMpayOrder,recoverOneMpayDeposits,oneMpayCapabilitySnapshot} from './onempay.ts';
+ import {automaticDepositCapability,automaticPaymentStatus} from './payment-capabilities.ts';
+ import {createGSPayOrder,gspayProgramConfigured,handleGSPay,handleGSPayCallback,refreshGSPayOrder,recoverGSPayDeposits,recoverGSPayPayouts,queryGSPayBalance,gspayCapabilitySnapshot,gspayPayoutAvailability,submitGSPayPayout} from './gspay.ts';
+@@ -44,7 +44,7 @@
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.180-member-recovery';
++export const RELEASE = '17.0.0-selfbuilt.181-vpay-api-complete';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+@@ -61,12 +61,12 @@
+  return Object.fromEntries(depositControlProviders.map(provider=>{const key='deposit_control:'+provider,value=values.get(key);return [provider,!values.has(key)||value==='auto'?'auto':'paused'];})) as Record<DepositControlProvider,'auto'|'paused'>;
+ }
+ type UploadPolicyContext={uploadApprovalMode?:string;assetAutoApproval?:string;receiptAutoApproval?:string};
+-export type Context=UploadPolicyContext & {db:D1Database;identity:Identity|null;ownerEmail:string;manualComplianceEnforced?:string;newDepositsEnabled?:string;newGameLaunchesEnabled?:string;newPayoutsEnabled?:string;ownerLoginId?:string;allowedOrigins?:string[];gameGatewayUrl?:string;gameGatewayToken?:string;gameGatewayWalletToken?:string;megaLaunchOriginsJson?:string;jdbTransferProfilesJson?:string;gameTransferProfilesJson?:string;providerTransferFetch?:typeof fetch;megaTransfersEnabled?:string;megaLiveGamesEnabled?:string;megaSettlementVerified?:string;megaSessionCloser?:MegaSessionCloser;megaClosureContractVerified?:boolean;gameGatewayFetch?:typeof fetch;gameArtFetch?:typeof fetch;vpayGatewayUrl?:string;vpayOrderToken?:string;vpayQueryToken?:string;vpayCallbackToken?:string;vpayPayoutToken?:string;vpayPayoutEnabled?:string;vpayOrdersEnabled?:string;vpayMode?:string;vpayTraderId?:string;vpayReturnUrl?:string;vpayRecoveryEnabled?:string;vpayFetch?:typeof fetch;gspayApiBase?:string;gspayAuthKey?:string;gspaySecretKey?:string;gspayCallbackToken?:string;gspayOrdersEnabled?:string;gspayReturnUrl?:string;gspayRecoveryEnabled?:string;gspayBalanceEnabled?:string;gspayPayoutEnabled?:string;gspayPayoutIpWhitelistConfirmed?:string;gspayPayoutBankTargetsJson?:string;gspayUsdtApiBase?:string;gspayUsdtAuthKey?:string;gspayUsdtSecretKey?:string;gspayUsdtCallbackToken?:string;gspayUsdtOrdersEnabled?:string;gspayUsdtReturnUrl?:string;gspayUsdtCallbackUrl?:string;gspayUsdtRecoveryEnabled?:string;gspayUsdtBalanceEnabled?:string;gspayUsdtContractVerified?:string;gspayUsdtAssetNetwork?:string;gspayUsdtCurrencyScale?:string;gspayUsdtCheckoutOrigin?:string;paymentRecoveryToken?:string;backupJobToken?:string;depositIncidentTokenHash?:string;depositIncidentExpiresAt?:number;gspayFetch?:typeof fetch;ownerSetupHash?:string;ownerSetupExpires?:number;ownerResetHash?:string;ownerResetExpires?:number;ownerResetIssuedAt?:number;anchorApiBaseUrl?:string;anchorUsername?:string;anchorPassword?:string;anchorSenderId?:string;otpHashSecret?:string;smsFetch?:typeof fetch;withdrawalDataKey?:string;oneMpayApiBase?:string;oneMpayMerchant?:string;oneMpaySecretKey?:string;oneMpayOrdersEnabled?:string;oneMpayCallbackUrl?:string;oneMpayReturnUrl?:string;oneMpayDiagnosticToken?:string;oneMpayRecoveryEnabled?:string;oneMpayFetch?:typeof fetch;rectangleApiBase?:string;rectangleOperatorCode?:string;rectangleApiKey?:string;godeeApiBase?:string;godeeOperatorId?:string;godeeApiKey?:string;gameCatalogueFetch?:typeof fetch;gameSyncToken?:string;accountingJobToken?:string;telegramBotToken?:string;telegramAdminChatId?:string;telegramFetch?:typeof fetch;whatsappEnabled?:string;whatsappGraphApiVersion?:string;whatsappPhoneNumberId?:string;whatsappWabaId?:string;whatsappAccessToken?:string;whatsappAppSecret?:string;whatsappWebhookVerifyToken?:string;whatsappBusinessNumber?:string;whatsappTemplateName?:string;whatsappTemplateLanguage?:string;whatsappRecipientLimit?:string;whatsappWorkerToken?:string;whatsappWorkerBatchSize?:string;whatsappFetch?:typeof fetch;supportAiEnabled?:string;supportAiApiBaseUrl?:string;supportAiApiKey?:string;supportAiModel?:string;supportAiFetch?:typeof fetch};
+-function vpaySettings(c:Context,user:User|null,acceptance?:{realPaymentVerified:boolean;settlementVerified:boolean}){return {...vpayPayoutSettings(c),user,orderToken:c.vpayOrderToken,queryToken:c.vpayQueryToken,enabled:c.vpayOrdersEnabled,newDepositsEnabled:c.newDepositsEnabled,mode:c.vpayMode,portalOrigins:c.allowedOrigins,returnUrl:c.vpayReturnUrl,recoveryEnabled:c.vpayRecoveryEnabled,acceptance};}
+-function vpayPayoutSettings(c:Context){return {db:c.db,gatewayUrl:c.vpayGatewayUrl,payoutToken:c.vpayPayoutToken,callbackToken:c.vpayCallbackToken,payoutEnabled:c.vpayPayoutEnabled,newPayoutsEnabled:c.newPayoutsEnabled,vpayTraderId:c.vpayTraderId,withdrawalDataKey:c.withdrawalDataKey,fetchImpl:c.vpayFetch};}
++export type Context=UploadPolicyContext & {db:D1Database;identity:Identity|null;ownerEmail:string;manualComplianceEnforced?:string;newDepositsEnabled?:string;newGameLaunchesEnabled?:string;newPayoutsEnabled?:string;ownerLoginId?:string;allowedOrigins?:string[];gameGatewayUrl?:string;gameGatewayToken?:string;gameGatewayWalletToken?:string;megaLaunchOriginsJson?:string;jdbTransferProfilesJson?:string;gameTransferProfilesJson?:string;providerTransferFetch?:typeof fetch;megaTransfersEnabled?:string;megaLiveGamesEnabled?:string;megaSettlementVerified?:string;megaSessionCloser?:MegaSessionCloser;megaClosureContractVerified?:boolean;gameGatewayFetch?:typeof fetch;gameArtFetch?:typeof fetch;vpayGatewayUrl?:string;vpayOrderToken?:string;vpayQueryToken?:string;vpayCallbackToken?:string;vpayPayoutToken?:string;vpayPayoutEnabled?:string;vpayOrdersEnabled?:string;vpayMode?:string;vpayBalanceToken?:string;vpayBalanceEnabled?:string;vpayUatMemberId?:string;vpayUatOrderId?:string;vpayUatAmountMinor?:string;vpayUatTradeCode?:string;vpayUatExpiresAt?:string;vpayUatPayoutMemberId?:string;vpayUatWithdrawalId?:string;vpayUatPayoutId?:string;vpayUatPayoutAmountMinor?:string;vpayUatPayoutExpiresAt?:string;vpayTraderId?:string;vpayReturnUrl?:string;vpayRecoveryEnabled?:string;vpayFetch?:typeof fetch;gspayApiBase?:string;gspayAuthKey?:string;gspaySecretKey?:string;gspayCallbackToken?:string;gspayOrdersEnabled?:string;gspayReturnUrl?:string;gspayRecoveryEnabled?:string;gspayBalanceEnabled?:string;gspayPayoutEnabled?:string;gspayPayoutIpWhitelistConfirmed?:string;gspayPayoutBankTargetsJson?:string;gspayUsdtApiBase?:string;gspayUsdtAuthKey?:string;gspayUsdtSecretKey?:string;gspayUsdtCallbackToken?:string;gspayUsdtOrdersEnabled?:string;gspayUsdtReturnUrl?:string;gspayUsdtCallbackUrl?:string;gspayUsdtRecoveryEnabled?:string;gspayUsdtBalanceEnabled?:string;gspayUsdtContractVerified?:string;gspayUsdtAssetNetwork?:string;gspayUsdtCurrencyScale?:string;gspayUsdtCheckoutOrigin?:string;paymentRecoveryToken?:string;backupJobToken?:string;depositIncidentTokenHash?:string;depositIncidentExpiresAt?:number;gspayFetch?:typeof fetch;ownerSetupHash?:string;ownerSetupExpires?:number;ownerResetHash?:string;ownerResetExpires?:number;ownerResetIssuedAt?:number;anchorApiBaseUrl?:string;anchorUsername?:string;anchorPassword?:string;anchorSenderId?:string;otpHashSecret?:string;smsFetch?:typeof fetch;withdrawalDataKey?:string;oneMpayApiBase?:string;oneMpayMerchant?:string;oneMpaySecretKey?:string;oneMpayOrdersEnabled?:string;oneMpayCallbackUrl?:string;oneMpayReturnUrl?:string;oneMpayDiagnosticToken?:string;oneMpayRecoveryEnabled?:string;oneMpayFetch?:typeof fetch;rectangleApiBase?:string;rectangleOperatorCode?:string;rectangleApiKey?:string;godeeApiBase?:string;godeeOperatorId?:string;godeeApiKey?:string;gameCatalogueFetch?:typeof fetch;gameSyncToken?:string;accountingJobToken?:string;telegramBotToken?:string;telegramAdminChatId?:string;telegramFetch?:typeof fetch;whatsappEnabled?:string;whatsappGraphApiVersion?:string;whatsappPhoneNumberId?:string;whatsappWabaId?:string;whatsappAccessToken?:string;whatsappAppSecret?:string;whatsappWebhookVerifyToken?:string;whatsappBusinessNumber?:string;whatsappTemplateName?:string;whatsappTemplateLanguage?:string;whatsappRecipientLimit?:string;whatsappWorkerToken?:string;whatsappWorkerBatchSize?:string;whatsappFetch?:typeof fetch;supportAiEnabled?:string;supportAiApiBaseUrl?:string;supportAiApiKey?:string;supportAiModel?:string;supportAiFetch?:typeof fetch};
++function vpaySettings(c:Context,user:User|null,acceptance?:{realPaymentVerified:boolean;settlementVerified:boolean}){return {...vpayPayoutSettings(c),user,orderToken:c.vpayOrderToken,queryToken:c.vpayQueryToken,balanceToken:c.vpayBalanceToken,balanceEnabled:c.vpayBalanceEnabled,enabled:c.vpayOrdersEnabled,newDepositsEnabled:c.newDepositsEnabled,mode:c.vpayMode,portalOrigins:c.allowedOrigins,returnUrl:c.vpayReturnUrl,recoveryEnabled:c.vpayRecoveryEnabled,uatMemberId:c.vpayUatMemberId,uatOrderId:c.vpayUatOrderId,uatAmountMinor:c.vpayUatAmountMinor,uatTradeCode:c.vpayUatTradeCode,uatExpiresAt:c.vpayUatExpiresAt,acceptance};}
++function vpayPayoutSettings(c:Context){return {db:c.db,gatewayUrl:c.vpayGatewayUrl,payoutToken:c.vpayPayoutToken,callbackToken:c.vpayCallbackToken,payoutEnabled:c.vpayPayoutEnabled,newPayoutsEnabled:c.newPayoutsEnabled,vpayTraderId:c.vpayTraderId,withdrawalDataKey:c.withdrawalDataKey,mode:c.vpayMode,portalOrigins:c.allowedOrigins,returnUrl:c.vpayReturnUrl,uatPayoutMemberId:c.vpayUatPayoutMemberId,uatWithdrawalId:c.vpayUatWithdrawalId,uatPayoutId:c.vpayUatPayoutId,uatPayoutAmountMinor:c.vpayUatPayoutAmountMinor,uatPayoutExpiresAt:c.vpayUatPayoutExpiresAt,fetchImpl:c.vpayFetch};}
+ function gspaySettings(c:Context,user:User|null,acceptance?:{realPaymentVerified:boolean;settlementVerified:boolean}){return {db:c.db,user,apiBase:c.gspayApiBase,authKey:c.gspayAuthKey,secretKey:c.gspaySecretKey,callbackToken:c.gspayCallbackToken,enabled:c.gspayOrdersEnabled,newDepositsEnabled:c.newDepositsEnabled,portalOrigins:c.allowedOrigins,returnUrl:c.gspayReturnUrl,recoveryEnabled:c.gspayRecoveryEnabled,balanceEnabled:c.gspayBalanceEnabled,payoutEnabled:c.gspayPayoutEnabled,newPayoutsEnabled:c.newPayoutsEnabled,payoutIpWhitelistConfirmed:c.gspayPayoutIpWhitelistConfirmed,payoutBankTargetsJson:c.gspayPayoutBankTargetsJson,withdrawalDataKey:c.withdrawalDataKey,acceptance,fetchImpl:c.gspayFetch};}
+ function gspayUsdtSettings(c:Context){return {apiBase:c.gspayUsdtApiBase,authKey:c.gspayUsdtAuthKey,secretKey:c.gspayUsdtSecretKey,callbackToken:c.gspayUsdtCallbackToken,ordersEnabled:c.gspayUsdtOrdersEnabled,returnUrl:c.gspayUsdtReturnUrl,callbackUrl:c.gspayUsdtCallbackUrl,recoveryEnabled:c.gspayUsdtRecoveryEnabled,balanceEnabled:c.gspayUsdtBalanceEnabled,contractVerified:c.gspayUsdtContractVerified,assetNetwork:c.gspayUsdtAssetNetwork,currencyScale:c.gspayUsdtCurrencyScale,checkoutOrigin:c.gspayUsdtCheckoutOrigin};}
+-async function withdrawalSettings(c:Context,user:User|null){const bank=await manualBankAvailability({db:c.db,user,newDepositsEnabled:c.newDepositsEnabled,newPayoutsEnabled:c.newPayoutsEnabled});const gspay=gspaySettings(c,user),vpay=vpayPayoutSettings(c),[gspayReady,vpayReady]=await Promise.all([gspayPayoutAvailability(gspay),vpayPayoutAvailability(vpay)]);return {db:c.db,user,dataKey:c.withdrawalDataKey,payouts:{manual_bank:{enabled:user?.role==='owner'?bank.payoutGateOpen:bank.payoutEnabled,allowsMember:async(id:string)=>(await manualBankAvailability({db:c.db,user:user?{...user,id}:null,newPayoutsEnabled:c.newPayoutsEnabled})).payoutEnabled,reason:bank.payoutEnabled?'Manual bank transfer after owner approval':'Company-bank withdrawals are temporarily unavailable',submit:async()=>({status:'processing' as const})},vpay:{enabled:vpayReady.enabled,reason:vpayReady.reason,supportsBank:vpayPayoutSupportsBank,submit:(input:any)=>submitVPayPayout(input,vpay)},gspay:{enabled:gspayReady.enabled,reason:gspayReady.reason,submit:(input:any)=>submitGSPayPayout(input,gspay)},'1mpay':{enabled:false,reason:'Payout bank codes and final callback states are not verified',submit:async()=>({status:'review' as const})}}};}
++async function withdrawalSettings(c:Context,user:User|null){const bank=await manualBankAvailability({db:c.db,user,newDepositsEnabled:c.newDepositsEnabled,newPayoutsEnabled:c.newPayoutsEnabled});const gspay=gspaySettings(c,user),vpay=vpayPayoutSettings(c),[gspayReady,vpayReady]=await Promise.all([gspayPayoutAvailability(gspay),vpayPayoutAvailability(vpay)]);return {db:c.db,user,dataKey:c.withdrawalDataKey,payouts:{manual_bank:{enabled:user?.role==='owner'?bank.payoutGateOpen:bank.payoutEnabled,allowsMember:async(id:string)=>(await manualBankAvailability({db:c.db,user:user?{...user,id}:null,newPayoutsEnabled:c.newPayoutsEnabled})).payoutEnabled,reason:bank.payoutEnabled?'Manual bank transfer after owner approval':'Company-bank withdrawals are temporarily unavailable',submit:async()=>({status:'processing' as const})},vpay:{enabled:vpayReady.enabled,reason:vpayReady.reason,allowsMember:(id:string)=>vpayPayoutAllowsMember(vpay,id),requestScope:({userId,amountMinor}:any)=>vpayPayoutRequestScope(vpay,userId,amountMinor),supportsBank:vpayPayoutSupportsBank,submit:(input:any)=>submitVPayPayout(input,vpay)},gspay:{enabled:gspayReady.enabled,reason:gspayReady.reason,submit:(input:any)=>submitGSPayPayout(input,gspay)},'1mpay':{enabled:false,reason:'Payout bank codes and final callback states are not verified',submit:async()=>({status:'review' as const})}}};}
+ function oneMpaySettings(c:Context,user:User|null,acceptance?:{realPaymentVerified:boolean;settlementVerified:boolean}){return {db:c.db,user,apiBase:c.oneMpayApiBase,merchant:c.oneMpayMerchant,secretKey:c.oneMpaySecretKey,enabled:c.oneMpayOrdersEnabled,newDepositsEnabled:c.newDepositsEnabled,portalOrigins:c.allowedOrigins,callbackUrl:c.oneMpayCallbackUrl,returnUrl:c.oneMpayReturnUrl,diagnosticToken:c.oneMpayDiagnosticToken,recoveryEnabled:c.oneMpayRecoveryEnabled,acceptance,fetchImpl:c.oneMpayFetch};}
+ function megaWalletSettings(c:Context,user:User):MegaWalletContext{return {db:c.db,user,gatewayUrl:c.gameGatewayUrl,gameToken:c.gameGatewayToken,walletToken:c.gameGatewayWalletToken,launchOriginsJson:c.megaLaunchOriginsJson,enabled:c.megaTransfersEnabled,liveGamesEnabled:c.megaLiveGamesEnabled,newGameLaunchesEnabled:c.newGameLaunchesEnabled,settlementVerified:c.megaSettlementVerified,closeSession:c.megaSessionCloser,closureContractVerified:c.megaClosureContractVerified,fetchImpl:c.gameGatewayFetch};}
+ async function transferSettings(c:Context,user:User,profile:RegisteredGameProviderProfile):Promise<ProviderTransferContext>{
+@@ -980,6 +980,7 @@
+ 		    return json({...(payload&&typeof payload==='object'&&!Array.isArray(payload)?payload:{}),provider,orderId,manualQuery:true},response.status);
+ 		   }
+ 	   if(p==='/api/admin/payments/gspay/balance'){role(u,['owner']);return queryGSPayBalance(gspayContext);}
++	   if(p==='/api/admin/payments/vpay/balance'){role(u,['owner']);return queryVPayBalance(vpayContext);}
+ 	   if(p==='/api/admin/backup'){
+ 	    role(u,['owner']);
+ 	    if(d.action==='record_rehearsal'){const result=await recordPortalRestoreRehearsal(db,RELEASE,u.id,d);return json({status:'ok',verified:true,...(result.idempotent?{idempotent:true}:{})});}
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.180-member-recovery';
++const CACHE='master7-shell-17.0.0-selfbuilt.181-vpay-api-complete';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+--- /dev/null
++++ b/drizzle/0127_vpay_provider_money_id.sql
+@@ -0,0 +1,5 @@
++-- Keep the provider's money_id separate from our existing out_money_id.
++-- Historical payouts remain nullable until an authenticated callback binds it.
++ALTER TABLE provider_payouts ADD COLUMN provider_money_id TEXT;
++CREATE UNIQUE INDEX provider_payout_money_id ON provider_payouts(provider_id,provider_money_id)
++ WHERE provider_money_id IS NOT NULL;
+--- /dev/null
++++ b/tests/vpay-uat-isolation.test.mjs
+@@ -0,0 +1,67 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {handleVPay,vpayOrdersConfigured} from '../lib/vpay.ts';
++
++const staging='https://master7-v17-staging.onrender.com';
++const gateway='https://master7-payment-uat.onrender.com';
++const legacy='https://master7-integration-gateway.onrender.com';
++function fixture(patch={},remotePatch={}){
++  const requests=[];
++  const c={user:null,db:{prepare(){return {bind(){return {first:async()=>({status:'paused'})};}};}},
++    gatewayUrl:gateway,mode:'uat',portalOrigins:[staging],returnUrl:staging+'/payment/return',
++    orderToken:'o'.repeat(48),queryToken:'q'.repeat(48),callbackToken:'c'.repeat(48),
++    vpayTraderId:'1234',enabled:'false',newDepositsEnabled:'false',recoveryEnabled:'false',
++    fetchImpl:async(input,init)=>{
++      requests.push(String(input));
++      assert.equal(String(input),c.gatewayUrl+'/platform/vpay/config');
++      assert.equal(init.redirect,'error');
++      assert.equal(init.headers.Authorization,'Bearer '+c.queryToken);
++      return Response.json({provider:'vpay',mode:c.mode,traderId:c.vpayTraderId,
++        paymentReady:false,queryReady:true,callbacksReady:true,tradeCodes:['2'],
++        notifyUrl:c.gatewayUrl+'/callbacks/vpay/payment',returnUrl:c.returnUrl,...remotePatch});
++    },...patch};
++  return {c,requests,async status(){return (await handleVPay(new Request(staging+'/api/payments/vpay/status'),c)).json();}};
++}
++test('isolated UAT uses its exact gateway while maintenance remains independent of closed orders',async()=>{
++  const f=fixture(),s=await f.status();
++  assert.equal(s.programReady,true);assert.equal(s.queryReady,true);assert.equal(s.callbacksReady,true);
++  assert.equal(s.gatewayContractReady,true);assert.equal(s.reason,'new_deposits_paused');
++  assert.ok(s.capabilities.deposit.blockers.includes('gateway_orders_paused'));
++  assert.ok(!s.capabilities.deposit.blockers.includes('gateway_contract_not_ready'));
++  assert.equal(s.orderReady,false);assert.equal(s.recoveryReady,false);assert.equal(s.payoutReady,false);
++  assert.equal(s.realPaymentVerified,false);assert.equal(s.settlementVerified,false);assert.equal(s.liveReady,false);
++  assert.deepEqual(f.requests,[gateway+'/platform/vpay/config']);
++});
++test('isolated UAT reports only the Gateway order pause when portal order controls are open',async()=>{
++  const f=fixture({enabled:'true',newDepositsEnabled:'true'}),s=await f.status();
++  assert.equal(s.gatewayContractReady,true);assert.equal(s.remoteOrderReady,false);assert.equal(s.orderReady,false);
++  assert.equal(s.reason,'gateway_orders_paused');
++  assert.deepEqual(s.capabilities.deposit.blockers,['gateway_orders_paused']);
++});
++for(const [name,patch] of [
++  ['production mode',{mode:'production'}],
++  ['production portal',{portalOrigins:['https://www.master7.best']}],
++  ['mixed origins',{portalOrigins:[staging,'https://www.master7.best']}],
++  ['empty origins',{portalOrigins:[]}],
++  ['production return',{returnUrl:'https://www.master7.best/payment/return'}],
++  ['arbitrary host',{gatewayUrl:'https://attacker.example'}],
++  ['prefix host',{gatewayUrl:gateway+'.attacker.example'}],
++  ['userinfo',{gatewayUrl:'https://attacker@master7-payment-uat.onrender.com'}],
++  ['port',{gatewayUrl:gateway+':443'}],
++  ['path',{gatewayUrl:gateway+'/api'}],
++  ['aliased credentials',{callbackToken:'q'.repeat(48)}],
++])test('UAT isolation fails closed before network access: '+name,async()=>{
++  const f=fixture(patch),s=await f.status();assert.equal(vpayOrdersConfigured(f.c),false);
++  assert.equal(s.programReady,false);assert.equal(s.orderReady,false);assert.deepEqual(f.requests,[]);
++});
++for(const [field,value] of [['mode','production'],['traderId','other'],
++  ['notifyUrl',legacy+'/callbacks/vpay/payment'],['returnUrl','https://www.master7.best/payment/return']])
++  test('UAT rejects a remote contract mismatch: '+field,async()=>{
++    const s=await fixture({}, {[field]:value}).status();
++    assert.equal(s.queryReady,false);assert.equal(s.callbacksReady,false);assert.equal(s.orderReady,false);
++  });
++test('legacy production gateway remains backwards compatible',async()=>{
++  const s=await fixture({gatewayUrl:legacy,mode:'production',portalOrigins:['https://www.master7.best'],returnUrl:'https://www.master7.best/payment/return'}).status();
++  assert.equal(s.programReady,true);assert.equal(s.queryReady,true);assert.equal(s.callbacksReady,true);
++  assert.equal(s.orderReady,false);
++});
