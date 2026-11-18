@@ -1,0 +1,365 @@
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,35 +15,35 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <link rel="stylesheet" href="/assets/template-v173.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <link rel="stylesheet" href="/assets/verification-navigation.css?v=17.0.0-selfbuilt.179-verification-navigation">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.179-verification-navigation" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <link rel="stylesheet" href="/assets/template-v173.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <link rel="stylesheet" href="/assets/verification-navigation.css?v=17.0.0-selfbuilt.180-member-recovery">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.180-member-recovery" defer></script>
+ </head>
+ <body>
+   <div class="demo-ribbon" role="status" data-i18n="demoWarning">MASTER7 · Premium games, member rewards and service</div>
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -44,7 +44,7 @@
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.179-verification-navigation';
++export const RELEASE = '17.0.0-selfbuilt.180-member-recovery';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+--- a/lib/password-auth.ts
++++ b/lib/password-auth.ts
+@@ -96,6 +96,33 @@
+  const roleIndex=found?1:0;if(changedRows(results[roleIndex])!==1)throw new AuthError(409,'Account role changed; reload and try again');
+  return {changed:true};
+ }
++type MemberResetRecord={userId:string;username:string;tokenHash:string;credentialVersion:number;issuedAt:number;expiresAt:number};
++const memberResetKey=(userId:string)=>`member_password_reset:${userId}`;
++// Maintenance recovery only: revoke an unfinished staff grant and return the
++// same account to membership. The member chooses their own password afterward.
++export async function restorePendingStaffAsMember(db:D1Database,actorId:string,userId:string,expectedVersion:number){
++ const actor=await db.prepare("SELECT id FROM users WHERE id=? AND role='owner' AND approved=1").bind(actorId).first();
++ if(!actor)throw new AuthError(403,'Administrator authorization required');
++ const target=await db.prepare('SELECT u.role,u.approved,c.username,c.version FROM users u JOIN password_credentials c ON c.user_id=u.id WHERE u.id=?').bind(userId).first<{role:string;approved:number;username:string;version:number}>();
++ const pending=await db.prepare('SELECT value FROM settings WHERE id=?').bind(staffSetupKey(userId)).first<{value:string}>();
++ if(!target||target.role!=='staff'||target.approved!==1||!pending||!Number.isSafeInteger(expectedVersion)||target.version!==expectedVersion)throw new AuthError(409,'Account state changed; inspect before recovery');
++ const username=loginId(target.username),timestamp=now(),expiresAt=timestamp+1800,code=random(),salt=random(),unusableHash=hash(random(),salt),nextVersion=expectedVersion+1;
++ const grant:MemberResetRecord={userId,username,tokenHash:digest(code),credentialVersion:nextVersion,issuedAt:timestamp,expiresAt},value=JSON.stringify(grant),key=memberResetKey(userId);
++ const proof='EXISTS (SELECT 1 FROM password_credentials c WHERE c.user_id=? AND c.version=? AND c.salt=? AND c.password_hash=?)';
++ const args=[userId,nextVersion,salt,unusableHash];
++ let results:unknown[];
++ try{results=await db.batch([
++  db.prepare("UPDATE password_credentials SET salt=?,password_hash=?,version=version+1,changed_at=? WHERE user_id=? AND version=? AND EXISTS (SELECT 1 FROM users WHERE id=? AND role='staff' AND approved=1) AND EXISTS (SELECT 1 FROM settings WHERE id=? AND value=?)").bind(salt,unusableHash,timestamp,userId,expectedVersion,userId,staffSetupKey(userId),pending.value),
++  db.prepare("UPDATE users SET role='member' WHERE id=? AND role='staff' AND "+proof).bind(userId,...args),
++  db.prepare("INSERT INTO settings(id,value) SELECT ?,? WHERE EXISTS (SELECT 1 FROM users WHERE id=? AND role='member') AND "+proof+' ON CONFLICT(id) DO UPDATE SET value=excluded.value').bind(key,value,userId,...args),
++  db.prepare('DELETE FROM password_sessions WHERE user_id=? AND EXISTS (SELECT 1 FROM settings WHERE id=? AND value=?)').bind(userId,key,value),
++  db.prepare('DELETE FROM settings WHERE id IN (?,?) AND EXISTS (SELECT 1 FROM settings grant_row WHERE grant_row.id=? AND grant_row.value=?)').bind(staffSetupKey(userId),staffReadyKey(userId),key,value),
++  db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,?,'role_member',?,? WHERE EXISTS (SELECT 1 FROM settings WHERE id=? AND value=?)").bind(crypto.randomUUID(),actorId,userId,timestamp,key,value),
++  db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,?,'member_password_reset_issued',?,? WHERE EXISTS (SELECT 1 FROM settings WHERE id=? AND value=?)").bind(crypto.randomUUID(),actorId,userId,timestamp,key,value),
++ ]);}catch{throw new AuthError(503,'Member recovery was not prepared; try again later');}
++ if(changedRows(results[0])!==1||changedRows(results[1])!==1)throw new AuthError(409,'Account state changed; inspect before recovery');
++ return {username,code,expiresAt};
++}
+ function origin(req:Request,allowedOrigins?:string[]){if(!requestOriginAllowed(req,allowedOrigins))throw new AuthError(403,'Origin denied');}
+ function csrf(req:Request,local:LocalSession|null){if(!local)throw new AuthError(401,'请先使用 MASTER7 ID 登录 / Sign in with your MASTER7 ID');if(req.headers.get('x-csrf-token')!==local.user.csrf)throw new AuthError(403,'CSRF denied');return local;}
+ export async function readLocalSession(req:Request,db:D1Database):Promise<LocalSession|null>{
+@@ -154,6 +181,25 @@
+   if(changedRows(results[0])!==1)throw new AuthError(409,'此员工设定链接已经使用或失效 / Staff setup link already used or superseded');
+   return json({status:'ok',username,signInAgain:true},200,cookie('',0));
+  }
++ if(path==='/api/auth/reset-member'){
++  if(Object.keys(d).some(key=>!['username','code','password'].includes(key)))throw new AuthError(400,'Unexpected recovery fields');
++  const username=loginId(d.username);await rate(db,'member-reset:'+username,5);await rate(db,'member-reset-ip:'+(ip??'unavailable'),30);
++  const invalid=()=>new AuthError(403,'重设码无效或已过期 / Invalid or expired reset code');
++  const member=await db.prepare("SELECT c.user_id,c.username,c.version FROM password_credentials c JOIN users u ON u.id=c.user_id WHERE c.username=? AND u.role='member' AND u.approved=1").bind(username).first<{user_id:string;username:string;version:number}>();
++  const row=member?await db.prepare('SELECT value FROM settings WHERE id=?').bind(memberResetKey(member.user_id)).first<{value:string}>():null;
++  let grant:MemberResetRecord|null=null;try{grant=row?JSON.parse(row.value):null;}catch{}
++  if(!member||!row||!grant||grant.userId!==member.user_id||grant.username!==username||grant.credentialVersion!==member.version||!Number.isSafeInteger(grant.expiresAt)||grant.expiresAt<=now()||typeof d.code!=='string'||! /^[A-Za-z0-9_-]{43}$/.test(d.code)||typeof grant.tokenHash!=='string'||!equal(digest(d.code),grant.tokenHash))throw invalid();
++  const pass=password(d.password),salt=random(),passwordHash=hash(pass,salt),timestamp=now(),nextVersion=member.version+1,key=memberResetKey(member.user_id);
++  let results:unknown[];
++  try{results=await db.batch([
++   db.prepare("UPDATE password_credentials SET salt=?,password_hash=?,version=version+1,changed_at=? WHERE user_id=? AND version=? AND EXISTS (SELECT 1 FROM users WHERE id=? AND role='member' AND approved=1) AND EXISTS (SELECT 1 FROM settings WHERE id=? AND value=?)").bind(salt,passwordHash,timestamp,member.user_id,member.version,member.user_id,key,row.value),
++   db.prepare('DELETE FROM password_sessions WHERE user_id=? AND EXISTS (SELECT 1 FROM password_credentials WHERE user_id=? AND version=? AND salt=? AND password_hash=?)').bind(member.user_id,member.user_id,nextVersion,salt,passwordHash),
++   db.prepare('DELETE FROM settings WHERE id=? AND value=? AND EXISTS (SELECT 1 FROM password_credentials WHERE user_id=? AND version=? AND salt=? AND password_hash=?)').bind(key,row.value,member.user_id,nextVersion,salt,passwordHash),
++   db.prepare("INSERT INTO audit(id,user_id,event,target,created_at) SELECT ?,?,'member_password_reset','account',? WHERE EXISTS (SELECT 1 FROM password_credentials WHERE user_id=? AND version=? AND salt=? AND password_hash=?)").bind(crypto.randomUUID(),member.user_id,timestamp,member.user_id,nextVersion,salt,passwordHash),
++  ]);}catch{throw new AuthError(503,'密码未重设，请稍后再试 / Password was not reset; try again later');}
++  if(changedRows(results[0])!==1)throw invalid();
++  return json({status:'ok',username,signInAgain:true},200,cookie('',0));
++ }
+  if(path==='/api/auth/reset-owner'){
+   await rate(db,'owner-reset:'+(ip??'unavailable'),5);
+   if(!c.ownerResetHash||!c.ownerResetIssuedAt||!c.ownerResetExpires||c.ownerResetExpires<=now()||typeof d.code!=='string'||! /^[A-Za-z0-9_-]{43}$/.test(d.code)||!equal(digest(d.code),c.ownerResetHash))throw new AuthError(403,'重设码无效或已过期 / Invalid or expired reset code');
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.179-verification-navigation';
++const CACHE='master7-shell-17.0.0-selfbuilt.180-member-recovery';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -2,7 +2,14 @@
+ const $ = id => document.getElementById(id);
+ function consumeStaffSetupFragment(){const prefix="#staff-setup=",hash=String(location.hash||""),setupPath=location.pathname==="/staff-setup";if(!hash.startsWith(prefix)){if(setupPath&&hash)history.replaceState(null,"","/signin");return null;}if(!setupPath){history.replaceState(null,"","/signin");return null;}let value=null;try{const params=new URLSearchParams(decodeURIComponent(hash.slice(prefix.length))),userId=params.get("userId")||"",code=params.get("code")||"",username=params.get("username")||"";if(userId.length>0&&userId.length<=128&&/^[A-Za-z0-9_-]{43}$/.test(code)&&(!username||/^[a-zA-Z0-9_]{4,32}$/.test(username)))value={userId,code,username};}catch{}history.replaceState(null,"","/signin");return value;}
+ const initialStaffSetup=consumeStaffSetupFragment();
+-const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", staffSetup:initialStaffSetup, register:false, providers:[], gameProfiles:[], games:[], gameCatalogue:null, gameRanking:null, gameCatalogueRequestId:0, gameWallet:null, gameWalletMemberId:null, gameWalletRequestId:0, gameWindow:null, gameWindowContext:null, gameWindowPoll:null, gameLaunchBusy:false, gameSettlementBusy:false, lastLaunchedGame:null, supplierArtwork:{}, gameCategory:"HOT", gameAccessZone:"ALL", gameLimit:12, adminGames:null, adminGameSearch:"", adminGameProvider:"ALL", adminGameCategory:"ALL", adminGamePage:1, adminGamePageSize:24, favoriteGames:[], favoriteProviders:[], selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], ticketPage:1, ticketHasMore:false, ticketUnread:0, ticketLatestEvent:null, ticketPollBusy:false, social:null, socialAdminRevision:0, ads:[], benefits:[], manualBanks:[], manualBankMemberId:null, memberWalletRequestId:0, manualBankAttempt:null, adIndex:0, adTimer:null, editAdId:null, editAnnouncementId:null, editBenefitId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, oneMpayStatus:null, gspayStatus:null, gspayUsdtStatus:null, responsiblePlay:null, responsiblePlayMemberId:null, responsiblePlayError:false, depositProvider:"vpay", paymentChannels:{}, withdrawalPendingSeen:null, financialSoundEnabled:true, financialAudioArmed:false, accountingPeriod:"yesterday", accountingMonth:"", adminPanel:"operationsPanel", section:"lobby", referral:null, commission:null, commissionTab:"settings", marketingContactPage:1, marketingContactPages:1, marketingEditingImage:false, marketingMaximumContacts:1000000, marketingAudienceCount:0, adminLoadedPanels:new Set(), adminPendingPanels:new Map(), adminBaseLoaded:false, adminBasePending:null, adminSummary:null, adminOperations:null, adminSecurity:null, financialEventCursor:null};
++function consumeMemberResetFragment(){
++ const prefix="#member-reset=",hash=String(location.hash||""),correctPath=location.pathname==="/member-reset";
++ if(!hash.startsWith(prefix)){if(correctPath&&hash)history.replaceState(null,"","/member-reset");return null;}
++ let value=null;if(correctPath)try{const params=new URLSearchParams(decodeURIComponent(hash.slice(prefix.length))),username=params.get("username")||"",code=params.get("code")||"";if(/^[a-zA-Z0-9_]{4,32}$/.test(username)&&/^[A-Za-z0-9_-]{43}$/.test(code))value={username,code};}catch{}
++ history.replaceState(null,"",correctPath?"/member-reset":"/signin");return value;
++}
++const initialMemberReset=consumeMemberResetFragment();
++const state = {lang:"en", user:null, csrf:null, authMethod:null, authMode:"login", staffSetup:initialStaffSetup, memberReset:initialMemberReset, register:false, providers:[], gameProfiles:[], games:[], gameCatalogue:null, gameRanking:null, gameCatalogueRequestId:0, gameWallet:null, gameWalletMemberId:null, gameWalletRequestId:0, gameWindow:null, gameWindowContext:null, gameWindowPoll:null, gameLaunchBusy:false, gameSettlementBusy:false, lastLaunchedGame:null, supplierArtwork:{}, gameCategory:"HOT", gameAccessZone:"ALL", gameLimit:12, adminGames:null, adminGameSearch:"", adminGameProvider:"ALL", adminGameCategory:"ALL", adminGamePage:1, adminGamePageSize:24, favoriteGames:[], favoriteProviders:[], selectedCatalogProvider:null, selectedCatalogProviderName:null, announcements:[], tickets:[], ticketPage:1, ticketHasMore:false, ticketUnread:0, ticketLatestEvent:null, ticketPollBusy:false, social:null, socialAdminRevision:0, ads:[], benefits:[], manualBanks:[], manualBankMemberId:null, memberWalletRequestId:0, manualBankAttempt:null, adIndex:0, adTimer:null, editAdId:null, editAnnouncementId:null, editBenefitId:null, loginChallenge:null, otpChallenge:null, paymentStatus:null, oneMpayStatus:null, gspayStatus:null, gspayUsdtStatus:null, responsiblePlay:null, responsiblePlayMemberId:null, responsiblePlayError:false, depositProvider:"vpay", paymentChannels:{}, withdrawalPendingSeen:null, financialSoundEnabled:true, financialAudioArmed:false, accountingPeriod:"yesterday", accountingMonth:"", adminPanel:"operationsPanel", section:"lobby", referral:null, commission:null, commissionTab:"settings", marketingContactPage:1, marketingContactPages:1, marketingEditingImage:false, marketingMaximumContacts:1000000, marketingAudienceCount:0, adminLoadedPanels:new Set(), adminPendingPanels:new Map(), adminBaseLoaded:false, adminBasePending:null, adminSummary:null, adminOperations:null, adminSecurity:null, financialEventCursor:null};
+ const translations = {
+  zh: {
+   requestTimeout:"连接超时，操作结果未确认。请检查连接和记录后再试。",networkError:"无法连接服务。请检查网络后重试。",serviceUnavailable:"服务暂时不可用。请稍后重试。",otpNotConfigured:"短信 OTP 尚未在服务器配置。请联系平台负责人。",
+@@ -44,6 +51,12 @@
+  ms:{forgotPassword:"Lupa kata laluan",showPassword:"Tunjuk kata laluan",hidePassword:"Sembunyikan kata laluan",downloadApp:"Muat turun aplikasi",learnMore:"Ketahui lebih lanjut",aboutMaster7:"Tentang MASTER7",companyIntro:"MASTER7 menghimpunkan permainan, ganjaran ahli, dompet, deposit, pengeluaran dan bantuan.",loginOtpPending:"Kod akan dihantar ke nombor telefon ahli yang didaftarkan.",loginOtpRequired:"Hantar kod pengesahan, kemudian masukkan OTP 6 digit."}
+ };
+ for(const lang of Object.keys(authExperienceCopy))Object.assign(translations[lang],authExperienceCopy[lang]);
++const memberResetCopy={
++ zh:{memberResetTitle:"设置会员密码",memberResetNotice:"使用管理员私下交给你的一次性入口，设置自己的会员密码。完成后仍需短信 OTP 登录。",memberResetDone:"会员密码已设置。请使用会员 ID、新密码和短信 OTP 登录。"},
++ en:{memberResetTitle:"Set member password",memberResetNotice:"Use the private one-time recovery issued by your administrator and choose your own member password. SMS OTP is still required for sign-in.",memberResetDone:"Member password set. Sign in with your member ID, new password and SMS OTP."},
++ ms:{memberResetTitle:"Tetapkan kata laluan ahli",memberResetNotice:"Gunakan pemulihan sekali guna peribadi daripada pentadbir dan pilih kata laluan ahli anda. OTP SMS masih diperlukan untuk log masuk.",memberResetDone:"Kata laluan ahli telah ditetapkan. Log masuk dengan ID ahli, kata laluan baharu dan OTP SMS."}
++};
++for(const lang of Object.keys(memberResetCopy))Object.assign(translations[lang],memberResetCopy[lang]);
+ const activationCopy={
+  zh:{activationAlreadyDone:"管理员账号已激活。请使用首次激活时设置的密码；重复提交激活页不会更改密码。如果已更改 ID，请输入新 ID。",activationUnavailable:"当前没有可用的激活码。已有账号请登录；首次设置请联系站点维护人员。"},
+  en:{activationAlreadyDone:"The owner account is already activated. Use the password set during the first activation; submitting activation again does not change it. If you changed your ID, enter the new ID.",activationUnavailable:"No activation code is currently available. Sign in if you have an account; contact the site maintainer for initial setup."},
+@@ -74,7 +87,7 @@
+ const configuredMetaPixels=new Set(),configuredGoogleTags=new Set(),contactTypes=["hotline","whatsapp","wechat","line","telegram","facebook","instagram"],contactTypeLabels={hotline:"Hotline",whatsapp:"WhatsApp",wechat:"WeChat",line:"LINE",telegram:"Telegram",facebook:"Facebook",instagram:"Instagram"};
+ function safeContactUrl(value,hosts){if(typeof value!=="string"||!value)return "";try{const url=new URL(value);return url.protocol==="https:"&&!url.username&&!url.password&&!url.port&&hosts.includes(url.hostname)?url.href:"";}catch{return "";}}
+ function addContactLink(host,label,href){if(!href)return;const link=node("a","social-link",label);link.href=href;if(!href.startsWith("tel:")){link.target="_blank";link.rel="noopener noreferrer";}host.append(link);}
+-function configureAdvertisingPixels(data){if(typeof window==="undefined"||["owner","staff"].includes(state.user?.role)||location.pathname.startsWith("/admin")||["/signin","/register","/activate","/reset-owner","/staff-setup"].includes(location.pathname))return;const pixels=Array.isArray(data?.pixels)?data.pixels.filter(item=>item?.enabled):[];
++function configureAdvertisingPixels(data){if(typeof window==="undefined"||["owner","staff"].includes(state.user?.role)||location.pathname.startsWith("/admin")||["/signin","/register","/activate","/reset-owner","/staff-setup","/member-reset"].includes(location.pathname))return;const pixels=Array.isArray(data?.pixels)?data.pixels.filter(item=>item?.enabled):[];
+  for(const pixel of pixels){const id=String(pixel.trackingId||"");if(pixel.provider==="meta"&&/^\d{6,32}$/.test(id)&&!configuredMetaPixels.has(id)){let fbq=window.fbq;if(typeof fbq!=="function"){fbq=function(){if(fbq.callMethod)fbq.callMethod.apply(fbq,arguments);else fbq.queue.push(arguments);};fbq.push=fbq;fbq.loaded=true;fbq.version="2.0";fbq.queue=[];window.fbq=fbq;window._fbq=fbq;const script=document.createElement("script");script.id="master7-meta-pixel";script.async=true;script.src="https://connect.facebook.net/en_US/fbevents.js";document.head.append(script);}fbq("init",id);fbq("trackSingle",id,"PageView");configuredMetaPixels.add(id);}
+   if(pixel.provider==="google"&&/^(?:G|AW)-[A-Z0-9]{4,20}$/.test(id)&&!configuredGoogleTags.has(id)){window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){window.dataLayer.push(arguments);};if(!document.getElementById("master7-google-tag")){const script=document.createElement("script");script.id="master7-google-tag";script.async=true;script.src=`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;document.head.append(script);window.gtag("js",new Date());}window.gtag("config",id,{anonymize_ip:true,allow_google_signals:false,allow_ad_personalization_signals:false,send_page_view:true});configuredGoogleTags.add(id);}}
+ }
+@@ -1239,11 +1252,13 @@
+  invalidateAdminPanel("pendingPanel");try{await loadAdminPanel("pendingPanel",{force:true});}catch(error){notification(error.message);}
+ }
+ function showAuth(mode="login"){
++ if(mode!=="member-reset")state.memberReset=null;
+  state.authMode=mode;$("passwordForm").reset();$("authFeedback").textContent="";$("memberReferralCode").value=mode==="register"?referralCodeFromUrl():"";
+  state.otpChallenge=null;
+  $("showPasswords").checked=false;$("authPassword").type=$("confirmPassword").type="password";$("authPasswordToggle").setAttribute("aria-pressed","false");$("authPasswordToggle").setAttribute("aria-label",t("showPassword"));$("passwordMatch").textContent="";
+  if(mode==="activate")$("authUsername").value="master7_owner";
+  if(mode==="staff-setup")$("authUsername").value=state.staffSetup?.username||"";
++ if(mode==="member-reset")$("authUsername").value=state.memberReset?.username||"";
+  if(mode==="security")$("authUsername").value=state.user?.username||"";
+  renderAuthMode();if(!$("authDialog").open)$("authDialog").showModal();
+ }
+@@ -1271,12 +1286,12 @@
+  $("authBrandSub").textContent=customerEntry?t("memberBrand"):"SERVICE PORTAL";$("authBrandBadge").textContent=customerEntry?t("memberBadge"):"MANAGEMENT";$("authTagline").textContent=customerEntry?t("memberTagline"):"Secure operations console";
+  $("authDialog").classList.toggle("customer-auth",customerEntry);$("authDialog").classList.toggle("admin-auth",!customerEntry);$("authDialog").classList.toggle("auth-mode-login",mode==="login");$("authDialog").classList.toggle("auth-mode-register",mode==="register");$("authEyebrow").textContent=customerEntry?"MEMBER ACCESS":"MANAGEMENT ACCESS";
+  $("closeAuth").hidden=mode==="staff-setup";
+- $("authTitle").textContent=t(mode==="staff-setup"?"staffSetupTitle":mode==="reset"?"resetTitle":mode==="activate"?"activateTitle":mode==="security"?"accountSecurity":mode==="register"?"createMember":customerEntry?"signInTitle":"managementSignIn");
+- $("authNotice").textContent=t(mode==="staff-setup"?"staffSetupNotice":mode==="reset"?"resetNotice":mode==="activate"?"activateNotice":mode==="security"?"securityNotice":mode==="register"?"registerNotice":customerEntry?"loginNotice":"managementLoginNotice");
+- $("authUsername").readOnly=mode==="activate";
++ $("authTitle").textContent=t(mode==="staff-setup"?"staffSetupTitle":mode==="member-reset"?"memberResetTitle":mode==="reset"?"resetTitle":mode==="activate"?"activateTitle":mode==="security"?"accountSecurity":mode==="register"?"createMember":customerEntry?"signInTitle":"managementSignIn");
++ $("authNotice").textContent=t(mode==="staff-setup"?"staffSetupNotice":mode==="member-reset"?"memberResetNotice":mode==="reset"?"resetNotice":mode==="activate"?"activateNotice":mode==="security"?"securityNotice":mode==="register"?"registerNotice":customerEntry?"loginNotice":"managementLoginNotice");
++ $("authUsername").readOnly=mode==="activate"||(mode==="member-reset"&&!!state.memberReset);
+  $("usernameField").hidden=mode==="reset";$("authUsername").required=mode!=="reset";$("phoneField").hidden=!registerOtp;$("memberPhone").required=registerOtp;$("referralField").hidden=!registerOtp||!$("memberReferralCode").value;$("phoneOtpNote").hidden=!customerOtp;$("phoneOtpCopy").textContent=t(loginOtp?"loginOtpPending":"phoneOtpPending");$("otpFields").hidden=!customerOtp;$("memberOtp").required=customerOtp;$("sendOtpButton").textContent=t(state.otpChallenge?"resendOtp":"sendOtp");$("sendOtpButton").disabled=false;$("registerToggle").hidden=!customerEntry||!(["login","register"].includes(mode));
+- $("activationField").hidden=mode!=="activate"&&mode!=="reset";$("activationCode").required=mode==="activate"||mode==="reset";
+- $("codeLabel").textContent=t(mode==="reset"?"resetCode":"activationCode");
++ const manualCode=mode==="activate"||mode==="reset"||(mode==="member-reset"&&!state.memberReset);$("activationField").hidden=!manualCode;$("activationCode").required=manualCode;
++ $("codeLabel").textContent=t(mode==="reset"||mode==="member-reset"?"resetCode":"activationCode");
+  $("currentPasswordField").hidden=mode!=="security";$("currentPassword").required=mode==="security";
+  const privilegedPasswordMode=creating&&(mode==="staff-setup"||mode==="activate"||mode==="reset"||state.user?.role==="owner"||state.user?.role==="staff");
+  const privilegedPasswordLabel={zh:"新密码（至少 12 个字符）",en:"New password (at least 12 characters)",ms:"Kata laluan baharu (sekurang-kurangnya 12 aksara)"}[state.lang]||"New password (at least 12 characters)";
+@@ -1284,7 +1299,7 @@
+  $("authPassword").required=passwordMode;$("authPassword").autocomplete=creating?"new-password":"current-password";$("authPassword").minLength=creating?(privilegedPasswordMode?12:6):1;$("authPasswordToggle").hidden=!passwordMode;
+  $("confirmPasswordField").hidden=!creating;$("confirmPassword").required=creating;
+  $("showPasswordField").hidden=!creating;
+- $("authSubmit").textContent=t(mode==="staff-setup"?"staffSetupSubmit":mode==="reset"?"resetSubmit":mode==="activate"?"activateSubmit":mode==="security"?"saveAccount":mode==="register"?"createMember":"signIn");
++ $("authSubmit").textContent=t(mode==="staff-setup"?"staffSetupSubmit":(mode==="reset"||mode==="member-reset")?"resetSubmit":mode==="activate"?"activateSubmit":mode==="security"?"saveAccount":mode==="register"?"createMember":"signIn");
+  $("registerToggle").textContent=t(mode==="login"?"createMember":"backToLogin");if(mode==="staff-setup")$("registerToggle").hidden=true;$("memberPasswordHelp").hidden=!customerEntry||mode!=="login";
+  $("ownerResetLink").hidden=mode!=="login"||customerEntry;
+ }
+@@ -1299,7 +1314,7 @@
+  const resetOtpChallenge=()=>{state.otpChallenge=null;$("memberOtp").value="";if(["login","register"].includes(state.authMode))renderAuthMode();};
+  $("memberPhone").addEventListener("input",resetOtpChallenge);$("authUsername").addEventListener("input",resetOtpChallenge);
+  $("sendOtpButton").onclick=async()=>{const button=$("sendOtpButton"),purpose=state.authMode==="login"?"login":"register",phone=$("memberPhone").value.trim();if(!$("authUsername").value.trim()||!$("authPassword").value||(purpose==="register"&&!phone)){ $("authFeedback").textContent=t(purpose==="login"?"loginOtpRequired":"otpPrerequisites");return;}button.disabled=true;$("authFeedback").textContent="";try{const options=await api("/api/auth/options");if(options.smsOtpReady!==true)throw new Error(t("otpNotConfigured"));const result=await api("/api/auth/otp/send","POST",{...(purpose==="register"?{phone}:{}),username:$("authUsername").value.trim(),password:$("authPassword").value,purpose});state.otpChallenge=result.challengeId;$("memberOtp").value="";$("authFeedback").textContent=`${t("otpSent")}${result.destination?` ${result.destination}`:""}`;renderAuthMode();}catch(error){$("authFeedback").textContent=error.message;}finally{if(!state.otpChallenge)button.disabled=false;}};
+- $("authDialog").addEventListener("close",()=>$("passwordForm").reset());
++ $("authDialog").addEventListener("close",()=>{$("passwordForm").reset();state.memberReset=null;});
+  $("showPasswords").onchange=()=>{const visible=$("showPasswords").checked;$("authPassword").type=$("confirmPassword").type=visible?"text":"password";$("authPasswordToggle").setAttribute("aria-pressed",String(visible));$("authPasswordToggle").setAttribute("aria-label",t(visible?"hidePassword":"showPassword"));};
+  $("authPasswordToggle").onclick=()=>{const visible=$("authPassword").type==="password";$("authPassword").type=visible?"text":"password";if(!$("confirmPasswordField").hidden)$("confirmPassword").type=visible?"text":"password";$("showPasswords").checked=visible;$("authPasswordToggle").setAttribute("aria-pressed",String(visible));$("authPasswordToggle").setAttribute("aria-label",t(visible?"hidePassword":"showPassword"));};
+  $("memberPasswordHelp").onclick=()=>{$("authFeedback").textContent=t("securityHelp");};
+@@ -1330,6 +1345,10 @@
+     const result=await api("/api/auth/activate","POST",{code:$("activationCode").value.trim(),password:pass});activationToSignIn(t("activationDone"),result.username);
+    }else if(mode==="register"){
+     await api("/api/auth/register","POST",{username,password:pass,phone,challengeId:state.otpChallenge,otp:$("memberOtp").value.trim(),referralCode:$("memberReferralCode").value.trim()});history.replaceState(null,"","/signin");showAuth("login");$("authUsername").value=username;$("memberPhone").value=phone;$("authFeedback").textContent=t("registrationDone");
++   }else if(mode==="member-reset"){
++    const result=await api("/api/auth/reset-member","POST",{username,code:state.memberReset?.code||$("activationCode").value.trim(),password:pass});
++    state.memberReset=null;state.user=null;state.csrf=null;state.authMethod=null;state.tickets=[];renderSession();renderTickets();
++    history.replaceState(null,"","/signin");showAuth("login");$("authUsername").value=result.username;$("authFeedback").textContent=t("memberResetDone");
+    }else if(mode==="reset"){
+     const result=await api("/api/auth/reset-owner","POST",{code:$("activationCode").value.trim(),password:pass});
+     state.user=null;state.csrf=null;state.authMethod=null;state.tickets=[];renderSession();renderTickets();
+@@ -1381,10 +1400,11 @@
+  if(state.staffSetup)showAuth("staff-setup");
+  else if(startupPath==="/activate")await openActivation();
+  else if(startupPath==="/reset-owner")await openOwnerReset();
++ else if(startupPath==="/member-reset")showAuth("member-reset");
+  else if(startupPath==="/signin")showAuth();
+  else if(startupPath==="/register")showAuth("register");
+  try{await refreshSession();}catch{renderSession();}
+- if(state.staffSetup)return;
++ if(state.staffSetup||startupPath==="/member-reset")return;
+  if(!state.user&&(startupPath==="/signin"||startupPath==="/register"))return;
+  if(!state.user&&startupPath.startsWith("/admin")){renderAdmin();showAuth("login");return;}
+  await loadPublic();if(state.user)await refreshTickets();if(state.section==="admin")renderAdmin();
+--- /dev/null
++++ b/app/member-reset/route.ts
+@@ -0,0 +1 @@
++export { GET,HEAD,dynamic } from '../route';
+--- /dev/null
++++ b/tests/member-recovery.test.mjs
+@@ -0,0 +1,70 @@
++import {test} from 'node:test';
++import assert from 'node:assert/strict';
++import {DatabaseSync} from 'node:sqlite';
++import {readFileSync,readdirSync} from 'node:fs';
++import {randomBytes,createHash,scryptSync} from 'node:crypto';
++import * as auth from '../lib/password-auth.ts';
++import {handle} from '../lib/backend.ts';
++function fixture(t){
++ const sqlite=new DatabaseSync(':memory:');t.after(()=>sqlite.close());
++ for(const name of readdirSync(new URL('../drizzle/',import.meta.url)).filter(x=>x.endsWith('.sql')).sort())sqlite.exec(readFileSync(new URL('../drizzle/'+name,import.meta.url),'utf8'));
++ class Statement{constructor(sql,args=[]){this.sql=sql;this.args=args;}bind(...args){return new Statement(this.sql,args);}async first(){return sqlite.prepare(this.sql).get(...this.args)??null;}async all(){return {results:sqlite.prepare(this.sql).all(...this.args)};}async run(){return sqlite.prepare(this.sql).run(...this.args);}}
++ const db={prepare:sql=>new Statement(sql),async batch(statements){sqlite.exec('BEGIN');try{const out=[];for(const s of statements)out.push(await s.run());sqlite.exec('COMMIT');return out;}catch(error){sqlite.exec('ROLLBACK');throw error;}}};
++ for(const [id,role] of [['owner','owner'],['target','staff'],['other','member']]){
++  sqlite.prepare('INSERT INTO users(id,username,role,approved,csrf,created_at,phone) VALUES(?,?,?,1,?,0,?)').run(id,id,role,'csrf-'+id,id==='target'?'+60108018801':null);
++  sqlite.prepare('INSERT INTO password_credentials(username,user_id,salt,password_hash,version,changed_at) VALUES(?,?,?,?,?,0)').run(id==='target'?'master7':id,id,'salt-'+id,'unusable',id==='target'?3:1);
++  sqlite.prepare('INSERT INTO password_sessions(token_hash,user_id,csrf,credential_version,expires_at,created_at) VALUES(?,?,?,?,?,0)').run('session-'+id,id,'csrf-'+id,id==='target'?3:1,9999999999);
++ }
++ sqlite.prepare('INSERT INTO settings(id,value) VALUES(?,?)').run('staff_password_setup:target',JSON.stringify({credentialVersion:3}));
++ sqlite.prepare("INSERT INTO manual_compliance_reviews(user_id,identity_status,aml_status,version,last_change_id,created_at,updated_at) VALUES('target','pending','pending',1,'retained-request',1,1)").run();
++ const config={db,identity:null,ownerEmail:'owner@example.test'};
++ const call=async(data,origin='https://fixture.test')=>{const response=await handle(new Request('https://fixture.test/api/auth/reset-member',{method:'POST',headers:{'Content-Type':'application/json',origin,'cf-connecting-ip':'192.0.2.4'},body:JSON.stringify(data)}),config);return {status:response.status,body:await response.json(),cookie:response.headers.get('set-cookie')};};
++ return {sqlite,db,config,call};
++}
++const newPassword='Member-selected password 2026';
++async function restore(f){assert.equal(typeof auth.restorePendingStaffAsMember,'function');return auth.restorePendingStaffAsMember(f.db,'owner','target',3);}
++test('restoring pending staff preserves the review and owner, and issues a member-bound private reset grant',async t=>{
++ const f=fixture(t),result=await restore(f);assert.equal(result.username,'master7');assert.match(result.code,/^[A-Za-z0-9_-]{43}$/);
++ assert.equal(f.sqlite.prepare("SELECT role FROM users WHERE id='target'").get().role,'member');assert.equal(f.sqlite.prepare("SELECT version FROM password_credentials WHERE user_id='target'").get().version,4);
++ assert.equal(f.sqlite.prepare("SELECT count(*) n FROM settings WHERE id='staff_password_setup:target'").get().n,0);
++ assert.equal(f.sqlite.prepare("SELECT count(*) n FROM password_sessions WHERE user_id='target'").get().n,0);assert.equal(f.sqlite.prepare("SELECT count(*) n FROM password_sessions WHERE user_id='owner'").get().n,1);
++ const review=f.sqlite.prepare("SELECT identity_status,aml_status,version FROM manual_compliance_reviews WHERE user_id='target'").get();assert.deepEqual({...review},{identity_status:'pending',aml_status:'pending',version:1});
++ const stored=f.sqlite.prepare("SELECT value FROM settings WHERE id='member_password_reset:target'").get().value;assert.equal(stored.includes(result.code),false);assert.ok(stored.includes(createHash('sha256').update(result.code).digest('hex')));
++});
++test('a member chooses a password once and still needs SMS OTP for sign-in',async t=>{
++ const f=fixture(t),grant=await restore(f),data={username:grant.username,code:grant.code,password:newPassword};
++ const response=await f.call(data);assert.equal(response.status,200);assert.equal(response.body.username,'master7');assert.equal(response.body.signInAgain,true);assert.match(response.cookie,/Max-Age=0/);
++ const credential=f.sqlite.prepare("SELECT * FROM password_credentials WHERE user_id='target'").get();assert.equal(credential.version,5);assert.equal(credential.password_hash,scryptSync(newPassword,credential.salt,32,{N:32768,r:8,p:3,maxmem:64*1024*1024}).toString('hex'));
++ assert.equal((await f.call(data)).status,403);assert.equal(f.sqlite.prepare("SELECT count(*) n FROM settings WHERE id='member_password_reset:target'").get().n,0);
++ const login=await handle(new Request('https://fixture.test/api/auth/login',{method:'POST',headers:{'content-type':'application/json',origin:'https://fixture.test'},body:JSON.stringify({username:'master7',password:newPassword})}),f.config);assert.equal(login.status,403);assert.match((await login.json()).error,/SMS OTP/);
++ assert.equal(f.sqlite.prepare("SELECT count(*) n FROM password_sessions WHERE user_id='target'").get().n,0);assert.equal(f.sqlite.prepare("SELECT count(*) n FROM password_sessions WHERE user_id='owner'").get().n,1);
++});
++test('recovery rejects the wrong account, wrong code, expired grants and changed credential versions',async t=>{
++ for(const kind of ['account','code','expired','version','role','approval']){
++  const f=fixture(t),grant=await restore(f),data={username:grant.username,code:grant.code,password:newPassword},before=f.sqlite.prepare("SELECT password_hash FROM password_credentials WHERE user_id='target'").get().password_hash;
++  if(kind==='account')data.username='owner';if(kind==='code')data.code='B'.repeat(43);
++  if(kind==='expired'){const key='member_password_reset:target',value=JSON.parse(f.sqlite.prepare('SELECT value FROM settings WHERE id=?').get(key).value);value.expiresAt=1;f.sqlite.prepare('UPDATE settings SET value=? WHERE id=?').run(JSON.stringify(value),key);}
++  if(kind==='version')f.sqlite.prepare("UPDATE password_credentials SET version=version+1 WHERE user_id='target'").run();
++  if(kind==='role')f.sqlite.prepare("UPDATE users SET role='staff' WHERE id='target'").run();
++  if(kind==='approval')f.sqlite.prepare("UPDATE users SET approved=0 WHERE id='target'").run();
++  assert.equal((await f.call(data)).status,403,kind);assert.equal(f.sqlite.prepare("SELECT password_hash FROM password_credentials WHERE user_id='target'").get().password_hash,before);
++ }
++});
++test('restoration requires the owner, current version and an unfinished staff setup',async t=>{
++ for(const kind of ['actor','version','owner','member','ready']){
++  const f=fixture(t);let actor='owner',target='target',version=3;
++  if(kind==='actor')actor='other';if(kind==='version')version=2;if(kind==='owner'){target='owner';version=1;}if(kind==='member'){target='other';version=1;}if(kind==='ready')f.sqlite.prepare("DELETE FROM settings WHERE id='staff_password_setup:target'").run();
++  await assert.rejects(auth.restorePendingStaffAsMember(f.db,actor,target,version));assert.equal(f.sqlite.prepare("SELECT role FROM users WHERE id='target'").get().role,'staff');
++ }
++});
++test('restore and password update failures roll back without losing the pending request or grant',async t=>{
++ const f=fixture(t);f.sqlite.exec("CREATE TRIGGER fail_grant BEFORE INSERT ON settings WHEN NEW.id='member_password_reset:target' BEGIN SELECT RAISE(ABORT,'fixture grant failure'); END;");
++ await assert.rejects(restore(f));assert.equal(f.sqlite.prepare("SELECT role FROM users WHERE id='target'").get().role,'staff');assert.equal(f.sqlite.prepare("SELECT version FROM password_credentials WHERE user_id='target'").get().version,3);
++ f.sqlite.exec('DROP TRIGGER fail_grant');const grant=await restore(f);f.sqlite.exec("CREATE TRIGGER fail_reset_audit BEFORE INSERT ON audit WHEN NEW.event='member_password_reset' BEGIN SELECT RAISE(ABORT,'fixture audit failure'); END;");
++ assert.equal((await f.call({username:'master7',code:grant.code,password:newPassword})).status,503);assert.equal(f.sqlite.prepare("SELECT version FROM password_credentials WHERE user_id='target'").get().version,4);assert.ok(f.sqlite.prepare("SELECT value FROM settings WHERE id='member_password_reset:target'").get());
++});
++test('cross-origin writes and repeated invalid reset attempts do not change passwords',async t=>{
++ const f=fixture(t),grant=await restore(f),data={username:'master7',code:grant.code,password:newPassword},before=f.sqlite.prepare("SELECT password_hash FROM password_credentials WHERE user_id='target'").get().password_hash;assert.equal((await f.call(data,'https://attacker.example')).status,403);
++ for(let i=0;i<5;i++)assert.equal((await f.call({...data,code:'C'.repeat(43)})).status,403);assert.equal((await f.call(data)).status,429);
++ assert.equal(f.sqlite.prepare("SELECT password_hash FROM password_credentials WHERE user_id='target'").get().password_hash,before);
++});
+--- /dev/null
++++ b/tests/member-recovery-ui.test.mjs
+@@ -0,0 +1,23 @@
++import {test} from 'node:test';
++import assert from 'node:assert/strict';
++import {readFileSync} from 'node:fs';
++import vm from 'node:vm';
++const app=readFileSync(new URL('../public/assets/app.js',import.meta.url),'utf8'),definitions=app.slice(0,app.indexOf('(async function start(){'));
++function evaluate(hash='',pathname='/member-reset'){
++ const changes=[],context=vm.createContext({URL,URLSearchParams,Date,setTimeout,clearTimeout,crypto:globalThis.crypto,TextEncoder,TextDecoder,location:{hash,pathname,search:'',origin:'https://fixture.test'},history:{replaceState(...args){changes.push(args);}},localStorage:{getItem(){return null;}},navigator:{},document:{getElementById(){return null;},querySelectorAll(){return [];},querySelector(){return null;},createElement(){return {};},addEventListener(){},body:{classList:{toggle(){},add(){},remove(){}}}},window:{addEventListener(){}}});
++ vm.runInContext(definitions,context);return {changes,grant:JSON.parse(vm.runInContext('JSON.stringify(state.memberReset)',context))};
++}
++const fragment=(username,code)=>'#member-reset='+encodeURIComponent(new URLSearchParams({username,code}).toString());
++test('member recovery consumes the private fragment before startup and removes it from the address',()=>{
++ const code='R'.repeat(43),r=evaluate(fragment('master7',code));assert.deepEqual(r.grant,{username:'master7',code});assert.deepEqual(r.changes,[[null,'','/member-reset']]);
++ assert.ok(app.indexOf('initialMemberReset=consumeMemberResetFragment()')<app.indexOf('const state ='));assert.ok(app.indexOf('initialMemberReset=consumeMemberResetFragment()')<app.indexOf('configureAdvertisingPixels'));
++});
++test('bad or misplaced member recovery fragments never retain a credential',()=>{
++ for(const hash of ['#member-reset=broken',fragment('owner','short'),fragment('bad id','R'.repeat(43))]){const r=evaluate(hash);assert.equal(r.grant,null);assert.deepEqual(r.changes,[[null,'','/member-reset']]);}
++ const wrong=evaluate(fragment('master7','R'.repeat(43)),'/signin');assert.equal(wrong.grant,null);assert.deepEqual(wrong.changes,[[null,'','/signin']]);
++});
++test('member recovery has an explicit route and never persists its grant in browser storage',()=>{
++ assert.match(readFileSync(new URL('../app/member-reset/route.ts',import.meta.url),'utf8'),/export\s*\{\s*GET\s*,\s*HEAD\s*,\s*dynamic\s*\}\s*from\s*['"]\.\.\/route['"]/);
++ assert.doesNotMatch(app,/(?:localStorage|sessionStorage)\.setItem\([^\n]*memberReset/);
++ assert.match(app,/api\("\/api\/auth\/reset-member","POST"/);assert.match(app,/history\.replaceState\(null,"","\/signin"\);showAuth\("login"\);\$\("authUsername"\)\.value=result\.username/);
++});
