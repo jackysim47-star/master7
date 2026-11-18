@@ -1,0 +1,243 @@
+--- a/app/portal.html
++++ b/app/portal.html
+@@ -15,37 +15,40 @@
+   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
+   <link rel="apple-touch-icon" sizes="180x180" href="/assets/pwa-icon-180.png">
+   <link rel="manifest" href="/manifest.webmanifest">
+-  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <link rel="stylesheet" href="/assets/template-v173.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <link rel="stylesheet" href="/assets/verification-navigation.css?v=17.0.0-selfbuilt.183-vpay-hosted-menu">
+-  <script src="/assets/app.js?v=17.0.0-selfbuilt.183-vpay-hosted-menu" defer></script>
+-  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.183-vpay-hosted-menu" defer></script>
+-  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.183-vpay-hosted-menu" defer></script>
+-  <script src="/assets/vip.js?v=17.0.0-selfbuilt.183-vpay-hosted-menu" defer></script>
+-  <script src="/assets/finance.js?v=17.0.0-selfbuilt.183-vpay-hosted-menu" defer></script>
+-  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.183-vpay-hosted-menu" defer></script>
+-  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.183-vpay-hosted-menu" defer></script>
+-  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.183-vpay-hosted-menu" defer></script>
+-  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.183-vpay-hosted-menu" defer></script>
+-  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.183-vpay-hosted-menu" defer></script>
+-  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.183-vpay-hosted-menu" defer></script>
+-  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.183-vpay-hosted-menu" defer></script>
+-  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.183-vpay-hosted-menu" defer></script>
++  <link rel="stylesheet" href="/assets/style.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <link rel="stylesheet" href="/assets/vip.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <link rel="stylesheet" href="/assets/finance.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <link rel="stylesheet" href="/assets/game-ranking.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <link rel="stylesheet" href="/assets/rewards.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <link rel="stylesheet" href="/assets/owner-manual.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <link rel="stylesheet" href="/assets/bonus-risk.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <link rel="stylesheet" href="/assets/engagement.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <link rel="stylesheet" href="/assets/responsible-play.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <link rel="stylesheet" href="/assets/operations-intelligence.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <link rel="stylesheet" href="/assets/suite-theme.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <link rel="stylesheet" href="/assets/acceptance-blockers.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <link rel="stylesheet" href="/assets/member-shell.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <link rel="stylesheet" href="/assets/member-refresh.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <link rel="stylesheet" href="/assets/template-v173.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <link rel="stylesheet" href="/assets/verification-navigation.css?v=17.0.0-selfbuilt.184-provider-menus">
++  <script src="/assets/app.js?v=17.0.0-selfbuilt.184-provider-menus" defer></script>
++  <script src="/assets/acceptance-blockers.js?v=17.0.0-selfbuilt.184-provider-menus" defer></script>
++  <script src="/assets/production-acceptance-console.js?v=17.0.0-selfbuilt.184-provider-menus" defer></script>
++  <script src="/assets/vip.js?v=17.0.0-selfbuilt.184-provider-menus" defer></script>
++  <script src="/assets/finance.js?v=17.0.0-selfbuilt.184-provider-menus" defer></script>
++  <script src="/assets/game-ranking.js?v=17.0.0-selfbuilt.184-provider-menus" defer></script>
++  <script src="/assets/rewards.js?v=17.0.0-selfbuilt.184-provider-menus" defer></script>
++  <script src="/assets/owner-manual.js?v=17.0.0-selfbuilt.184-provider-menus" defer></script>
++  <script src="/assets/bonus-risk.js?v=17.0.0-selfbuilt.184-provider-menus" defer></script>
++  <script src="/assets/engagement.js?v=17.0.0-selfbuilt.184-provider-menus" defer></script>
++  <script src="/assets/responsible-play.js?v=17.0.0-selfbuilt.184-provider-menus" defer></script>
++  <script src="/assets/manual-compliance.js?v=17.0.0-selfbuilt.184-provider-menus" defer></script>
++  <script src="/assets/operations-intelligence.js?v=17.0.0-selfbuilt.184-provider-menus" defer></script>
+ <style>
+ .money-service-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:18px}.money-service-tabs .nav-button{min-height:52px;border:1px solid #c7dce5;border-radius:14px;background:#f5fbff;color:#173d50;font-size:16px;font-weight:750}.money-service-tabs .nav-button.active{color:#fff;background:linear-gradient(110deg,#087d91,#166bc9);border-color:#087d91;box-shadow:0 5px 16px #0b7d9426}.withdraw-provider-entry{margin-bottom:20px}.withdraw-provider-entry .payment-option{min-height:140px}.vpay-hosted-menu-hint{margin:0;padding:12px 14px;border:1px solid #437784;border-radius:12px;color:#d2eef1;background:#14324166;font-size:13px;line-height:1.5}
++</style>
++<style>
++.withdraw-provider-entry{grid-template-columns:minmax(0,1fr)!important}.withdraw-provider-entry .payment-option{min-height:120px}.withdraw-provider-entry .payment-number{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;background:#d5eef8;color:#16617b;font-size:13px;font-weight:800}.vpay-hosted-menu-hint{display:block;border:0;background:none;padding:2px 0;color:#bfdde5;font-size:12px;line-height:1.55}.withdraw-vendor-heading{margin:0;font-size:20px;color:#173d50}#deposit,#withdraw,#withdrawalForm{scroll-margin-top:92px}
+ </style>
+ </head>
+ <body>
+@@ -387,14 +390,14 @@
+             <h2 id="paymentLobbyTitle" data-payment-i18n="title">Deposit options</h2>
+             <p class="muted" data-payment-i18n="notice">Choose a deposit method to continue.</p>
+           </div>
+-          <span class="payment-lobby-counter">4 PAYMENT PROFILES · MYR / USDT</span>
++          
+         </div>
+         <div class="cashier-bank-entry" hidden>
+           <button type="button" class="button button-primary cashier-bank-option" data-payment-channel="duitnow-qr"><strong>DUITNOW QR</strong><span class="payment-hint" data-payment-i18n="duitNowHint">Scan the company QR and submit the payment receipt for review.</span><span class="payment-state">View QR</span></button>
+           <button type="button" class="button button-primary cashier-bank-option" data-payment-channel="manual-bank"><strong>BANK TRANSFER</strong><span class="payment-hint" data-payment-i18n="bankHint">Transfer to the displayed company bank account and submit the receipt.</span><span class="payment-state">View bank</span></button>
+         </div>
+         <div id="paymentButtons" class="payment-grid" role="group" aria-label="Payment deposit options">
+-          <button type="button" class="payment-option" data-payment-channel="vpay"><span class="payment-number">01</span><strong>VPAY</strong><span class="payment-hint" data-money-flow="menu">Choose your payment method on VPay</span><span class="payment-state" data-payment-i18n="status">View status</span></button>
++          <button type="button" class="payment-option" data-payment-channel="vpay"><span class="payment-number">01</span><strong data-money-flow="vpayDeposit">VPAY Deposit</strong><span class="payment-hint" data-money-flow="menu">Choose your payment method on VPay</span><span class="payment-state" data-payment-i18n="status">View status</span></button>
+           <button type="button" class="payment-option" data-payment-channel="gspay"><span class="payment-number">02</span><strong>GSPAY+ MYR</strong><span class="payment-hint" data-payment-i18n="gspayHint">Separate option · MYR</span><span class="payment-state" data-payment-i18n="status">View status</span></button>
+           <button type="button" class="payment-option" data-payment-channel="gspay-usdt"><span class="payment-number">03</span><strong>GSPAY+ USDT</strong><span class="payment-hint" data-payment-i18n="gspayUsdtHint">Separate option · USDT · provider contract pending</span><span class="payment-state" data-payment-i18n="status">View status</span></button>
+           <button type="button" class="payment-option" data-payment-channel="1mpay"><span class="payment-number">04</span><strong>1MPAY</strong><span class="payment-hint" data-payment-i18n="oneMpayHint">Separate option · MYR</span><span class="payment-state" data-payment-i18n="status">View status</span></button>
+@@ -413,12 +416,12 @@
+     <section id="withdraw" class="section">
+       <nav class="money-service-tabs" aria-label="Deposit and withdrawal"><button type="button" class="nav-button" data-section="deposit" data-money-flow="deposit">Deposit</button><button type="button" class="nav-button" data-section="withdraw" data-money-flow="withdraw">Withdraw</button></nav>
+       <div class="section-header"><div><p class="eyebrow">MYR · WITHDRAW</p><h1 data-i18n="withdrawTitle">Withdraw</h1><p class="muted">Choose an available payout company and send to a Malaysian bank account. E-wallet requests use Company Bank manual review.</p></div></div>
+-      <div class="payment-grid withdraw-provider-entry"><button id="vpayWithdrawButton" type="button" class="payment-option"><span class="payment-number">01</span><strong>VPAY</strong><span class="payment-hint" data-money-flow="payout">Bank withdrawal</span><span id="withdrawVpayState" class="payment-state">View withdrawal form</span></button></div>
++      <div class="payment-grid withdraw-provider-entry"><button id="vpayWithdrawButton" type="button" class="payment-option"><span class="payment-number">01</span><strong data-money-flow="vpayWithdraw">VPAY Withdraw</strong><span class="payment-hint" data-money-flow="payout">Bank withdrawal</span><span id="withdrawVpayState" class="payment-state">View withdrawal form</span></button></div>
+       <div class="withdraw-layout">
+         <form id="withdrawalForm" class="surface stack withdrawal-form" hidden>
+           <div class="wallet-balance"><span>Available balance</span><strong id="withdrawAvailable">—</strong></div>
+-          <label for="withdrawProvider">Payout company</label><select id="withdrawProvider" required><option value="">Choose company</option></select>
+-          <fieldset class="withdraw-destination-choice"><legend>Send to</legend><label><input type="radio" name="withdrawDestinationType" value="bank" checked> Bank Account</label><label><input type="radio" name="withdrawDestinationType" value="ewallet"> E-Wallet</label></fieldset>
++          <h2 class="withdraw-vendor-heading" data-money-flow="vpayWithdraw">VPAY Withdraw</h2><div id="withdrawProviderSelector" class="stack"><label for="withdrawProvider">Payout company</label><select id="withdrawProvider" required><option value="">Choose company</option></select></div>
++          <fieldset class="withdraw-destination-choice"><legend>Send to</legend><label><input type="radio" name="withdrawDestinationType" value="bank" checked> Bank Account</label><label id="withdrawEwalletChoice"><input type="radio" name="withdrawDestinationType" value="ewallet"> E-Wallet</label></fieldset>
+           <div id="withdrawBankFields" class="stack withdraw-destination-fields">
+             <label for="withdrawBank">Malaysia bank</label><select id="withdrawBank" required><option value="">Choose bank</option></select>
+             <label for="withdrawAccountNumber">Bank account number</label><input id="withdrawAccountNumber" inputmode="numeric" minlength="6" maxlength="24" autocomplete="off" required>
+@@ -896,9 +899,10 @@
+     <button id="depositCashierRetry" class="button button-outline" type="button" hidden>Check availability again</button>
+         <form id="vpayOrderForm" class="wallet-order-form" hidden>
+           <label for="vpayAmount" data-cashier-copy="amount">Amount · MYR</label><input id="vpayAmount" type="number" min="1" max="100000" step="0.01" inputmode="decimal" required>
+-          <input id="vpayTradeCode" type="hidden"><p class="vpay-hosted-menu-hint" data-money-flow="menu">Choose your payment method on VPay</p>
++          <input id="vpayTradeCode" type="hidden">
+           <label for="vpayPayerName" data-cashier-copy="payer">Payer name</label><input id="vpayPayerName" maxlength="30" autocomplete="name" required><small class="muted" data-cashier-copy="payerHint">Use the name shown on the paying bank account.</small>
+-          <button id="vpaySubmit" type="submit" class="button button-primary">Continue to payment</button>
++          <button id="vpaySubmit" type="submit" class="button button-primary">Open VPay payment menu</button>
++          <small class="vpay-hosted-menu-hint" data-money-flow="menu">Next: choose QR or bank transfer on VPay.</small>
+           <p id="vpayOrderMessage" class="muted" role="status" aria-live="polite"></p>
+         </form>
+         <form id="oneMpayOrderForm" class="wallet-order-form" hidden>
+--- a/tests/deposit-cashier.test.mjs
++++ b/tests/deposit-cashier.test.mjs
+@@ -248,3 +248,9 @@
+  assert.equal(f.calls.filter(c=>c.method==='POST').length,1);assert.equal(f.calls.find(c=>c.method==='POST').payload.tradeCode,'2');assert.deepEqual(f.navigations,[url]);
+  assert.match(html,/<input id="vpayTradeCode" type="hidden">/);assert.doesNotMatch(html,/<select id="vpayTradeCode"/);
+ });
++
++test('provider configuration refusal shows service unavailability and permits a fresh request without duplicate record buttons',async()=>{
++ const f=fixture();await f.context.openDepositCashier('vpay');f.nodes.get('depositCashierRecords').hidden=false;f.context.depositAttemptFor('vpay','draft','configuration-refused');
++ const message=f.nodes.get('vpayOrderMessage');f.context.presentDepositError('vpay',Object.assign(new Error('PROVIDER_UNAVAILABLE'),{status:422,code:'PROVIDER_UNAVAILABLE'}),message);
++ assert.match(message.textContent,/unavailable/i);assert.doesNotMatch(message.textContent,/provider declined|IP|whitelist|PROVIDER_UNAVAILABLE/);assert.equal(f.context.loadDepositAttempt('vpay'),null);assert.equal(message.children.filter(n=>n.tagName==='button').length,0);assert.equal(f.nodes.get('depositCashierRecords').hidden,false);
++});
+--- a/tests/vpay-create-race.test.mjs
++++ b/tests/vpay-create-race.test.mjs
+@@ -77,3 +77,9 @@
+  f.sql.prepare("UPDATE wallet_ledger SET amount_minor=CASE account_code WHEN 'member' THEN 2100 ELSE -2100 END WHERE order_id=?").run(f.state.orderId);
+  const response=await createVPayOrder(request,f.context);assert.equal(response.status,409);assert.equal((await response.json()).status,'review');
+ });
++
++for(const reason of ['vpay_ip_not_allowed','vpay_notify_url_not_allowed','vpay_return_url_not_allowed','vpay_domain_not_allowed','vpay_allowlist_rejected'])test(`supplier configuration refusal is recorded precisely without wallet credit: ${reason}`,async t=>{
++ const f=fixture(t,'2',null),fetchOriginal=f.context.fetchImpl;f.context.fetchImpl=async(input,init)=>new URL(String(input)).pathname==='/platform/vpay/order'?Response.json({provider:'vpay',upstreamStatus:200,error:reason,result:{code:-1}},{status:502}):fetchOriginal(input,init);
++ const response=await createVPayOrder({amount:'1.00',tradeCode:'2',payerName:'fixture',requestKey:'configuration-failure-0001'},f.context);assert.equal(response.status,422);const body=await response.json();assert.equal(body.error,'PROVIDER_UNAVAILABLE');assert.equal(body.status,'failed');assert.equal(body.payUrl,null);
++ const diagnostic=f.sql.prepare("SELECT target FROM audit WHERE event='payment_order_diagnostic'").get();assert.equal(JSON.parse(diagnostic.target).gatewayError,reason);assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM wallet_ledger').get().n,0);assert.equal(f.sql.prepare("SELECT status FROM deposit_orders WHERE request_key='configuration-failure-0001'").get().status,'failed');
++});
+--- a/lib/vpay.ts
++++ b/lib/vpay.ts
+@@ -119,7 +119,7 @@
+     if (response.redirected || response.url && response.url !== new URL(path, selectedOrigin).href || !/^application\/json(?:;|$)/i.test(response.headers.get('content-type') ?? '')) { await response.body?.cancel(); throw new PaymentRequestError({kind:'GATEWAY_RESPONSE',httpStatus:response.status}); }
+     const raw = await response.text(); if (raw.length > 65536) throw Error('GATEWAY_RESPONSE_TOO_LARGE');
+     const value = JSON.parse(raw); if (!value || typeof value !== 'object' || Array.isArray(value)) throw Error('GATEWAY_RESPONSE_INVALID');
+-    if(!response.ok){const v=value as Record<string,any>,upstream=Number(v.upstreamStatus),allowed=['unauthorized','vpay_orders_disabled','invalid_vpay_order','vpay_payment_configuration_incomplete','upstream_timeout','internal_error','vpay_invalid_signature','vpay_order_not_found','vpay_invalid_credentials','vpay_query_rejected','vpay_ip_not_allowed','vpay_amount_rejected','vpay_channel_rejected','vpay_order_permission_rejected','vpay_order_rejected'],providerTradeNo=opaque(v.result?.data?.trade_no);throw new PaymentRequestError({kind:'GATEWAY_HTTP',httpStatus:response.status,...(Number.isInteger(upstream)&&upstream>=100&&upstream<600?{upstreamStatus:upstream}:{}),providerCode:safeProviderCode(v.result?.code),...(providerTradeNo?{providerTradeNo}:{}),...(paymentUrlHost(v.result?.data?.pay_url)?{checkoutHost:paymentUrlHost(v.result.data.pay_url)}:{}),gatewayError:allowed.includes(v.error)?v.error:undefined});}
++    if(!response.ok){const v=value as Record<string,any>,upstream=Number(v.upstreamStatus),allowed=['unauthorized','vpay_orders_disabled','invalid_vpay_order','vpay_payment_configuration_incomplete','upstream_timeout','internal_error','vpay_invalid_signature','vpay_order_not_found','vpay_invalid_credentials','vpay_query_rejected','vpay_ip_not_allowed','vpay_notify_url_not_allowed','vpay_return_url_not_allowed','vpay_domain_not_allowed','vpay_allowlist_rejected','vpay_amount_rejected','vpay_channel_rejected','vpay_order_permission_rejected','vpay_order_rejected'],providerTradeNo=opaque(v.result?.data?.trade_no);throw new PaymentRequestError({kind:'GATEWAY_HTTP',httpStatus:response.status,...(Number.isInteger(upstream)&&upstream>=100&&upstream<600?{upstreamStatus:upstream}:{}),providerCode:safeProviderCode(v.result?.code),...(providerTradeNo?{providerTradeNo}:{}),...(paymentUrlHost(v.result?.data?.pay_url)?{checkoutHost:paymentUrlHost(v.result.data.pay_url)}:{}),gatewayError:allowed.includes(v.error)?v.error:undefined});}
+     return value as Record<string, any>;
+   } finally { clearTimeout(timer); }
+ }
+@@ -298,7 +298,8 @@
+       const currentReference=opaque(current.provider_trade_no);
+       return currentReference&&current.fingerprint===fingerprint&&String(current.amount_minor)===amount&&current.currency==='MYR'&&current.trade_code===tradeCode&&await confirmedCredit(c,current,currentReference)?json({id:order.id,status:'credited',payUrl:null}):json({id:order.id,status:'review',payUrl:null},409);
+     }
+-    return rejected&&current?.status==='failed'&&!current.provider_trade_no ? json({ error:'PROVIDER_REJECTED',id:order.id,status:'failed',payUrl:null },422) : json({ id: order.id, status: 'awaiting_confirmation', payUrl: null }, 202);
++    const serviceUnavailable=error instanceof PaymentRequestError&&['vpay_ip_not_allowed','vpay_notify_url_not_allowed','vpay_return_url_not_allowed','vpay_domain_not_allowed','vpay_allowlist_rejected','vpay_order_permission_rejected','vpay_channel_rejected','vpay_invalid_credentials','vpay_invalid_signature'].includes(error.facts.gatewayError??'');
++    return rejected&&current?.status==='failed'&&!current.provider_trade_no ? json({ error:serviceUnavailable?'PROVIDER_UNAVAILABLE':'PROVIDER_REJECTED',id:order.id,status:'failed',payUrl:null },422) : json({ id: order.id, status: 'awaiting_confirmation', payUrl: null }, 202);
+   }
+ }
+ 
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -44,7 +44,7 @@
+ import {sendTelegramAdminTest,telegramAdminStatus} from './telegram-admin.ts';
+ import {type WhatsAppBusinessContext} from './whatsapp-business.ts';
+ import {applyWhatsAppWebhook,authorizeWhatsAppWorker,dispatchWhatsAppCampaigns,launchWhatsAppCampaign,WhatsAppCampaignError,whatsappCampaignStatus,whatsappWebhookChallenge,type WhatsAppCampaignContext} from './whatsapp-campaign.ts';
+-export const RELEASE = '17.0.0-selfbuilt.183-vpay-hosted-menu';
++export const RELEASE = '17.0.0-selfbuilt.184-provider-menus';
+ export const SOURCE_RELEASE = RELEASE;
+ const CUSTOMER_ORIGIN='https://www.master7.best';
+ const MARKETING_CONTACT_LIMIT=1_000_000;
+--- a/public/service-worker.js
++++ b/public/service-worker.js
+@@ -1,4 +1,4 @@
+-const CACHE='master7-shell-17.0.0-selfbuilt.183-vpay-hosted-menu';
++const CACHE='master7-shell-17.0.0-selfbuilt.184-provider-menus';
+ const SHELL=['/offline.html','/manifest.webmanifest','/assets/favicon-64.png','/assets/style.css','/assets/suite-theme.css','/assets/acceptance-blockers.css','/assets/member-shell.css','/assets/member-refresh.css','/assets/app.js','/assets/acceptance-blockers.js','/assets/production-acceptance-console.js','/assets/seven-emblem.png','/assets/master7-casino-lobby-premium.webp','/assets/master7-casino-backoffice-premium.webp','/assets/master7-sponsored-mascots.webp','/assets/sponsor-jili-master7.webp','/assets/sponsor-megah5-master7.webp','/assets/sponsor-918kiss-master7.webp','/assets/master7-live-hosts.webp','/assets/master7-cartoon-providers.webp','/assets/master7-vip-commission.webp','/assets/pwa-icon-180.png','/assets/pwa-icon-192.png','/assets/pwa-icon-512.png'];
+ 
+ self.addEventListener('install',event=>{
+--- a/public/assets/app.js
++++ b/public/assets/app.js
+@@ -297,7 +297,7 @@
+  const restriction=activeDepositRestriction();
+  for(const button of document.querySelectorAll("[data-payment-channel]")){
+   const p=paymentPreviewStatus(button.dataset.paymentChannel);
+-  if(p){const providerChannel=["vpay","gspay","gspay-usdt","1mpay"].includes(p.code),ready=providerChannel?paymentPreviewOrderReady(p.code):manualBankPreviewReady(p.code),label=restriction?.message||paymentText(ready?"active":"unavailable");button.hidden=false;button.disabled=!!restriction;button.setAttribute("aria-disabled",String(!!restriction));button.setAttribute("title",restriction?.message||"");button.querySelector(".payment-state").textContent=label;button.setAttribute("aria-label",p.label+" · "+label);}
++  if(p){const providerChannel=["vpay","gspay","gspay-usdt","1mpay"].includes(p.code),ready=providerChannel?paymentPreviewOrderReady(p.code):manualBankPreviewReady(p.code),label=restriction?.message||paymentText(ready?"active":"unavailable");button.hidden=providerChannel&&p.code!=="vpay"&&!ready;button.disabled=!!restriction;button.setAttribute("aria-disabled",String(!!restriction));button.setAttribute("title",restriction?.message||"");button.querySelector(".payment-state").textContent=label;button.setAttribute("aria-label",p.label+" · "+label);}
+  }
+ }
+ function bindPaymentPreview(){
+@@ -325,18 +325,18 @@
+ // VPay supplies the hosted payment menu. Use the existing DuitNow profile
+ // (the profile used for the completed QR order), never an invented AUTO code.
+ function vpayHostedTradeCode(status){const codes=Array.isArray(status?.tradeCodes)?status.tradeCodes.map(String):[];return ['2','7','1'].find(code=>codes.includes(code))||'';}
+-function openVPayWithdrawal(){if(state.user?.role!=='member'){showAuth();return;}state.withdrawalProviderPreference='vpay';$("withdrawalForm").hidden=false;$("withdrawProvider").value='vpay';loadWithdrawals();$("withdrawalForm").scrollIntoView({behavior:'smooth',block:'start'});}
+-function moneyFlowText(key){const copy={en:{deposit:'Deposit',withdraw:'Withdraw',menu:'Choose your payment method on VPay',payout:'Bank withdrawal',open:'View withdrawal form',closed:'Temporarily unavailable'},zh:{deposit:'充值',withdraw:'提款',menu:'在 VPay 付款页面选择付款方式',payout:'银行提款',open:'填写提款资料',closed:'暂不可用'},ms:{deposit:'Deposit',withdraw:'Pengeluaran',menu:'Pilih kaedah bayaran di halaman VPay',payout:'Pengeluaran bank',open:'Buka borang pengeluaran',closed:'Tidak tersedia buat sementara'}};return copy[state.lang]?.[key]||copy.en[key]||key;}
++function openVPayWithdrawal(){if(state.user?.role!=='member'){showAuth();return;}state.withdrawalProviderPreference='vpay';$("withdrawalForm").hidden=false;$("withdrawProviderSelector").hidden=true;$("withdrawEwalletChoice").hidden=true;document.querySelector('input[name="withdrawDestinationType"][value="bank"]').checked=true;$("withdrawProvider").value='vpay';loadWithdrawals();$("withdrawalForm").scrollIntoView({behavior:'smooth',block:'start'});}
++function moneyFlowText(key){const copy={en:{deposit:'Deposit',withdraw:'Withdraw',vpayDeposit:'VPAY Deposit',vpayWithdraw:'VPAY Withdraw',openDepositMenu:'Open VPay payment menu',menu:'Next: choose QR or bank transfer on VPay.',payout:'Bank withdrawal',open:'View withdrawal form',closed:'Temporarily unavailable'},zh:{deposit:'充值',withdraw:'提款',vpayDeposit:'VPAY 充值',vpayWithdraw:'VPAY 提款',openDepositMenu:'前往 VPay 付款菜单',menu:'下一步前往 VPay，选择 QR 扫码或银行转账。',payout:'银行提款',open:'填写提款资料',closed:'暂不可用'},ms:{deposit:'Deposit',withdraw:'Pengeluaran',vpayDeposit:'Deposit VPAY',vpayWithdraw:'Pengeluaran VPAY',openDepositMenu:'Buka menu bayaran VPay',menu:'Seterusnya: pilih QR atau pindahan bank di VPay.',payout:'Pengeluaran bank',open:'Buka borang pengeluaran',closed:'Tidak tersedia buat sementara'}};return copy[state.lang]?.[key]||copy.en[key]||key;}
+ function renderMoneyFlowLabels(){document.querySelectorAll('[data-money-flow]').forEach(el=>{el.textContent=moneyFlowText(el.dataset.moneyFlow);});}
+ function cashierReady(provider){return provider==="manual-bank"?manualBankPreviewReady(state.depositProvider):state[cashierProviders[provider]?.stateKey]?.orderReady===true;}
+ function renderDepositCashier(){
+  syncDepositCashierMember();const dialog=$("depositCashier"),cashier=cashierState(),provider=cashier.provider,config=cashierProviders[provider],displayLabel=cashier.displayProvider==="duitnow-qr"?"DUITNOW QR":config?.label;if(!dialog?.open||!config)return;$("depositCashierCurrency").textContent=`${config.currency} · DEPOSIT`;
+  const approved=state.user?.role==="member"&&!!state.user.approved,restriction=activeDepositRestriction(),status=config.stateKey?state[config.stateKey]:null,channels=provider!=="vpay"||!!vpayHostedTradeCode(status),ready=approved&&!restriction&&!cashier.loading&&!cashier.error&&cashierReady(provider)&&channels;
+- $("depositCashierTitle").textContent=`${cashierText("title")} ${displayLabel}`;
++ $("depositCashierTitle").textContent=provider==="vpay"?moneyFlowText("vpayDeposit"):`${cashierText("title")} ${displayLabel}`;
+  const message=!approved?cashierText(state.user?.role==="member"?"approval":"member"):restriction?.message||(cashier.loading?cashierText("loading"):cashier.error||(!cashierReady(provider)?cashierText(provider==="manual-bank"&&cashier.displayProvider==="duitnow-qr"?"qr":provider==="manual-bank"?"bank":"unavailable"):!channels?cashierText("channel"):cashierText(provider==="manual-bank"?"manual":"ready")));
+  $("depositCashierStatus").textContent=message;$("depositCashierStatus").className=`cashier-status ${ready?"ready":"pending"}`;
+  $("depositCashierRetry").hidden=!approved||!!restriction||cashier.loading||ready;$("depositCashierRetry").textContent=cashierText("retry");$("depositCashierClose").setAttribute("aria-label",cashierText("close"));$("depositCashierRecords").disabled=false;$("depositCashierRecords").textContent=cashierText("records");
+- for(const [id,entry]of Object.entries(cashierProviders)){$(entry.form).hidden=id!==provider||!ready;$(entry.submit).disabled=!!state.depositSubmitting||cashier.loading||!ready;if(id!=="manual-bank")$(entry.submit).textContent=state.depositSubmitting===id?cashierText("checking"):cashierText("continue");}
++ for(const [id,entry]of Object.entries(cashierProviders)){$(entry.form).hidden=id!==provider||!ready;$(entry.submit).disabled=!!state.depositSubmitting||cashier.loading||!ready;if(id!=="manual-bank")$(entry.submit).textContent=state.depositSubmitting===id?cashierText("checking"):id==="vpay"?moneyFlowText("openDepositMenu"):cashierText("continue");}
+  document.querySelectorAll("[data-cashier-copy]").forEach(item=>{item.textContent=cashierText(item.dataset.cashierCopy);});
+ }
+ async function openDepositCashier(provider,background=false){
+@@ -394,7 +394,7 @@
+ function depositAttemptFor(provider,field,value){let attempt=loadDepositAttempt(provider);if(!attempt||attempt[field]!==value)attempt={[field]:value,requestKey:crypto.randomUUID()};return saveDepositAttempt(provider,attempt);}
+ function updateDepositAttempt(provider,attempt,result){const {memberId,storageKey}=depositAttemptContext(provider);if(attempt.memberId!==memberId||attempt.storageKey!==storageKey)return false;if(result?.id)attempt.orderId=result.id;if(depositTerminalStatuses.has(String(result?.status||""))){clearDepositAttempt(provider);return false;}saveDepositAttempt(provider,attempt);return true;}
+ function depositMemberCurrent(memberId){return state.user?.id===memberId&&state.user?.role==="member"&&!!state.user.approved;}
+-function definitiveDepositFailure(error){return Number(error?.status)===422&&error?.message==="PROVIDER_REJECTED";}
++function definitiveDepositFailure(error){return Number(error?.status)===422&&["PROVIDER_REJECTED","PROVIDER_UNAVAILABLE"].includes(error?.code||error?.message);}
+ function releaseDepositAttemptAfterError(provider,error){if(!definitiveDepositFailure(error))return false;clearDepositAttempt(provider);return true;}
+ function clearCompletedDepositAttempts(items){
+  for(const provider of ["vpay","gspay","1mpay"]){
+@@ -478,7 +478,7 @@
+  if(provider==="1mpay")return url.origin==="https://api.1mpay.net"&&url.pathname!=="/"&&url.pathname!=="/login"?url:null;
+  return null;
+ }
+-function appendDepositRecordsAction(host){const button=node("button","button button-outline small",cashierText("records"));button.type="button";button.onclick=openDepositRecords;host.append(document.createTextNode(" "),button);}
++function appendDepositRecordsAction(host){if($("depositCashier")?.open&&$("depositCashierRecords")&&!$("depositCashierRecords").hidden)return;const button=node("button","button button-outline small",cashierText("records"));button.type="button";button.onclick=openDepositRecords;host.append(document.createTextNode(" "),button);}
+ function appendComplianceReviewAction(host){
+  const memberId=state.user?.role==="member"?state.user.id:null;if(!memberId)return;
+  const labels={en:"Go to verification",zh:"前往身份审核",ms:"Pergi ke pengesahan"},button=node("button","button button-primary small",labels[state.lang]||labels.en);button.type="button";
+@@ -508,7 +508,7 @@
+ }
+ function presentDepositError(provider,error,message){
+  const rejected=releaseDepositAttemptAfterError(provider,error),status=Number(error?.status),safeReason=typeof error?.message==="string"?error.message.replace(/[\u0000-\u001f\u007f]/g," ").slice(0,180):"",rawCode=error?.code||safeReason,code=/^[A-Z][A-Z0-9_]{1,79}$/.test(rawCode)?rawCode:"";
+- if(rejected)message.textContent=cashierText("rejected");
++ if(rejected)message.textContent=cashierText(code==="PROVIDER_UNAVAILABLE"?"unavailable":"rejected");
+  else if(code==="COMPLIANCE_REVIEW_REQUIRED"){message.textContent=complianceReviewRequiredText();appendComplianceReviewAction(message);}
+  else if(status===401||status===403)message.textContent=cashierText(/approval|approved|审批/i.test(safeReason)?"approval":"session");
+  else if(status===409){const reason=depositConflictCopy[state.lang]?.[code]||depositConflictCopy.en[code];message.textContent=(reason||safeReason||cashierText("conflict"))+(code?` (${code})`:"");}
