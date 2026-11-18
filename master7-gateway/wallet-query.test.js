@@ -5,6 +5,7 @@ const http = require('node:http');
 const { makeApp } = require('./server');
 const peer = 'synthetic-read-only-wallet-query-credential';
 const payoutToken = 'synthetic-payout-only-wallet-credential-32-bytes';
+const balanceToken = 'synthetic-balance-only-wallet-credential-32-bytes';
 const env = { PLATFORM_QUERY_TOKEN: peer, GATEWAY_ADMIN_TOKEN: 'synthetic-admin-token-with-at-least-32-bytes', VPAY_TRADER_ID: '123456', VPAY_API_TOKEN: 'synthetic-test-only-provider-key' };
 async function request(app, path, token, payload={outTradeNo:'order_1',tradeNo:'provider_1'},method='POST'){
  const server=http.createServer(app);await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
@@ -35,9 +36,24 @@ test('query failures expose a fixed diagnostic class without trusting arbitrary 
   const app=makeApp({env,fetchImpl:async()=>Response.json({code:-1,msg})});const r=await request(app,'/platform/vpay/order-query',peer,{outTradeNo:'order_1'});assert.equal(r.status,502);assert.equal(r.body.error,expected);assert.equal(r.body.result.code,-1);
  }
 });
+test('order failures expose a fixed diagnostic class for UAT troubleshooting',async()=>{
+ for(const [msg,expected] of [
+  ['Invalid signature.','vpay_invalid_signature'],
+  ['Invalid API Key','vpay_invalid_credentials'],
+  ['IP address is not in whitelist','vpay_ip_not_allowed'],
+  ['Amount is below the minimum','vpay_amount_rejected'],
+  ['Payment channel is not available','vpay_channel_rejected'],
+  ['Merchant collection permission is not enabled','vpay_order_permission_rejected'],
+  ['unrecognized synthetic message','vpay_order_rejected'],
+ ]){
+  const app=makeApp({env:readyEnv,fetchImpl:async()=>Response.json({code:-1,msg})});
+  const result=await request(app,'/platform/vpay/order',orderToken,draft);
+  assert.equal(result.status,502);assert.equal(result.body.error,expected);assert.equal(result.body.result.code,-1);
+ }
+});
 test('query-only credentials cannot create, withdraw, inspect merchant balance or use admin APIs',async()=>{
  let calls=0;const app=makeApp({env,fetchImpl:async()=>{calls++;throw Error('Must not call supplier');}});
- for(const path of ['/platform/vpay/order','/admin/vpay/order','/admin/vpay/withdrawal','/admin/vpay/balance','/admin/vpay/order-query','/admin/vpay/withdrawal-query','/admin/mega/balance']){
+ for(const path of ['/platform/vpay/order','/platform/vpay/balance','/admin/vpay/order','/admin/vpay/withdrawal','/admin/vpay/balance','/admin/vpay/order-query','/admin/vpay/withdrawal-query','/admin/mega/balance']){
   const result=await request(app,path,peer);assert([401,404].includes(result.status),path+': '+result.status);
  }
  assert.equal(calls,0);
@@ -51,7 +67,7 @@ test('authenticated wallet configuration pins the merchant, environment, activat
  const app=makeApp({env:readyEnv,fetchImpl:async()=>{throw Error('No supplier request for configuration');}});
  for(const token of [undefined,orderToken,env.GATEWAY_ADMIN_TOKEN])assert.equal((await request(app,'/platform/vpay/config',token,{},'GET')).status,401);
  const result=await request(app,'/platform/vpay/config',peer,{},'GET');assert.equal(result.status,200);
- assert.deepEqual(result.body,{provider:'vpay',traderId:'123456',mode:'uat',configured:true,paymentReady:true,queryReady:true,callbacksReady:true,uatOrderGateRequired:false,uatOrderGateReady:true,uatOrderExpiresAt:null,callbackSourceAllowlistRequired:false,callbackSourceAllowlistReady:true,tradeCodes:['2'],notifyUrl:draft.notifyUrl,returnUrl:draft.callbackUrl});
+ assert.deepEqual(result.body,{provider:'vpay',traderId:'123456',mode:'uat',configured:true,paymentReady:true,queryReady:true,callbacksReady:true,balanceReady:false,uatOrderGateRequired:false,uatOrderGateReady:true,uatOrderExpiresAt:null,uatPayoutGateRequired:false,uatPayoutGateReady:true,uatPayoutExpiresAt:null,callbackSourceAllowlistRequired:false,callbackSourceAllowlistReady:true,tradeCodes:['2'],notifyUrl:draft.notifyUrl,returnUrl:draft.callbackUrl});
  for(const secret of [peer,orderToken,env.VPAY_API_TOKEN,readyEnv.PLATFORM_CALLBACK_TOKEN])assert(!JSON.stringify(result.body).includes(secret));
 });
 test('isolated UAT can advertise an approved channel while orders stay paused and production ignores the UAT fallback',async()=>{
@@ -86,11 +102,38 @@ test('one-time UAT credential check is token-gated, read-only, redacted and unav
  const production=makeApp({env:{...diagnosticEnv,VPAY_MODE:'production'},fetchImpl});
  assert.equal((await request(production,'/diagnostics/vpay/credentials',diagnosticToken,{},'POST')).status,404);assert.equal(calls,1);
 });
+test('balance-only credential exposes a normalized read-only MYR balance without granting transaction scopes',async()=>{
+ const balanceEnv={...readyEnv,PLATFORM_BALANCE_TOKEN:balanceToken,VPAY_BALANCE_QUERY_ENABLED:'true'};let calls=0;
+ const app=makeApp({env:balanceEnv,fetchImpl:async(_url,options)=>{calls++;assert.equal(JSON.parse(options.body).action,'TRADER_BALANCE');return Response.json({code:0,data:{trader_balance:'98765.40',trader_real_balance:'98760.4',freeze_balance:'5.00',internal_note:'must-not-leak'}});}});
+ for(const token of [undefined,peer,orderToken,payoutToken,balanceEnv.GATEWAY_ADMIN_TOKEN])assert.equal((await request(app,'/platform/vpay/balance',token,{})).status,401);
+ assert.equal(calls,0);
+ const result=await request(app,'/platform/vpay/balance',balanceToken,{});assert.equal(result.status,200);
+ assert.deepEqual(result.body,{provider:'vpay',currency:'MYR',balance:'98760.40',readOnly:true,verified:false,settlementVerified:false});assert.equal(calls,1);
+ const config=await request(app,'/platform/vpay/config',peer,{},'GET');assert.equal(config.status,200);assert.equal(config.body.balanceReady,true);
+ for(const path of ['/platform/vpay/order','/platform/vpay/order-query','/platform/vpay/withdrawal','/admin/vpay/balance'])assert.equal((await request(app,path,balanceToken,{})).status,401);
+ assert.equal(calls,1);
+});
+test('balance scope fails closed when disabled or when the provider response is not canonical',async()=>{
+ let calls=0;const disabled=makeApp({env:{...readyEnv,PLATFORM_BALANCE_TOKEN:balanceToken,VPAY_BALANCE_QUERY_ENABLED:'false'},fetchImpl:async()=>{calls++;throw Error('must not call provider');}});
+ assert.equal((await request(disabled,'/platform/vpay/balance',balanceToken,{})).status,503);assert.equal(calls,0);
+ for(const data of [
+  {trader_balance:'10.00',trader_real_balance:'-1.00',freeze_balance:'0.00'},
+  {trader_balance:'10.00',trader_real_balance:'01.00',freeze_balance:'0.00'},
+  {trader_balance:'10.00',trader_real_balance:'1.001',freeze_balance:'0.00'},
+  {trader_balance:'10.00',trader_real_balance:null,freeze_balance:'0.00'},
+  {trader_balance:'10.00',trader_real_balance:'10.00'},
+  {balance:'10.00'},
+ ]){
+  const app=makeApp({env:{...readyEnv,PLATFORM_BALANCE_TOKEN:balanceToken,VPAY_BALANCE_QUERY_ENABLED:'true'},fetchImpl:async()=>{calls++;return Response.json({code:0,data});}});
+  assert.equal((await request(app,'/platform/vpay/balance',balanceToken,{})).status,502);
+ }
+ assert.equal(calls,6);
+});
 test('order-only credential creates through server-selected methods and callback URLs and cannot query, withdraw or inspect balances',async()=>{
  let upstream,calls=0;const app=makeApp({env:readyEnv,fetchImpl:async(url,options)=>{calls++;upstream=JSON.parse(options.body);return Response.json({code:0,data:{trade_no:'provider_1'}});}});
  const result=await request(app,'/platform/vpay/order',orderToken,draft);assert.equal(result.status,200);assert.equal(calls,1);
  assert.equal(upstream.action,'TRADER_ORDER');assert.equal(upstream.trader_id,'123456');assert.equal(upstream.notify_url,draft.notifyUrl);assert.equal(upstream.callback_url,draft.callbackUrl);assert.equal(upstream.trade_code,'2');
- for(const path of ['/platform/vpay/order-query','/admin/vpay/order','/admin/vpay/withdrawal','/admin/vpay/balance'])assert.equal((await request(app,path,orderToken)).status,401);
+ for(const path of ['/platform/vpay/order-query','/platform/vpay/balance','/admin/vpay/order','/admin/vpay/withdrawal','/admin/vpay/balance'])assert.equal((await request(app,path,orderToken)).status,401);
  assert.equal(calls,1);
 });
 test('wallet creation rejects unconfirmed channels, callback changes, missing config and wrong scopes before sending',async()=>{
@@ -128,14 +171,35 @@ test('payout-only credential submits and queries a bound MYR withdrawal without 
  const submitted=await request(app,'/platform/vpay/withdrawal',payoutToken,{contract:'vpay-payout-v1',currency:'MYR',refId:'payout_1',amount:'10.00',bankName:'MBB',accountName:'FIXTURE USER',accountNumber:'12345678'});assert.equal(submitted.status,200);
  assert.equal(upstream[0].action,'MONEY_OUT');assert.equal(upstream[0].notify_url,payoutEnv.PUBLIC_BASE_URL+'/callbacks/vpay/withdrawal');
  const queried=await request(app,'/platform/vpay/withdrawal-query',payoutToken,{contract:'vpay-payout-query-v1',outMoneyId:'payout_1'});assert.equal(queried.status,200);assert.equal(upstream[1].action,'MONEY_GET');
- for(const path of ['/platform/vpay/order','/platform/vpay/order-query','/admin/vpay/balance'])assert.equal((await request(app,path,payoutToken)).status,401);
+ for(const path of ['/platform/vpay/order','/platform/vpay/order-query','/platform/vpay/balance','/admin/vpay/balance'])assert.equal((await request(app,path,payoutToken)).status,401);
  assert.equal(upstream.length,2);
+});
+
+test('isolated UAT payout gate binds one member, withdrawal, payout, amount and one-hour window before supplier access',async()=>{
+ const nowSeconds=1_800_000_000,expiresAt=nowSeconds+600,uatOrigin='https://master7-payment-uat.onrender.com',portalOrigin='https://master7-v17-staging.onrender.com';
+ const payoutId='P7uatpayout0000000000000000000001',withdrawalId='uat-withdrawal-00000001',memberId='local:test-member';
+ const uatEnv={...payoutEnv,PUBLIC_BASE_URL:uatOrigin,VPAY_MODE:'uat',VPAY_WITHDRAWAL_FORWARD_URL:portalOrigin+'/api/payment-callbacks/vpay/withdrawal',VPAY_UAT_PAYOUT_MEMBER_ID:memberId,VPAY_UAT_WITHDRAWAL_ID:withdrawalId,VPAY_UAT_PAYOUT_ID:payoutId,VPAY_UAT_PAYOUT_AMOUNT:'1.00',VPAY_UAT_PAYOUT_EXPIRES_AT:String(expiresAt)};
+ const draft={contract:'vpay-payout-v1',currency:'MYR',memberId,withdrawalId,refId:payoutId,amount:'1.00',bankName:'MBB',accountName:'FIXTURE USER',accountNumber:'12345678'};
+ const actions=[];const fetchImpl=async(_url,options)=>{const payload=JSON.parse(options.body);actions.push(payload.action);return payload.action==='MONEY_OUT'?Response.json({code:0,data:{money_id:'provider_1',out_money_id:payoutId}}):Response.json({code:0,data:{out_money_id:payoutId,state:'1',amount:'1.00',service_fee:'0.00'}});};
+ const app=makeApp({env:uatEnv,now:()=>new Date(nowSeconds*1000),fetchImpl});
+ const config=await request(app,'/platform/vpay/config',peer,{},'GET');assert.equal(config.status,200);assert.equal(config.body.uatPayoutGateRequired,true);assert.equal(config.body.uatPayoutGateReady,true);assert.equal(config.body.uatPayoutExpiresAt,expiresAt);
+ for(const change of [{memberId:'local:other'},{withdrawalId:'uat-withdrawal-00000002'},{refId:'P7uatpayout0000000000000000000002'},{amount:'2.00'}])assert.equal((await request(app,'/platform/vpay/withdrawal',payoutToken,{...draft,...change})).status,403);
+ assert.deepEqual(actions,[]);assert.equal((await request(app,'/platform/vpay/withdrawal',payoutToken,draft)).status,200);assert.deepEqual(actions,['MONEY_OUT']);
+ const expired=makeApp({env:uatEnv,now:()=>new Date((expiresAt+1)*1000),fetchImpl});assert.equal((await request(expired,'/platform/vpay/withdrawal',payoutToken,draft)).status,503);assert.deepEqual(actions,['MONEY_OUT']);
+ const closed=makeApp({env:{...uatEnv,VPAY_UAT_PAYOUT_ID:''},now:()=>new Date(nowSeconds*1000),fetchImpl});assert.equal((await request(closed,'/platform/vpay/withdrawal',payoutToken,draft)).status,503);assert.deepEqual(actions,['MONEY_OUT']);
+ const query=await request(expired,'/platform/vpay/withdrawal-query',payoutToken,{contract:'vpay-payout-query-v1',outMoneyId:payoutId});assert.equal(query.status,200);assert.deepEqual(actions,['MONEY_OUT','MONEY_GET']);
 });
 
 test('payout scope rejects unsupported banks, non-canonical amounts, missing contracts and aliased credentials',async()=>{
  let calls=0;const fetchImpl=async()=>{calls++;throw Error('Must not call supplier');};const draft={contract:'vpay-payout-v1',currency:'MYR',refId:'payout_1',amount:'10.00',bankName:'MBB',accountName:'FIXTURE USER',accountNumber:'12345678'};
  const app=makeApp({env:payoutEnv,fetchImpl});
- for(const change of [{bankName:'MBSB'},{amount:'10'},{amount:'10.001'},{contract:'wrong'},{currency:'USD'}])assert.equal((await request(app,'/platform/vpay/withdrawal',payoutToken,{...draft,...change})).status,400);
+ for(const change of [{bankName:'MBSB'},{bankName:'UNKNOWN'},{amount:'10'},{amount:'10.001'},{contract:'wrong'},{currency:'USD'}])assert.equal((await request(app,'/platform/vpay/withdrawal',payoutToken,{...draft,...change})).status,400);
  const aliased=makeApp({env:{...payoutEnv,PLATFORM_PAYOUT_TOKEN:payoutEnv.PLATFORM_ORDER_TOKEN},fetchImpl});assert.equal((await request(aliased,'/platform/vpay/withdrawal',payoutEnv.PLATFORM_ORDER_TOKEN,draft)).status,401);
  assert.equal(calls,0);
+});
+
+test('current documented RYT and KRYT codes reach the signed payout adapter',async()=>{
+ const banks=[];const app=makeApp({env:payoutEnv,fetchImpl:async(_url,options)=>{const payload=JSON.parse(options.body);banks.push(payload.bank_name);assert.equal(payload.action,'MONEY_OUT');return Response.json({code:0,data:{money_id:'provider_fixture',out_money_id:payload.ref_id}});}});
+ for(const bankName of ['RYT','KRYT']){const result=await request(app,'/platform/vpay/withdrawal',payoutToken,{contract:'vpay-payout-v1',currency:'MYR',refId:'payout_bank_'+bankName,amount:'10.00',bankName,accountName:'FIXTURE USER',accountNumber:'12345678'});assert.equal(result.status,200);}
+ assert.deepEqual(banks,['RYT','KRYT']);
 });

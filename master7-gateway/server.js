@@ -3,7 +3,7 @@
 const http = require('node:http');
 const crypto = require('node:crypto');
 const net = require('node:net');
-const { verifyVpayNotification, vpaySignature } = require('./vpay');
+const { normalizeVpayBalance, verifyVpayNotification, vpaySignature } = require('./vpay');
 const {
   paymentOrderRequest,
   paymentOrderResponse,
@@ -299,6 +299,12 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     return Boolean(expected) && safeEqual(expected, supplied);
   }
 
+  function isWalletBalancePeer(req) {
+    const expected = walletPeerCredential('PLATFORM_BALANCE_TOKEN');
+    const supplied = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
+    return Boolean(expected) && safeEqual(expected, supplied);
+  }
+
   function isGspayPeer(req, name) {
     const expected = gspayPeerCredential(env, name);
     const supplied = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
@@ -372,6 +378,26 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     return { required, ready, memberId, orderId, amount, tradeCode, expiresAt: Number.isSafeInteger(expiresAt) && expiresAt > 0 ? expiresAt : null };
   }
 
+  function vpayUatPayoutGate() {
+    const required = publicBase === VPAY_UAT_GATEWAY_ORIGIN && String(env.VPAY_MODE || 'uat') === 'uat';
+    if (!required) return { required: false, ready: true, expiresAt: null };
+    const memberId = String(env.VPAY_UAT_PAYOUT_MEMBER_ID || '');
+    const withdrawalId = String(env.VPAY_UAT_WITHDRAWAL_ID || '');
+    const payoutId = String(env.VPAY_UAT_PAYOUT_ID || '');
+    const amount = String(env.VPAY_UAT_PAYOUT_AMOUNT || '');
+    const expiresAt = Number(env.VPAY_UAT_PAYOUT_EXPIRES_AT || 0);
+    const nowSeconds = Math.floor(now().getTime() / 1000);
+    const ready = /^[A-Za-z0-9:_-]{3,100}$/.test(memberId)
+      && /^[A-Za-z0-9_-]{8,80}$/.test(withdrawalId)
+      && /^[A-Za-z0-9_-]{8,50}$/.test(payoutId)
+      && /^\d{1,7}\.\d{2}$/.test(amount) && Number(amount) > 0
+      && Number.isSafeInteger(expiresAt) && expiresAt > nowSeconds && expiresAt <= nowSeconds + 3600;
+    return {
+      required, ready, memberId, withdrawalId, payoutId, amount,
+      expiresAt: Number.isSafeInteger(expiresAt) && expiresAt > 0 ? expiresAt : null,
+    };
+  }
+
   function vpayCallbackSourceAllowlist() {
     const required = publicBase === VPAY_UAT_GATEWAY_ORIGIN && String(env.VPAY_MODE || 'uat') === 'uat';
     if (!required) return { required: false, ready: true, addresses: new Set() };
@@ -412,6 +438,7 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     const returnUrl = vpayReturnUrl;
     const readiness = vpayReadiness(env);
     const uatOrderGate = vpayUatOrderGate();
+    const uatPayoutGate = vpayUatPayoutGate();
     const callbackSourceAllowlist = vpayCallbackSourceAllowlist();
     const modeReady = ['uat', 'production'].includes(String(env.VPAY_MODE || 'uat'));
     // Existing-order lookup and signed callbacks survive a pause on new orders.
@@ -427,9 +454,15 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         && callbackSourceAllowlist.ready
         && configuredUrl(returnUrl) && Boolean(walletPeerCredential('PLATFORM_ORDER_TOKEN')) && Boolean(walletPeerCredential('PLATFORM_QUERY_TOKEN')),
       queryReady, callbacksReady,
+      balanceReady: readiness.credentialsConfigured
+        && String(env.VPAY_BALANCE_QUERY_ENABLED || '').toLowerCase() === 'true'
+        && Boolean(walletPeerCredential('PLATFORM_BALANCE_TOKEN')),
       uatOrderGateRequired: uatOrderGate.required,
       uatOrderGateReady: uatOrderGate.ready,
       uatOrderExpiresAt: uatOrderGate.expiresAt,
+      uatPayoutGateRequired: uatPayoutGate.required,
+      uatPayoutGateReady: uatPayoutGate.ready,
+      uatPayoutExpiresAt: uatPayoutGate.expiresAt,
       callbackSourceAllowlistRequired: callbackSourceAllowlist.required,
       callbackSourceAllowlistReady: callbackSourceAllowlist.ready,
       tradeCodes, notifyUrl: callbackUrls().vpayPayment, returnUrl,
@@ -1352,7 +1385,22 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           callback_url: returnUrl,
         });
         const providerOK = result.data?.code === 0 || result.data?.code === '0';
+        const providerMessage = typeof result.data?.msg === 'string'
+          ? result.data.msg.trim().toLowerCase().replace(/[.!?]+$/, '') : '';
+        const failureClass = /(?:invalid|wrong).*sign|sign(?:ature)?\s*(?:error|failed|invalid)|签名(?:错误|失败)/.test(providerMessage)
+          ? 'vpay_invalid_signature'
+          : /invalid\s*(?:api\s*)?(?:key|token|credential)|(?:api\s*)?(?:key|token|credential).*invalid/.test(providerMessage)
+            ? 'vpay_invalid_credentials'
+            : /(?:\bip\b.*(?:allow|white)|white\s*list|whitelist|白名单)/.test(providerMessage)
+              ? 'vpay_ip_not_allowed'
+              : /(?:amount|minimum|maximum|金额|最低|最高)/.test(providerMessage)
+                ? 'vpay_amount_rejected'
+                : /(?:channel|trade\s*code|payment\s*method|通道|支付方式)/.test(providerMessage)
+                  ? 'vpay_channel_rejected'
+                  : /(?:permission|not\s+(?:enabled|open)|disabled|merchant|trader|权限|未开通|关闭)/.test(providerMessage)
+                    ? 'vpay_order_permission_rejected' : 'vpay_order_rejected';
         return send(res, result.ok && providerOK ? 200 : 502, {
+          ...(!providerOK ? { error: failureClass } : {}),
           provider: 'vpay',
           upstreamStatus: result.status,
           result: result.data,
@@ -1396,6 +1444,29 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
         });
       }
 
+      if (req.method === 'POST' && url.pathname === '/platform/vpay/balance') {
+        if (!isWalletBalancePeer(req)) return send(res, 401, { error: 'unauthorized' });
+        if (String(env.VPAY_BALANCE_QUERY_ENABLED || '').toLowerCase() !== 'true') {
+          await body(req);
+          return send(res, 503, { error: 'vpay_balance_query_disabled' });
+        }
+        const payload = await body(req);
+        if (Object.keys(payload).length !== 0) return send(res, 400, { error: 'invalid_vpay_balance_query' });
+        const result = await vpay('TRADER_BALANCE');
+        const providerOK = result.data?.code === 0 || result.data?.code === '0';
+        const balance = providerOK ? normalizeVpayBalance(result.data?.data) : null;
+        if (!result.ok || !providerOK || !balance) {
+          return send(res, 502, {
+            error: balance ? 'vpay_balance_query_failed' : 'vpay_invalid_balance_response',
+            provider: 'vpay', upstreamStatus: result.status,
+          });
+        }
+        return send(res, 200, {
+          provider: 'vpay', ...balance, readOnly: true,
+          verified: false, settlementVerified: false,
+        });
+      }
+
       if (req.method === 'POST' && url.pathname === '/diagnostics/vpay/credentials') {
         if (String(env.VPAY_MODE || 'uat') !== 'uat') return send(res, 404, { error: 'not_found' });
         if (!isVpayDiagnosticPeer(req)) return send(res, 401, { error: 'unauthorized' });
@@ -1432,6 +1503,15 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
           || !/^[A-Za-z0-9_-]{8,50}$/.test(refId)
           || (walletPayout && (payload.contract !== 'vpay-payout-v1' || payload.currency !== 'MYR'))) {
           return send(res, 400, { error: 'invalid_vpay_withdrawal' });
+        }
+        const uatPayoutGate = vpayUatPayoutGate();
+        if (walletPayout && uatPayoutGate.required) {
+          if (!uatPayoutGate.ready) return send(res, 503, { error: 'vpay_uat_payout_gate_closed' });
+          if (payload.memberId !== uatPayoutGate.memberId
+            || payload.withdrawalId !== uatPayoutGate.withdrawalId
+            || refId !== uatPayoutGate.payoutId || amount !== uatPayoutGate.amount) {
+            return send(res, 403, { error: 'vpay_uat_payout_scope_mismatch' });
+          }
         }
         if (!vpayReadiness(env).channels.withdrawal.configurationReady) {
           return send(res, 503, { error: 'vpay_withdrawal_configuration_incomplete' });

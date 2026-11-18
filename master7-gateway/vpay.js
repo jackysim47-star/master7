@@ -56,10 +56,28 @@ function verifyVpayNotification(payload, apiToken) {
   return safeEqual(signWithDateTime(payload, apiToken, dateTime), supplied);
 }
 
+function normalizeVpayBalance(payload) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return null;
+  const amount = value => {
+    if (typeof value !== 'string' || value !== value.trim()
+        || !/^(?:0|[1-9]\d{0,11})(?:\.\d{1,2})?$/.test(value)) return null;
+    const [whole, fraction = ''] = value.split('.');
+    return `${whole}.${fraction.padEnd(2, '0')}`;
+  };
+  // VPay's official TRADER_BALANCE contract returns these three fields.
+  // Expose only the available merchant balance and never the raw response.
+  const total = amount(payload.trader_balance);
+  const available = amount(payload.trader_real_balance);
+  const frozen = amount(payload.freeze_balance);
+  if (!total || !available || !frozen) return null;
+  return { currency: 'MYR', balance: available };
+}
+
 module.exports = {
   canonicalize,
   formatVpayDateTime,
   md5Upper,
+  normalizeVpayBalance,
   signWithDateTime,
   verifyVpayNotification,
   vpaySignature,

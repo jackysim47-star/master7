@@ -125,7 +125,8 @@ test('all peer credentials share byte limits and reject every privileged alias',
   assert.equal(peerCredential({ ...base, PLATFORM_QUERY_TOKEN: 'é'.repeat(512) }, 'PLATFORM_QUERY_TOKEN'), 'é'.repeat(512));
   assert.equal(peerCredential({ ...base, PLATFORM_QUERY_TOKEN: 'é'.repeat(513) }, 'PLATFORM_QUERY_TOKEN'), '');
 
-  const peers = ['PLATFORM_QUERY_TOKEN', 'PLATFORM_ORDER_TOKEN', 'PLATFORM_CALLBACK_TOKEN'];
+  const peers = ['PLATFORM_QUERY_TOKEN', 'PLATFORM_ORDER_TOKEN', 'PLATFORM_CALLBACK_TOKEN',
+    'PLATFORM_PAYOUT_TOKEN', 'PLATFORM_BALANCE_TOKEN'];
   for (const name of peers) {
     for (const other of ['GATEWAY_ADMIN_TOKEN', ...peers]) {
       if (other === name) continue;
@@ -155,8 +156,9 @@ test('configuration returns canonical peer URLs and invalid origins stay unready
   assert.equal(response.status, 200);
   assert.deepEqual(JSON.parse(response.text), {
     provider: 'vpay', traderId: '123456', mode: 'uat', configured: true, paymentReady: true,
-    queryReady: true, callbacksReady: true,
+    queryReady: true, callbacksReady: true, balanceReady: false,
     uatOrderGateRequired: false, uatOrderGateReady: true, uatOrderExpiresAt: null,
+    uatPayoutGateRequired: false, uatPayoutGateReady: true, uatPayoutExpiresAt: null,
     callbackSourceAllowlistRequired: false, callbackSourceAllowlistReady: true,
     tradeCodes: ['2'], notifyUrl: 'https://gateway.example.test/callbacks/vpay/payment',
     returnUrl: 'https://www.master7.best/payment/return',

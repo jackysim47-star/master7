@@ -54,7 +54,7 @@ function officialVpayPaymentForwardUrl(value) {
 // The callback, query and order credentials share the same byte limits and may
 // never alias another peer credential or the full administrator credential.
 const VPAY_PEERS = ['PLATFORM_CALLBACK_TOKEN', 'PLATFORM_QUERY_TOKEN', 'PLATFORM_ORDER_TOKEN',
-  'PLATFORM_PAYOUT_TOKEN'];
+  'PLATFORM_PAYOUT_TOKEN', 'PLATFORM_BALANCE_TOKEN'];
 const GSPAY_PEERS = ['PLATFORM_GSPAY_CALLBACK_TOKEN', 'PLATFORM_GSPAY_QUERY_TOKEN', 'PLATFORM_GSPAY_ORDER_TOKEN'];
 const GAME_PEERS = ['PLATFORM_GAME_TOKEN', 'PLATFORM_GAME_WALLET_TOKEN'];
 const META_GAMING_PEERS = ['PLATFORM_METAGAMING_PLAYER_TOKEN', 'PLATFORM_METAGAMING_WALLET_TOKEN',
