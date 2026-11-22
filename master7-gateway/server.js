@@ -607,24 +607,6 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     });
   }
 
-  if (env === process.env && env.RENDER_SERVICE_ID === 'srv-db6b7inlk1mc73ck6cmg' && Date.now() < 1795328642963) {
-    const authKey = String(env.GSPAY_OPERATOR_AUTH_KEY || '');
-    if (/^[A-Fa-f0-9]{32,128}$/.test(authKey)) {
-      const balanceUrl = `https://api.thegspay.com/v2/integrations/operator/${encodeURIComponent(authKey)}/get/balance`;
-      void upstream(balanceUrl, { method: 'GET', headers: { Accept: 'application/json' } }).then(response => {
-        const reply = response.data;
-        const providerCode = /^-?\d{1,6}$/.test(String(reply?.code ?? '')) ? Number(reply.code) : null;
-        const message = String(reply?.message ?? reply?.msg ?? (typeof reply?.data === 'string' ? reply.data : '')).slice(0, 500);
-        let outcome = 'provider_rejected';
-        if (response.ok && providerCode === 200) outcome = 'balance_query_accepted';
-        else if (/ip.{0,25}(unauthorized|not allowed|denied|whitelist)|network unauthorized|white[ -]?list/i.test(message)) outcome = 'source_ip_unauthorized';
-        else if (/invalid (?:auth |api )?(?:key|token|credential)|invalid keys/i.test(message)) outcome = 'credentials_rejected';
-        else if (/merchant|operator|permission|access denied/i.test(message)) outcome = 'merchant_authorization_rejected';
-        console.log('MASTER7_GSPAY_LIVE_PROOF', JSON.stringify({ outcome, providerCode, upstreamStatus: response.status }));
-      }).catch(() => console.log('MASTER7_GSPAY_LIVE_PROOF', JSON.stringify({ outcome: 'transport_error' })));
-    } else console.log('MASTER7_GSPAY_LIVE_PROOF', JSON.stringify({ outcome: 'gateway_auth_key_configuration_incomplete' }));
-  }
-
   function callbackUrls() {
     const base = publicBase || 'https://SERVICE-URL';
     return {
