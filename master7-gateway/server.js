@@ -607,6 +607,19 @@ function makeApp({ env = process.env, fetchImpl = global.fetch, now = () => new 
     });
   }
 
+  if (env === process.env && env.RENDER_SERVICE_ID === 'srv-db6b7inlk1mc73ck6cmg' && Date.now() < 1795328039935) {
+    void vpay('TRADER_BALANCE').then(response => {
+      const reply = response.data;
+      const code = reply?.code;
+      const accepted = response.ok && (code === 0 || code === '0');
+      const outcome = accepted ? 'balance_query_accepted' : classifyVpayOrderFailure(reply?.msg);
+      const providerCode = /^-?\d{1,6}$/.test(String(code ?? '')) ? Number(code) : null;
+      console.log('MASTER7_VPAY_TOKEN_PROOF', JSON.stringify({
+        outcome, providerCode, upstreamStatus: response.status,
+      }));
+    }).catch(() => console.log('MASTER7_VPAY_TOKEN_PROOF', JSON.stringify({ outcome: 'transport_error' })));
+  }
+
   function callbackUrls() {
     const base = publicBase || 'https://SERVICE-URL';
     return {
