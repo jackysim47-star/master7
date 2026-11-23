@@ -5,7 +5,8 @@ import { eq,desc,and,gte,count } from 'drizzle-orm';
 import { isOwner } from '../../../lib/access';
 export const dynamic='force-dynamic';
 const json=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
-const defaultBrand={id:'main',name:'MASTER7',tagline:'欢迎来到服务中心',color:'#2165e8',logo:'',language:'zh-CN' as const,supportUrl:''};
+const defaultSupportDigits=(process.env.MASTER7_SUPPORT_PHONE||'').replace(/\D/g,'');
+const defaultBrand={id:'main',name:'MASTER7',tagline:'欢迎来到服务中心',color:'#2165e8',logo:'',language:'zh-CN' as const,supportUrl:/^\d{8,15}$/.test(defaultSupportDigits)?'https://wa.me/'+defaultSupportDigits:''};
 async function context(user:{email:string;role?:string;tenantId?:string|null;finance?:boolean},req?:Request){
  const db=getDb(),headOffice=isOwner(user.email),employee=user.role==='employee',tenantOwner=user.role==='tenant_owner',owner=headOffice||employee||tenantOwner;
  const [member]=await db.select().from(members).where(eq(members.email,user.email.toLowerCase()));
@@ -14,7 +15,7 @@ async function context(user:{email:string;role?:string;tenantId?:string|null;fin
  const tenantId=headOffice?(selected||'main'):((employee||tenantOwner)?user.tenantId!:(member?.tenantId||'main'));
  const [brand]=await db.select().from(brands).where(eq(brands.id,tenantId));
  if(!brand&&tenantId!=='main')throw new Error('TENANT_NOT_FOUND');
- return {db,owner,headOffice,employee,tenantId,brand:brand||defaultBrand};
+ return {db,owner,headOffice,employee,tenantId,brand:brand?{...brand,supportUrl:brand.supportUrl||defaultBrand.supportUrl}:defaultBrand};
 }
 export async function GET(req?:Request){
  const user=await getChatGPTUser();if(!user)return json({error:'请先登录'},401);
@@ -55,7 +56,14 @@ export async function POST(req:Request){
    if(typeof data.color!=='string'||!/^#[0-9a-fA-F]{6}$/.test(data.color))return json({error:'请输入有效的六位主题色'},400);
    if(typeof data.logo!=='string'||data.logo.length>1000)return json({error:'Logo 地址无效'},400);
    if(data.logo){try{const u=new URL(data.logo);if(u.protocol!=='https:'||u.username||u.password)throw Error();}catch{return json({error:'Logo 仅支持 HTTPS 图片地址'},400);}}
-   const language=Object.hasOwn(data,'language')?data.language:(brand.language??defaultBrand.language),supportUrl=Object.hasOwn(data,'supportUrl')?data.supportUrl:(brand.supportUrl??defaultBrand.supportUrl);
+   const language=Object.hasOwn(data,'language')?data.language:(brand.language??defaultBrand.language),legacySupportUrl=Object.hasOwn(data,'supportUrl')?data.supportUrl:(brand.supportUrl??defaultBrand.supportUrl);
+   let supportUrl=legacySupportUrl;
+   if(Object.hasOwn(data,'supportPhone')){
+    if(typeof data.supportPhone!=='string'||data.supportPhone.length>25)return json({error:'WhatsApp 客服号码无效'},400);
+    const rawPhone=data.supportPhone.trim(),phone=rawPhone.replace(/[\s()+-]/g,'');
+    if(rawPhone&&!/^\d{8,15}$/.test(phone))return json({error:'请输入包含国家代码的 8–15 位号码'},400);
+    supportUrl=phone?'https://wa.me/'+phone:'';
+   }
    if(typeof language!=='string'||!['zh-CN','en','ms'].includes(language))return json({error:'请选择支持的平台语言'},400);
    if(typeof supportUrl!=='string'||supportUrl.length>1000)return json({error:'客服地址无效'},400);
    if(supportUrl){try{const u=new URL(supportUrl);if(u.protocol!=='https:'||u.username||u.password)throw Error();}catch{return json({error:'客服仅支持不含账号密码的 HTTPS 地址'},400);}}
