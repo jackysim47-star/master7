@@ -11,7 +11,7 @@ type Notice={id:string;title:string;body:string;published:boolean;createdAt:stri
 type Ticket={id:string;subject:string;body:string;status:string;reply:string;name:string;createdAt:string};
 type BrandLanguage='zh-CN'|'en'|'ms';
 type Brand={id:string;name:string;tagline:string;color:string;logo:string;language?:BrandLanguage;supportUrl?:string};
-type BrandFields={name:string;tagline:string;color:string;logo:string;language:BrandLanguage;supportUrl:string};
+type BrandFields={name:string;tagline:string;color:string;logo:string;language:BrandLanguage;supportPhone:string};
 type Data={serviceOnly?:boolean;tenantId:string;brand:Brand;tenants:Brand[];members:{email:string;createdAt:string}[];user:{name:string;email:string;owner:boolean;role:string;finance:boolean};notices:Notice[];tickets:Ticket[];audit:{id:string;actor:string;action:string;createdAt:string}[]};
 type DepositRequest={id:string;tenantId:string;amountMinor:number;currency:string;status:string;createdAt:string};
 type PaymentChannelId='vpay'|'gspay_myr'|'gspay_usdt';
@@ -41,8 +41,10 @@ const date=(s:string,locale='zh-CN')=>new Date(s).toLocaleString(locale,{timeZon
 const brandLanguages:Record<BrandLanguage,string>={'zh-CN':'简体中文',en:'English',ms:'Bahasa Melayu'};
 const officialMaster7Logo='/brand/master7-logo.jpg';
 function httpsLink(value:string|undefined){if(!value||value.length>1000)return '';try{const url=new URL(value);return url.protocol==='https:'&&!url.username&&!url.password?url.href:'';}catch{return '';}}
+function whatsappPhone(value:string|undefined){if(!value||value.length>1000)return '';try{const url=new URL(value);if(url.protocol!=='https:'||url.username||url.password)return '';if(url.hostname==='wa.me')return url.pathname.replace(/\D/g,'').slice(0,15);if(url.hostname==='api.whatsapp.com'&&url.pathname==='/send')return (url.searchParams.get('phone')||'').replace(/\D/g,'').slice(0,15);}catch{}return '';}
+function whatsappLink(value:string){const raw=value.trim();if(!raw||!/^\+?[0-9\s()\-]+$/.test(raw))return '';const phone=raw.replace(/\D/g,'');return /^\d{8,15}$/.test(phone)?'https://wa.me/'+phone:'';}
 function brandLogo(id:string|undefined,logo:string|undefined){return httpsLink(logo)||(!logo&&(!id||id==='main')?officialMaster7Logo:'');}
-function brandFields(brand:Brand):BrandFields{return {name:brand.name,tagline:brand.tagline,color:brand.color,logo:brand.logo,language:brand.language&&Object.hasOwn(brandLanguages,brand.language)?brand.language:'zh-CN',supportUrl:brand.supportUrl||''};}
+function brandFields(brand:Brand):BrandFields{return {name:brand.name,tagline:brand.tagline,color:brand.color,logo:brand.logo,language:brand.language&&Object.hasOwn(brandLanguages,brand.language)?brand.language:'zh-CN',supportPhone:whatsappPhone(brand.supportUrl)};}
 function brandInk(color:string){if(!/^#[0-9a-f]{6}$/i.test(color))return '#ffffff';const rgb=[1,3,5].map(index=>parseInt(color.slice(index,index+2),16)/255).map(value=>value<=.04045?value/12.92:Math.pow((value+.055)/1.055,2.4));return rgb[0]*.2126+rgb[1]*.7152+rgb[2]*.0722>.179?'#000000':'#ffffff';}
 function initialQuery(name:string){if(typeof window==='undefined')return '';return new URLSearchParams(window.location.search).get(name)||'';}
 function safeImage(value:unknown){if(typeof value!=='string'||value.length>1000)return '';try{const url=new URL(value);return url.protocol==='https:'&&!url.username&&!url.password?url.href:'';}catch{return '';}}
@@ -307,16 +309,16 @@ function BrandSettings({brand,busy,onSave}:{brand:Brand;busy:boolean;onSave:(val
  useEffect(()=>{const latest=brandFields(brand);if(JSON.stringify(latest)===JSON.stringify(saved))return;if(dirty)setRemoteChanged(true);else{setSaved(latest);setDraft(latest);setRemoteChanged(false);}},[brand]);
  function update<K extends keyof BrandFields>(key:K,value:BrandFields[K]){setDraft(current=>({...current,[key]:value}));setFormError('');}
  function reset(){const latest=brandFields(brand);setSaved(latest);setDraft(latest);setFormError('');setRemoteChanged(false);}
- async function submit(e:React.FormEvent<HTMLFormElement>){e.preventDefault();if(busy||remoteChanged)return;const values={...draft,name:draft.name.trim(),tagline:draft.tagline.trim(),logo:draft.logo.trim(),supportUrl:draft.supportUrl.trim(),color:draft.color.toLowerCase()};
+ async function submit(e:React.FormEvent<HTMLFormElement>){e.preventDefault();if(busy||remoteChanged)return;const values={...draft,name:draft.name.trim(),tagline:draft.tagline.trim(),logo:draft.logo.trim(),supportPhone:draft.supportPhone.trim().replace(/[\s()+-]/g,''),color:draft.color.toLowerCase()};
   if(!values.name||values.name.length>60){setFormError('请填写 1–60 字的品牌名称。');return;}
   if(!values.tagline||values.tagline.length>150){setFormError('请填写 1–150 字的品牌标语。');return;}
   if(!/^#[0-9a-f]{6}$/.test(values.color)){setFormError('主题色须为六位 HEX，例如 #2165e8。');return;}
   if(values.logo&&!httpsLink(values.logo)){setFormError('Logo 地址须为不含账号密码的 HTTPS 地址，最多 1000 字符。');return;}
-  if(values.supportUrl&&!httpsLink(values.supportUrl)){setFormError('客服入口须为不含账号密码的 HTTPS 地址，最多 1000 字符。');return;}
+  if(values.supportPhone&&!/^\d{8,15}$/.test(values.supportPhone)){setFormError('WhatsApp 客服号码须包含国家代码，只能填写 8–15 位数字。');return;}
   setFormError('');const confirmed=await onSave(values);if(confirmed){const latest=brandFields(confirmed);setSaved(latest);setDraft(latest);setRemoteChanged(false);}
  }
  const previewColor=/^#[0-9a-f]{6}$/i.test(draft.color)?draft.color:saved.color;
- const previewLogo=brandLogo(brand.id,draft.logo),previewSupport=httpsLink(draft.supportUrl);
+ const previewLogo=brandLogo(brand.id,draft.logo),previewSupport=whatsappLink(draft.supportPhone)||(!draft.supportPhone.trim()?httpsLink(brand.supportUrl):'');
  return <section className="panel brand-settings-panel" aria-labelledby="brand-settings-title"><div className="panel-heading"><div><h2 id="brand-settings-title">{ui("品牌设置")}</h2><p className="settings-help">{ui("当前品牌：")}{brand.name}{ui("。保存后，前台与后台读取同一份配置。")}</p></div><span className={'brand-edit-status '+(dirty?'unsaved':'')}>{dirty?ui("有未保存修改"):ui("已保存配置")}</span></div><div className="brand-editor-grid">
   <form className="settings-form brand-settings-form" onSubmit={submit} aria-busy={busy}><fieldset disabled={busy}>
    <label>{ui("品牌名称")}<input name="name" required maxLength={60} value={draft.name} onChange={e=>update('name',e.target.value)} autoComplete="organization"/></label>
@@ -324,7 +326,7 @@ function BrandSettings({brand,busy,onSave}:{brand:Brand;busy:boolean;onSave:(val
    <div className="brand-form-row"><div className="brand-color-setting"><label htmlFor="brand-color-hex">{ui("主题色")}</label><div className="brand-color-fields"><input type="color" aria-label={ui("选择主题色")} value={previewColor} onChange={e=>update('color',e.target.value)}/><input id="brand-color-hex" name="color" aria-label={ui("主题色 HEX")} type="text" required maxLength={7} pattern="#[0-9a-fA-F]{6}" value={draft.color} onChange={e=>update('color',e.target.value)} spellCheck={false}/></div></div><label>{ui("品牌默认语言")}<select name="language" value={draft.language} onChange={e=>update('language',e.target.value as BrandLanguage)}>{Object.entries(brandLanguages).map(([value,label])=><option key={value} value={value}>{ui(label)}</option>)}</select></label></div>
    <p className="settings-help">{ui("未主动选择语言的访客将使用品牌默认语言。")}</p>
    <label>{ui("Logo 图片地址（HTTPS）")}<input name="logo" type="url" maxLength={1000} value={draft.logo} onChange={e=>update('logo',e.target.value)} placeholder="https://…" spellCheck={false}/></label><p className="settings-help">{ui("自定义 HTTPS 图片地址优先显示；")}{brand.id==='main'?ui("当前主品牌留空时使用 MASTER7 官方 Logo。"):ui("当前品牌留空时显示品牌首字。")}</p>
-   <label>{ui("客服入口（HTTPS，可留空）")}<input name="supportUrl" type="url" maxLength={1000} value={draft.supportUrl} onChange={e=>update('supportUrl',e.target.value)} placeholder="https://…" spellCheck={false}/></label>
+   <label>{ui("WhatsApp 客服号码（国际格式，可留空）")}<input name="supportPhone" type="tel" inputMode="tel" maxLength={25} value={draft.supportPhone} onChange={e=>update('supportPhone',e.target.value)} placeholder="60…" autoComplete="tel"/></label><p className="settings-help">{ui("填写含国家代码的号码；不要填写本地号码开头的 0。前台会自动显示 WhatsApp 联系入口。")}</p>
    {formError&&<p className="brand-form-error" role="alert">{ui(formError)}</p>}{remoteChanged&&<p className="brand-form-error" role="alert">{ui("后台已读取到新的品牌配置，你的草稿仍保留。请重新载入已保存值后再编辑。")}</p>}
    <div className="brand-form-actions"><button className="primary" disabled={!dirty||remoteChanged}>{busy?ui("正在保存并确认…"):ui("保存品牌设置")}</button><button type="button" className="secondary" onClick={reset} disabled={!dirty&&!remoteChanged}>{ui("重新载入已保存值")}</button></div>
   </fieldset></form>
