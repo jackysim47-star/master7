@@ -467,8 +467,8 @@ async function handle(req){const url=new URL(req.url,origin);const user=(await s
   const data=method==='POST'?await bodyOf(req):undefined;const requestOrigin=originAllowed(req.headers.origin)?req.headers.origin:origin.origin;const request=new Request(new URL(url.pathname+url.search,requestOrigin),{method,headers:{origin:req.headers.origin||'','content-type':String(req.headers['content-type']||''),'x-portal-request':String(req.headers['x-portal-request']||'')},body:data});
   const response=await identity.run(user,()=>method==='POST'?api.POST(request):api.GET(request));
   if(method==='GET'&&process.env.MASTER7_SUPPORT_PHONE){
-   const phone=process.env.MASTER7_SUPPORT_PHONE.replace(/\\D/g,'');
-   if(/^\\d{8,15}$/.test(phone)){
+   const phone=process.env.MASTER7_SUPPORT_PHONE.replace(/\D/g,'');
+   if(/^\d{8,15}$/.test(phone)){
     try{
      const payload=await response.clone().json();
      if(payload?.brand&&!payload.brand.supportUrl){
