@@ -465,7 +465,21 @@ async function handle(req){const url=new URL(req.url,origin);const user=(await s
  if(url.pathname==='/api/portal'){
   if(!['GET','POST'].includes(method))return json({error:'Method not allowed'},405);
   const data=method==='POST'?await bodyOf(req):undefined;const requestOrigin=originAllowed(req.headers.origin)?req.headers.origin:origin.origin;const request=new Request(new URL(url.pathname+url.search,requestOrigin),{method,headers:{origin:req.headers.origin||'','content-type':String(req.headers['content-type']||''),'x-portal-request':String(req.headers['x-portal-request']||'')},body:data});
-  return identity.run(user,()=>method==='POST'?api.POST(request):api.GET(request));
+  const response=await identity.run(user,()=>method==='POST'?api.POST(request):api.GET(request));
+  if(method==='GET'&&process.env.MASTER7_SUPPORT_PHONE){
+   const phone=process.env.MASTER7_SUPPORT_PHONE.replace(/\\D/g,'');
+   if(/^\\d{8,15}$/.test(phone)){
+    try{
+     const payload=await response.clone().json();
+     if(payload?.brand&&!payload.brand.supportUrl){
+      payload.brand.supportUrl='https://wa.me/'+phone;
+      const headers=new Headers(response.headers);headers.delete('content-length');headers.set('content-type','application/json; charset=utf-8');
+      return new Response(JSON.stringify(payload),{status:response.status,statusText:response.statusText,headers});
+     }
+    }catch{}
+   }
+  }
+  return response;
  }
  if(url.pathname==='/api/v1/promotion-drafts')return promotionDrafts(req,url,user,method);
  if(url.pathname==='/accounts'||url.pathname.startsWith('/accounts/')){
