@@ -1,0 +1,68 @@
+name: Master7 MEGA888 H5 public gateway check
+
+on:
+  push:
+    branches: [codex/master7-auto-tune-reachability-20261125]
+    paths: [.github/workflows/master7-mega888-check.yml]
+
+permissions:
+  contents: read
+
+jobs:
+  metadata:
+    name: Read public gateway metadata
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    outputs:
+      findings: ${{ steps.check.outputs.findings }}
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.19.0
+      - id: check
+        run: |
+          node --input-type=module <<'NODE'
+          import { appendFile } from 'node:fs/promises';
+
+          const origin = 'https://master7-integration-gateway.onrender.com';
+          async function metadata(path) {
+            try {
+              const response = await fetch(origin + path, {
+                method: 'GET', redirect: 'manual', signal: AbortSignal.timeout(12000),
+              });
+              const data = response.ok ? await response.json().catch(() => null) : null;
+              if (!response.bodyUsed) await response.body?.cancel();
+              return { status: response.status, data };
+            } catch {
+              return { status: 'UNAVAILABLE', data: null };
+            }
+          }
+
+          const [root, health] = await Promise.all([metadata('/'), metadata('/health')]);
+          const publicRoutes = root.data?.endpoints;
+          const routesListed = Boolean(publicRoutes && typeof publicRoutes === 'object' && !Array.isArray(publicRoutes));
+          const routes = routesListed ? Object.entries(publicRoutes) : [];
+          const normalized = value => value.toLowerCase().replace(/[^a-z0-9]/g, '');
+          const providerMatches = ([key, value], provider) => {
+            const segments = typeof value === 'string' ? URL.parse(value, origin)?.pathname.split('/') ?? [] : [];
+            return provider.test(normalized(key)) || segments.some(segment => provider.test(normalized(segment)));
+          };
+          const mega888 = routes.filter(route => providerMatches(route, /^mega888(?:h5)?(?:games|catalog(?:ue)?|launch|gamelogin|login)?$/));
+          const megaH5 = routes.some(route => providerMatches(route, /^megah5(?:games|catalog(?:ue)?|launch|gamelogin|login)?$/));
+          const launchListed = mega888.some(([key, value]) => [key, value].some(field =>
+            typeof field === 'string' && /launch|game.?login|\/login(?:\/|$)/i.test(field)));
+          const version = [root.data?.version, health.data?.version].find(value => typeof value === 'string' && /^\d{1,4}\.\d{1,4}\.\d{1,4}$/.test(value));
+          const mode = [root.data?.mode, health.data?.mode].find(value => ['uat', 'production'].includes(value));
+          const routeStatus = found => routesListed ? found ? 'LISTED' : 'UNLISTED' : 'UNKNOWN';
+          const findings = `Root=${root.status} Health=${health.status} Version=${version ?? 'UNKNOWN'} Mode=${mode ?? 'UNKNOWN'} MEGA888=${routeStatus(mega888.length)} Launch=${routeStatus(launchListed)} MegaH5=${routeStatus(megaH5)}`;
+          await appendFile(process.env.GITHUB_STEP_SUMMARY, findings + '\n');
+          await appendFile(process.env.GITHUB_OUTPUT, 'findings=' + findings + '\n');
+          NODE
+
+  result:
+    name: ${{ needs.metadata.outputs.findings }}
+    needs: metadata
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - run: echo 'Only public gateway metadata was read.'
