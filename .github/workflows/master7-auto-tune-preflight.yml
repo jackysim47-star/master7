@@ -33,10 +33,31 @@ jobs:
             ['https://admin.master7.best/health', 'admin'],
           ]);
           const releases = new Map();
+          const observations = new Map();
+          let aliasHost = '';
+          const publicErrorCodes = new Map([
+            ['ENOTFOUND', 'DNS'], ['EAI_AGAIN', 'DNS_TEMP'],
+            ['CERT_HAS_EXPIRED', 'CERT_EXPIRED'], ['ERR_TLS_CERT_ALTNAME_INVALID', 'CERT_HOST'],
+            ['UNABLE_TO_VERIFY_LEAF_SIGNATURE', 'CERT_CHAIN'], ['DEPTH_ZERO_SELF_SIGNED_CERT', 'CERT_CHAIN'],
+            ['ECONNREFUSED', 'REFUSED'], ['ECONNRESET', 'RESET'], ['UND_ERR_CONNECT_TIMEOUT', 'TIMEOUT'],
+          ]);
           const results = await monitor({
             env: { OPERATIONS_GATEWAY_ORIGIN: 'https://master7-integration-gateway.onrender.com' },
             fetchImpl: async (url, options) => {
-              const response = await fetch(url, options);
+              let response;
+              try {
+                response = await fetch(url, options);
+              } catch (error) {
+                const code = error?.name === 'TimeoutError' ? 'TIMEOUT' : publicErrorCodes.get(error?.cause?.code) ?? 'CONNECT';
+                observations.set(url, code);
+                throw error;
+              }
+              observations.set(url, String(response.status));
+              if (url === 'https://www.master7.site/') {
+                const location = response.headers.get('location');
+                const hostname = location ? URL.parse(location, url)?.hostname : '';
+                aliasHost = hostname && /^[a-z0-9.-]{1,60}$/.test(hostname) ? hostname : '';
+              }
               const key = healthUrls.get(url);
               if (key && response.ok) {
                 const data = await response.clone().json().catch(() => null);
@@ -48,22 +69,28 @@ jobs:
             },
           });
           const labels = new Map([
-            ['customer_health', 'Front'], ['customer_signin', 'FrontLogin'],
-            ['admin_health', 'Admin'], ['admin_signin', 'AdminLogin'],
-            ['customer_alias_redirect', 'Alias'], ['gateway_health', 'Gateway'],
+            ['customer_health', ['Front', 'https://www.master7.best/health']],
+            ['customer_signin', ['FrontLogin', 'https://www.master7.best/signin']],
+            ['admin_health', ['Admin', 'https://admin.master7.best/health']],
+            ['admin_signin', ['AdminLogin', 'https://admin.master7.best/signin']],
+            ['customer_alias_redirect', ['Alias', 'https://www.master7.site/']],
+            ['gateway_health', ['Gateway', 'https://master7-integration-gateway.onrender.com/health']],
           ]);
           const checks = results.filter(result => labels.has(result.name));
           const compactCode = result => {
             if (result.ok) return 'OK';
             const failure = result.failures.at(-1);
-            return failure?.startsWith('HTTP_') ? failure.slice(5) : 'FAIL';
+            const observed = observations.get(labels.get(result.name)[1]);
+            if (failure === 'UNEXPECTED_RESPONSE') return `${observed ?? 'HTTP'}_MISMATCH`;
+            return observed ?? 'FAIL';
           };
-          const label = checks.map(result => `${labels.get(result.name)}=${compactCode(result)}`).join(' ');
+          const label = checks.map(result => `${labels.get(result.name)[0]}=${compactCode(result)}`).join(' ');
           const versions = ['front', 'admin'].map(key => `${key}=${releases.get(key)?.slice(0, 12) ?? 'unknown'}`).join(' ');
           const lines = checks.map(result => `- ${result.name} · ${compactCode(result)} · ${result.durationMs.join(' / ')} ms · ${result.failures.join(', ') || 'OK'}`);
           const revisions = [...releases].map(([name, release]) => `- ${name} release · ${release}`);
           await appendFile(process.env.GITHUB_STEP_SUMMARY, [...lines, ...revisions].join('\n') + '\n');
-          await appendFile(process.env.GITHUB_OUTPUT, `results=${label} | ${versions}\n`);
+          const alias = aliasHost ? ` | aliasHost=${aliasHost}` : '';
+          await appendFile(process.env.GITHUB_OUTPUT, `results=${label} | ${versions}${alias}\n`);
           NODE
 
   result:
