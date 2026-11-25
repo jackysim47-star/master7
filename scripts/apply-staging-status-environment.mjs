@@ -1,5 +1,5 @@
 // Run from the unpacked UAT portal before building the Render service.
-import { readFile, writeFile } from 'node:fs/promises';
+import { copyFile, readFile, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
@@ -83,6 +83,10 @@ function applyStagingCatalogue() {
 }
 
 if (process.env.RENDER_SERVICE_ID === 'srv-dbl0iv7f3r2c73848ei0') {
+  // Render builds the unpacked portal. Use the tracked preview files for this build.
+  for (const path of ['lib/uat-preview.ts', 'public/assets/uat-preview.js', 'tests/uat-preview.test.mjs']) {
+    await copyFile(new URL('../' + path, import.meta.url), path);
+  }
   applyStagingCatalogue();
-  execFileSync(process.execPath, ['--test', 'tests/game-catalogue-config.test.mjs', 'tests/game-catalogue.test.mjs'], { stdio: 'inherit' });
+  execFileSync(process.execPath, ['--test', 'tests/game-catalogue-config.test.mjs', 'tests/game-catalogue.test.mjs', 'tests/uat-preview.test.mjs'], { stdio: 'inherit' });
 }

@@ -13,7 +13,7 @@ export function uatPreviewHtml(){return `<!doctype html>
   <title>MASTER7 · UAT 前台预览</title>
   <link rel="icon" href="/assets/favicon-64.png" type="image/png" sizes="64x64">
   <link rel="stylesheet" href="/assets/uat-preview.css?v=${UAT_PREVIEW_RELEASE}">
-  <script src="/assets/uat-preview.js?v=${UAT_PREVIEW_RELEASE}" defer></script>
+  <script src="/assets/uat-preview.js?v=${UAT_PREVIEW_RELEASE}.2" defer></script>
 </head>
 <body>
   <header class="preview-header">
