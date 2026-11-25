@@ -1,0 +1,39 @@
+name: Master7 production operations
+
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+    inputs:
+      test_alert:
+        description: Send a test failure without contacting production
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  monitor:
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || vars.MASTER7_MONITOR_ENABLED == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency:
+      group: singapore-production-monitor
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.19.0
+      - name: Test failure notification
+        if: github.event_name == 'workflow_dispatch' && inputs.test_alert
+        run: node standalone/production-operations.mjs test-alert
+      - name: Check live entrances and gateway
+        if: github.event_name == 'schedule' || !inputs.test_alert
+        env:
+          OPERATIONS_RENDER_PORTAL_ORIGIN: ${{ vars.OPERATIONS_RENDER_PORTAL_ORIGIN }}
+          OPERATIONS_GATEWAY_ORIGIN: ${{ vars.OPERATIONS_GATEWAY_ORIGIN }}
+        run: node standalone/production-operations.mjs monitor
