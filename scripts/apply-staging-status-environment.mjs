@@ -1,5 +1,7 @@
 // Run from the unpacked UAT portal before building the Render service.
 import { readFile, writeFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
 const files = new Map();
 async function source(path) {
@@ -65,4 +67,22 @@ if (!tests.includes(environmentTest)) {
 }
 for (const [path, text] of files) {
   await writeFile(path, text);
+}
+
+function applyStagingCatalogue() {
+  const patch = fileURLToPath(new URL('./staging-megah5-catalogue.patch', import.meta.url));
+  const options = ['--batch', '--fuzz=0', '-p1', '-i', patch];
+  try {
+    execFileSync('patch', [...options, '--forward', '--dry-run'], { stdio: 'pipe' });
+  } catch {
+    // A repeated build is valid only if all changes are already present.
+    execFileSync('patch', [...options, '--reverse', '--force', '--dry-run'], { stdio: 'pipe' });
+    return;
+  }
+  execFileSync('patch', [...options, '--forward'], { stdio: 'inherit' });
+}
+
+if (process.env.RENDER_SERVICE_ID === 'srv-dbl0iv7f3r2c73848ei0') {
+  applyStagingCatalogue();
+  execFileSync(process.execPath, ['--test', 'tests/game-catalogue-config.test.mjs', 'tests/game-catalogue.test.mjs'], { stdio: 'inherit' });
 }

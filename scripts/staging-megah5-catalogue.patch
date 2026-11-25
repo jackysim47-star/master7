@@ -1,0 +1,166 @@
+--- a/lib/game-catalogue.ts
++++ b/lib/game-catalogue.ts
+@@ -1,8 +1,15 @@
+ import {directCatalogueConfigured,readDirectCatalogue,CatalogueReadError,type DirectCatalogueConfig} from './direct-game-catalogues.ts';
++import {resolveMegaGatewayOrigin} from './megah5-wallet.ts';
+ import {GAME_PROVIDER_IDS} from './game-ranking.ts';
+ import {metaGamingCatalogueAvailabilityVerified} from './metagaming-profile-runtime.ts';
+-type SyncContext=DirectCatalogueConfig&{db:D1Database;gameGatewayUrl?:string;gameGatewayFetch?:typeof fetch;gameSyncNow?:()=>number;gameTransferProfilesJson?:string};
+-type Source={direct?:boolean;id:string;name:string;path:string;shape:'mega'|'normalized'|'evo';imageHost?:string;cacheKey?:string;profileId?:string;expectedAccount?:string;expectedCurrency?:string;expectedRatio?:string};
++type CatalogueRouting = {
++ gameGatewayUrl?:string;
++ megaStagingGatewayUrl?:string;
++ allowedOrigins?:string[];
++ renderExternalUrl?:string;
++};
++type SyncContext=DirectCatalogueConfig&CatalogueRouting&{db:D1Database;gameGatewayFetch?:typeof fetch;gameSyncNow?:()=>number;gameTransferProfilesJson?:string};
++type Source={direct?:boolean;gatewayOrigin?:string;id:string;name:string;path:string;shape:'mega'|'normalized'|'evo';imageHost?:string;cacheKey?:string;profileId?:string;expectedAccount?:string;expectedCurrency?:string;expectedRatio?:string};
+ type Game={provider:string;providerName:string;gameCode:string;originalProviderId?:string;originalGameCode?:string;profileId?:string;catalogueAccount?:string;providerCurrency?:string;name:string;nameZh:string;category:string;imageUrl:string|null;maintenance:boolean;playable:false;artworkSource?:string};
+ type Cache={provider_id:string;status:string;games_json:string;checked_at:number;last_success_at:number;lease_until:number;upstream_status:number|null;complete:number};
+ const gateway='https://master7-integration-gateway.onrender.com';
+@@ -64,15 +71,39 @@
+  if(providerId!=='918kissh5'||!profileId)return null;
+  return kissProfileSources[profileId]??null;
+ }
+-export function defaultGameCatalogueCacheKey(providerId:string){return gameSources.find(source=>source.id===providerId)?.cacheKey??providerId;}
++const dedicatedMegaGateway = 'https://master7-game-gateway.onrender.com';
++const stagingPortal = 'https://master7-v17-staging.onrender.com';
++const stagingMegaCache = 'megah5_staging_catalogue';
++
++function useStagingMegaCatalogue(c:CatalogueRouting) {
++ if (c.renderExternalUrl !== stagingPortal) return false;
++ return resolveMegaGatewayOrigin({
++  gatewayUrl: c.megaStagingGatewayUrl ?? c.gameGatewayUrl,
++  portalOrigins: c.allowedOrigins,
++ }) === dedicatedMegaGateway;
++}
++
++function configuredGatewaySources(c:CatalogueRouting):readonly Source[] {
++ const legacy = configured(c.gameGatewayUrl);
++ if (!useStagingMegaCatalogue(c)) return legacy ? gameSources : [];
++ const sources = legacy ? gameSources : gameSources.filter(source => source.id === 'megah5');
++ return sources.map(source => source.id === 'megah5'
++  ? {...source, gatewayOrigin: dedicatedMegaGateway, cacheKey: stagingMegaCache}
++  : source);
++}
++
++export function defaultGameCatalogueCacheKey(providerId:string,c:CatalogueRouting={}){
++ if (providerId === 'megah5' && useStagingMegaCatalogue(c)) return stagingMegaCache;
++ return gameSources.find(source=>source.id===providerId)?.cacheKey??providerId;
++}
+ export function gameCatalogueProfileCacheKey(providerId:string,profileId:string){const source=selectProfileSource(providerId,profileId);return source?sourceCacheKey(source):null;}
+ function configured(value?:string){try{const u=new URL(value??'');return u.origin===gateway&&u.pathname==='/'&&!u.search&&!u.hash&&!u.username&&!u.password;}catch{return false;}}
+-export function configuredGameCatalogueSourceIds(c:DirectCatalogueConfig&{gameGatewayUrl?:string}):readonly string[]{
+- const sources=[...(configured(c.gameGatewayUrl)?gameSources:[]),...directSources.filter(source=>directCatalogueConfigured(c,source.id))];
++export function configuredGameCatalogueSourceIds(c:DirectCatalogueConfig&CatalogueRouting):readonly string[]{
++ const sources=[...configuredGatewaySources(c),...directSources.filter(source=>directCatalogueConfigured(c,source.id))];
+  return Object.freeze(sources.map(source=>source.id));
+ }
+-export function configuredGameCatalogueCacheKeys(c:DirectCatalogueConfig&{gameGatewayUrl?:string}):readonly string[]{
+- const sources=[...(configured(c.gameGatewayUrl)?gameSources:[]),...directSources.filter(source=>directCatalogueConfigured(c,source.id))];
++export function configuredGameCatalogueCacheKeys(c:DirectCatalogueConfig&CatalogueRouting):readonly string[]{
++ const sources=[...configuredGatewaySources(c),...directSources.filter(source=>directCatalogueConfigured(c,source.id))];
+  return Object.freeze(sources.map(sourceCacheKey));
+ }
+ export function approvedArtworkUrl(source:Source,value:unknown){
+@@ -95,7 +126,7 @@
+   // and EVO stay closed until their own reviewed contracts add availability.
+   const unknownAvailability=source.id==='evo888h5'||source.id==='jili'||!!source.profileId&&['918kissh5','metagaming','epicwin'].includes(source.id);
+   const availabilityTrusted=['918kissh5','jili'].includes(source.id)||source.id==='metagaming'&&profileAvailabilityVerified;
+-  const maintenance=mega?g.Maintenance===true||g.Maintenance===1||g.Maintenance==='true'||g.Maintenance==='1':unknownAvailability?availabilityTrusted&&typeof g.maintenance==='boolean'?g.maintenance:true:g.maintenance===true;
++  const maintenance=source.gatewayOrigin===dedicatedMegaGateway?g.Maintenance!==false:mega?g.Maintenance===true||g.Maintenance===1||g.Maintenance==='true'||g.Maintenance==='1':unknownAvailability?availabilityTrusted&&typeof g.maintenance==='boolean'?g.maintenance:true:g.maintenance===true;
+   return {provider:source.id,providerName:source.id==='godeezone'?text(g.providerName)||source.name:source.name,gameCode,...(source.id==='godeezone'?{originalProviderId:text(g.originalProviderId,40),originalGameCode:text(g.originalGameCode,100)}:{}),...(source.profileId?{profileId:source.profileId}:{}),...(source.expectedAccount?{catalogueAccount:source.expectedAccount}:{}),...(source.expectedCurrency?{providerCurrency:source.expectedCurrency}:{}),name:text(mega?g.GameName??g.OtherName:evo?g.title??g.name:g.name)||gameCode,nameZh:text(g.nameZh??(mega?g.OtherName:'')),category:evo?'SLOT':text(mega?g.GameType:source.id==='metagaming'?g.gameType:g.category,40),imageUrl,maintenance,playable:false,...(['evo888h5','918kissh5'].includes(source.id)&&artwork?{artworkSource:artwork}:{})};
+  }).filter((g):g is Game=>g!==null);
+ }
+@@ -117,7 +148,7 @@
+  const fetcher=c.gameGatewayFetch??fetch;let status='unavailable',upstream:number|null=null,complete=false;
+  try{
+   const direct=source.direct?await readDirectCatalogue(c,source.id,time):null;
+-  const response=direct?Response.json({games:direct.games,complete:direct.complete,upstreamStatus:200}):await fetcher(gateway+source.path,{method:'GET',headers:{Accept:'application/json'},redirect:'error',signal:AbortSignal.timeout(10000)});
++  const response=direct?Response.json({games:direct.games,complete:direct.complete,upstreamStatus:200}):await fetcher((source.gatewayOrigin??gateway)+source.path,{method:'GET',headers:{Accept:'application/json'},redirect:'error',signal:AbortSignal.timeout(10000)});
+   const data=await boundedJson(response);const code=Number(data.upstreamStatus);if(Number.isInteger(code)&&code>=100&&code<600)upstream=code;
+   if(!response.ok){status='blocked';return;}
+   // The route is fixed, but the returned identity is still part of the trust
+@@ -147,9 +178,10 @@
+  }
+ }
+ export async function getGameCatalogue(c:SyncContext,options:{force?:boolean;providerId?:string;profileId?:string}={}){
++ const gatewaySources=configuredGatewaySources(c);
+  const direct=directSources.filter(source=>directCatalogueConfigured(c,source.id));
+- if(!configured(c.gameGatewayUrl)&&!direct.length)return {mode:'catalogue-only',playable:false,providers:gameSources.map(s=>({id:s.id,name:s.name,status:'not_configured',count:0,catalogueSynced:false,launchVerified:false,walletVerified:false})),games:[]};
+- const available=[...(configured(c.gameGatewayUrl)?gameSources:[]),...direct];
++ if(!gatewaySources.length&&!direct.length)return {mode:'catalogue-only',playable:false,providers:gameSources.map(s=>({id:s.id,name:s.name,status:'not_configured',count:0,catalogueSynced:false,launchVerified:false,walletVerified:false})),games:[]};
++ const available=[...gatewaySources,...direct];
+  const selectedProfileSource=configured(c.gameGatewayUrl)?selectProfileSource(options.providerId,options.profileId):null,sources=selectedProfileSource?[selectedProfileSource]:options.profileId&&['918kissh5','jili','metagaming','epicwin'].includes(options.providerId??'')?[]:options.providerId?available.filter(source=>source.id===options.providerId):available;
+  const time=Math.floor(c.gameSyncNow?.()??Date.now()/1000);
+  await Promise.all(sources.map(source=>synchronizeSource(c,source,!!options.force,time)));
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -400,7 +400,7 @@
+ }
+ async function publicSupplierPlatforms(c:Context,capability?:MegaWalletCapability){
+  const [cached,rankingState]=await Promise.all([rows(c.db,'SELECT provider_id,status,complete,checked_at,games_json FROM game_catalogue_cache'),loadGameRanking(c.db)]),mega=capability??cachedCatalogueCapability(c),cacheById=new Map((cached as any[]).map(item=>[String(item.provider_id),item])),configuredSources=new Set(configuredGameCatalogueSourceIds(c)),platforms=apiSupplierIds.map((id,index)=>{
+-  const cache=cacheById.get(defaultGameCatalogueCacheKey(id)) as any,cacheStatus=['available','empty','blocked','unavailable'].includes(String(cache?.status))?String(cache.status):'missing',fresh=!!cache&&gameCatalogueCacheFresh(c,Number(cache.checked_at)),connectionVerified=configuredSources.has(id)&&cacheStatus==='available'&&fresh;
++  const cache=cacheById.get(defaultGameCatalogueCacheKey(id,c)) as any,cacheStatus=['available','empty','blocked','unavailable'].includes(String(cache?.status))?String(cache.status):'missing',fresh=!!cache&&gameCatalogueCacheFresh(c,Number(cache.checked_at)),connectionVerified=configuredSources.has(id)&&cacheStatus==='available'&&fresh;
+   let games:any[]=[];try{const decoded=JSON.parse(String(cache?.games_json??'[]'));if(Array.isArray(decoded))games=decoded.slice(0,2000).filter(game=>game&&game.provider===id&&typeof game.gameCode==='string');}catch{}
+   const provider={id,name:apiSupplierNames[id],position:index+1,connectionVerified,catalogueSynced:connectionVerified&&Number(cache?.complete)===1&&games.length>0,complete:Number(cache?.complete)===1,stale:!fresh||!connectionVerified,checkedAt:Number(cache?.checked_at??0),catalogueCacheStatus:cacheStatus,catalogueCacheFresh:fresh,cachedGameCount:games.length};
+   return providerCapability(c,provider,games,mega);
+--- a/tests/game-catalogue.test.mjs
++++ b/tests/game-catalogue.test.mjs
+@@ -2,7 +2,7 @@
+ import assert from 'node:assert/strict';
+ import {DatabaseSync} from 'node:sqlite';
+ import {readFileSync} from 'node:fs';
+-import {getGameCatalogue,cachedGameArtwork,gameSources} from '../lib/game-catalogue.ts';
++import {getGameCatalogue,cachedGameArtwork,gameSources,configuredGameCatalogueSourceIds,defaultGameCatalogueCacheKey} from '../lib/game-catalogue.ts';
+
+ function fixture(t){
+  const sql=new DatabaseSync(':memory:');sql.exec(readFileSync(new URL('../drizzle/0000_broken_bloodscream.sql',import.meta.url),'utf8'));sql.exec(readFileSync(new URL('../drizzle/0019_game_catalogue_sync.sql',import.meta.url),'utf8'));t.after(()=>sql.close());
+@@ -322,3 +322,47 @@
+  assert.equal(data.providers[0].status,'blocked');assert.equal(data.providers[0].stale,true);assert.deepEqual(data.games.map(game=>game.gameCode),['normal-1','normal-2']);assert.ok(data.games.every(game=>game.maintenance===true));
+  assert.equal(sql.prepare('SELECT games_json FROM game_catalogue_cache WHERE provider_id=?').get(profileId).games_json,stored);assert.ok(!JSON.stringify(data).includes('foreign-1'));
+ });
++
++test('the isolated staging portal reads only the MegaH5 directory from its dedicated gateway',async t=>{
++ const {c,state,sql}=fixture(t);
++ const staging='https://master7-v17-staging.onrender.com';
++ const dedicated='https://master7-game-gateway.onrender.com';
++ const legacy=c.gameGatewayUrl;
++ Object.assign(c,{renderExternalUrl:staging,allowedOrigins:[staging],gameGatewayUrl:dedicated});
++ const seen=[];
++ c.gameGatewayFetch=async(url,options)=>{
++  assert.equal(options.method,'GET');
++  assert.equal(options.redirect,'error');
++  assert.deepEqual(options.headers,{Accept:'application/json'});
++  seen.push(url);
++  return Response.json({provider:'megah5',result:{Status:200,Game:[
++   {GameCode:'uat-01',GameName:'Unverified',Maintenance:true},
++   {GameCode:'uat-02',GameName:'Status unavailable'},
++  ]}});
++ };
++ assert.deepEqual(configuredGameCatalogueSourceIds(c),['megah5']);
++ let result=await getGameCatalogue(c,{providerId:'megah5',profileId:'megah5_myr'});
++ assert.deepEqual(seen,[dedicated+'/providers/megah5/games']);
++ assert.equal(result.games.length,2);
++ assert.ok(result.games.every(game=>game.maintenance&&!game.playable));
++ assert.equal(result.providers[0].walletVerified,false);
++ const stagingKey=defaultGameCatalogueCacheKey('megah5',c);
++ assert.notEqual(stagingKey,'megah5');
++ assert.equal(sql.prepare('SELECT count(*) n FROM game_catalogue_cache WHERE provider_id=?').get(stagingKey).n,1);
++ assert.deepEqual((await getGameCatalogue(c,{providerId:'jili',profileId:'jili_1to1_myr'})).games,[]);
++ for(const change of [
++  {renderExternalUrl:'https://www.master7.best'},
++  {allowedOrigins:[staging,'https://www.master7.best']},
++  {gameGatewayUrl:dedicated+'.invalid'},
++ ]){
++  const wrong={...c,...change};
++  assert.deepEqual(configuredGameCatalogueSourceIds(wrong),[]);
++  assert.deepEqual((await getGameCatalogue(wrong,{providerId:'megah5'})).games,[]);
++  assert.equal(defaultGameCatalogueCacheKey('megah5',wrong),'megah5');
++ }
++ const both={...c,gameGatewayUrl:legacy,megaStagingGatewayUrl:dedicated};
++ assert.deepEqual(configuredGameCatalogueSourceIds(both),gameSources.map(source=>source.id));
++ state.time+=310;
++ await getGameCatalogue(both,{providerId:'megah5'});
++ assert.deepEqual(seen,[dedicated+'/providers/megah5/games',dedicated+'/providers/megah5/games']);
++});
