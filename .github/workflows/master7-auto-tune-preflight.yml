@@ -15,6 +15,7 @@ jobs:
     timeout-minutes: 4
     outputs:
       results: ${{ steps.probe.outputs.results }}
+      dns: ${{ steps.probe.outputs.dns }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,8 +27,35 @@ jobs:
         run: |
           node --input-type=module <<'NODE'
           import { appendFile } from 'node:fs/promises';
+          import { Resolver } from 'node:dns/promises';
           import { monitor } from './standalone/production-operations.mjs';
 
+          const resolver = new Resolver({ timeout: 3000, tries: 1 });
+          const dnsRecord = async (method, name) => {
+            try { return await resolver[method](name); }
+            catch (error) { return ['ENODATA', 'ENOTFOUND', 'ETIMEOUT', 'ESERVFAIL', 'EREFUSED'].includes(error?.code) ? error.code : 'UNKNOWN'; }
+          };
+          const dnsResults = Promise.all([
+            dnsRecord('resolve4', 'admin.master7.best'), dnsRecord('resolve6', 'admin.master7.best'),
+            dnsRecord('resolveCname', 'admin.master7.best'), dnsRecord('resolveNs', 'master7.best'),
+          ]);
+          const alternativeAdmin = (async () => {
+            const origin = 'https://www.master7.best';
+            const options = { method: 'GET', redirect: 'manual', signal: AbortSignal.timeout(10000) };
+            try {
+              const response = await fetch(origin + '/admin', options);
+              await response.body?.cancel();
+              const location = response.headers.get('location');
+              const target = location ? URL.parse(location, origin) : null;
+              if (response.status < 300 || response.status >= 400 || target?.origin !== origin ||
+                  !['/signin', '/login', '/admin/login'].includes(target.pathname)) return `HTTP_${response.status}`;
+              const login = await fetch(target.origin + target.pathname, options);
+              const form = /<input\b[^>]*\btype=["']password["']/i.test(await login.text());
+              return login.ok && form ? 'LOGIN_FORM_FOUND' : `LOGIN_HTTP_${login.status}`;
+            } catch {
+              return 'UNAVAILABLE';
+            }
+          })();
           const healthUrls = new Map([
             ['https://www.master7.best/health', 'front'],
             ['https://admin.master7.best/health', 'admin'],
@@ -35,6 +63,7 @@ jobs:
           const releases = new Map();
           const observations = new Map();
           let aliasHost = '';
+          let aliasBehavior = 'NO_LOCATION';
           const publicErrorCodes = new Map([
             ['ENOTFOUND', 'DNS'], ['EAI_AGAIN', 'DNS_TEMP'],
             ['CERT_HAS_EXPIRED', 'CERT_EXPIRED'], ['ERR_TLS_CERT_ALTNAME_INVALID', 'CERT_HOST'],
@@ -55,8 +84,12 @@ jobs:
               observations.set(url, String(response.status));
               if (url === 'https://www.master7.site/') {
                 const location = response.headers.get('location');
-                const hostname = location ? URL.parse(location, url)?.hostname : '';
+                const target = location ? URL.parse(location, url) : null;
+                const hostname = target?.hostname;
                 aliasHost = hostname && /^[a-z0-9.-]{1,60}$/.test(hostname) ? hostname : '';
+                if (target?.href === url) aliasBehavior = 'SELF_REDIRECT';
+                else if (target?.origin === new URL(url).origin) aliasBehavior = 'SAME_ORIGIN_OTHER_URL';
+                else if (target) aliasBehavior = 'OTHER_ORIGIN';
               }
               const key = healthUrls.get(url);
               if (key && response.ok) {
@@ -88,9 +121,13 @@ jobs:
           const versions = ['front', 'admin'].map(key => `${key}=${releases.get(key)?.slice(0, 12) ?? 'unknown'}`).join(' ');
           const lines = checks.map(result => `- ${result.name} · ${compactCode(result)} · ${result.durationMs.join(' / ')} ms · ${result.failures.join(', ') || 'OK'}`);
           const revisions = [...releases].map(([name, release]) => `- ${name} release · ${release}`);
-          await appendFile(process.env.GITHUB_STEP_SUMMARY, [...lines, ...revisions].join('\n') + '\n');
+          const [ipv4, ipv6, cname, nameservers] = await dnsResults;
+          const recordStatus = records => Array.isArray(records) ? `${records.length}_FOUND` : records;
+          const primaryNs = Array.isArray(nameservers) ? nameservers.sort().find(value => /^[a-z0-9.-]{1,65}$/i.test(value)) : nameservers;
+          const dns = `AdminDNS A=${recordStatus(ipv4)} AAAA=${recordStatus(ipv6)} CNAME=${recordStatus(cname)} | NS=${primaryNs ?? 'unknown'} | Alias=${aliasBehavior} | AdminPath=${await alternativeAdmin}`;
+          await appendFile(process.env.GITHUB_STEP_SUMMARY, [...lines, ...revisions, dns].join('\n') + '\n');
           const alias = aliasHost ? ` | aliasHost=${aliasHost}` : '';
-          await appendFile(process.env.GITHUB_OUTPUT, `results=${label} | ${versions}${alias}\n`);
+          await appendFile(process.env.GITHUB_OUTPUT, `results=${label} | ${versions}${alias}\ndns=${dns}\n`);
           NODE
 
   result:
@@ -100,3 +137,11 @@ jobs:
     timeout-minutes: 2
     steps:
       - run: echo 'Probe results recorded in the job name and summary.'
+
+  dns_result:
+    name: ${{ needs.public_checks.outputs.dns }}
+    needs: public_checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - run: echo 'DNS and redirect classification recorded in the job name.'
