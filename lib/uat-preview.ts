@@ -1,4 +1,4 @@
-export const UAT_PREVIEW_RELEASE='17.0.0-selfbuilt.174-uat-preview';
+export const UAT_PREVIEW_RELEASE='17.0.0-selfbuilt.199-myr-deposit-batch';
 
 export const UAT_PREVIEW_ENDPOINTS=['/health','/api/payment-channels','/api/games'] as const;
 
