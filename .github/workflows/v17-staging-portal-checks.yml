@@ -1,0 +1,42 @@
+name: MASTER7 V17 staging portal checks
+
+on:
+  push:
+    branches:
+      - fix/v17-staging-public-data-loading
+
+permissions:
+  contents: read
+
+jobs:
+  portal-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check the packaged front and back office
+        shell: bash
+        run: |
+          set -euo pipefail
+          package_dir="$(mktemp -d)"
+          tar -xzf master7-v17-render-staging.tar.gz -C "$package_dir"
+          cd "$package_dir/master7-v17-render-staging"
+          node --check public/assets/app.js
+          node --experimental-transform-types --test --test-concurrency=4 \
+            tests/portal-host-routing.test.mjs \
+            tests/admin-canonical-route.test.mjs \
+            tests/legacy-frontend-routes.test.mjs \
+            tests/official-entries-probe.test.mjs \
+            tests/member-portal-layout.test.mjs \
+            tests/admin-loading.test.mjs \
+            tests/lobby-render.test.mjs \
+            tests/ui-read-integrity.test.mjs \
+            tests/support-ai-surface.test.mjs \
+            tests/production-acceptance-console.test.mjs \
+            tests/uat-preview.test.mjs \
+            tests/deposit-ui-state.test.mjs
